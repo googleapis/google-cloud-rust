@@ -41,24 +41,28 @@ extern crate wkt;
 pub struct ListActiveDirectoriesRequest {
     /// Required. Parent value for ListActiveDirectoriesRequest
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filtering results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -115,14 +119,17 @@ impl wkt::message::Message for ListActiveDirectoriesRequest {
 pub struct ListActiveDirectoriesResponse {
     /// The list of active directories.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub active_directories: std::vec::Vec<crate::model::ActiveDirectory>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -191,6 +198,7 @@ impl gax::paginator::internal::PageableResponse for ListActiveDirectoriesRespons
 pub struct GetActiveDirectoryRequest {
     /// Required. Name of the active directory.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -223,6 +231,7 @@ impl wkt::message::Message for GetActiveDirectoryRequest {
 pub struct CreateActiveDirectoryRequest {
     /// Required. Value for parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Fields of the to be created active directory.
@@ -234,6 +243,7 @@ pub struct CreateActiveDirectoryRequest {
     /// first character a letter , the last a letter or a number, and a 63
     /// character maximum.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub active_directory_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -363,6 +373,7 @@ impl wkt::message::Message for UpdateActiveDirectoryRequest {
 pub struct DeleteActiveDirectoryRequest {
     /// Required. Name of the active directory.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -397,6 +408,7 @@ pub struct ActiveDirectory {
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/activeDirectories/{active_directory_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Create time of the active directory.
@@ -405,89 +417,109 @@ pub struct ActiveDirectory {
 
     /// Output only. The state of the AD.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::active_directory::State,
 
     /// Required. Name of the Active Directory domain
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub domain: std::string::String,
 
     /// The Active Directory site the service will limit Domain Controller
     /// discovery too.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub site: std::string::String,
 
     /// Required. Comma separated list of DNS server IP addresses for the Active
     /// Directory domain.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dns: std::string::String,
 
     /// Required. NetBIOSPrefix is used as a prefix for SMB server name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub net_bios_prefix: std::string::String,
 
     /// The Organizational Unit (OU) within the Windows Active Directory the user
     /// belongs to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub organizational_unit: std::string::String,
 
     /// If enabled, AES encryption will be enabled for SMB communication.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub aes_encryption: bool,
 
     /// Required. Username of the Active Directory domain administrator.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub username: std::string::String,
 
     /// Required. Password of the Active Directory domain administrator.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub password: std::string::String,
 
     /// Optional. Users to be added to the Built-in Backup Operator active
     /// directory group.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub backup_operators: std::vec::Vec<std::string::String>,
 
     /// Optional. Users to be added to the Built-in Admininstrators group.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub administrators: std::vec::Vec<std::string::String>,
 
     /// Optional. Domain users to be given the SeSecurityPrivilege.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub security_operators: std::vec::Vec<std::string::String>,
 
     /// Name of the active directory machine. This optional parameter is used only
     /// while creating kerberos volume
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kdc_hostname: std::string::String,
 
     /// KDC server IP address for the active directory machine.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kdc_ip: std::string::String,
 
     /// If enabled, will allow access to local users and LDAP users. If access is
     /// needed for only LDAP users, it has to be disabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub nfs_users_with_ldap: bool,
 
     /// Description of the active directory.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Specifies whether or not the LDAP traffic needs to be signed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ldap_signing: bool,
 
     /// If enabled, traffic between the SMB server to Domain Controller (DC) will
     /// be encrypted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub encrypt_dc_connections: bool,
 
     /// Labels for the active directory.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The state details of the Active Directory.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_details: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -860,33 +892,38 @@ pub struct Backup {
     /// Format:
     /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The backup state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::backup::State,
 
     /// A description of the backup with 2048 characters or less.
     /// Requests with longer descriptions will be rejected.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. Size of the file system when the backup was created. When
     /// creating a new volume from the backup, the volume capacity will have to be
     /// at least as big.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub volume_usage_bytes: i64,
 
     /// Output only. Type of backup, manually created or created by a backup
     /// policy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup_type: crate::model::backup::Type,
 
     /// Volume full name of this backup belongs to.
     /// Format:
     /// `projects/{projects_id}/locations/{location}/volumes/{volume_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_volume: std::string::String,
 
     /// If specified, backup will be created from the given snapshot.
@@ -902,30 +939,35 @@ pub struct Backup {
 
     /// Resource labels to represent user provided metadata.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Total size of all backups in a chain in bytes = baseline
     /// backup size + sum(incremental backup size)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub chain_storage_bytes: i64,
 
     /// Output only. Reserved for future use
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub satisfies_pzs: bool,
 
     /// Output only. Reserved for future use
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub satisfies_pzi: bool,
 
     /// Output only. Region of the volume from which the backup was created.
     /// Format: `projects/{project_id}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub volume_region: std::string::String,
 
     /// Output only. Region in which backup is stored.
     /// Format: `projects/{project_id}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup_region: std::string::String,
 
     /// Output only. The time until which the backup is not deletable.
@@ -1401,22 +1443,25 @@ pub struct ListBackupsRequest {
     /// To retrieve backup information for a volume, use "-" for the
     /// `{backup_vault_id}` value and specify volume full name with the filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return. The service may return fewer
     /// than this value. The maximum value
     /// is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
     /// results to retrieve for this list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// The standard list filter.
@@ -1424,6 +1469,7 @@ pub struct ListBackupsRequest {
     /// matches the filter expression. If empty, then no backups are filtered out.
     /// See <https://google.aip.dev/160>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1480,15 +1526,18 @@ impl wkt::message::Message for ListBackupsRequest {
 pub struct ListBackupsResponse {
     /// A list of backups in the project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub backups: std::vec::Vec<crate::model::Backup>,
 
     /// The token you can use to retrieve the next page of results. Not returned
     /// if there are no more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1558,6 +1607,7 @@ pub struct GetBackupRequest {
     /// Required. The backup resource name, in the format
     /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1591,6 +1641,7 @@ pub struct CreateBackupRequest {
     /// Required. The NetApp backupVault to create the backups of, in the format
     /// `projects/*/locations/*/backupVaults/{backup_vault_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID to use for the backup.
@@ -1599,6 +1650,7 @@ pub struct CreateBackupRequest {
     /// character a letter, the last a letter or a
     /// number, and a 63 character maximum.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup_id: std::string::String,
 
     /// Required. A backup resource
@@ -1660,6 +1712,7 @@ pub struct DeleteBackupRequest {
     /// Required. The backup resource name, in the format
     /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1764,6 +1817,7 @@ pub struct BackupPolicy {
     /// Format:
     /// `projects/{project_id}/locations/{location}/backupPolicies/{backup_policy_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Number of daily backups to keep. Note that the minimum daily backup limit
@@ -1805,10 +1859,12 @@ pub struct BackupPolicy {
 
     /// Resource labels to represent user provided metadata.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The backup policy state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::backup_policy::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2147,6 +2203,7 @@ pub struct CreateBackupPolicyRequest {
     /// Required. The location to create the backup policies of, in the format
     /// `projects/{project_id}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A backupPolicy resource
@@ -2159,6 +2216,7 @@ pub struct CreateBackupPolicyRequest {
     /// character a letter, the last a letter or a
     /// number, and a 63 character maximum.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup_policy_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2219,6 +2277,7 @@ pub struct GetBackupPolicyRequest {
     /// Required. The backupPolicy resource name, in the format
     /// `projects/{project_id}/locations/{location}/backupPolicies/{backup_policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2251,24 +2310,28 @@ impl wkt::message::Message for GetBackupPolicyRequest {
 pub struct ListBackupPoliciesRequest {
     /// Required. Parent value for ListBackupPoliciesRequest
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filtering results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2325,14 +2388,17 @@ impl wkt::message::Message for ListBackupPoliciesRequest {
 pub struct ListBackupPoliciesResponse {
     /// The list of backup policies.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub backup_policies: std::vec::Vec<crate::model::BackupPolicy>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2472,6 +2538,7 @@ pub struct DeleteBackupPolicyRequest {
     /// Required. The backup policy resource name, in the format
     /// `projects/{project_id}/locations/{location}/backupPolicies/{backup_policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2506,10 +2573,12 @@ pub struct BackupVault {
     /// Format:
     /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The backup vault state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::backup_vault::State,
 
     /// Output only. Create time of the backup vault.
@@ -2518,37 +2587,44 @@ pub struct BackupVault {
 
     /// Description of the backup vault.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Resource labels to represent user provided metadata.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Type of backup vault to be created.
     /// Default is IN_REGION.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup_vault_type: crate::model::backup_vault::BackupVaultType,
 
     /// Output only. Region in which the backup vault is created.
     /// Format: `projects/{project_id}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_region: std::string::String,
 
     /// Optional. Region where the backups are stored.
     /// Format: `projects/{project_id}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup_region: std::string::String,
 
     /// Output only. Name of the Backup vault created in source region.
     /// Format:
     /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_backup_vault: std::string::String,
 
     /// Output only. Name of the Backup vault created in backup region.
     /// Format:
     /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_backup_vault: std::string::String,
 
     /// Optional. Backup retention policy defining the retenton of backups.
@@ -2696,31 +2772,35 @@ pub mod backup_vault {
         /// Required. Minimum retention duration in days for backups in the backup
         /// vault.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub backup_minimum_enforced_retention_days: i32,
 
         /// Optional. Indicates if the daily backups are immutable.
         /// Atleast one of daily_backup_immutable, weekly_backup_immutable,
         /// monthly_backup_immutable and manual_backup_immutable must be true.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub daily_backup_immutable: bool,
 
         /// Optional. Indicates if the weekly backups are immutable.
         /// Atleast one of daily_backup_immutable, weekly_backup_immutable,
         /// monthly_backup_immutable and manual_backup_immutable must be true.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub weekly_backup_immutable: bool,
 
         /// Optional. Indicates if the monthly backups are immutable.
         /// Atleast one of daily_backup_immutable, weekly_backup_immutable,
         /// monthly_backup_immutable and manual_backup_immutable must be true.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub monthly_backup_immutable: bool,
 
         /// Optional. Indicates if the manual backups are immutable.
         /// Atleast one of daily_backup_immutable, weekly_backup_immutable,
         /// monthly_backup_immutable and manual_backup_immutable must be true.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub manual_backup_immutable: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3067,6 +3147,7 @@ pub struct GetBackupVaultRequest {
     /// Required. The backupVault resource name, in the format
     /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3101,24 +3182,28 @@ pub struct ListBackupVaultsRequest {
     /// in the format
     /// `projects/{project_id}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
     /// results to retrieve for this list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// List filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3175,15 +3260,18 @@ impl wkt::message::Message for ListBackupVaultsRequest {
 pub struct ListBackupVaultsResponse {
     /// A list of backupVaults in the project for the specified location.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub backup_vaults: std::vec::Vec<crate::model::BackupVault>,
 
     /// The token you can use to retrieve the next page of results. Not returned
     /// if there are no more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3253,6 +3341,7 @@ pub struct CreateBackupVaultRequest {
     /// Required. The location to create the backup vaults, in the format
     /// `projects/{project_id}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID to use for the backupVault.
@@ -3261,6 +3350,7 @@ pub struct CreateBackupVaultRequest {
     /// character a letter, the last a letter or a
     /// number, and a 63 character maximum.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup_vault_id: std::string::String,
 
     /// Required. A backupVault resource
@@ -3322,6 +3412,7 @@ pub struct DeleteBackupVaultRequest {
     /// Required. The backupVault resource name, in the format
     /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3432,14 +3523,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -3450,10 +3544,12 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3549,10 +3645,12 @@ impl wkt::message::Message for OperationMetadata {
 pub struct LocationMetadata {
     /// Output only. Supported service levels in a location.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub supported_service_levels: std::vec::Vec<crate::model::ServiceLevel>,
 
     /// Output only. Supported flex performance in a location.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub supported_flex_performance: std::vec::Vec<crate::model::FlexPerformance>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3601,6 +3699,7 @@ impl wkt::message::Message for LocationMetadata {
 pub struct GetKmsConfigRequest {
     /// Required. Name of the KmsConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3633,24 +3732,28 @@ impl wkt::message::Message for GetKmsConfigRequest {
 pub struct ListKmsConfigsRequest {
     /// Required. Parent value
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
     /// results to retrieve for this list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// List filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3707,14 +3810,17 @@ impl wkt::message::Message for ListKmsConfigsRequest {
 pub struct ListKmsConfigsResponse {
     /// The list of KmsConfigs
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub kms_configs: std::vec::Vec<crate::model::KmsConfig>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3783,6 +3889,7 @@ impl gax::paginator::internal::PageableResponse for ListKmsConfigsResponse {
 pub struct CreateKmsConfigRequest {
     /// Required. Value for parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Id of the requesting KmsConfig. Must be unique within the parent
@@ -3790,6 +3897,7 @@ pub struct CreateKmsConfigRequest {
     /// character a letter, the last a letter or a
     /// number, and a 63 character maximum.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_config_id: std::string::String,
 
     /// Required. The required parameters to create a new KmsConfig.
@@ -3920,6 +4028,7 @@ impl wkt::message::Message for UpdateKmsConfigRequest {
 pub struct DeleteKmsConfigRequest {
     /// Required. Name of the KmsConfig.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3952,6 +4061,7 @@ impl wkt::message::Message for DeleteKmsConfigRequest {
 pub struct EncryptVolumesRequest {
     /// Required. Name of the KmsConfig.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3984,6 +4094,7 @@ impl wkt::message::Message for EncryptVolumesRequest {
 pub struct VerifyKmsConfigRequest {
     /// Required. Name of the KMS Config to be verified.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4018,15 +4129,18 @@ pub struct VerifyKmsConfigResponse {
     /// Output only. If the customer key configured correctly to the encrypt
     /// volume.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub healthy: bool,
 
     /// Output only. Error message if config is not healthy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub health_error: std::string::String,
 
     /// Output only. Instructions for the customers to provide the access to the
     /// encryption key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instructions: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4071,19 +4185,23 @@ impl wkt::message::Message for VerifyKmsConfigResponse {
 pub struct KmsConfig {
     /// Identifier. Name of the KmsConfig.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Customer managed crypto key resource full name. Format:
     /// projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{key}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub crypto_key_name: std::string::String,
 
     /// Output only. State of the KmsConfig.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::kms_config::State,
 
     /// Output only. State details of the KmsConfig.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_details: std::string::String,
 
     /// Output only. Create time of the KmsConfig.
@@ -4092,20 +4210,24 @@ pub struct KmsConfig {
 
     /// Description of the KmsConfig.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Labels as key value pairs
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Instructions to provide the access to the customer provided
     /// encryption key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instructions: std::string::String,
 
     /// Output only. The Service account which will have access to the customer
     /// provided encryption key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4410,24 +4532,28 @@ pub mod kms_config {
 pub struct ListQuotaRulesRequest {
     /// Required. Parent value for ListQuotaRulesRequest
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, the server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filtering results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4484,14 +4610,17 @@ impl wkt::message::Message for ListQuotaRulesRequest {
 pub struct ListQuotaRulesResponse {
     /// List of quota rules
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub quota_rules: std::vec::Vec<crate::model::QuotaRule>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4560,6 +4689,7 @@ impl gax::paginator::internal::PageableResponse for ListQuotaRulesResponse {
 pub struct GetQuotaRuleRequest {
     /// Required. Name of the quota rule
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4592,6 +4722,7 @@ impl wkt::message::Message for GetQuotaRuleRequest {
 pub struct CreateQuotaRuleRequest {
     /// Required. Parent value for CreateQuotaRuleRequest
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Fields of the to be created quota rule.
@@ -4603,6 +4734,7 @@ pub struct CreateQuotaRuleRequest {
     /// the first character a letter or underscore, the last a letter or underscore
     /// or a number, and a 63 character maximum.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub quota_rule_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4729,6 +4861,7 @@ impl wkt::message::Message for UpdateQuotaRuleRequest {
 pub struct DeleteQuotaRuleRequest {
     /// Required. Name of the quota rule.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4764,29 +4897,34 @@ pub struct QuotaRule {
     /// Format:
     /// `projects/{project_number}/locations/{location_id}/volumes/volumes/{volume_id}/quotaRules/{quota_rule_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The quota rule applies to the specified user or group, identified
     /// by a Unix UID/GID, Windows SID, or null for default.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Required. The type of quota rule.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::quota_rule::Type,
 
     /// Required. The maximum allowed disk space in MiB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub disk_limit_mib: i32,
 
     /// Output only. State of the quota rule
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::quota_rule::State,
 
     /// Output only. State details of the quota rule
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_details: std::string::String,
 
     /// Output only. Create time of the quota rule
@@ -4795,10 +4933,12 @@ pub struct QuotaRule {
 
     /// Optional. Description of the quota rule
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. Labels of the quota rule
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5205,7 +5345,7 @@ pub mod quota_rule {
 pub struct TransferStats {
     /// Cumulative bytes transferred so far for the replication relationship.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub transfer_bytes: std::option::Option<i64>,
 
     /// Cumulative time taken across all transfers for the replication
@@ -5215,7 +5355,7 @@ pub struct TransferStats {
 
     /// Last transfer size in bytes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub last_transfer_bytes: std::option::Option<i64>,
 
     /// Time taken during last transfer.
@@ -5411,26 +5551,32 @@ pub struct Replication {
     /// Format:
     /// `projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. State of the replication.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::replication::State,
 
     /// Output only. State details of the replication.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_details: std::string::String,
 
     /// Output only. Indicates whether this points to source or destination.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub role: crate::model::replication::ReplicationRole,
 
     /// Required. Indicates the schedule for replication.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub replication_schedule: crate::model::replication::ReplicationSchedule,
 
     /// Output only. Indicates the state of mirroring.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mirror_state: crate::model::replication::MirrorState,
 
     /// Output only. Condition of the relationship. Can be one of the following:
@@ -5449,6 +5595,7 @@ pub struct Replication {
     /// Output only. Full name of destination volume resource.
     /// Example : "projects/{project}/locations/{location}/volumes/{volume_id}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_volume: std::string::String,
 
     /// Output only. Replication transfer statistics.
@@ -5457,6 +5604,7 @@ pub struct Replication {
 
     /// Resource labels to represent user provided metadata.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// A description about this replication relationship.
@@ -5471,6 +5619,7 @@ pub struct Replication {
     /// Output only. Full name of source volume resource.
     /// Example : "projects/{project}/locations/{location}/volumes/{volume_id}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_volume: std::string::String,
 
     /// Output only. Hybrid peering details.
@@ -5479,10 +5628,12 @@ pub struct Replication {
 
     /// Optional. Location of the user cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cluster_location: std::string::String,
 
     /// Output only. Type of the hybrid replication.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub hybrid_replication_type: crate::model::replication::HybridReplicationType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6461,11 +6612,13 @@ pub mod replication {
 pub struct HybridPeeringDetails {
     /// Optional. IP address of the subnet.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub subnet_ip: std::string::String,
 
     /// Optional. Copy-paste-able commands to be used on user's ONTAP to accept
     /// peering requests.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub command: std::string::String,
 
     /// Optional. Expiration time for the peering command to be executed on user's
@@ -6475,21 +6628,25 @@ pub struct HybridPeeringDetails {
 
     /// Optional. Temporary passphrase generated to accept cluster peering command.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub passphrase: std::string::String,
 
     /// Optional. Name of the user's local source volume to be peered with the
     /// destination volume.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub peer_volume_name: std::string::String,
 
     /// Optional. Name of the user's local source cluster to be peered with the
     /// destination cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub peer_cluster_name: std::string::String,
 
     /// Optional. Name of the user's local source vserver svm to be peered with the
     /// destination vserver svm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub peer_svm_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6578,24 +6735,28 @@ pub struct ListReplicationsRequest {
     /// in the format
     /// `projects/{project_id}/locations/{location}/volumes/{volume_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
     /// results to retrieve for this list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// List filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6652,15 +6813,18 @@ impl wkt::message::Message for ListReplicationsRequest {
 pub struct ListReplicationsResponse {
     /// A list of replications in the project for the specified volume.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub replications: std::vec::Vec<crate::model::Replication>,
 
     /// The token you can use to retrieve the next page of results. Not returned
     /// if there are no more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6730,6 +6894,7 @@ pub struct GetReplicationRequest {
     /// Required. The replication resource name, in the format
     /// `projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6763,6 +6928,7 @@ impl wkt::message::Message for GetReplicationRequest {
 pub struct DestinationVolumeParameters {
     /// Required. Existing destination StoragePool name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub storage_pool: std::string::String,
 
     /// Desired destination volume resource id. If not specified, source volume's
@@ -6770,11 +6936,13 @@ pub struct DestinationVolumeParameters {
     /// This value must start with a lowercase letter followed by up to 62
     /// lowercase letters, numbers, or hyphens, and cannot end with a hyphen.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub volume_id: std::string::String,
 
     /// Destination volume's share name. If not specified, source volume's share
     /// name will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub share_name: std::string::String,
 
     /// Description for the destination volume.
@@ -6864,6 +7032,7 @@ pub struct CreateReplicationRequest {
     /// Required. The NetApp volume to create the replications of, in the format
     /// `projects/{project_id}/locations/{location}/volumes/{volume_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A replication resource
@@ -6875,6 +7044,7 @@ pub struct CreateReplicationRequest {
     /// character a letter, the last a letter or a
     /// number, and a 63 character maximum.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub replication_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6932,6 +7102,7 @@ pub struct DeleteReplicationRequest {
     /// Required. The replication resource name, in the format
     /// `projects/*/locations/*/volumes/*/replications/{replication_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7032,6 +7203,7 @@ pub struct StopReplicationRequest {
     /// Required. The resource name of the replication, in the format of
     /// projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Indicates whether to stop replication forcefully while data transfer is in
@@ -7041,6 +7213,7 @@ pub struct StopReplicationRequest {
     /// If force is false, stop replication will fail while data transfer is in
     /// progress and you will need to retry later.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7080,6 +7253,7 @@ pub struct ResumeReplicationRequest {
     /// Required. The resource name of the replication, in the format of
     /// projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7114,6 +7288,7 @@ pub struct ReverseReplicationDirectionRequest {
     /// Required. The resource name of the replication, in the format of
     /// projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7148,25 +7323,30 @@ pub struct EstablishPeeringRequest {
     /// Required. The resource name of the replication, in the format of
     /// projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Name of the user's local source cluster to be peered with the
     /// destination cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub peer_cluster_name: std::string::String,
 
     /// Required. Name of the user's local source vserver svm to be peered with the
     /// destination vserver svm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub peer_svm_name: std::string::String,
 
     /// Optional. List of IPv4 ip addresses to be used for peering.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub peer_ip_addresses: std::vec::Vec<std::string::String>,
 
     /// Required. Name of the user's local source volume to be peered with the
     /// destination volume.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub peer_volume_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7235,6 +7415,7 @@ pub struct SyncReplicationRequest {
     /// Required. The resource name of the replication, in the format of
     /// projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7269,24 +7450,28 @@ pub struct ListSnapshotsRequest {
     /// in the format
     /// `projects/{project_id}/locations/{location}/volumes/{volume_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value to use if there are additional
     /// results to retrieve for this list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// List filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7343,15 +7528,18 @@ impl wkt::message::Message for ListSnapshotsRequest {
 pub struct ListSnapshotsResponse {
     /// A list of snapshots in the project for the specified volume.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub snapshots: std::vec::Vec<crate::model::Snapshot>,
 
     /// The token you can use to retrieve the next page of results. Not returned
     /// if there are no more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7421,6 +7609,7 @@ pub struct GetSnapshotRequest {
     /// Required. The snapshot resource name, in the format
     /// `projects/{project_id}/locations/{location}/volumes/{volume_id}/snapshots/{snapshot_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7454,6 +7643,7 @@ pub struct CreateSnapshotRequest {
     /// Required. The NetApp volume to create the snapshots of, in the format
     /// `projects/{project_id}/locations/{location}/volumes/{volume_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A snapshot resource
@@ -7465,6 +7655,7 @@ pub struct CreateSnapshotRequest {
     /// character a letter, the last a letter or a
     /// number, and a 63 character maximum.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub snapshot_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7522,6 +7713,7 @@ pub struct DeleteSnapshotRequest {
     /// Required. The snapshot resource name, in the format
     /// `projects/*/locations/*/volumes/*/snapshots/{snapshot_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7623,24 +7815,28 @@ pub struct Snapshot {
     /// Format:
     /// `projects/{project_id}/locations/{location}/volumes/{volume_id}/snapshots/{snapshot_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The snapshot state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::snapshot::State,
 
     /// Output only. State details of the storage pool
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_details: std::string::String,
 
     /// A description of the snapshot with 2048 characters or less.
     /// Requests with longer descriptions will be rejected.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. Current storage usage for the snapshot in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub used_bytes: f64,
 
     /// Output only. The time when the snapshot was created.
@@ -7649,6 +7845,7 @@ pub struct Snapshot {
 
     /// Resource labels to represent user provided metadata.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7901,6 +8098,7 @@ pub mod snapshot {
 pub struct GetStoragePoolRequest {
     /// Required. Name of the storage pool
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7933,25 +8131,29 @@ impl wkt::message::Message for GetStoragePoolRequest {
 pub struct ListStoragePoolsRequest {
     /// Required. Parent value
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. The next_page_token value to use if there are additional
     /// results to retrieve for this list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Sort results. Supported values are "name", "name desc" or ""
     /// (unsorted).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Optional. List filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8008,14 +8210,17 @@ impl wkt::message::Message for ListStoragePoolsRequest {
 pub struct ListStoragePoolsResponse {
     /// The list of StoragePools
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub storage_pools: std::vec::Vec<crate::model::StoragePool>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8084,6 +8289,7 @@ impl gax::paginator::internal::PageableResponse for ListStoragePoolsResponse {
 pub struct CreateStoragePoolRequest {
     /// Required. Value for parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Id of the requesting storage pool. Must be unique within the
@@ -8091,6 +8297,7 @@ pub struct CreateStoragePoolRequest {
     /// first character a letter, the last a letter or a number, and a 63 character
     /// maximum.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub storage_pool_id: std::string::String,
 
     /// Required. The required parameters to create a new storage pool.
@@ -8221,6 +8428,7 @@ impl wkt::message::Message for UpdateStoragePoolRequest {
 pub struct DeleteStoragePoolRequest {
     /// Required. Name of the storage pool
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8254,6 +8462,7 @@ impl wkt::message::Message for DeleteStoragePoolRequest {
 pub struct SwitchActiveReplicaZoneRequest {
     /// Required. Name of the storage pool
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8288,33 +8497,37 @@ impl wkt::message::Message for SwitchActiveReplicaZoneRequest {
 pub struct StoragePool {
     /// Identifier. Name of the storage pool
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Service level of the storage pool
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_level: crate::model::ServiceLevel,
 
     /// Required. Capacity in GIB of the pool
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub capacity_gib: i64,
 
     /// Output only. Allocated size of all volumes in GIB in the storage pool
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub volume_capacity_gib: i64,
 
     /// Output only. Volume count of the storage pool
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub volume_count: i32,
 
     /// Output only. State of the storage pool
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::storage_pool::State,
 
     /// Output only. State details of the storage pool
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_details: std::string::String,
 
     /// Output only. Create time of the storage pool
@@ -8323,37 +8536,45 @@ pub struct StoragePool {
 
     /// Optional. Description of the storage pool
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. Labels as key value pairs
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. VPC Network name.
     /// Format: projects/{project}/global/networks/{network}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub network: std::string::String,
 
     /// Optional. Specifies the Active Directory to be used for creating a SMB
     /// volume.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub active_directory: std::string::String,
 
     /// Optional. Specifies the KMS config to be used for volume encryption.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_config: std::string::String,
 
     /// Optional. Flag indicating if the pool is NFS LDAP enabled or not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ldap_enabled: bool,
 
     /// Optional. This field is not implemented. The values provided in this field
     /// are ignored.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub psa_range: std::string::String,
 
     /// Output only. Specifies the current pool encryption key source.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub encryption_type: crate::model::EncryptionType,
 
     /// Deprecated. Used to allow SO pool to access AD or DNS server from other
@@ -8366,38 +8587,44 @@ pub struct StoragePool {
     /// Default is false. Auto-tiering can be enabled after storage pool creation
     /// but it can't be disabled once enabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_auto_tiering: bool,
 
     /// Optional. Specifies the replica zone for regional storagePool.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub replica_zone: std::string::String,
 
     /// Optional. Specifies the active zone for regional storagePool.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub zone: std::string::String,
 
     /// Output only. Reserved for future use
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub satisfies_pzs: bool,
 
     /// Output only. Reserved for future use
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub satisfies_pzi: bool,
 
     /// Optional. True if using Independent Scaling of capacity and performance
     /// (Hyperdisk) By default set to false
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub custom_performance_enabled: bool,
 
     /// Optional. Custom Performance Total Throughput of the pool (in MiB/s)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_throughput_mibps: i64,
 
     /// Optional. Custom Performance Total IOPS of the pool
     /// If not provided, it will be calculated based on the total_throughput_mibps
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_iops: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8792,10 +9019,12 @@ pub mod storage_pool {
 pub struct ValidateDirectoryServiceRequest {
     /// Required. Name of the storage pool
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Type of directory service policy attached to the storage pool.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub directory_service_type: crate::model::DirectoryServiceType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8837,24 +9066,28 @@ impl wkt::message::Message for ValidateDirectoryServiceRequest {
 pub struct ListVolumesRequest {
     /// Required. Parent value for ListVolumesRequest
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Requested page size. Server may return fewer items than requested.
     /// If unspecified, the server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filtering results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8911,14 +9144,17 @@ impl wkt::message::Message for ListVolumesRequest {
 pub struct ListVolumesResponse {
     /// The list of Volume
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub volumes: std::vec::Vec<crate::model::Volume>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8987,6 +9223,7 @@ impl gax::paginator::internal::PageableResponse for ListVolumesResponse {
 pub struct GetVolumeRequest {
     /// Required. Name of the volume
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9019,6 +9256,7 @@ impl wkt::message::Message for GetVolumeRequest {
 pub struct CreateVolumeRequest {
     /// Required. Value for parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Id of the requesting volume. Must be unique within the parent
@@ -9026,6 +9264,7 @@ pub struct CreateVolumeRequest {
     /// character a letter, the last a letter or a number,
     /// and a 63 character maximum.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub volume_id: std::string::String,
 
     /// Required. The volume being created.
@@ -9156,12 +9395,14 @@ impl wkt::message::Message for UpdateVolumeRequest {
 pub struct DeleteVolumeRequest {
     /// Required. Name of the volume
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If this field is set as true, CCFE will not block the volume resource
     /// deletion even if it has any snapshots resource. (Otherwise, the request
     /// will only work if the volume has no snapshots.)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9201,12 +9442,14 @@ pub struct RevertVolumeRequest {
     /// Required. The resource name of the volume, in the format of
     /// projects/{project_id}/locations/{location}/volumes/{volume_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The snapshot resource ID, in the format 'my-snapshot', where the
     /// specified ID is the {snapshot_id} of the fully qualified name like
     /// projects/{project_id}/locations/{location_id}/volumes/{volume_id}/snapshots/{snapshot_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub snapshot_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9245,14 +9488,17 @@ impl wkt::message::Message for RevertVolumeRequest {
 pub struct Volume {
     /// Identifier. Name of the volume
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. State of the volume
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::volume::State,
 
     /// Output only. State details of the volume
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_details: std::string::String,
 
     /// Output only. Create time of the volume
@@ -9261,29 +9507,34 @@ pub struct Volume {
 
     /// Required. Share name of the volume
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub share_name: std::string::String,
 
     /// Output only. This field is not implemented. The values provided in this
     /// field are ignored.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub psa_range: std::string::String,
 
     /// Required. StoragePool name of the volume
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub storage_pool: std::string::String,
 
     /// Output only. VPC Network name.
     /// Format: projects/{project}/global/networks/{network}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub network: std::string::String,
 
     /// Output only. Service level of the volume
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_level: crate::model::ServiceLevel,
 
     /// Required. Capacity in GIB of the volume
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub capacity_gib: i64,
 
     /// Optional. Export policy of the volume
@@ -9292,27 +9543,33 @@ pub struct Volume {
 
     /// Required. Protocols required for the volume
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub protocols: std::vec::Vec<crate::model::Protocols>,
 
     /// Optional. SMB share settings for the volume.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub smb_settings: std::vec::Vec<crate::model::SMBSettings>,
 
     /// Output only. Mount options of this volume
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub mount_options: std::vec::Vec<crate::model::MountOption>,
 
     /// Optional. Default unix style permission (e.g. 777) the mount point will be
     /// created with. Applicable for NFS protocol types only.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub unix_permissions: std::string::String,
 
     /// Optional. Labels as key value pairs
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Description of the volume
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. SnapshotPolicy for a volume.
@@ -9322,36 +9579,41 @@ pub struct Volume {
     /// Optional. Snap_reserve specifies percentage of volume storage reserved for
     /// snapshot storage. Default is 0 percent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub snap_reserve: f64,
 
     /// Optional. Snapshot_directory if enabled (true) the volume will contain a
     /// read-only .snapshot directory which provides access to each of the volume's
     /// snapshots.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub snapshot_directory: bool,
 
     /// Output only. Used capacity in GIB of the volume. This is computed
     /// periodically and it does not represent the realtime usage.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub used_gib: i64,
 
     /// Optional. Security Style of the Volume
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub security_style: crate::model::SecurityStyle,
 
     /// Optional. Flag indicating if the volume is a kerberos volume or not, export
     /// policy rules control kerberos security modes (krb5, krb5i, krb5p).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kerberos_enabled: bool,
 
     /// Output only. Flag indicating if the volume is NFS LDAP enabled or not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ldap_enabled: bool,
 
     /// Output only. Specifies the ActiveDirectory name of a SMB volume.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub active_directory: std::string::String,
 
     /// Optional. Specifies the source of the volume to be created from.
@@ -9360,15 +9622,18 @@ pub struct Volume {
 
     /// Output only. Specifies the KMS config to be used for volume encryption.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_config: std::string::String,
 
     /// Output only. Specified the current volume encryption key source.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub encryption_type: crate::model::EncryptionType,
 
     /// Output only. Indicates whether the volume is part of a replication
     /// relationship.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub has_replication: bool,
 
     /// BackupConfig of the volume.
@@ -9377,17 +9642,20 @@ pub struct Volume {
 
     /// Optional. List of actions that are restricted on this volume.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub restricted_actions: std::vec::Vec<crate::model::RestrictedAction>,
 
     /// Optional. Flag indicating if the volume will be a large capacity volume or
     /// a regular volume.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub large_capacity: bool,
 
     /// Optional. Flag indicating if the volume will have an IP address per node
     /// for volumes supporting multiple IP endpoints. Only the volume with
     /// large_capacity will be allowed to have multiple endpoints.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub multiple_endpoints: bool,
 
     /// Tiering policy for the volume.
@@ -9396,15 +9664,17 @@ pub struct Volume {
 
     /// Output only. Specifies the replica zone for regional volume.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub replica_zone: std::string::String,
 
     /// Output only. Specifies the active zone for regional volume.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub zone: std::string::String,
 
     /// Output only. Size of the volume cold tier data in GiB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub cold_tier_size_gib: i64,
 
     /// Optional. The Hybrid Replication parameters for the volume.
@@ -9981,6 +10251,7 @@ pub mod volume {
 pub struct ExportPolicy {
     /// Required. List of export policy rules
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::SimpleExportPolicyRule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10826,22 +11097,27 @@ impl wkt::message::Message for MonthlySchedule {
 pub struct MountOption {
     /// Export string
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub export: std::string::String,
 
     /// Full export string
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub export_full: std::string::String,
 
     /// Protocol to mount with.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protocol: crate::model::Protocols,
 
     /// Instructions for mounting
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instructions: std::string::String,
 
     /// Output only. IP Address.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ip_address: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10994,11 +11270,11 @@ pub mod restore_parameters {
         /// Full name of the snapshot resource.
         /// Format:
         /// projects/{project}/locations/{location}/volumes/{volume}/snapshots/{snapshot}
-        SourceSnapshot(std::string::String),
+        SourceSnapshot(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Full name of the backup resource.
         /// Format:
         /// projects/{project}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}
-        SourceBackup(std::string::String),
+        SourceBackup(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -11011,12 +11287,14 @@ pub struct BackupConfig {
     /// Optional. When specified, schedule backups will be created based on the
     /// policy configuration.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub backup_policies: std::vec::Vec<std::string::String>,
 
     /// Optional. Name of backup vault.
     /// Format:
     /// projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup_vault: std::string::String,
 
     /// Optional. When set to true, scheduled backup is enabled on the volume.
@@ -11027,7 +11305,7 @@ pub struct BackupConfig {
     /// Output only. Total size of all backups in a chain in bytes = baseline
     /// backup size + sum(incremental backup size).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub backup_chain_bytes: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11315,38 +11593,46 @@ pub mod tiering_policy {
 pub struct HybridReplicationParameters {
     /// Required. Desired name for the replication of this volume.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub replication: std::string::String,
 
     /// Required. Name of the user's local source volume to be peered with the
     /// destination volume.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub peer_volume_name: std::string::String,
 
     /// Required. Name of the user's local source cluster to be peered with the
     /// destination cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub peer_cluster_name: std::string::String,
 
     /// Required. Name of the user's local source vserver svm to be peered with the
     /// destination vserver svm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub peer_svm_name: std::string::String,
 
     /// Required. List of node ip addresses to be peered with.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub peer_ip_addresses: std::vec::Vec<std::string::String>,
 
     /// Optional. Name of source cluster location associated with the Hybrid
     /// replication. This is a free-form field for the display purpose only.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cluster_location: std::string::String,
 
     /// Optional. Description of the replication.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. Labels to be added to the replication as the key value pairs.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

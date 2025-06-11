@@ -95,6 +95,7 @@ pub struct TroubleshootIamPolicyResponse {
     /// specified resource, based on evaluating all types of the applicable IAM
     /// policies.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub overall_access_state: crate::model::troubleshoot_iam_policy_response::OverallAccessState,
 
     /// The access tuple from the request, including any provided context used to
@@ -360,6 +361,7 @@ pub struct AccessTuple {
     /// The principal must be a Google Account or a service account. Other types of
     /// principals are not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub principal: std::string::String,
 
     /// Required. The full resource name that identifies the resource. For example,
@@ -368,6 +370,7 @@ pub struct AccessTuple {
     /// For examples of full resource names for Google Cloud services, see
     /// <https://cloud.google.com/iam/help/troubleshooter/full-resource-names>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource_name: std::string::String,
 
     /// Required. The IAM permission to check for, either in the `v1` permission
@@ -382,11 +385,13 @@ pub struct AccessTuple {
     /// For a complete list of predefined IAM roles and the permissions in each
     /// role, see <https://cloud.google.com/iam/help/roles/reference>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub permission: std::string::String,
 
     /// Output only. The permission that Policy Troubleshooter checked for, in
     /// the `v2` format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub permission_fqdn: std::string::String,
 
     /// Optional. Additional context for the request, such as the request time or
@@ -482,6 +487,7 @@ pub struct ConditionContext {
     /// Output only. The effective tags on the resource. The effective tags are
     /// fetched during troubleshooting.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub effective_tags: std::vec::Vec<crate::model::condition_context::EffectiveTag>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -585,6 +591,7 @@ pub mod condition_context {
         /// For a full list of resource service values, see
         /// <https://cloud.google.com/iam/help/conditions/resource-services>
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service: std::string::String,
 
         /// The stable identifier (name) of a resource on the `service`. A resource
@@ -595,6 +602,7 @@ pub mod condition_context {
         /// For a list of full resource name formats, see
         /// <https://cloud.google.com/iam/help/troubleshooter/full-resource-names>
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// The type of the resource, in the format `{service}/{kind}`.
@@ -603,6 +611,7 @@ pub mod condition_context {
         /// <https://cloud.google.com/iam/help/conditions/resource-types>
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -650,11 +659,12 @@ pub mod condition_context {
     pub struct Peer {
         /// The IPv4 or IPv6 address of the peer.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub ip: std::string::String,
 
         /// The network port of the peer.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub port: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -744,6 +754,7 @@ pub mod condition_context {
     pub struct EffectiveTag {
         /// Output only. Resource name for TagValue in the format `tagValues/456`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub tag_value: std::string::String,
 
         /// Output only. The namespaced name of the TagValue. Can be in the form
@@ -751,11 +762,13 @@ pub mod condition_context {
         /// `{project_id}/{tag_key_short_name}/{tag_value_short_name}` or
         /// `{project_number}/{tag_key_short_name}/{tag_value_short_name}`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub namespaced_tag_value: std::string::String,
 
         /// Output only. The name of the TagKey, in the format `tagKeys/{id}`, such
         /// as `tagKeys/123`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub tag_key: std::string::String,
 
         /// Output only. The namespaced name of the TagKey. Can be in the form
@@ -763,12 +776,14 @@ pub mod condition_context {
         /// `{project_id}/{tag_key_short_name}` or
         /// `{project_number}/{tag_key_short_name}`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub namespaced_tag_key: std::string::String,
 
         /// The parent name of the tag key.
         /// Must be in the format `organizations/{organization_id}` or
         /// `projects/{project_number}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub tag_key_parent_name: std::string::String,
 
         /// Output only. Indicates the inheritance status of a tag value
@@ -776,6 +791,7 @@ pub mod condition_context {
         /// the resource's ancestors, inherited will be true. If false, then the tag
         /// value is directly attached to the resource, inherited will be false.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub inherited: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -850,6 +866,7 @@ pub struct AllowPolicyExplanation {
     /// Indicates whether the principal has the specified permission for the
     /// specified resource, based on evaluating all applicable IAM allow policies.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_access_state: crate::model::AllowAccessState,
 
     /// List of IAM allow policies that were evaluated to check the principal's
@@ -863,10 +880,12 @@ pub struct AllowPolicyExplanation {
     /// To learn more about the resource hierarchy, see
     /// <https://cloud.google.com/iam/help/resource-hierarchy>.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub explained_policies: std::vec::Vec<crate::model::ExplainedAllowPolicy>,
 
     /// The relevance of the allow policy type to the overall access state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relevance: crate::model::HeuristicRelevance,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -932,6 +951,7 @@ pub struct ExplainedAllowPolicy {
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_access_state: crate::model::AllowAccessState,
 
     /// The full resource name that identifies the resource. For example,
@@ -943,6 +963,7 @@ pub struct ExplainedAllowPolicy {
     /// For examples of full resource names for Google Cloud services, see
     /// <https://cloud.google.com/iam/help/troubleshooter/full-resource-names>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource_name: std::string::String,
 
     /// Details about how each role binding in the policy affects the principal's
@@ -952,6 +973,7 @@ pub struct ExplainedAllowPolicy {
     /// If the sender of the request does not have access to the policy, this field
     /// is omitted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub binding_explanations: std::vec::Vec<crate::model::AllowBindingExplanation>,
 
     /// The relevance of this policy to the overall access state in the
@@ -962,6 +984,7 @@ pub struct ExplainedAllowPolicy {
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relevance: crate::model::HeuristicRelevance,
 
     /// The IAM allow policy attached to the resource.
@@ -1061,6 +1084,7 @@ pub struct AllowBindingExplanation {
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_access_state: crate::model::AllowAccessState,
 
     /// The role that this role binding grants. For example,
@@ -1069,16 +1093,19 @@ pub struct AllowBindingExplanation {
     /// For a complete list of predefined IAM roles, as well as the permissions in
     /// each role, see <https://cloud.google.com/iam/help/roles/reference>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub role: std::string::String,
 
     /// Indicates whether the role granted by this role binding contains the
     /// specified permission.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub role_permission: crate::model::RolePermissionInclusionState,
 
     /// The relevance of the permission's existence, or nonexistence, in the role
     /// to the overall determination for the entire policy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub role_permission_relevance: crate::model::HeuristicRelevance,
 
     /// The combined result of all memberships. Indicates if the principal is
@@ -1108,6 +1135,7 @@ pub struct AllowBindingExplanation {
     /// `group:product-eng@example.com`, and the `membership` field in the value is
     /// set to `INCLUDED`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub memberships: std::collections::HashMap<
         std::string::String,
         crate::model::allow_binding_explanation::AnnotatedAllowMembership,
@@ -1116,6 +1144,7 @@ pub struct AllowBindingExplanation {
     /// The relevance of this role binding to the overall determination for the
     /// entire policy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relevance: crate::model::HeuristicRelevance,
 
     /// A condition expression that specifies when the role binding grants access.
@@ -1270,11 +1299,13 @@ pub mod allow_binding_explanation {
     pub struct AnnotatedAllowMembership {
         /// Indicates whether the role binding includes the principal.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub membership: crate::model::MembershipMatchingState,
 
         /// The relevance of the principal's status to the overall determination for
         /// the role binding.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub relevance: crate::model::HeuristicRelevance,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1323,6 +1354,7 @@ pub struct DenyPolicyExplanation {
     /// the specified resource, based on evaluating all applicable IAM deny
     /// policies.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deny_access_state: crate::model::DenyAccessState,
 
     /// List of resources with IAM deny policies that were evaluated to check the
@@ -1338,15 +1370,18 @@ pub struct DenyPolicyExplanation {
     /// To learn more about the resource hierarchy, see
     /// <https://cloud.google.com/iam/help/resource-hierarchy>.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub explained_resources: std::vec::Vec<crate::model::ExplainedDenyResource>,
 
     /// The relevance of the deny policy result to the overall access state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relevance: crate::model::HeuristicRelevance,
 
     /// Indicates whether the permission to troubleshoot is supported in deny
     /// policies.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub permission_deniable: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1419,6 +1454,7 @@ pub struct ExplainedDenyResource {
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deny_access_state: crate::model::DenyAccessState,
 
     /// The full resource name that identifies the resource. For example,
@@ -1430,12 +1466,14 @@ pub struct ExplainedDenyResource {
     /// For examples of full resource names for Google Cloud services, see
     /// <https://cloud.google.com/iam/help/troubleshooter/full-resource-names>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource_name: std::string::String,
 
     /// List of IAM deny policies that were evaluated to check the principal's
     /// denied permissions, with annotations to indicate how each policy
     /// contributed to the final result.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub explained_policies: std::vec::Vec<crate::model::ExplainedDenyPolicy>,
 
     /// The relevance of this policy to the overall access state in the
@@ -1446,6 +1484,7 @@ pub struct ExplainedDenyResource {
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relevance: crate::model::HeuristicRelevance,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1522,6 +1561,7 @@ pub struct ExplainedDenyPolicy {
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deny_access_state: crate::model::DenyAccessState,
 
     /// The IAM deny policy attached to the resource.
@@ -1538,6 +1578,7 @@ pub struct ExplainedDenyPolicy {
     /// If the sender of the request does not have access to the policy, this field
     /// is omitted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rule_explanations: std::vec::Vec<crate::model::DenyRuleExplanation>,
 
     /// The relevance of this policy to the overall access state in the
@@ -1548,6 +1589,7 @@ pub struct ExplainedDenyPolicy {
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relevance: crate::model::HeuristicRelevance,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1631,6 +1673,7 @@ pub struct DenyRuleExplanation {
     ///
     /// [google.cloud.policytroubleshooter.iam.v3.TroubleshootIamPolicyResponse]: crate::model::TroubleshootIamPolicyResponse
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deny_access_state: crate::model::DenyAccessState,
 
     /// Indicates whether the permission in the request is listed as a denied
@@ -1646,6 +1689,7 @@ pub struct DenyRuleExplanation {
     /// indicates whether the denied permission matches the permission in the
     /// request.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub denied_permissions: std::collections::HashMap<
         std::string::String,
         crate::model::deny_rule_explanation::AnnotatedPermissionMatching,
@@ -1664,6 +1708,7 @@ pub struct DenyRuleExplanation {
     /// indicates whether the exception permission matches the permission in the
     /// request.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub exception_permissions: std::collections::HashMap<
         std::string::String,
         crate::model::deny_rule_explanation::AnnotatedPermissionMatching,
@@ -1683,6 +1728,7 @@ pub struct DenyRuleExplanation {
     /// indicates whether the denied principal matches the principal in the
     /// request.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub denied_principals: std::collections::HashMap<
         std::string::String,
         crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching,
@@ -1702,6 +1748,7 @@ pub struct DenyRuleExplanation {
     /// indicates whether the exception principal matches the principal in the
     /// request.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub exception_principals: std::collections::HashMap<
         std::string::String,
         crate::model::deny_rule_explanation::AnnotatedDenyPrincipalMatching,
@@ -1710,6 +1757,7 @@ pub struct DenyRuleExplanation {
     /// The relevance of this role binding to the overall determination for the
     /// entire policy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relevance: crate::model::HeuristicRelevance,
 
     /// A condition expression that specifies when the deny rule denies the
@@ -1932,11 +1980,13 @@ pub mod deny_rule_explanation {
         /// Indicates whether the permission in the request is denied by the deny
         /// rule.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub permission_matching_state: crate::model::PermissionPatternMatchingState,
 
         /// The relevance of the permission status to the overall determination for
         /// the rule.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub relevance: crate::model::HeuristicRelevance,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1986,11 +2036,13 @@ pub mod deny_rule_explanation {
         /// Indicates whether the principal is listed as a denied principal in the
         /// deny rule, either directly or through membership in a principal set.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub membership: crate::model::MembershipMatchingState,
 
         /// The relevance of the principal's status to the overall determination for
         /// the role binding.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub relevance: crate::model::HeuristicRelevance,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2036,16 +2088,19 @@ pub mod deny_rule_explanation {
 pub struct ConditionExplanation {
     /// Value of the condition.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "wkt::internal::OptionalValue")]
     pub value: std::option::Option<wkt::Value>,
 
     /// Any errors that prevented complete evaluation of the condition expression.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<rpc::model::Status>,
 
     /// The value of each statement of the condition expression. The value can be
     /// `true`, `false`, or `null`. The value is `null` if the statement can't be
     /// evaluated.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub evaluation_states: std::vec::Vec<crate::model::condition_explanation::EvaluationState>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2117,23 +2172,25 @@ pub mod condition_explanation {
     pub struct EvaluationState {
         /// Start position of an expression in the condition, by character.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub start: i32,
 
         /// End position of an expression in the condition, by character,
         /// end included, for example: the end position of the first part of
         /// `a==b || c==d` would be 4.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub end: i32,
 
         /// Value of this expression.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "wkt::internal::OptionalValue")]
         pub value: std::option::Option<wkt::Value>,
 
         /// Any errors that prevented complete evaluation of the condition
         /// expression.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub errors: std::vec::Vec<rpc::model::Status>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

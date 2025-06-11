@@ -13,7 +13,6 @@
 // limitations under the License.
 
 use crate::Result;
-use gax::error::Error;
 use gax::paginator::{ItemPaginator, Paginator};
 use rand::{Rng, distr::Alphanumeric};
 
@@ -423,9 +422,7 @@ async fn cleanup_stale_secrets(
     secret_id: &str,
 ) -> Result<()> {
     use std::time::{Duration, SystemTime, UNIX_EPOCH};
-    let stale_deadline = SystemTime::now()
-        .duration_since(UNIX_EPOCH)
-        .map_err(Error::other)?;
+    let stale_deadline = SystemTime::now().duration_since(UNIX_EPOCH)?;
     let stale_deadline = stale_deadline - Duration::from_secs(48 * 60 * 60);
     let stale_deadline = wkt::Timestamp::clamp(stale_deadline.as_secs() as i64, 0);
 

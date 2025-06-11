@@ -42,6 +42,7 @@ pub struct ComputeThreatListDiffRequest {
     /// specified per request. If you want to handle multiple ThreatTypes, you must
     /// make one request per ThreatType.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub threat_type: crate::model::ThreatType,
 
     /// The current version token of the client for the requested list (the
@@ -50,7 +51,7 @@ pub struct ComputeThreatListDiffRequest {
     /// ComputeThreatListDiff), this may be left empty and a full database
     /// snapshot will be returned.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub version_token: ::bytes::Bytes,
 
     /// Required. The constraints associated with this request.
@@ -122,18 +123,19 @@ pub mod compute_threat_list_diff_request {
         /// entries than this value.  This should be a power of 2 between 2**10 and
         /// 2**20.  If zero, no diff size limit is set.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub max_diff_entries: i32,
 
         /// Sets the maximum number of entries that the client is willing to have
         /// in the local database. This should be a power of 2 between 2**10 and
         /// 2**20. If zero, no database size limit is set.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub max_database_entries: i32,
 
         /// The compression types supported by the client.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub supported_compressions: std::vec::Vec<crate::model::CompressionType>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -184,6 +186,7 @@ pub struct ComputeThreatListDiffResponse {
     /// The type of response. This may indicate that an action must be taken by the
     /// client when the response is received.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_type: crate::model::compute_threat_list_diff_response::ResponseType,
 
     /// A set of entries to add to a local threat type's list.
@@ -199,7 +202,7 @@ pub struct ComputeThreatListDiffResponse {
     /// and passed into the next call of ComputeThreatListDiff as 'version_token'.
     /// A separate version token should be stored and used for each threatList.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub new_version_token: ::bytes::Bytes,
 
     /// The expected SHA256 hash of the client state; that is, of the sorted list
@@ -335,7 +338,7 @@ pub mod compute_threat_list_diff_response {
         /// The SHA256 hash of the client state; that is, of the sorted list of all
         /// hashes present in the database.
         #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-        #[serde_as(as = "serde_with::base64::Base64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
         pub sha256: ::bytes::Bytes,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -503,11 +506,13 @@ pub mod compute_threat_list_diff_response {
 pub struct SearchUrisRequest {
     /// Required. The URI to be checked for matches.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Required. The ThreatLists to search in. Multiple ThreatLists may be
     /// specified.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub threat_types: std::vec::Vec<crate::model::ThreatType>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -599,6 +604,7 @@ pub mod search_uris_response {
     pub struct ThreatUri {
         /// The ThreatList this threat belongs to.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub threat_types: std::vec::Vec<crate::model::ThreatType>,
 
         /// The cache lifetime for the returned match. Clients must not cache this
@@ -663,12 +669,13 @@ pub struct SearchHashesRequest {
     /// Note that if this parameter is provided by a URI, it must be encoded using
     /// the web safe base64 variant (RFC 4648).
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub hash_prefix: ::bytes::Bytes,
 
     /// Required. The ThreatLists to search in. Multiple ThreatLists may be
     /// specified.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub threat_types: std::vec::Vec<crate::model::ThreatType>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -712,6 +719,7 @@ pub struct SearchHashesResponse {
     /// The full hashes that matched the requested prefixes.
     /// The hash will be populated in the key.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub threats: std::vec::Vec<crate::model::search_hashes_response::ThreatHash>,
 
     /// For requested entities that did not match the threat list, how long to
@@ -778,12 +786,13 @@ pub mod search_hashes_response {
         /// The ThreatList this threat belongs to.
         /// This must contain at least one entry.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub threat_types: std::vec::Vec<crate::model::ThreatType>,
 
         /// A 32 byte SHA256 hash. This field is in binary format. For JSON
         /// requests, hashes are base64-encoded.
         #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-        #[serde_as(as = "serde_with::base64::Base64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
         pub hash: ::bytes::Bytes,
 
         /// The cache lifetime for the returned match. Clients must not cache this
@@ -853,6 +862,7 @@ pub struct ThreatEntryAdditions {
     /// The raw SHA256-formatted entries.
     /// Repeated to allow returning sets of hashes with different prefix sizes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub raw_hashes: std::vec::Vec<crate::model::RawHashes>,
 
     /// The encoded 4-byte prefixes of SHA256-formatted entries, using a
@@ -983,7 +993,7 @@ impl wkt::message::Message for ThreatEntryRemovals {
 pub struct RawIndices {
     /// The indices to remove from a lexicographically-sorted local list.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub indices: std::vec::Vec<i32>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1030,14 +1040,14 @@ pub struct RawHashes {
     /// anywhere from 4 (shortest prefix) to 32 (full SHA256 hash).
     /// In practice this is almost always 4, except in exceptional circumstances.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub prefix_size: i32,
 
     /// The hashes, in binary format, concatenated into one long string. Hashes are
     /// sorted in lexicographic order. For JSON API users, hashes are
     /// base64-encoded.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub raw_hashes: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1079,25 +1089,25 @@ pub struct RiceDeltaEncoding {
     /// integer was encoded, that single integer's value. If the field is empty or
     /// missing, assume zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub first_value: i64,
 
     /// The Golomb-Rice parameter, which is a number between 2 and 28. This field
     /// is missing (that is, zero) if `num_entries` is zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub rice_parameter: i32,
 
     /// The number of entries that are delta encoded in the encoded data. If only a
     /// single integer was encoded, this will be zero and the single value will be
     /// stored in `first_value`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub entry_count: i32,
 
     /// The encoded deltas that are encoded using the Golomb-Rice coder.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub encoded_data: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1149,12 +1159,14 @@ pub struct Submission {
     /// Required. The URI that is being reported for malicious content to be
     /// analyzed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Output only. ThreatTypes found to be associated with the submitted URI
     /// after reviewing it. This might be empty if the URI was not added to any
     /// list.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub threat_types: std::vec::Vec<crate::model::ThreatType>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1199,6 +1211,7 @@ impl wkt::message::Message for Submission {
 pub struct ThreatInfo {
     /// The type of abuse.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub abuse_type: crate::model::threat_info::AbuseType,
 
     /// Confidence that the URI is unsafe.
@@ -1526,9 +1539,12 @@ pub mod threat_info {
             /// A decimal representation of confidence in the range of 0
             /// to 1 where 0 indicates no confidence and 1 indicates
             /// complete confidence.
-            Score(#[serde_as(as = "wkt::internal::F32")] f32),
+            Score(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")] f32),
             /// Enum representation of confidence.
-            Level(crate::model::threat_info::confidence::ConfidenceLevel),
+            Level(
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+                crate::model::threat_info::confidence::ConfidenceLevel,
+            ),
         }
     }
 
@@ -1540,11 +1556,13 @@ pub mod threat_info {
     pub struct ThreatJustification {
         /// Labels associated with this URI that explain how it was classified.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub labels:
             std::vec::Vec<crate::model::threat_info::threat_justification::JustificationLabel>,
 
         /// Free-form context on why this URI is unsafe.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub comments: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1885,11 +1903,13 @@ pub mod threat_info {
 pub struct ThreatDiscovery {
     /// Platform on which the threat was discovered.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub platform: crate::model::threat_discovery::Platform,
 
     /// CLDR region code of the countries/regions the URI poses a threat ordered
     /// from most impact to least impact. Example: "US" for United States.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub region_codes: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2089,6 +2109,7 @@ pub struct CreateSubmissionRequest {
     /// Required. The name of the project that is making the submission. This
     /// string is in the format "projects/{project_number}".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The submission that contains the content of the phishing report.
@@ -2144,6 +2165,7 @@ pub struct SubmitUriRequest {
     /// Required. The name of the project that is making the submission. This
     /// string is in the format "projects/{project_number}".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The submission that contains the URI to be scanned.
@@ -2242,6 +2264,7 @@ impl wkt::message::Message for SubmitUriRequest {
 pub struct SubmitUriMetadata {
     /// The state of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::submit_uri_metadata::State,
 
     /// Creation time of the operation.

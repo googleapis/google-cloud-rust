@@ -52,6 +52,7 @@ pub struct Inventory {
     /// Format:
     /// `projects/{project_number}/locations/{location}/instances/{instance_id}/inventory`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Base level operating system information for the VM.
@@ -63,6 +64,7 @@ pub struct Inventory {
     /// addressable inventory item and will change, when there is a new package
     /// version.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub items: std::collections::HashMap<std::string::String, crate::model::inventory::Item>,
 
     /// Output only. Timestamp of the last reported inventory for the VM.
@@ -152,37 +154,45 @@ pub mod inventory {
     pub struct OsInfo {
         /// The VM hostname.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub hostname: std::string::String,
 
         /// The operating system long name.
         /// For example 'Debian GNU/Linux 9' or 'Microsoft Window Server 2019
         /// Datacenter'.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub long_name: std::string::String,
 
         /// The operating system short name.
         /// For example, 'windows' or 'debian'.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub short_name: std::string::String,
 
         /// The version of the operating system.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub version: std::string::String,
 
         /// The system architecture of the operating system.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub architecture: std::string::String,
 
         /// The kernel version of the operating system.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub kernel_version: std::string::String,
 
         /// The kernel release of the operating system.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub kernel_release: std::string::String,
 
         /// The current version of the OS Config agent running on the VM.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub osconfig_agent_version: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -269,10 +279,12 @@ pub mod inventory {
     pub struct Item {
         /// Identifier for this item, unique across items for this VM.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub id: std::string::String,
 
         /// The origin of this inventory item.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub origin_type: crate::model::inventory::item::OriginType,
 
         /// When this inventory item was first detected.
@@ -286,6 +298,7 @@ pub mod inventory {
         /// The specific type of inventory, correlating to its specific details.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::inventory::item::Type,
 
         /// Specific details of this inventory item based on its type.
@@ -1127,14 +1140,17 @@ pub mod inventory {
     pub struct VersionedPackage {
         /// The name of the package.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub package_name: std::string::String,
 
         /// The system architecture this package is intended for.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub architecture: std::string::String,
 
         /// The version of the package.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub version: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1185,18 +1201,22 @@ pub mod inventory {
     pub struct ZypperPatch {
         /// The name of the patch.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub patch_name: std::string::String,
 
         /// The category of the patch.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub category: std::string::String,
 
         /// The severity specified for this patch
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub severity: std::string::String,
 
         /// Any summary information provided about this patch.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub summary: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1251,39 +1271,46 @@ pub mod inventory {
     pub struct WindowsUpdatePackage {
         /// The localized title of the update package.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub title: std::string::String,
 
         /// The localized description of the update package.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub description: std::string::String,
 
         /// The categories that are associated with this update package.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub categories:
             std::vec::Vec<crate::model::inventory::windows_update_package::WindowsUpdateCategory>,
 
         /// A collection of Microsoft Knowledge Base article IDs that are associated
         /// with the update package.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub kb_article_ids: std::vec::Vec<std::string::String>,
 
         /// A hyperlink to the language-specific support information for the update.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub support_url: std::string::String,
 
         /// A collection of URLs that provide more information about the update
         /// package.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub more_info_urls: std::vec::Vec<std::string::String>,
 
         /// Gets the identifier of an update package.  Stays the same across
         /// revisions.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub update_id: std::string::String,
 
         /// The revision number of this update package.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub revision_number: i32,
 
         /// The last published date of the update, in (UTC) date and time.
@@ -1405,10 +1432,12 @@ pub mod inventory {
         pub struct WindowsUpdateCategory {
             /// The identifier of the windows update category.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub id: std::string::String,
 
             /// The name of the windows update category.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub name: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1451,14 +1480,17 @@ pub mod inventory {
     pub struct WindowsQuickFixEngineeringPackage {
         /// A short textual description of the QFE update.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub caption: std::string::String,
 
         /// A textual description of the QFE update.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub description: std::string::String,
 
         /// Unique identifier associated with a particular QFE update.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub hot_fix_id: std::string::String,
 
         /// Date that the QFE update was installed.  Mapped from installed_on field.
@@ -1527,14 +1559,17 @@ pub mod inventory {
     pub struct WindowsApplication {
         /// The name of the application or product.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_name: std::string::String,
 
         /// The version of the product or application in string format.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_version: std::string::String,
 
         /// The name of the manufacturer for the product or application.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub publisher: std::string::String,
 
         /// The last time this product received service. The value of this property
@@ -1545,6 +1580,7 @@ pub mod inventory {
 
         /// The internet address for technical support.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub help_link: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1627,11 +1663,13 @@ pub struct GetInventoryRequest {
     /// For `{instance}`, either Compute Engine  `instance-id` or `instance-name`
     /// can be provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Inventory view indicating what information should be included in the
     /// inventory resource. If unspecified, the default view is BASIC.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::InventoryView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1675,27 +1713,31 @@ pub struct ListInventoriesRequest {
     ///
     /// For `{project}`, either `project-number` or `project-id` can be provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Inventory view indicating what information should be included in the
     /// inventory resource. If unspecified, the default view is BASIC.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::InventoryView,
 
     /// The maximum number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call to
     /// `ListInventories` that indicates where this listing
     /// should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// If provided, this field specifies the criteria that must be met by a
     /// `Inventory` API resource to be included in the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1753,10 +1795,12 @@ impl wkt::message::Message for ListInventoriesRequest {
 pub struct ListInventoriesResponse {
     /// List of inventory objects.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub inventories: std::vec::Vec<crate::model::Inventory>,
 
     /// The pagination token to retrieve the next page of inventory objects.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1820,15 +1864,18 @@ pub struct OSPolicy {
     /// * Must end with a number or a letter.
     /// * Must be unique within the assignment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Policy description.
     /// Length of the description is limited to 1024 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. Policy mode
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mode: crate::model::os_policy::Mode,
 
     /// Required. List of resource groups for the policy.
@@ -1840,6 +1887,7 @@ pub struct OSPolicy {
     /// considered to be non-compliant w.r.t this policy. This behavior can be
     /// toggled by the flag `allow_no_resource_group_match`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_groups: std::vec::Vec<crate::model::os_policy::ResourceGroup>,
 
     /// This flag determines the OS policy compliance status when none of the
@@ -1847,6 +1895,7 @@ pub struct OSPolicy {
     /// to `true` if the policy needs to be reported as compliant even if the
     /// policy has nothing to validate or enforce.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_no_resource_group_match: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1913,6 +1962,7 @@ pub mod os_policy {
     pub struct InventoryFilter {
         /// Required. The OS short name
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub os_short_name: std::string::String,
 
         /// The OS version
@@ -1923,6 +1973,7 @@ pub mod os_policy {
         ///
         /// An empty string matches all OS versions.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub os_version: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1975,6 +2026,7 @@ pub mod os_policy {
         /// * Must end with a number or a letter.
         /// * Must be unique within the OS policy.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub id: std::string::String,
 
         /// Resource type.
@@ -2171,6 +2223,7 @@ pub mod os_policy {
             /// Remote: A checksum must be specified.
             /// Cloud Storage: An object generation number must be specified.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub allow_insecure: bool,
 
             /// A specific type of file.
@@ -2326,10 +2379,12 @@ pub mod os_policy {
                 /// Required. URI from which to fetch the object. It should contain both
                 /// the protocol and path following the format `{protocol}://{location}`.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub uri: std::string::String,
 
                 /// SHA256 checksum of the remote file.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub sha256_checksum: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2371,15 +2426,17 @@ pub mod os_policy {
             pub struct Gcs {
                 /// Required. Bucket of the Cloud Storage object.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub bucket: std::string::String,
 
                 /// Required. Name of the Cloud Storage object.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub object: std::string::String,
 
                 /// Generation number of the Cloud Storage object.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "serde_with::DisplayFromStr")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
                 pub generation: i64,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2433,7 +2490,7 @@ pub mod os_policy {
                 /// A Cloud Storage object.
                 Gcs(std::boxed::Box<crate::model::os_policy::resource::file::Gcs>),
                 /// A local path within the VM to use.
-                LocalPath(std::string::String),
+                LocalPath(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             }
         }
 
@@ -2445,6 +2502,7 @@ pub mod os_policy {
         pub struct PackageResource {
             /// Required. The desired state the agent should maintain for this package.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub desired_state: crate::model::os_policy::resource::package_resource::DesiredState,
 
             /// A system package.
@@ -2791,6 +2849,7 @@ pub mod os_policy {
                 /// - install when true: `apt-get update && apt-get -y install
                 ///   package.deb`
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub pull_deps: bool,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2844,6 +2903,7 @@ pub mod os_policy {
             pub struct Apt {
                 /// Required. Package name.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub name: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2887,6 +2947,7 @@ pub mod os_policy {
                 /// - install when true: `yum -y install package.rpm` or
                 ///   `zypper -y install package.rpm`
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub pull_deps: bool,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2940,6 +3001,7 @@ pub mod os_policy {
             pub struct Yum {
                 /// Required. Package name.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub name: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2978,6 +3040,7 @@ pub mod os_policy {
             pub struct Zypper {
                 /// Required. Package name.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub name: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3016,6 +3079,7 @@ pub mod os_policy {
             pub struct GooGet {
                 /// Required. Package name.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub name: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3058,6 +3122,7 @@ pub mod os_policy {
                 /// Appended to the defaults of `ACTION=INSTALL
                 /// REBOOT=ReallySuppress`.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub properties: std::vec::Vec<std::string::String>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3489,24 +3554,29 @@ pub mod os_policy {
 
                 /// Required. Type of archive files in this repository.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub archive_type: crate::model::os_policy::resource::repository_resource::apt_repository::ArchiveType,
 
                 /// Required. URI for this repository.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub uri: std::string::String,
 
                 /// Required. Distribution of this repository.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub distribution: std::string::String,
 
                 /// Required. List of components for this repository. Must contain at
                 /// least one item.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub components: std::vec::Vec<std::string::String>,
 
                 /// URI of the key file for this repository. The agent maintains a
                 /// keyring at `/etc/apt/trusted.gpg.d/osconfig_agent_managed.gpg`.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub gpg_key: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3721,18 +3791,22 @@ pub mod os_policy {
                 /// `display_name` is omitted. This id is also used as the unique
                 /// identifier when checking for resource conflicts.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub id: std::string::String,
 
                 /// The display name of the repository.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub display_name: std::string::String,
 
                 /// Required. The location of the repository directory.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub base_url: std::string::String,
 
                 /// URIs of GPG keys.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub gpg_keys: std::vec::Vec<std::string::String>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3799,18 +3873,22 @@ pub mod os_policy {
                 /// `display_name` is omitted. This id is also used as the unique
                 /// identifier when checking for GuestPolicy conflicts.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub id: std::string::String,
 
                 /// The display name of the repository.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub display_name: std::string::String,
 
                 /// Required. The location of the repository directory.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub base_url: std::string::String,
 
                 /// URIs of GPG keys.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub gpg_keys: std::vec::Vec<std::string::String>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3874,10 +3952,12 @@ pub mod os_policy {
             pub struct GooRepository {
                 /// Required. The name of the repository.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub name: std::string::String,
 
                 /// Required. The url of the repository.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub url: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4055,10 +4135,12 @@ pub mod os_policy {
             pub struct Exec {
                 /// Optional arguments to pass to the source during execution.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub args: std::vec::Vec<std::string::String>,
 
                 /// Required. The script interpreter to use.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub interpreter:
                     crate::model::os_policy::resource::exec_resource::exec::Interpreter,
 
@@ -4069,6 +4151,7 @@ pub mod os_policy {
                 /// this ExecResource being non-compliant. Output file size is limited to
                 /// 100K bytes.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub output_file_path: std::string::String,
 
                 /// What to execute.
@@ -4372,7 +4455,7 @@ pub mod os_policy {
                     File(std::boxed::Box<crate::model::os_policy::resource::File>),
                     /// An inline script.
                     /// The size of the script is limited to 1024 characters.
-                    Script(std::string::String),
+                    Script(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
                 }
             }
         }
@@ -4385,10 +4468,12 @@ pub mod os_policy {
         pub struct FileResource {
             /// Required. The absolute path of the file within the VM.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub path: std::string::String,
 
             /// Required. Desired state of the file.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub state: crate::model::os_policy::resource::file_resource::DesiredState,
 
             /// Consists of three octal digits which represent, in
@@ -4405,6 +4490,7 @@ pub mod os_policy {
             /// read and write: 6
             /// read only: 4
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub permissions: std::string::String,
 
             /// The source for the contents of the file.
@@ -4688,7 +4774,7 @@ pub mod os_policy {
                 File(std::boxed::Box<crate::model::os_policy::resource::File>),
                 /// A a file with this content.
                 /// The size of the content is limited to 1024 characters.
-                Content(std::string::String),
+                Content(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             }
         }
 
@@ -4736,11 +4822,13 @@ pub mod os_policy {
         /// If the list is empty, this resource group will be applied to the target
         /// VM unconditionally.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub inventory_filters: std::vec::Vec<crate::model::os_policy::InventoryFilter>,
 
         /// Required. List of resources configured for this resource group.
         /// The resources are executed in the exact order specified here.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub resources: std::vec::Vec<crate::model::os_policy::Resource>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4933,6 +5021,7 @@ pub struct GetOSPolicyAssignmentReportRequest {
     /// can be provided.
     /// For `{assignment_id}`, the OSPolicyAssignment id must be provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4985,22 +5074,25 @@ pub struct ListOSPolicyAssignmentReportsRequest {
     /// `projects/{project}/locations/{location}/instances/-/osPolicyAssignments/-/reports`
     /// returns all the reports for all assignments across all instances.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// If provided, this field specifies the criteria that must be met by the
     /// `OSPolicyAssignmentReport` API resource that is included in the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// A pagination token returned from a previous call to the
     /// `ListOSPolicyAssignmentReports` method that indicates where this listing
     /// should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5052,11 +5144,13 @@ impl wkt::message::Message for ListOSPolicyAssignmentReportsRequest {
 pub struct ListOSPolicyAssignmentReportsResponse {
     /// List of OS policy assignment reports.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub os_policy_assignment_reports: std::vec::Vec<crate::model::OSPolicyAssignmentReport>,
 
     /// The pagination token to retrieve the next page of OS policy assignment
     /// report objects.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5117,10 +5211,12 @@ pub struct OSPolicyAssignmentReport {
     /// Format:
     /// `projects/{project_number}/locations/{location}/instances/{instance_id}/osPolicyAssignments/{os_policy_assignment_id}/report`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The Compute Engine VM instance name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance: std::string::String,
 
     /// Reference to the `OSPolicyAssignment` API resource that the `OSPolicy`
@@ -5129,10 +5225,12 @@ pub struct OSPolicyAssignmentReport {
     /// Format:
     /// `projects/{project_number}/locations/{location}/osPolicyAssignments/{os_policy_assignment_id@revision_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub os_policy_assignment: std::string::String,
 
     /// Compliance data for each `OSPolicy` that is applied to the VM.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub os_policy_compliances:
         std::vec::Vec<crate::model::os_policy_assignment_report::OSPolicyCompliance>,
 
@@ -5148,6 +5246,7 @@ pub struct OSPolicyAssignmentReport {
     /// NOTE: If the service is unable to successfully connect to the agent for
     /// this run, then this id will not be available in the agent logs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub last_run_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5236,10 +5335,12 @@ pub mod os_policy_assignment_report {
 
         /// The OS policy id
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub os_policy_id: std::string::String,
 
         /// The compliance state of the OS policy.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub compliance_state: crate::model::os_policy_assignment_report::os_policy_compliance::ComplianceState,
 
         /// The reason for the OS policy to be in an unknown compliance state.
@@ -5263,11 +5364,13 @@ pub mod os_policy_assignment_report {
         /// * `internal-service-errors`: Internal service errors were encountered
         ///   while attempting to apply the policy.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub compliance_state_reason: std::string::String,
 
         /// Compliance data for each resource within the policy that is applied to
         /// the VM.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub os_policy_resource_compliances: std::vec::Vec<crate::model::os_policy_assignment_report::os_policy_compliance::OSPolicyResourceCompliance>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5335,15 +5438,18 @@ pub mod os_policy_assignment_report {
 
             /// The ID of the OS policy resource.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub os_policy_resource_id: std::string::String,
 
             /// Ordered list of configuration completed by the agent for the OS policy
             /// resource.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub config_steps: std::vec::Vec<crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::OSPolicyResourceConfigStep>,
 
             /// The compliance state of the resource.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub compliance_state: crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::ComplianceState,
 
             /// A reason for the resource to be in the given compliance state.
@@ -5361,6 +5467,7 @@ pub mod os_policy_assignment_report {
             ///   containing this resource failed and the compliance state couldn't be
             ///   determined.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub compliance_state_reason: std::string::String,
 
             /// Resource specific output.
@@ -5469,11 +5576,13 @@ pub mod os_policy_assignment_report {
                 /// Configuration step type.
                 #[serde(rename = "type")]
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub r#type: crate::model::os_policy_assignment_report::os_policy_compliance::os_policy_resource_compliance::os_policy_resource_config_step::Type,
 
                 /// An error message recorded during the execution of this step.
                 /// Only populated if errors were encountered during this step execution.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub error_message: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5685,7 +5794,7 @@ pub mod os_policy_assignment_report {
                 /// Output from enforcement phase output file (if run).
                 /// Output size is limited to 100K bytes.
                 #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-                #[serde_as(as = "serde_with::base64::Base64")]
+                #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
                 pub enforcement_output: ::bytes::Bytes,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6029,15 +6138,18 @@ pub struct OSPolicyAssignment {
     ///
     /// This field is ignored when you create an OS policy assignment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// OS policy assignment description.
     /// Length of the description is limited to 1024 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. List of OS policies to be applied to the VMs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub os_policies: std::vec::Vec<crate::model::OSPolicy>,
 
     /// Required. Filter to select VMs.
@@ -6060,6 +6172,7 @@ pub struct OSPolicyAssignment {
     /// A new revision is committed whenever a rollout is triggered for a OS policy
     /// assignment
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision_id: std::string::String,
 
     /// Output only. The timestamp that the revision was created.
@@ -6069,10 +6182,12 @@ pub struct OSPolicyAssignment {
     /// The etag for this OS policy assignment.
     /// If this is provided on update, it must match the server's etag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Output only. OS policy assignment rollout state
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_state: crate::model::os_policy_assignment::RolloutState,
 
     /// Output only. Indicates that this revision has been successfully rolled out
@@ -6081,10 +6196,12 @@ pub struct OSPolicyAssignment {
     /// For a given OS policy assignment, there is only one revision with a value
     /// of `true` for this field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub baseline: bool,
 
     /// Output only. Indicates that this revision deletes the OS policy assignment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deleted: bool,
 
     /// Output only. Indicates that reconciliation is in progress for the revision.
@@ -6093,11 +6210,13 @@ pub struct OSPolicyAssignment {
     /// * IN_PROGRESS
     /// * CANCELLING
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciling: bool,
 
     /// Output only. Server generated unique id for the OS policy assignment
     /// resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6264,6 +6383,7 @@ pub mod os_policy_assignment {
         /// A VM should contain all the key/value pairs specified in this
         /// map to be selected.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6306,6 +6426,7 @@ pub mod os_policy_assignment {
         /// Target all VMs in the project. If true, no other criteria is
         /// permitted.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub all: bool,
 
         /// List of label sets used for VM inclusion.
@@ -6313,6 +6434,7 @@ pub mod os_policy_assignment {
         /// If the list has more than one `LabelSet`, the VM is included if any
         /// of the label sets are applicable for the VM.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub inclusion_labels: std::vec::Vec<crate::model::os_policy_assignment::LabelSet>,
 
         /// List of label sets used for VM exclusion.
@@ -6320,6 +6442,7 @@ pub mod os_policy_assignment {
         /// If the list has more than one label set, the VM is excluded if any
         /// of the label sets are applicable for the VM.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub exclusion_labels: std::vec::Vec<crate::model::os_policy_assignment::LabelSet>,
 
         /// List of inventories to select VMs.
@@ -6327,6 +6450,7 @@ pub mod os_policy_assignment {
         /// A VM is selected if its inventory data matches at least one of the
         /// following inventories.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub inventories:
             std::vec::Vec<crate::model::os_policy_assignment::instance_filter::Inventory>,
 
@@ -6398,6 +6522,7 @@ pub mod os_policy_assignment {
         pub struct Inventory {
             /// Required. The OS short name
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub os_short_name: std::string::String,
 
             /// The OS version
@@ -6408,6 +6533,7 @@ pub mod os_policy_assignment {
             ///
             /// An empty string matches all OS versions.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub os_version: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6676,14 +6802,17 @@ pub struct OSPolicyAssignmentOperationMetadata {
     /// Format:
     /// `projects/{project_number}/locations/{location}/osPolicyAssignments/{os_policy_assignment_id@revision_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub os_policy_assignment: std::string::String,
 
     /// The OS policy assignment API method.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_method: crate::model::os_policy_assignment_operation_metadata::APIMethod,
 
     /// State of the rollout
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_state: crate::model::os_policy_assignment_operation_metadata::RolloutState,
 
     /// Rollout start time
@@ -7077,6 +7206,7 @@ pub struct CreateOSPolicyAssignmentRequest {
     /// Required. The parent resource name in the form:
     /// projects/{project}/locations/{location}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The OS policy assignment to be created.
@@ -7092,6 +7222,7 @@ pub struct CreateOSPolicyAssignmentRequest {
     /// * Must end with a number or a letter.
     /// * Must be unique within the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub os_policy_assignment_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7221,6 +7352,7 @@ pub struct GetOSPolicyAssignmentRequest {
     /// Format:
     /// `projects/{project}/locations/{location}/osPolicyAssignments/{os_policy_assignment}@{revisionId}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7253,17 +7385,19 @@ impl wkt::message::Message for GetOSPolicyAssignmentRequest {
 pub struct ListOSPolicyAssignmentsRequest {
     /// Required. The parent resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of assignments to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call to
     /// `ListOSPolicyAssignments` that indicates where this listing should continue
     /// from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7308,10 +7442,12 @@ impl wkt::message::Message for ListOSPolicyAssignmentsRequest {
 pub struct ListOSPolicyAssignmentsResponse {
     /// The list of assignments
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub os_policy_assignments: std::vec::Vec<crate::model::OSPolicyAssignment>,
 
     /// The pagination token to retrieve the next page of OS policy assignments.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7369,17 +7505,19 @@ impl gax::paginator::internal::PageableResponse for ListOSPolicyAssignmentsRespo
 pub struct ListOSPolicyAssignmentRevisionsRequest {
     /// Required. The name of the OS policy assignment to list revisions for.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The maximum number of revisions to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call to
     /// `ListOSPolicyAssignmentRevisions` that indicates where this listing should
     /// continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7424,11 +7562,13 @@ impl wkt::message::Message for ListOSPolicyAssignmentRevisionsRequest {
 pub struct ListOSPolicyAssignmentRevisionsResponse {
     /// The OS policy assignment revisions
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub os_policy_assignments: std::vec::Vec<crate::model::OSPolicyAssignment>,
 
     /// The pagination token to retrieve the next page of OS policy assignment
     /// revisions.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7486,6 +7626,7 @@ impl gax::paginator::internal::PageableResponse for ListOSPolicyAssignmentRevisi
 pub struct DeleteOSPolicyAssignmentRequest {
     /// Required. The name of the OS policy assignment to be deleted
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7607,10 +7748,10 @@ pub mod fixed_or_percent {
     #[non_exhaustive]
     pub enum Mode {
         /// Specifies a fixed value.
-        Fixed(#[serde_as(as = "wkt::internal::I32")] i32),
+        Fixed(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
         /// Specifies the relative value defined as a percentage, which will be
         /// multiplied by a reference value.
-        Percent(#[serde_as(as = "wkt::internal::I32")] i32),
+        Percent(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
     }
 }
 
@@ -7629,11 +7770,13 @@ pub struct PatchDeployment {
     /// `projects/{project_id}/patchDeployments/{patch_deployment_id}`.
     /// This field is ignored when you create a new patch deployment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Description of the patch deployment. Length of the description is
     /// limited to 1024 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. VM instances to patch.
@@ -7671,6 +7814,7 @@ pub struct PatchDeployment {
 
     /// Output only. Current state of the patch deployment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::patch_deployment::State,
 
     /// Schedule for the patch.
@@ -8141,6 +8285,7 @@ pub struct RecurringSchedule {
 
     /// Required. The frequency unit of this recurring schedule.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub frequency: crate::model::recurring_schedule::Frequency,
 
     /// Output only. The time the last patch job ran successfully.
@@ -8528,6 +8673,7 @@ pub mod recurring_schedule {
 pub struct WeeklySchedule {
     /// Required. Day of the week.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub day_of_week: gtype::model::DayOfWeek,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8665,7 +8811,7 @@ pub mod monthly_schedule {
         /// -1 indicates the last day of the month. Months without the target day
         /// will be skipped. For example, a schedule to run "every month on the 31st"
         /// will not run in February, April, June, etc.
-        MonthDay(#[serde_as(as = "wkt::internal::I32")] i32),
+        MonthDay(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
     }
 }
 
@@ -8678,11 +8824,12 @@ pub struct WeekDayOfMonth {
     /// Required. Week number in a month. 1-4 indicates the 1st to 4th week of the
     /// month. -1 indicates the last week of the month.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub week_ordinal: i32,
 
     /// Required. A day of the week.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub day_of_week: gtype::model::DayOfWeek,
 
     /// Optional. Represents the number of days before or after the given week day
@@ -8693,7 +8840,7 @@ pub struct WeekDayOfMonth {
     /// negative, for example -5, the patches are deployed five days before before
     /// the second Tuesday of the month. Allowed values are in range [-30, 30].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub day_offset: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8739,6 +8886,7 @@ pub struct CreatePatchDeploymentRequest {
     /// Required. The project to apply this patch deployment to in the form
     /// `projects/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A name for the patch deployment in the project. When creating a
@@ -8750,6 +8898,7 @@ pub struct CreatePatchDeploymentRequest {
     /// * Must end with a number or a letter.
     /// * Must be unique within the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub patch_deployment_id: std::string::String,
 
     /// Required. The patch deployment to create.
@@ -8814,6 +8963,7 @@ pub struct GetPatchDeploymentRequest {
     /// Required. The resource name of the patch deployment in the form
     /// `projects/*/patchDeployments/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8846,18 +8996,20 @@ impl wkt::message::Message for GetPatchDeploymentRequest {
 pub struct ListPatchDeploymentsRequest {
     /// Required. The resource name of the parent in the form `projects/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of patch deployments to return. Default is
     /// 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A pagination token returned from a previous call to
     /// ListPatchDeployments that indicates where this listing should continue
     /// from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8902,11 +9054,13 @@ impl wkt::message::Message for ListPatchDeploymentsRequest {
 pub struct ListPatchDeploymentsResponse {
     /// The list of patch deployments.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub patch_deployments: std::vec::Vec<crate::model::PatchDeployment>,
 
     /// A pagination token that can be used to get the next page of patch
     /// deployments.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8965,6 +9119,7 @@ pub struct DeletePatchDeploymentRequest {
     /// Required. The resource name of the patch deployment in the form
     /// `projects/*/patchDeployments/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9065,6 +9220,7 @@ pub struct PausePatchDeploymentRequest {
     /// Required. The resource name of the patch deployment in the form
     /// `projects/*/patchDeployments/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9098,6 +9254,7 @@ pub struct ResumePatchDeploymentRequest {
     /// Required. The resource name of the patch deployment in the form
     /// `projects/*/patchDeployments/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9131,11 +9288,13 @@ impl wkt::message::Message for ResumePatchDeploymentRequest {
 pub struct ExecutePatchJobRequest {
     /// Required. The project in which to run this patch in the form `projects/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Description of the patch job. Length of the description is limited
     /// to 1024 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. Instances to patch, either explicitly or filtered by some
@@ -9156,10 +9315,12 @@ pub struct ExecutePatchJobRequest {
     /// If this patch is a dry-run only, instances are contacted but
     /// will do nothing.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dry_run: bool,
 
     /// Display name for this patch job. This does not have to be unique.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Rollout strategy of the patch job.
@@ -9286,6 +9447,7 @@ impl wkt::message::Message for ExecutePatchJobRequest {
 pub struct GetPatchJobRequest {
     /// Required. Name of the patch in the form `projects/*/patchJobs/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9319,22 +9481,25 @@ pub struct ListPatchJobInstanceDetailsRequest {
     /// Required. The parent for the instances are in the form of
     /// `projects/*/patchJobs/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of instance details records to return.  Default is 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call
     /// that indicates where this listing should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// A filter expression that filters results listed in the response. This
     /// field supports filtering results by instance zone, name, state, or
     /// `failure_reason`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9385,10 +9550,12 @@ impl wkt::message::Message for ListPatchJobInstanceDetailsRequest {
 pub struct ListPatchJobInstanceDetailsResponse {
     /// A list of instance status.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub patch_job_instance_details: std::vec::Vec<crate::model::PatchJobInstanceDetails>,
 
     /// A pagination token that can be used to get the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9449,24 +9616,28 @@ impl gax::paginator::internal::PageableResponse for ListPatchJobInstanceDetailsR
 pub struct PatchJobInstanceDetails {
     /// The instance name in the form `projects/*/zones/*/instances/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The unique identifier for the instance. This identifier is
     /// defined by the server.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance_system_id: std::string::String,
 
     /// Current state of instance patch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::instance::PatchState,
 
     /// If the patch fails, this field provides the reason.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_reason: std::string::String,
 
     /// The number of times the agent that the agent attempts to apply the patch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub attempt_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9529,22 +9700,25 @@ impl wkt::message::Message for PatchJobInstanceDetails {
 pub struct ListPatchJobsRequest {
     /// Required. In the form of `projects/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of instance status to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call
     /// that indicates where this listing should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// If provided, this field specifies the criteria that must be met by patch
     /// jobs to be included in the response.
     /// Currently, filtering is only available on the patch_deployment field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9595,10 +9769,12 @@ impl wkt::message::Message for ListPatchJobsRequest {
 pub struct ListPatchJobsResponse {
     /// The list of patch jobs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub patch_jobs: std::vec::Vec<crate::model::PatchJob>,
 
     /// A pagination token that can be used to get the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9665,15 +9841,18 @@ pub struct PatchJob {
     /// Unique identifier for this patch job in the form
     /// `projects/*/patchJobs/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Display name for this patch job. This is not a unique identifier.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Description of the patch job. Length of the description is limited
     /// to 1024 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Time this patch job was created.
@@ -9686,6 +9865,7 @@ pub struct PatchJob {
 
     /// The current state of the PatchJob.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::patch_job::State,
 
     /// Instances to patch.
@@ -9709,21 +9889,24 @@ pub struct PatchJob {
     /// If this patch job is a dry run, the agent reports that it has
     /// finished without running any updates on the VM instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dry_run: bool,
 
     /// If this patch job failed, this message provides information about the
     /// failure.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_message: std::string::String,
 
     /// Reflects the overall progress of the patch job in the range of
     /// 0.0 being no progress to 100.0 being complete.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub percent_complete: f64,
 
     /// Output only. Name of the patch deployment that created this patch job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub patch_deployment: std::string::String,
 
     /// Rollout strategy being applied.
@@ -9942,79 +10125,79 @@ pub mod patch_job {
     pub struct InstanceDetailsSummary {
         /// Number of instances pending patch job.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub pending_instance_count: i64,
 
         /// Number of instances that are inactive.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub inactive_instance_count: i64,
 
         /// Number of instances notified about patch job.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub notified_instance_count: i64,
 
         /// Number of instances that have started.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub started_instance_count: i64,
 
         /// Number of instances that are downloading patches.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub downloading_patches_instance_count: i64,
 
         /// Number of instances that are applying patches.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub applying_patches_instance_count: i64,
 
         /// Number of instances rebooting.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub rebooting_instance_count: i64,
 
         /// Number of instances that have completed successfully.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub succeeded_instance_count: i64,
 
         /// Number of instances that require reboot.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub succeeded_reboot_required_instance_count: i64,
 
         /// Number of instances that failed.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub failed_instance_count: i64,
 
         /// Number of instances that have acked and will start shortly.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub acked_instance_count: i64,
 
         /// Number of instances that exceeded the time out while applying the patch.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub timed_out_instance_count: i64,
 
         /// Number of instances that are running the pre-patch step.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub pre_patch_step_instance_count: i64,
 
         /// Number of instances that are running the post-patch step.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub post_patch_step_instance_count: i64,
 
         /// Number of instances that do not appear to be running the agent. Check to
         /// ensure that the agent is installed, running, and able to communicate with
         /// the service.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub no_agent_detected_instance_count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10319,6 +10502,7 @@ pub mod patch_job {
 pub struct PatchConfig {
     /// Post-patch reboot settings.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reboot_config: crate::model::patch_config::RebootConfig,
 
     /// Apt update settings. Use this setting to override the default `apt` patch
@@ -10355,6 +10539,7 @@ pub struct PatchConfig {
 
     /// Allows the patch job to run on Managed instance groups (MIGs).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mig_instances_allowed: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10925,6 +11110,7 @@ pub mod instance {
 pub struct CancelPatchJobRequest {
     /// Required. Name of the patch in the form `projects/*/patchJobs/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10960,10 +11146,12 @@ pub struct AptSettings {
     /// using `apt-get dist-upgrade` instead.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::apt_settings::Type,
 
     /// List of packages to exclude from update. These packages will be excluded
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub excludes: std::vec::Vec<std::string::String>,
 
     /// An exclusive list of packages to be updated. These are the only packages
@@ -10971,6 +11159,7 @@ pub struct AptSettings {
     /// ignored. This field cannot be specified with any other patch configuration
     /// fields.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub exclusive_packages: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11170,15 +11359,18 @@ pub struct YumSettings {
     /// Adds the `--security` flag to `yum update`. Not supported on
     /// all platforms.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub security: bool,
 
     /// Will cause patch to run `yum update-minimal` instead.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub minimal: bool,
 
     /// List of packages to exclude from update. These packages are excluded by
     /// using the yum `--exclude` flag.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub excludes: std::vec::Vec<std::string::String>,
 
     /// An exclusive list of packages to be updated. These are the only packages
@@ -11186,6 +11378,7 @@ pub struct YumSettings {
     /// ignored. This field must not be specified with any other patch
     /// configuration fields.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub exclusive_packages: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11269,30 +11462,36 @@ impl wkt::message::Message for GooSettings {
 pub struct ZypperSettings {
     /// Adds the `--with-optional` flag to `zypper patch`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub with_optional: bool,
 
     /// Adds the `--with-update` flag, to `zypper patch`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub with_update: bool,
 
     /// Install only patches with these categories.
     /// Common categories include security, recommended, and feature.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub categories: std::vec::Vec<std::string::String>,
 
     /// Install only patches with these severities.
     /// Common severities include critical, important, moderate, and low.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub severities: std::vec::Vec<std::string::String>,
 
     /// List of patches to exclude from update.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub excludes: std::vec::Vec<std::string::String>,
 
     /// An exclusive list of patches to be updated. These are the only patches
     /// that will be installed using 'zypper patch patch:<patch_name>' command.
     /// This field must not be used with any other patch configuration fields.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub exclusive_patches: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11376,16 +11575,19 @@ pub struct WindowsUpdateSettings {
     /// Only apply updates of these windows update classifications. If empty, all
     /// updates are applied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub classifications: std::vec::Vec<crate::model::windows_update_settings::Classification>,
 
     /// List of KBs to exclude from update.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub excludes: std::vec::Vec<std::string::String>,
 
     /// An exclusive list of kbs to be updated. These are the only patches
     /// that will be updated. This field must not be used with other
     /// patch configurations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub exclusive_patches: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11718,7 +11920,7 @@ pub struct ExecStepConfig {
     /// Defaults to [0]. A list of possible return values that the
     /// execution can return to indicate a success.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub allowed_success_codes: std::vec::Vec<i32>,
 
     /// The script interpreter to use to run the script. If no interpreter is
@@ -11726,6 +11928,7 @@ pub struct ExecStepConfig {
     /// only succeed for scripts with [shebang lines]
     /// (<https://en.wikipedia.org/wiki/Shebang_>\(Unix\)).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub interpreter: crate::model::exec_step_config::Interpreter,
 
     /// Location of the executable.
@@ -11983,7 +12186,7 @@ pub mod exec_step_config {
     #[non_exhaustive]
     pub enum Executable {
         /// An absolute path to the executable on the VM.
-        LocalPath(std::string::String),
+        LocalPath(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// A Cloud Storage object containing the executable.
         GcsObject(std::boxed::Box<crate::model::GcsObject>),
     }
@@ -11997,16 +12200,18 @@ pub mod exec_step_config {
 pub struct GcsObject {
     /// Required. Bucket of the Cloud Storage object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket: std::string::String,
 
     /// Required. Name of the Cloud Storage object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub object: std::string::String,
 
     /// Required. Generation number of the Cloud Storage object. This is used to
     /// ensure that the ExecStep specified by this PatchJob does not change.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub generation_number: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12055,16 +12260,19 @@ pub struct PatchInstanceFilter {
     /// Target all VM instances in the project. If true, no other criteria is
     /// permitted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub all: bool,
 
     /// Targets VM instances matching ANY of these GroupLabels. This allows
     /// targeting of disparate groups of VM instances.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub group_labels: std::vec::Vec<crate::model::patch_instance_filter::GroupLabel>,
 
     /// Targets VM instances in ANY of these zones. Leave empty to target VM
     /// instances in any zone.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub zones: std::vec::Vec<std::string::String>,
 
     /// Targets any of the VM instances specified. Instances are specified by their
@@ -12072,12 +12280,14 @@ pub struct PatchInstanceFilter {
     /// `projects/[PROJECT_ID]/zones/[ZONE]/instances/[INSTANCE_NAME]`, or
     /// `<https://www.googleapis.com/compute/v1/projects/>[PROJECT_ID]/zones/[ZONE]/instances/[INSTANCE_NAME]`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub instances: std::vec::Vec<std::string::String>,
 
     /// Targets VMs whose name starts with one of these prefixes. Similar to
     /// labels, this is another way to group VMs when targeting configs, for
     /// example prefix="prod-".
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub instance_name_prefixes: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12167,6 +12377,7 @@ pub mod patch_instance_filter {
         /// Compute Engine instance labels that must be present for a VM
         /// instance to be targeted by this filter.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12207,6 +12418,7 @@ pub mod patch_instance_filter {
 pub struct PatchRollout {
     /// Mode of the patch rollout.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mode: crate::model::patch_rollout::Mode,
 
     /// The maximum number (or percentage) of VMs per zone to disrupt at any given
@@ -12436,10 +12648,12 @@ pub struct VulnerabilityReport {
     /// Format:
     /// `projects/{project_number}/locations/{location}/instances/{instance_id}/vulnerabilityReport`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. List of vulnerabilities affecting the VM.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub vulnerabilities: std::vec::Vec<crate::model::vulnerability_report::Vulnerability>,
 
     /// Output only. The timestamp for when the last vulnerability report was generated for the
@@ -12521,6 +12735,7 @@ pub mod vulnerability_report {
         /// update, these values might not display in VM inventory. For some distros,
         /// this field may be empty.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         #[deprecated]
         pub installed_inventory_item_ids: std::vec::Vec<std::string::String>,
 
@@ -12531,6 +12746,7 @@ pub mod vulnerability_report {
         /// the latest `SoftwarePackage` available to the VM that fixes the
         /// vulnerability.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         #[deprecated]
         pub available_inventory_item_ids: std::vec::Vec<std::string::String>,
 
@@ -12544,6 +12760,7 @@ pub mod vulnerability_report {
 
         /// List of items affected by the vulnerability.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub items: std::vec::Vec<crate::model::vulnerability_report::vulnerability::Item>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12667,12 +12884,13 @@ pub mod vulnerability_report {
             /// empty and the combination of <cve, classification> should be unique
             /// across vulnerabilities for a VM.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub cve: std::string::String,
 
             /// The CVSS V2 score of this vulnerability. CVSS V2 score is on a scale of
             /// 0 - 10 where 0 indicates low severity and 10 indicates high severity.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
             pub cvss_v2_score: f32,
 
             /// The full description of the CVSSv3 for this vulnerability from NVD.
@@ -12681,14 +12899,17 @@ pub mod vulnerability_report {
 
             /// Assigned severity/impact ranking from the distro.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub severity: std::string::String,
 
             /// The note or description describing the vulnerability from the distro.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub description: std::string::String,
 
             /// Corresponds to the references attached to the `VulnerabilityDetails`.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub references: std::vec::Vec<
                 crate::model::vulnerability_report::vulnerability::details::Reference,
             >,
@@ -12783,10 +13004,12 @@ pub mod vulnerability_report {
             pub struct Reference {
                 /// The url of the reference.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub url: std::string::String,
 
                 /// The source of the reference e.g. NVD.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub source: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12834,6 +13057,7 @@ pub mod vulnerability_report {
             /// update, these values might not display in VM inventory. For some
             /// operating systems, this field might be empty.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub installed_inventory_item_id: std::string::String,
 
             /// Corresponds to the `AVAILABLE_PACKAGE` inventory item on the VM.
@@ -12843,15 +13067,18 @@ pub mod vulnerability_report {
             /// the latest `SoftwarePackage` available to the VM that fixes the
             /// vulnerability.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub available_inventory_item_id: std::string::String,
 
             /// The recommended [CPE URI](https://cpe.mitre.org/specification/) update
             /// that contains a fix for this vulnerability.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub fixed_cpe_uri: std::string::String,
 
             /// The upstream OS patch, packages or KB that fixes the vulnerability.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub upstream_fix: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12923,6 +13150,7 @@ pub struct GetVulnerabilityReportRequest {
     /// For `{instance}`, either Compute Engine `instance-id` or `instance-name`
     /// can be provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12960,22 +13188,25 @@ pub struct ListVulnerabilityReportsRequest {
     ///
     /// For `{project}`, either `project-number` or `project-id` can be provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of results to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A pagination token returned from a previous call to
     /// `ListVulnerabilityReports` that indicates where this listing
     /// should continue from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// If provided, this field specifies the criteria that must be met by a
     /// `vulnerabilityReport` API resource to be included in the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13027,11 +13258,13 @@ impl wkt::message::Message for ListVulnerabilityReportsRequest {
 pub struct ListVulnerabilityReportsResponse {
     /// List of vulnerabilityReport objects.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub vulnerability_reports: std::vec::Vec<crate::model::VulnerabilityReport>,
 
     /// The pagination token to retrieve the next page of vulnerabilityReports
     /// object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13091,61 +13324,69 @@ pub struct CVSSv3 {
     /// The base score is a function of the base metric scores.
     /// <https://www.first.org/cvss/specification-document#Base-Metrics>
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub base_score: f32,
 
     /// The Exploitability sub-score equation is derived from the Base
     /// Exploitability metrics.
     /// <https://www.first.org/cvss/specification-document#2-1-Exploitability-Metrics>
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub exploitability_score: f32,
 
     /// The Impact sub-score equation is derived from the Base Impact metrics.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub impact_score: f32,
 
     /// This metric reflects the context by which vulnerability exploitation is
     /// possible.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attack_vector: crate::model::cvs_sv_3::AttackVector,
 
     /// This metric describes the conditions beyond the attacker's control that
     /// must exist in order to exploit the vulnerability.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attack_complexity: crate::model::cvs_sv_3::AttackComplexity,
 
     /// This metric describes the level of privileges an attacker must possess
     /// before successfully exploiting the vulnerability.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub privileges_required: crate::model::cvs_sv_3::PrivilegesRequired,
 
     /// This metric captures the requirement for a human user, other than the
     /// attacker, to participate in the successful compromise of the vulnerable
     /// component.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub user_interaction: crate::model::cvs_sv_3::UserInteraction,
 
     /// The Scope metric captures whether a vulnerability in one vulnerable
     /// component impacts resources in components beyond its security scope.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: crate::model::cvs_sv_3::Scope,
 
     /// This metric measures the impact to the confidentiality of the information
     /// resources managed by a software component due to a successfully exploited
     /// vulnerability.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub confidentiality_impact: crate::model::cvs_sv_3::Impact,
 
     /// This metric measures the impact to integrity of a successfully exploited
     /// vulnerability.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub integrity_impact: crate::model::cvs_sv_3::Impact,
 
     /// This metric measures the impact to the availability of the impacted
     /// component resulting from a successfully exploited vulnerability.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub availability_impact: crate::model::cvs_sv_3::Impact,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

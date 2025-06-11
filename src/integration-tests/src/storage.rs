@@ -47,19 +47,71 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     tracing::info!("testing insert_object()");
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let insert = client
-        .insert_object()
-        .set_bucket(&bucket.name)
-        .set_object("quick.text")
-        .set_payload(CONTENTS)
+        .insert_object(&bucket.name, "quick.text", CONTENTS)
         .send()
         .await?;
     tracing::info!("success with insert={insert:?}");
 
     tracing::info!("testing read_object()");
     let contents = client
-        .read_object()
-        .set_bucket(&bucket.name)
+        .read_object(&bucket.name, &insert.name)
+        .send()
+        .await?;
+    assert_eq!(contents, CONTENTS.as_bytes());
+    tracing::info!("success with contents={contents:?}");
+
+    control
+        .delete_object()
+        .set_bucket(&insert.bucket)
         .set_object(&insert.name)
+        .set_generation(insert.generation)
+        .send()
+        .await?;
+    control
+        .delete_bucket()
+        .set_name(&bucket.name)
+        .send()
+        .await?;
+
+    Ok(())
+}
+
+pub async fn objects_customer_supplied_encryption(
+    builder: storage::client::ClientBuilder,
+) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    // Create a temporary bucket for the test.
+    let (control, bucket) = create_test_bucket().await?;
+
+    let client = builder.build().await?;
+
+    tracing::info!("testing insert_object() with key");
+    const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
+    let key = vec![b'a'; 32];
+    let insert = client
+        .insert_object(&bucket.name, "quick.text", CONTENTS)
+        .with_key(storage::client::KeyAes256::new(&key)?)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+
+    tracing::info!("testing read_object() with key");
+    let contents = client
+        .read_object(&bucket.name, &insert.name)
+        .with_key(storage::client::KeyAes256::new(&key)?)
         .send()
         .await?;
     assert_eq!(contents, CONTENTS.as_bytes());

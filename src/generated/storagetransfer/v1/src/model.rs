@@ -43,6 +43,7 @@ pub struct GetGoogleServiceAccountRequest {
     /// Required. The ID of the Google Cloud project that the Google service
     /// account is associated with.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -119,11 +120,13 @@ impl wkt::message::Message for CreateTransferJobRequest {
 pub struct UpdateTransferJobRequest {
     /// Required. The name of job to update.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_name: std::string::String,
 
     /// Required. The ID of the Google Cloud project that owns the
     /// job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Required. The job to update. `transferJob` is expected to specify one or
@@ -245,11 +248,13 @@ impl wkt::message::Message for UpdateTransferJobRequest {
 pub struct GetTransferJobRequest {
     /// Required. The job to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_name: std::string::String,
 
     /// Required. The ID of the Google Cloud project that owns the
     /// job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -288,11 +293,13 @@ impl wkt::message::Message for GetTransferJobRequest {
 pub struct DeleteTransferJobRequest {
     /// Required. The job to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_name: std::string::String,
 
     /// Required. The ID of the Google Cloud project that owns the
     /// job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -362,15 +369,17 @@ pub struct ListTransferJobsRequest {
     /// [google.storagetransfer.v1.TransferJob.Status.DISABLED]: crate::model::transfer_job::Status::Disabled
     /// [google.storagetransfer.v1.TransferJob.Status.ENABLED]: crate::model::transfer_job::Status::Enabled
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The list page size. The max allowed value is 256.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The list page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -415,10 +424,12 @@ impl wkt::message::Message for ListTransferJobsRequest {
 pub struct ListTransferJobsResponse {
     /// A list of transfer jobs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transfer_jobs: std::vec::Vec<crate::model::TransferJob>,
 
     /// The list next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -476,6 +487,7 @@ impl gax::paginator::internal::PageableResponse for ListTransferJobsResponse {
 pub struct PauseTransferOperationRequest {
     /// Required. The name of the transfer operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -508,6 +520,7 @@ impl wkt::message::Message for PauseTransferOperationRequest {
 pub struct ResumeTransferOperationRequest {
     /// Required. The name of the transfer operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -540,11 +553,13 @@ impl wkt::message::Message for ResumeTransferOperationRequest {
 pub struct RunTransferJobRequest {
     /// Required. The name of the transfer job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_name: std::string::String,
 
     /// Required. The ID of the Google Cloud project that owns the transfer
     /// job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -584,6 +599,7 @@ pub struct CreateAgentPoolRequest {
     /// Required. The ID of the Google Cloud project that owns the
     /// agent pool.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Required. The agent pool to create.
@@ -604,6 +620,7 @@ pub struct CreateAgentPoolRequest {
     /// As expressed by the regular expression:
     /// `^(?!goog)[a-z]([a-z0-9-._~]*[a-z0-9])?$`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub agent_pool_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -752,6 +769,7 @@ impl wkt::message::Message for UpdateAgentPoolRequest {
 pub struct GetAgentPoolRequest {
     /// Required. The name of the agent pool to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -784,6 +802,7 @@ impl wkt::message::Message for GetAgentPoolRequest {
 pub struct DeleteAgentPoolRequest {
     /// Required. The name of the agent pool to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -816,6 +835,7 @@ impl wkt::message::Message for DeleteAgentPoolRequest {
 pub struct ListAgentPoolsRequest {
     /// Required. The ID of the Google Cloud project that owns the job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// An optional list of query parameters specified as JSON text in the
@@ -827,15 +847,17 @@ pub struct ListAgentPoolsRequest {
     /// specified with array notation. When the filter is either empty or not
     /// provided, the list returns all agent pools for the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The list page size. The max allowed value is `256`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The list page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -886,10 +908,12 @@ impl wkt::message::Message for ListAgentPoolsRequest {
 pub struct ListAgentPoolsResponse {
     /// A list of agent pools.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub agent_pools: std::vec::Vec<crate::model::AgentPool>,
 
     /// The list next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -947,10 +971,12 @@ impl gax::paginator::internal::PageableResponse for ListAgentPoolsResponse {
 pub struct GoogleServiceAccount {
     /// Email address of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub account_email: std::string::String,
 
     /// Unique identifier for the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub subject_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -994,11 +1020,13 @@ impl wkt::message::Message for GoogleServiceAccount {
 pub struct AwsAccessKey {
     /// Required. AWS access key ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub access_key_id: std::string::String,
 
     /// Required. AWS secret access key. This field is not returned in RPC
     /// responses.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secret_access_key: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1048,6 +1076,7 @@ pub struct AzureCredentials {
     /// signatures
     /// (SAS)](https://docs.microsoft.com/en-us/azure/storage/common/storage-sas-overview).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sas_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1152,6 +1181,7 @@ pub struct ObjectConditions {
     ///
     /// [google.storagetransfer.v1.ObjectConditions.exclude_prefixes]: crate::model::ObjectConditions::exclude_prefixes
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub include_prefixes: std::vec::Vec<std::string::String>,
 
     /// If you specify `exclude_prefixes`, Storage Transfer Service uses the items
@@ -1189,6 +1219,7 @@ pub struct ObjectConditions {
     ///
     /// [google.storagetransfer.v1.ObjectConditions.include_prefixes]: crate::model::ObjectConditions::include_prefixes
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub exclude_prefixes: std::vec::Vec<std::string::String>,
 
     /// If specified, only objects with a "last modification time" on or after
@@ -1341,6 +1372,7 @@ pub struct GcsData {
     /// Required. Cloud Storage bucket name. Must meet
     /// [Bucket Name Requirements](/storage/docs/naming#requirements).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket_name: std::string::String,
 
     /// Root path to transfer objects.
@@ -1352,6 +1384,7 @@ pub struct GcsData {
     /// The root path value must meet
     /// [Object Name Requirements](/storage/docs/naming#objectnames).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path: std::string::String,
 
     /// Preview. Enables the transfer of managed folders between Cloud Storage
@@ -1368,6 +1401,7 @@ pub struct GcsData {
     /// [Transfer Cloud Storage managed
     /// folders](/storage-transfer/docs/managed-folders).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub managed_folder_transfer_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1418,6 +1452,7 @@ pub struct AwsS3Data {
     /// [Creating a
     /// bucket](https://docs.aws.amazon.com/AmazonS3/latest/dev/create-bucket-get-location-example.html)).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket_name: std::string::String,
 
     /// Input only. AWS access key used to sign the API requests to the AWS S3
@@ -1435,6 +1470,7 @@ pub struct AwsS3Data {
     /// is treated as an object prefix. As such, it should generally not begin with
     /// a '/'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path: std::string::String,
 
     /// The Amazon Resource Name (ARN) of the role to support temporary
@@ -1450,6 +1486,7 @@ pub struct AwsS3Data {
     ///
     /// [google.storagetransfer.v1.GoogleServiceAccount]: crate::model::GoogleServiceAccount
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub role_arn: std::string::String,
 
     /// Optional. The CloudFront distribution domain name pointing to this bucket,
@@ -1463,6 +1500,7 @@ pub struct AwsS3Data {
     /// Format: `https://{id}.cloudfront.net` or any valid custom domain. Must
     /// begin with `https://`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cloudfront_domain: std::string::String,
 
     /// Optional. The Resource name of a secret in Secret Manager.
@@ -1491,6 +1529,7 @@ pub struct AwsS3Data {
     /// [google.storagetransfer.v1.AwsS3Data.role_arn]: crate::model::AwsS3Data::role_arn
     /// [google.storagetransfer.v1.GoogleServiceAccount]: crate::model::GoogleServiceAccount
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub credentials_secret: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -1617,7 +1656,7 @@ pub mod aws_s_3_data {
     pub enum PrivateNetwork {
         /// Egress bytes over a Google-managed private network.
         /// This network is shared between other users of Storage Transfer Service.
-        ManagedPrivateNetwork(bool),
+        ManagedPrivateNetwork(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
     }
 }
 
@@ -1635,6 +1674,7 @@ pub mod aws_s_3_data {
 pub struct AzureBlobStorageData {
     /// Required. The name of the Azure Storage account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub storage_account: std::string::String,
 
     /// Required. Input only. Credentials used to authenticate API requests to
@@ -1647,6 +1687,7 @@ pub struct AzureBlobStorageData {
 
     /// Required. The container to transfer from the Azure Storage account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub container: std::string::String,
 
     /// Root path to transfer objects.
@@ -1655,6 +1696,7 @@ pub struct AzureBlobStorageData {
     /// is treated as an object prefix. As such, it should generally not begin with
     /// a '/'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path: std::string::String,
 
     /// Optional. The Resource name of a secret in Secret Manager.
@@ -1680,6 +1722,7 @@ pub struct AzureBlobStorageData {
     /// [google.storagetransfer.v1.AzureBlobStorageData.azure_credentials]: crate::model::AzureBlobStorageData::azure_credentials
     /// [google.storagetransfer.v1.GoogleServiceAccount]: crate::model::GoogleServiceAccount
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub credentials_secret: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1796,6 +1839,7 @@ pub struct HttpData {
     /// entries. This file must allow public access.  Currently, only URLs with
     /// HTTP and HTTPS schemes are supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub list_url: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1828,6 +1872,7 @@ impl wkt::message::Message for HttpData {
 pub struct PosixFilesystem {
     /// Root directory path to the filesystem.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub root_directory: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1863,6 +1908,7 @@ impl wkt::message::Message for PosixFilesystem {
 pub struct HdfsData {
     /// Root path to transfer files.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1895,6 +1941,7 @@ impl wkt::message::Message for HdfsData {
 pub struct AwsS3CompatibleData {
     /// Required. Specifies the name of the bucket.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket_name: std::string::String,
 
     /// Specifies the root path to transfer objects.
@@ -1903,15 +1950,18 @@ pub struct AwsS3CompatibleData {
     /// field is treated as an object prefix. As such, it should generally not
     /// begin with a '/'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path: std::string::String,
 
     /// Required. Specifies the endpoint of the storage service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub endpoint: std::string::String,
 
     /// Specifies the region to sign requests with. This can be left blank if
     /// requests should be signed with an empty region.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub region: std::string::String,
 
     /// Specifies the metadata of the S3 compatible data provider. Each provider
@@ -2037,22 +2087,26 @@ pub struct S3CompatibleMetadata {
     /// service. When not specified, Transfer Service will attempt to determine
     /// right auth method to use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub auth_method: crate::model::s_3_compatible_metadata::AuthMethod,
 
     /// Specifies the API request model used to call the storage service. When not
     /// specified, the default value of RequestModel
     /// REQUEST_MODEL_VIRTUAL_HOSTED_STYLE is used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_model: crate::model::s_3_compatible_metadata::RequestModel,
 
     /// Specifies the network protocol of the agent. When not specified, the
     /// default value of NetworkProtocol NETWORK_PROTOCOL_HTTPS is used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protocol: crate::model::s_3_compatible_metadata::NetworkProtocol,
 
     /// The Listing API to use for discovering objects. When not specified,
     /// Transfer Service will attempt to determine the right API to use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub list_api: crate::model::s_3_compatible_metadata::ListApi,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2663,14 +2717,17 @@ pub struct AgentPool {
     ///
     /// Format: `projects/{project_id}/agentPools/{agent_pool_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Specifies the client-specified AgentPool description.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. Specifies the state of the AgentPool.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::agent_pool::State,
 
     /// Specifies the bandwidth limit details. If this field is unspecified, the
@@ -2747,7 +2804,7 @@ pub mod agent_pool {
         /// Bandwidth rate in megabytes per second, distributed across all the agents
         /// in the pool.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub limit_mbps: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2926,6 +2983,7 @@ pub struct TransferOptions {
     /// true, all objects in the sink whose name matches an object in the source
     /// are overwritten with the source object.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub overwrite_objects_already_existing_in_sink: bool,
 
     /// Whether objects that exist only in the sink should be deleted.
@@ -2936,6 +2994,7 @@ pub struct TransferOptions {
     ///
     /// [google.storagetransfer.v1.TransferOptions.delete_objects_from_source_after_transfer]: crate::model::TransferOptions::delete_objects_from_source_after_transfer
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub delete_objects_unique_in_sink: bool,
 
     /// Whether objects should be deleted from the source after they are
@@ -2947,6 +3006,7 @@ pub struct TransferOptions {
     ///
     /// [google.storagetransfer.v1.TransferOptions.delete_objects_unique_in_sink]: crate::model::TransferOptions::delete_objects_unique_in_sink
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub delete_objects_from_source_after_transfer: bool,
 
     /// When to overwrite objects that already exist in the sink. If not set,
@@ -2955,6 +3015,7 @@ pub struct TransferOptions {
     ///
     /// [google.storagetransfer.v1.TransferOptions.overwrite_objects_already_existing_in_sink]: crate::model::TransferOptions::overwrite_objects_already_existing_in_sink
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub overwrite_when: crate::model::transfer_options::OverwriteWhen,
 
     /// Represents the selected metadata options for a transfer job.
@@ -3211,11 +3272,13 @@ pub struct TransferSpec {
     /// Specifies the agent pool name associated with the posix data source. When
     /// unspecified, the default name is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_agent_pool_name: std::string::String,
 
     /// Specifies the agent pool name associated with the posix data sink. When
     /// unspecified, the default name is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sink_agent_pool_name: std::string::String,
 
     /// The write sink for the data.
@@ -3923,30 +3986,35 @@ pub struct MetadataOptions {
     /// symlinks are not preserved. Only applicable to transfers involving
     /// POSIX file systems, and ignored for other transfers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub symlink: crate::model::metadata_options::Symlink,
 
     /// Specifies how each file's mode attribute should be handled by the transfer.
     /// By default, mode is not preserved. Only applicable to transfers involving
     /// POSIX file systems, and ignored for other transfers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mode: crate::model::metadata_options::Mode,
 
     /// Specifies how each file's POSIX group ID (GID) attribute should be handled
     /// by the transfer. By default, GID is not preserved. Only applicable to
     /// transfers involving POSIX file systems, and ignored for other transfers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gid: crate::model::metadata_options::Gid,
 
     /// Specifies how each file's POSIX user ID (UID) attribute should be handled
     /// by the transfer. By default, UID is not preserved. Only applicable to
     /// transfers involving POSIX file systems, and ignored for other transfers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: crate::model::metadata_options::Uid,
 
     /// Specifies how each object's ACLs should be preserved for transfers between
     /// Google Cloud Storage buckets. If unspecified, the default behavior is the
     /// same as ACL_DESTINATION_BUCKET_DEFAULT.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub acl: crate::model::metadata_options::Acl,
 
     /// Specifies the storage class to set on objects being transferred to Google
@@ -3955,6 +4023,7 @@ pub struct MetadataOptions {
     ///
     /// [google.storagetransfer.v1.MetadataOptions.StorageClass.STORAGE_CLASS_DESTINATION_BUCKET_DEFAULT]: crate::model::metadata_options::StorageClass::DestinationBucketDefault
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub storage_class: crate::model::metadata_options::StorageClass,
 
     /// Specifies how each object's temporary hold status should be preserved for
@@ -3964,6 +4033,7 @@ pub struct MetadataOptions {
     ///
     /// [google.storagetransfer.v1.MetadataOptions.TemporaryHold.TEMPORARY_HOLD_PRESERVE]: crate::model::metadata_options::TemporaryHold::Preserve
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub temporary_hold: crate::model::metadata_options::TemporaryHold,
 
     /// Specifies how each object's Cloud KMS customer-managed encryption key
@@ -3973,6 +4043,7 @@ pub struct MetadataOptions {
     ///
     /// [google.storagetransfer.v1.MetadataOptions.KmsKey.KMS_KEY_DESTINATION_BUCKET_DEFAULT]: crate::model::metadata_options::KmsKey::DestinationBucketDefault
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key: crate::model::metadata_options::KmsKey,
 
     /// Specifies how each object's `timeCreated` metadata is preserved for
@@ -3983,6 +4054,7 @@ pub struct MetadataOptions {
     ///
     /// [google.storagetransfer.v1.MetadataOptions.TimeCreated.TIME_CREATED_SKIP]: crate::model::metadata_options::TimeCreated::Skip
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub time_created: crate::model::metadata_options::TimeCreated,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5340,6 +5412,7 @@ pub struct TransferManifest {
     /// permission for this object. An example path is
     /// `gs://bucket_name/path/manifest.csv`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5577,6 +5650,7 @@ pub struct EventStream {
     /// or Pub/Sub subscription resource name in the form
     /// 'projects/{project}/subscriptions/{sub}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Specifies the date and time that Storage Transfer Service starts
@@ -5686,15 +5760,18 @@ pub struct TransferJob {
     /// [google.rpc.Code.ALREADY_EXISTS]: rpc::model::Code::AlreadyExists
     /// [google.rpc.Code.INVALID_ARGUMENT]: rpc::model::Code::InvalidArgument
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// A description provided by the user for the job. Its max length is 1024
     /// bytes when Unicode-encoded.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// The ID of the Google Cloud project that owns the job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Transfer specification.
@@ -5738,6 +5815,7 @@ pub struct TransferJob {
     /// [google.storagetransfer.v1.TransferJob.Status.DISABLED]: crate::model::transfer_job::Status::Disabled
     /// [google.storagetransfer.v1.TransferJob.Status.ENABLED]: crate::model::transfer_job::Status::Enabled
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status: crate::model::transfer_job::Status,
 
     /// Output only. The time that the transfer job was created.
@@ -5755,6 +5833,7 @@ pub struct TransferJob {
     /// The name of the most recently started TransferOperation of this JobConfig.
     /// Present if a TransferOperation has been created for this JobConfig.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub latest_operation_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6128,10 +6207,12 @@ pub struct ErrorLogEntry {
     /// Required. A URL that refers to the target (a data source, a data sink,
     /// or an object) with which the error is associated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub url: std::string::String,
 
     /// A list of messages that carry the error details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub error_details: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6176,11 +6257,12 @@ impl wkt::message::Message for ErrorLogEntry {
 pub struct ErrorSummary {
     /// Required.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_code: rpc::model::Code,
 
     /// Required. Count of this type of error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub error_count: i64,
 
     /// Error samples.
@@ -6188,6 +6270,7 @@ pub struct ErrorSummary {
     /// At most 5 error log entries are recorded for a given
     /// error code for a single transfer operation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub error_log_entries: std::vec::Vec<crate::model::ErrorLogEntry>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6239,88 +6322,88 @@ pub struct TransferCounters {
     /// excluding any that are filtered based on object conditions or skipped due
     /// to sync.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub objects_found_from_source: i64,
 
     /// Bytes found in the data source that are scheduled to be transferred,
     /// excluding any that are filtered based on object conditions or skipped due
     /// to sync.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub bytes_found_from_source: i64,
 
     /// Objects found only in the data sink that are scheduled to be deleted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub objects_found_only_from_sink: i64,
 
     /// Bytes found only in the data sink that are scheduled to be deleted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub bytes_found_only_from_sink: i64,
 
     /// Objects in the data source that are not transferred because they already
     /// exist in the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub objects_from_source_skipped_by_sync: i64,
 
     /// Bytes in the data source that are not transferred because they already
     /// exist in the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub bytes_from_source_skipped_by_sync: i64,
 
     /// Objects that are copied to the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub objects_copied_to_sink: i64,
 
     /// Bytes that are copied to the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub bytes_copied_to_sink: i64,
 
     /// Objects that are deleted from the data source.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub objects_deleted_from_source: i64,
 
     /// Bytes that are deleted from the data source.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub bytes_deleted_from_source: i64,
 
     /// Objects that are deleted from the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub objects_deleted_from_sink: i64,
 
     /// Bytes that are deleted from the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub bytes_deleted_from_sink: i64,
 
     /// Objects in the data source that failed to be transferred or that failed
     /// to be deleted after being transferred.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub objects_from_source_failed: i64,
 
     /// Bytes in the data source that failed to be transferred or that failed to
     /// be deleted after being transferred.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub bytes_from_source_failed: i64,
 
     /// Objects that failed to be deleted from the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub objects_failed_to_delete_from_sink: i64,
 
     /// Bytes that failed to be deleted from the data sink.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub bytes_failed_to_delete_from_sink: i64,
 
     /// For transfers involving PosixFilesystem only.
@@ -6330,7 +6413,7 @@ pub struct TransferCounters {
     /// `a/` and `b/` under this directory, the count after listing `base/`,
     /// `base/a/` and `base/b/` is 3.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub directories_found_from_source: i64,
 
     /// For transfers involving PosixFilesystem only.
@@ -6340,24 +6423,24 @@ pub struct TransferCounters {
     /// block failure. If listing a directory fails, no files in the directory are
     /// transferred.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub directories_failed_to_list_from_source: i64,
 
     /// For transfers involving PosixFilesystem only.
     ///
     /// Number of successful listings for each directory found at the source.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub directories_successfully_listed_from_source: i64,
 
     /// Number of successfully cleaned up intermediate objects.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub intermediate_objects_cleaned_up: i64,
 
     /// Number of intermediate objects failed cleaned up.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub intermediate_objects_failed_cleaned_up: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6564,15 +6647,18 @@ pub struct NotificationConfig {
     ///
     /// [google.rpc.Code.INVALID_ARGUMENT]: rpc::model::Code::InvalidArgument
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pubsub_topic: std::string::String,
 
     /// Event types for which a notification is desired. If empty, send
     /// notifications for all event types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub event_types: std::vec::Vec<crate::model::notification_config::EventType>,
 
     /// Required. The desired format of the notification message payloads.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub payload_format: crate::model::notification_config::PayloadFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6931,10 +7017,12 @@ pub mod notification_config {
 pub struct LoggingConfig {
     /// Specifies the actions to be logged. If empty, no logs are generated.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub log_actions: std::vec::Vec<crate::model::logging_config::LoggableAction>,
 
     /// States in which `log_actions` are logged. If empty, no logs are generated.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub log_action_states: std::vec::Vec<crate::model::logging_config::LoggableActionState>,
 
     /// For PosixFilesystem transfers, enables
@@ -6945,6 +7033,7 @@ pub struct LoggingConfig {
     /// This option ignores [LoggableAction] and [LoggableActionState]. If these
     /// are set, Cloud Logging will also be enabled for this transfer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_onprem_gcs_transfer_logs: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7281,10 +7370,12 @@ pub mod logging_config {
 pub struct TransferOperation {
     /// A globally unique ID assigned by the system.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The ID of the Google Cloud project that owns the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Transfer specification.
@@ -7309,6 +7400,7 @@ pub struct TransferOperation {
 
     /// Status of the transfer operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status: crate::model::transfer_operation::Status,
 
     /// Information about the progress of the transfer operation.
@@ -7317,10 +7409,12 @@ pub struct TransferOperation {
 
     /// Summarizes errors encountered with sample error log entries.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub error_breakdowns: std::vec::Vec<crate::model::ErrorSummary>,
 
     /// The name of the transfer job that triggers this transfer operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub transfer_job_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -42,6 +42,7 @@ pub struct Operation {
     /// originally returns it. If you use the default HTTP mapping, the
     /// `name` should be a resource name ending with `operations/{unique_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Service-specific metadata associated with the operation.  It typically
@@ -55,6 +56,7 @@ pub struct Operation {
     /// If `true`, the operation is completed, and either `error` or `response` is
     /// available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub done: bool,
 
     /// The operation result, which can be either an `error` or a valid `response`.
@@ -209,6 +211,7 @@ pub mod operation {
 pub struct GetOperationRequest {
     /// The name of the operation resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -244,19 +247,22 @@ impl wkt::message::Message for GetOperationRequest {
 pub struct ListOperationsRequest {
     /// The name of the operation's parent resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The standard list filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The standard list page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The standard list page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -310,10 +316,12 @@ impl wkt::message::Message for ListOperationsRequest {
 pub struct ListOperationsResponse {
     /// A list of operations that matches the specified filter in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub operations: std::vec::Vec<crate::model::Operation>,
 
     /// The standard List next-page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -374,6 +382,7 @@ impl gax::paginator::internal::PageableResponse for ListOperationsResponse {
 pub struct CancelOperationRequest {
     /// The name of the operation resource to be cancelled.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -409,6 +418,7 @@ impl wkt::message::Message for CancelOperationRequest {
 pub struct DeleteOperationRequest {
     /// The name of the operation resource to be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -442,6 +452,7 @@ impl wkt::message::Message for DeleteOperationRequest {
 pub struct WaitOperationRequest {
     /// The name of the operation resource to wait on.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The maximum duration to wait before timing out. If left blank, the wait
@@ -516,6 +527,7 @@ pub struct OperationInfo {
     ///
     /// Note: Altering this value constitutes a breaking change.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_type: std::string::String,
 
     /// Required. The message name of the metadata type for this long-running
@@ -526,6 +538,7 @@ pub struct OperationInfo {
     ///
     /// Note: Altering this value constitutes a breaking change.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metadata_type: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

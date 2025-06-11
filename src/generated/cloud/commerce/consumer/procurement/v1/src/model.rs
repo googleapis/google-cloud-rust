@@ -238,6 +238,7 @@ pub struct LicensePool {
     /// Identifier. Format:
     /// `billingAccounts/{billing_account}/orders/{order}/licensePool`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Assignment protocol for the license pool.
@@ -246,12 +247,12 @@ pub struct LicensePool {
 
     /// Output only. Licenses count that are available to be assigned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub available_license_count: i32,
 
     /// Output only. Total number of licenses in the pool.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_license_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -315,6 +316,7 @@ pub struct GetLicensePoolRequest {
     /// Required. The name of the license pool to get.
     /// Format: `billingAccounts/{billing_account}/orders/{order}/licensePool`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -420,11 +422,13 @@ impl wkt::message::Message for UpdateLicensePoolRequest {
 pub struct AssignRequest {
     /// Required. License pool name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Username.
     /// Format: `name@domain.com`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub usernames: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -496,11 +500,13 @@ impl wkt::message::Message for AssignResponse {
 pub struct UnassignRequest {
     /// Required. License pool name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Username.
     /// Format: `name@domain.com`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub usernames: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -572,17 +578,19 @@ impl wkt::message::Message for UnassignResponse {
 pub struct EnumerateLicensedUsersRequest {
     /// Required. License pool name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of users to return. The service may return
     /// fewer than this value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `EnumerateLicensedUsers`
     /// call. Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -628,6 +636,7 @@ pub struct LicensedUser {
     /// Username.
     /// Format: `name@domain.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub username: std::string::String,
 
     /// Output only. Timestamp when the license was assigned.
@@ -709,11 +718,13 @@ impl wkt::message::Message for LicensedUser {
 pub struct EnumerateLicensedUsersResponse {
     /// The list of licensed users.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub licensed_users: std::vec::Vec<crate::model::LicensedUser>,
 
     /// A token that can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -782,18 +793,22 @@ pub struct Order {
     /// Has the form
     /// `billingAccounts/{billing_account}/orders/{order}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The user-specified name of the order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. The items being purchased.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub line_items: std::vec::Vec<crate::model::LineItem>,
 
     /// Output only. Line items that were cancelled.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub cancelled_line_items: std::vec::Vec<crate::model::LineItem>,
 
     /// Output only. The creation timestamp.
@@ -806,6 +821,7 @@ pub struct Order {
 
     /// The weak etag of the order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -908,6 +924,7 @@ impl wkt::message::Message for Order {
 pub struct LineItem {
     /// Output only. Line item ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub line_item_id: std::string::String,
 
     /// Output only. Current state and information of this item. It tells what,
@@ -926,6 +943,7 @@ pub struct LineItem {
     /// or were rejected by the partner. No more operations are allowed on these
     /// changes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub change_history: std::vec::Vec<crate::model::LineItemChange>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1006,10 +1024,12 @@ pub struct LineItemChange {
     /// Output only. Change ID.
     /// All changes made within one order update operation have the same change_id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub change_id: std::string::String,
 
     /// Required. Type of the change to make.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub change_type: crate::model::LineItemChangeType,
 
     /// Output only. Line item info before the change.
@@ -1022,6 +1042,7 @@ pub struct LineItemChange {
 
     /// Output only. State of the change.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub change_state: crate::model::LineItemChangeState,
 
     /// Output only. Provider-supplied message explaining the LineItemChange's
@@ -1029,6 +1050,7 @@ pub struct LineItemChange {
     /// case of `PENDING_APPROVAL`, and to explain why the change request was
     /// denied or canceled in the case of `REJECTED` and `CANCELED` states.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_reason: std::string::String,
 
     /// Output only. Predefined enum types for why this line item change is in
@@ -1037,6 +1059,7 @@ pub struct LineItemChange {
     /// immediate cancellation initiated by the user, or system-initiated
     /// cancellation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub change_state_reason_type: crate::model::LineItemChangeStateReasonType,
 
     /// Output only. A time at which the change became or will become (in case of
@@ -1210,10 +1233,12 @@ pub struct LineItemInfo {
     /// 'billingAccounts/{billing_account}/offers/{offer}',
     /// or 'services/{service}/standardOffers/{offer}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub offer: std::string::String,
 
     /// Optional. User-provided parameters.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub parameters: std::vec::Vec<crate::model::Parameter>,
 
     /// Output only. Information about the subscription created, if applicable.
@@ -1279,6 +1304,7 @@ impl wkt::message::Message for LineItemInfo {
 pub struct Parameter {
     /// Name of the parameter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Value of parameter.
@@ -1457,11 +1483,11 @@ pub mod parameter {
         #[non_exhaustive]
         pub enum Kind {
             /// Represents an int64 value.
-            Int64Value(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+            Int64Value(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")] i64),
             /// Represents a string value.
-            StringValue(std::string::String),
+            StringValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// Represents a double value.
-            DoubleValue(#[serde_as(as = "wkt::internal::F64")] f64),
+            DoubleValue(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")] f64),
         }
     }
 }
@@ -1484,6 +1510,7 @@ pub struct Subscription {
     /// This field indicates order/subscription status after pending plan change is
     /// cancelled or rejected.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub auto_renewal_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1556,15 +1583,18 @@ pub struct PlaceOrderRequest {
     /// Required. The resource name of the parent resource.
     /// This field has the form  `billingAccounts/{billing-account-id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The user-specified name of the order being placed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. Places order for offer. Required when an offer-based order is
     /// being placed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub line_item_info: std::vec::Vec<crate::model::LineItemInfo>,
 
     /// Optional. A unique identifier for this request.
@@ -1574,6 +1604,7 @@ pub struct PlaceOrderRequest {
     /// The request ID must be a valid
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1657,6 +1688,7 @@ impl wkt::message::Message for PlaceOrderMetadata {
 pub struct GetOrderRequest {
     /// Required. The name of the order to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1693,16 +1725,18 @@ pub struct ListOrdersRequest {
     /// Required. The parent resource to query for orders.
     /// This field has the form `billingAccounts/{billing-account-id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of entries requested.
     /// The default page size is 25 and the maximum page size is 200.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The token for fetching the next page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter that you can use to limit the list request.
@@ -1722,6 +1756,7 @@ pub struct ListOrdersRequest {
     /// You can also group them to force a desired evaluation order.
     /// For example, `display_name=abc OR display_name=def`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1775,10 +1810,12 @@ impl wkt::message::Message for ListOrdersRequest {
 pub struct ListOrdersResponse {
     /// The list of orders in this response.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub orders: std::vec::Vec<crate::model::Order>,
 
     /// The token for fetching the next page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1839,23 +1876,27 @@ impl gax::paginator::internal::PageableResponse for ListOrdersResponse {
 pub struct ModifyOrderRequest {
     /// Required. Name of the order to update.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Modifications for an existing Order created by an Offer.
     /// Required when Offer based Order is being modified, except for when going
     /// from an offer to a public plan.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub modifications: std::vec::Vec<crate::model::modify_order_request::Modification>,
 
     /// Optional. Updated display name of the order, leave as empty if you do not
     /// want to update current display name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. The weak etag, which can be optionally populated, of the order
     /// that this modify request is based on. Validation checking will only happen
     /// if the invoker supplies this field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1919,10 +1960,12 @@ pub mod modify_order_request {
         /// [LineItemChangeType.LINE_ITEM_CHANGE_TYPE_UPDATE] or
         /// [LineItemChangeType.LINE_ITEM_CHANGE_TYPE_CANCEL].
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub line_item_id: std::string::String,
 
         /// Required. Type of change to make.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub change_type: crate::model::LineItemChangeType,
 
         /// Optional. The line item to update to.
@@ -1937,6 +1980,7 @@ pub mod modify_order_request {
         /// [LineItemChangeType.LINE_ITEM_CHANGE_TYPE_UPDATE]. Follows plan default
         /// config when this field is not specified.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub auto_renewal_behavior: crate::model::AutoRenewalBehavior,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2039,16 +2083,19 @@ impl wkt::message::Message for ModifyOrderMetadata {
 pub struct CancelOrderRequest {
     /// Required. The resource name of the order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The weak etag, which can be optionally populated, of the order
     /// that this cancel request is based on. Validation checking will only happen
     /// if the invoker supplies this field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. Cancellation policy of this request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cancellation_policy: crate::model::cancel_order_request::CancellationPolicy,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

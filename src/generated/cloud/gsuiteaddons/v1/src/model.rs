@@ -48,6 +48,7 @@ pub struct GetAuthorizationRequest {
     ///
     /// Example: `projects/my_project/authorization`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -81,16 +82,19 @@ pub struct Authorization {
     /// The canonical full name of this resource.
     /// Example:  `projects/123/authorization`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The email address of the service account used to authenticate requests to
     /// add-on callback endpoints.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_email: std::string::String,
 
     /// The OAuth client ID used to obtain OAuth access tokens for a user on the
     /// add-on's behalf.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub oauth_client_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -140,11 +144,13 @@ pub struct CreateDeploymentRequest {
     ///
     /// Example: `projects/my_project`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The id to use for this deployment.  The full name of the created
     /// resource will be `projects/<project_number>/deployments/<deployment_id>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deployment_id: std::string::String,
 
     /// Required. The deployment to create (deployment.name cannot be set).
@@ -251,6 +257,7 @@ pub struct GetDeploymentRequest {
     ///
     /// Example:  `projects/my_project/deployments/my_deployment`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -285,6 +292,7 @@ pub struct ListDeploymentsRequest {
     ///
     /// Example: `projects/my_project`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of deployments to return. The service may return fewer
@@ -292,7 +300,7 @@ pub struct ListDeploymentsRequest {
     /// If unspecified, at most 1000 deployments will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListDeployments` call.
@@ -301,6 +309,7 @@ pub struct ListDeploymentsRequest {
     /// When paginating, all other parameters provided to `ListDeployments` must
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -345,11 +354,13 @@ impl wkt::message::Message for ListDeploymentsRequest {
 pub struct ListDeploymentsResponse {
     /// The list of deployments for the given project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub deployments: std::vec::Vec<crate::model::Deployment>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -409,11 +420,13 @@ pub struct DeleteDeploymentRequest {
     ///
     /// Example:  `projects/my_project/deployments/my_deployment`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The etag of the deployment to delete.
     /// If this is provided, it must match the server's etag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -454,6 +467,7 @@ pub struct InstallDeploymentRequest {
     ///
     /// Example:  `projects/my_project/deployments/my_deployment`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -488,6 +502,7 @@ pub struct UninstallDeploymentRequest {
     ///
     /// Example:  `projects/my_project/deployments/my_deployment`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -522,6 +537,7 @@ pub struct GetInstallStatusRequest {
     ///
     /// Example:  `projects/my_project/deployments/my_deployment/installStatus`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -556,6 +572,7 @@ pub struct InstallStatus {
     ///
     /// Example:  `projects/123/deployments/my_deployment/installStatus`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// True if the deployment is installed for the user
@@ -611,11 +628,13 @@ pub struct Deployment {
     /// The deployment resource name.
     /// Example:  projects/123/deployments/my_deployment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The list of Google OAuth scopes for which to request consent from the end
     /// user before executing an add-on endpoint.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub oauth_scopes: std::vec::Vec<std::string::String>,
 
     /// The Google Workspace add-on configuration.
@@ -626,6 +645,7 @@ pub struct Deployment {
     /// deployment in storage, and may be sent on update and delete requests to
     /// ensure the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

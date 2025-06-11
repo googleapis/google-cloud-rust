@@ -48,9 +48,11 @@ serde_json.workspace = true
 serde_with.workspace = true
 thiserror.workspace  = true
 time                 = { workspace = true, features = ["formatting", "parsing"] }
+url.workspace        = true
 
 [dev-dependencies]
 anyhow.workspace    = true
 test-case.workspace = true
 time                = { workspace = true, features = ["formatting", "macros", "parsing"] }
 wkt                 = { path = ".", package = "google-cloud-wkt", features = ["chrono", "time"] }
+common              = { path = "tests/common" }

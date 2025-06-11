@@ -32,6 +32,7 @@ extern crate wkt;
 pub struct AddOnWidgetSet {
     /// The list of widgets used in an add-on.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub used_widgets: std::vec::Vec<crate::model::add_on_widget_set::WidgetType>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -246,17 +247,20 @@ pub struct MenuItemExtensionPoint {
     /// Required. The endpoint to execute when this extension point is
     /// activated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub run_function: std::string::String,
 
     /// Required. User-visible text describing the action taken by activating this
     /// extension point. For example, "Insert invoice".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label: std::string::String,
 
     /// The URL for the logo image shown in the add-on toolbar.
     ///
     /// If not set, defaults to the add-on's primary logo URL.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub logo_url: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -302,6 +306,7 @@ pub struct HomepageExtensionPoint {
     /// Required. The endpoint to execute when this extension point is
     /// activated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub run_function: std::string::String,
 
     /// Optional. If set to `false`, disable the home-page view in this context.
@@ -362,6 +367,7 @@ pub struct UniversalActionExtensionPoint {
     /// Required. User-visible text describing the action taken by activating this
     /// extension point, for example, "Add a new contact".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label: std::string::String,
 
     /// Required. The action type supported on a universal action menu item. It
@@ -471,9 +477,9 @@ pub mod universal_action_extension_point {
     #[non_exhaustive]
     pub enum ActionType {
         /// URL to be opened by the UniversalAction.
-        OpenLink(std::string::String),
+        OpenLink(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Endpoint to be run by the UniversalAction.
-        RunFunction(std::string::String),
+        RunFunction(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -485,10 +491,12 @@ pub mod universal_action_extension_point {
 pub struct CommonAddOnManifest {
     /// Required. The display name of the add-on.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The URL for the logo image shown in the add-on toolbar.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub logo_url: std::string::String,
 
     /// Common layout properties for the add-on cards.
@@ -502,6 +510,7 @@ pub struct CommonAddOnManifest {
 
     /// Whether to pass locale information from host app.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub use_locale_from_app: bool,
 
     /// Defines an endpoint that will be executed in any context, in
@@ -516,6 +525,7 @@ pub struct CommonAddOnManifest {
     /// link URL to open or an endpoint to execute as a form
     /// submission.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub universal_actions: std::vec::Vec<crate::model::UniversalActionExtensionPoint>,
 
     /// An OpenLink action
@@ -655,6 +665,7 @@ pub struct LayoutProperties {
     /// primary color is set explicitly, the default value provided by the
     /// framework is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub primary_color: std::string::String,
 
     /// The secondary color of the add-on. It sets the color of buttons.
@@ -663,6 +674,7 @@ pub struct LayoutProperties {
     /// color nor secondary color is set, the default value provided by the
     /// framework is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secondary_color: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -701,6 +713,7 @@ impl wkt::message::Message for LayoutProperties {
 pub struct HttpOptions {
     /// Configuration for the token sent in the HTTP Authorization header
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub authorization_header: crate::model::HttpAuthorizationHeader,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

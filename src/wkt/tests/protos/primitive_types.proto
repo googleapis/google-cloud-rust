@@ -57,6 +57,22 @@ message MessageWithI32 {
     map<int32, int32> map_key_value = 6;
 }
 
+// A test message for u32.
+message MessageWithU32 {
+    // A singular field.
+    uint32 singular = 1;
+    // An optional field.
+    optional uint32 optional = 2;
+    // A repeated field.
+    repeated uint32 repeated = 3;
+    // Test u32 as values.
+    map<string, uint32> map_value = 4;
+    // Test u32 as keys.
+    map<uint32, string> map_key = 5;
+    // Test u32 as both keys and values.
+    map<uint32, uint32> map_key_value = 6;
+}
+
 // A test message for i64.
 message MessageWithI64 {
     // A singular field.
@@ -73,6 +89,22 @@ message MessageWithI64 {
     map<int64, int64> map_key_value = 6;
 }
 
+// A test message for u64.
+message MessageWithU64 {
+    // A singular field.
+    uint64 singular = 1;
+    // An optional field.
+    optional uint64 optional = 2;
+    // A repeated field.
+    repeated uint64 repeated = 3;
+    // Test u64 as values.
+    map<string, uint64> map_value = 4;
+    // Test u64 as keys.
+    map<uint64, string> map_key = 5;
+    // Test u64 as both keys and values.
+    map<uint64, uint64> map_key_value = 6;
+}
+
 // A test message for bytes.
 message MessageWithBytes {
     // A singular field.
@@ -84,4 +116,36 @@ message MessageWithBytes {
     // A map field, bytes cannot be keys, so we only need to test them as
     // values.
     map<string, bytes> map = 4;
+}
+
+// A test message for bool.
+message MessageWithBool {
+    // A singular field.
+    bool singular = 1;
+    // An optional field.
+    optional bool optional = 2;
+    // A repeated field.
+    repeated bool repeated = 3;
+    // Test bool as map values.
+    map<string, bool> map_value = 4;
+    // Test bool as map keys.
+    map<bool, string> map_key = 5;
+    // Test bool as map key and value.
+    map<bool, bool> map_key_value = 6;
+}
+
+// A test message for string.
+message MessageWithString {
+    // A singular field.
+    string singular = 1;
+    // An optional field.
+    optional string optional = 2;
+    // A repeated field.
+    repeated string repeated = 3;
+    // Test string as map values.
+    map<int32, string> map_value = 4;
+    // Test string as map keys.
+    map<string, int32> map_key = 5;
+    // Test string as map key and value.
+    map<string, string> map_key_value = 6;
 }

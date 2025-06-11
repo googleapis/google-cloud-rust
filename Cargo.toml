@@ -23,13 +23,11 @@ default-members = [
   "src/bigquery",
   "src/bigtable",
   "src/datastore",
-  "src/endurance-test",
   "src/firestore",
   "src/gax",
   "src/gax-internal",
   "src/integration-tests",
   "src/lro",
-  "src/protojson-conformance",
   "src/pubsub",
   "src/root",
   "src/spanner",
@@ -303,6 +301,7 @@ rustls-pemfile     = { default-features = false, version = "2" }
 serde              = { default-features = false, version = "1", features = ["serde_derive"] }
 serde_json         = { default-features = false, version = "1", features = ["std"] }
 serde_with         = { default-features = false, version = "3", features = ["base64", "macros", "std"] }
+sha2               = { default-features = false, version = "0.10" }
 thiserror          = { default-features = false, version = "2" }
 time               = { default-features = false, version = "0.3" }
 tokio              = { default-features = false, version = "1" }
@@ -310,12 +309,14 @@ tonic              = { default-features = false, version = "0.13", features = ["
 tonic-build        = { default-features = false, version = "0.13" }
 tracing            = { default-features = false, version = "0.1", features = ["attributes"] }
 tracing-subscriber = { default-features = false, version = "0.3" }
-# Test packags
+url                = { default-features = false, version = "2" }
+# Test packages
 anyhow         = { default-features = false, version = "1" }
 axum           = { default-features = false, version = "0.8" }
 httptest       = { default-features = false, version = "0.16.3" }
 mockall        = { default-features = false, version = "0.13" }
 mutants        = { default-features = false, version = "0.0.3" }
+paste          = { default-features = false, version = "1" }
 regex          = { default-features = false, version = "1" }
 rsa            = { default-features = false, version = "0.9" }
 rustc_version  = { default-features = false, version = "0.4" }
@@ -325,7 +326,6 @@ tempfile       = { default-features = false, version = "3" }
 test-case      = { default-features = false, version = "3" }
 tokio-stream   = { default-features = false, version = "0.1" }
 tokio-test     = { default-features = false, version = "0.4" }
-url            = { default-features = false, version = "2" }
 num-bigint-dig = { default-features = false, version = "0.8" }
 
 # Local packages used as dependencies

@@ -42,23 +42,27 @@ extern crate wkt;
 pub struct ListJobsRequest {
     /// Required. Format: projects/{project_id}/locations/global.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Filters results as defined by <https://google.aip.dev/160>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. The list page size. default page size is 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. The list page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Field to sort by. Supported fields are name, create_time.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -115,14 +119,17 @@ impl wkt::message::Message for ListJobsRequest {
 pub struct ListJobsResponse {
     /// A list of storage batch jobs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub jobs: std::vec::Vec<crate::model::Job>,
 
     /// A token identifying a page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -192,6 +199,7 @@ pub struct GetJobRequest {
     /// Required. `name` of the job to retrieve.
     /// Format: projects/{project_id}/locations/global/jobs/{job_id} .
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -224,6 +232,7 @@ impl wkt::message::Message for GetJobRequest {
 pub struct CreateJobRequest {
     /// Required. Value for parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The optional `job_id` for this Job . If not
@@ -231,6 +240,7 @@ pub struct CreateJobRequest {
     /// characters and must include only characters available in DNS names, as
     /// defined by RFC-1123.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_id: std::string::String,
 
     /// Required. The resource being created
@@ -243,6 +253,7 @@ pub struct CreateJobRequest {
     /// request. The request ID must be a valid UUID with the exception that zero
     /// UUID is not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -306,6 +317,7 @@ pub struct CancelJobRequest {
     /// Required. The `name` of the job to cancel.
     /// Format: projects/{project_id}/locations/global/jobs/{job_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
@@ -314,6 +326,7 @@ pub struct CancelJobRequest {
     /// request. The request ID must be a valid UUID with the exception that zero
     /// UUID is not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -353,6 +366,7 @@ pub struct DeleteJobRequest {
     /// Required. The `name` of the job to delete.
     /// Format: projects/{project_id}/locations/global/jobs/{job_id} .
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
@@ -361,6 +375,7 @@ pub struct DeleteJobRequest {
     /// request. The request ID must be a valid UUID with the exception that zero
     /// UUID is not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -422,6 +437,7 @@ pub struct OperationMetadata {
     /// Output only. The unique operation resource name.
     /// Format: projects/{project}/locations/global/operations/{operation}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub operation: std::string::String,
 
     /// Output only. The time the operation was created.
@@ -444,10 +460,12 @@ pub struct OperationMetadata {
     /// [google.rpc.Code.CANCELLED]: rpc::model::Code::Cancelled
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     /// Output only. The Job associated with the operation.
@@ -554,11 +572,13 @@ pub struct Job {
     /// projects/{project}/locations/global/jobs/{job_id} .
     /// For example: "projects/123456/locations/global/jobs/job01".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A description provided by the user for the job. Its max length is
     /// 1024 bytes when Unicode-encoded.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. Logging configuration.
@@ -583,10 +603,12 @@ pub struct Job {
 
     /// Output only. Summarizes errors encountered with sample error log entries.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub error_summaries: std::vec::Vec<crate::model::ErrorSummary>,
 
     /// Output only. State of the job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::job::State,
 
     /// Specifies objects to be transformed.
@@ -1082,6 +1104,7 @@ pub struct BucketList {
     /// only one bucket configuration is supported. If multiple buckets are
     /// specified, an error will be returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub buckets: std::vec::Vec<crate::model::bucket_list::Bucket>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1125,6 +1148,7 @@ pub mod bucket_list {
     pub struct Bucket {
         /// Required. Bucket name for the objects to be transformed.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub bucket: std::string::String,
 
         /// Specifies objects to be transformed.
@@ -1267,6 +1291,7 @@ pub struct Manifest {
     ///   If manifest location is specified with a wildcard, objects in all manifest
     ///   files matching the pattern will be acted upon.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub manifest_location: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1307,6 +1332,7 @@ pub struct PrefixList {
     /// * Wildcards are not supported
     /// * Supports empty string for all objects in a bucket.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub included_object_prefixes: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1345,12 +1371,14 @@ pub struct PutObjectHold {
     /// Required. Updates object temporary holds state. When object temporary hold
     /// is set, object cannot be deleted or replaced.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub temporary_hold: crate::model::put_object_hold::HoldStatus,
 
     /// Required. Updates object event based holds state. When object event based
     /// hold is set, object cannot be deleted or replaced. Resets object's time in
     /// the bucket for the purposes of the retention period.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub event_based_hold: crate::model::put_object_hold::HoldStatus,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1543,6 +1571,7 @@ pub struct DeleteObject {
     /// doesn't specify an object's generation, a GetObjectMetadata call (a Class B
     /// operation) will be made to determine the live object generation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub permanent_object_deletion_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1678,6 +1707,7 @@ pub struct PutMetadata {
     /// specified with this flag is not changed. Refer to documentation in
     /// <https://cloud.google.com/storage/docs/metadata#custom-metadata>
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub custom_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1825,15 +1855,17 @@ impl wkt::message::Message for PutMetadata {
 pub struct ErrorSummary {
     /// Required. The canonical error code.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_code: rpc::model::Code,
 
     /// Required. Number of errors encountered per `error_code`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub error_count: i64,
 
     /// Required. Sample error logs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub error_log_entries: std::vec::Vec<crate::model::ErrorLogEntry>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1883,11 +1915,13 @@ impl wkt::message::Message for ErrorSummary {
 pub struct ErrorLogEntry {
     /// Required. Output only. Object URL. e.g. gs://my_bucket/object.txt
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub object_uri: std::string::String,
 
     /// Optional. Output only. At most 5 error log entries are recorded for a given
     /// error code for a job.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub error_details: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1931,17 +1965,17 @@ impl wkt::message::Message for ErrorLogEntry {
 pub struct Counters {
     /// Output only. Number of objects listed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_object_count: i64,
 
     /// Output only. Number of objects completed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub succeeded_object_count: i64,
 
     /// Output only. Number of objects failed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub failed_object_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1986,11 +2020,13 @@ impl wkt::message::Message for Counters {
 pub struct LoggingConfig {
     /// Required. Specifies the actions to be logged.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub log_actions: std::vec::Vec<crate::model::logging_config::LoggableAction>,
 
     /// Required. States in which Action are logged.If empty, no logs are
     /// generated.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub log_action_states: std::vec::Vec<crate::model::logging_config::LoggableActionState>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

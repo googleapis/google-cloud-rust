@@ -138,20 +138,30 @@ pub async fn client_errors(project_id: &str) -> crate::Result<()> {
     // ANCHOR: client-errors-use
     use google_cloud_gax::polling_error_policy::Aip194Strict;
     use google_cloud_gax::polling_error_policy::PollingErrorPolicyExt;
+    use google_cloud_gax::retry_policy;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
     use std::time::Duration;
     // ANCHOR_END: client-errors-use
     use google_cloud_lro::Poller;
 
     // ANCHOR: client-errors-client
-    let client = speech::client::Speech::builder()
-        .with_polling_error_policy(
-            Aip194Strict
+    let builder = speech::client::Speech::builder().with_polling_error_policy(
+        Aip194Strict
+            .with_attempt_limit(100)
+            .with_time_limit(Duration::from_secs(300)),
+    );
+    // ANCHOR_END: client-errors-client
+
+    // ANCHOR: client-errors-client-retry
+    let client = builder
+        .with_retry_policy(
+            retry_policy::Aip194Strict
                 .with_attempt_limit(100)
                 .with_time_limit(Duration::from_secs(300)),
         )
         .build()
         .await?;
-    // ANCHOR_END: client-errors-client
+    // ANCHOR_END: client-errors-client-retry
 
     // ANCHOR: client-errors-builder
     let response = client
@@ -194,6 +204,8 @@ pub async fn rpc_errors(project_id: &str) -> crate::Result<()> {
     // ANCHOR: rpc-errors-use
     use google_cloud_gax::polling_error_policy::Aip194Strict;
     use google_cloud_gax::polling_error_policy::PollingErrorPolicyExt;
+    use google_cloud_gax::retry_policy;
+    use google_cloud_gax::retry_policy::RetryPolicyExt;
     use std::time::Duration;
     // ANCHOR_END: rpc-errors-use
     // ANCHOR: rpc-errors-builder-trait
@@ -202,7 +214,14 @@ pub async fn rpc_errors(project_id: &str) -> crate::Result<()> {
     use google_cloud_lro::Poller;
 
     // ANCHOR: rpc-errors-client
-    let client = speech::client::Speech::builder().build().await?;
+    let client = speech::client::Speech::builder()
+        .with_retry_policy(
+            retry_policy::Aip194Strict
+                .with_attempt_limit(100)
+                .with_time_limit(Duration::from_secs(300)),
+        )
+        .build()
+        .await?;
     // ANCHOR_END: rpc-errors-client
 
     // ANCHOR: rpc-errors-builder

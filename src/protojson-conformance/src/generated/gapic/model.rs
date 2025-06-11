@@ -26,14 +26,17 @@
 #[non_exhaustive]
 pub struct TestStatus {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_message: std::string::String,
 
     /// What an actual test name matched to in a failure list. Can be wildcarded or
     /// an exact match without wildcards.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub matched_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -79,6 +82,7 @@ impl wkt::message::Message for TestStatus {
 #[non_exhaustive]
 pub struct FailureSet {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub test: std::vec::Vec<crate::generated::gapic::model::TestStatus>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -120,6 +124,7 @@ impl wkt::message::Message for FailureSet {
 pub struct ConformanceRequest {
     /// Which format should the testee serialize its message to?
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_output_format: crate::generated::gapic::model::WireFormat,
 
     /// The full name for the test message to use; for the moment, either:
@@ -129,12 +134,14 @@ pub struct ConformanceRequest {
     /// protobuf_test_messages.editions.proto3.TestAllTypesProto3 or
     /// protobuf_test_messages.editions.TestAllTypesEdition2023.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message_type: std::string::String,
 
     /// Each test is given a specific test category. Some category may need
     /// specific support in testee programs. Refer to the definition of
     /// TestCategory for more information.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub test_category: crate::generated::gapic::model::TestCategory,
 
     /// Specify details for how to encode jspb.
@@ -145,6 +152,7 @@ pub struct ConformanceRequest {
     /// This can be used in json and text format. If true, testee should print
     /// unknown fields instead of ignore. This feature is optional.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub print_unknown_fields: bool,
 
     /// The payload (whether protobuf of JSON) is always for a
@@ -350,11 +358,14 @@ pub mod conformance_request {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Payload {
-        ProtobufPayload(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
-        JsonPayload(std::string::String),
+        ProtobufPayload(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
+        JsonPayload(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Only used inside Google.  Opensource testees just skip it.
-        JspbPayload(std::string::String),
-        TextPayload(std::string::String),
+        JspbPayload(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        TextPayload(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 
     impl Payload {
@@ -658,35 +669,38 @@ pub mod conformance_response {
         ///
         /// Setting this string does not necessarily mean the testee failed the
         /// test.  Some of the test cases are intentionally invalid input.
-        ParseError(std::string::String),
+        ParseError(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If the input was successfully parsed but errors occurred when
         /// serializing it to the requested output format, set the error message in
         /// this field.
-        SerializeError(std::string::String),
+        SerializeError(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// This should be set if the test program timed out.  The string should
         /// provide more information about what the child process was doing when it
         /// was killed.
-        TimeoutError(std::string::String),
+        TimeoutError(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// This should be set if some other error occurred.  This will always
         /// indicate that the test failed.  The string can provide more information
         /// about the failure.
-        RuntimeError(std::string::String),
+        RuntimeError(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If the input was successfully parsed and the requested output was
         /// protobuf, serialize it to protobuf and set it in this field.
-        ProtobufPayload(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        ProtobufPayload(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// If the input was successfully parsed and the requested output was JSON,
         /// serialize to JSON and set it in this field.
-        JsonPayload(std::string::String),
+        JsonPayload(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// For when the testee skipped the test, likely because a certain feature
         /// wasn't supported, like JSON input/output.
-        Skipped(std::string::String),
+        Skipped(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If the input was successfully parsed and the requested output was JSPB,
         /// serialize to JSPB and set it in this field. JSPB is only used inside
         /// Google. Opensource testees can just skip it.
-        JspbPayload(std::string::String),
+        JspbPayload(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If the input was successfully parsed and the requested output was
         /// TEXT_FORMAT, serialize to TEXT_FORMAT and set it in this field.
-        TextPayload(std::string::String),
+        TextPayload(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 
     impl Result {
@@ -737,6 +751,7 @@ pub mod conformance_response {
 pub struct JspbEncodingConfig {
     /// Encode the value field of Any as jspb array if true, otherwise binary.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub use_jspb_array_any_format: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

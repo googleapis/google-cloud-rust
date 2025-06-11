@@ -315,7 +315,7 @@ impl super::stub::CloudControlsPartnerCore for CloudControlsPartnerCore {
         let builder = req
             .update_mask
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -408,7 +408,7 @@ impl super::stub::CloudControlsPartnerMonitoring for CloudControlsPartnerMonitor
         let builder = req
             .interval
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {

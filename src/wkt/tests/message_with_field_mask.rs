@@ -14,18 +14,33 @@
 
 #[cfg(test)]
 mod test {
+    use common::{__MessageWithFieldMask, MessageWithFieldMask};
     use google_cloud_wkt::FieldMask;
     use serde_json::{Value, json};
     use test_case::test_case;
-
     type Result = anyhow::Result<()>;
 
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
+    #[test_case(MessageWithFieldMask::new(), json!({}))]
+    fn test_ser(input: MessageWithFieldMask, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithFieldMask(input))?;
+        assert_eq!(got, want);
+        Ok(())
     }
-    use protos::MessageWithFieldMask;
+
+    #[test_case(MessageWithFieldMask::new(), json!({}))]
+    fn test_de(want: MessageWithFieldMask, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithFieldMask>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
+    #[test_case(json!({"unknown": "test-value"}))]
+    #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
+    fn test_unknown(input: Value) -> Result {
+        let deser = serde_json::from_value::<__MessageWithFieldMask>(input.clone())?;
+        let got = serde_json::to_value(deser)?;
+        assert_eq!(got, input);
+        Ok(())
+    }
 
     #[test_case(json!({"singular": ""}), FieldMask::default())]
     #[test_case(json!({"singular": "a,b,c"}), FieldMask::default().set_paths(["a", "b", "c"]))]
@@ -81,7 +96,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"repeated": []}))]
-    // TODO(#2328) - #[test_case(json!({"repeated": null}))]
+    #[test_case(json!({"repeated": null}))]
     fn test_repeated_default(input: Value) -> Result {
         let got = serde_json::from_value::<MessageWithFieldMask>(input)?;
         let want = MessageWithFieldMask::default();
@@ -103,7 +118,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"map": {}}))]
-    // TODO(#2328) - #[test_case(json!({"map": null}))]
+    #[test_case(json!({"map": null}))]
     fn test_map_default(input: Value) -> Result {
         let got = serde_json::from_value::<MessageWithFieldMask>(input)?;
         let want = MessageWithFieldMask::default();

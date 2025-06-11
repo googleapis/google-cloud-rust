@@ -63,6 +63,7 @@ pub struct ErrorInfo {
     /// regular expression of `[A-Z][A-Z0-9_]+[A-Z0-9]`, which represents
     /// UPPER_SNAKE_CASE.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reason: std::string::String,
 
     /// The logical grouping to which the "reason" belongs. The error domain
@@ -72,6 +73,7 @@ pub struct ErrorInfo {
     /// globally unique value that identifies the infrastructure. For Google API
     /// infrastructure, the error domain is "googleapis.com".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub domain: std::string::String,
 
     /// Additional structured details about this error.
@@ -84,6 +86,7 @@ pub struct ErrorInfo {
     /// `{"instanceLimitPerRequest": "100"}`, if the client exceeds the number of
     /// instances that can be created in a single (batch) request.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -190,10 +193,12 @@ impl wkt::message::Message for RetryInfo {
 pub struct DebugInfo {
     /// The stack trace entries indicating where the error occurred.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub stack_entries: std::vec::Vec<std::string::String>,
 
     /// Additional debugging information provided by the server.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub detail: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -247,6 +252,7 @@ impl wkt::message::Message for DebugInfo {
 pub struct QuotaFailure {
     /// Describes all quota violations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub violations: std::vec::Vec<crate::model::quota_failure::Violation>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -292,6 +298,7 @@ pub mod quota_failure {
         /// For example, "clientip:\<ip address of client\>" or "project:\<Google
         /// developer project id\>".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub subject: std::string::String,
 
         /// A description of how the quota check failed. Clients can use this
@@ -302,6 +309,7 @@ pub mod quota_failure {
         /// For example: "Service disabled" or "Daily Limit for read operations
         /// exceeded".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub description: std::string::String,
 
         /// The API Service from which the `QuotaFailure.Violation` orginates. In
@@ -318,6 +326,7 @@ pub mod quota_failure {
         /// API (compute.googleapis.com), this field would be
         /// "compute.googleapis.com".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub api_service: std::string::String,
 
         /// The metric of the violated quota. A quota metric is a named counter to
@@ -328,6 +337,7 @@ pub mod quota_failure {
         /// For example, "compute.googleapis.com/cpus_per_vm_family",
         /// "storage.googleapis.com/internet_egress_bandwidth".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub quota_metric: std::string::String,
 
         /// The id of the violated quota. Also know as "limit name", this is the
@@ -335,6 +345,7 @@ pub mod quota_failure {
         ///
         /// For example, "CPUS-PER-VM-FAMILY-per-project-region".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub quota_id: std::string::String,
 
         /// The dimensions of the violated quota. Every non-global quota is enforced
@@ -354,6 +365,7 @@ pub mod quota_failure {
         /// When a quota is enforced globally, the quota_dimensions would always be
         /// empty.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub quota_dimensions: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// The enforced quota value at the time of the `QuotaFailure`.
@@ -362,7 +374,7 @@ pub mod quota_failure {
         /// `QuotaFailure` on the number of CPUs is "10", then the value of this
         /// field would reflect this quantity.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub quota_value: i64,
 
         /// The new quota value being rolled out at the time of the violation. At the
@@ -374,7 +386,7 @@ pub mod quota_failure {
         /// changing the number of CPUs quota from 10 to 20, 20 would be the value of
         /// this field.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub future_quota_value: std::option::Option<i64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -475,6 +487,7 @@ pub mod quota_failure {
 pub struct PreconditionFailure {
     /// Describes all precondition violations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub violations: std::vec::Vec<crate::model::precondition_failure::Violation>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -520,12 +533,14 @@ pub mod precondition_failure {
         /// example, "TOS" for "Terms of Service violation".
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: std::string::String,
 
         /// The subject, relative to the type, that failed.
         /// For example, "google.com/cloud" relative to the "TOS" type would indicate
         /// which terms of service is being referenced.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub subject: std::string::String,
 
         /// A description of how the precondition failed. Developers can use this
@@ -533,6 +548,7 @@ pub mod precondition_failure {
         ///
         /// For example: "Terms of service not accepted".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub description: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -579,6 +595,7 @@ pub mod precondition_failure {
 pub struct BadRequest {
     /// Describes all violations in a client request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub field_violations: std::vec::Vec<crate::model::bad_request::FieldViolation>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -659,10 +676,12 @@ pub mod bad_request {
         /// * `emailAddresses[3].type[2]` for a violation in the second `type`
         ///   value in the third `emailAddresses` message.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub field: std::string::String,
 
         /// A description of why the request element is bad.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub description: std::string::String,
 
         /// The reason of the field-level error. This is a constant value that
@@ -672,6 +691,7 @@ pub mod bad_request {
         /// characters and match a regular expression of `[A-Z][A-Z0-9_]+[A-Z0-9]`,
         /// which represents UPPER_SNAKE_CASE.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub reason: std::string::String,
 
         /// Provides a localized error message for field-level errors that is safe to
@@ -742,11 +762,13 @@ pub struct RequestInfo {
     /// An opaque string that should only be interpreted by the service generating
     /// it. For example, it can be used to identify requests in the service's logs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Any data that was used to serve this request. For example, an encrypted
     /// stack trace that can be sent back to the service provider for debugging.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub serving_data: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -787,6 +809,7 @@ pub struct ResourceInfo {
     /// "cloud storage bucket", "file", "Google calendar"; or the type URL
     /// of the resource: e.g. "type.googleapis.com/google.pubsub.v1.Topic".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_type: std::string::String,
 
     /// The name of the resource being accessed.  For example, a shared calendar
@@ -796,18 +819,21 @@ pub struct ResourceInfo {
     ///
     /// [google.rpc.Code.PERMISSION_DENIED]: crate::model::Code::PermissionDenied
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_name: std::string::String,
 
     /// The owner of the resource (optional).
     /// For example, "user:\<owner email\>" or "project:\<Google developer project
     /// id\>".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub owner: std::string::String,
 
     /// Describes what error is encountered when accessing this resource.
     /// For example, updating a cloud project may require the `writer` permission
     /// on the developer console project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -862,6 +888,7 @@ impl wkt::message::Message for ResourceInfo {
 pub struct Help {
     /// URL(s) pointing to additional information on handling the current error.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub links: std::vec::Vec<crate::model::help::Link>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -904,10 +931,12 @@ pub mod help {
     pub struct Link {
         /// Describes what the link offers.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub description: std::string::String,
 
         /// The URL of the link.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub url: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -950,10 +979,12 @@ pub struct LocalizedMessage {
     /// <https://www.rfc-editor.org/rfc/bcp/bcp47.txt>.
     /// Examples are: "en-US", "fr-CH", "es-MX"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub locale: std::string::String,
 
     /// The localized error message in the above locale.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -992,20 +1023,23 @@ impl wkt::message::Message for LocalizedMessage {
 pub struct HttpRequest {
     /// The HTTP request method.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub method: std::string::String,
 
     /// The HTTP request URI.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// The HTTP request headers. The ordering of the headers is significant.
     /// Multiple headers with the same key may present for the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub headers: std::vec::Vec<crate::model::HttpHeader>,
 
     /// The HTTP request body. If the body is not expected, it should be empty.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub body: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1061,21 +1095,23 @@ impl wkt::message::Message for HttpRequest {
 pub struct HttpResponse {
     /// The HTTP status code, such as 200 or 404.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub status: i32,
 
     /// The HTTP reason phrase, such as "OK" or "Not Found".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reason: std::string::String,
 
     /// The HTTP response headers. The ordering of the headers is significant.
     /// Multiple headers with the same key may present for the response.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub headers: std::vec::Vec<crate::model::HttpHeader>,
 
     /// The HTTP response body. If the body is not expected, it should be empty.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub body: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1131,10 +1167,12 @@ impl wkt::message::Message for HttpResponse {
 pub struct HttpHeader {
     /// The HTTP header key. It is case insensitive.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     /// The HTTP header value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1182,7 +1220,7 @@ pub struct Status {
     ///
     /// [google.rpc.Code]: crate::model::Code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub code: i32,
 
     /// A developer-facing error message, which should be in English. Any
@@ -1192,11 +1230,13 @@ pub struct Status {
     ///
     /// [google.rpc.Status.details]: crate::model::Status::details
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// A list of messages that carry the error details.  There is a common set of
     /// message types for APIs to use.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub details: std::vec::Vec<wkt::Any>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

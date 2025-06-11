@@ -40,6 +40,7 @@ pub struct Job {
     /// The resource name of the job.
     /// Format: `projects/{project_number}/locations/{location}/jobs/{job}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Input only. Specify the `input_uri` to populate empty `uri` fields in each
@@ -49,6 +50,7 @@ pub struct Job {
     /// `gs://bucket/inputs/file.mp4`). See [Supported input and output
     /// formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_uri: std::string::String,
 
     /// Input only. Specify the `output_uri` to populate an empty
@@ -57,10 +59,12 @@ pub struct Job {
     /// `gs://my-bucket/outputs/`. See [Supported input and output
     /// formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_uri: std::string::String,
 
     /// Output only. The current state of the job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::job::ProcessingState,
 
     /// Output only. The time the job was created.
@@ -79,12 +83,13 @@ pub struct Job {
     /// completion. Job should be deleted automatically after the given TTL. Enter
     /// a value between 1 and 90. The default is 30.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub ttl_after_completion_days: i32,
 
     /// The labels associated with this job. You can use these to organize and
     /// group your jobs.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. An error object that describes the reason for the failure.
@@ -95,6 +100,7 @@ pub struct Job {
     /// The processing mode of the job.
     /// The default is `PROCESSING_MODE_INTERACTIVE`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mode: crate::model::job::ProcessingMode,
 
     /// The processing priority of a batch job.
@@ -102,12 +108,13 @@ pub struct Job {
     /// This value cannot be negative. Higher values correspond to higher
     /// priorities for the job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub batch_mode_priority: i32,
 
     /// Optional. The optimization strategy of the job. The default is
     /// `AUTODETECT`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub optimization: crate::model::job::OptimizationStrategy,
 
     /// Specify the `job_config` for the transcoding job. If you don't specify the
@@ -766,7 +773,7 @@ pub mod job {
         /// The default is `preset/web-hd`, which is the only supported preset.
         ///
         /// User defined JobTemplate: `{job_template_id}`
-        TemplateId(std::string::String),
+        TemplateId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// The configuration for this job.
         Config(std::boxed::Box<crate::model::JobConfig>),
     }
@@ -782,6 +789,7 @@ pub struct JobTemplate {
     /// Format:
     /// `projects/{project_number}/locations/{location}/jobTemplates/{job_template}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The configuration for this template.
@@ -791,6 +799,7 @@ pub struct JobTemplate {
     /// The labels associated with this job template. You can use these to organize
     /// and group your job templates.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -853,23 +862,28 @@ impl wkt::message::Message for JobTemplate {
 pub struct JobConfig {
     /// List of input assets stored in Cloud Storage.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub inputs: std::vec::Vec<crate::model::Input>,
 
     /// List of `Edit atom`s. Defines the ultimate timeline of the resulting
     /// file or manifest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub edit_list: std::vec::Vec<crate::model::EditAtom>,
 
     /// List of elementary streams.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub elementary_streams: std::vec::Vec<crate::model::ElementaryStream>,
 
     /// List of multiplexing settings for output streams.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub mux_streams: std::vec::Vec<crate::model::MuxStream>,
 
     /// List of output manifests.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub manifests: std::vec::Vec<crate::model::Manifest>,
 
     /// Output configuration.
@@ -879,6 +893,7 @@ pub struct JobConfig {
     /// List of ad breaks. Specifies where to insert ad break tags in the output
     /// manifests.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ad_breaks: std::vec::Vec<crate::model::AdBreak>,
 
     /// Destination on Pub/Sub.
@@ -888,10 +903,12 @@ pub struct JobConfig {
     /// List of output sprite sheets.
     /// Spritesheets require at least one VideoStream in the Jobconfig.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub sprite_sheets: std::vec::Vec<crate::model::SpriteSheet>,
 
     /// List of overlays on the output video, in descending Z-order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub overlays: std::vec::Vec<crate::model::Overlay>,
 
     /// List of encryption configurations for the content.
@@ -901,6 +918,7 @@ pub struct JobConfig {
     ///
     /// [google.cloud.video.transcoder.v1.MuxStream.encryption_id]: crate::model::MuxStream::encryption_id
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub encryptions: std::vec::Vec<crate::model::Encryption>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1063,6 +1081,7 @@ pub struct Input {
     /// A unique key for this input. Must be specified when using advanced
     /// mapping and edit lists.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     /// URI of the media. Input files must be at least 5 seconds in duration and
@@ -1071,6 +1090,7 @@ pub struct Input {
     /// [Supported input and output
     /// formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Preprocessing configurations.
@@ -1134,6 +1154,7 @@ pub struct Output {
     /// [Supported input and output
     /// formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1167,11 +1188,13 @@ pub struct EditAtom {
     /// A unique key for this atom. Must be specified when using advanced
     /// mapping.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     /// List of `Input.key`s identifying files that should be used in this atom.
     /// The listed `inputs` must have the same timeline.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub inputs: std::vec::Vec<std::string::String>,
 
     /// End time in seconds for the atom, relative to the input file timeline.
@@ -1309,6 +1332,7 @@ impl wkt::message::Message for AdBreak {
 pub struct ElementaryStream {
     /// A unique key for this elementary stream.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     /// Encoding of an audio, video, or text track.
@@ -1464,6 +1488,7 @@ pub struct MuxStream {
     /// A unique key for this multiplexed stream. HLS media manifests will be
     /// named `MuxStream.key` with the `.m3u8` extension suffix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     /// The name of the generated file. The default is `MuxStream.key` with the
@@ -1472,6 +1497,7 @@ pub struct MuxStream {
     /// Individual segments also have an incremental 10-digit zero-padded suffix
     /// starting from 0 before the extension, such as `mux_stream0000000123.ts`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file_name: std::string::String,
 
     /// The container format. The default is `mp4`
@@ -1487,10 +1513,12 @@ pub struct MuxStream {
     /// [Supported input and output
     /// formats](https://cloud.google.com/transcoder/docs/concepts/supported-input-and-output-formats)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub container: std::string::String,
 
     /// List of `ElementaryStream.key`s multiplexed in this stream.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub elementary_streams: std::vec::Vec<std::string::String>,
 
     /// Segment settings for `ts`, `fmp4` and `vtt`.
@@ -1500,6 +1528,7 @@ pub struct MuxStream {
     /// Identifier of the encryption configuration to use. If omitted, output will
     /// be unencrypted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub encryption_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1580,11 +1609,13 @@ pub struct Manifest {
     /// The name of the generated file. The default is `manifest` with the
     /// extension suffix corresponding to the `Manifest.type`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file_name: std::string::String,
 
     /// Required. Type of the manifest.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::manifest::ManifestType,
 
     /// Required. List of user given `MuxStream.key`s that should appear in this
@@ -1594,6 +1625,7 @@ pub struct Manifest {
     /// and `.m3u8` extension is generated for each element of the
     /// `Manifest.mux_streams`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub mux_streams: std::vec::Vec<std::string::String>,
 
     /// Specifies the manifest configuration.
@@ -1697,6 +1729,7 @@ pub mod manifest {
         /// The segment reference scheme for a `DASH` manifest. The default is
         /// `SEGMENT_LIST`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub segment_reference_scheme: crate::model::manifest::dash_config::SegmentReferenceScheme,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2022,6 +2055,7 @@ pub struct PubsubDestination {
     /// The name of the Pub/Sub topic to publish job completion notification
     /// to. For example: `projects/{project}/topics/{topic}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub topic: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2058,6 +2092,7 @@ pub struct SpriteSheet {
     ///
     /// - `jpeg`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub format: std::string::String,
 
     /// Required. File name prefix for the generated sprite sheets.
@@ -2065,6 +2100,7 @@ pub struct SpriteSheet {
     /// Each sprite sheet has an incremental 10-digit zero-padded suffix starting
     /// from 0 before the extension, such as `sprite_sheet0000000123.jpeg`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file_prefix: std::string::String,
 
     /// Required. The width of sprite in pixels. Must be an even integer. To
@@ -2083,7 +2119,7 @@ pub struct SpriteSheet {
     /// [google.cloud.video.transcoder.v1.SpriteSheet.sprite_height_pixels]: crate::model::SpriteSheet::sprite_height_pixels
     /// [google.cloud.video.transcoder.v1.SpriteSheet.sprite_width_pixels]: crate::model::SpriteSheet::sprite_width_pixels
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub sprite_width_pixels: i32,
 
     /// Required. The height of sprite in pixels. Must be an even integer. To
@@ -2102,20 +2138,20 @@ pub struct SpriteSheet {
     /// [google.cloud.video.transcoder.v1.SpriteSheet.sprite_height_pixels]: crate::model::SpriteSheet::sprite_height_pixels
     /// [google.cloud.video.transcoder.v1.SpriteSheet.sprite_width_pixels]: crate::model::SpriteSheet::sprite_width_pixels
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub sprite_height_pixels: i32,
 
     /// The maximum number of sprites per row in a sprite sheet. The default is 0,
     /// which indicates no maximum limit.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub column_count: i32,
 
     /// The maximum number of rows per sprite sheet. When the sprite sheet is full,
     /// a new sprite sheet is created. The default is 0, which indicates no maximum
     /// limit.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub row_count: i32,
 
     /// Start time in seconds, relative to the output file timeline. Determines the
@@ -2134,7 +2170,7 @@ pub struct SpriteSheet {
     /// The default is 100. A high quality value corresponds to a low image data
     /// compression ratio.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub quality: i32,
 
     /// Specify either total number of sprites or interval to create sprites.
@@ -2316,7 +2352,7 @@ pub mod sprite_sheet {
         /// Total number of sprites. Create the specified number of sprites
         /// distributed evenly across the timeline of the output media. The default
         /// is 100.
-        TotalCount(#[serde_as(as = "wkt::internal::I32")] i32),
+        TotalCount(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
         /// Starting from `0s`, create sprites at regular intervals. Specify the
         /// interval value in seconds.
         Interval(std::boxed::Box<wkt::Duration>),
@@ -2336,6 +2372,7 @@ pub struct Overlay {
     /// List of Animations. The list should be chronological, without any time
     /// overlap.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub animations: std::vec::Vec<crate::model::overlay::Animation>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2396,12 +2433,12 @@ pub mod overlay {
     pub struct NormalizedCoordinate {
         /// Normalized x coordinate.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub x: f64,
 
         /// Normalized y coordinate.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub y: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2441,6 +2478,7 @@ pub mod overlay {
         /// Required. URI of the image in Cloud Storage. For example,
         /// `gs://bucket/inputs/image.png`. Only PNG and JPEG images are supported.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub uri: std::string::String,
 
         /// Normalized image resolution, based on output video resolution. Valid
@@ -2453,7 +2491,7 @@ pub mod overlay {
         /// Target image opacity. Valid values are from  `1.0` (solid, default) to
         /// `0.0` (transparent), exclusive. Set this to a value greater than `0.0`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub alpha: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2580,6 +2618,7 @@ pub mod overlay {
     pub struct AnimationFade {
         /// Required. Type of fade animation: `FADE_IN` or `FADE_OUT`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub fade_type: crate::model::overlay::FadeType,
 
         /// Normalized coordinates based on output video resolution. Valid
@@ -3208,21 +3247,21 @@ pub mod preprocessing_config {
         /// where -1 is fully desaturated and 1 is maximum saturation. 0 is no
         /// change. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub saturation: f64,
 
         /// Control black and white contrast of the video. Enter a value between -1
         /// and 1, where -1 is minimum contrast and 1 is maximum contrast. 0 is no
         /// change. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub contrast: f64,
 
         /// Control brightness of the video. Enter a value between -1 and 1, where -1
         /// is minimum brightness and 1 is maximum brightness. 0 is no change. The
         /// default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub brightness: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3270,7 +3309,7 @@ pub mod preprocessing_config {
         /// Set strength of the denoise. Enter a value between 0 and 1. The higher
         /// the value, the smoother the image. 0 is no denoising. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub strength: f64,
 
         /// Set the denoiser mode. The default is `standard`.
@@ -3280,6 +3319,7 @@ pub mod preprocessing_config {
         /// - `standard`
         /// - `grain`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub tune: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3322,11 +3362,12 @@ pub mod preprocessing_config {
         /// the value, the stronger the block removal. 0 is no deblocking. The
         /// default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub strength: f64,
 
         /// Enable deblocker. The default is `false`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3375,19 +3416,21 @@ pub mod preprocessing_config {
         ///   as Amazon Echo
         /// * 0 disables normalization
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub lufs: f64,
 
         /// Enable boosting high frequency components. The default is `false`.
         ///
         /// **Note:** This field is not supported.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub high_boost: bool,
 
         /// Enable boosting low frequency components. The default is `false`.
         ///
         /// **Note:** This field is not supported.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub low_boost: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3433,22 +3476,22 @@ pub mod preprocessing_config {
     pub struct Crop {
         /// The number of pixels to crop from the top. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub top_pixels: i32,
 
         /// The number of pixels to crop from the bottom. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub bottom_pixels: i32,
 
         /// The number of pixels to crop from the left. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub left_pixels: i32,
 
         /// The number of pixels to crop from the right. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub right_pixels: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3500,22 +3543,22 @@ pub mod preprocessing_config {
     pub struct Pad {
         /// The number of pixels to add to the top. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub top_pixels: i32,
 
         /// The number of pixels to add to the bottom. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub bottom_pixels: i32,
 
         /// The number of pixels to add to the left. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub left_pixels: i32,
 
         /// The number of pixels to add to the right. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub right_pixels: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3698,11 +3741,13 @@ pub mod preprocessing_config {
             /// - `send_frame`: Output one frame for each frame
             /// - `send_field`: Output one frame for each field
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub mode: std::string::String,
 
             /// Disable spacial interlacing.
             /// The default is `false`.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub disable_spatial_interlacing: bool,
 
             /// The picture field parity assumed for the input interlaced video.
@@ -3713,11 +3758,13 @@ pub mod preprocessing_config {
             /// - `bff`: Assume the bottom field is first
             /// - `auto`: Enable automatic detection of field parity
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub parity: std::string::String,
 
             /// Deinterlace all frames rather than just the frames identified as
             /// interlaced. The default is `false`.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub deinterlace_all_frames: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3776,6 +3823,7 @@ pub mod preprocessing_config {
             /// - `send_frame`: Output one frame for each frame
             /// - `send_field`: Output one frame for each field
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub mode: std::string::String,
 
             /// The picture field parity assumed for the input interlaced video.
@@ -3786,11 +3834,13 @@ pub mod preprocessing_config {
             /// - `bff`: Assume the bottom field is first
             /// - `auto`: Enable automatic detection of field parity
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub parity: std::string::String,
 
             /// Deinterlace all frames rather than just the frames identified as
             /// interlaced. The default is `false`.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub deinterlace_all_frames: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3988,7 +4038,7 @@ pub mod video_stream {
         /// the height per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub width_pixels: i32,
 
         /// The height of the video in pixels. Must be an even integer.
@@ -4000,7 +4050,7 @@ pub mod video_stream {
         /// the width per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
@@ -4011,13 +4061,13 @@ pub mod video_stream {
         /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
         /// more information.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub frame_rate: f64,
 
         /// Required. The video bitrate in bits per second. The minimum value is
         /// 1,000. The maximum value is 800,000,000.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub bitrate_bps: i32,
 
         /// Pixel format to use. The default is `yuv420p`.
@@ -4034,6 +4084,7 @@ pub mod video_stream {
         /// - `yuv422p12` 12-bit HDR pixel format
         /// - `yuv444p12` 12-bit HDR pixel format
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub pixel_format: std::string::String,
 
         /// Specify the `rate_control_mode`. The default is `vbr`.
@@ -4043,35 +4094,38 @@ pub mod video_stream {
         /// - `vbr` - variable bitrate
         /// - `crf` - constant rate factor
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub rate_control_mode: std::string::String,
 
         /// Target CRF level. Must be between 10 and 36, where 10 is the highest
         /// quality and 36 is the most efficient compression. The default is 21.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub crf_level: i32,
 
         /// Specifies whether an open Group of Pictures (GOP) structure should be
         /// allowed or not. The default is `false`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub allow_open_gop: bool,
 
         /// Use two-pass encoding strategy to achieve better video quality.
         /// `VideoStream.rate_control_mode` must be `vbr`. The default is `false`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_two_pass: bool,
 
         /// Size of the Video Buffering Verifier (VBV) buffer in bits. Must be
         /// greater than zero. The default is equal to `VideoStream.bitrate_bps`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub vbv_size_bits: i32,
 
         /// Initial fullness of the Video Buffering Verifier (VBV) buffer in bits.
         /// Must be greater than zero. The default is equal to 90% of
         /// `VideoStream.vbv_size_bits`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub vbv_fullness_bits: i32,
 
         /// The entropy coder to use. The default is `cabac`.
@@ -4081,25 +4135,27 @@ pub mod video_stream {
         /// - `cavlc`
         /// - `cabac`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub entropy_coder: std::string::String,
 
         /// Allow B-pyramid for reference frame selection. This may not be supported
         /// on all decoders. The default is `false`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub b_pyramid: bool,
 
         /// The number of consecutive B-frames. Must be greater than or equal to
         /// zero. Must be less than `VideoStream.gop_frame_count` if set. The default
         /// is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub b_frame_count: i32,
 
         /// Specify the intensity of the adaptive quantizer (AQ). Must be between 0
         /// and 1, where 0 disables the quantizer and 1 maximizes the quantizer. A
         /// higher value equals a lower bitrate but smoother image. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub aq_strength: f64,
 
         /// Enforces the specified codec profile. The following profiles are
@@ -4115,6 +4171,7 @@ pub mod video_stream {
         /// transcoder to override other fields you set in the `H264CodecSettings`
         /// message.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub profile: std::string::String,
 
         /// Enforces the specified codec tune. The available options are
@@ -4123,6 +4180,7 @@ pub mod video_stream {
         /// transcoder to override other fields you set in the `H264CodecSettings`
         /// message.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub tune: std::string::String,
 
         /// Enforces the specified codec preset. The default is `veryfast`. The
@@ -4132,6 +4190,7 @@ pub mod video_stream {
         /// transcoder to override other fields you set in the `H264CodecSettings`
         /// message.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub preset: std::string::String,
 
         /// GOP mode can be either by frame count or duration.
@@ -4354,7 +4413,7 @@ pub mod video_stream {
         pub enum GopMode {
             /// Select the GOP size based on the specified frame count. Must be greater
             /// than zero.
-            GopFrameCount(#[serde_as(as = "wkt::internal::I32")] i32),
+            GopFrameCount(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
             /// Select the GOP size based on the specified duration. The default is
             /// `3s`. Note that `gopDuration` must be less than or equal to
             /// [`segmentDuration`](#SegmentSettings), and
@@ -4379,7 +4438,7 @@ pub mod video_stream {
         /// the height per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub width_pixels: i32,
 
         /// The height of the video in pixels. Must be an even integer.
@@ -4391,7 +4450,7 @@ pub mod video_stream {
         /// the width per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
@@ -4402,13 +4461,13 @@ pub mod video_stream {
         /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
         /// more information.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub frame_rate: f64,
 
         /// Required. The video bitrate in bits per second. The minimum value is
         /// 1,000. The maximum value is 800,000,000.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub bitrate_bps: i32,
 
         /// Pixel format to use. The default is `yuv420p`.
@@ -4425,6 +4484,7 @@ pub mod video_stream {
         /// - `yuv422p12` 12-bit HDR pixel format
         /// - `yuv444p12` 12-bit HDR pixel format
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub pixel_format: std::string::String,
 
         /// Specify the `rate_control_mode`. The default is `vbr`.
@@ -4434,54 +4494,58 @@ pub mod video_stream {
         /// - `vbr` - variable bitrate
         /// - `crf` - constant rate factor
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub rate_control_mode: std::string::String,
 
         /// Target CRF level. Must be between 10 and 36, where 10 is the highest
         /// quality and 36 is the most efficient compression. The default is 21.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub crf_level: i32,
 
         /// Specifies whether an open Group of Pictures (GOP) structure should be
         /// allowed or not. The default is `false`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub allow_open_gop: bool,
 
         /// Use two-pass encoding strategy to achieve better video quality.
         /// `VideoStream.rate_control_mode` must be `vbr`. The default is `false`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_two_pass: bool,
 
         /// Size of the Video Buffering Verifier (VBV) buffer in bits. Must be
         /// greater than zero. The default is equal to `VideoStream.bitrate_bps`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub vbv_size_bits: i32,
 
         /// Initial fullness of the Video Buffering Verifier (VBV) buffer in bits.
         /// Must be greater than zero. The default is equal to 90% of
         /// `VideoStream.vbv_size_bits`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub vbv_fullness_bits: i32,
 
         /// Allow B-pyramid for reference frame selection. This may not be supported
         /// on all decoders. The default is `false`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub b_pyramid: bool,
 
         /// The number of consecutive B-frames. Must be greater than or equal to
         /// zero. Must be less than `VideoStream.gop_frame_count` if set. The default
         /// is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub b_frame_count: i32,
 
         /// Specify the intensity of the adaptive quantizer (AQ). Must be between 0
         /// and 1, where 0 disables the quantizer and 1 maximizes the quantizer. A
         /// higher value equals a lower bitrate but smoother image. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub aq_strength: f64,
 
         /// Enforces the specified codec profile. The following profiles are
@@ -4512,6 +4576,7 @@ pub mod video_stream {
         /// transcoder to override other fields you set in the `H265CodecSettings`
         /// message.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub profile: std::string::String,
 
         /// Enforces the specified codec tune. The available options are
@@ -4520,6 +4585,7 @@ pub mod video_stream {
         /// transcoder to override other fields you set in the `H265CodecSettings`
         /// message.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub tune: std::string::String,
 
         /// Enforces the specified codec preset. The default is `veryfast`. The
@@ -4529,6 +4595,7 @@ pub mod video_stream {
         /// transcoder to override other fields you set in the `H265CodecSettings`
         /// message.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub preset: std::string::String,
 
         /// GOP mode can be either by frame count or duration.
@@ -4742,7 +4809,7 @@ pub mod video_stream {
         pub enum GopMode {
             /// Select the GOP size based on the specified frame count. Must be greater
             /// than zero.
-            GopFrameCount(#[serde_as(as = "wkt::internal::I32")] i32),
+            GopFrameCount(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
             /// Select the GOP size based on the specified duration. The default is
             /// `3s`. Note that `gopDuration` must be less than or equal to
             /// [`segmentDuration`](#SegmentSettings), and
@@ -4767,7 +4834,7 @@ pub mod video_stream {
         /// the height per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub width_pixels: i32,
 
         /// The height of the video in pixels. Must be an even integer.
@@ -4779,7 +4846,7 @@ pub mod video_stream {
         /// the width per the horizontal ASR. The API detects any rotation metadata
         /// and swaps the requested height and width for the output.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub height_pixels: i32,
 
         /// Required. The target video frame rate in frames per second (FPS). Must be
@@ -4790,13 +4857,13 @@ pub mod video_stream {
         /// rate](https://cloud.google.com/transcoder/docs/concepts/frame-rate) for
         /// more information.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub frame_rate: f64,
 
         /// Required. The video bitrate in bits per second. The minimum value is
         /// 1,000. The maximum value is 480,000,000.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub bitrate_bps: i32,
 
         /// Pixel format to use. The default is `yuv420p`.
@@ -4813,6 +4880,7 @@ pub mod video_stream {
         /// - `yuv422p12` 12-bit HDR pixel format
         /// - `yuv444p12` 12-bit HDR pixel format
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub pixel_format: std::string::String,
 
         /// Specify the `rate_control_mode`. The default is `vbr`.
@@ -4821,6 +4889,7 @@ pub mod video_stream {
         ///
         /// - `vbr` - variable bitrate
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub rate_control_mode: std::string::String,
 
         /// Target CRF level. Must be between 10 and 36, where 10 is the highest
@@ -4828,7 +4897,7 @@ pub mod video_stream {
         ///
         /// **Note:** This field is not supported.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub crf_level: i32,
 
         /// Enforces the specified codec profile. The following profiles are
@@ -4845,6 +4914,7 @@ pub mod video_stream {
         /// transcoder to override other fields you set in the `Vp9CodecSettings`
         /// message.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub profile: std::string::String,
 
         /// GOP mode can be either by frame count or duration.
@@ -5003,7 +5073,7 @@ pub mod video_stream {
         pub enum GopMode {
             /// Select the GOP size based on the specified frame count. Must be greater
             /// than zero.
-            GopFrameCount(#[serde_as(as = "wkt::internal::I32")] i32),
+            GopFrameCount(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
             /// Select the GOP size based on the specified duration. The default is
             /// `3s`. Note that `gopDuration` must be less than or equal to
             /// [`segmentDuration`](#SegmentSettings), and
@@ -5045,17 +5115,18 @@ pub struct AudioStream {
     /// - `ac3`
     /// - `eac3`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub codec: std::string::String,
 
     /// Required. Audio bitrate in bits per second. Must be between 1 and
     /// 10,000,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub bitrate_bps: i32,
 
     /// Number of audio channels. Must be between 1 and 6. The default is 2.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub channel_count: i32,
 
     /// A list of channel names specifying layout of the audio channels.
@@ -5071,15 +5142,17 @@ pub struct AudioStream {
     /// - `fc` - Front center channel
     /// - `lfe` - Low frequency
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub channel_layout: std::vec::Vec<std::string::String>,
 
     /// The mapping for the `Job.edit_list` atoms with audio `EditAtom.inputs`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub mapping: std::vec::Vec<crate::model::audio_stream::AudioMapping>,
 
     /// The audio sample rate in Hertz. The default is 48000 Hertz.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub sample_rate_hertz: i32,
 
     /// The BCP-47 language code, such as `en-US` or `sr-Latn`. For more
@@ -5087,11 +5160,13 @@ pub struct AudioStream {
     /// <https://www.unicode.org/reports/tr35/#Unicode_locale_identifier>. Not
     /// supported in MP4 files.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The name for this particular audio stream that
     /// will be added to the HLS/DASH manifest. Not supported in MP4 files.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5182,31 +5257,33 @@ pub mod audio_stream {
         /// Required. The `EditAtom.key` that references the atom with audio inputs
         /// in the `Job.edit_list`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub atom_key: std::string::String,
 
         /// Required. The `Input.key` that identifies the input file.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub input_key: std::string::String,
 
         /// Required. The zero-based index of the track in the input file.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub input_track: i32,
 
         /// Required. The zero-based index of the channel in the input audio stream.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub input_channel: i32,
 
         /// Required. The zero-based index of the channel in the output audio stream.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub output_channel: i32,
 
         /// Audio volume control in dB. Negative values decrease volume,
         /// positive values increase. The default is 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub gain_db: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5278,6 +5355,7 @@ pub struct TextStream {
     /// - `cea708`
     /// - `webvtt`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub codec: std::string::String,
 
     /// The BCP-47 language code, such as `en-US` or `sr-Latn`. For more
@@ -5285,15 +5363,18 @@ pub struct TextStream {
     /// <https://www.unicode.org/reports/tr35/#Unicode_locale_identifier>. Not
     /// supported in MP4 files.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The mapping for the `Job.edit_list` atoms with text `EditAtom.inputs`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub mapping: std::vec::Vec<crate::model::text_stream::TextMapping>,
 
     /// The name for this particular text stream that
     /// will be added to the HLS/DASH manifest. Not supported in MP4 files.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5355,15 +5436,17 @@ pub mod text_stream {
         /// Required. The `EditAtom.key` that references atom with text inputs in the
         /// `Job.edit_list`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub atom_key: std::string::String,
 
         /// Required. The `Input.key` that identifies the input file.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub input_key: std::string::String,
 
         /// Required. The zero-based index of the track in the input file.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub input_track: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5416,6 +5499,7 @@ pub struct SegmentSettings {
 
     /// Required. Create an individual segment file. The default is `false`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub individual_segments: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5466,6 +5550,7 @@ impl wkt::message::Message for SegmentSettings {
 pub struct Encryption {
     /// Required. Identifier for this set of encryption options.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Required. DRM system(s) to use; at least one must be specified. If a
@@ -5731,6 +5816,7 @@ pub mod encryption {
         /// - `cenc`
         /// - `cbcs`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub scheme: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5768,6 +5854,7 @@ pub mod encryption {
         /// Note that only numbered versions are supported. Aliases like "latest" are
         /// not supported.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub secret_version: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6027,6 +6114,7 @@ pub struct CreateJobRequest {
     /// Required. The parent location to create and process this job.
     /// Format: `projects/{project}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Parameters for creating transcoding job.
@@ -6082,26 +6170,30 @@ impl wkt::message::Message for CreateJobRequest {
 pub struct ListJobsRequest {
     /// Required. Format: `projects/{project}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The `next_page_token` value returned from a previous List request, if
     /// any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The filter expression, following the syntax outlined in
     /// <https://google.aip.dev/160>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// One or more fields to compare and use to sort the output.
     /// See <https://google.aip.dev/132#ordering>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6159,6 +6251,7 @@ pub struct GetJobRequest {
     /// Required. The name of the job to retrieve.
     /// Format: `projects/{project}/locations/{location}/jobs/{job}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6192,11 +6285,13 @@ pub struct DeleteJobRequest {
     /// Required. The name of the job to delete.
     /// Format: `projects/{project}/locations/{location}/jobs/{job}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set to true, and the job is not found, the request will succeed but no
     /// action will be taken on the server.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6235,14 +6330,17 @@ impl wkt::message::Message for DeleteJobRequest {
 pub struct ListJobsResponse {
     /// List of jobs in the specified region.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub jobs: std::vec::Vec<crate::model::Job>,
 
     /// The pagination token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// List of regions that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6312,6 +6410,7 @@ pub struct CreateJobTemplateRequest {
     /// Required. The parent location to create this job template.
     /// Format: `projects/{project}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Parameters for creating job template.
@@ -6324,6 +6423,7 @@ pub struct CreateJobTemplateRequest {
     /// This value should be 4-63 characters, and valid characters must match the
     /// regular expression `[a-zA-Z][a-zA-Z0-9_-]*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_template_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6381,26 +6481,30 @@ pub struct ListJobTemplatesRequest {
     /// Required. The parent location from which to retrieve the collection of job
     /// templates. Format: `projects/{project}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The `next_page_token` value returned from a previous List request, if
     /// any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The filter expression, following the syntax outlined in
     /// <https://google.aip.dev/160>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// One or more fields to compare and use to sort the output.
     /// See <https://google.aip.dev/132#ordering>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6459,6 +6563,7 @@ pub struct GetJobTemplateRequest {
     /// Format:
     /// `projects/{project}/locations/{location}/jobTemplates/{job_template}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6492,11 +6597,13 @@ pub struct DeleteJobTemplateRequest {
     /// Required. The name of the job template to delete.
     /// `projects/{project}/locations/{location}/jobTemplates/{job_template}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set to true, and the job template is not found, the request will succeed
     /// but no action will be taken on the server.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6535,14 +6642,17 @@ impl wkt::message::Message for DeleteJobTemplateRequest {
 pub struct ListJobTemplatesResponse {
     /// List of job templates in the specified region.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub job_templates: std::vec::Vec<crate::model::JobTemplate>,
 
     /// The pagination token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// List of regions that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

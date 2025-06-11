@@ -27,11 +27,31 @@ use crate::{
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub(crate) struct UrlSourcedCredentials {
     pub url: String,
-    pub headers: Option<HashMap<String, String>>,
-    pub format: Option<CredentialSourceFormat>,
+    pub headers: HashMap<String, String>,
+    pub format: String,
+    pub subject_token_field_name: String,
+}
+
+impl UrlSourcedCredentials {
+    pub(crate) fn new(
+        url: String,
+        headers: Option<HashMap<String, String>>,
+        format_source: Option<CredentialSourceFormat>,
+    ) -> Self {
+        let (format, subject_token_field_name) = format_source
+            .map(|f| (f.format_type, f.subject_token_field_name))
+            .unwrap_or(("text".to_string(), String::new()));
+        Self {
+            url,
+            headers: headers.unwrap_or_default(),
+            format,
+            subject_token_field_name,
+        }
+    }
 }
 
 const MSG: &str = "failed to request subject token";
+const JSON_FORMAT_TYPE: &str = "json";
 
 #[async_trait::async_trait]
 impl SubjectTokenProvider for UrlSourcedCredentials {
@@ -45,7 +65,6 @@ impl SubjectTokenProvider for UrlSourcedCredentials {
         let request = self
             .headers
             .iter()
-            .flat_map(|v| v.iter())
             .fold(request, |r, (k, v)| r.header(k.as_str(), v.as_str()));
 
         let response = request
@@ -63,23 +82,23 @@ impl SubjectTokenProvider for UrlSourcedCredentials {
             CredentialsError::from_source(retryable, e)
         })?;
 
-        match &self.format {
-            Some(format) => {
+        match self.format.as_str() {
+            JSON_FORMAT_TYPE => {
                 let json_response: Value = serde_json::from_str(&response_text)
                     .map_err(|e| CredentialsError::from_source(false, e))?;
 
-                match json_response.get(&format.subject_token_field_name) {
+                match json_response.get(&self.subject_token_field_name) {
                     Some(Value::String(token)) => Ok(token.clone()),
                     None | Some(_) => {
                         let msg = format!(
                             "failed to read subject token field `{}` as string, body=<{}>",
-                            format.subject_token_field_name, json_response,
+                            self.subject_token_field_name, json_response,
                         );
                         Err(CredentialsError::from_msg(false, msg.as_str()))
                     }
                 }
             }
-            None => Ok(response_text),
+            _ => Ok(response_text),
         }
     }
 }
@@ -112,14 +131,9 @@ mod test {
         let url = server.url("/token").to_string();
         let token_provider = UrlSourcedCredentials {
             url,
-            format: Some(CredentialSourceFormat {
-                format_type: "json".into(),
-                subject_token_field_name: "access_token".into(),
-            }),
-            headers: Some(HashMap::from([(
-                "Metadata".to_string(),
-                "True".to_string(),
-            )])),
+            format: "json".into(),
+            subject_token_field_name: "access_token".into(),
+            headers: HashMap::from([("Metadata".to_string(), "True".to_string())]),
         };
         let resp = token_provider.subject_token().await?;
 
@@ -141,8 +155,9 @@ mod test {
         let url = server.url("/token").to_string();
         let token_provider = UrlSourcedCredentials {
             url,
-            format: None,
-            headers: None,
+            format: "text".into(),
+            subject_token_field_name: "".into(),
+            headers: HashMap::new(),
         };
         let resp = token_provider.subject_token().await?;
 
@@ -170,14 +185,9 @@ mod test {
         let url = server.url("/token").to_string();
         let token_provider = UrlSourcedCredentials {
             url,
-            format: Some(CredentialSourceFormat {
-                format_type: "json".into(),
-                subject_token_field_name: "access_token".into(),
-            }),
-            headers: Some(HashMap::from([(
-                "Metadata".to_string(),
-                "True".to_string(),
-            )])),
+            format: "json".into(),
+            subject_token_field_name: "access_token".into(),
+            headers: HashMap::from([("Metadata".to_string(), "True".to_string())]),
         };
 
         let err = token_provider

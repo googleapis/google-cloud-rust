@@ -50,14 +50,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -68,10 +71,12 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -167,6 +172,7 @@ pub struct TrafficPortSelector {
     /// 80 and 90) or named ports or * to specify all ports. If the
     /// list is empty, all ports are selected.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ports: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -308,6 +314,7 @@ pub mod endpoint_matcher {
         /// config P4 with selector <A:1,D:1> exists and if a client with
         /// label <A:1,B:1,D:1> connects), an error will be thrown.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub metadata_label_match_criteria:
             crate::model::endpoint_matcher::metadata_label_matcher::MetadataLabelMatchCriteria,
 
@@ -317,6 +324,7 @@ pub mod endpoint_matcher {
         /// criteria is MATCH_ANY, to specify a wildcard match (i.e this
         /// matches any client).
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub metadata_labels:
             std::vec::Vec<crate::model::endpoint_matcher::metadata_label_matcher::MetadataLabels>,
 
@@ -368,11 +376,13 @@ pub mod endpoint_matcher {
         pub struct MetadataLabels {
             /// Required. Label name presented as key in xDS Node Metadata.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub label_name: std::string::String,
 
             /// Required. Label value presented as value corresponding to the above
             /// key, in xDS Node Metadata.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub label_value: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -573,6 +583,7 @@ pub struct ExtensionChain {
     /// Additionally, the first character must be a letter and the last a letter or
     /// a number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Conditions under which this chain is invoked for a request.
@@ -585,6 +596,7 @@ pub struct ExtensionChain {
     /// for `LbTrafficExtension` resource.
     /// `LbRouteExtension` chains are limited to 1 extension per extension chain.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub extensions: std::vec::Vec<crate::model::extension_chain::Extension>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -655,6 +667,7 @@ pub mod extension_chain {
         /// For more information, see [CEL matcher language
         /// reference](https://cloud.google.com/service-extensions/docs/cel-matcher-language-reference).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub cel_expression: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -695,12 +708,14 @@ pub mod extension_chain {
         /// characters. Additionally, the first character must be a letter and the
         /// last a letter or a number.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// Optional. The `:authority` header in the gRPC request sent from Envoy
         /// to the extension service.
         /// Required for Callout extensions.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub authority: std::string::String,
 
         /// Required. The reference to the service that runs the extension.
@@ -716,6 +731,7 @@ pub mod extension_chain {
         /// or
         /// `<https://www.googleapis.com/compute/v1/projects/{project}/global/backendServices/{backendService}>`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service: std::string::String,
 
         /// Optional. A set of events during request or response processing for which
@@ -723,6 +739,7 @@ pub mod extension_chain {
         /// `LbTrafficExtension` resource. It must not be set for the
         /// `LbRouteExtension` resource.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub supported_events: std::vec::Vec<crate::model::EventType>,
 
         /// Optional. Specifies the timeout for each individual message on the
@@ -747,12 +764,14 @@ pub mod extension_chain {
         ///   downstream client is reset.
         ///
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub fail_open: bool,
 
         /// Optional. List of the HTTP headers to forward to the extension
         /// (from the client or backend). If omitted, all headers are sent.
         /// Each element is a string indicating the header name.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub forward_headers: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -849,6 +868,7 @@ pub struct LbTrafficExtension {
     /// following format:
     /// `projects/{project}/locations/{location}/lbTrafficExtensions/{lb_traffic_extension}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -861,6 +881,7 @@ pub struct LbTrafficExtension {
 
     /// Optional. A human-readable description of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. Set of labels associated with the `LbTrafficExtension` resource.
@@ -869,12 +890,14 @@ pub struct LbTrafficExtension {
     /// labels](https://cloud.google.com/compute/docs/labeling-resources#requirements)
     /// for Google Cloud resources.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. A list of references to the forwarding rules to which this
     /// service extension is attached to. At least one forwarding rule is required.
     /// There can be only one `LBTrafficExtension` resource per forwarding rule.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub forwarding_rules: std::vec::Vec<std::string::String>,
 
     /// Required. A set of ordered extension chains that contain the match
@@ -884,6 +907,7 @@ pub struct LbTrafficExtension {
     /// Any subsequent extension chains do not execute.
     /// Limited to 5 extension chains per resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub extension_chains: std::vec::Vec<crate::model::ExtensionChain>,
 
     /// Required. All backend services and forwarding rules referenced by this
@@ -892,6 +916,7 @@ pub struct LbTrafficExtension {
     /// [Choosing a load
     /// balancer](https://cloud.google.com/load-balancing/docs/backend-service).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub load_balancing_scheme: crate::model::LoadBalancingScheme,
 
     /// Optional. The metadata provided here is included in the
@@ -1040,24 +1065,28 @@ pub struct ListLbTrafficExtensionsRequest {
     /// resources are listed, specified in the following format:
     /// `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. The server might return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results that the server returns.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filtering results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Hint for how to order the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1114,14 +1143,17 @@ impl wkt::message::Message for ListLbTrafficExtensionsRequest {
 pub struct ListLbTrafficExtensionsResponse {
     /// The list of `LbTrafficExtension` resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub lb_traffic_extensions: std::vec::Vec<crate::model::LbTrafficExtension>,
 
     /// A token identifying a page of results that the server returns.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1192,6 +1224,7 @@ pub struct GetLbTrafficExtensionRequest {
     /// the format
     /// `projects/{project}/locations/{location}/lbTrafficExtensions/{lb_traffic_extension}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1225,11 +1258,13 @@ pub struct CreateLbTrafficExtensionRequest {
     /// Required. The parent resource of the `LbTrafficExtension` resource. Must be
     /// in the format `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. User-provided ID of the `LbTrafficExtension` resource to be
     /// created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lb_traffic_extension_id: std::string::String,
 
     /// Required. `LbTrafficExtension` resource to be created.
@@ -1250,6 +1285,7 @@ pub struct CreateLbTrafficExtensionRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1339,6 +1375,7 @@ pub struct UpdateLbTrafficExtensionRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1409,6 +1446,7 @@ pub struct DeleteLbTrafficExtensionRequest {
     /// in the format
     /// `projects/{project}/locations/{location}/lbTrafficExtensions/{lb_traffic_extension}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
@@ -1425,6 +1463,7 @@ pub struct DeleteLbTrafficExtensionRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1466,6 +1505,7 @@ pub struct LbRouteExtension {
     /// following format:
     /// `projects/{project}/locations/{location}/lbRouteExtensions/{lb_route_extension}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -1478,6 +1518,7 @@ pub struct LbRouteExtension {
 
     /// Optional. A human-readable description of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. Set of labels associated with the `LbRouteExtension` resource.
@@ -1486,12 +1527,14 @@ pub struct LbRouteExtension {
     /// labels](https://cloud.google.com/compute/docs/labeling-resources#requirements)
     /// for Google Cloud resources.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. A list of references to the forwarding rules to which this
     /// service extension is attached to. At least one forwarding rule is required.
     /// There can be only one `LbRouteExtension` resource per forwarding rule.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub forwarding_rules: std::vec::Vec<std::string::String>,
 
     /// Required. A set of ordered extension chains that contain the match
@@ -1501,6 +1544,7 @@ pub struct LbRouteExtension {
     /// Any subsequent extension chains do not execute.
     /// Limited to 5 extension chains per resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub extension_chains: std::vec::Vec<crate::model::ExtensionChain>,
 
     /// Required. All backend services and forwarding rules referenced by this
@@ -1509,6 +1553,7 @@ pub struct LbRouteExtension {
     /// [Choosing a load
     /// balancer](https://cloud.google.com/load-balancing/docs/backend-service).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub load_balancing_scheme: crate::model::LoadBalancingScheme,
 
     /// Optional. The metadata provided here is included as part of the
@@ -1658,24 +1703,28 @@ pub struct ListLbRouteExtensionsRequest {
     /// resources are listed, specified in the following format:
     /// `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. The server might return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results that the server returns.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filtering results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Hint for how to order the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1732,14 +1781,17 @@ impl wkt::message::Message for ListLbRouteExtensionsRequest {
 pub struct ListLbRouteExtensionsResponse {
     /// The list of `LbRouteExtension` resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub lb_route_extensions: std::vec::Vec<crate::model::LbRouteExtension>,
 
     /// A token identifying a page of results that the server returns.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1810,6 +1862,7 @@ pub struct GetLbRouteExtensionRequest {
     /// format
     /// `projects/{project}/locations/{location}/lbRouteExtensions/{lb_route_extension}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1843,11 +1896,13 @@ pub struct CreateLbRouteExtensionRequest {
     /// Required. The parent resource of the `LbRouteExtension` resource. Must be
     /// in the format `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. User-provided ID of the `LbRouteExtension` resource to be
     /// created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lb_route_extension_id: std::string::String,
 
     /// Required. `LbRouteExtension` resource to be created.
@@ -1868,6 +1923,7 @@ pub struct CreateLbRouteExtensionRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1957,6 +2013,7 @@ pub struct UpdateLbRouteExtensionRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2027,6 +2084,7 @@ pub struct DeleteLbRouteExtensionRequest {
     /// the format
     /// `projects/{project}/locations/{location}/lbRouteExtensions/{lb_route_extension}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
@@ -2043,6 +2101,7 @@ pub struct DeleteLbRouteExtensionRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2085,6 +2144,7 @@ pub struct EndpointPolicy {
     /// Required. Name of the EndpointPolicy resource. It matches pattern
     /// `projects/{project}/locations/global/endpointPolicies/{endpoint_policy}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -2097,12 +2157,14 @@ pub struct EndpointPolicy {
 
     /// Optional. Set of label tags associated with the EndpointPolicy resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. The type of endpoint policy. This is primarily used to validate
     /// the configuration.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::endpoint_policy::EndpointPolicyType,
 
     /// Optional. This field specifies the URL of AuthorizationPolicy resource that
@@ -2111,6 +2173,7 @@ pub struct EndpointPolicy {
     /// specified, authorization is disabled(no authz checks) for this
     /// endpoint.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub authorization_policy: std::string::String,
 
     /// Required. A matcher that selects endpoints to which the policies should be
@@ -2126,6 +2189,7 @@ pub struct EndpointPolicy {
     /// Optional. A free-text description of the resource. Max length 1024
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. A URL referring to ServerTlsPolicy resource. ServerTlsPolicy is
@@ -2133,6 +2197,7 @@ pub struct EndpointPolicy {
     /// inbound traffic at the identified backends. If this field is not set,
     /// authentication is disabled(open) for this endpoint.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub server_tls_policy: std::string::String,
 
     /// Optional. A URL referring to a ClientTlsPolicy resource. ClientTlsPolicy
@@ -2144,6 +2209,7 @@ pub struct EndpointPolicy {
     /// this field is not set, authentication is disabled(open). Applicable only
     /// when EndpointPolicyType is SIDECAR_PROXY.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub client_tls_policy: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2441,11 +2507,12 @@ pub struct ListEndpointPoliciesRequest {
     /// Required. The project and location from which the EndpointPolicies should
     /// be listed, specified in the format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of EndpointPolicies to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListEndpointPoliciesResponse`
@@ -2453,6 +2520,7 @@ pub struct ListEndpointPoliciesRequest {
     /// `ListEndpointPolicies` call, and that the system should return the
     /// next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2497,12 +2565,14 @@ impl wkt::message::Message for ListEndpointPoliciesRequest {
 pub struct ListEndpointPoliciesResponse {
     /// List of EndpointPolicy resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub endpoint_policies: std::vec::Vec<crate::model::EndpointPolicy>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2561,6 +2631,7 @@ pub struct GetEndpointPolicyRequest {
     /// Required. A name of the EndpointPolicy to get. Must be in the format
     /// `projects/*/locations/global/endpointPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2594,11 +2665,13 @@ pub struct CreateEndpointPolicyRequest {
     /// Required. The parent resource of the EndpointPolicy. Must be in the
     /// format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Short name of the EndpointPolicy resource to be created.
     /// E.g. "CustomECS".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub endpoint_policy_id: std::string::String,
 
     /// Required. EndpointPolicy resource to be created.
@@ -2733,6 +2806,7 @@ pub struct DeleteEndpointPolicyRequest {
     /// Required. A name of the EndpointPolicy to delete. Must be in the format
     /// `projects/*/locations/global/endpointPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2769,10 +2843,12 @@ pub struct Gateway {
     /// Required. Name of the Gateway resource. It matches pattern
     /// `projects/*/locations/*/gateways/<gateway_name>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Server-defined URL of this resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub self_link: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -2785,24 +2861,27 @@ pub struct Gateway {
 
     /// Optional. Set of label tags associated with the Gateway resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. A free-text description of the resource. Max length 1024
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Immutable. The type of the customer managed gateway.
     /// This field is required. If unspecified, an error is returned.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::gateway::Type,
 
     /// Required. One or more ports that the Gateway must receive traffic on. The
     /// proxy binds to the ports specified. Gateway listen on 0.0.0.0 on the ports
     /// specified below.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub ports: std::vec::Vec<i32>,
 
     /// Required. Immutable. Scope determines how configuration across multiple
@@ -2814,11 +2893,13 @@ pub struct Gateway {
     /// Scope should start with a letter and can only have letters, numbers,
     /// hyphens.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: std::string::String,
 
     /// Optional. A fully-qualified ServerTLSPolicy URL reference. Specifies how
     /// TLS traffic is terminated. If empty, TLS termination is disabled.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub server_tls_policy: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3087,17 +3168,19 @@ pub struct ListGatewaysRequest {
     /// Required. The project and location from which the Gateways should be
     /// listed, specified in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of Gateways to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListGatewaysResponse`
     /// Indicates that this is a continuation of a prior `ListGateways` call,
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3142,12 +3225,14 @@ impl wkt::message::Message for ListGatewaysRequest {
 pub struct ListGatewaysResponse {
     /// List of Gateway resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub gateways: std::vec::Vec<crate::model::Gateway>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3206,6 +3291,7 @@ pub struct GetGatewayRequest {
     /// Required. A name of the Gateway to get. Must be in the format
     /// `projects/*/locations/*/gateways/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3239,10 +3325,12 @@ pub struct CreateGatewayRequest {
     /// Required. The parent resource of the Gateway. Must be in the
     /// format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Short name of the Gateway resource to be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gateway_id: std::string::String,
 
     /// Required. Gateway resource to be created.
@@ -3374,6 +3462,7 @@ pub struct DeleteGatewayRequest {
     /// Required. A name of the Gateway to delete. Must be in the format
     /// `projects/*/locations/*/gateways/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3408,10 +3497,12 @@ pub struct GrpcRoute {
     /// Required. Name of the GrpcRoute resource. It matches pattern
     /// `projects/*/locations/global/grpcRoutes/<grpc_route_name>`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Server-defined URL of this resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub self_link: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -3424,11 +3515,13 @@ pub struct GrpcRoute {
 
     /// Optional. Set of label tags associated with the GrpcRoute resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. A free-text description of the resource. Max length 1024
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. Service hostnames with an optional port for which this route
@@ -3464,6 +3557,7 @@ pub struct GrpcRoute {
     /// port to match this rule (i.e. "xds:///service:123"), otherwise they must
     /// supply the URI without a port (i.e. "xds:///service").
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub hostnames: std::vec::Vec<std::string::String>,
 
     /// Optional. Meshes defines a list of meshes this GrpcRoute is attached to, as
@@ -3472,6 +3566,7 @@ pub struct GrpcRoute {
     /// Each mesh reference should match the pattern:
     /// `projects/*/locations/global/meshes/<mesh_name>`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub meshes: std::vec::Vec<std::string::String>,
 
     /// Optional. Gateways defines a list of gateways this GrpcRoute is attached
@@ -3481,6 +3576,7 @@ pub struct GrpcRoute {
     /// Each gateway reference should match the pattern:
     /// `projects/*/locations/global/gateways/<gateway_name>`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub gateways: std::vec::Vec<std::string::String>,
 
     /// Required. A list of detailed rules defining how to route traffic.
@@ -3489,6 +3585,7 @@ pub struct GrpcRoute {
     /// first matching GrpcRoute.RouteRule will be executed. At least one rule
     /// must be supplied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::grpc_route::RouteRule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3632,16 +3729,19 @@ pub mod grpc_route {
         /// default value of "EXACT" is used.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::grpc_route::method_match::Type,
 
         /// Required. Name of the service to match against. If unspecified, will
         /// match all services.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub grpc_service: std::string::String,
 
         /// Required. Name of the method to match against. If unspecified, will match
         /// all methods.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub grpc_method: std::string::String,
 
         /// Optional. Specifies that matches are case sensitive.  The default value
@@ -3860,14 +3960,17 @@ pub mod grpc_route {
         /// specified, a default value of EXACT is used.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::grpc_route::header_match::Type,
 
         /// Required. The key of the header.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub key: std::string::String,
 
         /// Required. The value of the header.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub value: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4063,6 +4166,7 @@ pub mod grpc_route {
 
         /// Optional. Specifies a collection of headers to match.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub headers: std::vec::Vec<crate::model::grpc_route::HeaderMatch>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4231,7 +4335,7 @@ pub mod grpc_route {
         pub enum DestinationType {
             /// Required. The URL of a destination service to which to route traffic.
             /// Must refer to either a BackendService or ServiceDirectoryService.
-            ServiceName(std::string::String),
+            ServiceName(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 
@@ -4478,11 +4582,13 @@ pub mod grpc_route {
         /// - unavailable: Router will retry if the gRPC status code in the response
         ///   header is set to unavailable
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub retry_conditions: std::vec::Vec<std::string::String>,
 
         /// Specifies the allowed number of retries. This number must be > 0. If not
         /// specified, default to 1.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::U32>")]
         pub num_retries: u32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4528,6 +4634,7 @@ pub mod grpc_route {
         /// If multiple destinations are specified, traffic will be split between
         /// Backend Service(s) according to the weight field of these destinations.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub destinations: std::vec::Vec<crate::model::grpc_route::Destination>,
 
         /// Optional. The specification for fault injection introduced into traffic to test the
@@ -4646,6 +4753,7 @@ pub mod grpc_route {
         /// matched if ANY one of the matches is satisfied.  If no matches field is
         /// specified, this rule will unconditionally match traffic.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub matches: std::vec::Vec<crate::model::grpc_route::RouteMatch>,
 
         /// Required. A detailed rule defining how to route traffic. This field is
@@ -4708,17 +4816,19 @@ pub struct ListGrpcRoutesRequest {
     /// Required. The project and location from which the GrpcRoutes should be
     /// listed, specified in the format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of GrpcRoutes to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListGrpcRoutesResponse`
     /// Indicates that this is a continuation of a prior `ListGrpcRoutes` call,
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4763,12 +4873,14 @@ impl wkt::message::Message for ListGrpcRoutesRequest {
 pub struct ListGrpcRoutesResponse {
     /// List of GrpcRoute resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub grpc_routes: std::vec::Vec<crate::model::GrpcRoute>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4827,6 +4939,7 @@ pub struct GetGrpcRouteRequest {
     /// Required. A name of the GrpcRoute to get. Must be in the format
     /// `projects/*/locations/global/grpcRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4860,10 +4973,12 @@ pub struct CreateGrpcRouteRequest {
     /// Required. The parent resource of the GrpcRoute. Must be in the
     /// format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Short name of the GrpcRoute resource to be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub grpc_route_id: std::string::String,
 
     /// Required. GrpcRoute resource to be created.
@@ -4995,6 +5110,7 @@ pub struct DeleteGrpcRouteRequest {
     /// Required. A name of the GrpcRoute to delete. Must be in the format
     /// `projects/*/locations/global/grpcRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5029,15 +5145,18 @@ pub struct HttpRoute {
     /// Required. Name of the HttpRoute resource. It matches pattern
     /// `projects/*/locations/global/httpRoutes/http_route_name>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Server-defined URL of this resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub self_link: std::string::String,
 
     /// Optional. A free-text description of the resource. Max length 1024
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -5074,6 +5193,7 @@ pub struct HttpRoute {
     /// Gateways under the same scope), it is not possible to associate two routes
     /// both with `*.bar.com` or both with `bar.com`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub hostnames: std::vec::Vec<std::string::String>,
 
     /// Optional. Meshes defines a list of meshes this HttpRoute is attached to, as
@@ -5084,6 +5204,7 @@ pub struct HttpRoute {
     ///
     /// The attached Mesh should be of a type SIDECAR
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub meshes: std::vec::Vec<std::string::String>,
 
     /// Optional. Gateways defines a list of gateways this HttpRoute is attached
@@ -5093,16 +5214,19 @@ pub struct HttpRoute {
     /// Each gateway reference should match the pattern:
     /// `projects/*/locations/global/gateways/<gateway_name>`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub gateways: std::vec::Vec<std::string::String>,
 
     /// Optional. Set of label tags associated with the HttpRoute resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Rules that define how traffic is routed and handled.
     /// Rules will be matched sequentially based on the RouteMatch specified for
     /// the rule.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::http_route::RouteRule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5244,11 +5368,13 @@ pub mod http_route {
     pub struct HeaderMatch {
         /// The name of the HTTP header to match against.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub header: std::string::String,
 
         /// If specified, the match result will be inverted before checking. Default
         /// value is set to false.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub invert_match: bool,
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -5478,12 +5604,12 @@ pub mod http_route {
         pub struct IntegerRange {
             /// Start of the range (inclusive)
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub start: i32,
 
             /// End of the range (exclusive)
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub end: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5521,18 +5647,18 @@ pub mod http_route {
         pub enum MatchType {
             /// The value of the header should match exactly the content of
             /// exact_match.
-            ExactMatch(std::string::String),
+            ExactMatch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// The value of the header must match the regular expression specified in
             /// regex_match. For regular expression grammar, please see:
             /// <https://github.com/google/re2/wiki/Syntax>
-            RegexMatch(std::string::String),
+            RegexMatch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// The value of the header must start with the contents of prefix_match.
-            PrefixMatch(std::string::String),
+            PrefixMatch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// A header with header_name must exist. The match takes place whether or
             /// not the header has a value.
-            PresentMatch(bool),
+            PresentMatch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
             /// The value of the header must end with the contents of suffix_match.
-            SuffixMatch(std::string::String),
+            SuffixMatch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// If specified, the rule will match if the request header value is within
             /// the range.
             RangeMatch(std::boxed::Box<crate::model::http_route::header_match::IntegerRange>),
@@ -5547,6 +5673,7 @@ pub mod http_route {
     pub struct QueryParameterMatch {
         /// The name of the query parameter to match.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub query_parameter: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -5683,19 +5810,19 @@ pub mod http_route {
             /// exact_match.
             ///
             /// Only one of exact_match, regex_match, or present_match must be set.
-            ExactMatch(std::string::String),
+            ExactMatch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// The value of the query parameter must match the regular expression
             /// specified by regex_match. For regular expression grammar, please see
             /// <https://github.com/google/re2/wiki/Syntax>
             ///
             /// Only one of exact_match, regex_match, or present_match must be set.
-            RegexMatch(std::string::String),
+            RegexMatch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// Specifies that the QueryParameterMatcher matches if request contains
             /// query parameter, irrespective of whether the parameter has a value or
             /// not.
             ///
             /// Only one of exact_match, regex_match, or present_match must be set.
-            PresentMatch(bool),
+            PresentMatch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         }
     }
 
@@ -5710,16 +5837,19 @@ pub mod http_route {
         /// Specifies if prefix_match and full_path_match matches are case sensitive.
         /// The default value is false.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub ignore_case: bool,
 
         /// Specifies a list of HTTP request headers to match against. ALL of the
         /// supplied headers must be matched.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub headers: std::vec::Vec<crate::model::http_route::HeaderMatch>,
 
         /// Specifies a list of query parameters to match against. ALL of the query
         /// parameters must be matched.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub query_parameters: std::vec::Vec<crate::model::http_route::QueryParameterMatch>,
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -5880,13 +6010,13 @@ pub mod http_route {
             ///
             /// Only one of full_path_match, prefix_match, or regex_match should be
             /// used.
-            FullPathMatch(std::string::String),
+            FullPathMatch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// The HTTP request path value must begin with specified prefix_match.
             /// prefix_match must begin with a /.
             ///
             /// Only one of full_path_match, prefix_match, or regex_match should be
             /// used.
-            PrefixMatch(std::string::String),
+            PrefixMatch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// The HTTP request path value must satisfy the regular expression
             /// specified by regex_match after removing any query parameters and anchor
             /// supplied with the original URL. For regular expression grammar, please
@@ -5894,7 +6024,7 @@ pub mod http_route {
             ///
             /// Only one of full_path_match, prefix_match, or regex_match should be
             /// used.
-            RegexMatch(std::string::String),
+            RegexMatch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 
@@ -5906,6 +6036,7 @@ pub mod http_route {
     pub struct Destination {
         /// The URL of a BackendService to route traffic to.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service_name: std::string::String,
 
         /// Specifies the proportion of requests forwarded to the backend referenced
@@ -5924,7 +6055,7 @@ pub mod http_route {
         /// If weights are unspecified for all services, then, traffic is distributed
         /// in equal proportions to all of them.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub weight: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5967,6 +6098,7 @@ pub mod http_route {
         /// The host that will be used in the redirect response instead of the one
         /// that was supplied in the request.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub host_redirect: std::string::String,
 
         /// The path that will be used in the redirect response instead of the one
@@ -5975,16 +6107,19 @@ pub mod http_route {
         /// one alone or neither. If neither is supplied, the path of the original
         /// request will be used for the redirect.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub path_redirect: std::string::String,
 
         /// Indicates that during redirection, the matched prefix (or path) should be
         /// swapped with this value. This option allows URLs be dynamically created
         /// based on the request.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub prefix_rewrite: std::string::String,
 
         /// The HTTP Status code to use for the redirect.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub response_code: crate::model::http_route::redirect::ResponseCode,
 
         /// If set to true, the URL scheme in the redirected request is set to https.
@@ -5993,6 +6128,7 @@ pub mod http_route {
         ///
         /// The default is set to false.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub https_redirect: bool,
 
         /// if set to true, any accompanying query portion of the original URL is
@@ -6001,12 +6137,13 @@ pub mod http_route {
         ///
         /// The default is set to false.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub strip_query: bool,
 
         /// The port that will be used in the redirected request instead of the one
         /// that was supplied in the request.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub port_redirect: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6336,7 +6473,7 @@ pub mod http_route {
             ///
             /// The value must be between [0, 100]
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub percentage: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6390,14 +6527,14 @@ pub mod http_route {
             ///
             /// The value must be between 200 and 599 inclusive.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub http_status: i32,
 
             /// The percentage of traffic which will be aborted.
             ///
             /// The value must be between [0, 100]
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub percentage: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6439,15 +6576,18 @@ pub mod http_route {
         /// Completely overwrite/replace the headers with given map where key is the
         /// name of the header, value is the value of the header.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub set: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// Add the headers with given map where key is the name of the header, value
         /// is the value of the header.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub add: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// Remove headers (matching by header names) specified in the list.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub remove: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6511,11 +6651,13 @@ pub mod http_route {
         /// Prior to forwarding the request to the selected destination, the matching
         /// portion of the requests path is replaced by this value.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub path_prefix_rewrite: std::string::String,
 
         /// Prior to forwarding the request to the selected destination, the requests
         /// host header is replaced by this value.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub host_rewrite: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6581,12 +6723,13 @@ pub mod http_route {
         /// with a REFUSED_STREAM error code. This reset type indicates that it
         /// is safe to retry.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub retry_conditions: std::vec::Vec<std::string::String>,
 
         /// Specifies the allowed number of retries. This number must be > 0. If not
         /// specified, default to 1.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub num_retries: i32,
 
         /// Specifies a non-zero timeout per retry attempt.
@@ -6702,29 +6845,35 @@ pub mod http_route {
         /// An origin is allowed if it matches either an item in allow_origins or
         /// an item in allow_origin_regexes.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub allow_origins: std::vec::Vec<std::string::String>,
 
         /// Specifies the regular expression patterns that match allowed origins. For
         /// regular expression grammar, please see
         /// <https://github.com/google/re2/wiki/Syntax>.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub allow_origin_regexes: std::vec::Vec<std::string::String>,
 
         /// Specifies the content for Access-Control-Allow-Methods header.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub allow_methods: std::vec::Vec<std::string::String>,
 
         /// Specifies the content for Access-Control-Allow-Headers header.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub allow_headers: std::vec::Vec<std::string::String>,
 
         /// Specifies the content for Access-Control-Expose-Headers header.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub expose_headers: std::vec::Vec<std::string::String>,
 
         /// Specifies how long result of a preflight request can be cached in
         /// seconds. This translates to the Access-Control-Max-Age header.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub max_age: std::string::String,
 
         /// In response to a preflight request, setting this to true indicates that
@@ -6733,11 +6882,13 @@ pub mod http_route {
         ///
         /// Default value is false.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub allow_credentials: bool,
 
         /// If true, the CORS policy is disabled. The default value is false, which
         /// indicates that the CORS policy is in effect.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub disabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6837,6 +6988,7 @@ pub mod http_route {
     pub struct RouteAction {
         /// The destination to which traffic should be forwarded.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub destinations: std::vec::Vec<crate::model::http_route::Destination>,
 
         /// If set, the request is directed as configured by this field.
@@ -7104,6 +7256,7 @@ pub mod http_route {
         /// If a default rule is desired to be configured, add a rule with no matches
         /// specified to the end of the rules list.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub matches: std::vec::Vec<crate::model::http_route::RouteMatch>,
 
         /// The detailed rule defining how to route matched traffic.
@@ -7165,17 +7318,19 @@ pub struct ListHttpRoutesRequest {
     /// Required. The project and location from which the HttpRoutes should be
     /// listed, specified in the format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of HttpRoutes to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListHttpRoutesResponse`
     /// Indicates that this is a continuation of a prior `ListHttpRoutes` call,
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7220,12 +7375,14 @@ impl wkt::message::Message for ListHttpRoutesRequest {
 pub struct ListHttpRoutesResponse {
     /// List of HttpRoute resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub http_routes: std::vec::Vec<crate::model::HttpRoute>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7284,6 +7441,7 @@ pub struct GetHttpRouteRequest {
     /// Required. A name of the HttpRoute to get. Must be in the format
     /// `projects/*/locations/global/httpRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7317,10 +7475,12 @@ pub struct CreateHttpRouteRequest {
     /// Required. The parent resource of the HttpRoute. Must be in the
     /// format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Short name of the HttpRoute resource to be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub http_route_id: std::string::String,
 
     /// Required. HttpRoute resource to be created.
@@ -7452,6 +7612,7 @@ pub struct DeleteHttpRouteRequest {
     /// Required. A name of the HttpRoute to delete. Must be in the format
     /// `projects/*/locations/global/httpRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7487,10 +7648,12 @@ pub struct Mesh {
     /// Required. Name of the Mesh resource. It matches pattern
     /// `projects/*/locations/global/meshes/<mesh_name>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Server-defined URL of this resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub self_link: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -7503,11 +7666,13 @@ pub struct Mesh {
 
     /// Optional. Set of label tags associated with the Mesh resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. A free-text description of the resource. Max length 1024
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. If set to a valid TCP port (1-65535), instructs the SIDECAR proxy
@@ -7517,7 +7682,7 @@ pub struct Mesh {
     /// used as the interception port. This is applicable only for sidecar proxy
     /// deployments.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub interception_port: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7617,17 +7782,19 @@ pub struct ListMeshesRequest {
     /// Required. The project and location from which the Meshes should be
     /// listed, specified in the format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of Meshes to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListMeshesResponse`
     /// Indicates that this is a continuation of a prior `ListMeshes` call,
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7672,12 +7839,14 @@ impl wkt::message::Message for ListMeshesRequest {
 pub struct ListMeshesResponse {
     /// List of Mesh resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub meshes: std::vec::Vec<crate::model::Mesh>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7736,6 +7905,7 @@ pub struct GetMeshRequest {
     /// Required. A name of the Mesh to get. Must be in the format
     /// `projects/*/locations/global/meshes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7769,10 +7939,12 @@ pub struct CreateMeshRequest {
     /// Required. The parent resource of the Mesh. Must be in the
     /// format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Short name of the Mesh resource to be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mesh_id: std::string::String,
 
     /// Required. Mesh resource to be created.
@@ -7904,6 +8076,7 @@ pub struct DeleteMeshRequest {
     /// Required. A name of the Mesh to delete. Must be in the format
     /// `projects/*/locations/global/meshes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7938,11 +8111,13 @@ pub struct ServiceBinding {
     /// Required. Name of the ServiceBinding resource. It matches pattern
     /// `projects/*/locations/global/serviceBindings/service_binding_name`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A free-text description of the resource. Max length 1024
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -7956,10 +8131,12 @@ pub struct ServiceBinding {
     /// Required. The full service directory service name of the format
     /// /projects/*/locations/*/namespaces/*/services/*
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     /// Optional. Set of label tags associated with the ServiceBinding resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8053,17 +8230,19 @@ pub struct ListServiceBindingsRequest {
     /// Required. The project and location from which the ServiceBindings should be
     /// listed, specified in the format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of ServiceBindings to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListServiceBindingsResponse`
     /// Indicates that this is a continuation of a prior `ListRouters` call,
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8108,12 +8287,14 @@ impl wkt::message::Message for ListServiceBindingsRequest {
 pub struct ListServiceBindingsResponse {
     /// List of ServiceBinding resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service_bindings: std::vec::Vec<crate::model::ServiceBinding>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8172,6 +8353,7 @@ pub struct GetServiceBindingRequest {
     /// Required. A name of the ServiceBinding to get. Must be in the format
     /// `projects/*/locations/global/serviceBindings/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8205,10 +8387,12 @@ pub struct CreateServiceBindingRequest {
     /// Required. The parent resource of the ServiceBinding. Must be in the
     /// format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Short name of the ServiceBinding resource to be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_binding_id: std::string::String,
 
     /// Required. ServiceBinding resource to be created.
@@ -8273,6 +8457,7 @@ pub struct DeleteServiceBindingRequest {
     /// Required. A name of the ServiceBinding to delete. Must be in the format
     /// `projects/*/locations/global/serviceBindings/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8307,10 +8492,12 @@ pub struct TcpRoute {
     /// Required. Name of the TcpRoute resource. It matches pattern
     /// `projects/*/locations/global/tcpRoutes/tcp_route_name>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Server-defined URL of this resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub self_link: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -8324,12 +8511,14 @@ pub struct TcpRoute {
     /// Optional. A free-text description of the resource. Max length 1024
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. Rules that define how traffic is routed and handled. At least one
     /// RouteRule must be supplied. If there are multiple rules then the action
     /// taken will be the first rule to match.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::tcp_route::RouteRule>,
 
     /// Optional. Meshes defines a list of meshes this TcpRoute is attached to, as
@@ -8340,6 +8529,7 @@ pub struct TcpRoute {
     ///
     /// The attached Mesh should be of a type SIDECAR
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub meshes: std::vec::Vec<std::string::String>,
 
     /// Optional. Gateways defines a list of gateways this TcpRoute is attached to,
@@ -8348,10 +8538,12 @@ pub struct TcpRoute {
     /// Each gateway reference should match the pattern:
     /// `projects/*/locations/global/gateways/<gateway_name>`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub gateways: std::vec::Vec<std::string::String>,
 
     /// Optional. Set of label tags associated with the TcpRoute resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8486,6 +8678,7 @@ pub mod tcp_route {
         /// routeMatch field is specified, this rule will unconditionally match
         /// traffic.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub matches: std::vec::Vec<crate::model::tcp_route::RouteMatch>,
 
         /// Required. The detailed rule defining how to route matched traffic.
@@ -8556,10 +8749,12 @@ pub mod tcp_route {
         /// and 255.255.255.0 mask.
         /// "0.0.0.0/0" - matches against any IP address'.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub address: std::string::String,
 
         /// Required. Specifies the destination port to match against.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub port: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8600,12 +8795,14 @@ pub mod tcp_route {
         /// At least one destination service is required. Only one of route
         /// destination or original destination can be set.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub destinations: std::vec::Vec<crate::model::tcp_route::RouteDestination>,
 
         /// Optional. If true, Router will use the destination IP and port of the
         /// original connection as the destination of the request. Default is false.
         /// Only one of route destinations or original destination can be set.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub original_destination: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8649,6 +8846,7 @@ pub mod tcp_route {
     pub struct RouteDestination {
         /// Required. The URL of a BackendService to route traffic to.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service_name: std::string::String,
 
         /// Optional. Specifies the proportion of requests forwarded to the backend
@@ -8667,7 +8865,7 @@ pub mod tcp_route {
         /// If weights are unspecified for all services, then, traffic is distributed
         /// in equal proportions to all of them.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub weight: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8711,17 +8909,19 @@ pub struct ListTcpRoutesRequest {
     /// Required. The project and location from which the TcpRoutes should be
     /// listed, specified in the format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of TcpRoutes to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListTcpRoutesResponse`
     /// Indicates that this is a continuation of a prior `ListTcpRoutes` call,
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8766,12 +8966,14 @@ impl wkt::message::Message for ListTcpRoutesRequest {
 pub struct ListTcpRoutesResponse {
     /// List of TcpRoute resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tcp_routes: std::vec::Vec<crate::model::TcpRoute>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8830,6 +9032,7 @@ pub struct GetTcpRouteRequest {
     /// Required. A name of the TcpRoute to get. Must be in the format
     /// `projects/*/locations/global/tcpRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8863,10 +9066,12 @@ pub struct CreateTcpRouteRequest {
     /// Required. The parent resource of the TcpRoute. Must be in the
     /// format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Short name of the TcpRoute resource to be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tcp_route_id: std::string::String,
 
     /// Required. TcpRoute resource to be created.
@@ -8998,6 +9203,7 @@ pub struct DeleteTcpRouteRequest {
     /// Required. A name of the TcpRoute to delete. Must be in the format
     /// `projects/*/locations/global/tcpRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9032,10 +9238,12 @@ pub struct TlsRoute {
     /// Required. Name of the TlsRoute resource. It matches pattern
     /// `projects/*/locations/global/tlsRoutes/tls_route_name>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Server-defined URL of this resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub self_link: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -9049,12 +9257,14 @@ pub struct TlsRoute {
     /// Optional. A free-text description of the resource. Max length 1024
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. Rules that define how traffic is routed and handled. At least one
     /// RouteRule must be supplied. If there are multiple rules then the action
     /// taken will be the first rule to match.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::tls_route::RouteRule>,
 
     /// Optional. Meshes defines a list of meshes this TlsRoute is attached to, as
@@ -9065,6 +9275,7 @@ pub struct TlsRoute {
     ///
     /// The attached Mesh should be of a type SIDECAR
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub meshes: std::vec::Vec<std::string::String>,
 
     /// Optional. Gateways defines a list of gateways this TlsRoute is attached to,
@@ -9073,6 +9284,7 @@ pub struct TlsRoute {
     /// Each gateway reference should match the pattern:
     /// `projects/*/locations/global/gateways/<gateway_name>`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub gateways: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9193,6 +9405,7 @@ pub mod tls_route {
         /// Required. RouteMatch defines the predicate used to match requests to a
         /// given action. Multiple match types are "OR"ed for evaluation.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub matches: std::vec::Vec<crate::model::tls_route::RouteMatch>,
 
         /// Required. The detailed rule defining how to route matched traffic.
@@ -9262,6 +9475,7 @@ pub mod tls_route {
         /// At least one of sni_host and alpn is required.
         /// Up to 5 sni hosts across all matches can be set.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub sni_host: std::vec::Vec<std::string::String>,
 
         /// Optional. ALPN (Application-Layer Protocol Negotiation) to match against.
@@ -9269,6 +9483,7 @@ pub mod tls_route {
         /// At least one of sni_host and alpn is required.
         /// Up to 5 alpns across all matches can be set.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub alpn: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9318,6 +9533,7 @@ pub mod tls_route {
         /// Required. The destination services to which traffic should be forwarded.
         /// At least one destination service is required.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub destinations: std::vec::Vec<crate::model::tls_route::RouteDestination>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9355,6 +9571,7 @@ pub mod tls_route {
     pub struct RouteDestination {
         /// Required. The URL of a BackendService to route traffic to.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service_name: std::string::String,
 
         /// Optional. Specifies the proportion of requests forwareded to the backend
@@ -9363,7 +9580,7 @@ pub mod tls_route {
         /// - weight/Sum(weights in destinations)
         ///   Weights in all destinations does not need to sum up to 100.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub weight: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9407,17 +9624,19 @@ pub struct ListTlsRoutesRequest {
     /// Required. The project and location from which the TlsRoutes should be
     /// listed, specified in the format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of TlsRoutes to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListTlsRoutesResponse`
     /// Indicates that this is a continuation of a prior `ListTlsRoutes` call,
     /// and that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9462,12 +9681,14 @@ impl wkt::message::Message for ListTlsRoutesRequest {
 pub struct ListTlsRoutesResponse {
     /// List of TlsRoute resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tls_routes: std::vec::Vec<crate::model::TlsRoute>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9526,6 +9747,7 @@ pub struct GetTlsRouteRequest {
     /// Required. A name of the TlsRoute to get. Must be in the format
     /// `projects/*/locations/global/tlsRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9559,10 +9781,12 @@ pub struct CreateTlsRouteRequest {
     /// Required. The parent resource of the TlsRoute. Must be in the
     /// format `projects/*/locations/global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Short name of the TlsRoute resource to be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tls_route_id: std::string::String,
 
     /// Required. TlsRoute resource to be created.
@@ -9694,6 +9918,7 @@ pub struct DeleteTlsRouteRequest {
     /// Required. A name of the TlsRoute to delete. Must be in the format
     /// `projects/*/locations/global/tlsRoutes/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

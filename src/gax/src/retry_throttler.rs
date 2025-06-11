@@ -423,7 +423,11 @@ mod test {
     }
 
     fn test_error() -> crate::error::Error {
-        crate::error::Error::other("test only".to_string())
+        use crate::error::{
+            Error,
+            rpc::{Code, Status},
+        };
+        Error::service(Status::default().set_code(Code::Aborted))
     }
 
     #[test]

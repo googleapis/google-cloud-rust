@@ -41,6 +41,7 @@ pub struct BigqueryMapping {
     /// 'Timestamp' is used by default. The column may have TIMESTAMP or INT64
     /// type (the latter is interpreted as microseconds since the Unix epoch).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub timestamp_column: std::string::String,
 
     /// The column which should be used as the group ID (grouping events into
@@ -48,6 +49,7 @@ pub struct BigqueryMapping {
     /// table does not have such a column, random unique group IDs are
     /// generated automatically (different group ID per input row).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub group_id_column: std::string::String,
 
     /// The list of columns that should be translated to dimensions. If empty,
@@ -55,6 +57,7 @@ pub struct BigqueryMapping {
     /// columns should not be listed here again. Columns are expected to have
     /// primitive types (STRING, INT64, FLOAT64 or NUMERIC).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dimension_column: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -115,6 +118,7 @@ pub struct DataSource {
     ///   `gs://bucket_name/object_name`. For more information on Cloud Storage URIs,
     ///   please see <https://cloud.google.com/storage/docs/reference-uris>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// For BigQuery inputs defines the columns that should be used for dimensions
@@ -171,6 +175,7 @@ pub struct DataSet {
     /// The dataset name, which will be used for querying, status and unload
     /// requests. This must be unique within a project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// [Data dimension names][google.cloud.timeseriesinsights.v1.EventDimension.name] allowed for this `DataSet`.
@@ -180,14 +185,17 @@ pub struct DataSet {
     ///
     /// [google.cloud.timeseriesinsights.v1.EventDimension.name]: crate::model::EventDimension::name
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_names: std::vec::Vec<std::string::String>,
 
     /// Input data.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_sources: std::vec::Vec<crate::model::DataSource>,
 
     /// Dataset state in the system.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::data_set::State,
 
     /// Dataset processing status.
@@ -474,6 +482,7 @@ pub struct EventDimension {
     /// characters only, and are case insensitive. Unicode characters are *not*
     /// supported. The underscore '_' is also allowed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Dimension value.
@@ -625,13 +634,13 @@ pub mod event_dimension {
         ///
         /// **NOTE**: String values are case insensitive. Unicode characters are
         /// supported.
-        StringVal(std::string::String),
+        StringVal(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Long representation.
-        LongVal(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        LongVal(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")] i64),
         /// Bool representation.
-        BoolVal(bool),
+        BoolVal(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         /// Double representation.
-        DoubleVal(#[serde_as(as = "wkt::internal::F64")] f64),
+        DoubleVal(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")] f64),
     }
 }
 
@@ -665,6 +674,7 @@ pub mod event_dimension {
 pub struct Event {
     /// Event dimensions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dimensions: std::vec::Vec<crate::model::EventDimension>,
 
     /// Event group ID.
@@ -672,7 +682,7 @@ pub struct Event {
     /// **NOTE**: JSON encoding should use a string to hold a 64-bit integer value,
     /// because a native JSON number holds only 53 binary bits for an integer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub group_id: i64,
 
     /// Event timestamp.
@@ -757,11 +767,13 @@ pub struct AppendEventsRequest {
     /// [google.cloud.timeseriesinsights.v1.DataSet.ttl]: crate::model::DataSet::ttl
     /// [google.cloud.timeseriesinsights.v1.Event.group_id]: crate::model::Event::group_id
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub events: std::vec::Vec<crate::model::Event>,
 
     /// Required. The DataSet to which we want to append to in the format of
     /// "projects/{project}/datasets/{dataset}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -805,6 +817,7 @@ impl wkt::message::Message for AppendEventsRequest {
 pub struct AppendEventsResponse {
     /// Dropped events; empty if all events are successfully added.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dropped_events: std::vec::Vec<crate::model::Event>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -843,6 +856,7 @@ pub struct CreateDataSetRequest {
     /// Required. Client project name which will own this DataSet in the format of
     /// 'projects/{project}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Dataset to be loaded.
@@ -897,6 +911,7 @@ impl wkt::message::Message for CreateDataSetRequest {
 pub struct DeleteDataSetRequest {
     /// Required. Dataset name in the format of "projects/{project}/datasets/{dataset}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -929,15 +944,17 @@ impl wkt::message::Message for DeleteDataSetRequest {
 pub struct ListDataSetsRequest {
     /// Required. Project owning the DataSet in the format of "projects/{project}".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Number of results to return in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Token to provide to skip to a particular spot in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -982,10 +999,12 @@ impl wkt::message::Message for ListDataSetsRequest {
 pub struct ListDataSetsResponse {
     /// The list of created DataSets.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub datasets: std::vec::Vec<crate::model::DataSet>,
 
     /// Token to receive the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1043,6 +1062,7 @@ impl gax::paginator::internal::PageableResponse for ListDataSetsResponse {
 pub struct PinnedDimension {
     /// The name of the dimension for which we are fixing its value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Dimension value.
@@ -1151,13 +1171,13 @@ pub mod pinned_dimension {
         ///
         /// [google.cloud.timeseriesinsights.v1.EventDimension]: crate::model::EventDimension
         /// [google.cloud.timeseriesinsights.v1.EventDimension.string_val]: crate::model::EventDimension::value
-        StringVal(std::string::String),
+        StringVal(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// A bool value. This can be used for [dimensions][google.cloud.timeseriesinsights.v1.EventDimension], which
         /// have their value field set to [bool_val][google.cloud.timeseriesinsights.v1.EventDimension.bool_val].
         ///
         /// [google.cloud.timeseriesinsights.v1.EventDimension]: crate::model::EventDimension
         /// [google.cloud.timeseriesinsights.v1.EventDimension.bool_val]: crate::model::EventDimension::value
-        BoolVal(bool),
+        BoolVal(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
     }
 }
 
@@ -1197,6 +1217,7 @@ pub struct ForecastParams {
     /// If your time series has multiple seasonal patterns, then set it to the most
     /// granular one (e.g. if it has daily and weekly patterns, set this to DAILY).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub seasonality_hint: crate::model::forecast_params::Period,
 
     /// Optional. The length of the returned [forecasted
@@ -1525,6 +1546,7 @@ impl wkt::message::Message for TimeseriesPoint {
 pub struct Timeseries {
     /// The points in this time series, ordered by their timestamp.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub point: std::vec::Vec<crate::model::TimeseriesPoint>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1562,6 +1584,7 @@ impl wkt::message::Message for Timeseries {
 pub struct EvaluatedSlice {
     /// Values for all categorical dimensions that uniquely identify this slice.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dimensions: std::vec::Vec<crate::model::PinnedDimension>,
 
     /// The actual value at the detection time (see
@@ -1851,6 +1874,7 @@ pub struct SlicingParams {
     ///
     /// [google.cloud.timeseriesinsights.v1.EventDimension.name]: crate::model::EventDimension::name
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dimension_names: std::vec::Vec<std::string::String>,
 
     /// Optional. We will only analyze slices for which
@@ -1895,6 +1919,7 @@ pub struct SlicingParams {
     /// [google.cloud.timeseriesinsights.v1.SlicingParams.dimension_names]: crate::model::SlicingParams::dimension_names
     /// [google.cloud.timeseriesinsights.v1.SlicingParams.pinned_dimensions]: crate::model::SlicingParams::pinned_dimensions
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub pinned_dimensions: std::vec::Vec<crate::model::PinnedDimension>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2071,6 +2096,7 @@ pub struct TimeseriesParams {
     ///
     /// [google.cloud.timeseriesinsights.v1.TimeseriesParams.metric]: crate::model::TimeseriesParams::metric
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metric_aggregation_method: crate::model::timeseries_params::AggregationMethod,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2310,6 +2336,7 @@ pub struct QueryDataSetRequest {
     /// Required. Loaded DataSet to be queried in the format of
     /// "projects/{project}/datasets/{dataset}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. This is the point in time that we want to probe for anomalies.
@@ -2373,6 +2400,7 @@ pub struct QueryDataSetRequest {
     /// [google.cloud.timeseriesinsights.v1.EvaluatedSlice.forecast]: crate::model::EvaluatedSlice::forecast
     /// [google.cloud.timeseriesinsights.v1.EvaluatedSlice.history]: crate::model::EvaluatedSlice::history
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub return_timeseries: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2501,6 +2529,7 @@ impl wkt::message::Message for QueryDataSetRequest {
 pub struct QueryDataSetResponse {
     /// Loaded DataSet that was queried.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Slices sorted in descending order by their
@@ -2512,6 +2541,7 @@ pub struct QueryDataSetResponse {
     /// [google.cloud.timeseriesinsights.v1.EvaluatedSlice.anomaly_score]: crate::model::EvaluatedSlice::anomaly_score
     /// [google.cloud.timeseriesinsights.v1.QueryDataSetRequest.num_returned_slices]: crate::model::QueryDataSetRequest::num_returned_slices
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub slices: std::vec::Vec<crate::model::EvaluatedSlice>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2556,11 +2586,13 @@ pub struct EvaluateSliceRequest {
     /// Required. Loaded DataSet to be queried in the format of
     /// "projects/{project}/datasets/{dataset}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset: std::string::String,
 
     /// Required. Dimensions with pinned values that specify the slice for which we will
     /// fetch the time series.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub pinned_dimensions: std::vec::Vec<crate::model::PinnedDimension>,
 
     /// Required. This is the point in time that we want to probe for anomalies.
@@ -2679,6 +2711,7 @@ impl wkt::message::Message for EvaluateSliceRequest {
 pub struct EvaluateTimeseriesRequest {
     /// Required. Client project name in the format of 'projects/{project}'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Evaluate this time series without requiring it was previously loaded in

@@ -45,24 +45,29 @@ extern crate wkt;
 pub struct WorkstationCluster {
     /// Full name of this workstation cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Human-readable name for this workstation cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. A system-assigned unique identifier for this workstation
     /// cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Output only. Indicates whether this workstation cluster is currently being
     /// updated to match its intended state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciling: bool,
 
     /// Optional. Client-specified annotations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional.
@@ -70,6 +75,7 @@ pub struct WorkstationCluster {
     /// are applied to the workstation cluster and that are also propagated to the
     /// underlying Compute Engine resources.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Time when this workstation cluster was created.
@@ -88,17 +94,20 @@ pub struct WorkstationCluster {
     /// requests to make sure that the client has an up-to-date value before
     /// proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Immutable. Name of the Compute Engine network in which instances associated
     /// with this workstation cluster will be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub network: std::string::String,
 
     /// Immutable. Name of the Compute Engine subnetwork in which instances
     /// associated with this workstation cluster will be created. Must be part of
     /// the subnetwork specified for this workstation cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub subnetwork: std::string::String,
 
     /// Output only. The private IP address of the control plane for this
@@ -106,6 +115,7 @@ pub struct WorkstationCluster {
     /// with the service, so make sure that your firewall rules allow egress from
     /// the workstation VMs to this address.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub control_plane_ip: std::string::String,
 
     /// Optional. Configuration for private workstation cluster.
@@ -120,11 +130,13 @@ pub struct WorkstationCluster {
     ///
     /// [google.cloud.workstations.v1.WorkstationCluster.conditions]: crate::model::WorkstationCluster::conditions
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub degraded: bool,
 
     /// Output only. Status conditions describing the workstation cluster's current
     /// state.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub conditions: std::vec::Vec<rpc::model::Status>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -320,6 +332,7 @@ pub mod workstation_cluster {
     pub struct PrivateClusterConfig {
         /// Immutable. Whether Workstations endpoint is private.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_private_endpoint: bool,
 
         /// Output only. Hostname for the workstation cluster. This field will be
@@ -328,6 +341,7 @@ pub mod workstation_cluster {
         /// name to an internal IP address and a forwarding rule mapping that address
         /// to the service attachment.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub cluster_hostname: std::string::String,
 
         /// Output only. Service attachment URI for the workstation cluster. The
@@ -336,12 +350,14 @@ pub mod workstation_cluster {
         /// service using [Private Service
         /// Connect](https://cloud.google.com/vpc/docs/configure-private-service-connect-services).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service_attachment_uri: std::string::String,
 
         /// Optional. Additional projects that are allowed to attach to the
         /// workstation cluster's service attachment. By default, the workstation
         /// cluster's project and the VPC host project (if different) are allowed.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub allowed_projects: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -412,24 +428,29 @@ pub mod workstation_cluster {
 pub struct WorkstationConfig {
     /// Full name of this workstation configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Human-readable name for this workstation configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. A system-assigned unique identifier for this workstation
     /// configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Output only. Indicates whether this workstation configuration is currently
     /// being updated to match its intended state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciling: bool,
 
     /// Optional. Client-specified annotations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional.
@@ -437,6 +458,7 @@ pub struct WorkstationConfig {
     /// are applied to the workstation configuration and that are also propagated
     /// to the underlying Compute Engine resources.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Time when this workstation configuration was created.
@@ -456,6 +478,7 @@ pub struct WorkstationConfig {
     /// requests to make sure that the client has an up-to-date value before
     /// proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. Number of seconds to wait before automatically stopping a
@@ -505,6 +528,7 @@ pub struct WorkstationConfig {
 
     /// Optional. Directories to persist across workstation sessions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub persistent_directories:
         std::vec::Vec<crate::model::workstation_config::PersistentDirectory>,
 
@@ -539,6 +563,7 @@ pub struct WorkstationConfig {
     /// this workstation configuration. Mark a workstation as running only after
     /// all specified readiness checks return 200 status codes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub readiness_checks: std::vec::Vec<crate::model::workstation_config::ReadinessCheck>,
 
     /// Optional. Immutable. Specifies the zones used to replicate the VM and disk
@@ -549,6 +574,7 @@ pub struct WorkstationConfig {
     ///
     /// Immutable after the workstation configuration is created.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub replica_zones: std::vec::Vec<std::string::String>,
 
     /// Output only. Whether this resource is degraded, in which case it may
@@ -558,10 +584,12 @@ pub struct WorkstationConfig {
     ///
     /// [google.cloud.workstations.v1.WorkstationConfig.conditions]: crate::model::WorkstationConfig::conditions
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub degraded: bool,
 
     /// Output only. Status conditions describing the current resource state.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub conditions: std::vec::Vec<rpc::model::Status>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -926,6 +954,7 @@ pub mod workstation_config {
             /// [available machine
             /// types](https://cloud.google.com/workstations/docs/available-machine-types).
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub machine_type: std::string::String,
 
             /// Optional. The email address of the service account for Cloud
@@ -946,6 +975,7 @@ pub mod workstation_config {
             /// Cloud Workstations service, and the image must be publicly
             /// accessible.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub service_account: std::string::String,
 
             /// Optional. Scopes to grant to the
@@ -956,6 +986,7 @@ pub mod workstation_config {
             ///
             /// [google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.service_account]: crate::model::workstation_config::host::GceInstance::service_account
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub service_account_scopes: std::vec::Vec<std::string::String>,
 
             /// Optional. Network tags to add to the Compute Engine VMs backing the
@@ -966,19 +997,20 @@ pub mod workstation_config {
             /// of [firewall
             /// rules](https://cloud.google.com/workstations/docs/configure-firewall-rules).
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub tags: std::vec::Vec<std::string::String>,
 
             /// Optional. The number of VMs that the system should keep idle so that
             /// new workstations can be started quickly for new users. Defaults to `0`
             /// in the API.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub pool_size: i32,
 
             /// Output only. Number of instances currently available in the pool for
             /// faster workstation startup.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub pooled_instances: i32,
 
             /// Optional. When set to true, disables public IP addresses for VMs. If
@@ -989,6 +1021,7 @@ pub mod workstation_config {
             /// up DNS records for domains `*.gcr.io` and `*.pkg.dev`.
             /// Defaults to false (VMs have public IP addresses).
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub disable_public_ip_addresses: bool,
 
             /// Optional. Whether to enable nested virtualization on Cloud Workstations
@@ -1028,6 +1061,7 @@ pub mod workstation_config {
             ///
             /// [google.cloud.workstations.v1.WorkstationConfig.Host.GceInstance.machine_type]: crate::model::workstation_config::host::GceInstance::machine_type
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub enable_nested_virtualization: bool,
 
             /// Optional. A set of Compute Engine Shielded instance options.
@@ -1045,7 +1079,7 @@ pub mod workstation_config {
             /// Optional. The size of the boot disk for the VM in gigabytes (GB).
             /// The minimum boot disk size is `30` GB. Defaults to `50` GB.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub boot_disk_size_gb: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1185,14 +1219,17 @@ pub mod workstation_config {
             pub struct GceShieldedInstanceConfig {
                 /// Optional. Whether the instance has Secure Boot enabled.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub enable_secure_boot: bool,
 
                 /// Optional. Whether the instance has the vTPM enabled.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub enable_vtpm: bool,
 
                 /// Optional. Whether the instance has integrity monitoring enabled.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub enable_integrity_monitoring: bool,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1240,6 +1277,7 @@ pub mod workstation_config {
             pub struct GceConfidentialInstanceConfig {
                 /// Optional. Whether the instance has confidential compute enabled.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub enable_confidential_compute: bool,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1287,6 +1325,7 @@ pub mod workstation_config {
     pub struct PersistentDirectory {
         /// Optional. Location of this directory in the running workstation.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub mount_path: std::string::String,
 
         /// How a persistent directory should be implemented.
@@ -1405,7 +1444,7 @@ pub mod workstation_config {
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.disk_type]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::disk_type
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.source_snapshot]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::source_snapshot
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub size_gb: i32,
 
             /// Optional. Type of file system that the disk should be formatted with.
@@ -1416,12 +1455,14 @@ pub mod workstation_config {
             ///
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.source_snapshot]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::source_snapshot
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub fs_type: std::string::String,
 
             /// Optional. The [type of the persistent
             /// disk](https://cloud.google.com/compute/docs/disks#disk-types) for the
             /// home directory. Defaults to `"pd-standard"`.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub disk_type: std::string::String,
 
             /// Optional. Name of the snapshot to use as the source for the disk. If
@@ -1434,12 +1475,14 @@ pub mod workstation_config {
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.fs_type]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::fs_type
             /// [google.cloud.workstations.v1.WorkstationConfig.PersistentDirectory.GceRegionalPersistentDisk.size_gb]: crate::model::workstation_config::persistent_directory::GceRegionalPersistentDisk::size_gb
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub source_snapshot: std::string::String,
 
             /// Optional. Whether the persistent disk should be deleted when the
             /// workstation is deleted. Valid values are `DELETE` and `RETAIN`.
             /// Defaults to `DELETE`.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub reclaim_policy: crate::model::workstation_config::persistent_directory::gce_regional_persistent_disk::ReclaimPolicy,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1668,29 +1711,34 @@ pub mod workstation_config {
         /// permission to pull the specified image. Otherwise, the image must be
         /// publicly accessible.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub image: std::string::String,
 
         /// Optional. If set, overrides the default ENTRYPOINT specified by the
         /// image.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub command: std::vec::Vec<std::string::String>,
 
         /// Optional. Arguments passed to the entrypoint.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub args: std::vec::Vec<std::string::String>,
 
         /// Optional. Environment variables passed to the container's entrypoint.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub env: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// Optional. If set, overrides the default DIR specified by the image.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub working_dir: std::string::String,
 
         /// Optional. If set, overrides the USER specified in the image with the
         /// given uid.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub run_as_user: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1776,6 +1824,7 @@ pub mod workstation_config {
         /// `"projects/PROJECT_ID/locations/REGION/keyRings/KEY_RING/cryptoKeys/KEY_NAME"`.
         /// The key must be in the same region as the workstation configuration.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub kms_key: std::string::String,
 
         /// Immutable. The service account to use with the specified
@@ -1786,6 +1835,7 @@ pub mod workstation_config {
         /// `gcloud kms keys add-iam-policy-binding`
         /// [`--member`](https://cloud.google.com/sdk/gcloud/reference/kms/keys/add-iam-policy-binding#--member).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub kms_key_service_account: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1827,11 +1877,12 @@ pub mod workstation_config {
     pub struct ReadinessCheck {
         /// Optional. Path to which the request should be sent.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub path: std::string::String,
 
         /// Optional. Port to which the request should be sent.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub port: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1871,23 +1922,28 @@ pub mod workstation_config {
 pub struct Workstation {
     /// Full name of this workstation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Human-readable name for this workstation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. A system-assigned unique identifier for this workstation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Output only. Indicates whether this workstation is currently being updated
     /// to match its intended state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciling: bool,
 
     /// Optional. Client-specified annotations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional.
@@ -1895,6 +1951,7 @@ pub struct Workstation {
     /// are applied to the workstation and that are also propagated to the
     /// underlying Compute Engine resources.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Time when this workstation was created.
@@ -1918,10 +1975,12 @@ pub struct Workstation {
     /// requests to make sure that the client has an up-to-date value before
     /// proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Output only. Current state of the workstation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::workstation::State,
 
     /// Output only. Host to which clients can send HTTPS traffic that will be
@@ -1930,6 +1989,7 @@ pub struct Workstation {
     /// clients may prefix the host with the destination port in the format
     /// `{port}-{host}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub host: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2251,6 +2311,7 @@ pub mod workstation {
 pub struct GetWorkstationClusterRequest {
     /// Required. Name of the requested resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2283,16 +2344,18 @@ impl wkt::message::Message for GetWorkstationClusterRequest {
 pub struct ListWorkstationClustersRequest {
     /// Required. Parent resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
     /// any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2337,15 +2400,18 @@ impl wkt::message::Message for ListWorkstationClustersRequest {
 pub struct ListWorkstationClustersResponse {
     /// The requested workstation clusters.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub workstation_clusters: std::vec::Vec<crate::model::WorkstationCluster>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Unreachable resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2414,10 +2480,12 @@ impl gax::paginator::internal::PageableResponse for ListWorkstationClustersRespo
 pub struct CreateWorkstationClusterRequest {
     /// Required. Parent resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID to use for the workstation cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub workstation_cluster_id: std::string::String,
 
     /// Required. Workstation cluster to create.
@@ -2427,6 +2495,7 @@ pub struct CreateWorkstationClusterRequest {
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2502,12 +2571,14 @@ pub struct UpdateWorkstationClusterRequest {
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. If set, and the workstation cluster is not found, a new
     /// workstation cluster will be created. In this situation, update_mask is
     /// ignored.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2582,22 +2653,26 @@ impl wkt::message::Message for UpdateWorkstationClusterRequest {
 pub struct DeleteWorkstationClusterRequest {
     /// Required. Name of the workstation cluster to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// apply it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. If set, the request will be rejected if the latest version of the
     /// workstation cluster on the server does not have this ETag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. If set, any workstation configurations and workstations in the
     /// workstation cluster are also deleted. Otherwise, the request only
     /// works if the workstation cluster has no configurations or workstations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2648,6 +2723,7 @@ impl wkt::message::Message for DeleteWorkstationClusterRequest {
 pub struct GetWorkstationConfigRequest {
     /// Required. Name of the requested resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2680,16 +2756,18 @@ impl wkt::message::Message for GetWorkstationConfigRequest {
 pub struct ListWorkstationConfigsRequest {
     /// Required. Parent resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
     /// any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2734,15 +2812,18 @@ impl wkt::message::Message for ListWorkstationConfigsRequest {
 pub struct ListWorkstationConfigsResponse {
     /// The requested configs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub workstation_configs: std::vec::Vec<crate::model::WorkstationConfig>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Unreachable resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2811,16 +2892,18 @@ impl gax::paginator::internal::PageableResponse for ListWorkstationConfigsRespon
 pub struct ListUsableWorkstationConfigsRequest {
     /// Required. Parent resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
     /// any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2865,15 +2948,18 @@ impl wkt::message::Message for ListUsableWorkstationConfigsRequest {
 pub struct ListUsableWorkstationConfigsResponse {
     /// The requested configs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub workstation_configs: std::vec::Vec<crate::model::WorkstationConfig>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Unreachable resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2942,10 +3028,12 @@ impl gax::paginator::internal::PageableResponse for ListUsableWorkstationConfigs
 pub struct CreateWorkstationConfigRequest {
     /// Required. Parent resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID to use for the workstation configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub workstation_config_id: std::string::String,
 
     /// Required. Config to create.
@@ -2955,6 +3043,7 @@ pub struct CreateWorkstationConfigRequest {
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3030,12 +3119,14 @@ pub struct UpdateWorkstationConfigRequest {
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. If set and the workstation configuration is not found, a new
     /// workstation configuration will be created. In this situation,
     /// update_mask is ignored.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3110,22 +3201,26 @@ impl wkt::message::Message for UpdateWorkstationConfigRequest {
 pub struct DeleteWorkstationConfigRequest {
     /// Required. Name of the workstation configuration to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. If set, the request is rejected if the latest version of the
     /// workstation configuration on the server does not have this ETag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. If set, any workstations in the workstation configuration are
     /// also deleted. Otherwise, the request works only if the workstation
     /// configuration has no workstations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3176,6 +3271,7 @@ impl wkt::message::Message for DeleteWorkstationConfigRequest {
 pub struct GetWorkstationRequest {
     /// Required. Name of the requested resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3208,16 +3304,18 @@ impl wkt::message::Message for GetWorkstationRequest {
 pub struct ListWorkstationsRequest {
     /// Required. Parent resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
     /// any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3262,15 +3360,18 @@ impl wkt::message::Message for ListWorkstationsRequest {
 pub struct ListWorkstationsResponse {
     /// The requested workstations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub workstations: std::vec::Vec<crate::model::Workstation>,
 
     /// Optional. Token to retrieve the next page of results, or empty if there are
     /// no more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Optional. Unreachable resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3339,16 +3440,18 @@ impl gax::paginator::internal::PageableResponse for ListWorkstationsResponse {
 pub struct ListUsableWorkstationsRequest {
     /// Required. Parent resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of items to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. next_page_token value returned from a previous List request, if
     /// any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3393,15 +3496,18 @@ impl wkt::message::Message for ListUsableWorkstationsRequest {
 pub struct ListUsableWorkstationsResponse {
     /// The requested workstations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub workstations: std::vec::Vec<crate::model::Workstation>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Unreachable resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3470,10 +3576,12 @@ impl gax::paginator::internal::PageableResponse for ListUsableWorkstationsRespon
 pub struct CreateWorkstationRequest {
     /// Required. Parent resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID to use for the workstation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub workstation_id: std::string::String,
 
     /// Required. Workstation to create.
@@ -3483,6 +3591,7 @@ pub struct CreateWorkstationRequest {
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3555,12 +3664,14 @@ pub struct UpdateWorkstationRequest {
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. If set and the workstation configuration is not found, a new
     /// workstation configuration is created. In this situation, update_mask
     /// is ignored.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3635,16 +3746,19 @@ impl wkt::message::Message for UpdateWorkstationRequest {
 pub struct DeleteWorkstationRequest {
     /// Required. Name of the workstation to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. If set, the request will be rejected if the latest version of the
     /// workstation on the server does not have this ETag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3689,16 +3803,19 @@ impl wkt::message::Message for DeleteWorkstationRequest {
 pub struct StartWorkstationRequest {
     /// Required. Name of the workstation to start.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. If set, the request will be rejected if the latest version of the
     /// workstation on the server does not have this ETag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3743,16 +3860,19 @@ impl wkt::message::Message for StartWorkstationRequest {
 pub struct StopWorkstationRequest {
     /// Required. Name of the workstation to stop.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually apply it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. If set, the request will be rejected if the latest version of the
     /// workstation on the server does not have this ETag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3798,6 +3918,7 @@ pub struct GenerateAccessTokenRequest {
     /// Required. Name of the workstation for which the access token should be
     /// generated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub workstation: std::string::String,
 
     /// Desired expiration or lifetime of the access token.
@@ -3929,6 +4050,7 @@ pub struct GenerateAccessTokenResponse {
     /// workstation's hostname—for example, `Authorization: Bearer
     /// <access_token>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub access_token: std::string::String,
 
     /// Time at which the generated token will expire.
@@ -3991,23 +4113,28 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
     /// of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

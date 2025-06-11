@@ -243,7 +243,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
         let builder = req
             .read_time
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {
@@ -1157,7 +1157,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         let builder = req
             .db_timeout
             .as_ref()
-            .map(|p| serde_json::to_value(p).map_err(Error::serde))
+            .map(|p| serde_json::to_value(p).map_err(Error::ser))
             .transpose()?
             .into_iter()
             .fold(builder, |builder, v| {

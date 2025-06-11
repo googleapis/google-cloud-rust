@@ -15,6 +15,11 @@
 #[cfg(test)]
 mod test {
     use google_cloud_storage_control as gcs;
+    use paste::paste;
+
+    #[derive(Debug)]
+    struct DefaultStorageControl;
+    impl gcs::stub::StorageControl for DefaultStorageControl {}
 
     mockall::mock! {
         #[derive(Debug)]
@@ -55,256 +60,81 @@ mod test {
             async fn resume_anywhere_cache( &self, _req: gcs::model::ResumeAnywhereCacheRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::AnywhereCache>>;
             async fn get_anywhere_cache( &self, _req: gcs::model::GetAnywhereCacheRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::AnywhereCache>>;
             async fn list_anywhere_caches( &self, _req: gcs::model::ListAnywhereCachesRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::ListAnywhereCachesResponse>>;
+            async fn get_folder_intelligence_config( &self, _req: gcs::model::GetFolderIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
+            async fn update_folder_intelligence_config( &self, _req: gcs::model::UpdateFolderIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
+            async fn get_project_intelligence_config( &self, _req: gcs::model::GetProjectIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
+            async fn update_project_intelligence_config( &self, _req: gcs::model::UpdateProjectIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
+            async fn get_organization_intelligence_config( &self, _req: gcs::model::GetOrganizationIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
+            async fn update_organization_intelligence_config( &self, _req: gcs::model::UpdateOrganizationIntelligenceConfigRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<gcs::model::IntelligenceConfig>>;
             async fn get_operation( &self, _req: longrunning::model::GetOperationRequest, _options: gax::options::RequestOptions) -> gax::Result<gax::response::Response<longrunning::model::Operation>>;
         }
     }
 
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn mocking() {
-        let mut seq = mockall::Sequence::new();
-        let mut mock = MockStorageControl::new();
-        mock.expect_delete_bucket()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_get_bucket()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_create_bucket()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_list_buckets()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_lock_bucket_retention_policy()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_get_iam_policy()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_set_iam_policy()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_test_iam_permissions()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_update_bucket()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_compose_object()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_delete_object()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_restore_object()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_get_object()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_update_object()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_list_objects()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_rewrite_object()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_move_object()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
+    macro_rules! stub_tests {
+        ($($method:ident),*) => {
+            $( paste! {
+                #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+                async fn [<mock_stub_$method>]() {
+                    use gax::error::{Error, rpc::{Code, Status}};
+                    let mut mock = MockStorageControl::new();
+                    mock.[<expect_$method>]()
+                        .times(1)
+                        .returning(|_, _| Err(Error::service(Status::default().set_code(Code::Aborted))));
+                    let client = gcs::client::StorageControl::from_stub(mock);
+                    let _ = client.$method().send().await.unwrap_err();
+                }
 
-        mock.expect_create_folder()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_delete_folder()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_get_folder()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_list_folders()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_rename_folder()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_get_storage_layout()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_create_managed_folder()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_delete_managed_folder()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_get_managed_folder()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_list_managed_folders()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_create_anywhere_cache()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_update_anywhere_cache()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_disable_anywhere_cache()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_pause_anywhere_cache()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_resume_anywhere_cache()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_get_anywhere_cache()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_list_anywhere_caches()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-        mock.expect_get_operation()
-            .times(1)
-            .in_sequence(&mut seq)
-            .returning(|_, _| Err(gax::error::Error::other("simulated failure")));
-
-        let client = gcs::client::StorageControl::from_stub(mock);
-
-        let _ = client.delete_bucket().send().await.unwrap_err();
-        let _ = client.get_bucket().send().await.unwrap_err();
-        let _ = client.create_bucket().send().await.unwrap_err();
-        let _ = client.list_buckets().send().await.unwrap_err();
-        let _ = client
-            .lock_bucket_retention_policy()
-            .send()
-            .await
-            .unwrap_err();
-        let _ = client.get_iam_policy().send().await.unwrap_err();
-        let _ = client.set_iam_policy().send().await.unwrap_err();
-        let _ = client.test_iam_permissions().send().await.unwrap_err();
-        let _ = client.update_bucket().send().await.unwrap_err();
-        let _ = client.compose_object().send().await.unwrap_err();
-        let _ = client.delete_object().send().await.unwrap_err();
-        let _ = client.restore_object().send().await.unwrap_err();
-        let _ = client.get_object().send().await.unwrap_err();
-        let _ = client.update_object().send().await.unwrap_err();
-        let _ = client.list_objects().send().await.unwrap_err();
-        let _ = client.rewrite_object().send().await.unwrap_err();
-        let _ = client.move_object().send().await.unwrap_err();
-
-        let _ = client.create_folder().send().await.unwrap_err();
-        let _ = client.delete_folder().send().await.unwrap_err();
-        let _ = client.get_folder().send().await.unwrap_err();
-        let _ = client.list_folders().send().await.unwrap_err();
-        let _ = client.rename_folder().send().await.unwrap_err();
-        let _ = client.get_storage_layout().send().await.unwrap_err();
-        let _ = client.create_managed_folder().send().await.unwrap_err();
-        let _ = client.delete_managed_folder().send().await.unwrap_err();
-        let _ = client.get_managed_folder().send().await.unwrap_err();
-        let _ = client.list_managed_folders().send().await.unwrap_err();
-        let _ = client.create_anywhere_cache().send().await.unwrap_err();
-        let _ = client.update_anywhere_cache().send().await.unwrap_err();
-        let _ = client.disable_anywhere_cache().send().await.unwrap_err();
-        let _ = client.pause_anywhere_cache().send().await.unwrap_err();
-        let _ = client.resume_anywhere_cache().send().await.unwrap_err();
-        let _ = client.get_anywhere_cache().send().await.unwrap_err();
-        let _ = client.list_anywhere_caches().send().await.unwrap_err();
-        let _ = client.get_operation().send().await.unwrap_err();
+                #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+                #[should_panic]
+                async fn [<default_stub_$method>]() {
+                    let client = gcs::client::StorageControl::from_stub(DefaultStorageControl);
+                    let _ = client.$method().send().await;
+                }
+            })*
+        };
     }
 
-    mod default_stub {
-        use super::gcs;
-
-        #[derive(Debug)]
-        struct DefaultStorageControl;
-        impl gcs::stub::StorageControl for DefaultStorageControl {}
-
-        macro_rules! default_stub_method {
-            ($($method:ident),*) => {
-                $(
-                    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-                    #[should_panic]
-                    async fn $method() {
-                        let client = gcs::client::StorageControl::from_stub(DefaultStorageControl);
-                        let _ = client.$method().send().await;
-                    }
-                )*
-            };
-        }
-
-        default_stub_method!(
-            delete_bucket,
-            get_bucket,
-            create_bucket,
-            list_buckets,
-            lock_bucket_retention_policy,
-            get_iam_policy,
-            set_iam_policy,
-            test_iam_permissions,
-            update_bucket,
-            compose_object,
-            delete_object,
-            restore_object,
-            get_object,
-            update_object,
-            list_objects,
-            rewrite_object,
-            move_object,
-            create_folder,
-            delete_folder,
-            get_folder,
-            list_folders,
-            rename_folder,
-            get_storage_layout,
-            create_managed_folder,
-            delete_managed_folder,
-            get_managed_folder,
-            list_managed_folders,
-            create_anywhere_cache,
-            update_anywhere_cache,
-            disable_anywhere_cache,
-            pause_anywhere_cache,
-            resume_anywhere_cache,
-            get_anywhere_cache,
-            list_anywhere_caches,
-            get_operation
-        );
-    }
+    stub_tests!(
+        delete_bucket,
+        get_bucket,
+        create_bucket,
+        list_buckets,
+        lock_bucket_retention_policy,
+        get_iam_policy,
+        set_iam_policy,
+        test_iam_permissions,
+        update_bucket,
+        compose_object,
+        delete_object,
+        restore_object,
+        get_object,
+        update_object,
+        list_objects,
+        rewrite_object,
+        move_object,
+        create_folder,
+        delete_folder,
+        get_folder,
+        list_folders,
+        rename_folder,
+        get_storage_layout,
+        create_managed_folder,
+        delete_managed_folder,
+        get_managed_folder,
+        list_managed_folders,
+        create_anywhere_cache,
+        update_anywhere_cache,
+        disable_anywhere_cache,
+        pause_anywhere_cache,
+        resume_anywhere_cache,
+        get_anywhere_cache,
+        list_anywhere_caches,
+        get_folder_intelligence_config,
+        update_folder_intelligence_config,
+        get_project_intelligence_config,
+        update_project_intelligence_config,
+        get_organization_intelligence_config,
+        update_organization_intelligence_config,
+        get_operation
+    );
 }

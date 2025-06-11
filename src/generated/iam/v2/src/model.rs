@@ -81,6 +81,7 @@ pub struct DenyRule {
     ///   `principalSet://goog/cloudIdentityCustomerId/C01Abc35`.
     ///
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub denied_principals: std::vec::Vec<std::string::String>,
 
     /// The identities that are excluded from the deny rule, even if they are
@@ -92,6 +93,7 @@ pub struct DenyRule {
     /// excluding `principalSet://goog/public:all`, which represents all users on
     /// the internet.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub exception_principals: std::vec::Vec<std::string::String>,
 
     /// The permissions that are explicitly denied by this rule. Each permission
@@ -99,6 +101,7 @@ pub struct DenyRule {
     /// is the fully qualified domain name for the service. For example,
     /// `iam.googleapis.com/roles.list`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub denied_permissions: std::vec::Vec<std::string::String>,
 
     /// Specifies the permissions that this rule excludes from the set of denied
@@ -109,6 +112,7 @@ pub struct DenyRule {
     /// The excluded permissions can be specified using the same syntax as
     /// `denied_permissions`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub exception_permissions: std::vec::Vec<std::string::String>,
 
     /// The condition that determines whether this deny rule applies to a request.
@@ -221,25 +225,30 @@ pub struct Policy {
     /// name. For projects, requests can use the alphanumeric or the numeric ID.
     /// Responses always contain the numeric ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Immutable. The globally unique ID of the `Policy`. Assigned automatically when the
     /// `Policy` is created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Output only. The kind of the `Policy`. Always contains the value `DenyPolicy`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kind: std::string::String,
 
     /// A user-specified description of the `Policy`. This value can be up to 63
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// A key-value map to store arbitrary metadata for the `Policy`. Keys
     /// can be up to 63 characters. Values can be up to 255 characters.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// An opaque tag that identifies the current version of the `Policy`. IAM uses
@@ -249,6 +258,7 @@ pub struct Policy {
     /// If this field is present in a [CreatePolicy][] request, the value is
     /// ignored.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Output only. The time when the `Policy` was created.
@@ -266,11 +276,13 @@ pub struct Policy {
     /// A list of rules that specify the behavior of the `Policy`. All of the rules
     /// should be of the `kind` specified in the `Policy`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::PolicyRule>,
 
     /// Immutable. Specifies that this policy is managed by an authority and can only be
     /// modified by that authority. Usage is restricted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub managing_authority: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -414,6 +426,7 @@ pub struct PolicyRule {
     /// A user-specified description of the rule. This value can be up to 256
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -510,12 +523,13 @@ pub struct ListPoliciesRequest {
     /// For organizations and folders, use the numeric ID in the full resource
     /// name. For projects, you can use the alphanumeric or the numeric ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of policies to return. IAM ignores this value and uses
     /// the value 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token received in a [ListPoliciesResponse][google.iam.v2.ListPoliciesResponse]. Provide this token to
@@ -523,6 +537,7 @@ pub struct ListPoliciesRequest {
     ///
     /// [google.iam.v2.ListPoliciesResponse]: crate::model::ListPoliciesResponse
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -567,6 +582,7 @@ impl wkt::message::Message for ListPoliciesRequest {
 pub struct ListPoliciesResponse {
     /// Metadata for the policies that are attached to the resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policies: std::vec::Vec<crate::model::Policy>,
 
     /// A page token that you can use in a [ListPoliciesRequest][google.iam.v2.ListPoliciesRequest] to retrieve the
@@ -574,6 +590,7 @@ pub struct ListPoliciesResponse {
     ///
     /// [google.iam.v2.ListPoliciesRequest]: crate::model::ListPoliciesRequest
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -639,6 +656,7 @@ pub struct GetPolicyRequest {
     /// For organizations and folders, use the numeric ID in the full resource
     /// name. For projects, you can use the alphanumeric or the numeric ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -680,6 +698,7 @@ pub struct CreatePolicyRequest {
     /// For organizations and folders, use the numeric ID in the full resource
     /// name. For projects, you can use the alphanumeric or the numeric ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The policy to create.
@@ -691,6 +710,7 @@ pub struct CreatePolicyRequest {
     /// contain lowercase letters and numbers, as well as dashes (`-`) and periods
     /// (`.`). The first character must be a lowercase letter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub policy_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -803,6 +823,7 @@ pub struct DeletePolicyRequest {
     /// For organizations and folders, use the numeric ID in the full resource
     /// name. For projects, you can use the alphanumeric or the numeric ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The expected `etag` of the policy to delete. If the value does not match
@@ -812,6 +833,7 @@ pub struct DeletePolicyRequest {
     /// If you omit this field, the policy is deleted regardless of its current
     /// `etag`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

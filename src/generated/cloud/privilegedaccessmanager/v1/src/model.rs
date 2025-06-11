@@ -47,6 +47,7 @@ pub struct CheckOnboardingStatusRequest {
     /// * `folders/{folder-number}/locations/{region}`
     /// * `organizations/{organization-number}/locations/{region}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -79,12 +80,14 @@ impl wkt::message::Message for CheckOnboardingStatusRequest {
 pub struct CheckOnboardingStatusResponse {
     /// The service account that PAM uses to act on this resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// List of issues that are preventing PAM from functioning for this resource
     /// and need to be fixed to complete onboarding. Some issues might not be
     /// detected or reported.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub findings: std::vec::Vec<crate::model::check_onboarding_status_response::Finding>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -227,6 +230,7 @@ pub mod check_onboarding_status_response {
         pub struct IAMAccessDenied {
             /// List of permissions that are being denied.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub missing_permissions: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -286,6 +290,7 @@ pub struct Entitlement {
     /// * `folders/{folder-number}/locations/{region}/entitlements/{entitlement-id}`
     /// * `projects/{project-id|project-number}/locations/{region}/entitlements/{entitlement-id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Create time stamp.
@@ -299,6 +304,7 @@ pub struct Entitlement {
     /// Optional. Who can create grants using this entitlement. This list should
     /// contain at most one entry.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub eligible_users: std::vec::Vec<crate::model::AccessControlEntry>,
 
     /// Optional. The approvals needed before access are granted to a requester. No
@@ -317,6 +323,7 @@ pub struct Entitlement {
 
     /// Output only. Current state of this entitlement.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::entitlement::State,
 
     /// Required. The manner in which the requester should provide a justification
@@ -337,6 +344,7 @@ pub struct Entitlement {
     /// the same version. If this field is omitted or if there is a mismatch while
     /// updating an entitlement, then the server rejects the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -728,11 +736,13 @@ pub mod entitlement {
         /// Optional. Additional email addresses to be notified when a principal
         /// (requester) is granted access.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub admin_email_recipients: std::vec::Vec<std::string::String>,
 
         /// Optional. Additional email address to be notified about an eligible
         /// entitlement.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub requester_email_recipients: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -937,6 +947,7 @@ pub struct AccessControlEntry {
     /// valid v1 IAM principal identifier. The format for these is documented at:
     /// <https://cloud.google.com/iam/docs/principal-identifiers#v1>
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub principals: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1077,11 +1088,13 @@ pub struct ManualApprovals {
     /// Optional. Do the approvers need to provide a justification for their
     /// actions?
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub require_approver_justification: bool,
 
     /// Optional. List of approval steps in this workflow. These steps are followed
     /// in the specified order sequentially. Only 1 step is supported.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub steps: std::vec::Vec<crate::model::manual_approvals::Step>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1131,18 +1144,20 @@ pub mod manual_approvals {
         /// Optional. The potential set of approvers in this step. This list must
         /// contain at most one entry.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub approvers: std::vec::Vec<crate::model::AccessControlEntry>,
 
         /// Required. How many users from the above list need to approve. If there
         /// aren't enough distinct users in the list, then the workflow indefinitely
         /// blocks. Should always be greater than 0. 1 is the only supported value.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub approvals_needed: i32,
 
         /// Optional. Additional email addresses to be notified when a grant is
         /// pending approval.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub approver_email_recipients: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1276,14 +1291,17 @@ pub mod privileged_access {
     pub struct GcpIamAccess {
         /// Required. The type of this resource.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub resource_type: std::string::String,
 
         /// Required. Name of the resource.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub resource: std::string::String,
 
         /// Required. Role bindings that are created on successful grant.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub role_bindings:
             std::vec::Vec<crate::model::privileged_access::gcp_iam_access::RoleBinding>,
 
@@ -1343,6 +1361,7 @@ pub mod privileged_access {
             /// Required. IAM role to be granted.
             /// <https://cloud.google.com/iam/docs/roles-overview>.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub role: std::string::String,
 
             /// Optional. The expression field of the IAM condition to be associated
@@ -1354,6 +1373,7 @@ pub mod privileged_access {
             /// that IAM supports, except tags.
             /// <https://cloud.google.com/iam/docs/conditions-overview#attributes>.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub condition_expression: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1406,24 +1426,28 @@ pub mod privileged_access {
 pub struct ListEntitlementsRequest {
     /// Required. The parent which owns the entitlement resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filtering results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Hint for how to order the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1480,14 +1504,17 @@ impl wkt::message::Message for ListEntitlementsRequest {
 pub struct ListEntitlementsResponse {
     /// The list of entitlements.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entitlements: std::vec::Vec<crate::model::Entitlement>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1556,26 +1583,30 @@ impl gax::paginator::internal::PageableResponse for ListEntitlementsResponse {
 pub struct SearchEntitlementsRequest {
     /// Required. The parent which owns the entitlement resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Only entitlements where the calling user has this access are
     /// returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub caller_access_type: crate::model::search_entitlements_request::CallerAccessType,
 
     /// Optional. Only entitlements matching this filter are returned in the
     /// response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Requested page size. The server may return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1775,10 +1806,12 @@ pub mod search_entitlements_request {
 pub struct SearchEntitlementsResponse {
     /// The list of entitlements.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entitlements: std::vec::Vec<crate::model::Entitlement>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1836,6 +1869,7 @@ impl gax::paginator::internal::PageableResponse for SearchEntitlementsResponse {
 pub struct GetEntitlementRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1873,6 +1907,7 @@ pub struct CreateEntitlementRequest {
     /// * `folders/{folder-number}/locations/{region}`
     /// * `projects/{project-id|project-number}/locations/{region}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID to use for this entitlement. This becomes the last part of
@@ -1884,6 +1919,7 @@ pub struct CreateEntitlementRequest {
     /// This value should be unique among all other entitlements under the
     /// specified `parent`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entitlement_id: std::string::String,
 
     /// Required. The resource being created
@@ -1905,6 +1941,7 @@ pub struct CreateEntitlementRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1967,6 +2004,7 @@ impl wkt::message::Message for CreateEntitlementRequest {
 pub struct DeleteEntitlementRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
@@ -1982,12 +2020,14 @@ pub struct DeleteEntitlementRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, any child grant under this entitlement is also
     /// deleted. (Otherwise, the request only works if the entitlement has no child
     /// grant.)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2114,6 +2154,7 @@ pub struct Grant {
     ///
     /// The last segment of this name (`{grant-id}`) is autogenerated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Create time stamp.
@@ -2126,6 +2167,7 @@ pub struct Grant {
 
     /// Output only. Username of the user who created this grant.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requester: std::string::String,
 
     /// Required. The amount of time access is needed for. This value should be
@@ -2139,6 +2181,7 @@ pub struct Grant {
 
     /// Output only. Current state of this grant.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::grant::State,
 
     /// Output only. Timeline of this grant.
@@ -2157,6 +2200,7 @@ pub struct Grant {
     /// Optional. Additional email addresses to notify for all the actions
     /// performed on the grant.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub additional_email_recipients: std::vec::Vec<std::string::String>,
 
     /// Output only. Flag set by the PAM system to indicate that policy bindings
@@ -2166,6 +2210,7 @@ pub struct Grant {
     /// state. A `true` value here indicates that PAM no longer has any certainty
     /// on the access a user has because of this grant.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub externally_modified: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2361,6 +2406,7 @@ pub mod grant {
         /// always be of type `Requested` and there is always at least one entry in
         /// this array.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub events: std::vec::Vec<crate::model::grant::timeline::Event>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2862,10 +2908,12 @@ pub mod grant {
                 /// Output only. The reason provided by the approver for approving the
                 /// grant.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub reason: std::string::String,
 
                 /// Output only. Username of the user who approved the grant.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub actor: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2911,10 +2959,12 @@ pub mod grant {
                 /// Output only. The reason provided by the approver for denying the
                 /// grant.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub reason: std::string::String,
 
                 /// Output only. Username of the user who denied the grant.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub actor: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2959,10 +3009,12 @@ pub mod grant {
             pub struct Revoked {
                 /// Output only. The reason provided by the user for revoking the grant.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub reason: std::string::String,
 
                 /// Output only. Username of the user who revoked the grant.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub actor: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3559,7 +3611,9 @@ pub mod justification {
     pub enum Justification {
         /// A free form textual justification. The system only ensures that this
         /// is not empty. No other kind of validation is performed on the string.
-        UnstructuredJustification(std::string::String),
+        UnstructuredJustification(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String,
+        ),
     }
 }
 
@@ -3571,24 +3625,28 @@ pub mod justification {
 pub struct ListGrantsRequest {
     /// Required. The parent resource which owns the grants.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. The server may return fewer items than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filtering results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3645,14 +3703,17 @@ impl wkt::message::Message for ListGrantsRequest {
 pub struct ListGrantsResponse {
     /// The list of grants.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub grants: std::vec::Vec<crate::model::Grant>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3721,25 +3782,29 @@ impl gax::paginator::internal::PageableResponse for ListGrantsResponse {
 pub struct SearchGrantsRequest {
     /// Required. The parent which owns the grant resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Only grants which the caller is related to by this relationship
     /// are returned in the response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub caller_relationship: crate::model::search_grants_request::CallerRelationshipType,
 
     /// Optional. Only grants matching this filter are returned in the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Requested page size. The server may return fewer items than
     /// requested. If unspecified, server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3948,10 +4013,12 @@ pub mod search_grants_request {
 pub struct SearchGrantsResponse {
     /// The list of grants.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub grants: std::vec::Vec<crate::model::Grant>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4009,6 +4076,7 @@ impl gax::paginator::internal::PageableResponse for SearchGrantsResponse {
 pub struct GetGrantRequest {
     /// Required. Name of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4041,12 +4109,14 @@ impl wkt::message::Message for GetGrantRequest {
 pub struct ApproveGrantRequest {
     /// Required. Name of the grant resource which is being approved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The reason for approving this grant. This is required if the
     /// `require_approver_justification` field of the `ManualApprovals` workflow
     /// used in this grant is true.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reason: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4085,12 +4155,14 @@ impl wkt::message::Message for ApproveGrantRequest {
 pub struct DenyGrantRequest {
     /// Required. Name of the grant resource which is being denied.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The reason for denying this grant. This is required if
     /// `require_approver_justification` field of the `ManualApprovals` workflow
     /// used in this grant is true.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reason: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4129,10 +4201,12 @@ impl wkt::message::Message for DenyGrantRequest {
 pub struct RevokeGrantRequest {
     /// Required. Name of the grant resource which is being revoked.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The reason for revoking this grant.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reason: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4172,6 +4246,7 @@ pub struct CreateGrantRequest {
     /// Required. Name of the parent entitlement for which this grant is being
     /// requested.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The resource being created.
@@ -4192,6 +4267,7 @@ pub struct CreateGrantRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4256,14 +4332,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -4274,10 +4353,12 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -250,6 +250,80 @@ impl gax::paginator::internal::PageableResponse for {{Codec.Name}} {
     {{/NextPageToken}}
 }
 {{/Pagination}}
+{{#Codec.WithGeneratedSerde}}
+
+{{!
+    We will grow this code over multiple PRs to complete the serialization and
+    deserialization of message types via code generation.
+
+    TODO(#2376) - remove the helper type and all the serde annotations once
+    this is functional.
+}}
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __{{Codec.Name}}(pub {{Codec.Name}});
+
+impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        {{! This is the visitor for the message }}
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = {{Codec.Name}};
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct {{Codec.Name}}")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        {{#Fields}}
+                        {{^Codec.RequiresSerdeAs}}
+                        "{{JSONName}}" => {
+                            {{> /templates/common/deser_plain_message_field}}
+                        },
+                        {{/Codec.RequiresSerdeAs}}
+                        {{/Fields}}
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        },
+                    }
+                }
+                Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor).map(__{{Codec.Name}})
+    }
+}
+
+impl serde::ser::Serialize for __{{Codec.Name}} {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(None)?;
+        {{#Fields}}
+        {{^Codec.RequiresSerdeAs}}
+        {{> /templates/common/ser_plain_message_field}}
+        {{/Codec.RequiresSerdeAs}}
+        {{/Fields}}
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+{{/Codec.WithGeneratedSerde}}
 {{#Codec.HasNestedTypes}}
 
 /// Defines additional types related to [{{Name}}].

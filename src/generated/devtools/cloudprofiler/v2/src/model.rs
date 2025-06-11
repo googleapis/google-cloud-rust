@@ -41,6 +41,7 @@ extern crate wkt;
 pub struct CreateProfileRequest {
     /// Parent project to create the profile in.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Deployment details.
@@ -49,6 +50,7 @@ pub struct CreateProfileRequest {
 
     /// One or more profile types that the agent is capable of providing.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub profile_type: std::vec::Vec<crate::model::ProfileType>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -111,6 +113,7 @@ impl wkt::message::Message for CreateProfileRequest {
 pub struct CreateOfflineProfileRequest {
     /// Parent project to create the profile in.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Contents of the profile to create.
@@ -234,12 +237,14 @@ impl wkt::message::Message for UpdateProfileRequest {
 pub struct Profile {
     /// Output only. Opaque, server-assigned, unique ID for this profile.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Type of profile.
     /// For offline mode, this must be specified when creating the profile. For
     /// online mode it is assigned and returned by the server.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub profile_type: crate::model::ProfileType,
 
     /// Deployment this profile corresponds to.
@@ -258,13 +263,14 @@ pub struct Profile {
     /// Input only. Profile bytes, as a gzip compressed serialized proto, the
     /// format is <https://github.com/google/pprof/blob/master/proto/profile.proto>.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub profile_bytes: ::bytes::Bytes,
 
     /// Input only. Labels associated to this specific profile. These labels will
     /// get merged with the deployment labels for the final data set. See
     /// documentation on deployment labels for validation rules and limits.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Start time for the profile.
@@ -384,6 +390,7 @@ pub struct Deployment {
     /// Project ID is the ID of a cloud project.
     /// Validation regex: `^[a-z][-a-z0-9:.]{4,61}[a-z0-9]$`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Target is the service name used to group related deployments:
@@ -394,6 +401,7 @@ pub struct Deployment {
     /// * Job name for Dataflow.
     ///   Validation regex: `^[a-z0-9]([-a-z0-9_.]{0,253}[a-z0-9])?$`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Labels identify the deployment within the user universe and same target.
@@ -410,6 +418,7 @@ pub struct Deployment {
     /// is "us-central1-a", an example of a region is "us-central1" or
     /// "us-central".
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -462,19 +471,21 @@ pub struct ListProfilesRequest {
     /// Required. The parent, which owns this collection of profiles.
     /// Format: projects/{user_project_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return.
     /// Default page_size is 1000.
     /// Max limit is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The token to continue pagination and get profiles from a particular page.
     /// When paginating, all other parameters provided to `ListProfiles` must match
     /// the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -520,11 +531,13 @@ impl wkt::message::Message for ListProfilesRequest {
 pub struct ListProfilesResponse {
     /// List of profiles fetched.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub profiles: std::vec::Vec<crate::model::Profile>,
 
     /// Token to receive the next page of results.
     /// This field maybe empty if there are no more profiles to fetch.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Number of profiles that were skipped in the current page since they were
@@ -532,7 +545,7 @@ pub struct ListProfilesResponse {
     /// non-zero value may indicate a transient failure, in which case if the
     /// number is too high for your use case, the call may be retried.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub skipped_profiles: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -43,7 +43,7 @@ pub struct OperationProgress {
     /// Percent completion of the operation.
     /// Values are between 0 and 100 inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub progress_percent: i32,
 
     /// Time the request was received.
@@ -121,6 +121,7 @@ impl wkt::message::Message for OperationProgress {
 pub struct ReplicaSelection {
     /// Required. Name of the location of the replicas (e.g., "us-central1").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -152,11 +153,13 @@ impl wkt::message::Message for ReplicaSelection {
 pub struct ReplicaInfo {
     /// The location of the serving resources, e.g., "us-central1".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     /// The type of replica.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::replica_info::ReplicaType,
 
     /// If true, this location is designated as the default leader location where
@@ -164,6 +167,7 @@ pub struct ReplicaInfo {
     /// documentation](https://cloud.google.com/spanner/docs/instances#region_types)
     /// for more details.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_leader_location: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -380,15 +384,18 @@ pub struct InstanceConfig {
     ///
     /// User instance configuration must start with `custom-`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The name of this instance configuration as it appears in UIs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. Whether this instance configuration is a Google-managed or
     /// user-managed configuration.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub config_type: crate::model::instance_config::Type,
 
     /// The geographic placement of nodes in this instance configuration and their
@@ -399,11 +406,13 @@ pub struct InstanceConfig {
     /// and include one or more replicas in the `optional_replicas` of the
     /// `base_config`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub replicas: std::vec::Vec<crate::model::ReplicaInfo>,
 
     /// Output only. The available optional replicas to choose from for
     /// user-managed configurations. Populated for Google-managed configurations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub optional_replicas: std::vec::Vec<crate::model::ReplicaInfo>,
 
     /// Base configuration name, e.g. projects/<project_name>/instanceConfigs/nam3,
@@ -411,6 +420,7 @@ pub struct InstanceConfig {
     /// configurations. `base_config` must refer to a configuration of type
     /// `GOOGLE_MANAGED` in the same project as this configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub base_config: std::string::String,
 
     /// Cloud Labels are a flexible and lightweight mechanism for organizing cloud
@@ -435,6 +445,7 @@ pub struct InstanceConfig {
     /// as the string:  name + "_" + value  would prove problematic if we were to
     /// allow "_" in a future release.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// etag is used for optimistic concurrency control as a way
@@ -449,36 +460,42 @@ pub struct InstanceConfig {
     /// configuration, then the existing instance configuration is overwritten
     /// blindly.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Allowed values of the "default_leader" schema option for databases in
     /// instances that use this instance configuration.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub leader_options: std::vec::Vec<std::string::String>,
 
     /// Output only. If true, the instance configuration is being created or
     /// updated. If false, there are no ongoing operations for the instance
     /// configuration.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciling: bool,
 
     /// Output only. The current instance configuration state. Applicable only for
     /// `USER_MANAGED` configurations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::instance_config::State,
 
     /// Output only. Describes whether free instances are available to be created
     /// in this instance configuration.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub free_instance_availability: crate::model::instance_config::FreeInstanceAvailability,
 
     /// Output only. The `QuorumType` of the instance configuration.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub quorum_type: crate::model::instance_config::QuorumType,
 
     /// Output only. The storage limit in bytes per processing unit.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub storage_limit_per_processing_unit: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1333,12 +1350,12 @@ pub mod replica_compute_capacity {
         ///
         /// This may be zero in API responses for instances that are not yet in
         /// state `READY`.
-        NodeCount(#[serde_as(as = "wkt::internal::I32")] i32),
+        NodeCount(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
         /// The number of processing units allocated to each replica.
         ///
         /// This may be zero in API responses for instances that are not yet in
         /// state `READY`.
-        ProcessingUnits(#[serde_as(as = "wkt::internal::I32")] i32),
+        ProcessingUnits(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
     }
 }
 
@@ -1368,6 +1385,7 @@ pub struct AutoscalingConfig {
     /// autoscaled together and will have the same compute capacity allocated to
     /// them.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub asymmetric_autoscaling_options:
         std::vec::Vec<crate::model::autoscaling_config::AsymmetricAutoscalingOption>,
 
@@ -1626,10 +1644,12 @@ pub mod autoscaling_config {
         pub enum MinLimit {
             /// Minimum number of nodes allocated to the instance. If set, this number
             /// should be greater than or equal to 1.
-            MinNodes(#[serde_as(as = "wkt::internal::I32")] i32),
+            MinNodes(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
             /// Minimum number of processing units allocated to the instance. If set,
             /// this number should be multiples of 1000.
-            MinProcessingUnits(#[serde_as(as = "wkt::internal::I32")] i32),
+            MinProcessingUnits(
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32,
+            ),
         }
 
         /// The maximum compute capacity for the instance. The maximum compute
@@ -1642,11 +1662,13 @@ pub mod autoscaling_config {
         pub enum MaxLimit {
             /// Maximum number of nodes allocated to the instance. If set, this number
             /// should be greater than or equal to min_nodes.
-            MaxNodes(#[serde_as(as = "wkt::internal::I32")] i32),
+            MaxNodes(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
             /// Maximum number of processing units allocated to the instance. If set,
             /// this number should be multiples of 1000 and be greater than or equal to
             /// min_processing_units.
-            MaxProcessingUnits(#[serde_as(as = "wkt::internal::I32")] i32),
+            MaxProcessingUnits(
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32,
+            ),
         }
     }
 
@@ -1661,7 +1683,7 @@ pub mod autoscaling_config {
         /// on a scale from 0 (no utilization) to 100 (full utilization). The valid
         /// range is [10, 90] inclusive.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub high_priority_cpu_utilization_percent: i32,
 
         /// Required. The target storage utilization percentage that the autoscaler
@@ -1669,7 +1691,7 @@ pub mod autoscaling_config {
         /// from 0 (no utilization) to 100 (full utilization). The valid range is
         /// [10, 99] inclusive.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub storage_utilization_percent: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1795,7 +1817,7 @@ pub mod autoscaling_config {
             /// high_priority_cpu_utilization_percent in the top-level autoscaling
             /// configuration for the selected replicas.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub autoscaling_target_high_priority_cpu_utilization_percent: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1856,6 +1878,7 @@ pub struct Instance {
     /// `projects/<project>/instances/[a-z][-a-z0-9]*[a-z0-9]`. The final
     /// segment of the name must be between 2 and 64 characters in length.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The name of the instance's configuration. Values are of the form
@@ -1866,11 +1889,13 @@ pub struct Instance {
     /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::client::InstanceAdmin::list_instance_configs
     /// [google.spanner.admin.instance.v1.InstanceConfig]: crate::model::InstanceConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub config: std::string::String,
 
     /// Required. The descriptive name for this instance as it appears in UIs.
     /// Must be unique per project and between 4 and 30 characters in length.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The number of nodes allocated to this instance. At most, one of either
@@ -1889,7 +1914,7 @@ pub struct Instance {
     /// [Compute capacity, nodes, and processing
     /// units](https://cloud.google.com/spanner/docs/compute-capacity).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub node_count: i32,
 
     /// The number of processing units allocated to this instance. At most, one of
@@ -1909,13 +1934,14 @@ pub struct Instance {
     /// [Compute capacity, nodes and processing
     /// units](https://cloud.google.com/spanner/docs/compute-capacity).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub processing_units: i32,
 
     /// Output only. Lists the compute capacity per ReplicaSelection. A replica
     /// selection identifies a set of replicas with common properties. Replicas
     /// identified by a ReplicaSelection are scaled with the same compute capacity.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub replica_compute_capacity: std::vec::Vec<crate::model::ReplicaComputeCapacity>,
 
     /// Optional. The autoscaling configuration. Autoscaling is enabled if this
@@ -1934,6 +1960,7 @@ pub struct Instance {
     /// [google.spanner.admin.instance.v1.InstanceAdmin.CreateInstance]: crate::client::InstanceAdmin::create_instance
     /// [google.spanner.admin.instance.v1.InstanceAdmin.UpdateInstance]: crate::client::InstanceAdmin::update_instance
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::instance::State,
 
     /// Cloud Labels are a flexible and lightweight mechanism for organizing cloud
@@ -1958,14 +1985,17 @@ pub struct Instance {
     /// as the string:  name + "_" + value  would prove problematic if we were to
     /// allow "_" in a future release.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The `InstanceType` of the current instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance_type: crate::model::instance::InstanceType,
 
     /// Deprecated. This field is not populated.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub endpoint_uris: std::vec::Vec<std::string::String>,
 
     /// Output only. The time at which the instance was created.
@@ -1982,6 +2012,7 @@ pub struct Instance {
 
     /// Optional. The `Edition` of the current instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub edition: crate::model::instance::Edition,
 
     /// Optional. Controls the default backup schedule behavior for new databases
@@ -1995,6 +2026,7 @@ pub struct Instance {
     /// `default_backup_schedule_type` isn't set, or set to `NONE`, Spanner doesn't
     /// create a default backup schedule for new databases in the instance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_backup_schedule_type: crate::model::instance::DefaultBackupScheduleType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2759,12 +2791,13 @@ pub struct ListInstanceConfigsRequest {
     /// configurations is requested. Values are of the form
     /// `projects/<project>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Number of instance configurations to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -2775,6 +2808,7 @@ pub struct ListInstanceConfigsRequest {
     /// [google.spanner.admin.instance.v1.ListInstanceConfigsResponse]: crate::model::ListInstanceConfigsResponse
     /// [google.spanner.admin.instance.v1.ListInstanceConfigsResponse.next_page_token]: crate::model::ListInstanceConfigsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2822,6 +2856,7 @@ impl wkt::message::Message for ListInstanceConfigsRequest {
 pub struct ListInstanceConfigsResponse {
     /// The list of requested instance configurations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub instance_configs: std::vec::Vec<crate::model::InstanceConfig>,
 
     /// `next_page_token` can be sent in a subsequent
@@ -2830,6 +2865,7 @@ pub struct ListInstanceConfigsResponse {
     ///
     /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::client::InstanceAdmin::list_instance_configs
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2891,6 +2927,7 @@ pub struct GetInstanceConfigRequest {
     /// Required. The name of the requested instance configuration. Values are of
     /// the form `projects/<project>/instanceConfigs/<config>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2927,6 +2964,7 @@ pub struct CreateInstanceConfigRequest {
     /// Required. The name of the project in which to create the instance
     /// configuration. Values are of the form `projects/<project>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID of the instance configuration to create. Valid identifiers
@@ -2934,6 +2972,7 @@ pub struct CreateInstanceConfigRequest {
     /// characters in length. The `custom-` prefix is required to avoid name
     /// conflicts with Google-managed configurations.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance_config_id: std::string::String,
 
     /// Required. The `InstanceConfig` proto of the configuration to create.
@@ -2947,6 +2986,7 @@ pub struct CreateInstanceConfigRequest {
     /// An option to validate, but not actually execute, a request,
     /// and provide the same response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3040,6 +3080,7 @@ pub struct UpdateInstanceConfigRequest {
     /// An option to validate, but not actually execute, a request,
     /// and provide the same response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3113,6 +3154,7 @@ pub struct DeleteInstanceConfigRequest {
     /// Values are of the form
     /// `projects/<project>/instanceConfigs/<instance_config>`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Used for optimistic concurrency control as a way to help prevent
@@ -3123,11 +3165,13 @@ pub struct DeleteInstanceConfigRequest {
     /// the instance configuration without checking the current status of the
     /// requested instance configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// An option to validate, but not actually execute, a request,
     /// and provide the same response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3176,6 +3220,7 @@ pub struct ListInstanceConfigOperationsRequest {
     /// Required. The project of the instance configuration operations.
     /// Values are of the form `projects/<project>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// An expression that filters the list of returned operations.
@@ -3223,12 +3268,13 @@ pub struct ListInstanceConfigOperationsRequest {
     ///
     /// [google.spanner.admin.instance.v1.CreateInstanceConfigMetadata]: crate::model::CreateInstanceConfigMetadata
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Number of operations to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -3240,6 +3286,7 @@ pub struct ListInstanceConfigOperationsRequest {
     /// [google.spanner.admin.instance.v1.ListInstanceConfigOperationsResponse]: crate::model::ListInstanceConfigOperationsResponse
     /// [google.spanner.admin.instance.v1.ListInstanceConfigOperationsResponse.next_page_token]: crate::model::ListInstanceConfigOperationsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3297,6 +3344,7 @@ pub struct ListInstanceConfigOperationsResponse {
     /// metadata field type
     /// `metadata.type_url` describes the type of the metadata.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub operations: std::vec::Vec<longrunning::model::Operation>,
 
     /// `next_page_token` can be sent in a subsequent
@@ -3305,6 +3353,7 @@ pub struct ListInstanceConfigOperationsResponse {
     ///
     /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigOperations]: crate::client::InstanceAdmin::list_instance_config_operations
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3366,6 +3415,7 @@ pub struct GetInstanceRequest {
     /// Required. The name of the requested instance. Values are of the form
     /// `projects/<project>/instances/<instance>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If field_mask is present, specifies the subset of
@@ -3429,12 +3479,14 @@ pub struct CreateInstanceRequest {
     /// Required. The name of the project in which to create the instance. Values
     /// are of the form `projects/<project>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID of the instance to create.  Valid identifiers are of the
     /// form `[a-z][-a-z0-9]*[a-z0-9]` and must be between 2 and 64 characters in
     /// length.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance_id: std::string::String,
 
     /// Required. The instance to create.  The name may be omitted, but if
@@ -3500,12 +3552,13 @@ pub struct ListInstancesRequest {
     /// Required. The name of the project for which a list of instances is
     /// requested. Values are of the form `projects/<project>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Number of instances to be returned in the response. If 0 or less, defaults
     /// to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -3516,6 +3569,7 @@ pub struct ListInstancesRequest {
     /// [google.spanner.admin.instance.v1.ListInstancesResponse]: crate::model::ListInstancesResponse
     /// [google.spanner.admin.instance.v1.ListInstancesResponse.next_page_token]: crate::model::ListInstancesResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// An expression for filtering the results of the request. Filter rules are
@@ -3538,6 +3592,7 @@ pub struct ListInstancesRequest {
     ///   it has the label "env" with its value
     ///   containing "dev".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Deadline used while retrieving metadata for instances.
@@ -3621,6 +3676,7 @@ impl wkt::message::Message for ListInstancesRequest {
 pub struct ListInstancesResponse {
     /// The list of requested instances.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub instances: std::vec::Vec<crate::model::Instance>,
 
     /// `next_page_token` can be sent in a subsequent
@@ -3629,6 +3685,7 @@ pub struct ListInstancesResponse {
     ///
     /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstances]: crate::client::InstanceAdmin::list_instances
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// The list of unreachable instances.
@@ -3638,6 +3695,7 @@ pub struct ListInstancesResponse {
     ///
     /// [google.spanner.admin.instance.v1.ListInstancesRequest.instance_deadline]: crate::model::ListInstancesRequest::instance_deadline
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3790,6 +3848,7 @@ pub struct DeleteInstanceRequest {
     /// Required. The name of the instance to be deleted. Values are of the form
     /// `projects/<project>/instances/<instance>`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3847,6 +3906,7 @@ pub struct CreateInstanceMetadata {
 
     /// The expected fulfillment period of this create operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub expected_fulfillment_period: crate::model::FulfillmentPeriod,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3981,6 +4041,7 @@ pub struct UpdateInstanceMetadata {
 
     /// The expected fulfillment period of this update operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub expected_fulfillment_period: crate::model::FulfillmentPeriod,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4105,6 +4166,7 @@ pub struct FreeInstanceMetadata {
     /// ExpireBehavior is `REMOVE_AFTER_GRACE_PERIOD`. This can be modified during
     /// or after creation, and before expiration.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub expire_behavior: crate::model::free_instance_metadata::ExpireBehavior,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4516,6 +4578,7 @@ pub struct InstancePartition {
     /// length. An instance partition's name cannot be changed after the instance
     /// partition is created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The name of the instance partition's configuration. Values are of
@@ -4526,15 +4589,18 @@ pub struct InstancePartition {
     /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstanceConfigs]: crate::client::InstanceAdmin::list_instance_configs
     /// [google.spanner.admin.instance.v1.InstanceConfig]: crate::model::InstanceConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub config: std::string::String,
 
     /// Required. The descriptive name for this instance partition as it appears in
     /// UIs. Must be unique per project and between 4 and 30 characters in length.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. The current instance partition state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::instance_partition::State,
 
     /// Output only. The time at which the instance partition was created.
@@ -4551,6 +4617,7 @@ pub struct InstancePartition {
     /// The existence of any referencing database prevents the instance partition
     /// from being deleted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub referencing_databases: std::vec::Vec<std::string::String>,
 
     /// Output only. Deprecated: This field is not populated.
@@ -4559,6 +4626,7 @@ pub struct InstancePartition {
     /// existence of any referencing backup prevents the instance partition from
     /// being deleted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub referencing_backups: std::vec::Vec<std::string::String>,
 
@@ -4573,6 +4641,7 @@ pub struct InstancePartition {
     /// If no etag is provided in the call to update instance partition, then the
     /// existing instance partition is overwritten blindly.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Compute capacity defines amount of server and storage resources that are
@@ -4914,7 +4983,7 @@ pub mod instance_partition {
         ///
         /// This may be zero in API responses for instance partitions that are not
         /// yet in state `READY`.
-        NodeCount(#[serde_as(as = "wkt::internal::I32")] i32),
+        NodeCount(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
         /// The number of processing units allocated to this instance partition.
         ///
         /// Users can set the `processing_units` field to specify the target number
@@ -4922,7 +4991,7 @@ pub mod instance_partition {
         ///
         /// This might be zero in API responses for instance partitions that are not
         /// yet in the `READY` state.
-        ProcessingUnits(#[serde_as(as = "wkt::internal::I32")] i32),
+        ProcessingUnits(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
     }
 }
 
@@ -5058,12 +5127,14 @@ pub struct CreateInstancePartitionRequest {
     /// partition. Values are of the form
     /// `projects/<project>/instances/<instance>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID of the instance partition to create. Valid identifiers are
     /// of the form `[a-z][-a-z0-9]*[a-z0-9]` and must be between 2 and 64
     /// characters in length.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance_partition_id: std::string::String,
 
     /// Required. The instance partition to create. The instance_partition.name may
@@ -5134,6 +5205,7 @@ pub struct DeleteInstancePartitionRequest {
     /// Values are of the form
     /// `projects/{project}/instances/{instance}/instancePartitions/{instance_partition}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. If not empty, the API only deletes the instance partition when
@@ -5141,6 +5213,7 @@ pub struct DeleteInstancePartitionRequest {
     /// partition. Otherwise, deletes the instance partition without checking the
     /// current status of the requested instance partition.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5184,6 +5257,7 @@ pub struct GetInstancePartitionRequest {
     /// the form
     /// `projects/{project}/instances/{instance}/instancePartitions/{instance_partition}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5422,12 +5496,13 @@ pub struct ListInstancePartitionsRequest {
     /// = '-'` to list instance partitions for all Instances in a project, e.g.,
     /// `projects/myproject/instances/-`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Number of instance partitions to be returned in the response. If 0 or less,
     /// defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// If non-empty, `page_token` should contain a
@@ -5438,6 +5513,7 @@ pub struct ListInstancePartitionsRequest {
     /// [google.spanner.admin.instance.v1.ListInstancePartitionsResponse]: crate::model::ListInstancePartitionsResponse
     /// [google.spanner.admin.instance.v1.ListInstancePartitionsResponse.next_page_token]: crate::model::ListInstancePartitionsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Deadline used while retrieving metadata for instance partitions.
@@ -5515,6 +5591,7 @@ impl wkt::message::Message for ListInstancePartitionsRequest {
 pub struct ListInstancePartitionsResponse {
     /// The list of requested instancePartitions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub instance_partitions: std::vec::Vec<crate::model::InstancePartition>,
 
     /// `next_page_token` can be sent in a subsequent
@@ -5523,6 +5600,7 @@ pub struct ListInstancePartitionsResponse {
     ///
     /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitions]: crate::client::InstanceAdmin::list_instance_partitions
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// The list of unreachable instances or instance partitions.
@@ -5532,6 +5610,7 @@ pub struct ListInstancePartitionsResponse {
     ///
     /// [google.spanner.admin.instance.v1.ListInstancePartitionsRequest.instance_partition_deadline]: crate::model::ListInstancePartitionsRequest::instance_partition_deadline
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5604,6 +5683,7 @@ pub struct ListInstancePartitionOperationsRequest {
     /// Required. The parent instance of the instance partition operations.
     /// Values are of the form `projects/<project>/instances/<instance>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. An expression that filters the list of returned operations.
@@ -5651,12 +5731,13 @@ pub struct ListInstancePartitionOperationsRequest {
     ///
     /// [google.spanner.admin.instance.v1.CreateInstancePartitionMetadata]: crate::model::CreateInstancePartitionMetadata
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Number of operations to be returned in the response. If 0 or
     /// less, defaults to the server's maximum allowed page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. If non-empty, `page_token` should contain a
@@ -5668,6 +5749,7 @@ pub struct ListInstancePartitionOperationsRequest {
     /// [google.spanner.admin.instance.v1.ListInstancePartitionOperationsResponse]: crate::model::ListInstancePartitionOperationsResponse
     /// [google.spanner.admin.instance.v1.ListInstancePartitionOperationsResponse.next_page_token]: crate::model::ListInstancePartitionOperationsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Deadline used while retrieving metadata for instance partition
@@ -5755,6 +5837,7 @@ pub struct ListInstancePartitionOperationsResponse {
     /// metadata field type
     /// `metadata.type_url` describes the type of the metadata.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub operations: std::vec::Vec<longrunning::model::Operation>,
 
     /// `next_page_token` can be sent in a subsequent
@@ -5763,6 +5846,7 @@ pub struct ListInstancePartitionOperationsResponse {
     ///
     /// [google.spanner.admin.instance.v1.InstanceAdmin.ListInstancePartitionOperations]: crate::client::InstanceAdmin::list_instance_partition_operations
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// The list of unreachable instance partitions.
@@ -5772,6 +5856,7 @@ pub struct ListInstancePartitionOperationsResponse {
     ///
     /// [google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest.instance_partition_deadline]: crate::model::ListInstancePartitionOperationsRequest::instance_partition_deadline
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable_instance_partitions: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5844,11 +5929,13 @@ pub struct MoveInstanceRequest {
     /// Required. The instance to move.
     /// Values are of the form `projects/<project>/instances/<instance>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The target instance configuration where to move the instance.
     /// Values are of the form `projects/<project>/instanceConfigs/<config>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_config: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5916,6 +6003,7 @@ pub struct MoveInstanceMetadata {
     /// The target instance configuration where to move the instance.
     /// Values are of the form `projects/<project>/instanceConfigs/<config>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_config: std::string::String,
 
     /// The progress of the

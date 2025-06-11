@@ -42,6 +42,7 @@ pub struct ListTunnelDestGroupsRequest {
     /// `projects/{project_number/id}/iap_tunnel/locations/{location}`.
     /// A `-` can be used for the location to group across all locations.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of groups to return. The service might return fewer than
@@ -49,7 +50,7 @@ pub struct ListTunnelDestGroupsRequest {
     /// If unspecified, at most 100 groups are returned.
     /// The maximum value is 1000; values above 1000 are coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListTunnelDestGroups`
@@ -59,6 +60,7 @@ pub struct ListTunnelDestGroupsRequest {
     /// `ListTunnelDestGroups` must match the call that provided the page
     /// token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -103,11 +105,13 @@ impl wkt::message::Message for ListTunnelDestGroupsRequest {
 pub struct ListTunnelDestGroupsResponse {
     /// TunnelDestGroup existing in the project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tunnel_dest_groups: std::vec::Vec<crate::model::TunnelDestGroup>,
 
     /// A token that you can send as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -167,6 +171,7 @@ pub struct CreateTunnelDestGroupRequest {
     /// In the following format:
     /// `projects/{project_number/id}/iap_tunnel/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The TunnelDestGroup to create.
@@ -179,6 +184,7 @@ pub struct CreateTunnelDestGroupRequest {
     /// This value must be 4-63 characters, and valid characters
     /// are `[a-z]-`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tunnel_dest_group_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -240,6 +246,7 @@ pub struct GetTunnelDestGroupRequest {
     /// In the following format:
     /// `projects/{project_number/id}/iap_tunnel/locations/{location}/destGroups/{dest_group}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -274,6 +281,7 @@ pub struct DeleteTunnelDestGroupRequest {
     /// In the following format:
     /// `projects/{project_number/id}/iap_tunnel/locations/{location}/destGroups/{dest_group}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -375,14 +383,17 @@ pub struct TunnelDestGroup {
     /// Identifier. Identifier for the TunnelDestGroup. Must be unique within the
     /// project and contain only lower case letters (a-z) and dashes (-).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Unordered list. List of CIDRs that this group applies to.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub cidrs: std::vec::Vec<std::string::String>,
 
     /// Optional. Unordered list. List of FQDNs that this group applies to.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub fqdns: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -439,6 +450,7 @@ pub struct GetIapSettingsRequest {
     /// Authorization: Requires the `getSettings` permission for the associated
     /// resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -544,6 +556,7 @@ impl wkt::message::Message for UpdateIapSettingsRequest {
 pub struct IapSettings {
     /// Required. The resource name of the IAP protected resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Top level wrapper for all access related setting in IAP
@@ -647,6 +660,7 @@ pub struct AccessSettings {
     /// Optional. Identity sources that IAP can use to authenticate the end user.
     /// Only one identity source can be configured.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub identity_sources: std::vec::Vec<crate::model::access_settings::IdentitySource>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -935,6 +949,7 @@ pub struct GcipSettings {
     /// If agent flow is used, tenant_ids should only contain one single element,
     /// while for tenant flow, tenant_ids can contain multiple elements.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tenant_ids: std::vec::Vec<std::string::String>,
 
     /// Login page URI associated with the GCIP tenants.
@@ -1051,6 +1066,7 @@ pub struct OAuthSettings {
 
     /// Optional. List of client ids allowed to use IAP programmatically.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub programmatic_clients: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1108,6 +1124,7 @@ impl wkt::message::Message for OAuthSettings {
 pub struct WorkforceIdentitySettings {
     /// The workforce pool resources. Only one workforce pool is accepted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub workforce_pools: std::vec::Vec<std::string::String>,
 
     /// OAuth 2.0 settings for IAP to perform OIDC flow with workforce identity
@@ -1169,16 +1186,19 @@ pub struct OAuth2 {
     /// The OAuth 2.0 client ID registered in the workforce identity federation
     /// OAuth 2.0 Server.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub client_id: std::string::String,
 
     /// Input only. The OAuth 2.0 client secret created while registering the
     /// client ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub client_secret: std::string::String,
 
     /// Output only. SHA256 hash value for the client secret. This field is
     /// returned by IAP when the settings are retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub client_secret_sha256: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1226,6 +1246,7 @@ impl wkt::message::Message for OAuth2 {
 pub struct ReauthSettings {
     /// Optional. Reauth method requested.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub method: crate::model::reauth_settings::Method,
 
     /// Optional. Reauth session lifetime, how long before a user has to
@@ -1237,6 +1258,7 @@ pub struct ReauthSettings {
     /// policies. Policies are merged from higher in the hierarchy to lower in the
     /// hierarchy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub policy_type: crate::model::reauth_settings::PolicyType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1589,6 +1611,7 @@ pub struct AllowedDomainsSettings {
 
     /// Optional. List of trusted domains.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub domains: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1938,6 +1961,7 @@ pub struct AttributePropagationSettings {
     /// expression should be propagated in. All attributes will be fully duplicated
     /// in each selected output credential.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub output_credentials:
         std::vec::Vec<crate::model::attribute_propagation_settings::OutputCredentials>,
 
@@ -2167,12 +2191,14 @@ pub mod attribute_propagation_settings {
 pub struct ValidateIapAttributeExpressionRequest {
     /// Required. The resource name of the IAP protected resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. User input string expression. Should be of the form
     /// `attributes.saml_attributes.filter(attribute, attribute.name in
     /// ['{attribute_name}', '{attribute_name}'])`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub expression: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2234,6 +2260,7 @@ pub struct ListBrandsRequest {
     /// Required. GCP Project number/id.
     /// In the following format: projects/{project_number/id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2266,6 +2293,7 @@ impl wkt::message::Message for ListBrandsRequest {
 pub struct ListBrandsResponse {
     /// Brands existing in the project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub brands: std::vec::Vec<crate::model::Brand>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2304,6 +2332,7 @@ pub struct CreateBrandRequest {
     /// Required. GCP Project number/id under which the brand is to be created.
     /// In the following format: projects/{project_number/id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The brand to be created.
@@ -2359,6 +2388,7 @@ pub struct GetBrandRequest {
     /// Required. Name of the brand to be fetched.
     /// In the following format: projects/{project_number/id}/brands/{brand}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2392,6 +2422,7 @@ pub struct ListIdentityAwareProxyClientsRequest {
     /// Required. Full brand path.
     /// In the following format: projects/{project_number/id}/brands/{brand}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of clients to return. The service may return fewer than
@@ -2399,7 +2430,7 @@ pub struct ListIdentityAwareProxyClientsRequest {
     /// If unspecified, at most 100 clients will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListIdentityAwareProxyClients`
@@ -2409,6 +2440,7 @@ pub struct ListIdentityAwareProxyClientsRequest {
     /// `ListIdentityAwareProxyClients` must match the call that provided the page
     /// token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2453,11 +2485,13 @@ impl wkt::message::Message for ListIdentityAwareProxyClientsRequest {
 pub struct ListIdentityAwareProxyClientsResponse {
     /// Clients existing in the brand.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub identity_aware_proxy_clients: std::vec::Vec<crate::model::IdentityAwareProxyClient>,
 
     /// A token, which can be send as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2518,6 +2552,7 @@ pub struct CreateIdentityAwareProxyClientRequest {
     /// projects/{project_number/id}/brands/{brand}.
     /// The project must belong to a G Suite account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Identity Aware Proxy Client to be created.
@@ -2574,6 +2609,7 @@ pub struct GetIdentityAwareProxyClientRequest {
     /// In the following format:
     /// projects/{project_number/id}/brands/{brand}/identityAwareProxyClients/{client_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2608,6 +2644,7 @@ pub struct ResetIdentityAwareProxyClientSecretRequest {
     /// secret reset. In the following format:
     /// projects/{project_number/id}/brands/{brand}/identityAwareProxyClients/{client_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2642,6 +2679,7 @@ pub struct DeleteIdentityAwareProxyClientRequest {
     /// In the following format:
     /// projects/{project_number/id}/brands/{brand}/identityAwareProxyClients/{client_id}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2677,19 +2715,23 @@ pub struct Brand {
     /// NOTE: GCP project number achieves the same brand identification purpose as
     /// only one brand per project can be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Support email displayed on the OAuth consent screen.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub support_email: std::string::String,
 
     /// Application name displayed on OAuth consent screen.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub application_title: std::string::String,
 
     /// Output only. Whether the brand is only intended for usage inside the
     /// G Suite organization only.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub org_internal_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2743,14 +2785,17 @@ impl wkt::message::Message for Brand {
 pub struct IdentityAwareProxyClient {
     /// Output only. Unique identifier of the OAuth client.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Client secret of the OAuth client.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secret: std::string::String,
 
     /// Human-friendly name given to the OAuth client.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

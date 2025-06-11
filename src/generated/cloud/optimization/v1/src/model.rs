@@ -41,6 +41,7 @@ extern crate wkt;
 pub struct InputConfig {
     /// The input data format that used to store the model in Cloud Storage.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_format: crate::model::DataFormat,
 
     /// The location of the input model in cloud storage.
@@ -138,6 +139,7 @@ pub mod input_config {
 pub struct OutputConfig {
     /// The output data format that used to store the results in Cloud Storage.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_format: crate::model::DataFormat,
 
     /// The location of the output result in cloud storage.
@@ -241,6 +243,7 @@ pub mod output_config {
 pub struct GcsSource {
     /// Required. URI of the Google Cloud Storage location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -273,6 +276,7 @@ impl wkt::message::Message for GcsSource {
 pub struct GcsDestination {
     /// Required. URI of the Google Cloud Storage location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -305,11 +309,13 @@ impl wkt::message::Message for GcsDestination {
 pub struct AsyncModelMetadata {
     /// The state of the current operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::async_model_metadata::State,
 
     /// A message providing more details about the current state of the operation.
     /// For example, the error message if the operation is failed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_message: std::string::String,
 
     /// The creation time of the operation.
@@ -552,6 +558,7 @@ pub struct OptimizeToursRequest {
     ///
     /// If no location is specified, a region will be chosen automatically.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// If this timeout is set, the server returns a response before the timeout
@@ -569,10 +576,12 @@ pub struct OptimizeToursRequest {
 
     /// By default, the solving mode is `DEFAULT_SOLVE` (0).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub solving_mode: crate::model::optimize_tours_request::SolvingMode,
 
     /// Search mode used to solve the request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub search_mode: crate::model::optimize_tours_request::SearchMode,
 
     /// Guide the optimization algorithm in finding a first solution that is
@@ -607,6 +616,7 @@ pub struct OptimizeToursRequest {
     ///
     /// [google.cloud.optimization.v1.Shipment.allowed_vehicle_indices]: crate::model::Shipment::allowed_vehicle_indices
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub injected_first_solution_routes: std::vec::Vec<crate::model::ShipmentRoute>,
 
     /// Constrain the optimization algorithm to find a final solution that is
@@ -637,6 +647,7 @@ pub struct OptimizeToursRequest {
     /// Polylines are still populated between all visits in all non-empty routes
     /// regardless of whether the related shipments or vehicles are ignored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub refresh_details_routes: std::vec::Vec<crate::model::ShipmentRoute>,
 
     /// If true:
@@ -714,6 +725,7 @@ pub struct OptimizeToursRequest {
     /// [google.cloud.optimization.v1.SkippedShipment.label]: crate::model::SkippedShipment::label
     /// [google.cloud.optimization.v1.Vehicle.label]: crate::model::Vehicle::label
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub interpret_injected_solutions_using_labels: bool,
 
     /// Consider traffic estimation in calculating `ShipmentRoute` fields
@@ -730,10 +742,12 @@ pub struct OptimizeToursRequest {
     /// [google.cloud.optimization.v1.ShipmentRoute.Visit.start_time]: crate::model::shipment_route::Visit::start_time
     /// [google.cloud.optimization.v1.ShipmentRoute.has_traffic_infeasibilities]: crate::model::ShipmentRoute::has_traffic_infeasibilities
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub consider_road_traffic: bool,
 
     /// If true, polylines will be populated in response `ShipmentRoute`s.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub populate_polylines: bool,
 
     /// If true, polylines will be populated in response
@@ -743,6 +757,7 @@ pub struct OptimizeToursRequest {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub populate_transition_polylines: bool,
 
     /// If this is set, then the request can have a deadline
@@ -751,12 +766,14 @@ pub struct OptimizeToursRequest {
     /// Note that long-lived requests have a significantly larger (but still small)
     /// risk of interruption.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_large_deadline_despite_interruption_risk: bool,
 
     /// If true, travel distances will be computed using geodesic distances instead
     /// of Google Maps distances, and travel times will be computed using geodesic
     /// distances with a speed defined by `geodesic_meters_per_second`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub use_geodesic_distances: bool,
 
     /// When `use_geodesic_distances` is true, this field must be set and defines
@@ -784,6 +801,7 @@ pub struct OptimizeToursRequest {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.request_label]: crate::model::OptimizeToursResponse::request_label
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label: std::string::String,
 
     /// Deprecated: Use
@@ -796,6 +814,7 @@ pub struct OptimizeToursRequest {
     /// [google.cloud.optimization.v1.OptimizeToursRequest.populate_transition_polylines]: crate::model::OptimizeToursRequest::populate_transition_polylines
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub populate_travel_step_polylines: bool,
 
@@ -1323,6 +1342,7 @@ pub struct OptimizeToursResponse {
     /// Routes computed for each vehicle; the i-th route corresponds to the i-th
     /// vehicle in the model.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub routes: std::vec::Vec<crate::model::ShipmentRoute>,
 
     /// Copy of the
@@ -1331,10 +1351,12 @@ pub struct OptimizeToursResponse {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursRequest.label]: crate::model::OptimizeToursRequest::label
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_label: std::string::String,
 
     /// The list of all shipments skipped.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub skipped_shipments: std::vec::Vec<crate::model::SkippedShipment>,
 
     /// List of all the validation errors that we were able to detect
@@ -1344,6 +1366,7 @@ pub struct OptimizeToursResponse {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursValidationError]: crate::model::OptimizeToursValidationError
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub validation_errors: std::vec::Vec<crate::model::OptimizeToursValidationError>,
 
     /// Duration, distance and usage metrics for this solution.
@@ -1358,7 +1381,7 @@ pub struct OptimizeToursResponse {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     #[deprecated]
     pub total_cost: f64,
 
@@ -1464,7 +1487,7 @@ pub mod optimize_tours_response {
 
         /// Number of mandatory shipments skipped.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub skipped_mandatory_shipment_count: i32,
 
         /// Number of vehicles used. Note: if a vehicle route is empty and
@@ -1473,7 +1496,7 @@ pub mod optimize_tours_response {
         ///
         /// [google.cloud.optimization.v1.Vehicle.used_if_route_is_empty]: crate::model::Vehicle::used_if_route_is_empty
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub used_vehicle_count: i32,
 
         /// The earliest start time for a used vehicle, computed as the minimum over
@@ -1502,12 +1525,14 @@ pub mod optimize_tours_response {
         /// TransitionAttributes that are only reported in an aggregated way as of
         /// 2022/01.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
+        #[serde_as(
+            as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::F64>>"
+        )]
         pub costs: std::collections::HashMap<std::string::String, f64>,
 
         /// Total cost of the solution. The sum of all values in the costs map.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub total_cost: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1633,11 +1658,13 @@ pub struct BatchOptimizeToursRequest {
     ///
     /// If no location is specified, a region will be chosen automatically.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Input/Output information each purchase model, such as file paths
     /// and data formats.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub model_configs: std::vec::Vec<crate::model::batch_optimize_tours_request::AsyncModelConfig>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1687,6 +1714,7 @@ pub mod batch_optimize_tours_request {
         /// User defined model name, can be used as alias by users to keep track of
         /// models.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_name: std::string::String,
 
         /// Required. Information about the input model.
@@ -1706,6 +1734,7 @@ pub mod batch_optimize_tours_request {
         /// allow_large_deadline_despite_interruption_risk since it prevents the risk
         /// of interruption.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_checkpoints: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1813,10 +1842,12 @@ impl wkt::message::Message for BatchOptimizeToursResponse {
 pub struct ShipmentModel {
     /// Set of shipments which must be performed in the model.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub shipments: std::vec::Vec<crate::model::Shipment>,
 
     /// Set of vehicles which can be used to perform visits.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub vehicles: std::vec::Vec<crate::model::Vehicle>,
 
     /// Constrains the maximum number of active vehicles. A vehicle is active if
@@ -1857,7 +1888,7 @@ pub struct ShipmentModel {
     ///
     /// [google.cloud.optimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub global_duration_cost_per_hour: f64,
 
     /// Specifies duration and distance matrices used in the model. If this field
@@ -1947,6 +1978,7 @@ pub struct ShipmentModel {
     /// }
     /// ```
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub duration_distance_matrices:
         std::vec::Vec<crate::model::shipment_model::DurationDistanceMatrix>,
 
@@ -1967,6 +1999,7 @@ pub struct ShipmentModel {
     /// [google.cloud.optimization.v1.Shipment.VisitRequest.tags]: crate::model::shipment::VisitRequest::tags
     /// [google.cloud.optimization.v1.Vehicle.start_tags]: crate::model::Vehicle::start_tags
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub duration_distance_matrix_src_tags: std::vec::Vec<std::string::String>,
 
     /// Tags defining the destinations of the duration and distance matrices;
@@ -1988,22 +2021,27 @@ pub struct ShipmentModel {
     /// [google.cloud.optimization.v1.Shipment.VisitRequest.tags]: crate::model::shipment::VisitRequest::tags
     /// [google.cloud.optimization.v1.Vehicle.start_tags]: crate::model::Vehicle::start_tags
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub duration_distance_matrix_dst_tags: std::vec::Vec<std::string::String>,
 
     /// Transition attributes added to the model.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transition_attributes: std::vec::Vec<crate::model::TransitionAttributes>,
 
     /// Sets of incompatible shipment_types (see `ShipmentTypeIncompatibility`).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub shipment_type_incompatibilities: std::vec::Vec<crate::model::ShipmentTypeIncompatibility>,
 
     /// Sets of `shipment_type` requirements (see `ShipmentTypeRequirement`).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub shipment_type_requirements: std::vec::Vec<crate::model::ShipmentTypeRequirement>,
 
     /// Set of precedence rules which must be enforced in the model.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub precedence_rules: std::vec::Vec<crate::model::shipment_model::PrecedenceRule>,
 
     /// Deprecated: No longer used.
@@ -2014,6 +2052,7 @@ pub struct ShipmentModel {
     ///
     /// [google.cloud.optimization.v1.Vehicle.break_rule_indices]: crate::model::Vehicle::break_rule_indices
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub break_rules: std::vec::Vec<crate::model::shipment_model::BreakRule>,
 
@@ -2222,6 +2261,7 @@ pub mod shipment_model {
         ///
         /// [google.cloud.optimization.v1.ShipmentModel.duration_distance_matrix_src_tags]: crate::model::ShipmentModel::duration_distance_matrix_src_tags
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub rows: std::vec::Vec<crate::model::shipment_model::duration_distance_matrix::Row>,
 
         /// Tag defining to which vehicles this duration and distance matrix applies.
@@ -2234,6 +2274,7 @@ pub mod shipment_model {
         ///
         /// All matrices must have a different `vehicle_start_tag`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub vehicle_start_tag: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2288,13 +2329,14 @@ pub mod shipment_model {
             ///
             /// [google.cloud.optimization.v1.ShipmentModel.duration_distance_matrix_dst_tags]: crate::model::ShipmentModel::duration_distance_matrix_dst_tags
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub durations: std::vec::Vec<wkt::Duration>,
 
             /// Distance values for a given row. If no costs or constraints refer to
             /// distances in the model, this can be left empty; otherwise it must have
             /// as many elements as `durations`.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-            #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::F64>>")]
             pub meters: std::vec::Vec<f64>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2358,6 +2400,7 @@ pub mod shipment_model {
 
         /// Indicates if the "first" event is a delivery.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub first_is_delivery: bool,
 
         /// Shipment index of the "second" event. This field must be specified.
@@ -2367,6 +2410,7 @@ pub mod shipment_model {
 
         /// Indicates if the "second" event is a delivery.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub second_is_delivery: bool,
 
         /// The offset between the "first" and "second" event. It can be negative.
@@ -2478,11 +2522,13 @@ pub mod shipment_model {
     pub struct BreakRule {
         /// Sequence of breaks. See the `BreakRequest` message.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub break_requests: std::vec::Vec<crate::model::shipment_model::break_rule::BreakRequest>,
 
         /// Several `FrequencyConstraint` may apply. They must all be satisfied by
         /// the `BreakRequest`s of this `BreakRule`. See `FrequencyConstraint`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub frequency_constraints:
             std::vec::Vec<crate::model::shipment_model::break_rule::FrequencyConstraint>,
 
@@ -2742,11 +2788,13 @@ pub struct Shipment {
     /// Set of pickup alternatives associated to the shipment. If not specified,
     /// the vehicle only needs to visit a location corresponding to the deliveries.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub pickups: std::vec::Vec<crate::model::shipment::VisitRequest>,
 
     /// Set of delivery alternatives associated to the shipment. If not specified,
     /// the vehicle only needs to visit a location corresponding to the pickups.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub deliveries: std::vec::Vec<crate::model::shipment::VisitRequest>,
 
     /// Load demands of the shipment (for example weight, volume, number of
@@ -2756,6 +2804,7 @@ pub struct Shipment {
     /// If a given key does not appear in the map, the corresponding load is
     /// considered as null.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub load_demands: std::collections::HashMap<std::string::String, crate::model::shipment::Load>,
 
     /// If the shipment is not completed, this penalty is added to the overall
@@ -2774,7 +2823,7 @@ pub struct Shipment {
     /// may perform it. Vehicles are given by their index in the `ShipmentModel`'s
     /// `vehicles` list.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub allowed_vehicle_indices: std::vec::Vec<i32>,
 
     /// Specifies the cost that is incurred when this shipment is delivered by each
@@ -2789,7 +2838,7 @@ pub struct Shipment {
     /// These costs must be in the same unit as `penalty_cost` and must not be
     /// negative. Leave this field empty, if there are no such costs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::F64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::F64>>")]
     pub costs_per_vehicle: std::vec::Vec<f64>,
 
     /// Indices of the vehicles to which `costs_per_vehicle` applies. If non-empty,
@@ -2797,7 +2846,7 @@ pub struct Shipment {
     /// index may not be specified more than once. If a vehicle is excluded from
     /// `costs_per_vehicle_indices`, its cost is zero.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub costs_per_vehicle_indices: std::vec::Vec<i32>,
 
     /// Specifies the maximum relative detour time compared to the shortest path
@@ -2859,6 +2908,7 @@ pub struct Shipment {
     /// pickup/deliveries belonging to the same shipment share the same
     /// `shipment_type`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub shipment_type: std::string::String,
 
     /// Specifies a label for this shipment. This label is reported in the response
@@ -2867,6 +2917,7 @@ pub struct Shipment {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.Visit]: crate::model::shipment_route::Visit
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label: std::string::String,
 
     /// If true, skip this shipment, but don't apply a `penalty_cost`.
@@ -2879,6 +2930,7 @@ pub struct Shipment {
     /// related pickup/delivery visits from the performing route.
     /// `precedence_rules` that reference ignored shipments will also be ignored.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ignore: bool,
 
     /// Deprecated: Use
@@ -2887,6 +2939,7 @@ pub struct Shipment {
     ///
     /// [google.cloud.optimization.v1.Shipment.load_demands]: crate::model::Shipment::load_demands
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub demands: std::vec::Vec<crate::model::CapacityQuantity>,
 
@@ -3127,6 +3180,7 @@ pub mod shipment {
         /// Specifies tags attached to the visit request.
         /// Empty or duplicate strings are not allowed.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub tags: std::vec::Vec<std::string::String>,
 
         /// Time windows which constrain the arrival time at a visit.
@@ -3146,6 +3200,7 @@ pub mod shipment {
         ///
         /// [google.cloud.optimization.v1.TimeWindow.start_time]: crate::model::TimeWindow::start_time
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub time_windows: std::vec::Vec<crate::model::TimeWindow>,
 
         /// Duration of the visit, i.e. time spent by the vehicle between arrival
@@ -3159,7 +3214,7 @@ pub mod shipment {
         /// shipment. This cost must be in the same unit as `Shipment.penalty_cost`
         /// and must not be negative.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub cost: f64,
 
         /// Load demands of this visit request. This is just like
@@ -3174,6 +3229,7 @@ pub mod shipment {
         /// [google.cloud.optimization.v1.Shipment.VisitRequest]: crate::model::shipment::VisitRequest
         /// [google.cloud.optimization.v1.Shipment.load_demands]: crate::model::Shipment::load_demands
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub load_demands:
             std::collections::HashMap<std::string::String, crate::model::shipment::Load>,
 
@@ -3185,6 +3241,7 @@ pub mod shipment {
         ///
         /// [google.cloud.optimization.v1.Vehicle.extra_visit_duration_for_visit_type]: crate::model::Vehicle::extra_visit_duration_for_visit_type
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub visit_types: std::vec::Vec<std::string::String>,
 
         /// Specifies a label for this `VisitRequest`. This label is reported in the
@@ -3193,6 +3250,7 @@ pub mod shipment {
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Visit]: crate::model::shipment_route::Visit
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub label: std::string::String,
 
         /// Deprecated: Use
@@ -3201,6 +3259,7 @@ pub mod shipment {
         ///
         /// [google.cloud.optimization.v1.Shipment.VisitRequest.load_demands]: crate::model::shipment::VisitRequest::load_demands
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         #[deprecated]
         pub demands: std::vec::Vec<crate::model::CapacityQuantity>,
 
@@ -3394,7 +3453,7 @@ pub mod shipment {
         /// visit will vary. Since it is an integer, users are advised to choose an
         /// appropriate unit to avoid loss of precision. Must be ≥ 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub amount: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3431,10 +3490,12 @@ pub struct ShipmentTypeIncompatibility {
     /// List of incompatible types. Two shipments having different `shipment_types`
     /// among those listed are "incompatible".
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub types: std::vec::Vec<std::string::String>,
 
     /// Mode applied to the incompatibility.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub incompatibility_mode: crate::model::shipment_type_incompatibility::IncompatibilityMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3636,6 +3697,7 @@ pub struct ShipmentTypeRequirement {
     /// List of alternative shipment types required by the
     /// `dependent_shipment_types`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub required_shipment_type_alternatives: std::vec::Vec<std::string::String>,
 
     /// All shipments with a type in the `dependent_shipment_types` field require
@@ -3645,10 +3707,12 @@ pub struct ShipmentTypeRequirement {
     /// NOTE: Chains of requirements such that a `shipment_type` depends on itself
     /// are not allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dependent_shipment_types: std::vec::Vec<std::string::String>,
 
     /// Mode applied to the requirement.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requirement_mode: crate::model::shipment_type_requirement::RequirementMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3875,24 +3939,28 @@ pub struct RouteModifiers {
     /// given to routes not containing toll roads. Applies only to motorized travel
     /// modes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub avoid_tolls: bool,
 
     /// Specifies whether to avoid highways where reasonable. Preference will be
     /// given to routes not containing highways. Applies only to motorized travel
     /// modes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub avoid_highways: bool,
 
     /// Specifies whether to avoid ferries where reasonable. Preference will be
     /// given to routes not containing travel by ferries. Applies only to motorized
     /// travel modes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub avoid_ferries: bool,
 
     /// Optional. Specifies whether to avoid navigating indoors where reasonable.
     /// Preference will be given to routes not containing indoor navigation.
     /// Applies only to the `WALKING` travel mode.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub avoid_indoor: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3946,6 +4014,7 @@ pub struct Vehicle {
     /// The travel mode which affects the roads usable by the vehicle and its
     /// speed. See also `travel_duration_multiple`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub travel_mode: crate::model::vehicle::TravelMode,
 
     /// Optional. A set of conditions to satisfy that affect the way routes are
@@ -3989,12 +4058,14 @@ pub struct Vehicle {
     ///
     /// Empty or duplicate strings are not allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub start_tags: std::vec::Vec<std::string::String>,
 
     /// Specifies tags attached to the end of the vehicle's route.
     ///
     /// Empty or duplicate strings are not allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub end_tags: std::vec::Vec<std::string::String>,
 
     /// Time windows during which the vehicle may depart its start location.
@@ -4012,6 +4083,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.ShipmentModel.global_start_time]: crate::model::ShipmentModel::global_start_time
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub start_time_windows: std::vec::Vec<crate::model::TimeWindow>,
 
     /// Time windows during which the vehicle may arrive at its end location.
@@ -4029,6 +4101,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.ShipmentModel.global_start_time]: crate::model::ShipmentModel::global_start_time
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub end_time_windows: std::vec::Vec<crate::model::TimeWindow>,
 
     /// Specifies a multiplicative factor that can be used to increase or decrease
@@ -4050,6 +4123,7 @@ pub struct Vehicle {
 
     /// Unloading policy enforced on the vehicle.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub unloading_policy: crate::model::vehicle::UnloadingPolicy,
 
     /// Capacities of the vehicle (weight, volume, # of pallets for example).
@@ -4061,6 +4135,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.Shipment.load_demands]: crate::model::Shipment::load_demands
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub load_limits:
         std::collections::HashMap<std::string::String, crate::model::vehicle::LoadLimit>,
 
@@ -4074,7 +4149,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub cost_per_hour: f64,
 
     /// Cost per traveled hour of the vehicle route. This cost is applied only to
@@ -4084,7 +4159,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub cost_per_traveled_hour: f64,
 
     /// Cost per kilometer of the vehicle route. This cost is applied to the
@@ -4095,12 +4170,12 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub cost_per_kilometer: f64,
 
     /// Fixed cost applied if this vehicle is used to handle a shipment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub fixed_cost: f64,
 
     /// This field only applies to vehicles when their route does not serve any
@@ -4116,6 +4191,7 @@ pub struct Vehicle {
     /// vehicle. In this case, the vehicle's `ShipmentRoute` doesn't contain any
     /// information except for the vehicle index and label.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub used_if_route_is_empty: bool,
 
     /// Limit applied to the total duration of the vehicle's route. In a given
@@ -4152,6 +4228,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.Shipment.VisitRequest.duration]: crate::model::shipment::VisitRequest::duration
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub extra_visit_duration_for_visit_type:
         std::collections::HashMap<std::string::String, wkt::Duration>,
 
@@ -4166,6 +4243,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute]: crate::model::ShipmentRoute
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label: std::string::String,
 
     /// If true, `used_if_route_is_empty` must be false, and this vehicle will
@@ -4182,6 +4260,7 @@ pub struct Vehicle {
     /// If a shipment has a non-empty `allowed_vehicle_indices` field and all of
     /// the allowed vehicles are ignored, it is skipped in the response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ignore: bool,
 
     /// Deprecated: No longer used.
@@ -4193,7 +4272,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.ShipmentModel]: crate::model::ShipmentModel
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     #[deprecated]
     pub break_rule_indices: std::vec::Vec<i32>,
 
@@ -4203,6 +4282,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.Vehicle.load_limits]: crate::model::Vehicle::load_limits
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub capacities: std::vec::Vec<crate::model::CapacityQuantity>,
 
@@ -4212,6 +4292,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.Vehicle.LoadLimit.start_load_interval]: crate::model::vehicle::LoadLimit::start_load_interval
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub start_load_intervals: std::vec::Vec<crate::model::CapacityQuantityInterval>,
 
@@ -4221,6 +4302,7 @@ pub struct Vehicle {
     ///
     /// [google.cloud.optimization.v1.Vehicle.LoadLimit.end_load_interval]: crate::model::vehicle::LoadLimit::end_load_interval
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub end_load_intervals: std::vec::Vec<crate::model::CapacityQuantityInterval>,
 
@@ -4614,7 +4696,7 @@ pub mod vehicle {
     pub struct LoadLimit {
         /// The maximum acceptable amount of load.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub max_load: std::option::Option<i64>,
 
         /// A soft limit of the load. See
@@ -4622,7 +4704,7 @@ pub mod vehicle {
         ///
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.cost_per_unit_above_soft_max]: crate::model::vehicle::LoadLimit::cost_per_unit_above_soft_max
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub soft_max_load: i64,
 
         /// If the load ever exceeds
@@ -4639,7 +4721,7 @@ pub mod vehicle {
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.cost_per_unit_above_soft_max]: crate::model::vehicle::LoadLimit::cost_per_unit_above_soft_max
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.soft_max_load]: crate::model::vehicle::LoadLimit::soft_max_load
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub cost_per_unit_above_soft_max: f64,
 
         /// The acceptable load interval of the vehicle at the start of the route.
@@ -4755,7 +4837,7 @@ pub mod vehicle {
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.max]: crate::model::vehicle::load_limit::Interval::max
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.min]: crate::model::vehicle::load_limit::Interval::min
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub min: i64,
 
             /// A maximum acceptable load. Must be ≥ 0. If unspecified, the maximum
@@ -4768,7 +4850,7 @@ pub mod vehicle {
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.max]: crate::model::vehicle::load_limit::Interval::max
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.min]: crate::model::vehicle::load_limit::Interval::min
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub max: std::option::Option<i64>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5488,10 +5570,11 @@ impl wkt::message::Message for TimeWindow {
 pub struct CapacityQuantity {
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub value: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5535,14 +5618,15 @@ impl wkt::message::Message for CapacityQuantity {
 pub struct CapacityQuantityInterval {
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub min_value: std::option::Option<i64>,
 
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub max_value: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5616,7 +5700,7 @@ pub struct DistanceLimit {
     /// A hard limit constraining the distance to be at most max_meters. The limit
     /// must be nonnegative.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub max_meters: std::option::Option<i64>,
 
     /// A soft limit not enforcing a maximum distance limit, but when violated
@@ -5626,7 +5710,7 @@ pub struct DistanceLimit {
     /// If defined soft_max_meters must be less than max_meters and must be
     /// nonnegative.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub soft_max_meters: std::option::Option<i64>,
 
     /// Cost per kilometer incurred, increasing up to `soft_max_meters`, with
@@ -5770,11 +5854,13 @@ pub struct TransitionAttributes {
     /// [google.cloud.optimization.v1.Shipment.VisitRequest.tags]: crate::model::shipment::VisitRequest::tags
     /// [google.cloud.optimization.v1.Vehicle.start_tags]: crate::model::Vehicle::start_tags
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub src_tag: std::string::String,
 
     /// See `src_tag`. Exactly one of `src_tag` and `excluded_src_tag` must be
     /// non-empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub excluded_src_tag: std::string::String,
 
     /// A destination visit or vehicle end matches iff its
@@ -5786,18 +5872,20 @@ pub struct TransitionAttributes {
     /// [google.cloud.optimization.v1.Shipment.VisitRequest.tags]: crate::model::shipment::VisitRequest::tags
     /// [google.cloud.optimization.v1.Vehicle.end_tags]: crate::model::Vehicle::end_tags
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dst_tag: std::string::String,
 
     /// See `dst_tag`. Exactly one of `dst_tag` and `excluded_dst_tag` must be
     /// non-empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub excluded_dst_tag: std::string::String,
 
     /// Specifies a cost for performing this transition. This is in the same unit
     /// as all other costs in the model and must not be negative. It is applied on
     /// top of all other existing costs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub cost: f64,
 
     /// Specifies a cost per kilometer applied to the distance traveled while
@@ -5807,7 +5895,7 @@ pub struct TransitionAttributes {
     ///
     /// [google.cloud.optimization.v1.Vehicle.cost_per_kilometer]: crate::model::Vehicle::cost_per_kilometer
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub cost_per_kilometer: f64,
 
     /// Specifies a limit on the distance traveled while performing this
@@ -5932,6 +6020,7 @@ pub struct Waypoint {
     /// center of the road. This option works only for the 'DRIVING' travel mode,
     /// and when the 'location_type' is set to 'location'.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub side_of_road: bool,
 
     /// Different ways to represent a location.
@@ -6036,7 +6125,7 @@ pub mod waypoint {
         /// heading.
         Location(std::boxed::Box<crate::model::Location>),
         /// The POI Place ID associated with the waypoint.
-        PlaceId(std::string::String),
+        PlaceId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -6127,11 +6216,13 @@ impl wkt::message::Message for Location {
 pub struct BreakRule {
     /// Sequence of breaks. See the `BreakRequest` message.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub break_requests: std::vec::Vec<crate::model::break_rule::BreakRequest>,
 
     /// Several `FrequencyConstraint` may apply. They must all be satisfied by
     /// the `BreakRequest`s of this `BreakRule`. See `FrequencyConstraint`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frequency_constraints: std::vec::Vec<crate::model::break_rule::FrequencyConstraint>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6470,12 +6561,13 @@ pub struct ShipmentRoute {
     /// Vehicle performing the route, identified by its index in the source
     /// `ShipmentModel`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub vehicle_index: i32,
 
     /// Label of the vehicle performing this route, equal to
     /// `ShipmentModel.vehicles(vehicle_index).label`, if specified.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vehicle_label: std::string::String,
 
     /// Time at which the vehicle starts its route.
@@ -6490,10 +6582,12 @@ pub struct ShipmentRoute {
     /// visits[i] is the i-th visit in the route.
     /// If this field is empty, the vehicle is considered as unused.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub visits: std::vec::Vec<crate::model::shipment_route::Visit>,
 
     /// Ordered list of transitions for the route.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transitions: std::vec::Vec<crate::model::shipment_route::Transition>,
 
     /// When
@@ -6517,6 +6611,7 @@ pub struct ShipmentRoute {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursRequest.consider_road_traffic]: crate::model::OptimizeToursRequest::consider_road_traffic
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub has_traffic_infeasibilities: bool,
 
     /// The encoded polyline representation of the route.
@@ -6532,6 +6627,7 @@ pub struct ShipmentRoute {
     /// The `breaks` sequence represents time intervals, each starting at the
     /// corresponding `start_time` and lasting `duration` seconds.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub breaks: std::vec::Vec<crate::model::shipment_route::Break>,
 
     /// Duration, distance and load metrics for this route. The fields of
@@ -6557,12 +6653,12 @@ pub struct ShipmentRoute {
     /// detail here with the exception of costs related to TransitionAttributes
     /// that are only reported in an aggregated way as of 2022/01.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::F64>>")]
     pub route_costs: std::collections::HashMap<std::string::String, f64>,
 
     /// Total cost of the route. The sum of all costs in the cost map.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub route_total_cost: f64,
 
     /// Deprecated: Use
@@ -6577,6 +6673,7 @@ pub struct ShipmentRoute {
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
     /// [google.cloud.optimization.v1.Vehicle.capacities]: crate::model::Vehicle::capacities
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub end_loads: std::vec::Vec<crate::model::CapacityQuantity>,
 
@@ -6586,6 +6683,7 @@ pub struct ShipmentRoute {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub travel_steps: std::vec::Vec<crate::model::shipment_route::TravelStep>,
 
@@ -6924,18 +7022,19 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.ShipmentModel]: crate::model::ShipmentModel
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub shipment_index: i32,
 
         /// If true the visit corresponds to a pickup of a `Shipment`. Otherwise, it
         /// corresponds to a delivery.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub is_pickup: bool,
 
         /// Index of `VisitRequest` in either the pickup or delivery field of the
         /// `Shipment` (see `is_pickup`).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub visit_request_index: i32,
 
         /// Time at which the visit starts. Note that the vehicle may arrive earlier
@@ -6952,6 +7051,7 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition]: crate::model::shipment_route::Transition
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub load_demands:
             std::collections::HashMap<std::string::String, crate::model::shipment::Load>,
 
@@ -6979,6 +7079,7 @@ pub mod shipment_route {
         /// Copy of the corresponding `Shipment.label`, if specified in the
         /// `Shipment`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub shipment_label: std::string::String,
 
         /// Copy of the corresponding
@@ -6987,6 +7088,7 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.Shipment.VisitRequest.label]: crate::model::shipment::VisitRequest::label
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub visit_label: std::string::String,
 
         /// Deprecated: Use
@@ -7002,6 +7104,7 @@ pub mod shipment_route {
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
         /// [google.cloud.optimization.v1.Vehicle.capacities]: crate::model::Vehicle::capacities
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         #[deprecated]
         pub arrival_loads: std::vec::Vec<crate::model::CapacityQuantity>,
 
@@ -7020,6 +7123,7 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Visit.load_demands]: crate::model::shipment_route::Visit::load_demands
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         #[deprecated]
         pub demands: std::vec::Vec<crate::model::CapacityQuantity>,
 
@@ -7182,7 +7286,7 @@ pub mod shipment_route {
 
         /// Distance traveled during the transition.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub travel_distance_meters: f64,
 
         /// When traffic is requested via
@@ -7192,6 +7296,7 @@ pub mod shipment_route {
         /// boolean is set to true. This may be temporary (rare hiccup in the
         /// realtime traffic servers) or permanent (no data for this location).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub traffic_info_unavailable: bool,
 
         /// Sum of the delay durations applied to this transition. If any, the delay
@@ -7256,6 +7361,7 @@ pub mod shipment_route {
         /// [google.cloud.optimization.v1.Shipment.load_demands]: crate::model::Shipment::load_demands
         /// [google.cloud.optimization.v1.Vehicle.load_limits]: crate::model::Vehicle::load_limits
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub vehicle_loads: std::collections::HashMap<
             std::string::String,
             crate::model::shipment_route::VehicleLoad,
@@ -7267,6 +7373,7 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         #[deprecated]
         pub loads: std::vec::Vec<crate::model::CapacityQuantity>,
 
@@ -7464,7 +7571,7 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub amount: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7500,6 +7607,7 @@ pub mod shipment_route {
     pub struct EncodedPolyline {
         /// String representing encoded points of the polyline.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub points: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7618,7 +7726,7 @@ pub mod shipment_route {
 
         /// Distance traveled during the step.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub distance_meters: f64,
 
         /// When traffic is requested via
@@ -7629,6 +7737,7 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.OptimizeToursRequest.consider_road_traffic]: crate::model::OptimizeToursRequest::consider_road_traffic
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub traffic_info_unavailable: bool,
 
         /// The encoded polyline representation of the route followed during the
@@ -7718,7 +7827,7 @@ pub struct SkippedShipment {
     /// The index corresponds to the index of the shipment in the source
     /// `ShipmentModel`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub index: i32,
 
     /// Copy of the corresponding
@@ -7727,11 +7836,13 @@ pub struct SkippedShipment {
     ///
     /// [google.cloud.optimization.v1.Shipment.label]: crate::model::Shipment::label
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label: std::string::String,
 
     /// A list of reasons that explain why the shipment was skipped. See comment
     /// above `Reason`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reasons: std::vec::Vec<crate::model::skipped_shipment::Reason>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7813,6 +7924,7 @@ pub mod skipped_shipment {
     pub struct Reason {
         /// Refer to the comments of Code.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub code: crate::model::skipped_shipment::reason::Code,
 
         /// If the reason is related to a shipment-vehicle incompatibility, this
@@ -7824,6 +7936,7 @@ pub mod skipped_shipment {
         /// If the reason code is `DEMAND_EXCEEDS_VEHICLE_CAPACITY`, documents one
         /// capacity type that is exceeded.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub example_exceeded_capacity_type: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8125,7 +8238,7 @@ pub struct AggregatedMetrics {
     /// Number of shipments performed. Note that a pickup and delivery pair only
     /// counts once.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub performed_shipment_count: i32,
 
     /// Total travel duration for a route or a solution.
@@ -8161,7 +8274,7 @@ pub struct AggregatedMetrics {
 
     /// Total travel distance for a route or a solution.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub travel_distance_meters: f64,
 
     /// Maximum load achieved over the entire route (resp. solution), for each of
@@ -8174,6 +8287,7 @@ pub struct AggregatedMetrics {
     /// [google.cloud.optimization.v1.AggregatedMetrics.max_loads]: crate::model::AggregatedMetrics::max_loads
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub max_loads:
         std::collections::HashMap<std::string::String, crate::model::shipment_route::VehicleLoad>,
 
@@ -8186,7 +8300,7 @@ pub struct AggregatedMetrics {
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.costs]: crate::model::optimize_tours_response::Metrics::costs
     /// [google.cloud.optimization.v1.ShipmentRoute.route_costs]: crate::model::ShipmentRoute::route_costs
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::F64>>")]
     #[deprecated]
     pub costs: std::collections::HashMap<std::string::String, f64>,
 
@@ -8199,7 +8313,7 @@ pub struct AggregatedMetrics {
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
     /// [google.cloud.optimization.v1.ShipmentRoute.route_total_cost]: crate::model::ShipmentRoute::route_total_cost
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     #[deprecated]
     pub total_cost: f64,
 
@@ -8382,17 +8496,20 @@ pub struct InjectedSolutionConstraint {
     /// original solution. The routes and skipped shipments must satisfy the basic
     /// validity assumptions listed for `injected_first_solution_routes`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub routes: std::vec::Vec<crate::model::ShipmentRoute>,
 
     /// Skipped shipments of the solution to inject. Some may be omitted from the
     /// original solution. See the `routes` field.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub skipped_shipments: std::vec::Vec<crate::model::SkippedShipment>,
 
     /// For zero or more groups of vehicles, specifies when and how much to relax
     /// constraints. If this field is empty, all non-empty vehicle routes are
     /// fully constrained.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub constraint_relaxations:
         std::vec::Vec<crate::model::injected_solution_constraint::ConstraintRelaxation>,
 
@@ -8462,6 +8579,7 @@ pub mod injected_solution_constraint {
         /// All the visit constraint relaxations that will apply to visits on
         /// routes with vehicles in `vehicle_indices`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub relaxations: std::vec::Vec<
             crate::model::injected_solution_constraint::constraint_relaxation::Relaxation,
         >,
@@ -8481,7 +8599,7 @@ pub mod injected_solution_constraint {
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.vehicle_index]: crate::model::ShipmentRoute::vehicle_index
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
         pub vehicle_indices: std::vec::Vec<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8574,6 +8692,7 @@ pub mod injected_solution_constraint {
             /// at or after `threshold_time` AND at least `threshold_visit_count` are
             /// satisfied.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub level: crate::model::injected_solution_constraint::constraint_relaxation::relaxation::Level,
 
             /// The time at or after which the relaxation `level` may be applied.
@@ -8588,7 +8707,7 @@ pub mod injected_solution_constraint {
             /// the vehicle end. If it is more than `route.visits_size() + 1`,
             /// `level` is not applied at all for that route.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub threshold_visit_count: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9086,11 +9205,12 @@ pub struct OptimizeToursValidationError {
     ///   * DURATION_SECONDS_MATRIX_DURATION_NEGATIVE_OR_NAN = 5600;
     ///   * DURATION_SECONDS_MATRIX_DURATION_EXCEEDS_GLOBAL_DURATION = 5601;
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub code: i32,
 
     /// The error display name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// An error context may involve 0, 1 (most of the time) or more fields. For
@@ -9105,6 +9225,7 @@ pub struct OptimizeToursValidationError {
     /// Note, however, that the cardinality of `fields` should not change for a
     /// given error code.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub fields: std::vec::Vec<crate::model::optimize_tours_validation_error::FieldReference>,
 
     /// Human-readable string describing the error. There is a 1:1 mapping
@@ -9114,12 +9235,14 @@ pub struct OptimizeToursValidationError {
     /// change (hopefully to clarify it) over time. Please rely on the
     /// `display_name` and `code` instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_message: std::string::String,
 
     /// May contain the value(s) of the field(s). This is not always available. You
     /// should absolutely not rely on it and use it only for manual model
     /// debugging.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub offending_values: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9199,6 +9322,7 @@ pub mod optimize_tours_validation_error {
     pub struct FieldReference {
         /// Name of the field, e.g., "vehicles".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// Recursively nested sub-field, if needed.
@@ -9333,9 +9457,9 @@ pub mod optimize_tours_validation_error {
         #[non_exhaustive]
         pub enum IndexOrKey {
             /// Index of the field if repeated.
-            Index(#[serde_as(as = "wkt::internal::I32")] i32),
+            Index(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
             /// Key if the field is a map.
-            Key(std::string::String),
+            Key(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 }

@@ -42,6 +42,7 @@ pub struct ExportSBOMRequest {
     /// Required. The name of the resource in the form of
     /// `projects/[PROJECT_ID]/resources/[RESOURCE_URL]`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The location of the SBOM export.
@@ -172,6 +173,7 @@ pub struct ExportSBOMResponse {
     /// "projects/{project_id}/occurrences/{OCCURRENCE_ID}
     /// It can be used to track the progress of the SBOM export.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub discovery_occurrence: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -208,10 +210,12 @@ pub struct GetVulnerabilityOccurrencesSummaryRequest {
     /// Required. The name of the project to get a vulnerability summary for in the
     /// form of `projects/[PROJECT_ID]`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The filter expression.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -251,6 +255,7 @@ impl wkt::message::Message for GetVulnerabilityOccurrencesSummaryRequest {
 pub struct VulnerabilityOccurrencesSummary {
     /// A listing by resource of the number of fixable and total vulnerabilities.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub counts:
         std::vec::Vec<crate::model::vulnerability_occurrences_summary::FixableTotalByDigest>,
 
@@ -296,21 +301,23 @@ pub mod vulnerability_occurrences_summary {
     pub struct FixableTotalByDigest {
         /// The affected resource.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub resource_uri: std::string::String,
 
         /// The severity for this count. SEVERITY_UNSPECIFIED indicates total across
         /// all severities.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub severity: grafeas::model::Severity,
 
         /// The number of fixable vulnerabilities associated with this resource.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub fixable_count: i64,
 
         /// The total number of vulnerabilities associated with this resource.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub total_count: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

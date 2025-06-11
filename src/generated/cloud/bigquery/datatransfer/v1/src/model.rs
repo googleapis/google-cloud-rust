@@ -40,35 +40,43 @@ extern crate wkt;
 pub struct DataSourceParameter {
     /// Parameter identifier.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub param_id: std::string::String,
 
     /// Parameter display name in the user interface.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Parameter description.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Parameter type.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::data_source_parameter::Type,
 
     /// Is parameter required.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub required: bool,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub repeated: bool,
 
     /// Regular expression which can be used for parameter validation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validation_regex: std::string::String,
 
     /// All possible values for the parameter.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_values: std::vec::Vec<std::string::String>,
 
     /// For integer and double values specifies minimum allowed value.
@@ -83,28 +91,34 @@ pub struct DataSourceParameter {
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub fields: std::vec::Vec<crate::model::DataSourceParameter>,
 
     /// Description of the requirements for this field, in case the user input does
     /// not fulfill the regex pattern or min/max values.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validation_description: std::string::String,
 
     /// URL to a help document to further explain the naming requirements.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validation_help_url: std::string::String,
 
     /// Cannot be changed after initial creation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub immutable: bool,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub recurse: bool,
 
     /// If true, it should not be used in new transfers, and it should not be
     /// visible to users.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -447,44 +461,52 @@ pub mod data_source_parameter {
 pub struct DataSource {
     /// Output only. Data source resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Data source id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_source_id: std::string::String,
 
     /// User friendly data source name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// User friendly data source description string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Data source client id which should be used to receive refresh token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub client_id: std::string::String,
 
     /// Api auth scopes for which refresh token needs to be obtained. These are
     /// scopes needed by a data source to prepare data and ingest them into
     /// BigQuery, e.g., <https://www.googleapis.com/auth/bigquery>
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub scopes: std::vec::Vec<std::string::String>,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub transfer_type: crate::model::TransferType,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub supports_multiple_transfers: bool,
 
     /// The number of seconds to wait for an update from the data source
     /// before the Data Transfer Service marks the transfer as FAILED.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub update_deadline_seconds: i32,
 
     /// Default data transfer schedule.
@@ -493,24 +515,29 @@ pub struct DataSource {
     /// `every wed,fri of jan,jun 13:15`, and
     /// `first sunday of quarter 00:00`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_schedule: std::string::String,
 
     /// Specifies whether the data source supports a user defined schedule, or
     /// operates on the default schedule.
     /// When set to `true`, user can override default schedule.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub supports_custom_schedule: bool,
 
     /// Data source parameters.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub parameters: std::vec::Vec<crate::model::DataSourceParameter>,
 
     /// Url for the help document for this data source.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub help_url: std::string::String,
 
     /// Indicates the type of authorization.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub authorization_type: crate::model::data_source::AuthorizationType,
 
     /// Specifies whether the data source supports automatic data refresh for the
@@ -518,17 +545,19 @@ pub struct DataSource {
     /// For some data sources, data might not be complete until a few days later,
     /// so it's useful to refresh data automatically.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_refresh_type: crate::model::data_source::DataRefreshType,
 
     /// Default data refresh window on days.
     /// Only meaningful when `data_refresh_type` = `SLIDING_WINDOW`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub default_data_refresh_window_days: i32,
 
     /// Disables backfilling and manual run scheduling
     /// for the data source.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub manual_runs_disabled: bool,
 
     /// The minimum interval for scheduler to schedule runs.
@@ -997,6 +1026,7 @@ pub struct GetDataSourceRequest {
     /// example: `projects/{project_id}/dataSources/{data_source_id}` or
     /// `projects/{project_id}/locations/{location_id}/dataSources/{data_source_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1031,6 +1061,7 @@ pub struct ListDataSourcesRequest {
     /// returned. Must be in the form: `projects/{project_id}` or
     /// `projects/{project_id}/locations/{location_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Pagination token, which can be used to request a specific page
@@ -1039,11 +1070,12 @@ pub struct ListDataSourcesRequest {
     /// a `next_page` token, which can be used as the
     /// `page_token` value to request the next page of list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Page size. The default page size is the maximum value of 1000 results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1088,6 +1120,7 @@ impl wkt::message::Message for ListDataSourcesRequest {
 pub struct ListDataSourcesResponse {
     /// List of supported data sources and their transfer settings.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_sources: std::vec::Vec<crate::model::DataSource>,
 
     /// Output only. The next-pagination token. For multiple-page list results,
@@ -1095,6 +1128,7 @@ pub struct ListDataSourcesResponse {
     /// `ListDataSourcesRequest.page_token`
     /// to request the next page of list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1166,6 +1200,7 @@ pub struct CreateTransferConfigRequest {
     /// specified location and location of the destination bigquery dataset do not
     /// match - the request will fail.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Data transfer configuration to create.
@@ -1189,6 +1224,7 @@ pub struct CreateTransferConfigRequest {
     /// Note that this should not be set when `service_account_name` is used to
     /// create the transfer config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub authorization_code: std::string::String,
 
@@ -1206,6 +1242,7 @@ pub struct CreateTransferConfigRequest {
     /// Note that this should not be set when `service_account_name` is used to
     /// create the transfer config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version_info: std::string::String,
 
     /// Optional service account email. If this field is set, the transfer config
@@ -1218,6 +1255,7 @@ pub struct CreateTransferConfigRequest {
     /// [using service
     /// accounts](https://cloud.google.com/bigquery-transfer/docs/use-service-accounts).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1318,6 +1356,7 @@ pub struct UpdateTransferConfigRequest {
     /// Note that this should not be set when `service_account_name` is used to
     /// update the transfer config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub authorization_code: std::string::String,
 
@@ -1339,6 +1378,7 @@ pub struct UpdateTransferConfigRequest {
     /// Note that this should not be set when `service_account_name` is used to
     /// update the transfer config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version_info: std::string::String,
 
     /// Optional service account email. If this field is set, the transfer config
@@ -1351,6 +1391,7 @@ pub struct UpdateTransferConfigRequest {
     /// [using service
     /// accounts](https://cloud.google.com/bigquery-transfer/docs/use-service-accounts).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1440,6 +1481,7 @@ pub struct GetTransferConfigRequest {
     /// example: `projects/{project_id}/transferConfigs/{config_id}` or
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1475,6 +1517,7 @@ pub struct DeleteTransferConfigRequest {
     /// example: `projects/{project_id}/transferConfigs/{config_id}` or
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1510,6 +1553,7 @@ pub struct GetTransferRunRequest {
     /// or
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}/runs/{run_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1545,6 +1589,7 @@ pub struct DeleteTransferRunRequest {
     /// or
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}/runs/{run_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1579,10 +1624,12 @@ pub struct ListTransferConfigsRequest {
     /// should be returned: `projects/{project_id}` or
     /// `projects/{project_id}/locations/{location_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// When specified, only configurations of requested data sources are returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_source_ids: std::vec::Vec<std::string::String>,
 
     /// Pagination token, which can be used to request a specific page
@@ -1591,11 +1638,12 @@ pub struct ListTransferConfigsRequest {
     /// a `next_page` token, which can be used as the
     /// `page_token` value to request the next page of list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Page size. The default page size is the maximum value of 1000 results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1651,6 +1699,7 @@ impl wkt::message::Message for ListTransferConfigsRequest {
 pub struct ListTransferConfigsResponse {
     /// Output only. The stored pipeline transfer configurations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transfer_configs: std::vec::Vec<crate::model::TransferConfig>,
 
     /// Output only. The next-pagination token. For multiple-page list results,
@@ -1658,6 +1707,7 @@ pub struct ListTransferConfigsResponse {
     /// `ListTransferConfigsRequest.page_token`
     /// to request the next page of list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1718,10 +1768,12 @@ pub struct ListTransferRunsRequest {
     /// `projects/{project_id}/transferConfigs/{config_id}` or
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// When specified, only transfer runs with requested states are returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub states: std::vec::Vec<crate::model::TransferState>,
 
     /// Pagination token, which can be used to request a specific page
@@ -1730,15 +1782,17 @@ pub struct ListTransferRunsRequest {
     /// a `next_page` token, which can be used as the
     /// `page_token` value to request the next page of list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Page size. The default page size is the maximum value of 1000 results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Indicates how run attempts are to be pulled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub run_attempt: crate::model::list_transfer_runs_request::RunAttempt,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1936,6 +1990,7 @@ pub mod list_transfer_runs_request {
 pub struct ListTransferRunsResponse {
     /// Output only. The stored pipeline transfer runs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transfer_runs: std::vec::Vec<crate::model::TransferRun>,
 
     /// Output only. The next-pagination token. For multiple-page list results,
@@ -1943,6 +1998,7 @@ pub struct ListTransferRunsResponse {
     /// `ListTransferRunsRequest.page_token`
     /// to request the next page of list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2002,6 +2058,7 @@ pub struct ListTransferLogsRequest {
     /// `projects/{project_id}/transferConfigs/{config_id}/runs/{run_id}` or
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}/runs/{run_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Pagination token, which can be used to request a specific page
@@ -2010,16 +2067,18 @@ pub struct ListTransferLogsRequest {
     /// a `next_page` token, which can be used as the
     /// `page_token` value to request the next page of list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Page size. The default page size is the maximum value of 1000 results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Message types to return. If not populated - INFO, WARNING and ERROR
     /// messages are returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub message_types: std::vec::Vec<crate::model::transfer_message::MessageSeverity>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2075,6 +2134,7 @@ impl wkt::message::Message for ListTransferLogsRequest {
 pub struct ListTransferLogsResponse {
     /// Output only. The stored pipeline transfer messages.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transfer_messages: std::vec::Vec<crate::model::TransferMessage>,
 
     /// Output only. The next-pagination token. For multiple-page list results,
@@ -2082,6 +2142,7 @@ pub struct ListTransferLogsResponse {
     /// `GetTransferRunLogRequest.page_token`
     /// to request the next page of list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2146,6 +2207,7 @@ pub struct CheckValidCredsRequest {
     /// `projects/{project_id}/dataSources/{data_source_id}` or
     /// `projects/{project_id}/locations/{location_id}/dataSources/{data_source_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2178,6 +2240,7 @@ impl wkt::message::Message for CheckValidCredsRequest {
 pub struct CheckValidCredsResponse {
     /// If set to `true`, the credentials exist and are valid.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub has_valid_creds: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2212,6 +2275,7 @@ pub struct ScheduleTransferRunsRequest {
     /// `projects/{project_id}/transferConfigs/{config_id}` or
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Start time of the range of transfer runs. For example,
@@ -2290,6 +2354,7 @@ impl wkt::message::Message for ScheduleTransferRunsRequest {
 pub struct ScheduleTransferRunsResponse {
     /// The transfer runs that were scheduled.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub runs: std::vec::Vec<crate::model::TransferRun>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2329,6 +2394,7 @@ pub struct StartManualTransferRunsRequest {
     /// `projects/{project_id}/transferConfigs/{config_id}` or
     /// `projects/{project_id}/locations/{location_id}/transferConfigs/{config_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The requested time specification - this can be a time range or a specific
@@ -2546,6 +2612,7 @@ pub mod start_manual_transfer_runs_request {
 pub struct StartManualTransferRunsResponse {
     /// The transfer runs that were created.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub runs: std::vec::Vec<crate::model::TransferRun>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2585,11 +2652,13 @@ pub struct EnrollDataSourcesRequest {
     /// Required. The name of the project resource in the form:
     /// `projects/{project_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Data sources that are enrolled. It is required to provide at least one
     /// data source id.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_source_ids: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2635,11 +2704,13 @@ pub struct UnenrollDataSourcesRequest {
     /// Required. The name of the project resource in the form:
     /// `projects/{project_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Data sources that are unenrolled. It is required to provide at least one
     /// data source id.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_source_ids: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2684,6 +2755,7 @@ impl wkt::message::Message for UnenrollDataSourcesRequest {
 pub struct EmailPreferences {
     /// If true, email notifications will be sent on transfer run failures.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_failure_email: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2719,6 +2791,7 @@ pub struct ScheduleOptions {
     /// StartManualTransferRuns API. When automatic scheduling is disabled, the
     /// TransferConfig.schedule field will be ignored.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disable_auto_scheduling: bool,
 
     /// Specifies time to start scheduling transfer runs. The first run will be
@@ -2979,6 +3052,7 @@ pub struct TimeBasedSchedule {
     /// NOTE: The minimum interval time between recurring transfers depends on the
     /// data source; refer to the documentation for your data source.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub schedule: std::string::String,
 
     /// Specifies time to start scheduling transfer runs. The first run will be
@@ -3084,6 +3158,7 @@ pub struct EventDrivenSchedule {
     /// Only Google Cloud Storage data source support this option.
     /// Format: projects/{project}/subscriptions/{subscription}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pubsub_subscription: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3174,16 +3249,19 @@ pub struct TransferConfig {
     /// guaranteed or required. The name is ignored when creating a transfer
     /// config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// User specified display name for the data transfer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Data source ID. This cannot be changed once data transfer is created. The
     /// full list of available data source IDs can be returned through an API call:
     /// <https://cloud.google.com/bigquery-transfer/docs/reference/datatransfer/rest/v1/projects.locations.dataSources/list>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_source_id: std::string::String,
 
     /// Parameters specific to each data source. For more information see the
@@ -3207,6 +3285,7 @@ pub struct TransferConfig {
     /// NOTE: The minimum interval time between recurring transfers depends on the
     /// data source; refer to the documentation for your data source.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub schedule: std::string::String,
 
     /// Options customizing the data transfer schedule.
@@ -3226,12 +3305,13 @@ pub struct TransferConfig {
     /// Only valid if the data source supports the feature. Set the value to 0
     /// to use the default value.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub data_refresh_window_days: i32,
 
     /// Is this config disabled. When set to true, no runs will be scheduled for
     /// this transfer config.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disabled: bool,
 
     /// Output only. Data transfer modification time. Ignored by server on input.
@@ -3244,15 +3324,17 @@ pub struct TransferConfig {
 
     /// Output only. State of the most recently updated transfer run.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::TransferState,
 
     /// Deprecated. Unique ID of the user on whose behalf transfer is done.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub user_id: i64,
 
     /// Output only. Region in which BigQuery dataset is located.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_region: std::string::String,
 
     /// Pub/Sub topic where notifications will be sent after transfer runs
@@ -3261,6 +3343,7 @@ pub struct TransferConfig {
     /// The format for specifying a pubsub topic is:
     /// `projects/{project_id}/topics/{topic_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub notification_pubsub_topic: std::string::String,
 
     /// Email notifications will be sent according to these preferences
@@ -3586,7 +3669,7 @@ pub mod transfer_config {
     #[non_exhaustive]
     pub enum Destination {
         /// The BigQuery target dataset id.
-        DestinationDatasetId(std::string::String),
+        DestinationDatasetId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -3645,6 +3728,7 @@ pub struct TransferRun {
     /// `projects/{project_id}/locations/{location}/transferConfigs/{config_id}/runs/{run_id}`.
     /// The name is ignored when creating a transfer run.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Minimum time after which a transfer run can be started.
@@ -3684,15 +3768,17 @@ pub struct TransferRun {
 
     /// Output only. Data source id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_source_id: std::string::String,
 
     /// Data transfer run state. Ignored for input requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::TransferState,
 
     /// Deprecated. Unique ID of the user on whose behalf transfer is done.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub user_id: i64,
 
     /// Output only. Describes the schedule of this transfer run if it was
@@ -3701,6 +3787,7 @@ pub struct TransferRun {
     /// NOTE: the system might choose to delay the schedule depending on the
     /// current load, so `schedule_time` doesn't always match this.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub schedule: std::string::String,
 
     /// Output only. Pub/Sub topic where a notification will be sent after this
@@ -3709,6 +3796,7 @@ pub struct TransferRun {
     /// The format for specifying a pubsub topic is:
     /// `projects/{project_id}/topics/{topic_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub notification_pubsub_topic: std::string::String,
 
     /// Output only. Email notifications will be sent according to these
@@ -3974,7 +4062,7 @@ pub mod transfer_run {
     #[non_exhaustive]
     pub enum Destination {
         /// Output only. The BigQuery target dataset id.
-        DestinationDatasetId(std::string::String),
+        DestinationDatasetId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -3990,10 +4078,12 @@ pub struct TransferMessage {
 
     /// Message severity.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub severity: crate::model::transfer_message::MessageSeverity,
 
     /// Message text.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message_text: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

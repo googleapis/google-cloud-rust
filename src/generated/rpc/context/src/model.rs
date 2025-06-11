@@ -84,6 +84,7 @@ pub struct AttributeContext {
 
     /// Supports extensions for advanced use cases, such as logs and metrics.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub extensions: std::vec::Vec<wkt::Any>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -255,27 +256,31 @@ pub mod attribute_context {
     pub struct Peer {
         /// The IP address of the peer.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub ip: std::string::String,
 
         /// The network port of the peer.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub port: i64,
 
         /// The labels associated with the peer.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// The identity of this peer. Similar to `Request.auth.principal`, but
         /// relative to the peer instead of the request. For example, the
         /// identity associated with a load balancer that forwarded the request.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub principal: std::string::String,
 
         /// The CLDR country/region code associated with the above IP address.
         /// If the IP address is private, the `region_code` should reflect the
         /// physical location where this peer is running.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub region_code: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -342,22 +347,26 @@ pub mod attribute_context {
         /// such as "pubsub.googleapis.com". The naming syntax depends on the
         /// API management system being used for handling the request.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service: std::string::String,
 
         /// The API operation name. For gRPC requests, it is the fully qualified API
         /// method name, such as "google.pubsub.v1.Publisher.Publish". For OpenAPI
         /// requests, it is the `operationId`, such as "getPet".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub operation: std::string::String,
 
         /// The API protocol used for sending the request, such as "http", "https",
         /// "grpc", or "internal".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub protocol: std::string::String,
 
         /// The API version associated with the API operation above, such as "v1" or
         /// "v1alpha1".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub version: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -414,6 +423,7 @@ pub mod attribute_context {
         /// Google accounts, the principal format is:
         /// `https://accounts.google.com/{id}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub principal: std::string::String,
 
         /// The intended audience(s) for this authentication information. Reflects
@@ -431,6 +441,7 @@ pub mod attribute_context {
         /// Consult the documentation for the credential issuer to determine the
         /// information provided.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub audiences: std::vec::Vec<std::string::String>,
 
         /// The authorized presenter of the credential. Reflects the optional
@@ -438,6 +449,7 @@ pub mod attribute_context {
         /// OAuth client id. For example, a Google Cloud Platform client id looks
         /// as follows: "123456789012.apps.googleusercontent.com".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub presenter: std::string::String,
 
         /// Structured claims presented with the credential. JWTs include
@@ -466,6 +478,7 @@ pub mod attribute_context {
         /// Example:
         /// "//accesscontextmanager.googleapis.com/accessPolicies/MY_POLICY_ID/accessLevels/MY_LEVEL"
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub access_levels: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -548,33 +561,40 @@ pub mod attribute_context {
         /// systems. The ID should have low probability of collision
         /// within a single day for a specific service.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub id: std::string::String,
 
         /// The HTTP request method, such as `GET`, `POST`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub method: std::string::String,
 
         /// The HTTP request headers. If multiple headers share the same key, they
         /// must be merged according to the HTTP spec. All header keys must be
         /// lowercased, because HTTP header keys are case-insensitive.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// The HTTP URL path, excluding the query parameters.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub path: std::string::String,
 
         /// The HTTP request `Host` header value.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub host: std::string::String,
 
         /// The HTTP URL scheme, such as `http` and `https`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub scheme: std::string::String,
 
         /// The HTTP URL query in the format of `name1=value1&name2=value2`, as it
         /// appears in the first line of the HTTP request. No decoding is performed.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub query: std::string::String,
 
         /// The timestamp when the `destination` service receives the last byte of
@@ -584,7 +604,7 @@ pub mod attribute_context {
 
         /// The HTTP request size in bytes. If unknown, it must be -1.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub size: i64,
 
         /// The network protocol used with the request, such as "http/1.1",
@@ -592,11 +612,13 @@ pub mod attribute_context {
         /// <https://www.iana.org/assignments/tls-extensiontype-values/tls-extensiontype-values.xhtml#alpn-protocol-ids>
         /// for details.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub protocol: std::string::String,
 
         /// A special parameter for request reason. It is used by security systems
         /// to associate auditing information with a request.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub reason: std::string::String,
 
         /// The request authentication. May be absent for unauthenticated requests.
@@ -731,18 +753,19 @@ pub mod attribute_context {
     pub struct Response {
         /// The HTTP response status code, such as `200` and `404`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub code: i64,
 
         /// The HTTP response size in bytes. If unknown, it must be -1.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub size: i64,
 
         /// The HTTP response headers. If multiple headers share the same key, they
         /// must be merged according to HTTP spec. All header keys must be
         /// lowercased, because HTTP header keys are case-insensitive.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// The timestamp when the `destination` service sends the last byte of
@@ -845,6 +868,7 @@ pub mod attribute_context {
         /// `pubsub.googleapis.com`. The service may be different from the DNS
         /// hostname that actually serves the request.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service: std::string::String,
 
         /// The stable identifier (name) of a resource on the `service`. A resource
@@ -860,6 +884,7 @@ pub mod attribute_context {
         ///
         /// See <https://cloud.google.com/apis/design/resource_names> for details.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// The type of the resource. The syntax is platform-specific because
@@ -869,11 +894,13 @@ pub mod attribute_context {
         /// "pubsub.googleapis.com/Topic".
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: std::string::String,
 
         /// The labels or tags on the resource, such as AWS resource tags and
         /// Kubernetes resource labels.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// The unique identifier of the resource. UID is unique in the time
@@ -882,6 +909,7 @@ pub mod attribute_context {
         /// and must not be changed. UID is used to uniquely identify resources
         /// with resource name reuses. This should be a UUID4.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub uid: std::string::String,
 
         /// Annotations is an unstructured key-value map stored with a resource that
@@ -891,10 +919,12 @@ pub mod attribute_context {
         /// More info:
         /// <https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/>
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// Mutable. The display name set by clients. Must be <= 63 characters.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_name: std::string::String,
 
         /// Output only. The timestamp when the resource was created. This may
@@ -917,6 +947,7 @@ pub mod attribute_context {
         /// generation of a resource. It can be used to confirm that the client
         /// and server agree on the ordering of a resource being written.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub etag: std::string::String,
 
         /// Immutable. The location of the resource. The location encoding is
@@ -928,6 +959,7 @@ pub mod attribute_context {
         /// semantics of `location` is identical to the
         /// `cloud.googleapis.com/location` label used by some Google Cloud APIs.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub location: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1078,7 +1110,7 @@ pub mod attribute_context {
 pub struct AuditContext {
     /// Serialized audit log.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub audit_log: ::bytes::Bytes,
 
     /// An API request message that is scrubbed based on the method annotation.
@@ -1097,11 +1129,12 @@ pub struct AuditContext {
 
     /// Number of scrubbed response items.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub scrubbed_response_item_count: i32,
 
     /// Audit resource name which is scrubbed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_resource: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

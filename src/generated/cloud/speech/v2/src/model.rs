@@ -50,6 +50,7 @@ pub struct CreateRecognizerRequest {
     /// If set, validate the request and preview the Recognizer, but do not
     /// actually create it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// The ID to use for the Recognizer, which will become the final component of
@@ -58,11 +59,13 @@ pub struct CreateRecognizerRequest {
     /// This value should be 4-63 characters, and valid characters
     /// are /[a-z][0-9]-/.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub recognizer_id: std::string::String,
 
     /// Required. The project and location where this Recognizer will be created.
     /// The expected format is `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -133,10 +136,12 @@ pub struct OperationMetadata {
 
     /// The resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource: std::string::String,
 
     /// The method that triggered the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub method: std::string::String,
 
     /// The [KMS key
@@ -144,6 +149,7 @@ pub struct OperationMetadata {
     /// the content of the Operation is encrypted. The expected format is
     /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// The [KMS key version
@@ -151,12 +157,13 @@ pub struct OperationMetadata {
     /// with which content of the Operation is encrypted. The expected format is
     /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}/cryptoKeyVersions/{crypto_key_version}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_version_name: std::string::String,
 
     /// The percent progress of the Operation. Values can range from 0-100. If the
     /// value is 100, then the operation is finished.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub progress_percent: i32,
 
     /// The request that spawned the Operation.
@@ -827,13 +834,14 @@ pub struct ListRecognizersRequest {
     /// Required. The project and location of Recognizers to list. The expected
     /// format is `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of Recognizers to return. The service may return fewer
     /// than this value. If unspecified, at most 5 Recognizers will be returned.
     /// The maximum value is 100; values above 100 will be coerced to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous
@@ -846,10 +854,12 @@ pub struct ListRecognizersRequest {
     ///
     /// [google.cloud.speech.v2.Speech.ListRecognizers]: crate::client::Speech::list_recognizers
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Whether, or not, to show resources that have been deleted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -903,6 +913,7 @@ impl wkt::message::Message for ListRecognizersRequest {
 pub struct ListRecognizersResponse {
     /// The list of requested Recognizers.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub recognizers: std::vec::Vec<crate::model::Recognizer>,
 
     /// A token, which can be sent as
@@ -912,6 +923,7 @@ pub struct ListRecognizersResponse {
     ///
     /// [google.cloud.speech.v2.ListRecognizersRequest.page_token]: crate::model::ListRecognizersRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -973,6 +985,7 @@ pub struct GetRecognizerRequest {
     /// Required. The name of the Recognizer to retrieve. The expected format is
     /// `projects/{project}/locations/{location}/recognizers/{recognizer}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1021,6 +1034,7 @@ pub struct UpdateRecognizerRequest {
     /// If set, validate the request and preview the updated Recognizer, but do not
     /// actually update it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1093,22 +1107,26 @@ pub struct DeleteRecognizerRequest {
     /// Required. The name of the Recognizer to delete.
     /// Format: `projects/{project}/locations/{location}/recognizers/{recognizer}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set, validate the request and preview the deleted Recognizer, but do not
     /// actually delete it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// If set to true, and the Recognizer is not found, the request will succeed
     /// and  be a no-op (no Operation is recorded in this case).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// This checksum is computed by the server based on the value of other
     /// fields. This may be sent on update, undelete, and delete requests to ensure
     /// the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1164,17 +1182,20 @@ pub struct UndeleteRecognizerRequest {
     /// Required. The name of the Recognizer to undelete.
     /// Format: `projects/{project}/locations/{location}/recognizers/{recognizer}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set, validate the request and preview the undeleted Recognizer, but do
     /// not actually undelete it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// This checksum is computed by the server based on the value of other
     /// fields. This may be sent on update, undelete, and delete requests to ensure
     /// the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1220,15 +1241,18 @@ pub struct Recognizer {
     /// Output only. Identifier. The resource name of the Recognizer.
     /// Format: `projects/{project}/locations/{location}/recognizers/{recognizer}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. System-assigned unique identifier for the Recognizer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// User-settable, human-readable name for the Recognizer. Must be 63
     /// characters or less.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. This field is now deprecated. Prefer the
@@ -1248,6 +1272,7 @@ pub struct Recognizer {
     /// [google.cloud.speech.v2.RecognitionConfig]: crate::model::RecognitionConfig
     /// [google.cloud.speech.v2.RecognitionConfig.model]: crate::model::RecognitionConfig::model
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub model: std::string::String,
 
@@ -1272,6 +1297,7 @@ pub struct Recognizer {
     /// [google.cloud.speech.v2.RecognitionConfig]: crate::model::RecognitionConfig
     /// [google.cloud.speech.v2.RecognitionConfig.language_codes]: crate::model::RecognitionConfig::language_codes
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub language_codes: std::vec::Vec<std::string::String>,
 
@@ -1288,10 +1314,12 @@ pub struct Recognizer {
     /// Both the key and the value must be 63 characters or less each.
     /// At most 100 annotations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The Recognizer lifecycle state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::recognizer::State,
 
     /// Output only. Creation time.
@@ -1314,11 +1342,13 @@ pub struct Recognizer {
     /// other fields. This may be sent on update, undelete, and delete requests to
     /// ensure the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Output only. Whether or not this Recognizer is in the process of being
     /// updated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciling: bool,
 
     /// Output only. The [KMS key
@@ -1326,6 +1356,7 @@ pub struct Recognizer {
     /// the Recognizer is encrypted. The expected format is
     /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// Output only. The [KMS key version
@@ -1333,6 +1364,7 @@ pub struct Recognizer {
     /// with which the Recognizer is encrypted. The expected format is
     /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}/cryptoKeyVersions/{crypto_key_version}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_version_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1720,6 +1752,7 @@ impl wkt::message::Message for AutoDetectDecodingConfig {
 pub struct ExplicitDecodingConfig {
     /// Required. Encoding of the audio data sent for recognition.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub encoding: crate::model::explicit_decoding_config::AudioEncoding,
 
     /// Optional. Sample rate in Hertz of the audio data sent for recognition.
@@ -1729,7 +1762,7 @@ pub struct ExplicitDecodingConfig {
     /// Note that this field is marked as OPTIONAL for backward compatibility
     /// reasons. It is (and has always been) effectively REQUIRED.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Number of channels present in the audio data sent for
@@ -1738,7 +1771,7 @@ pub struct ExplicitDecodingConfig {
     ///
     /// The maximum allowed value is 8.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub audio_channel_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2001,7 +2034,7 @@ pub struct SpeakerDiarizationConfig {
     /// To fix the number of speakers detected in the audio, set
     /// `min_speaker_count` = `max_speaker_count`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub min_speaker_count: i32,
 
     /// Required. Maximum number of speakers in the conversation. Valid values are:
@@ -2009,7 +2042,7 @@ pub struct SpeakerDiarizationConfig {
     /// by allowing the system to automatically determine the correct number of
     /// speakers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_speaker_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2051,24 +2084,28 @@ pub struct RecognitionFeatures {
     /// asterisks, for instance, "f***". If set to `false` or omitted, profanities
     /// won't be filtered out.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub profanity_filter: bool,
 
     /// If `true`, the top result includes a list of words and the start and end
     /// time offsets (timestamps) for those words. If `false`, no word-level time
     /// offset information is returned. The default is `false`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_word_time_offsets: bool,
 
     /// If `true`, the top result includes a list of words and the confidence for
     /// those words. If `false`, no word-level confidence information is returned.
     /// The default is `false`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_word_confidence: bool,
 
     /// If `true`, adds punctuation to recognition result hypotheses. This feature
     /// is only available in select languages. The default `false` value does not
     /// add punctuation to result hypotheses.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_automatic_punctuation: bool,
 
     /// The spoken punctuation behavior for the call. If `true`, replaces spoken
@@ -2077,6 +2114,7 @@ pub struct RecognitionFeatures {
     /// <https://cloud.google.com/speech-to-text/docs/spoken-punctuation> for
     /// support. If `false`, spoken punctuation is not replaced.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_spoken_punctuation: bool,
 
     /// The spoken emoji behavior for the call. If `true`, adds spoken emoji
@@ -2084,10 +2122,12 @@ pub struct RecognitionFeatures {
     /// corresponding Unicode symbols in the final transcript. If `false`, spoken
     /// emojis are not replaced.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_spoken_emojis: bool,
 
     /// Mode for recognizing multi-channel audio.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub multi_channel_mode: crate::model::recognition_features::MultiChannelMode,
 
     /// Configuration to enable speaker diarization and set additional
@@ -2106,7 +2146,7 @@ pub struct RecognitionFeatures {
     /// Valid values are `0`-`30`. A value of `0` or `1` will return a maximum of
     /// one. If omitted, will return a maximum of one.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_alternatives: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2349,6 +2389,7 @@ pub struct TranscriptNormalization {
     /// => "mountain dog"] will never be applied because we will always process the
     /// first entry before it. At most 100 entries.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entries: std::vec::Vec<crate::model::transcript_normalization::Entry>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2391,14 +2432,17 @@ pub mod transcript_normalization {
     pub struct Entry {
         /// What to replace. Max length is 100 characters.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub search: std::string::String,
 
         /// What to replace with. Max length is 100 characters.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub replace: std::string::String,
 
         /// Whether the search is case sensitive.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub case_sensitive: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2445,6 +2489,7 @@ pub mod transcript_normalization {
 pub struct TranslationConfig {
     /// Required. The language code to translate to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_language: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2479,11 +2524,13 @@ impl wkt::message::Message for TranslationConfig {
 pub struct SpeechAdaptation {
     /// A list of inline or referenced PhraseSets.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub phrase_sets: std::vec::Vec<crate::model::speech_adaptation::AdaptationPhraseSet>,
 
     /// A list of inline CustomClasses. Existing CustomClass resources can be
     /// referenced directly in a PhraseSet.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub custom_classes: std::vec::Vec<crate::model::CustomClass>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2645,7 +2692,7 @@ pub mod speech_adaptation {
         pub enum Value {
             /// The name of an existing PhraseSet resource. The user must have read
             /// access to the resource and it must not be deleted.
-            PhraseSet(std::string::String),
+            PhraseSet(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// An inline defined PhraseSet.
             InlinePhraseSet(std::boxed::Box<crate::model::PhraseSet>),
         }
@@ -2669,6 +2716,7 @@ pub struct RecognitionConfig {
     /// Supported
     /// Models](https://cloud.google.com/speech-to-text/v2/docs/speech-to-text-supported-languages).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     /// Optional. The language of the supplied audio as a
@@ -2683,6 +2731,7 @@ pub struct RecognitionConfig {
     /// recognition in the most likely language detected. The recognition result
     /// will include the language tag of the language detected in the audio.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub language_codes: std::vec::Vec<std::string::String>,
 
     /// Speech recognition features to enable.
@@ -2930,6 +2979,7 @@ pub struct RecognizeRequest {
     /// `projects/{project}/locations/{location}/recognizers/{recognizer}`. The
     /// {recognizer} segment may be set to `_` to use an empty implicit Recognizer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub recognizer: std::string::String,
 
     /// Features and audio metadata to use for the Automatic Speech Recognition.
@@ -3105,7 +3155,10 @@ pub mod recognize_request {
         /// whereas JSON representations use base64.
         ///
         /// [google.cloud.speech.v2.RecognitionConfig]: crate::model::RecognitionConfig
-        Content(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Content(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// URI that points to a file that contains audio data bytes as specified in
         /// [RecognitionConfig][google.cloud.speech.v2.RecognitionConfig]. The file
         /// must not be compressed (for example, gzip). Currently, only Google Cloud
@@ -3116,7 +3169,7 @@ pub mod recognize_request {
         /// URIs](https://cloud.google.com/storage/docs/reference-uris).
         ///
         /// [google.cloud.speech.v2.RecognitionConfig]: crate::model::RecognitionConfig
-        Uri(std::string::String),
+        Uri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -3128,6 +3181,7 @@ pub mod recognize_request {
 pub struct RecognitionResponseMetadata {
     /// Global request identifier auto-generated by the API.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// When available, billed audio seconds for the corresponding request.
@@ -3182,6 +3236,7 @@ impl wkt::message::Message for RecognitionResponseMetadata {
 pub struct SpeechRecognitionAlternative {
     /// Transcript text representing the words that the user spoke.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub transcript: std::string::String,
 
     /// The confidence estimate between 0.0 and 1.0. A higher number
@@ -3195,7 +3250,7 @@ pub struct SpeechRecognitionAlternative {
     ///
     /// [google.cloud.speech.v2.StreamingRecognitionResult.is_final]: crate::model::StreamingRecognitionResult::is_final
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// A list of word-specific information for each recognized word.
@@ -3205,6 +3260,7 @@ pub struct SpeechRecognitionAlternative {
     ///
     /// [google.cloud.speech.v2.SpeakerDiarizationConfig]: crate::model::SpeakerDiarizationConfig
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub words: std::vec::Vec<crate::model::WordInfo>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3276,6 +3332,7 @@ pub struct WordInfo {
 
     /// The word corresponding to this set of information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub word: std::string::String,
 
     /// The confidence estimate between 0.0 and 1.0. A higher number
@@ -3289,7 +3346,7 @@ pub struct WordInfo {
     ///
     /// [google.cloud.speech.v2.StreamingRecognitionResult.is_final]: crate::model::StreamingRecognitionResult::is_final
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// A distinct label is assigned for every speaker within the audio. This field
@@ -3300,6 +3357,7 @@ pub struct WordInfo {
     ///
     /// [google.cloud.speech.v2.SpeakerDiarizationConfig]: crate::model::SpeakerDiarizationConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub speaker_label: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3382,6 +3440,7 @@ pub struct SpeechRecognitionResult {
     /// ordered in terms of accuracy, with the top (first) alternative being the
     /// most probable, as ranked by the recognizer.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub alternatives: std::vec::Vec<crate::model::SpeechRecognitionAlternative>,
 
     /// For multi-channel audio, this is the channel number corresponding to the
@@ -3389,7 +3448,7 @@ pub struct SpeechRecognitionResult {
     /// For `audio_channel_count` = `N`, its output values can range from `1` to
     /// `N`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub channel_tag: i32,
 
     /// Time offset of the end of this result relative to the beginning of the
@@ -3401,6 +3460,7 @@ pub struct SpeechRecognitionResult {
     /// language tag of the language in this result. This language code was
     /// detected to have the most likelihood of being spoken in the audio.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3472,6 +3532,7 @@ pub struct RecognizeResponse {
     /// Sequential list of transcription results corresponding to sequential
     /// portions of audio.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub results: std::vec::Vec<crate::model::SpeechRecognitionResult>,
 
     /// Metadata about the recognition.
@@ -3532,12 +3593,14 @@ pub struct StreamingRecognitionFeatures {
     /// If `true`, responses with voice activity speech events will be returned as
     /// they are detected.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_voice_activity_events: bool,
 
     /// Whether or not to stream interim results to the client. If set to true,
     /// interim results will be streamed to the client. Otherwise, only the final
     /// response will be streamed back.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub interim_results: bool,
 
     /// If set, the server will automatically close the stream after the specified
@@ -3817,6 +3880,7 @@ pub struct StreamingRecognizeRequest {
     /// `projects/{project}/locations/{location}/recognizers/{recognizer}`. The
     /// {recognizer} segment may be set to `_` to use an empty implicit Recognizer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub recognizer: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -3934,7 +3998,10 @@ pub mod streaming_recognize_request {
         StreamingConfig(std::boxed::Box<crate::model::StreamingRecognitionConfig>),
         /// Inline audio bytes to be Recognized.
         /// Maximum size for this field is 15 KB per request.
-        Audio(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Audio(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
     }
 }
 
@@ -3953,6 +4020,7 @@ pub struct BatchRecognizeRequest {
     /// `projects/{project}/locations/{location}/recognizers/{recognizer}`. The
     /// {recognizer} segment may be set to `_` to use an empty implicit Recognizer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub recognizer: std::string::String,
 
     /// Features and audio metadata to use for the Automatic Speech Recognition.
@@ -3989,6 +4057,7 @@ pub struct BatchRecognizeRequest {
     /// Audio files with file metadata for ASR.
     /// The maximum number of files allowed to be specified is 15.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub files: std::vec::Vec<crate::model::BatchRecognizeFileMetadata>,
 
     /// Configuration options for where to output the transcripts of each file.
@@ -3997,6 +4066,7 @@ pub struct BatchRecognizeRequest {
 
     /// Processing strategy to use for this request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub processing_strategy: crate::model::batch_recognize_request::ProcessingStrategy,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4239,6 +4309,7 @@ pub struct GcsOutputConfig {
     /// The Cloud Storage URI prefix with which recognition results will be
     /// written.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4610,6 +4681,7 @@ pub mod recognition_output_config {
 pub struct BatchRecognizeResponse {
     /// Map from filename to the final result for that file.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub results:
         std::collections::HashMap<std::string::String, crate::model::BatchRecognizeFileResult>,
 
@@ -4674,6 +4746,7 @@ pub struct BatchRecognizeResults {
     /// Sequential list of transcription results corresponding to sequential
     /// portions of audio.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub results: std::vec::Vec<crate::model::SpeechRecognitionResult>,
 
     /// Metadata about the recognition.
@@ -4733,16 +4806,19 @@ impl wkt::message::Message for BatchRecognizeResults {
 pub struct CloudStorageResult {
     /// The Cloud Storage URI to which recognition results were written.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// The Cloud Storage URI to which recognition results were written as VTT
     /// formatted captions. This is populated only when `VTT` output is requested.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vtt_format_uri: std::string::String,
 
     /// The Cloud Storage URI to which recognition results were written as SRT
     /// formatted captions. This is populated only when `SRT` output is requested.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub srt_format_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4792,11 +4868,13 @@ pub struct InlineResult {
     /// The transcript for the audio file as VTT formatted captions. This is
     /// populated only when `VTT` output is requested.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vtt_captions: std::string::String,
 
     /// The transcript for the audio file as SRT formatted captions. This is
     /// populated only when `SRT` output is requested.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub srt_captions: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4860,6 +4938,7 @@ pub struct BatchRecognizeFileResult {
 
     /// Deprecated. Use `cloud_storage_result.native_format_uri` instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub uri: std::string::String,
 
@@ -5063,7 +5142,7 @@ pub mod batch_recognize_file_result {
 pub struct BatchRecognizeTranscriptionMetadata {
     /// How much of the file has been transcribed so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub progress_percent: i32,
 
     /// Error if one was encountered.
@@ -5072,6 +5151,7 @@ pub struct BatchRecognizeTranscriptionMetadata {
 
     /// The Cloud Storage URI to which recognition results will be written.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5131,6 +5211,7 @@ impl wkt::message::Message for BatchRecognizeTranscriptionMetadata {
 pub struct BatchRecognizeMetadata {
     /// Map from provided filename to the transcription metadata for that file.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub transcription_metadata: std::collections::HashMap<
         std::string::String,
         crate::model::BatchRecognizeTranscriptionMetadata,
@@ -5313,7 +5394,7 @@ pub mod batch_recognize_file_metadata {
     #[non_exhaustive]
     pub enum AudioSource {
         /// Cloud Storage URI for the audio file.
-        Uri(std::string::String),
+        Uri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -5328,6 +5409,7 @@ pub struct StreamingRecognitionResult {
     /// ordered in terms of accuracy, with the top (first) alternative being the
     /// most probable, as ranked by the recognizer.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub alternatives: std::vec::Vec<crate::model::SpeechRecognitionAlternative>,
 
     /// If `false`, this
@@ -5340,6 +5422,7 @@ pub struct StreamingRecognitionResult {
     ///
     /// [google.cloud.speech.v2.StreamingRecognitionResult]: crate::model::StreamingRecognitionResult
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_final: bool,
 
     /// An estimate of the likelihood that the recognizer will not change its guess
@@ -5350,7 +5433,7 @@ pub struct StreamingRecognitionResult {
     ///
     /// [google.cloud.speech.v2.StreamingRecognitionResult.is_final]: crate::model::StreamingRecognitionResult::is_final
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub stability: f32,
 
     /// Time offset of the end of this result relative to the beginning of the
@@ -5363,13 +5446,14 @@ pub struct StreamingRecognitionResult {
     /// For
     /// `audio_channel_count` = `N`, its output values can range from `1` to `N`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub channel_tag: i32,
 
     /// Output only. The [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt)
     /// language tag of the language in this result. This language code was
     /// detected to have the most likelihood of being spoken in the audio.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5506,10 +5590,12 @@ pub struct StreamingRecognizeResponse {
     ///
     /// [google.cloud.speech.v2.StreamingRecognitionResult.is_final]: crate::model::StreamingRecognitionResult::is_final
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub results: std::vec::Vec<crate::model::StreamingRecognitionResult>,
 
     /// Indicates the type of speech event.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub speech_event_type: crate::model::streaming_recognize_response::SpeechEventType,
 
     /// Time offset between the beginning of the audio and event emission.
@@ -5764,6 +5850,7 @@ pub struct Config {
     /// one config resource per project per location. The expected format is
     /// `projects/{project}/locations/{location}/config`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional [KMS key
@@ -5773,6 +5860,7 @@ pub struct Config {
     /// resources will be encrypted using this key. The expected format is
     /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// Output only. The most recent time this resource was modified.
@@ -5838,6 +5926,7 @@ pub struct GetConfigRequest {
     /// resource per project per location. The expected format is
     /// `projects/{project}/locations/{location}/config`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5946,23 +6035,28 @@ pub struct CustomClass {
     /// Format:
     /// `projects/{project}/locations/{location}/customClasses/{custom_class}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. System-assigned unique identifier for the CustomClass.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Optional. User-settable, human-readable name for the CustomClass. Must be
     /// 63 characters or less.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// A collection of class items.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub items: std::vec::Vec<crate::model::custom_class::ClassItem>,
 
     /// Output only. The CustomClass lifecycle state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::custom_class::State,
 
     /// Output only. Creation time.
@@ -5985,17 +6079,20 @@ pub struct CustomClass {
     /// Both the key and the value must be 63 characters or less each.
     /// At most 100 annotations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. This checksum is computed by the server based on the value of
     /// other fields. This may be sent on update, undelete, and delete requests to
     /// ensure the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Output only. Whether or not this CustomClass is in the process of being
     /// updated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciling: bool,
 
     /// Output only. The [KMS key
@@ -6003,6 +6100,7 @@ pub struct CustomClass {
     /// the CustomClass is encrypted. The expected format is
     /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// Output only. The [KMS key version
@@ -6010,6 +6108,7 @@ pub struct CustomClass {
     /// with which the CustomClass is encrypted. The expected format is
     /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}/cryptoKeyVersions/{crypto_key_version}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_version_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6190,6 +6289,7 @@ pub mod custom_class {
     pub struct ClassItem {
         /// The class item's value.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub value: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6359,14 +6459,17 @@ pub struct PhraseSet {
     /// Output only. Identifier. The resource name of the PhraseSet.
     /// Format: `projects/{project}/locations/{location}/phraseSets/{phrase_set}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. System-assigned unique identifier for the PhraseSet.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// A list of word and phrases.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub phrases: std::vec::Vec<crate::model::phrase_set::Phrase>,
 
     /// Hint Boost. Positive value will increase the probability that a specific
@@ -6376,16 +6479,18 @@ pub struct PhraseSet {
     /// binary search approach to finding the optimal value for your use case as
     /// well as adding phrases both with and without boost to your requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub boost: f32,
 
     /// User-settable, human-readable name for the PhraseSet. Must be 63
     /// characters or less.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. The PhraseSet lifecycle state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::phrase_set::State,
 
     /// Output only. Creation time.
@@ -6408,17 +6513,20 @@ pub struct PhraseSet {
     /// Both the key and the value must be 63 characters or less each.
     /// At most 100 annotations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. This checksum is computed by the server based on the value of
     /// other fields. This may be sent on update, undelete, and delete requests to
     /// ensure the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Output only. Whether or not this PhraseSet is in the process of being
     /// updated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciling: bool,
 
     /// Output only. The [KMS key
@@ -6426,6 +6534,7 @@ pub struct PhraseSet {
     /// the PhraseSet is encrypted. The expected format is
     /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// Output only. The [KMS key version
@@ -6433,6 +6542,7 @@ pub struct PhraseSet {
     /// with which the PhraseSet is encrypted. The expected format is
     /// `projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{crypto_key}/cryptoKeyVersions/{crypto_key_version}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_version_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6626,6 +6736,7 @@ pub mod phrase_set {
     pub struct Phrase {
         /// The phrase itself.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub value: std::string::String,
 
         /// Hint Boost. Overrides the boost set at the phrase set level.
@@ -6639,7 +6750,7 @@ pub mod phrase_set {
         /// for your use case as well as adding phrases both with and without boost
         /// to your requests.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub boost: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6820,6 +6931,7 @@ pub struct CreateCustomClassRequest {
     /// If set, validate the request and preview the CustomClass, but do not
     /// actually create it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// The ID to use for the CustomClass, which will become the final component of
@@ -6828,11 +6940,13 @@ pub struct CreateCustomClassRequest {
     /// This value should be 4-63 characters, and valid characters
     /// are /[a-z][0-9]-/.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub custom_class_id: std::string::String,
 
     /// Required. The project and location where this CustomClass will be created.
     /// The expected format is `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6899,6 +7013,7 @@ pub struct ListCustomClassesRequest {
     /// Required. The project and location of CustomClass resources to list. The
     /// expected format is `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Number of results per requests. A valid page_size ranges from 0 to 100
@@ -6906,7 +7021,7 @@ pub struct ListCustomClassesRequest {
     /// be chosen. If the page size exceeds 100, it will be coerced down to 100.
     /// Note that a call might return fewer results than the requested page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous
@@ -6919,10 +7034,12 @@ pub struct ListCustomClassesRequest {
     ///
     /// [google.cloud.speech.v2.Speech.ListCustomClasses]: crate::client::Speech::list_custom_classes
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Whether, or not, to show resources that have been deleted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6976,6 +7093,7 @@ impl wkt::message::Message for ListCustomClassesRequest {
 pub struct ListCustomClassesResponse {
     /// The list of requested CustomClasses.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub custom_classes: std::vec::Vec<crate::model::CustomClass>,
 
     /// A token, which can be sent as
@@ -6985,6 +7103,7 @@ pub struct ListCustomClassesResponse {
     ///
     /// [google.cloud.speech.v2.ListCustomClassesRequest.page_token]: crate::model::ListCustomClassesRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7046,6 +7165,7 @@ pub struct GetCustomClassRequest {
     /// Required. The name of the CustomClass to retrieve. The expected format is
     /// `projects/{project}/locations/{location}/customClasses/{custom_class}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7095,6 +7215,7 @@ pub struct UpdateCustomClassRequest {
     /// If set, validate the request and preview the updated CustomClass, but do
     /// not actually update it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7168,22 +7289,26 @@ pub struct DeleteCustomClassRequest {
     /// Format:
     /// `projects/{project}/locations/{location}/customClasses/{custom_class}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set, validate the request and preview the deleted CustomClass, but do
     /// not actually delete it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// If set to true, and the CustomClass is not found, the request will succeed
     /// and  be a no-op (no Operation is recorded in this case).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// This checksum is computed by the server based on the value of other
     /// fields. This may be sent on update, undelete, and delete requests to ensure
     /// the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7240,17 +7365,20 @@ pub struct UndeleteCustomClassRequest {
     /// Format:
     /// `projects/{project}/locations/{location}/customClasses/{custom_class}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set, validate the request and preview the undeleted CustomClass, but do
     /// not actually undelete it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// This checksum is computed by the server based on the value of other
     /// fields. This may be sent on update, undelete, and delete requests to ensure
     /// the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7303,6 +7431,7 @@ pub struct CreatePhraseSetRequest {
     /// If set, validate the request and preview the PhraseSet, but do not
     /// actually create it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// The ID to use for the PhraseSet, which will become the final component of
@@ -7311,11 +7440,13 @@ pub struct CreatePhraseSetRequest {
     /// This value should be 4-63 characters, and valid characters
     /// are /[a-z][0-9]-/.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub phrase_set_id: std::string::String,
 
     /// Required. The project and location where this PhraseSet will be created.
     /// The expected format is `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7382,13 +7513,14 @@ pub struct ListPhraseSetsRequest {
     /// Required. The project and location of PhraseSet resources to list. The
     /// expected format is `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of PhraseSets to return. The service may return fewer
     /// than this value. If unspecified, at most 5 PhraseSets will be returned.
     /// The maximum value is 100; values above 100 will be coerced to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous
@@ -7401,10 +7533,12 @@ pub struct ListPhraseSetsRequest {
     ///
     /// [google.cloud.speech.v2.Speech.ListPhraseSets]: crate::client::Speech::list_phrase_sets
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Whether, or not, to show resources that have been deleted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7458,6 +7592,7 @@ impl wkt::message::Message for ListPhraseSetsRequest {
 pub struct ListPhraseSetsResponse {
     /// The list of requested PhraseSets.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub phrase_sets: std::vec::Vec<crate::model::PhraseSet>,
 
     /// A token, which can be sent as
@@ -7467,6 +7602,7 @@ pub struct ListPhraseSetsResponse {
     ///
     /// [google.cloud.speech.v2.ListPhraseSetsRequest.page_token]: crate::model::ListPhraseSetsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7528,6 +7664,7 @@ pub struct GetPhraseSetRequest {
     /// Required. The name of the PhraseSet to retrieve. The expected format is
     /// `projects/{project}/locations/{location}/phraseSets/{phrase_set}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7576,6 +7713,7 @@ pub struct UpdatePhraseSetRequest {
     /// If set, validate the request and preview the updated PhraseSet, but do not
     /// actually update it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7648,22 +7786,26 @@ pub struct DeletePhraseSetRequest {
     /// Required. The name of the PhraseSet to delete.
     /// Format: `projects/{project}/locations/{location}/phraseSets/{phrase_set}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set, validate the request and preview the deleted PhraseSet, but do not
     /// actually delete it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// If set to true, and the PhraseSet is not found, the request will succeed
     /// and  be a no-op (no Operation is recorded in this case).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// This checksum is computed by the server based on the value of other
     /// fields. This may be sent on update, undelete, and delete requests to ensure
     /// the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7719,17 +7861,20 @@ pub struct UndeletePhraseSetRequest {
     /// Required. The name of the PhraseSet to undelete.
     /// Format: `projects/{project}/locations/{location}/phraseSets/{phrase_set}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If set, validate the request and preview the undeleted PhraseSet, but do
     /// not actually undelete it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// This checksum is computed by the server based on the value of other
     /// fields. This may be sent on update, undelete, and delete requests to ensure
     /// the client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7775,10 +7920,12 @@ impl wkt::message::Message for UndeletePhraseSetRequest {
 pub struct ModelFeature {
     /// The name of the feature (Note: the feature can be `recognizer`)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub feature: std::string::String,
 
     /// The release state of the feature
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release_state: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7817,6 +7964,7 @@ impl wkt::message::Message for ModelFeature {
 pub struct ModelFeatures {
     /// Repeated field that contains all features of the model
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub model_feature: std::vec::Vec<crate::model::ModelFeature>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7855,6 +8003,7 @@ impl wkt::message::Message for ModelFeatures {
 pub struct ModelMetadata {
     /// Map of the model name -> features of that model
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub model_features: std::collections::HashMap<std::string::String, crate::model::ModelFeatures>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7894,6 +8043,7 @@ impl wkt::message::Message for ModelMetadata {
 pub struct LanguageMetadata {
     /// Map of locale (language code) -> models
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub models: std::collections::HashMap<std::string::String, crate::model::ModelMetadata>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7933,6 +8083,7 @@ impl wkt::message::Message for LanguageMetadata {
 pub struct AccessMetadata {
     /// Describes the different types of constraints that are applied.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub constraint_type: crate::model::access_metadata::ConstraintType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

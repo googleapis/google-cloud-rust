@@ -45,6 +45,7 @@ pub struct ListQueuesRequest {
     /// Required. The location name.
     /// For example: `projects/PROJECT_ID/locations/LOCATION_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// `filter` can be used to specify a subset of queues. Any
@@ -60,6 +61,7 @@ pub struct ListQueuesRequest {
     ///
     /// [google.cloud.tasks.v2.Queue]: crate::model::Queue
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Requested page size.
@@ -72,7 +74,7 @@ pub struct ListQueuesRequest {
     ///
     /// [google.cloud.tasks.v2.ListQueuesResponse.next_page_token]: crate::model::ListQueuesResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return.
@@ -90,6 +92,7 @@ pub struct ListQueuesRequest {
     /// [google.cloud.tasks.v2.ListQueuesRequest.filter]: crate::model::ListQueuesRequest::filter
     /// [google.cloud.tasks.v2.ListQueuesResponse.next_page_token]: crate::model::ListQueuesResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -143,6 +146,7 @@ impl wkt::message::Message for ListQueuesRequest {
 pub struct ListQueuesResponse {
     /// The list of queues.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub queues: std::vec::Vec<crate::model::Queue>,
 
     /// A token to retrieve next page of results.
@@ -158,6 +162,7 @@ pub struct ListQueuesResponse {
     /// [google.cloud.tasks.v2.CloudTasks.ListQueues]: crate::client::CloudTasks::list_queues
     /// [google.cloud.tasks.v2.ListQueuesRequest.page_token]: crate::model::ListQueuesRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -218,6 +223,7 @@ pub struct GetQueueRequest {
     /// Required. The resource name of the queue. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -258,6 +264,7 @@ pub struct CreateQueueRequest {
     /// Tasks' implementation of
     /// [ListLocations][google.cloud.location.Locations.ListLocations].
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The queue to create.
@@ -400,6 +407,7 @@ pub struct DeleteQueueRequest {
     /// Required. The queue name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -436,6 +444,7 @@ pub struct PurgeQueueRequest {
     /// Required. The queue name. For example:
     /// `projects/PROJECT_ID/location/LOCATION_ID/queues/QUEUE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -472,6 +481,7 @@ pub struct PauseQueueRequest {
     /// Required. The queue name. For example:
     /// `projects/PROJECT_ID/location/LOCATION_ID/queues/QUEUE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -508,6 +518,7 @@ pub struct ResumeQueueRequest {
     /// Required. The queue name. For example:
     /// `projects/PROJECT_ID/location/LOCATION_ID/queues/QUEUE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -544,6 +555,7 @@ pub struct ListTasksRequest {
     /// Required. The queue name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The response_view specifies which subset of the
@@ -563,6 +575,7 @@ pub struct ListTasksRequest {
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::View::Basic
     /// [google.cloud.tasks.v2.Task.View.FULL]: crate::model::task::View::Full
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_view: crate::model::task::View,
 
     /// Maximum page size.
@@ -576,7 +589,7 @@ pub struct ListTasksRequest {
     ///
     /// [google.cloud.tasks.v2.ListTasksResponse.next_page_token]: crate::model::ListTasksResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return.
@@ -592,6 +605,7 @@ pub struct ListTasksRequest {
     /// [google.cloud.tasks.v2.CloudTasks.ListTasks]: crate::client::CloudTasks::list_tasks
     /// [google.cloud.tasks.v2.ListTasksResponse.next_page_token]: crate::model::ListTasksResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -648,6 +662,7 @@ impl wkt::message::Message for ListTasksRequest {
 pub struct ListTasksResponse {
     /// The list of tasks.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tasks: std::vec::Vec<crate::model::Task>,
 
     /// A token to retrieve next page of results.
@@ -661,6 +676,7 @@ pub struct ListTasksResponse {
     /// [google.cloud.tasks.v2.CloudTasks.ListTasks]: crate::client::CloudTasks::list_tasks
     /// [google.cloud.tasks.v2.ListTasksRequest.page_token]: crate::model::ListTasksRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -722,6 +738,7 @@ pub struct GetTaskRequest {
     /// Required. The task name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID/tasks/TASK_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The response_view specifies which subset of the
@@ -741,6 +758,7 @@ pub struct GetTaskRequest {
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::View::Basic
     /// [google.cloud.tasks.v2.Task.View.FULL]: crate::model::task::View::Full
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_view: crate::model::task::View,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -788,6 +806,7 @@ pub struct CreateTaskRequest {
     ///
     /// The queue must already exist.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The task to add.
@@ -847,6 +866,7 @@ pub struct CreateTaskRequest {
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::View::Basic
     /// [google.cloud.tasks.v2.Task.View.FULL]: crate::model::task::View::Full
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_view: crate::model::task::View,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -910,6 +930,7 @@ pub struct DeleteTaskRequest {
     /// Required. The task name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID/tasks/TASK_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -946,6 +967,7 @@ pub struct RunTaskRequest {
     /// Required. The task name. For example:
     /// `projects/PROJECT_ID/locations/LOCATION_ID/queues/QUEUE_ID/tasks/TASK_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The response_view specifies which subset of the
@@ -965,6 +987,7 @@ pub struct RunTaskRequest {
     /// [google.cloud.tasks.v2.Task.View.BASIC]: crate::model::task::View::Basic
     /// [google.cloud.tasks.v2.Task.View.FULL]: crate::model::task::View::Full
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_view: crate::model::task::View,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1029,6 +1052,7 @@ pub struct Queue {
     ///
     /// [google.cloud.tasks.v2.CloudTasks.CreateQueue]: crate::client::CloudTasks::create_queue
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Overrides for
@@ -1110,6 +1134,7 @@ pub struct Queue {
     /// [google.cloud.tasks.v2.CloudTasks.ResumeQueue]: crate::client::CloudTasks::resume_queue
     /// [google.cloud.tasks.v2.CloudTasks.UpdateQueue]: crate::client::CloudTasks::update_queue
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::queue::State,
 
     /// Output only. The last time this queue was purged.
@@ -1450,7 +1475,7 @@ pub struct RateLimits {
     /// [rate in
     /// queue.yaml/xml](https://cloud.google.com/appengine/docs/standard/python/config/queueref#rate).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub max_dispatches_per_second: f64,
 
     /// Output only. The max burst size.
@@ -1489,7 +1514,7 @@ pub struct RateLimits {
     /// [google.cloud.tasks.v2.CloudTasks.UpdateQueue]: crate::client::CloudTasks::update_queue
     /// [google.cloud.tasks.v2.RateLimits.max_dispatches_per_second]: crate::model::RateLimits::max_dispatches_per_second
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_burst_size: i32,
 
     /// The maximum number of concurrent tasks that Cloud Tasks allows
@@ -1506,7 +1531,7 @@ pub struct RateLimits {
     /// [max_concurrent_requests in
     /// queue.yaml/xml](https://cloud.google.com/appengine/docs/standard/python/config/queueref#max_concurrent_requests).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_concurrent_dispatches: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1566,7 +1591,7 @@ pub struct RetryConfig {
     /// [task_retry_limit in
     /// queue.yaml/xml](https://cloud.google.com/appengine/docs/standard/python/config/queueref#retry_parameters).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_attempts: i32,
 
     /// If positive, `max_retry_duration` specifies the time limit for
@@ -1668,7 +1693,7 @@ pub struct RetryConfig {
     /// [google.cloud.tasks.v2.RetryConfig.max_backoff]: crate::model::RetryConfig::max_backoff
     /// [google.cloud.tasks.v2.RetryConfig.min_backoff]: crate::model::RetryConfig::min_backoff
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_doublings: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1765,7 +1790,7 @@ pub struct StackdriverLoggingConfig {
     /// This field may contain any value between 0.0 and 1.0, inclusive.
     /// 0.0 is the default and means that no operations are logged.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub sampling_ratio: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1842,10 +1867,12 @@ pub struct HttpRequest {
     /// The `Location` header response from a redirect response [`300` - `399`]
     /// may be followed. The redirect is not counted as a separate attempt.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub url: std::string::String,
 
     /// The HTTP method to use for the request. The default is POST.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub http_method: crate::model::HttpMethod,
 
     /// HTTP request headers.
@@ -1879,6 +1906,7 @@ pub struct HttpRequest {
     ///
     /// [google.cloud.tasks.v2.HttpRequest.url]: crate::model::HttpRequest::url
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// HTTP request body.
@@ -1891,7 +1919,7 @@ pub struct HttpRequest {
     /// [google.cloud.tasks.v2.HttpMethod]: crate::model::HttpMethod
     /// [google.cloud.tasks.v2.HttpRequest.http_method]: crate::model::HttpRequest::http_method
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub body: ::bytes::Bytes,
 
     /// The mode for generating an `Authorization` header for HTTP requests.
@@ -2146,6 +2174,7 @@ pub struct AppEngineHttpRequest {
     /// and the App Engine documentation for your runtime on [How Requests are
     /// Handled](https://cloud.google.com/appengine/docs/standard/python3/how-requests-are-handled).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub http_method: crate::model::HttpMethod,
 
     /// Task-level setting for App Engine routing.
@@ -2168,6 +2197,7 @@ pub struct AppEngineHttpRequest {
     /// If the relative URI is empty, then the root path "/" will be used.
     /// No spaces are allowed, and the maximum length allowed is 2083 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relative_uri: std::string::String,
 
     /// HTTP request headers.
@@ -2218,6 +2248,7 @@ pub struct AppEngineHttpRequest {
     /// [google.cloud.tasks.v2.CloudTasks.CreateTask]: crate::client::CloudTasks::create_task
     /// [google.cloud.tasks.v2.Task]: crate::model::Task
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub headers: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// HTTP request body.
@@ -2228,7 +2259,7 @@ pub struct AppEngineHttpRequest {
     ///
     /// [google.cloud.tasks.v2.HttpMethod]: crate::model::HttpMethod
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub body: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2349,6 +2380,7 @@ pub struct AppEngineRouting {
     /// [google.cloud.tasks.v2.AppEngineRouting.service]: crate::model::AppEngineRouting::service
     /// [google.cloud.tasks.v2.AppEngineRouting.version]: crate::model::AppEngineRouting::version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     /// App version.
@@ -2374,6 +2406,7 @@ pub struct AppEngineRouting {
     /// [google.cloud.tasks.v2.AppEngineRouting.service]: crate::model::AppEngineRouting::service
     /// [google.cloud.tasks.v2.AppEngineRouting.version]: crate::model::AppEngineRouting::version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// App instance.
@@ -2390,6 +2423,7 @@ pub struct AppEngineRouting {
     /// and [App Engine Flex request
     /// routing](https://cloud.google.com/appengine/docs/flexible/python/how-requests-are-routed).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance: std::string::String,
 
     /// Output only. The host that the task is sent to.
@@ -2409,6 +2443,7 @@ pub struct AppEngineRouting {
     /// [google.cloud.tasks.v2.AppEngineRouting.service]: crate::model::AppEngineRouting::service
     /// [google.cloud.tasks.v2.AppEngineRouting.version]: crate::model::AppEngineRouting::version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub host: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2466,12 +2501,14 @@ pub struct OAuthToken {
     /// caller must have iam.serviceAccounts.actAs permission for the service
     /// account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_email: std::string::String,
 
     /// OAuth scope to be used for generating OAuth access token.
     /// If not specified, `https://www.googleapis.com/auth/cloud-platform`
     /// will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2522,11 +2559,13 @@ pub struct OidcToken {
     /// caller must have iam.serviceAccounts.actAs permission for the service
     /// account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_email: std::string::String,
 
     /// Audience to be used when generating OIDC token. If not specified, the URI
     /// specified in target will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub audience: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2590,6 +2629,7 @@ pub struct Task {
     ///
     /// [google.cloud.tasks.v2.CloudTasks.CreateTask]: crate::client::CloudTasks::create_task
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The time when the task is scheduled to be attempted or retried.
@@ -2650,12 +2690,12 @@ pub struct Task {
     /// This count includes attempts which have been dispatched but haven't
     /// received a response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub dispatch_count: i32,
 
     /// Output only. The number of attempts which have received a response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub response_count: i32,
 
     /// Output only. The status of the task's first attempt.
@@ -2678,6 +2718,7 @@ pub struct Task {
     ///
     /// [google.cloud.tasks.v2.Task]: crate::model::Task
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::task::View,
 
     /// Required. The message to send to the worker.

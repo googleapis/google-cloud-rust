@@ -44,6 +44,7 @@ pub struct AlertChart {
     /// projects/[PROJECT_ID_OR_NUMBER]/alertPolicies/[ALERT_POLICY_ID]
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -77,6 +78,7 @@ impl wkt::message::Message for AlertChart {
 pub struct CollapsibleGroup {
     /// The collapsed state of the widget on first page load.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub collapsed: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -164,6 +166,7 @@ pub struct Aggregation {
     /// and `alignment_period` must be specified; otherwise, an error is
     /// returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub per_series_aligner: crate::model::aggregation::Aligner,
 
     /// The reduction operation to be used to combine time series into a single
@@ -181,6 +184,7 @@ pub struct Aggregation {
     /// `ALIGN_NONE`. An `alignment_period` must also be specified; otherwise, an
     /// error is returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cross_series_reducer: crate::model::aggregation::Reducer,
 
     /// The set of fields to preserve when `cross_series_reducer` is
@@ -198,6 +202,7 @@ pub struct Aggregation {
     /// a single output time series. If `cross_series_reducer` is not
     /// defined, this field is ignored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub group_by_fields: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -887,15 +892,17 @@ pub struct PickTimeSeriesFilter {
     /// the value which will be used to compare the time series to other time
     /// series.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ranking_method: crate::model::pick_time_series_filter::Method,
 
     /// How many time series to allow to pass through the filter.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub num_time_series: i32,
 
     /// How to use the ranking to select time series that pass through the filter.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub direction: crate::model::pick_time_series_filter::Direction,
 
     /// Select the top N streams/time series within this time interval
@@ -1271,11 +1278,12 @@ pub struct StatisticalTimeSeriesFilter {
     /// These are methods that cannot be applied stream-by-stream, but rather
     /// require the full context of a request to evaluate time series.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ranking_method: crate::model::statistical_time_series_filter::Method,
 
     /// How many time series to output.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub num_time_series: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1451,10 +1459,12 @@ pub mod statistical_time_series_filter {
 pub struct Dashboard {
     /// Identifier. The resource name of the dashboard.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The mutable, human-readable name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// `etag` is used for optimistic concurrency control as a way to help
@@ -1465,14 +1475,17 @@ pub struct Dashboard {
     /// Dashboard configuration. The field should not be passed during
     /// dashboard creation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Filters to reduce the amount of data charted based on the filter criteria.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dashboard_filters: std::vec::Vec<crate::model::DashboardFilter>,
 
     /// Labels applied to the dashboard
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// A dashboard's root container element that defines the layout style.
@@ -1688,16 +1701,19 @@ pub mod dashboard {
 pub struct DashboardFilter {
     /// Required. The key for the label
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label_key: std::string::String,
 
     /// The placeholder text that can be referenced in a filter string or MQL
     /// query. If omitted, the dashboard filter will be applied to all relevant
     /// widgets in the dashboard.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub template_variable: std::string::String,
 
     /// The specified filter type
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter_type: crate::model::dashboard_filter::FilterType,
 
     /// The default value used in the filter comparison
@@ -1948,7 +1964,7 @@ pub mod dashboard_filter {
     #[non_exhaustive]
     pub enum DefaultValue {
         /// A variable-length string value.
-        StringValue(std::string::String),
+        StringValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -1966,6 +1982,7 @@ pub struct CreateDashboardRequest {
     ///
     /// The `[PROJECT_ID_OR_NUMBER]` must match the dashboard resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The initial dashboard specification.
@@ -1975,6 +1992,7 @@ pub struct CreateDashboardRequest {
     /// If set, validate the request and preview the review, but do not actually
     /// save it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2035,12 +2053,13 @@ pub struct ListDashboardsRequest {
     /// projects/[PROJECT_ID_OR_NUMBER]
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// A positive number that is the maximum number of results to return.
     /// If unspecified, a default of 1000 is used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. If this field is not empty then it must contain the
@@ -2048,6 +2067,7 @@ pub struct ListDashboardsRequest {
     /// this field causes the method to return additional results from the previous
     /// method call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2092,12 +2112,14 @@ impl wkt::message::Message for ListDashboardsRequest {
 pub struct ListDashboardsResponse {
     /// The list of requested dashboards.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dashboards: std::vec::Vec<crate::model::Dashboard>,
 
     /// If there are more results than have been returned, then this field is set
     /// to a non-empty value.  To see the additional results,
     /// use that value as `page_token` in the next call to this method.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2159,6 +2181,7 @@ pub struct GetDashboardRequest {
     /// - `projects/[PROJECT_ID_OR_NUMBER]/dashboards/[DASHBOARD_ID]`
     ///   (for custom dashboards).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2195,6 +2218,7 @@ pub struct DeleteDashboardRequest {
     /// projects/[PROJECT_ID_OR_NUMBER]/dashboards/[DASHBOARD_ID]
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2232,6 +2256,7 @@ pub struct UpdateDashboardRequest {
     /// If set, validate the request and preview the review, but do not actually
     /// save it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2287,6 +2312,7 @@ pub struct ErrorReportingPanel {
     ///
     /// Examples: `projects/my-project-123`, `projects/5551234`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub project_names: std::vec::Vec<std::string::String>,
 
     /// An identifier of the service, such as the name of the
@@ -2297,6 +2323,7 @@ pub struct ErrorReportingPanel {
     /// Contains the service name for error reports extracted from Google
     /// App Engine logs or `default` if the App Engine default service is used.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub services: std::vec::Vec<std::string::String>,
 
     /// Represents the source code version that the developer provided,
@@ -2304,6 +2331,7 @@ pub struct ErrorReportingPanel {
     /// For App Engine standard environment, the version is set to the version of
     /// the app.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub versions: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2366,12 +2394,14 @@ pub struct IncidentList {
     /// the resource type but not the values of the resource labels.
     /// The resource type and labels are used for filtering.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub monitored_resources: std::vec::Vec<api::model::MonitoredResource>,
 
     /// Optional. A list of alert policy names to filter the incident list by.
     /// Don't include the project ID prefix in the policy name. For
     /// example, use `alertPolicies/utilization`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policy_names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2422,11 +2452,12 @@ pub struct GridLayout {
     /// The number of columns into which the view's width is divided. If omitted
     /// or set to zero, a system default will be used while rendering.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub columns: i64,
 
     /// The informational elements that are arranged into the columns row-first.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub widgets: std::vec::Vec<crate::model::Widget>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2473,11 +2504,12 @@ pub struct MosaicLayout {
     /// The number of columns in the mosaic grid. The number of columns must be
     /// between 1 and 12, inclusive.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub columns: i32,
 
     /// The tiles to display.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tiles: std::vec::Vec<crate::model::mosaic_layout::Tile>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2529,25 +2561,25 @@ pub mod mosaic_layout {
         /// left edge of the grid. Tiles must be contained within the specified
         /// number of columns. `x_pos` cannot be negative.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub x_pos: i32,
 
         /// The zero-indexed position of the tile in grid blocks relative to the
         /// top edge of the grid. `y_pos` cannot be negative.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub y_pos: i32,
 
         /// The width of the tile, measured in grid blocks. Tiles must have a
         /// minimum width of 1.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub width: i32,
 
         /// The height of the tile, measured in grid blocks. Tiles must have a
         /// minimum height of 1.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub height: i32,
 
         /// The informational widget contained in the tile. For example an `XyChart`.
@@ -2622,6 +2654,7 @@ pub mod mosaic_layout {
 pub struct RowLayout {
     /// The rows of content to display.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rows: std::vec::Vec<crate::model::row_layout::Row>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2667,11 +2700,12 @@ pub mod row_layout {
         /// greater the height of the row on the screen. If omitted, a value
         /// of 1 is used while rendering.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub weight: i64,
 
         /// The display widgets arranged horizontally in this row.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub widgets: std::vec::Vec<crate::model::Widget>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2717,6 +2751,7 @@ pub mod row_layout {
 pub struct ColumnLayout {
     /// The columns of content to display.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub columns: std::vec::Vec<crate::model::column_layout::Column>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2762,11 +2797,12 @@ pub mod column_layout {
         /// Greater the weight, greater the width of the column on the screen.
         /// If omitted, a value of 1 is used while rendering.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub weight: i64,
 
         /// The display widgets arranged vertically in this column.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub widgets: std::vec::Vec<crate::model::Widget>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2814,11 +2850,13 @@ pub struct LogsPanel {
     /// Only log entries that match the filter are returned.  An empty filter
     /// matches all log entries.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The names of logging resources to collect logs for. Currently only projects
     /// are supported. If empty, the widget will default to the host project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2867,6 +2905,7 @@ pub struct TimeSeriesQuery {
     /// [`unit`](https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.metricDescriptors)
     /// field in `MetricDescriptor`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub unit_override: std::string::String,
 
     /// Optional. If set, Cloud Monitoring will treat the full query duration as
@@ -2878,6 +2917,7 @@ pub struct TimeSeriesQuery {
     /// - XyChart
     /// - Scorecard's spark chart
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_full_duration: bool,
 
     /// Parameters needed to obtain data for the chart.
@@ -3062,9 +3102,11 @@ pub mod time_series_query {
         /// Parameters to fetch a ratio between two time series filters.
         TimeSeriesFilterRatio(std::boxed::Box<crate::model::TimeSeriesFilterRatio>),
         /// A query used to fetch time series with MQL.
-        TimeSeriesQueryLanguage(std::string::String),
+        TimeSeriesQueryLanguage(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String,
+        ),
         /// A query used to fetch time series with PromQL.
-        PrometheusQuery(std::string::String),
+        PrometheusQuery(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -3081,6 +3123,7 @@ pub struct TimeSeriesFilter {
     /// filter](https://cloud.google.com/monitoring/api/v3/filters) that identifies
     /// the metric types, resources, and projects to query.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// By default, the raw time series data is returned.
@@ -3450,6 +3493,7 @@ pub mod time_series_filter_ratio {
         /// filter](https://cloud.google.com/monitoring/api/v3/filters) that
         /// identifies the metric types, resources, and projects to query.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub filter: std::string::String,
 
         /// By default, the raw time series data is returned.
@@ -3522,26 +3566,30 @@ pub mod time_series_filter_ratio {
 pub struct Threshold {
     /// A label for the threshold.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label: std::string::String,
 
     /// The value of the threshold. The value should be defined in the native scale
     /// of the metric.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub value: f64,
 
     /// The state color for this threshold. Color is not allowed in a XyChart.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub color: crate::model::threshold::Color,
 
     /// The direction for the current threshold. Direction is not allowed in a
     /// XyChart.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub direction: crate::model::threshold::Direction,
 
     /// The target axis to use for plotting the threshold. Target axis is not
     /// allowed in a Scorecard.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_axis: crate::model::threshold::TargetAxis,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4014,14 +4062,17 @@ pub mod threshold {
 pub struct PieChart {
     /// Required. The queries for the chart's data.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_sets: std::vec::Vec<crate::model::pie_chart::PieChartDataSet>,
 
     /// Required. Indicates the visualization type for the PieChart.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub chart_type: crate::model::pie_chart::PieChartType,
 
     /// Optional. Indicates whether or not the pie chart should show slices' labels
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub show_labels: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4089,6 +4140,7 @@ pub mod pie_chart {
         /// `${resource.labels.zone}`, the zone's value will be used for the name
         /// instead of the default name.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub slice_name_template: std::string::String,
 
         /// Optional. The lower bound on data point frequency for this data set,
@@ -4344,6 +4396,7 @@ pub struct Scorecard {
     /// to 70 but less than 90 a WARNING state, and values greater than or equal to
     /// 90 a DANGER state.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub thresholds: std::vec::Vec<crate::model::Threshold>,
 
     /// Defines the optional additional chart shown on the scorecard. If
@@ -4509,13 +4562,13 @@ pub mod scorecard {
         /// The lower bound for this gauge chart. The value of the chart should
         /// always be greater than or equal to this.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub lower_bound: f64,
 
         /// The upper bound for this gauge chart. The value of the chart should
         /// always be less than or equal to this.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub upper_bound: f64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4557,6 +4610,7 @@ pub mod scorecard {
     pub struct SparkChartView {
         /// Required. The type of sparkchart to show in this chartView.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub spark_chart_type: crate::model::SparkChartType,
 
         /// The lower bound on data point frequency in the chart implemented by
@@ -4636,10 +4690,12 @@ pub mod scorecard {
 pub struct SectionHeader {
     /// The subtitle of the section
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub subtitle: std::string::String,
 
     /// Whether to insert a divider below the section in the table of contents
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub divider_below: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4702,14 +4758,17 @@ impl wkt::message::Message for SingleViewGroup {
 pub struct TimeSeriesTable {
     /// Required. The data displayed in this table.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_sets: std::vec::Vec<crate::model::time_series_table::TableDataSet>,
 
     /// Optional. Store rendering strategy
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metric_visualization: crate::model::time_series_table::MetricVisualization,
 
     /// Optional. The list of the persistent column settings for the table.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub column_settings: std::vec::Vec<crate::model::time_series_table::ColumnSettings>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4782,6 +4841,7 @@ pub mod time_series_table {
         /// `${label_name}`, which will resolve to the label's value i.e.
         /// "${resource.labels.project_id}."
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub table_template: std::string::String,
 
         /// Optional. The lower bound on data point frequency for this data set,
@@ -4884,10 +4944,12 @@ pub mod time_series_table {
     pub struct ColumnSettings {
         /// Required. The id of the column.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub column: std::string::String,
 
         /// Required. Whether the column should be visible on page load.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub visible: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5060,6 +5122,7 @@ pub struct TableDisplayOptions {
     /// Optional. This field is unused and has been replaced by
     /// TimeSeriesTable.column_settings
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub shown_columns: std::vec::Vec<std::string::String>,
 
@@ -5099,10 +5162,12 @@ impl wkt::message::Message for TableDisplayOptions {
 pub struct Text {
     /// The text content to be displayed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub content: std::string::String,
 
     /// How the text content is formatted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub format: crate::model::text::Format,
 
     /// How the text is styled
@@ -5168,31 +5233,38 @@ pub mod text {
     pub struct TextStyle {
         /// The background color as a hex string. "#RRGGBB" or "#RGB"
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub background_color: std::string::String,
 
         /// The text color as a hex string. "#RRGGBB" or "#RGB"
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub text_color: std::string::String,
 
         /// The horizontal alignment of both the title and content
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub horizontal_alignment: crate::model::text::text_style::HorizontalAlignment,
 
         /// The vertical alignment of both the title and content
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub vertical_alignment: crate::model::text::text_style::VerticalAlignment,
 
         /// The amount of padding around the widget
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub padding: crate::model::text::text_style::PaddingSize,
 
         /// Font sizes for both the title and content. The title will still be larger
         /// relative to the content.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub font_size: crate::model::text::text_style::FontSize,
 
         /// The pointer location for this widget (also sometimes called a "tail")
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub pointer_location: crate::model::text::text_style::PointerLocation,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6233,11 +6305,13 @@ pub mod text {
 pub struct Widget {
     /// Optional. The title of the widget.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// Optional. The widget id. Ids may be made up of alphanumerics, dashes and
     /// underscores. Widget ids are optional.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Content defines the component used to populate the widget.
@@ -6676,6 +6750,7 @@ pub mod widget {
 pub struct XyChart {
     /// Required. The data displayed in this chart.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_sets: std::vec::Vec<crate::model::xy_chart::DataSet>,
 
     /// The duration used to display a comparison chart. A comparison chart
@@ -6688,6 +6763,7 @@ pub struct XyChart {
 
     /// Threshold lines drawn horizontally across the chart.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub thresholds: std::vec::Vec<crate::model::Threshold>,
 
     /// The properties applied to the x-axis.
@@ -6852,12 +6928,14 @@ pub mod xy_chart {
 
         /// How this data should be plotted on the chart.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub plot_type: crate::model::xy_chart::data_set::PlotType,
 
         /// A template string for naming `TimeSeries` in the resulting data set.
         /// This should be a string with interpolations of the form `${label_name}`,
         /// which will resolve to the label's value.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub legend_template: std::string::String,
 
         /// Optional. The lower bound on data point frequency for this data set,
@@ -6870,6 +6948,7 @@ pub mod xy_chart {
 
         /// Optional. The target axis to use for plotting the metric.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub target_axis: crate::model::xy_chart::data_set::TargetAxis,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7260,10 +7339,12 @@ pub mod xy_chart {
     pub struct Axis {
         /// The label of the axis.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub label: std::string::String,
 
         /// The axis scale. By default, a linear scale is used.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub scale: crate::model::xy_chart::axis::Scale,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7447,6 +7528,7 @@ pub mod xy_chart {
 pub struct ChartOptions {
     /// The chart mode.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mode: crate::model::chart_options::Mode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

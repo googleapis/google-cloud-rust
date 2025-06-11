@@ -47,6 +47,7 @@ pub struct ExcludeInfoTypes {
     /// That leads to "555-222-2222@example.org" to generate only a single
     /// finding, namely email address.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub info_types: std::vec::Vec<crate::model::InfoType>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -157,6 +158,7 @@ impl wkt::message::Message for ExcludeByHotword {
 pub struct ExclusionRule {
     /// How the rule is applied, see MatchingType documentation for details.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub matching_type: crate::model::MatchingType,
 
     /// Exclusion rule types.
@@ -473,10 +475,12 @@ pub mod inspection_rule {
 pub struct InspectionRuleSet {
     /// List of infoTypes this rule set is applied to.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub info_types: std::vec::Vec<crate::model::InfoType>,
 
     /// Set of rules to be applied to infoTypes. The rules are applied in order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::InspectionRule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -537,6 +541,7 @@ pub struct InspectConfig {
     /// run you should specify specific InfoTypes listed in the reference,
     /// otherwise a default list will be used, which may change over time.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub info_types: std::vec::Vec<crate::model::InfoType>,
 
     /// Only returns findings equal to or above this threshold. The default is
@@ -547,6 +552,7 @@ pub struct InspectConfig {
     /// see [Match
     /// likelihood](https://cloud.google.com/sensitive-data-protection/docs/likelihood).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub min_likelihood: crate::model::Likelihood,
 
     /// Minimum likelihood per infotype. For each infotype, a user can specify a
@@ -554,6 +560,7 @@ pub struct InspectConfig {
     /// above this threshold. If this field is not set, the system uses the
     /// InspectConfig min_likelihood.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub min_likelihood_per_info_type:
         std::vec::Vec<crate::model::inspect_config::InfoTypeLikelihood>,
 
@@ -585,27 +592,32 @@ pub struct InspectConfig {
     ///
     /// [google.privacy.dlp.v2.Finding.quote]: crate::model::Finding::quote
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_quote: bool,
 
     /// When true, excludes type information of the findings.
     /// This is not used for data profiling.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub exclude_info_types: bool,
 
     /// CustomInfoTypes provided by the user. See
     /// <https://cloud.google.com/sensitive-data-protection/docs/creating-custom-infotypes>
     /// to learn more.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub custom_info_types: std::vec::Vec<crate::model::CustomInfoType>,
 
     /// Deprecated and unused.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub content_options: std::vec::Vec<crate::model::ContentOption>,
 
     /// Set of rules to apply to the findings for this InspectConfig.
     /// Exclusion rules, contained in the set are executed in the end, other
     /// rules are executed in the order they are specified for each info type.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rule_set: std::vec::Vec<crate::model::InspectionRuleSet>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -742,6 +754,7 @@ pub mod inspect_config {
         /// Only returns findings equal to or above this threshold. This field is
         /// required or else the configuration fails.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub min_likelihood: crate::model::Likelihood,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -815,7 +828,7 @@ pub mod inspect_config {
         ///
         /// [google.privacy.dlp.v2.InspectContentRequest]: crate::model::InspectContentRequest
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub max_findings_per_item: i32,
 
         /// Max number of findings that are returned per request or job.
@@ -832,11 +845,12 @@ pub mod inspect_config {
         ///
         /// [google.privacy.dlp.v2.InspectContentRequest]: crate::model::InspectContentRequest
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub max_findings_per_request: i32,
 
         /// Configuration of findings limit given for specified infoTypes.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub max_findings_per_info_type:
             std::vec::Vec<crate::model::inspect_config::finding_limits::InfoTypeLimit>,
 
@@ -900,7 +914,7 @@ pub mod inspect_config {
 
             /// Max findings limit for the given infoType.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub max_findings: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -954,11 +968,12 @@ pub struct ByteContentItem {
     /// The type of data stored in the bytes string. Default will be TEXT_UTF8.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::byte_content_item::BytesType,
 
     /// Content data to inspect or redact.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub data: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1366,7 +1381,7 @@ pub mod content_item {
     #[non_exhaustive]
     pub enum DataItem {
         /// String data to inspect or redact.
-        Value(std::string::String),
+        Value(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Structured content for inspection. See
         /// <https://cloud.google.com/sensitive-data-protection/docs/inspecting-text#inspecting_a_table>
         /// to learn more.
@@ -1386,10 +1401,12 @@ pub mod content_item {
 pub struct Table {
     /// Headers of the table.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub headers: std::vec::Vec<crate::model::FieldId>,
 
     /// Rows of the table.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rows: std::vec::Vec<crate::model::table::Row>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1443,6 +1460,7 @@ pub mod table {
     pub struct Row {
         /// Individual cells.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub values: std::vec::Vec<crate::model::Value>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1481,6 +1499,7 @@ pub mod table {
 pub struct InspectResult {
     /// List of findings for an item.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub findings: std::vec::Vec<crate::model::Finding>,
 
     /// If true, then this item might have more findings than were returned,
@@ -1490,6 +1509,7 @@ pub struct InspectResult {
     /// allowed for a single API call. For best results, divide the input into
     /// smaller batches.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub findings_truncated: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1535,6 +1555,7 @@ pub struct Finding {
     /// projects/{project}/locations/{location}/findings/{finding} Populated only
     /// when viewing persisted findings.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The content that was found. Even if the content is not textual, it
@@ -1543,6 +1564,7 @@ pub struct Finding {
     /// less than or equal to 4096 bytes long. If the finding exceeds 4096 bytes
     /// in length, the quote may be omitted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub quote: std::string::String,
 
     /// The type of content that might have been found.
@@ -1552,6 +1574,7 @@ pub struct Finding {
 
     /// Confidence of how likely it is that the `info_type` is correct.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub likelihood: crate::model::Likelihood,
 
     /// Where the content was found.
@@ -1570,10 +1593,12 @@ pub struct Finding {
 
     /// The job that stored the finding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_name: std::string::String,
 
     /// Job trigger name, if applicable, for this finding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trigger_name: std::string::String,
 
     /// The labels associated with this `Finding`.
@@ -1591,6 +1616,7 @@ pub struct Finding {
     /// * `"environment" : "production"`
     /// * `"pipeline" : "etl"`
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Time the job started that produced this finding.
@@ -1599,10 +1625,12 @@ pub struct Finding {
 
     /// The job that stored the finding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_name: std::string::String,
 
     /// The unique finding id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub finding_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1788,6 +1816,7 @@ pub struct Location {
     /// List of nested objects pointing to the precise location of the finding
     /// within the file or record.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub content_locations: std::vec::Vec<crate::model::ContentLocation>,
 
     /// Information about the container where this finding occurred, if available.
@@ -1893,6 +1922,7 @@ pub struct ContentLocation {
     /// Nested names could be absent if the embedded object has no string
     /// identifier (for example, an image contained within a document).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub container_name: std::string::String,
 
     /// Finding container modification timestamp, if applicable. For Cloud Storage,
@@ -1905,6 +1935,7 @@ pub struct ContentLocation {
     /// Finding container version, if available
     /// ("generation" for Cloud Storage).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub container_version: std::string::String,
 
     /// Type of the container within the file with location of the finding.
@@ -2133,6 +2164,7 @@ pub struct MetadataLocation {
     /// Type of metadata containing the finding.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::MetadataType,
 
     /// Label of the piece of metadata containing the finding, for example -
@@ -2231,6 +2263,7 @@ pub mod metadata_location {
 pub struct StorageMetadataLabel {
     /// Label name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2264,7 +2297,7 @@ pub struct DocumentLocation {
     /// Offset of the line, from the beginning of the file, where the finding
     /// is located.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub file_offset: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2390,7 +2423,7 @@ pub struct TableLocation {
     /// when you store the findings the value of those columns will be stored
     /// inside of Finding.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub row_index: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2425,11 +2458,13 @@ pub struct Container {
     /// Container type, for example BigQuery or Cloud Storage.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// Project where the finding was found.
     /// Can be different from the project that owns the finding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// A string representation of the full container name.
@@ -2438,6 +2473,7 @@ pub struct Container {
     /// - BigQuery: 'Project:DataSetId.TableId'
     /// - Cloud Storage: 'gs://Bucket/folders/filename.txt'
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_path: std::string::String,
 
     /// The root of the container.
@@ -2448,6 +2484,7 @@ pub struct Container {
     /// - For Cloud Storage file `gs://bucket/folder/filename.txt`, the root
     ///   is `gs://bucket`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub root_path: std::string::String,
 
     /// The rest of the path after the root.
@@ -2458,6 +2495,7 @@ pub struct Container {
     /// - For Cloud Storage file `gs://bucket/folder/filename.txt`, the relative
     ///   path is `folder/filename.txt`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relative_path: std::string::String,
 
     /// Findings container modification timestamp, if applicable. For Cloud
@@ -2470,6 +2508,7 @@ pub struct Container {
     /// Findings container version, if available
     /// ("generation" for Cloud Storage).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2550,12 +2589,12 @@ impl wkt::message::Message for Container {
 pub struct Range {
     /// Index of the first character of the range (inclusive).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub start: i64,
 
     /// Index of the last character of the range (exclusive).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub end: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2594,6 +2633,7 @@ impl wkt::message::Message for Range {
 pub struct ImageLocation {
     /// Bounding boxes locating the pixels within the image containing the finding.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub bounding_boxes: std::vec::Vec<crate::model::BoundingBox>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2631,22 +2671,22 @@ impl wkt::message::Message for ImageLocation {
 pub struct BoundingBox {
     /// Top coordinate of the bounding box. (0,0) is upper left.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub top: i32,
 
     /// Left coordinate of the bounding box. (0,0) is upper left.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub left: i32,
 
     /// Width of the bounding box in pixels.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub width: i32,
 
     /// Height of the bounding box in pixels.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub height: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2715,10 +2755,12 @@ pub struct RedactImageRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     /// Configuration for the inspector.
@@ -2727,12 +2769,14 @@ pub struct RedactImageRequest {
 
     /// The configuration for specifying what content to redact from images.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub image_redaction_configs:
         std::vec::Vec<crate::model::redact_image_request::ImageRedactionConfig>,
 
     /// Whether the response should include findings along with the redacted
     /// image.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_findings: bool,
 
     /// The content must be PNG, JPEG, SVG or BMP.
@@ -2966,7 +3010,7 @@ pub mod redact_image_request {
             InfoType(std::boxed::Box<crate::model::InfoType>),
             /// If true, all text found in the image, regardless whether it matches an
             /// info_type, is redacted. Only one should be provided.
-            RedactAllText(bool),
+            RedactAllText(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         }
     }
 }
@@ -2979,17 +3023,17 @@ pub mod redact_image_request {
 pub struct Color {
     /// The amount of red in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub red: f32,
 
     /// The amount of green in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub green: f32,
 
     /// The amount of blue in the color as a value in the interval [0, 1].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub blue: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3034,13 +3078,14 @@ impl wkt::message::Message for Color {
 pub struct RedactImageResponse {
     /// The redacted image. The type will be the same as the original image.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub redacted_image: ::bytes::Bytes,
 
     /// If an image was being inspected and the InspectConfig's include_quote was
     /// set to true, then this field will include all text, if any, that was found
     /// in the image.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub extracted_text: std::string::String,
 
     /// The findings. Populated when include_findings in the request is true.
@@ -3118,6 +3163,7 @@ pub struct DeidentifyContentRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Configuration for the de-identification of the content item.
@@ -3153,6 +3199,7 @@ pub struct DeidentifyContentRequest {
     /// template. Repeated fields are appended. Singular sub-messages and groups
     /// are recursively merged.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub inspect_template_name: std::string::String,
 
     /// Template to use. Any configuration directly specified in
@@ -3161,10 +3208,12 @@ pub struct DeidentifyContentRequest {
     /// template. Repeated fields are appended. Singular sub-messages and groups
     /// are recursively merged.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deidentify_template_name: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3358,6 +3407,7 @@ pub struct ReidentifyContentRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Configuration for the re-identification of the content item.
@@ -3387,6 +3437,7 @@ pub struct ReidentifyContentRequest {
     /// template. Repeated fields are appended. Singular sub-messages and groups
     /// are recursively merged.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub inspect_template_name: std::string::String,
 
     /// Template to use. References an instance of `DeidentifyTemplate`.
@@ -3397,10 +3448,12 @@ pub struct ReidentifyContentRequest {
     /// corresponding fields in the template. Repeated fields are appended.
     /// Singular sub-messages and groups are recursively merged.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reidentify_template_name: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3594,6 +3647,7 @@ pub struct InspectContentRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Configuration for the inspector. What specified here will override
@@ -3611,10 +3665,12 @@ pub struct InspectContentRequest {
     /// template. Repeated fields are appended. Singular sub-messages and groups
     /// are recursively merged.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub inspect_template_name: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3751,6 +3807,7 @@ pub struct OutputStorageConfig {
     /// existing table that has a schema.
     /// Only for use with external storage.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_schema: crate::model::output_storage_config::OutputSchema,
 
     /// Output storage types.
@@ -4019,7 +4076,7 @@ pub struct InfoTypeStats {
 
     /// Number of findings for this infoType.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4212,23 +4269,24 @@ pub mod inspect_data_source_details {
     pub struct Result {
         /// Total size in bytes that were processed.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub processed_bytes: i64,
 
         /// Estimate of the number of bytes to process.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub total_estimated_bytes: i64,
 
         /// Statistics of how many instances of each info type were found during
         /// inspect job.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub info_type_stats: std::vec::Vec<crate::model::InfoTypeStats>,
 
         /// Number of rows scanned after sampling and time filtering (applicable for
         /// row based stores such as BigQuery).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub num_rows_processed: i64,
 
         /// Statistics related to the processing of hybrid inspect.
@@ -4469,13 +4527,13 @@ pub mod data_profile_big_query_row_schema {
 pub struct HybridInspectStatistics {
     /// The number of hybrid inspection requests processed within this job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub processed_count: i64,
 
     /// The number of hybrid inspection requests aborted because the job ran
     /// out of quota or was ended before they could be processed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub aborted_count: i64,
 
     /// The number of hybrid requests currently being processed. Only populated
@@ -4484,7 +4542,7 @@ pub struct HybridInspectStatistics {
     /// Processing will take place as quickly as possible, but resource limitations
     /// may impact how long a request is enqueued for.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub pending_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4619,17 +4677,17 @@ pub mod action_details {
 pub struct DeidentifyDataSourceStats {
     /// Total size in bytes that were transformed in some way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub transformed_bytes: i64,
 
     /// Number of successfully applied transformations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub transformation_count: i64,
 
     /// Number of errors encountered while trying to apply transformations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub transformation_error_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4859,31 +4917,38 @@ pub mod deidentify_data_source_details {
 pub struct InfoTypeDescription {
     /// Internal name of the infoType.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Human readable form of the infoType name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Which parts of the API supports this InfoType.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub supported_by: std::vec::Vec<crate::model::InfoTypeSupportedBy>,
 
     /// Description of the infotype. Translated when language is provided in the
     /// request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// A sample that is a true positive for this infoType.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub example: std::string::String,
 
     /// A list of available versions for the infotype.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub versions: std::vec::Vec<crate::model::VersionDescription>,
 
     /// The category of the infoType.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub categories: std::vec::Vec<crate::model::InfoTypeCategory>,
 
     /// The default sensitivity of the infoType.
@@ -4896,6 +4961,7 @@ pub struct InfoTypeDescription {
     /// For example, the "GEOGRAPHIC_DATA" general infoType would have set for this
     /// field "LOCATION", "LOCATION_COORDINATES", and "STREET_ADDRESS".
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub specific_info_types: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5946,11 +6012,20 @@ pub mod info_type_category {
     pub enum Category {
         /// The region or country that issued the ID or document represented by the
         /// infoType.
-        LocationCategory(crate::model::info_type_category::LocationCategory),
+        LocationCategory(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            crate::model::info_type_category::LocationCategory,
+        ),
         /// The group of relevant businesses where this infoType is commonly used
-        IndustryCategory(crate::model::info_type_category::IndustryCategory),
+        IndustryCategory(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            crate::model::info_type_category::IndustryCategory,
+        ),
         /// The class of identifiers where this infoType belongs
-        TypeCategory(crate::model::info_type_category::TypeCategory),
+        TypeCategory(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            crate::model::info_type_category::TypeCategory,
+        ),
     }
 }
 
@@ -5962,10 +6037,12 @@ pub mod info_type_category {
 pub struct VersionDescription {
     /// Name of the version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Description of the version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6010,21 +6087,25 @@ pub struct ListInfoTypesRequest {
     /// `locations/{location_id}`
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// BCP-47 language code for localized infoType friendly
     /// names. If omitted, or if localized strings are not available,
     /// en-US strings will be returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// filter to only return infoTypes supported by certain parts of the
     /// API. Defaults to supported_by=INSPECT.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6075,6 +6156,7 @@ impl wkt::message::Message for ListInfoTypesRequest {
 pub struct ListInfoTypesResponse {
     /// Set of sensitive infoTypes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub info_types: std::vec::Vec<crate::model::InfoTypeDescription>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6123,6 +6205,7 @@ pub struct RiskAnalysisJobConfig {
     /// Actions to execute at the completion of the job. Are executed in the order
     /// provided.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub actions: std::vec::Vec<crate::model::Action>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6341,7 +6424,7 @@ pub mod quasi_id {
         /// A column can be tagged with a custom tag. In this case, the user must
         /// indicate an auxiliary table that contains statistical information on
         /// the possible values of this column (below).
-        CustomTag(std::string::String),
+        CustomTag(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If no semantic tag is indicated, we infer the statistical model from
         /// the distribution of values in the input data
         Inferred(std::boxed::Box<wkt::Empty>),
@@ -6366,6 +6449,7 @@ pub struct StatisticalTable {
 
     /// Required. Quasi-identifier columns.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub quasi_ids: std::vec::Vec<crate::model::statistical_table::QuasiIdentifierField>,
 
     /// Required. The relative frequency column must contain a floating-point
@@ -6456,6 +6540,7 @@ pub mod statistical_table {
         /// indicate an auxiliary table that contains statistical information on
         /// the possible values of this column (below).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub custom_tag: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6845,6 +6930,7 @@ pub mod privacy_metric {
         /// supported so long as they are not structs themselves or nested within
         /// a repeated field.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub quasi_ids: std::vec::Vec<crate::model::FieldId>,
 
         /// Message indicating that multiple rows might be associated to a
@@ -6915,6 +7001,7 @@ pub mod privacy_metric {
         /// defined for the l-diversity computation. When multiple fields are
         /// specified, they are considered a single composite key.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub quasi_ids: std::vec::Vec<crate::model::FieldId>,
 
         /// Sensitive field for computing the l-value.
@@ -6980,6 +7067,7 @@ pub mod privacy_metric {
         /// Required. Fields considered to be quasi-identifiers. No two columns can
         /// have the same tag.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub quasi_ids:
             std::vec::Vec<crate::model::privacy_metric::k_map_estimation_config::TaggedField>,
 
@@ -6987,12 +7075,14 @@ pub mod privacy_metric {
         /// Set if no column is tagged with a region-specific InfoType (like
         /// US_ZIP_5) or a region code.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub region_code: std::string::String,
 
         /// Several auxiliary tables can be used in the analysis. Each custom_tag
         /// used to tag a quasi-identifiers column must appear in exactly one column
         /// of one auxiliary table.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub auxiliary_tables:
             std::vec::Vec<crate::model::privacy_metric::k_map_estimation_config::AuxiliaryTable>,
 
@@ -7219,7 +7309,7 @@ pub mod privacy_metric {
                 /// A column can be tagged with a custom tag. In this case, the user must
                 /// indicate an auxiliary table that contains statistical information on
                 /// the possible values of this column (below).
-                CustomTag(std::string::String),
+                CustomTag(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
                 /// If no semantic tag is indicated, we infer the statistical model from
                 /// the distribution of values in the input data
                 Inferred(std::boxed::Box<wkt::Empty>),
@@ -7245,6 +7335,7 @@ pub mod privacy_metric {
 
             /// Required. Quasi-identifier columns.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub quasi_ids: std::vec::Vec<crate::model::privacy_metric::k_map_estimation_config::auxiliary_table::QuasiIdField>,
 
             /// Required. The relative frequency column must contain a floating-point
@@ -7333,6 +7424,7 @@ pub mod privacy_metric {
 
                 /// A auxiliary field.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub custom_tag: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7392,18 +7484,21 @@ pub mod privacy_metric {
         /// Required. Fields considered to be quasi-identifiers. No two fields can
         /// have the same tag.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub quasi_ids: std::vec::Vec<crate::model::QuasiId>,
 
         /// ISO 3166-1 alpha-2 region code to use in the statistical modeling.
         /// Set if no column is tagged with a region-specific InfoType (like
         /// US_ZIP_5) or a region code.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub region_code: std::string::String,
 
         /// Several auxiliary tables can be used in the analysis. Each custom_tag
         /// used to tag a quasi-identifiers field must appear in exactly one
         /// field of one auxiliary table.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub auxiliary_tables: std::vec::Vec<crate::model::StatisticalTable>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7839,6 +7934,7 @@ pub mod analyze_data_source_risk_details {
         /// List of 99 values that partition the set of field values into 100 equal
         /// sized buckets.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub quantile_values: std::vec::Vec<crate::model::Value>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7913,6 +8009,7 @@ pub mod analyze_data_source_risk_details {
 
         /// Histogram of value frequencies in the column.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub value_frequency_histogram_buckets: std::vec::Vec<crate::model::analyze_data_source_risk_details::categorical_stats_result::CategoricalStatsHistogramBucket>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7955,27 +8052,28 @@ pub mod analyze_data_source_risk_details {
         pub struct CategoricalStatsHistogramBucket {
             /// Lower bound on the value frequency of the values in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub value_frequency_lower_bound: i64,
 
             /// Upper bound on the value frequency of the values in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub value_frequency_upper_bound: i64,
 
             /// Total number of values in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub bucket_size: i64,
 
             /// Sample of value frequencies in this bucket. The total number of
             /// values returned per bucket is capped at 20.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub bucket_values: std::vec::Vec<crate::model::ValueFrequency>,
 
             /// Total number of distinct values in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub bucket_value_count: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8045,6 +8143,7 @@ pub mod analyze_data_source_risk_details {
 
         /// Histogram of k-anonymity equivalence classes.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub equivalence_class_histogram_buckets: std::vec::Vec<crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityHistogramBucket>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8089,12 +8188,13 @@ pub mod analyze_data_source_risk_details {
             /// quasi-identifier column in the original KAnonymity metric message.
             /// The order is always the same as the original request.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub quasi_ids_values: std::vec::Vec<crate::model::Value>,
 
             /// Size of the equivalence class, for example number of rows with the
             /// above set of values.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub equivalence_class_size: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8139,27 +8239,28 @@ pub mod analyze_data_source_risk_details {
 
             /// Lower bound on the size of the equivalence classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub equivalence_class_size_lower_bound: i64,
 
             /// Upper bound on the size of the equivalence classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub equivalence_class_size_upper_bound: i64,
 
             /// Total number of equivalence classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub bucket_size: i64,
 
             /// Sample of equivalence classes in this bucket. The total number of
             /// classes returned per bucket is capped at 20.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub bucket_values: std::vec::Vec<crate::model::analyze_data_source_risk_details::k_anonymity_result::KAnonymityEquivalenceClass>,
 
             /// Total number of distinct equivalence classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub bucket_value_count: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8229,6 +8330,7 @@ pub mod analyze_data_source_risk_details {
 
         /// Histogram of l-diversity equivalence class sensitive value frequencies.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub sensitive_value_frequency_histogram_buckets: std::vec::Vec<crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityHistogramBucket>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8273,20 +8375,22 @@ pub mod analyze_data_source_risk_details {
             /// Quasi-identifier values defining the k-anonymity equivalence
             /// class. The order is always the same as the original request.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub quasi_ids_values: std::vec::Vec<crate::model::Value>,
 
             /// Size of the k-anonymity equivalence class.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub equivalence_class_size: i64,
 
             /// Number of distinct sensitive values in this equivalence class.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub num_distinct_sensitive_values: i64,
 
             /// Estimated frequencies of top sensitive values.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub top_sensitive_values: std::vec::Vec<crate::model::ValueFrequency>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8352,28 +8456,29 @@ pub mod analyze_data_source_risk_details {
             /// Lower bound on the sensitive value frequencies of the equivalence
             /// classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub sensitive_value_frequency_lower_bound: i64,
 
             /// Upper bound on the sensitive value frequencies of the equivalence
             /// classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub sensitive_value_frequency_upper_bound: i64,
 
             /// Total number of equivalence classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub bucket_size: i64,
 
             /// Sample of equivalence classes in this bucket. The total number of
             /// classes returned per bucket is capped at 20.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub bucket_values: std::vec::Vec<crate::model::analyze_data_source_risk_details::l_diversity_result::LDiversityEquivalenceClass>,
 
             /// Total number of distinct equivalence classes in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub bucket_value_count: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8451,6 +8556,7 @@ pub mod analyze_data_source_risk_details {
         /// mean that there are no record with an estimated anonymity of 4, 5, or
         /// larger than 10.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub k_map_estimation_histogram: std::vec::Vec<crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationHistogramBucket>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8493,11 +8599,12 @@ pub mod analyze_data_source_risk_details {
         pub struct KMapEstimationQuasiIdValues {
             /// The quasi-identifier values.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub quasi_ids_values: std::vec::Vec<crate::model::Value>,
 
             /// The estimated anonymity for these quasi-identifier values.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub estimated_anonymity: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8549,27 +8656,28 @@ pub mod analyze_data_source_risk_details {
 
             /// Always positive.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub min_anonymity: i64,
 
             /// Always greater than or equal to min_anonymity.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub max_anonymity: i64,
 
             /// Number of records within these anonymity bounds.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub bucket_size: i64,
 
             /// Sample of quasi-identifier tuple values in this bucket. The total
             /// number of classes returned per bucket is capped at 20.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub bucket_values: std::vec::Vec<crate::model::analyze_data_source_risk_details::k_map_estimation_result::KMapEstimationQuasiIdValues>,
 
             /// Total number of distinct quasi-identifier tuple values in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub bucket_value_count: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8641,6 +8749,7 @@ pub mod analyze_data_source_risk_details {
         /// mean that there are no record with an estimated probability in [0.1, 0.2)
         /// nor larger or equal to 0.4.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub delta_presence_estimation_histogram: std::vec::Vec<crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationHistogramBucket>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8683,6 +8792,7 @@ pub mod analyze_data_source_risk_details {
         pub struct DeltaPresenceEstimationQuasiIdValues {
             /// The quasi-identifier values.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub quasi_ids_values: std::vec::Vec<crate::model::Value>,
 
             /// The estimated probability that a given individual sharing these
@@ -8694,7 +8804,7 @@ pub mod analyze_data_source_risk_details {
             /// same quasi-identifier values, and an estimated 100 people in the entire
             /// population with these values, then δ is 0.15.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
             pub estimated_probability: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8747,27 +8857,28 @@ pub mod analyze_data_source_risk_details {
 
             /// Between 0 and 1.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
             pub min_probability: f64,
 
             /// Always greater than or equal to min_probability.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
             pub max_probability: f64,
 
             /// Number of records within these probability bounds.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub bucket_size: i64,
 
             /// Sample of quasi-identifier tuple values in this bucket. The total
             /// number of classes returned per bucket is capped at 20.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub bucket_values: std::vec::Vec<crate::model::analyze_data_source_risk_details::delta_presence_estimation_result::DeltaPresenceEstimationQuasiIdValues>,
 
             /// Total number of distinct quasi-identifier tuple values in this bucket.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub bucket_value_count: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8913,7 +9024,7 @@ pub struct ValueFrequency {
 
     /// How many times the value is contained in the field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9193,13 +9304,13 @@ pub mod value {
     #[non_exhaustive]
     pub enum Type {
         /// integer
-        IntegerValue(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        IntegerValue(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")] i64),
         /// float
-        FloatValue(#[serde_as(as = "wkt::internal::F64")] f64),
+        FloatValue(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")] f64),
         /// string
-        StringValue(std::string::String),
+        StringValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// boolean
-        BooleanValue(bool),
+        BooleanValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         /// timestamp
         TimestampValue(std::boxed::Box<wkt::Timestamp>),
         /// time of day
@@ -9207,7 +9318,7 @@ pub mod value {
         /// date
         DateValue(std::boxed::Box<gtype::model::Date>),
         /// day of week
-        DayOfWeekValue(gtype::model::DayOfWeek),
+        DayOfWeekValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")] gtype::model::DayOfWeek),
     }
 }
 
@@ -9306,6 +9417,7 @@ pub struct DateTime {
 
     /// Day of week
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub day_of_week: gtype::model::DayOfWeek,
 
     /// Time of day
@@ -9406,7 +9518,7 @@ pub mod date_time {
         /// Set only if the offset can be determined. Positive for time ahead of UTC.
         /// E.g. For "UTC-9", this value is -540.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub offset_minutes: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9626,6 +9738,7 @@ pub mod deidentify_config {
 pub struct ImageTransformations {
     /// List of transforms to make.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transforms: std::vec::Vec<crate::model::image_transformations::ImageTransformation>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9855,6 +9968,7 @@ pub mod image_transformations {
             /// Required. InfoTypes to apply the transformation to. Required. Provided
             /// InfoType must be unique within the ImageTransformations message.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub info_types: std::vec::Vec<crate::model::InfoType>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10625,6 +10739,7 @@ pub mod primitive_transformation {
 pub struct TimePartConfig {
     /// The part of the time to keep.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub part_to_extract: crate::model::time_part_config::TimePart,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11458,10 +11573,13 @@ pub mod chars_to_ignore {
     #[non_exhaustive]
     pub enum Characters {
         /// Characters to not transform when masking.
-        CharactersToSkip(std::string::String),
+        CharactersToSkip(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Common characters to not transform when masking. Useful to avoid removing
         /// punctuation.
-        CommonCharactersToIgnore(crate::model::chars_to_ignore::CommonCharsToIgnore),
+        CommonCharactersToIgnore(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            crate::model::chars_to_ignore::CommonCharsToIgnore,
+        ),
     }
 }
 
@@ -11481,6 +11599,7 @@ pub struct CharacterMaskConfig {
     /// code or credit card number. This string must have a length of 1. If not
     /// supplied, this value defaults to `*` for strings, and `0` for digits.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub masking_character: std::string::String,
 
     /// Number of characters to mask. If not set, all matching chars will be
@@ -11501,7 +11620,7 @@ pub struct CharacterMaskConfig {
     /// If `reverse_order` is `true`, all but the first four characters are masked
     /// as `1234-****-****-****`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub number_to_mask: i32,
 
     /// Mask characters in reverse order. For example, if `masking_character` is
@@ -11510,6 +11629,7 @@ pub struct CharacterMaskConfig {
     /// If `masking_character` is `*`, `number_to_mask` is `3`, and `reverse_order`
     /// is `true`, then the string `12345` is masked as `12***`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reverse_order: bool,
 
     /// When masking a string, items in this list will be skipped when replacing
@@ -11517,6 +11637,7 @@ pub struct CharacterMaskConfig {
     /// instruct Cloud DLP to skip `-` and mask 5 characters with `*`, Cloud DLP
     /// returns `***-**5-5555`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub characters_to_ignore: std::vec::Vec<crate::model::CharsToIgnore>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11607,7 +11728,7 @@ pub struct FixedSizeBucketingConfig {
     /// following buckets would be used: -10, 10-20, 20-30, 30-40, 40-50, 50-60,
     /// 60-70, 70-80, 80-89, 89+. Precision up to 2 decimals works.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub bucket_size: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11687,6 +11808,7 @@ impl wkt::message::Message for FixedSizeBucketingConfig {
 pub struct BucketingConfig {
     /// Set of buckets. Ranges must be non-overlapping.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub buckets: std::vec::Vec<crate::model::bucketing_config::Bucket>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12224,7 +12346,10 @@ pub mod crypto_replace_ffx_fpe_config {
     #[non_exhaustive]
     pub enum Alphabet {
         /// Common alphabets.
-        CommonAlphabet(crate::model::crypto_replace_ffx_fpe_config::FfxCommonNativeAlphabet),
+        CommonAlphabet(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            crate::model::crypto_replace_ffx_fpe_config::FfxCommonNativeAlphabet,
+        ),
         /// This is supported by mapping these to the alphanumeric characters
         /// that the FFX mode natively supports. This happens before/after
         /// encryption/decryption.
@@ -12234,9 +12359,9 @@ pub mod crypto_replace_ffx_fpe_config {
         /// The order of characters does not matter.
         /// The full list of allowed characters is:
         /// ``0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz~`!@#$%^&*()_-+={[}]|\:;"'<,>.?/``
-        CustomAlphabet(std::string::String),
+        CustomAlphabet(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// The native way to select the alphabet. Must be in the range [2, 95].
-        Radix(#[serde_as(as = "wkt::internal::I32")] i32),
+        Radix(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
     }
 }
 
@@ -12406,6 +12531,7 @@ pub struct TransientCryptoKey {
     /// When the data crypto key is generated, this name is not used in any way
     /// (repeating the api call will result in a different key being generated).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12439,7 +12565,7 @@ impl wkt::message::Message for TransientCryptoKey {
 pub struct UnwrappedCryptoKey {
     /// Required. A 128/192/256 bit key.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub key: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12482,11 +12608,12 @@ impl wkt::message::Message for UnwrappedCryptoKey {
 pub struct KmsWrappedCryptoKey {
     /// Required. The wrapped data crypto key.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub wrapped_key: ::bytes::Bytes,
 
     /// Required. The resource name of the KMS CryptoKey to use for unwrapping.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub crypto_key_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12532,13 +12659,13 @@ pub struct DateShiftConfig {
     ///
     /// For example, 3 means shift date to at most 3 days into the future.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub upper_bound_days: i32,
 
     /// Required. For example, -5 means shift date to at most 5 days back in the
     /// past.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub lower_bound_days: i32,
 
     /// Points to the field that contains the context, for example, an entity id.
@@ -12668,6 +12795,7 @@ pub struct InfoTypeTransformations {
     /// Required. Transformation for each infoType. Cannot specify more than one
     /// for a given infoType.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transformations:
         std::vec::Vec<crate::model::info_type_transformations::InfoTypeTransformation>,
 
@@ -12714,6 +12842,7 @@ pub mod info_type_transformations {
         /// this transformation to apply to all findings that correspond to
         /// infoTypes that were requested in `InspectConfig`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub info_types: std::vec::Vec<crate::model::InfoType>,
 
         /// Required. Primitive transformation to apply to the infoType.
@@ -12777,6 +12906,7 @@ pub struct FieldTransformation {
     /// omit the index from the FieldId. FieldId name matching ignores the index.
     /// For example, instead of "contact.nums[0].type", use "contact.nums.type".
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub fields: std::vec::Vec<crate::model::FieldId>,
 
     /// Only apply the transformation if the condition evaluates to true for the
@@ -12946,11 +13076,13 @@ pub mod field_transformation {
 pub struct RecordTransformations {
     /// Transform the record by applying various field transformations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub field_transformations: std::vec::Vec<crate::model::FieldTransformation>,
 
     /// Configuration defining which records get suppressed entirely. Records that
     /// match any suppression rule are omitted from the output.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub record_suppressions: std::vec::Vec<crate::model::RecordSuppression>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13117,6 +13249,7 @@ pub mod record_condition {
 
         /// Required. Operator used to compare the field or infoType to the value.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub operator: crate::model::RelationalOperator,
 
         /// Value to compare against. [Mandatory, except for `EXISTS` tests.]
@@ -13192,6 +13325,7 @@ pub mod record_condition {
     pub struct Conditions {
         /// A collection of conditions.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub conditions: std::vec::Vec<crate::model::record_condition::Condition>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13230,6 +13364,7 @@ pub mod record_condition {
         /// The operator to apply to the result of conditions. Default and currently
         /// only supported value is `AND`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub logical_operator: crate::model::record_condition::expressions::LogicalOperator,
 
         /// Expression types.
@@ -13465,11 +13600,12 @@ pub mod record_condition {
 pub struct TransformationOverview {
     /// Total size in bytes that were transformed in some way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub transformed_bytes: i64,
 
     /// Transformations applied to the dataset.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transformation_summaries: std::vec::Vec<crate::model::TransformationSummary>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13529,6 +13665,7 @@ pub struct TransformationSummary {
     /// If multiple field transformations are requested for a single field,
     /// this list will contain all of them; otherwise, only one is supplied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub field_transformations: std::vec::Vec<crate::model::FieldTransformation>,
 
     /// The specific suppression option these stats apply to.
@@ -13537,11 +13674,12 @@ pub struct TransformationSummary {
 
     /// Collection of all transformations that took place or had an error.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub results: std::vec::Vec<crate::model::transformation_summary::SummaryResult>,
 
     /// Total size in bytes that were transformed in some way.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub transformed_bytes: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13674,16 +13812,18 @@ pub mod transformation_summary {
     pub struct SummaryResult {
         /// Number of transformations counted by this result.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub count: i64,
 
         /// Outcome of the transformation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub code: crate::model::transformation_summary::TransformationResultCode,
 
         /// A place for warnings or errors to show up if a transformation didn't
         /// work as expected.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub details: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13872,6 +14012,7 @@ pub struct TransformationDescription {
     /// The transformation type.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::TransformationType,
 
     /// A description of the transformation. This is empty for a
@@ -13879,6 +14020,7 @@ pub struct TransformationDescription {
     /// `PrimitiveTransformation` protocol buffer message for any other type of
     /// transformation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// A human-readable string representation of the `RecordCondition`
@@ -13892,6 +14034,7 @@ pub struct TransformationDescription {
     /// * (zip_field == 01234) && (city_field != "Springville")
     /// * (zip_field == 01234) && (age_field <= 18) && (city_field exists)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub condition: std::string::String,
 
     /// Set if the transformation was limited to a specific `InfoType`.
@@ -13964,11 +14107,13 @@ impl wkt::message::Message for TransformationDescription {
 pub struct TransformationDetails {
     /// The name of the job that completed the transformation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_name: std::string::String,
 
     /// The top level name of the container where the transformation is located
     /// (this will be the source file name or table name).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub container_name: std::string::String,
 
     /// Description of transformation. This would only contain more than one
@@ -13977,6 +14122,7 @@ pub struct TransformationDetails {
     /// currently only state that contains no transformation is
     /// TransformationResultStateType.METADATA_UNRETRIEVABLE.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transformation: std::vec::Vec<crate::model::TransformationDescription>,
 
     /// Status of the transformation, if transformation was not successful, this
@@ -13989,7 +14135,7 @@ pub struct TransformationDetails {
     /// unsuccessful or did not take place because there was no content to
     /// transform, this will be zero.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub transformed_bytes: i64,
 
     /// The precise location of the transformed content in the original container.
@@ -14086,6 +14232,7 @@ pub struct TransformationLocation {
     /// Information about the functionality of the container where this finding
     /// occurred, if available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub container_type: crate::model::TransformationContainerType,
 
     /// Location type.
@@ -14206,7 +14353,7 @@ pub mod transformation_location {
         /// ID correlates to an entry in the findings output table, this table only
         /// gets created when users specify to save findings (add the save findings
         /// action to the request).
-        FindingId(std::string::String),
+        FindingId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// For record transformations, provide a field and container information.
         RecordTransformation(std::boxed::Box<crate::model::RecordTransformation>),
     }
@@ -14228,6 +14375,7 @@ pub struct RecordTransformation {
 
     /// Container version, if available ("generation" for Cloud Storage).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub container_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14300,6 +14448,7 @@ pub struct TransformationResultStatus {
     /// Transformation result status type, this will be either SUCCESS, or it will
     /// be the reason for why the transformation was not completely successful.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub result_status_type: crate::model::TransformationResultStatusType,
 
     /// Detailed error codes and messages
@@ -14574,14 +14723,17 @@ pub struct InspectTemplate {
     /// `projects/PROJECT_ID/inspectTemplates/TEMPLATE_ID` OR
     /// `organizations/ORGANIZATION_ID/inspectTemplates/TEMPLATE_ID`;
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Display name (max 256 chars).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Short description (max 256 chars).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of an inspectTemplate.
@@ -14699,14 +14851,17 @@ pub struct DeidentifyTemplate {
     /// `projects/PROJECT_ID/deidentifyTemplates/TEMPLATE_ID` OR
     /// `organizations/ORGANIZATION_ID/deidentifyTemplates/TEMPLATE_ID`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Display name (max 256 chars).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Short description (max 256 chars).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The creation timestamp of an inspectTemplate.
@@ -14823,10 +14978,12 @@ pub struct Error {
     /// The times the error occurred. List includes the oldest timestamp and the
     /// last 9 timestamps.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub timestamps: std::vec::Vec<wkt::Timestamp>,
 
     /// Additional information about the error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub extra_info: crate::model::error::ErrorExtraInfo,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15038,20 +15195,24 @@ pub struct JobTrigger {
     /// triggeredJob is created, for example
     /// `projects/dlp-test-project/jobTriggers/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Display name (max 100 chars)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// User provided description (max 256 chars)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// A list of triggers which will be OR'ed together. Only one in the list
     /// needs to trigger for a job to be started. The list may contain only
     /// a single Schedule trigger and must have at least one object.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub triggers: std::vec::Vec<crate::model::job_trigger::Trigger>,
 
     /// Output only. A stream of errors encountered when the trigger was activated.
@@ -15059,6 +15220,7 @@ pub struct JobTrigger {
     /// Will return the last 100 errors. Whenever the JobTrigger is modified
     /// this list will be cleared.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<crate::model::Error>,
 
     /// Output only. The creation timestamp of a triggeredJob.
@@ -15075,6 +15237,7 @@ pub struct JobTrigger {
 
     /// Required. A status for this trigger.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status: crate::model::job_trigger::Status,
 
     /// The configuration details for the specific type of job to run.
@@ -15828,6 +15991,7 @@ pub mod action {
         /// the long running DlpJob sending the notifications.
         /// Format is projects/{project}/topics/{topic}.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub topic: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15967,6 +16131,7 @@ pub mod action {
         /// successfully created/started. Currently the only file types supported
         /// are: IMAGES, TEXT_FILES, CSV, TSV.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub file_types_to_transform: std::vec::Vec<crate::model::FileType>,
 
         /// Where to store the output.
@@ -16099,7 +16264,9 @@ pub mod action {
             /// output path.
             ///
             /// Form of: gs://bucket/folder/ or gs://bucket
-            CloudStorageOutput(std::string::String),
+            CloudStorageOutput(
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String,
+            ),
         }
     }
 
@@ -16194,6 +16361,7 @@ pub struct TransformationConfig {
     /// template is not set, a default `ReplaceWithInfoTypeConfig` will be used to
     /// de-identify unstructured content.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deidentify_template: std::string::String,
 
     /// Structured de-identify template.
@@ -16204,6 +16372,7 @@ pub struct TransformationConfig {
     /// default `ReplaceWithInfoTypeConfig` will be used to de-identify structured
     /// content.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub structured_deidentify_template: std::string::String,
 
     /// Image redact template.
@@ -16211,6 +16380,7 @@ pub struct TransformationConfig {
     /// for images. If this template is not set, all findings in the image will be
     /// redacted with a black box.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub image_redact_template: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16285,6 +16455,7 @@ pub struct CreateInspectTemplateRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The InspectTemplate to create.
@@ -16296,10 +16467,12 @@ pub struct CreateInspectTemplateRequest {
     /// expression: `[a-zA-Z\d-_]+`. The maximum length is 100
     /// characters. Can be empty to allow the system to generate one.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub template_id: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16364,6 +16537,7 @@ pub struct UpdateInspectTemplateRequest {
     /// for example `organizations/433245324/inspectTemplates/432452342` or
     /// projects/project-id/inspectTemplates/432452342.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// New InspectTemplate value.
@@ -16442,6 +16616,7 @@ pub struct GetInspectTemplateRequest {
     /// for example `organizations/433245324/inspectTemplates/432452342` or
     /// projects/project-id/inspectTemplates/432452342.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16495,17 +16670,19 @@ pub struct ListInspectTemplatesRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Page token to continue retrieval. Comes from the previous call
     /// to `ListInspectTemplates`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Size of the page. This value can be limited by the server. If zero server
     /// returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by,
@@ -16522,10 +16699,12 @@ pub struct ListInspectTemplatesRequest {
     /// - `name`: corresponds to the template's name.
     /// - `display_name`: corresponds to the template's display name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16582,11 +16761,13 @@ impl wkt::message::Message for ListInspectTemplatesRequest {
 pub struct ListInspectTemplatesResponse {
     /// List of inspectTemplates, up to page_size in ListInspectTemplatesRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub inspect_templates: std::vec::Vec<crate::model::InspectTemplate>,
 
     /// If the next page is available then the next page token to be used in the
     /// following ListInspectTemplates request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16646,6 +16827,7 @@ pub struct DeleteInspectTemplateRequest {
     /// deleted, for example `organizations/433245324/inspectTemplates/432452342`
     /// or projects/project-id/inspectTemplates/432452342.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16695,6 +16877,7 @@ pub struct CreateJobTriggerRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The JobTrigger to create.
@@ -16706,10 +16889,12 @@ pub struct CreateJobTriggerRequest {
     /// expression: `[a-zA-Z\d-_]+`. The maximum length is 100
     /// characters. Can be empty to allow the system to generate one.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trigger_id: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16773,6 +16958,7 @@ pub struct ActivateJobTriggerRequest {
     /// Required. Resource name of the trigger to activate, for example
     /// `projects/dlp-test-project/jobTriggers/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16806,6 +16992,7 @@ pub struct UpdateJobTriggerRequest {
     /// Required. Resource name of the project and the triggeredJob, for example
     /// `projects/dlp-test-project/jobTriggers/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// New JobTrigger value.
@@ -16883,6 +17070,7 @@ pub struct GetJobTriggerRequest {
     /// Required. Resource name of the project and the triggeredJob, for example
     /// `projects/dlp-test-project/jobTriggers/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16931,6 +17119,7 @@ pub struct CreateDiscoveryConfigRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The DiscoveryConfig to create.
@@ -16942,6 +17131,7 @@ pub struct CreateDiscoveryConfigRequest {
     /// expression: `[a-zA-Z\d-_]+`. The maximum length is 100
     /// characters. Can be empty to allow the system to generate one.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub config_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16999,6 +17189,7 @@ pub struct UpdateDiscoveryConfigRequest {
     /// Required. Resource name of the project and the configuration, for example
     /// `projects/dlp-test-project/discoveryConfigs/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. New DiscoveryConfig value.
@@ -17076,6 +17267,7 @@ pub struct GetDiscoveryConfigRequest {
     /// Required. Resource name of the project and the configuration, for example
     /// `projects/dlp-test-project/discoveryConfigs/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17119,17 +17311,19 @@ pub struct ListDiscoveryConfigsRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Page token to continue retrieval. Comes from the previous call
     /// to ListDiscoveryConfigs. `order_by` field must not
     /// change for subsequent calls.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Size of the page. This value can be limited by a server.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Comma-separated list of config fields to order by,
@@ -17145,6 +17339,7 @@ pub struct ListDiscoveryConfigsRequest {
     /// - `name`: corresponds to the DiscoveryConfig's name.
     /// - `status`: corresponds to DiscoveryConfig's status.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17195,11 +17390,13 @@ impl wkt::message::Message for ListDiscoveryConfigsRequest {
 pub struct ListDiscoveryConfigsResponse {
     /// List of configs, up to page_size in ListDiscoveryConfigsRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub discovery_configs: std::vec::Vec<crate::model::DiscoveryConfig>,
 
     /// If the next page is available then this value is the next page token to be
     /// used in the following ListDiscoveryConfigs request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17258,6 +17455,7 @@ pub struct DeleteDiscoveryConfigRequest {
     /// Required. Resource name of the project and the config, for example
     /// `projects/dlp-test-project/discoveryConfigs/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17309,6 +17507,7 @@ pub struct CreateDlpJobRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The job id can contain uppercase and lowercase letters,
@@ -17316,10 +17515,12 @@ pub struct CreateDlpJobRequest {
     /// expression: `[a-zA-Z\d-_]+`. The maximum length is 100
     /// characters. Can be empty to allow the system to generate one.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_id: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     /// The configuration details for the specific type of job to run.
@@ -17479,17 +17680,19 @@ pub struct ListJobTriggersRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Page token to continue retrieval. Comes from the previous call
     /// to ListJobTriggers. `order_by` field must not
     /// change for subsequent calls.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Size of the page. This value can be limited by a server.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Comma-separated list of triggeredJob fields to order by,
@@ -17508,6 +17711,7 @@ pub struct ListJobTriggersRequest {
     /// - `display_name`: corresponds to the JobTrigger's display name.
     /// - `status`: corresponds to JobTrigger's status.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Allows filtering.
@@ -17535,15 +17739,18 @@ pub struct ListJobTriggersRequest {
     ///
     /// The length of this field should be no more than 500 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The type of jobs. Will use `DlpJobType.INSPECT` if not set.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::DlpJobType,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17612,11 +17819,13 @@ impl wkt::message::Message for ListJobTriggersRequest {
 pub struct ListJobTriggersResponse {
     /// List of triggeredJobs, up to page_size in ListJobTriggersRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub job_triggers: std::vec::Vec<crate::model::JobTrigger>,
 
     /// If the next page is available then this value is the next page token to be
     /// used in the following ListJobTriggers request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17675,6 +17884,7 @@ pub struct DeleteJobTriggerRequest {
     /// Required. Resource name of the project and the triggeredJob, for example
     /// `projects/dlp-test-project/jobTriggers/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17717,10 +17927,12 @@ pub struct InspectJobConfig {
     /// `inspect_config` will be merged into the values persisted as part of the
     /// template.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub inspect_template_name: std::string::String,
 
     /// Actions to execute at the completion of the job.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub actions: std::vec::Vec<crate::model::Action>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18118,11 +18330,13 @@ pub mod data_profile_action {
         /// Cloud Pub/Sub topic to send notifications to.
         /// Format is projects/{project}/topics/{topic}.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub topic: std::string::String,
 
         /// The type of event that triggers a Pub/Sub. At most one
         /// `PubSubNotification` per EventType is permitted.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub event: crate::model::data_profile_action::EventType,
 
         /// Conditions (e.g., data risk or sensitivity level) for triggering a
@@ -18134,6 +18348,7 @@ pub mod data_profile_action {
         /// limit the size of the message, they can use resource_name and fetch the
         /// profile fields they wish to. Per table profile (not per column).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub detail_of_message: crate::model::data_profile_action::pub_sub_notification::DetailLevel,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18404,6 +18619,7 @@ pub mod data_profile_action {
     pub struct TagResources {
         /// The tags to associate with different conditions.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub tag_conditions:
             std::vec::Vec<crate::model::data_profile_action::tag_resources::TagCondition>,
 
@@ -18414,6 +18630,7 @@ pub mod data_profile_action {
         /// both new and updated profiles for tagging, this field should explicitly
         /// include both `PROFILE_GENERATION_NEW` and `PROFILE_GENERATION_UPDATE`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub profile_generations_to_tag: std::vec::Vec<crate::model::ProfileGeneration>,
 
         /// Whether applying a tag to a resource should lower the risk of the profile
@@ -18425,6 +18642,7 @@ pub mod data_profile_action {
         /// risk of a table data profile also reduces the data risk of the
         /// constituent column data profiles.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub lower_data_risk_to_low: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18683,7 +18901,9 @@ pub mod data_profile_action {
                 /// The namespaced name for the tag value to attach to resources. Must be
                 /// in the format `{parent_id}/{tag_key_short_name}/{short_name}`, for
                 /// example, "123456/environment/prod".
-                NamespacedValue(std::string::String),
+                NamespacedValue(
+                    #[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String,
+                ),
             }
         }
     }
@@ -18871,6 +19091,7 @@ pub struct DataProfileFinding {
     /// may be converted to a textual representation here. If the finding exceeds
     /// 4096 bytes in length, the quote may be omitted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub quote: std::string::String,
 
     /// The [type of
@@ -18886,10 +19107,12 @@ pub struct DataProfileFinding {
 
     /// Resource name of the data profile associated with the finding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_profile_resource_name: std::string::String,
 
     /// A unique identifier for the finding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub finding_id: std::string::String,
 
     /// Timestamp when the finding was detected.
@@ -18902,6 +19125,7 @@ pub struct DataProfileFinding {
 
     /// How broadly a resource has been shared.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_visibility: crate::model::ResourceVisibility,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19035,6 +19259,7 @@ pub struct DataProfileFindingLocation {
     /// * BigQuery tables:  `{project_id}:{dataset_id}.{table_id}`
     /// * Cloud Storage files: `gs://{bucket}/{path}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub container_name: std::string::String,
 
     /// Additional location details that may be provided for some types of
@@ -19201,6 +19426,7 @@ pub struct DataProfileJobConfig {
     /// account that exists within this project must have access to all resources
     /// that are profiled, and the DLP API must be enabled.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Must be set only when scanning other clouds.
@@ -19225,10 +19451,12 @@ pub struct DataProfileJobConfig {
     /// For more information, see
     /// <https://cloud.google.com/sensitive-data-protection/docs/data-profiles#data-residency>.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub inspect_templates: std::vec::Vec<std::string::String>,
 
     /// Actions to execute at the completion of the job.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_profile_actions: std::vec::Vec<crate::model::DataProfileAction>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19327,14 +19555,17 @@ pub struct BigQueryRegex {
     /// For organizations, if unset, will match all projects. Has no effect
     /// for data profile configurations created within a project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id_regex: std::string::String,
 
     /// If unset, this property matches all datasets.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_id_regex: std::string::String,
 
     /// If unset, this property matches all tables.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table_id_regex: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19387,6 +19618,7 @@ pub struct BigQueryRegexes {
     /// A single BigQuery regular expression pattern to match against one or more
     /// tables, datasets, or projects that contain BigQuery tables.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub patterns: std::vec::Vec<crate::model::BigQueryRegex>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19424,6 +19656,7 @@ impl wkt::message::Message for BigQueryRegexes {
 pub struct BigQueryTableTypes {
     /// A set of BigQuery table types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub types: std::vec::Vec<crate::model::BigQueryTableType>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19577,9 +19810,9 @@ pub mod data_profile_location {
     #[non_exhaustive]
     pub enum Location {
         /// The ID of an organization to scan.
-        OrganizationId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        OrganizationId(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")] i64),
         /// The ID of the folder within an organization to scan.
-        FolderId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        FolderId(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")] i64),
     }
 }
 
@@ -19599,10 +19832,12 @@ pub struct DiscoveryConfig {
     /// the DiscoveryConfig is created, for example
     /// `projects/dlp-test-project/locations/global/discoveryConfigs/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Display name (max 100 chars)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Only set when the parent is an org.
@@ -19631,14 +19866,17 @@ pub struct DiscoveryConfig {
     /// For more information, see
     /// <https://cloud.google.com/sensitive-data-protection/docs/data-profiles#data-residency>.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub inspect_templates: std::vec::Vec<std::string::String>,
 
     /// Actions to execute at the completion of scanning.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub actions: std::vec::Vec<crate::model::DataProfileAction>,
 
     /// Target to match against for determining what to scan and how frequently.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub targets: std::vec::Vec<crate::model::DiscoveryTarget>,
 
     /// Output only. A stream of errors encountered when the config was activated.
@@ -19646,6 +19884,7 @@ pub struct DiscoveryConfig {
     /// only field. Will return the last 100 errors. Whenever the config is
     /// modified this list will be cleared.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<crate::model::Error>,
 
     /// Output only. The creation timestamp of a DiscoveryConfig.
@@ -19662,6 +19901,7 @@ pub struct DiscoveryConfig {
 
     /// Required. A status for this configuration.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status: crate::model::discovery_config::Status,
 
     /// Optional. Processing location configuration. Vertex AI dataset scanning
@@ -19881,6 +20121,7 @@ pub mod discovery_config {
         /// account that exists within this project must have access to all resources
         /// that are profiled, and the DLP API must be enabled.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub project_id: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20960,7 +21201,7 @@ pub mod discovery_big_query_conditions {
         /// Minimum number of rows that should be present before Cloud DLP
         /// profiles a table
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub min_row_count: i32,
 
         /// Minimum age a table must have before Cloud DLP can profile it. Value must
@@ -21019,7 +21260,10 @@ pub mod discovery_big_query_conditions {
         /// Restrict discovery to specific table types.
         Types(std::boxed::Box<crate::model::BigQueryTableTypes>),
         /// Restrict discovery to categories of table types.
-        TypeCollection(crate::model::BigQueryTableTypeCollection),
+        TypeCollection(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            crate::model::BigQueryTableTypeCollection,
+        ),
     }
 }
 
@@ -21050,6 +21294,7 @@ pub struct DiscoveryGenerationCadence {
     /// Frequency at which profiles should be updated, regardless of whether the
     /// underlying resource has changed. Defaults to never.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub refresh_frequency: crate::model::DataProfileUpdateFrequency,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21146,11 +21391,13 @@ pub struct DiscoveryTableModifiedCadence {
     /// modified and should have the profile updated. Defaults to
     /// MODIFIED_TIMESTAMP.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub types: std::vec::Vec<crate::model::BigQueryTableModification>,
 
     /// How frequently data profiles can be updated when tables are modified.
     /// Defaults to never.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub frequency: crate::model::DataProfileUpdateFrequency,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21199,11 +21446,13 @@ pub struct DiscoverySchemaModifiedCadence {
     /// has been modified and should have the profile updated. Defaults to
     /// NEW_COLUMNS.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub types: std::vec::Vec<crate::model::BigQuerySchemaModification>,
 
     /// How frequently profiles may be updated when schemas are
     /// modified. Defaults to monthly.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub frequency: crate::model::DataProfileUpdateFrequency,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21252,6 +21501,7 @@ pub struct DiscoveryInspectTemplateModifiedCadence {
     /// How frequently data profiles can be updated when the template is modified.
     /// Defaults to never.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub frequency: crate::model::DataProfileUpdateFrequency,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21719,6 +21969,7 @@ pub struct DatabaseResourceRegexes {
     /// Maximum of 100 entries. The sum of all regular expression's length can't
     /// exceed 10 KiB.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub patterns: std::vec::Vec<crate::model::DatabaseResourceRegex>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21760,14 +22011,17 @@ pub struct DatabaseResourceRegex {
     /// For organizations, if unset, will match all projects. Has no effect
     /// for configurations created within a project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id_regex: std::string::String,
 
     /// Regex to test the instance name against. If empty, all instances match.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance_regex: std::string::String,
 
     /// Regex to test the database name against. If empty, all databases match.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_regex: std::string::String,
 
     /// Regex to test the database resource's name against. An example of a
@@ -21775,6 +22029,7 @@ pub struct DatabaseResourceRegex {
     /// like view names could be included in the future. If empty, all database
     /// resources match.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_resource_name_regex: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21854,20 +22109,24 @@ pub struct DatabaseResourceReference {
     /// Required. If within a project-level config, then this must match the
     /// config's project ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Required. The instance where this resource is located. For example: Cloud
     /// SQL instance ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance: std::string::String,
 
     /// Required. Name of a database within the instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// Required. Name of a database resource, for example, a table within the
     /// database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_resource: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21923,6 +22182,7 @@ pub struct DiscoveryCloudSqlConditions {
     /// Optional. Database engines that should be profiled.
     /// Optional. Defaults to ALL_SUPPORTED_DATABASE_ENGINES if unspecified.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub database_engines:
         std::vec::Vec<crate::model::discovery_cloud_sql_conditions::DatabaseEngine>,
 
@@ -21930,6 +22190,7 @@ pub struct DiscoveryCloudSqlConditions {
     /// specified in this field.
     /// If not specified, defaults to [DATABASE_RESOURCE_TYPE_ALL_SUPPORTED_TYPES].
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub types: std::vec::Vec<crate::model::discovery_cloud_sql_conditions::DatabaseResourceType>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22272,6 +22533,7 @@ pub struct DiscoveryCloudSqlGenerationCadence {
     /// frequency regardless of whether the underlying tables have changed.
     /// Defaults to never.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub refresh_frequency: crate::model::DataProfileUpdateFrequency,
 
     /// Governs when to update data profiles when the inspection rules
@@ -22366,11 +22628,13 @@ pub mod discovery_cloud_sql_generation_cadence {
         /// The types of schema modifications to consider.
         /// Defaults to NEW_COLUMNS.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub types: std::vec::Vec<crate::model::discovery_cloud_sql_generation_cadence::schema_modified_cadence::CloudSqlSchemaModification>,
 
         /// Frequency to regenerate data profiles when the schema is modified.
         /// Defaults to monthly.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub frequency: crate::model::DataProfileUpdateFrequency,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23026,6 +23290,7 @@ pub struct FileStoreRegexes {
     /// more file stores. Maximum of 100 entries. The sum of all regular
     /// expression's length can't exceed 10 KiB.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub patterns: std::vec::Vec<crate::model::FileStoreRegex>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23154,12 +23419,14 @@ pub mod file_store_regex {
 pub struct CloudStorageRegex {
     /// Optional. For organizations, if unset, will match all projects.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id_regex: std::string::String,
 
     /// Optional. Regex to test the bucket name against. If empty, all buckets
     /// match. Example: "marketing2021" or "(marketing)\d{4}" will both match the
     /// bucket gs://marketing2021
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket_name_regex: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23204,11 +23471,13 @@ impl wkt::message::Message for CloudStorageRegex {
 pub struct CloudStorageResourceReference {
     /// Required. The bucket to scan.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket_name: std::string::String,
 
     /// Required. If within a project-level config, then this must match the
     /// config's project id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23251,6 +23520,7 @@ pub struct DiscoveryCloudStorageGenerationCadence {
     /// set this field, profiles are refreshed at this frequency regardless of
     /// whether the underlying buckets have changed. Defaults to never.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub refresh_frequency: crate::model::DataProfileUpdateFrequency,
 
     /// Optional. Governs when to update data profiles when the inspection rules
@@ -23322,6 +23592,7 @@ pub struct DiscoveryCloudStorageConditions {
     /// profile will be created even if no objects match the
     /// included_object_attributes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub included_object_attributes: std::vec::Vec<
         crate::model::discovery_cloud_storage_conditions::CloudStorageObjectAttribute,
     >,
@@ -23329,6 +23600,7 @@ pub struct DiscoveryCloudStorageConditions {
     /// Required. Only objects with the specified attributes will be scanned.
     /// Defaults to [ALL_SUPPORTED_BUCKETS] if unset.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub included_bucket_attributes: std::vec::Vec<
         crate::model::discovery_cloud_storage_conditions::CloudStorageBucketAttribute,
     >,
@@ -24310,6 +24582,7 @@ pub struct OtherCloudResourceRegexes {
     /// Maximum of 100 entries. The sum of all regular expression's length can't
     /// exceed 10 KiB.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub patterns: std::vec::Vec<crate::model::OtherCloudResourceRegex>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24442,6 +24715,7 @@ pub struct AwsAccountRegex {
     /// Optional. Regex to test the AWS account ID against.
     /// If empty, all accounts match.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub account_id_regex: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24482,6 +24756,7 @@ pub struct AmazonS3BucketRegex {
     /// Optional. Regex to test the bucket name against.
     /// If empty, all buckets match.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket_name_regex: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24626,6 +24901,7 @@ pub mod other_cloud_single_resource_reference {
 pub struct AwsAccount {
     /// Required. AWS account ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub account_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24662,6 +24938,7 @@ pub struct AmazonS3Bucket {
 
     /// Required. The bucket name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24827,11 +25104,13 @@ pub struct AmazonS3BucketConditions {
     /// Optional. Bucket types that should be profiled.
     /// Optional. Defaults to TYPE_ALL_SUPPORTED if unspecified.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub bucket_types: std::vec::Vec<crate::model::amazon_s_3_bucket_conditions::BucketType>,
 
     /// Optional. Object classes that should be profiled.
     /// Optional. Defaults to ALL_SUPPORTED_CLASSES if unspecified.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub object_storage_classes:
         std::vec::Vec<crate::model::amazon_s_3_bucket_conditions::ObjectStorageClass>,
 
@@ -25181,6 +25460,7 @@ pub struct DiscoveryOtherCloudGenerationCadence {
     /// Optional. Frequency to update profiles regardless of whether the underlying
     /// resource has changes. Defaults to never.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub refresh_frequency: crate::model::DataProfileUpdateFrequency,
 
     /// Optional. Governs when to update data profiles when the inspection rules
@@ -25343,9 +25623,9 @@ pub mod discovery_starting_location {
     #[non_exhaustive]
     pub enum Location {
         /// The ID of an organization to scan.
-        OrganizationId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        OrganizationId(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")] i64),
         /// The ID of the folder within an organization to be scanned.
-        FolderId(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+        FolderId(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")] i64),
     }
 }
 
@@ -25532,10 +25812,10 @@ pub mod other_cloud_discovery_starting_location {
             /// Within an AWS organization, you can find the AWS account ID inside an
             /// AWS account ARN. Example:
             /// arn:{partition}:organizations::{management_account_id}:account/{org_id}/{account_id}
-            AccountId(std::string::String),
+            AccountId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// All AWS assets stored in Asset Inventory that didn't match other AWS
             /// discovery configs.
-            AllAssetInventoryAssets(bool),
+            AllAssetInventoryAssets(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         }
     }
 
@@ -26012,6 +26292,7 @@ pub struct VertexDatasetRegexes {
     /// more datasets. Maximum of 100 entries. The sum of the lengths of all
     /// regular expressions can't exceed 10 KiB.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub patterns: std::vec::Vec<crate::model::VertexDatasetRegex>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26050,6 +26331,7 @@ pub struct VertexDatasetRegex {
     /// For organizations, if unset, will match all projects. Has no effect
     /// for configurations created within a project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id_regex: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26086,6 +26368,7 @@ pub struct VertexDatasetResourceReference {
     /// Required. The name of the dataset resource. If set within a project-level
     /// configuration, the specified resource must be within the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_resource_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26194,6 +26477,7 @@ pub struct DiscoveryVertexDatasetGenerationCadence {
     /// frequency regardless of whether the underlying datasets have changed.
     /// Defaults to never.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub refresh_frequency: crate::model::DataProfileUpdateFrequency,
 
     /// Governs when to update data profiles when the inspection rules
@@ -26260,15 +26544,18 @@ impl wkt::message::Message for DiscoveryVertexDatasetGenerationCadence {
 pub struct DlpJob {
     /// The server-assigned name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The type of job.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::DlpJobType,
 
     /// State of a job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::dlp_job::JobState,
 
     /// Time when the job was created.
@@ -26290,14 +26577,17 @@ pub struct DlpJob {
     /// If created by a job trigger, the resource name of the trigger that
     /// instantiated the job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_trigger_name: std::string::String,
 
     /// A stream of errors encountered running the job.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<crate::model::Error>,
 
     /// Events that should occur after the job has completed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub action_details: std::vec::Vec<crate::model::ActionDetails>,
 
     /// Job details.
@@ -26709,6 +26999,7 @@ pub mod dlp_job {
 pub struct GetDlpJobRequest {
     /// Required. The name of the DlpJob resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26758,6 +27049,7 @@ pub struct ListDlpJobsRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Allows filtering.
@@ -26789,20 +27081,23 @@ pub struct ListDlpJobsRequest {
     ///
     /// The length of this field should be no more than 500 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The standard list page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The standard list page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The type of job. Defaults to `DlpJobType.INSPECT`
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::DlpJobType,
 
     /// Comma-separated list of fields to order by,
@@ -26819,10 +27114,12 @@ pub struct ListDlpJobsRequest {
     /// - `name`: corresponds to the job's name.
     /// - `state`: corresponds to `state`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26891,10 +27188,12 @@ impl wkt::message::Message for ListDlpJobsRequest {
 pub struct ListDlpJobsResponse {
     /// A list of DlpJobs that matches the specified filter in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub jobs: std::vec::Vec<crate::model::DlpJob>,
 
     /// The standard List next-page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26952,6 +27251,7 @@ impl gax::paginator::internal::PageableResponse for ListDlpJobsResponse {
 pub struct CancelDlpJobRequest {
     /// Required. The name of the DlpJob resource to be cancelled.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26984,6 +27284,7 @@ impl wkt::message::Message for CancelDlpJobRequest {
 pub struct FinishDlpJobRequest {
     /// Required. The name of the DlpJob resource to be finished.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27016,6 +27317,7 @@ impl wkt::message::Message for FinishDlpJobRequest {
 pub struct DeleteDlpJobRequest {
     /// Required. The name of the DlpJob resource to be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27069,6 +27371,7 @@ pub struct CreateDeidentifyTemplateRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The DeidentifyTemplate to create.
@@ -27080,10 +27383,12 @@ pub struct CreateDeidentifyTemplateRequest {
     /// expression: `[a-zA-Z\d-_]+`. The maximum length is 100
     /// characters. Can be empty to allow the system to generate one.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub template_id: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27149,6 +27454,7 @@ pub struct UpdateDeidentifyTemplateRequest {
     /// `organizations/433245324/deidentifyTemplates/432452342` or
     /// projects/project-id/deidentifyTemplates/432452342.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// New DeidentifyTemplate value.
@@ -27227,6 +27533,7 @@ pub struct GetDeidentifyTemplateRequest {
     /// read, for example `organizations/433245324/deidentifyTemplates/432452342`
     /// or projects/project-id/deidentifyTemplates/432452342.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27280,17 +27587,19 @@ pub struct ListDeidentifyTemplatesRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Page token to continue retrieval. Comes from the previous call
     /// to `ListDeidentifyTemplates`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Size of the page. This value can be limited by the server. If zero server
     /// returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by,
@@ -27307,10 +27616,12 @@ pub struct ListDeidentifyTemplatesRequest {
     /// - `name`: corresponds to the template's name.
     /// - `display_name`: corresponds to the template's display name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27368,11 +27679,13 @@ pub struct ListDeidentifyTemplatesResponse {
     /// List of deidentify templates, up to page_size in
     /// ListDeidentifyTemplatesRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub deidentify_templates: std::vec::Vec<crate::model::DeidentifyTemplate>,
 
     /// If the next page is available then the next page token to be used in the
     /// following ListDeidentifyTemplates request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27433,6 +27746,7 @@ pub struct DeleteDeidentifyTemplateRequest {
     /// `organizations/433245324/deidentifyTemplates/432452342` or
     /// projects/project-id/deidentifyTemplates/432452342.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27619,7 +27933,7 @@ pub mod large_custom_dictionary_config {
 pub struct LargeCustomDictionaryStats {
     /// Approximate number of distinct phrases in the dictionary.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub approx_num_phrases: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27654,10 +27968,12 @@ impl wkt::message::Message for LargeCustomDictionaryStats {
 pub struct StoredInfoTypeConfig {
     /// Display name of the StoredInfoType (max 256 characters).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Description of the StoredInfoType (max 256 characters).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Stored infotype types.
@@ -27926,6 +28242,7 @@ pub struct StoredInfoTypeVersion {
     /// Stored info type version state. Read-only, updated by the system
     /// during dictionary creation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::StoredInfoTypeState,
 
     /// Errors that occurred when creating this storedInfoType version, or
@@ -27942,6 +28259,7 @@ pub struct StoredInfoTypeVersion {
     /// storedInfoType to continue using it, reusing the same `config` if it was
     /// not the source of the error.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<crate::model::Error>,
 
     /// Statistics about this storedInfoType version.
@@ -28047,6 +28365,7 @@ impl wkt::message::Message for StoredInfoTypeVersion {
 pub struct StoredInfoType {
     /// Resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Current version of the stored info type.
@@ -28056,6 +28375,7 @@ pub struct StoredInfoType {
     /// Pending versions of the stored info type. Empty if no versions are
     /// pending.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub pending_versions: std::vec::Vec<crate::model::StoredInfoTypeVersion>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28138,6 +28458,7 @@ pub struct CreateStoredInfoTypeRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Configuration of the storedInfoType to create.
@@ -28149,10 +28470,12 @@ pub struct CreateStoredInfoTypeRequest {
     /// expression: `[a-zA-Z\d-_]+`. The maximum length is 100
     /// characters. Can be empty to allow the system to generate one.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub stored_info_type_id: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28220,6 +28543,7 @@ pub struct UpdateStoredInfoTypeRequest {
     /// for example `organizations/433245324/storedInfoTypes/432452342` or
     /// projects/project-id/storedInfoTypes/432452342.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Updated configuration for the storedInfoType. If not provided, a new
@@ -28300,6 +28624,7 @@ pub struct GetStoredInfoTypeRequest {
     /// for example `organizations/433245324/storedInfoTypes/432452342` or
     /// projects/project-id/storedInfoTypes/432452342.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28349,17 +28674,19 @@ pub struct ListStoredInfoTypesRequest {
     /// parent=projects/example-project/locations/europe-west3
     /// ```
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Page token to continue retrieval. Comes from the previous call
     /// to `ListStoredInfoTypes`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Size of the page. This value can be limited by the server. If zero server
     /// returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by,
@@ -28377,10 +28704,12 @@ pub struct ListStoredInfoTypesRequest {
     /// - `name`: corresponds to resource name.
     /// - `display_name`: corresponds to info type's display name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Deprecated. This field has no effect.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28437,11 +28766,13 @@ impl wkt::message::Message for ListStoredInfoTypesRequest {
 pub struct ListStoredInfoTypesResponse {
     /// List of storedInfoTypes, up to page_size in ListStoredInfoTypesRequest.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub stored_info_types: std::vec::Vec<crate::model::StoredInfoType>,
 
     /// If the next page is available then the next page token to be used
     /// in the following ListStoredInfoTypes request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28501,6 +28832,7 @@ pub struct DeleteStoredInfoTypeRequest {
     /// deleted, for example `organizations/433245324/storedInfoTypes/432452342` or
     /// projects/project-id/storedInfoTypes/432452342.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28534,6 +28866,7 @@ pub struct HybridInspectJobTriggerRequest {
     /// Required. Resource name of the trigger to execute a hybrid inspect on, for
     /// example `projects/dlp-test-project/jobTriggers/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The item to inspect.
@@ -28589,6 +28922,7 @@ pub struct HybridInspectDlpJobRequest {
     /// Required. Resource name of the job to execute a hybrid inspect on, for
     /// example `projects/dlp-test-project/dlpJob/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The item to inspect.
@@ -28717,14 +29051,14 @@ pub struct HybridFindingDetails {
     /// bigger item, such as a shard of a file and you want to track the absolute
     /// position of the finding.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub file_offset: i64,
 
     /// Offset of the row for tables. Populate if the row(s) being scanned are
     /// part of a bigger dataset and you want to keep track of their absolute
     /// position.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub row_offset: i64,
 
     /// If the container is a table, additional information to make findings
@@ -28753,6 +29087,7 @@ pub struct HybridFindingDetails {
     /// * `"environment" : "production"`
     /// * `"pipeline" : "etl"`
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28861,16 +29196,18 @@ impl wkt::message::Message for HybridInspectResponse {
 pub struct ListProjectDataProfilesRequest {
     /// Required. organizations/{org_id}/locations/{loc_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Page token to continue retrieval.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Size of the page. This value can be limited by the server. If zero, server
     /// returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by, followed by `asc` or `desc`
@@ -28891,6 +29228,7 @@ pub struct ListProjectDataProfilesRequest {
     /// - `profile_last_generated`: When the profile was last updated in epoch
     ///   seconds.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Allows filtering.
@@ -28915,6 +29253,7 @@ pub struct ListProjectDataProfilesRequest {
     ///
     /// The length of this field should be no more than 500 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28971,10 +29310,12 @@ impl wkt::message::Message for ListProjectDataProfilesRequest {
 pub struct ListProjectDataProfilesResponse {
     /// List of data profiles.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub project_data_profiles: std::vec::Vec<crate::model::ProjectDataProfile>,
 
     /// The next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29034,16 +29375,18 @@ pub struct ListTableDataProfilesRequest {
     /// example `organizations/433245324/locations/europe` or
     /// `projects/project-id/locations/asia`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Page token to continue retrieval.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Size of the page. This value can be limited by the server. If zero, server
     /// returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by, followed by `asc` or `desc`
@@ -29070,6 +29413,7 @@ pub struct ListTableDataProfilesRequest {
     /// - `resource_visibility`: Visibility restriction for this resource.
     /// - `row_count`: Number of rows in this resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Allows filtering.
@@ -29099,6 +29443,7 @@ pub struct ListTableDataProfilesRequest {
     ///
     /// The length of this field should be no more than 500 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29155,10 +29500,12 @@ impl wkt::message::Message for ListTableDataProfilesRequest {
 pub struct ListTableDataProfilesResponse {
     /// List of data profiles.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub table_data_profiles: std::vec::Vec<crate::model::TableDataProfile>,
 
     /// The next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29218,16 +29565,18 @@ pub struct ListColumnDataProfilesRequest {
     /// example `organizations/433245324/locations/europe` or
     /// `projects/project-id/locations/asia`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Page token to continue retrieval.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Size of the page. This value can be limited by the server. If zero, server
     /// returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Comma-separated list of fields to order by, followed by `asc` or `desc`
@@ -29251,6 +29600,7 @@ pub struct ListColumnDataProfilesRequest {
     /// - `profile_last_generated`: When the profile was last updated in epoch
     ///   seconds.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Allows filtering.
@@ -29284,6 +29634,7 @@ pub struct ListColumnDataProfilesRequest {
     ///
     /// The length of this field should be no more than 500 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29340,10 +29691,12 @@ impl wkt::message::Message for ListColumnDataProfilesRequest {
 pub struct ListColumnDataProfilesResponse {
     /// List of data profiles.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub column_data_profiles: std::vec::Vec<crate::model::ColumnDataProfile>,
 
     /// The next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29402,6 +29755,7 @@ impl gax::paginator::internal::PageableResponse for ListColumnDataProfilesRespon
 pub struct DataRiskLevel {
     /// The score applied to the resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub score: crate::model::data_risk_level::DataRiskLevelScore,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29596,10 +29950,12 @@ pub mod data_risk_level {
 pub struct ProjectDataProfile {
     /// The resource name of the profile.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Project ID or account that was profiled.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// The last time the profile was generated.
@@ -29620,12 +29976,12 @@ pub struct ProjectDataProfile {
 
     /// The number of table data profiles generated for this project.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub table_data_profile_count: i64,
 
     /// The number of file store data profiles generated for this project.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub file_store_data_profile_count: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29766,6 +30122,7 @@ pub struct DataProfileConfigSnapshot {
 
     /// Name of the inspection template used to generate this profile
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub inspect_template_name: std::string::String,
 
     /// Timestamp when the template was modified
@@ -29882,6 +30239,7 @@ impl wkt::message::Message for DataProfileConfigSnapshot {
 pub struct TableDataProfile {
     /// The name of the profile.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The resource type that was profiled.
@@ -29890,30 +30248,36 @@ pub struct TableDataProfile {
 
     /// The resource name of the project data profile for this table.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_data_profile: std::string::String,
 
     /// The Google Cloud project ID that owns the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_project_id: std::string::String,
 
     /// If supported, the location where the dataset's data is stored.
     /// See <https://cloud.google.com/bigquery/docs/locations> for supported
     /// locations.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_location: std::string::String,
 
     /// If the resource is BigQuery, the dataset ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_id: std::string::String,
 
     /// The table ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table_id: std::string::String,
 
     /// The Cloud Asset Inventory resource that was profiled in order to generate
     /// this TableDataProfile.
     /// <https://cloud.google.com/apis/design/resource_names#full_resource_name>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource: std::string::String,
 
     /// Success or error status from the most recent profile generation attempt.
@@ -29923,6 +30287,7 @@ pub struct TableDataProfile {
 
     /// State of a profile.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::table_data_profile::State,
 
     /// The sensitivity score of this table.
@@ -29935,10 +30300,12 @@ pub struct TableDataProfile {
 
     /// The infoTypes predicted from this table's data.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub predicted_info_types: std::vec::Vec<crate::model::InfoTypeSummary>,
 
     /// Other infoTypes found in this table's data.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub other_info_types: std::vec::Vec<crate::model::OtherInfoTypeSummary>,
 
     /// The snapshot of the configurations used to generate the profile.
@@ -29955,31 +30322,33 @@ pub struct TableDataProfile {
 
     /// The number of columns profiled in the table.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub scanned_column_count: i64,
 
     /// The number of columns skipped in the table because of an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub failed_column_count: i64,
 
     /// The size of the table when the profile was generated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub table_size_bytes: i64,
 
     /// Number of rows in the table when the profile was generated.
     /// This will not be populated for BigLake tables.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub row_count: i64,
 
     /// How the table is encrypted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub encryption_status: crate::model::EncryptionStatus,
 
     /// How broadly a resource has been shared.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_visibility: crate::model::ResourceVisibility,
 
     /// The last time the profile was generated.
@@ -29988,6 +30357,7 @@ pub struct TableDataProfile {
 
     /// The labels applied to the resource at the time the profile was generated.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub resource_labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The time at which the table was created.
@@ -30002,10 +30372,12 @@ pub struct TableDataProfile {
     /// profiling. Because tags are attached to Cloud SQL instances rather than
     /// Cloud SQL tables, this field is empty for Cloud SQL table profiles.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tags: std::vec::Vec<crate::model::Tag>,
 
     /// Resources related to this profile.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub related_resources: std::vec::Vec<crate::model::RelatedResource>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -30582,7 +30954,7 @@ pub struct InfoTypeSummary {
 
     /// Not populated for predicted infotypes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     #[deprecated]
     pub estimated_prevalence: i32,
 
@@ -30640,12 +31012,13 @@ pub struct OtherInfoTypeSummary {
     /// Approximate percentage of non-null rows that contained data detected by
     /// this infotype.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub estimated_prevalence: i32,
 
     /// Whether this infoType was excluded from sensitivity and risk analysis due
     /// to factors such as low prevalence (subject to change).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub excluded_from_analysis: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -30702,6 +31075,7 @@ impl wkt::message::Message for OtherInfoTypeSummary {
 pub struct ColumnDataProfile {
     /// The name of the profile.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Success or error status from the most recent profile generation attempt.
@@ -30711,6 +31085,7 @@ pub struct ColumnDataProfile {
 
     /// State of a profile.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::column_data_profile::State,
 
     /// The last time the profile was generated.
@@ -30719,32 +31094,39 @@ pub struct ColumnDataProfile {
 
     /// The resource name of the table data profile.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table_data_profile: std::string::String,
 
     /// The resource name of the resource this column is within.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table_full_resource: std::string::String,
 
     /// The Google Cloud project ID that owns the profiled resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_project_id: std::string::String,
 
     /// If supported, the location where the dataset's data is stored.
     /// See <https://cloud.google.com/bigquery/docs/locations> for supported
     /// BigQuery locations.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_location: std::string::String,
 
     /// The BigQuery dataset ID, if the resource profiled is a BigQuery table.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_id: std::string::String,
 
     /// The table ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table_id: std::string::String,
 
     /// The name of the column.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub column: std::string::String,
 
     /// The sensitivity of this column.
@@ -30763,14 +31145,17 @@ pub struct ColumnDataProfile {
 
     /// Other types found within this column. List will be unordered.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub other_matches: std::vec::Vec<crate::model::OtherInfoTypeSummary>,
 
     /// Approximate percentage of entries being null in the column.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub estimated_null_percentage: crate::model::NullPercentageLevel,
 
     /// Approximate uniqueness of the column.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub estimated_uniqueness_score: crate::model::UniquenessScoreLevel,
 
     /// The likelihood that this column contains free-form text.
@@ -30778,15 +31163,17 @@ pub struct ColumnDataProfile {
     /// free-form or natural language text.
     /// Range in 0-1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub free_text_score: f64,
 
     /// The data type of a given column.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub column_type: crate::model::column_data_profile::ColumnDataType,
 
     /// Indicates if a policy tag has been applied to the column.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub policy_state: crate::model::column_data_profile::ColumnPolicyState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -31547,6 +31934,7 @@ pub mod column_data_profile {
 pub struct FileStoreDataProfile {
     /// The name of the profile.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The resource type that was profiled.
@@ -31555,11 +31943,13 @@ pub struct FileStoreDataProfile {
 
     /// The resource name of the project data profile for this file store.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_data_profile: std::string::String,
 
     /// The Google Cloud project ID that owns the resource.
     /// For Amazon S3 buckets, this is the AWS Account Id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// The location of the file store.
@@ -31569,6 +31959,7 @@ pub struct FileStoreDataProfile {
     /// * Amazon S3:
     ///   <https://docs.aws.amazon.com/general/latest/gr/rande.html#regional-endpoints>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file_store_location: std::string::String,
 
     /// For resources that have multiple storage locations, these are those
@@ -31578,11 +31969,13 @@ pub struct FileStoreDataProfile {
     /// region is always picked as the processing and storage location for the data
     /// profile.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_storage_locations: std::vec::Vec<std::string::String>,
 
     /// The location type of the file store (region, dual-region, multi-region,
     /// etc). If dual-region, expect data_storage_locations to be populated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_type: std::string::String,
 
     /// The file store path.
@@ -31592,6 +31985,7 @@ pub struct FileStoreDataProfile {
     /// * Vertex AI dataset:
     ///   `projects/{project_number}/locations/{location}/datasets/{dataset_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file_store_path: std::string::String,
 
     /// The resource name of the resource profiled.
@@ -31600,6 +31994,7 @@ pub struct FileStoreDataProfile {
     /// Example format of an S3 bucket full resource name:
     /// `//cloudasset.googleapis.com/organizations/{org_id}/otherCloudConnections/aws/arn:aws:s3:::{bucket_name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource: std::string::String,
 
     /// The snapshot of the configurations used to generate the profile.
@@ -31613,6 +32008,7 @@ pub struct FileStoreDataProfile {
 
     /// State of a profile.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::file_store_data_profile::State,
 
     /// The last time the profile was generated.
@@ -31621,6 +32017,7 @@ pub struct FileStoreDataProfile {
 
     /// How broadly a resource has been shared.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_visibility: crate::model::ResourceVisibility,
 
     /// The sensitivity score of this resource.
@@ -31641,6 +32038,7 @@ pub struct FileStoreDataProfile {
 
     /// FileClusterSummary per each cluster.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub file_cluster_summaries: std::vec::Vec<crate::model::FileClusterSummary>,
 
     /// Attributes of the resource being profiled.
@@ -31650,14 +32048,17 @@ pub struct FileStoreDataProfile {
     ///   - true: the resource is encrypted with a customer-managed key.
     ///   - false: the resource is encrypted with a provider-managed key.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub resource_attributes: std::collections::HashMap<std::string::String, crate::model::Value>,
 
     /// The labels applied to the resource at the time the profile was generated.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub resource_labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// InfoTypes detected in this file store.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub file_store_info_type_summaries: std::vec::Vec<crate::model::FileStoreInfoTypeSummary>,
 
     /// The BigQuery table to which the sample findings are written.
@@ -31666,15 +32067,18 @@ pub struct FileStoreDataProfile {
 
     /// The file store does not have any files.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file_store_is_empty: bool,
 
     /// The tags attached to the resource, including any tags attached during
     /// profiling.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tags: std::vec::Vec<crate::model::Tag>,
 
     /// Resources related to this profile.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub related_resources: std::vec::Vec<crate::model::RelatedResource>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32158,16 +32562,19 @@ pub struct Tag {
     /// example, "123456/environment/prod". This is only set for Google Cloud
     /// resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub namespaced_tag_value: std::string::String,
 
     /// The key of a tag key-value pair. For Google Cloud resources, this is the
     /// resource name of the key, for example, "tagKeys/123456".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     /// The value of a tag key-value pair. For Google Cloud resources, this is the
     /// resource name of the value, for example, "tagValues/123456".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32219,6 +32626,7 @@ impl wkt::message::Message for Tag {
 pub struct RelatedResource {
     /// The full resource name of the related resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32295,6 +32703,7 @@ impl wkt::message::Message for FileStoreInfoTypeSummary {
 pub struct FileExtensionInfo {
     /// The file extension if set. (aka .pdf, .jpg, .txt)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file_extension: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32331,6 +32740,7 @@ pub struct FileClusterSummary {
 
     /// InfoTypes detected in this cluster.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub file_store_info_type_summaries: std::vec::Vec<crate::model::FileStoreInfoTypeSummary>,
 
     /// The sensitivity score of this cluster. The score will be SENSITIVITY_LOW
@@ -32346,23 +32756,27 @@ pub struct FileClusterSummary {
     /// A list of errors detected while scanning this cluster. The list is
     /// truncated to 10 per cluster.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<crate::model::Error>,
 
     /// A sample of file types scanned in this cluster. Empty if no files were
     /// scanned. File extensions can be derived from the file name or the file
     /// content.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub file_extensions_scanned: std::vec::Vec<crate::model::FileExtensionInfo>,
 
     /// A sample of file types seen in this cluster. Empty if no files were seen.
     /// File extensions can be derived from the file name or the file content.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub file_extensions_seen: std::vec::Vec<crate::model::FileExtensionInfo>,
 
     /// True if no files exist in this cluster. If the file store had more files
     /// than could be listed, this will be false even if no files for this cluster
     /// were seen and file_extensions_seen is empty.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub no_files_exist: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32494,6 +32908,7 @@ pub struct GetProjectDataProfileRequest {
     /// Required. Resource name, for example
     /// `organizations/12345/locations/us/projectDataProfiles/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32527,6 +32942,7 @@ pub struct GetFileStoreDataProfileRequest {
     /// Required. Resource name, for example
     /// `organizations/12345/locations/us/fileStoreDataProfiles/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32562,16 +32978,18 @@ pub struct ListFileStoreDataProfilesRequest {
     /// example `organizations/433245324/locations/europe` or
     /// `projects/project-id/locations/asia`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Page token to continue retrieval.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Size of the page. This value can be limited by the server. If
     /// zero, server returns a page of max size 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Comma-separated list of fields to order by, followed by `asc` or
@@ -32597,6 +33015,7 @@ pub struct ListFileStoreDataProfilesRequest {
     /// - `name`: The name of the profile.
     /// - `create_time`: The time the file store was first created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Optional. Allows filtering.
@@ -32631,6 +33050,7 @@ pub struct ListFileStoreDataProfilesRequest {
     ///
     /// The length of this field should be no more than 500 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32688,10 +33108,12 @@ impl wkt::message::Message for ListFileStoreDataProfilesRequest {
 pub struct ListFileStoreDataProfilesResponse {
     /// List of data profiles.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub file_store_data_profiles: std::vec::Vec<crate::model::FileStoreDataProfile>,
 
     /// The next page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32749,6 +33171,7 @@ impl gax::paginator::internal::PageableResponse for ListFileStoreDataProfilesRes
 pub struct DeleteFileStoreDataProfileRequest {
     /// Required. Resource name of the file store data profile.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32782,6 +33205,7 @@ pub struct GetTableDataProfileRequest {
     /// Required. Resource name, for example
     /// `organizations/12345/locations/us/tableDataProfiles/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32815,6 +33239,7 @@ pub struct GetColumnDataProfileRequest {
     /// Required. Resource name, for example
     /// `organizations/12345/locations/us/columnDataProfiles/53234423`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33013,9 +33438,13 @@ pub mod data_profile_pub_sub_condition {
         #[non_exhaustive]
         pub enum Value {
             /// The minimum data risk score that triggers the condition.
-            MinimumRiskScore(crate::model::data_profile_pub_sub_condition::ProfileScoreBucket),
+            MinimumRiskScore(
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+                crate::model::data_profile_pub_sub_condition::ProfileScoreBucket,
+            ),
             /// The minimum sensitivity level that triggers the condition.
             MinimumSensitivityScore(
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 crate::model::data_profile_pub_sub_condition::ProfileScoreBucket,
             ),
         }
@@ -33030,10 +33459,12 @@ pub mod data_profile_pub_sub_condition {
 
         /// The operator to apply to the collection of conditions.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub logical_operator: crate::model::data_profile_pub_sub_condition::pub_sub_expressions::PubSubLogicalOperator,
 
         /// Conditions to apply to the expression.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub conditions: std::vec::Vec<crate::model::data_profile_pub_sub_condition::PubSubCondition>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33366,6 +33797,7 @@ pub struct DataProfilePubSubMessage {
 
     /// The event that caused the Pub/Sub message to be sent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub event: crate::model::data_profile_action::EventType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33445,6 +33877,7 @@ pub struct CreateConnectionRequest {
     /// + Organizations scope:
     ///   `organizations/{org_id}/locations/{location_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The connection resource.
@@ -33500,6 +33933,7 @@ pub struct GetConnectionRequest {
     /// Required. Resource name in the format:
     /// `projects/{project}/locations/{location}/connections/{connection}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33534,20 +33968,23 @@ pub struct ListConnectionsRequest {
     /// example, `organizations/433245324/locations/europe` or
     /// `projects/project-id/locations/asia`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Number of results per page, max 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Page token from a previous page to return the next set of
     /// results. If set, all other request fields must match the original request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Supported field/value: `state` - MISSING|AVAILABLE|ERROR
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33600,20 +34037,23 @@ pub struct SearchConnectionsRequest {
     /// location, for example, `organizations/433245324/locations/-` or
     /// `projects/project-id/locations/-`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Number of results per page, max 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Page token from a previous page to return the next set of
     /// results. If set, all other request fields must match the original request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Supported field/value: - `state` - MISSING|AVAILABLE|ERROR
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33664,11 +34104,13 @@ impl wkt::message::Message for SearchConnectionsRequest {
 pub struct ListConnectionsResponse {
     /// List of connections.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub connections: std::vec::Vec<crate::model::Connection>,
 
     /// Token to retrieve the next page of results. An empty value means there are
     /// no more results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33728,11 +34170,13 @@ pub struct SearchConnectionsResponse {
     /// of the fields will be populated, and only "name" is guaranteed to be set.
     /// For full details of a Connection, call GetConnection with the name.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub connections: std::vec::Vec<crate::model::Connection>,
 
     /// Token to retrieve the next page of results. An empty value means there are
     /// no more results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33791,6 +34235,7 @@ pub struct UpdateConnectionRequest {
     /// Required. Resource name in the format:
     /// `projects/{project}/locations/{location}/connections/{connection}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The connection with new values for the relevant fields.
@@ -33868,6 +34313,7 @@ pub struct DeleteConnectionRequest {
     /// Required. Resource name of the Connection to be deleted, in the format:
     /// `projects/{project}/locations/{location}/connections/{connection}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33902,15 +34348,18 @@ pub struct Connection {
     /// Output only. Name of the connection:
     /// `projects/{project}/locations/{location}/connections/{name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The connection's state in its lifecycle.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::ConnectionState,
 
     /// Output only. Set if status == ERROR, to provide additional details. Will
     /// store the last 10 errors sorted with the most recent first.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<crate::model::Error>,
 
     /// Type of connection.
@@ -34026,11 +34475,13 @@ pub mod connection {
 pub struct SecretManagerCredential {
     /// Required. The username.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub username: std::string::String,
 
     /// Required. The name of the Secret Manager resource that stores the password,
     /// in the form `projects/project-id/secrets/secret-name/versions/version`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub password_secret_version_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -34106,17 +34557,19 @@ pub struct CloudSqlProperties {
     /// must be created under the parent
     /// `projects/project-id/locations/us-central1`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub connection_name: std::string::String,
 
     /// Required. The DLP API will limit its connections to max_connections.
     /// Must be 2 or greater.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_connections: i32,
 
     /// Required. The database engine used by the Cloud SQL instance that this
     /// connection configures.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_engine: crate::model::cloud_sql_properties::DatabaseEngine,
 
     /// How to authenticate to the instance.
@@ -34399,6 +34852,7 @@ pub mod cloud_sql_properties {
 pub struct DeleteTableDataProfileRequest {
     /// Required. Resource name of the table data profile.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -34437,6 +34891,7 @@ pub struct DataSourceType {
     /// * google/sql/table
     /// * google/gcs/bucket
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_source: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -34730,7 +35185,10 @@ pub mod file_cluster_type {
     #[non_exhaustive]
     pub enum FileClusterType {
         /// Cluster type.
-        Cluster(crate::model::file_cluster_type::Cluster),
+        Cluster(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            crate::model::file_cluster_type::Cluster,
+        ),
     }
 }
 
@@ -34916,10 +35374,12 @@ pub struct InfoType {
     /// Catalog, infoType names should conform to the pattern
     /// `[A-Za-z0-9$_-]{1,64}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional version name for this InfoType.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Optional custom sensitivity for this InfoType.
@@ -34982,6 +35442,7 @@ impl wkt::message::Message for InfoType {
 pub struct SensitivityScore {
     /// The sensitivity score applied to the resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub score: crate::model::sensitivity_score::SensitivityScoreLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -35182,6 +35643,7 @@ pub struct StoredType {
     /// `organizations/433245324/storedInfoTypes/432452342` or
     /// `projects/project-id/storedInfoTypes/432452342`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Timestamp indicating when the version of the `StoredInfoType` used for
@@ -35249,17 +35711,20 @@ pub struct CustomInfoType {
     /// altered by a detection rule if the finding meets the criteria specified by
     /// the rule. Defaults to `VERY_LIKELY` if not specified.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub likelihood: crate::model::Likelihood,
 
     /// Set of detection rules to apply to all findings of this CustomInfoType.
     /// Rules are applied in order that they are specified. Not supported for the
     /// `surrogate_type` CustomInfoType.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub detection_rules: std::vec::Vec<crate::model::custom_info_type::DetectionRule>,
 
     /// If set to EXCLUSION_TYPE_EXCLUDE this infoType will not cause a finding
     /// to be returned. It still can be used for rules matching.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub exclusion_type: crate::model::custom_info_type::ExclusionType,
 
     /// Sensitivity for this CustomInfoType. If this CustomInfoType extends an
@@ -35633,6 +36098,7 @@ pub mod custom_info_type {
             /// at least one phrase and every phrase must contain at least 2 characters
             /// that are letters or digits. [required]
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub words: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -35686,12 +36152,13 @@ pub mod custom_info_type {
         /// (<https://github.com/google/re2/wiki/Syntax>) can be found under the
         /// google/re2 repository on GitHub.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub pattern: std::string::String,
 
         /// The index of the submatch to extract as findings. When not
         /// specified, the entire match is returned. No more than 3 may be included.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
         pub group_indexes: std::vec::Vec<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -35855,12 +36322,12 @@ pub mod custom_info_type {
             /// [Hotword example: Set the match likelihood of a table column]
             /// (<https://cloud.google.com/sensitive-data-protection/docs/creating-custom-infotypes-likelihood#match-column-values>).
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub window_before: i32,
 
             /// Number of characters after the finding to consider.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub window_after: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -35995,7 +36462,9 @@ pub mod custom_info_type {
             #[non_exhaustive]
             pub enum Adjustment {
                 /// Set the likelihood of a finding to a fixed value.
-                FixedLikelihood(crate::model::Likelihood),
+                FixedLikelihood(
+                    #[serde_as(as = "serde_with::DefaultOnNull<_>")] crate::model::Likelihood,
+                ),
                 /// Increase or decrease the likelihood by the specified number of
                 /// levels. For example, if a finding would be `POSSIBLE` without the
                 /// detection rule and `relative_likelihood` is 1, then it is upgraded to
@@ -36004,7 +36473,9 @@ pub mod custom_info_type {
                 /// `VERY_LIKELY`, so applying an adjustment of 1 followed by an
                 /// adjustment of -1 when base likelihood is `VERY_LIKELY` will result in
                 /// a final likelihood of `LIKELY`.
-                RelativeLikelihood(#[serde_as(as = "wkt::internal::I32")] i32),
+                RelativeLikelihood(
+                    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32,
+                ),
             }
         }
 
@@ -36285,6 +36756,7 @@ pub mod custom_info_type {
 pub struct FieldId {
     /// Name describing the field.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -36322,10 +36794,12 @@ impl wkt::message::Message for FieldId {
 pub struct PartitionId {
     /// The ID of the project to which the entities belong.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// If not empty, the ID of the namespace to which the entities belong.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub namespace_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -36364,6 +36838,7 @@ impl wkt::message::Message for PartitionId {
 pub struct KindExpression {
     /// The name of the kind.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -36494,6 +36969,7 @@ impl wkt::message::Message for DatastoreOptions {
 pub struct CloudStorageRegexFileSet {
     /// The name of a Cloud Storage bucket. Required.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket_name: std::string::String,
 
     /// A list of regular expressions matching file paths to include. All files in
@@ -36506,6 +36982,7 @@ pub struct CloudStorageRegexFileSet {
     /// [syntax](https://github.com/google/re2/wiki/Syntax); a guide can be found
     /// under the google/re2 repository on GitHub.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub include_regex: std::vec::Vec<std::string::String>,
 
     /// A list of regular expressions matching file paths to exclude. All files in
@@ -36516,6 +36993,7 @@ pub struct CloudStorageRegexFileSet {
     /// [syntax](https://github.com/google/re2/wiki/Syntax); a guide can be found
     /// under the google/re2 repository on GitHub.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub exclude_regex: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -36581,7 +37059,7 @@ pub struct CloudStorageOptions {
     /// on bytes scanned per
     /// file](https://cloud.google.com/sensitive-data-protection/docs/supported-file-types#max-byte-size-per-file).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub bytes_limit_per_file: i64,
 
     /// Max percentage of bytes to scan from a file. The rest are omitted. The
@@ -36593,7 +37071,7 @@ pub struct CloudStorageOptions {
     /// on bytes scanned per
     /// file](https://cloud.google.com/sensitive-data-protection/docs/supported-file-types#max-byte-size-per-file).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub bytes_limit_per_file_percent: i32,
 
     /// List of file type groups to include in the scan.
@@ -36604,17 +37082,19 @@ pub struct CloudStorageOptions {
     /// does not support image inspection and no file_types were specified.
     /// Image inspection is restricted to 'global', 'us', 'asia', and 'europe'.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub file_types: std::vec::Vec<crate::model::FileType>,
 
     /// How to sample the data.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sample_method: crate::model::cloud_storage_options::SampleMethod,
 
     /// Limits the number of files to scan to this percentage of the input FileSet.
     /// Number of files scanned is rounded down. Must be between 0 and 100,
     /// inclusively. Both 0 and 100 means no limit. Defaults to 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub files_limit_percent: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -36713,6 +37193,7 @@ pub mod cloud_storage_options {
         ///
         /// Exactly one of `url` or `regex_file_set` must be set.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub url: std::string::String,
 
         /// The regex-filtered set of files to scan. Exactly one of `url` or
@@ -36905,6 +37386,7 @@ pub struct CloudStorageFileSet {
     /// The url, in the format `gs://<bucket>/<path>`. Trailing wildcard in the
     /// path is allowed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub url: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -36938,6 +37420,7 @@ pub struct CloudStoragePath {
     /// A URL representing a file or path (no wildcards) in Cloud Storage.
     /// Example: `gs://[BUCKET_NAME]/dictionary.txt`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -36978,6 +37461,7 @@ pub struct BigQueryOptions {
     /// `location.content_locations.record_location.record_key.id_values`. Nested
     /// fields such as `person.birthdate.year` are allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub identifying_fields: std::vec::Vec<crate::model::FieldId>,
 
     /// Max number of rows to scan. If the table has more rows than this value, the
@@ -36985,7 +37469,7 @@ pub struct BigQueryOptions {
     /// scanned. Only one of rows_limit and rows_limit_percent can be specified.
     /// Cannot be used in conjunction with TimespanConfig.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub rows_limit: i64,
 
     /// Max percentage of rows to scan. The rest are omitted. The number of rows
@@ -36999,11 +37483,12 @@ pub struct BigQueryOptions {
     /// is causing the `rowsLimitPercent` field to behave unexpectedly. We
     /// recommend using `rowsLimit` instead.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub rows_limit_percent: i32,
 
     /// How to sample the data.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sample_method: crate::model::big_query_options::SampleMethod,
 
     /// References to fields excluded from scanning. This allows you to skip
@@ -37012,6 +37497,7 @@ pub struct BigQueryOptions {
     /// Otherwise, findings might be affected because hints from excluded columns
     /// will not be used.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub excluded_fields: std::vec::Vec<crate::model::FieldId>,
 
     /// Limit scanning only to these fields.
@@ -37019,6 +37505,7 @@ pub struct BigQueryOptions {
     /// Otherwise, findings might be affected because hints from excluded columns
     /// will not be used.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub included_fields: std::vec::Vec<crate::model::FieldId>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -37511,6 +37998,7 @@ pub mod storage_config {
         /// issue](https://cloud.google.com/sensitive-data-protection/docs/known-issues#recently-streamed-data)
         /// related to this operation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_auto_population_of_timespan_config: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -37619,6 +38107,7 @@ pub struct HybridOptions {
     /// A short description of where the data is coming from. Will be stored once
     /// in the job. 256 max length.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// These are labels that each inspection request must include within their
@@ -37630,6 +38119,7 @@ pub struct HybridOptions {
     ///
     /// No more than 10 keys can be required.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub required_finding_label_keys: std::vec::Vec<std::string::String>,
 
     /// To organize findings, these labels will be added to each finding.
@@ -37647,6 +38137,7 @@ pub struct HybridOptions {
     /// * `"environment" : "production"`
     /// * `"pipeline" : "etl"`
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// If the container is a table, additional information to make findings
@@ -37733,7 +38224,7 @@ pub struct BigQueryKey {
     /// `inspect_job.storage_config.big_query_options.identifying_fields` in
     /// `CreateDlpJobRequest`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub row_number: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -37845,6 +38336,7 @@ pub struct Key {
     ///
     /// A path can never be empty, and a path can have at most 100 elements.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub path: std::vec::Vec<crate::model::key::PathElement>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -37911,6 +38403,7 @@ pub mod key {
         /// A kind must not contain more than 1500 bytes when UTF-8 encoded.
         /// Cannot be `""`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub kind: std::string::String,
 
         /// The type of ID.
@@ -38011,12 +38504,12 @@ pub mod key {
             /// The auto-allocated ID of the entity.
             /// Never equal to zero. Values less than zero are discouraged and may not
             /// be supported in the future.
-            Id(#[serde_as(as = "serde_with::DisplayFromStr")] i64),
+            Id(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")] i64),
             /// The name of the entity.
             /// A name matching regex `__.*__` is reserved/read-only.
             /// A name must not be more than 1500 bytes when UTF-8 encoded.
             /// Cannot be `""`.
-            Name(std::string::String),
+            Name(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 }
@@ -38030,6 +38523,7 @@ pub struct RecordKey {
     /// Values of identifying columns in the given row. Order of values matches
     /// the order of `identifying_fields` specified in the scanning request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub id_values: std::vec::Vec<std::string::String>,
 
     /// Type of key
@@ -38160,14 +38654,17 @@ pub struct BigQueryTable {
     /// The Google Cloud project ID of the project containing the table.
     /// If omitted, project ID is inferred from the API call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Dataset ID of the table.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_id: std::string::String,
 
     /// Name of the table.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -38213,10 +38710,12 @@ impl wkt::message::Message for BigQueryTable {
 pub struct TableReference {
     /// Dataset ID of the table.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset_id: std::string::String,
 
     /// Name of the table.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -38372,6 +38871,7 @@ pub struct TableOptions {
     /// each finding so that the finding can be traced to the specific row it came
     /// from. No more than 3 may be provided.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub identifying_fields: std::vec::Vec<crate::model::FieldId>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

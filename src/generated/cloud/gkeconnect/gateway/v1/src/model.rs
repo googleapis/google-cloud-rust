@@ -38,6 +38,7 @@ extern crate wkt;
 pub struct GenerateCredentialsRequest {
     /// Required. The Fleet membership resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Whether to force the use of Connect Agent-based transport.
@@ -47,6 +48,7 @@ pub struct GenerateCredentialsRequest {
     /// different transport. Requires that Connect Agent be installed on the
     /// cluster. Setting this field to false is equivalent to not setting it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force_use_agent: bool,
 
     /// Optional. The Connect Gateway version to be used in the resulting
@@ -54,6 +56,7 @@ pub struct GenerateCredentialsRequest {
     ///
     /// Leave this field blank to let the server choose the version (recommended).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Optional. The namespace to use in the kubeconfig context.
@@ -61,10 +64,12 @@ pub struct GenerateCredentialsRequest {
     /// If this field is specified, the server will set the `namespace` field in
     /// kubeconfig context. If not specified, the `namespace` field is omitted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kubernetes_namespace: std::string::String,
 
     /// Optional. The operating system where the kubeconfig will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub operating_system: crate::model::generate_credentials_request::OperatingSystem,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -262,12 +267,13 @@ pub mod generate_credentials_request {
 pub struct GenerateCredentialsResponse {
     /// A full YAML kubeconfig in serialized format.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub kubeconfig: ::bytes::Bytes,
 
     /// The generated URI of the cluster as accessed through the Connect Gateway
     /// API.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub endpoint: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

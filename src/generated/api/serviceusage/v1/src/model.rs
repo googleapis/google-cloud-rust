@@ -45,6 +45,7 @@ pub struct Service {
     ///
     /// - projects/123/services/serviceusage.googleapis.com
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The resource name of the consumer.
@@ -53,6 +54,7 @@ pub struct Service {
     ///
     /// - projects/123
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The service configuration of the available service.
@@ -64,6 +66,7 @@ pub struct Service {
 
     /// Whether or not the service has been enabled for use by the consumer.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -129,15 +132,18 @@ pub struct ServiceConfig {
     /// An example DNS address would be:
     /// `calendar.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The product title for this service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// A list of API interfaces exported by this service. Contains only the names,
     /// versions, and method names of the interfaces.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub apis: std::vec::Vec<wkt::Api>,
 
     /// Additional API documentation. Contains only the summary and the
@@ -160,12 +166,14 @@ pub struct ServiceConfig {
     /// Configuration for network endpoints. Contains only the names and aliases
     /// of the endpoints.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub endpoints: std::vec::Vec<api::model::Endpoint>,
 
     /// Defines the monitored resources used by this service. This is required
     /// by the [Service.monitoring][google.api.Service.monitoring] and
     /// [Service.logging][google.api.Service.logging] configurations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub monitored_resources: std::vec::Vec<api::model::MonitoredResourceDescriptor>,
 
     /// Monitoring configuration.
@@ -333,6 +341,7 @@ pub struct OperationMetadata {
     /// The full name of the resources that this operation is directly
     /// associated with.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -380,6 +389,7 @@ pub struct EnableServiceRequest {
     /// `projects/123/services/serviceusage.googleapis.com` where `123` is the
     /// project number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -464,6 +474,7 @@ pub struct DisableServiceRequest {
     /// `projects/123/services/serviceusage.googleapis.com` where `123` is the
     /// project number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Indicates if services that are enabled and which depend on this service
@@ -472,10 +483,12 @@ pub struct DisableServiceRequest {
     /// service, and any enabled services that depend on it, will be disabled
     /// together.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disable_dependent_services: bool,
 
     /// Defines the behavior for checking service usage when disabling a service.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub check_if_service_has_usage: crate::model::disable_service_request::CheckIfServiceHasUsage,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -718,6 +731,7 @@ pub struct GetServiceRequest {
     /// `projects/123/services/serviceusage.googleapis.com` where `123` is the
     /// project number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -753,23 +767,26 @@ pub struct ListServicesRequest {
     /// An example name would be:
     /// `projects/123` where `123` is the project number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Requested size of the next page of data.
     /// Requested page size cannot exceed 200.
     /// If not set, the default page size is 50.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Token identifying which result to start with, which is returned by a
     /// previous list call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Only list services that conform to the given filter.
     /// The allowed filter strings are `state:ENABLED` and `state:DISABLED`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -820,11 +837,13 @@ impl wkt::message::Message for ListServicesRequest {
 pub struct ListServicesResponse {
     /// The available services for the requested project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub services: std::vec::Vec<crate::model::Service>,
 
     /// Token that can be passed to `ListServices` to resume a paginated
     /// query.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -887,6 +906,7 @@ pub struct BatchEnableServicesRequest {
     ///
     /// The `BatchEnableServices` method currently only supports projects.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The identifiers of the services to enable on the project.
@@ -901,6 +921,7 @@ pub struct BatchEnableServicesRequest {
     /// than 20 services are specified, the request will fail, and no state changes
     /// will occur.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service_ids: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -946,11 +967,13 @@ impl wkt::message::Message for BatchEnableServicesRequest {
 pub struct BatchEnableServicesResponse {
     /// The new state of the services after enabling.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub services: std::vec::Vec<crate::model::Service>,
 
     /// If allow_partial_success is true, and one or more services could not be
     /// enabled, this field contains the details about each failure.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub failures: std::vec::Vec<crate::model::batch_enable_services_response::EnableFailure>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1004,10 +1027,12 @@ pub mod batch_enable_services_response {
     pub struct EnableFailure {
         /// The service id of a service that could not be enabled.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service_id: std::string::String,
 
         /// An error message describing why the service could not be enabled.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub error_message: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1054,6 +1079,7 @@ pub struct BatchGetServicesRequest {
     /// the project number. The `BatchGetServices` method currently only supports
     /// projects.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Names of the services to retrieve.
@@ -1063,6 +1089,7 @@ pub struct BatchGetServicesRequest {
     /// project number.
     /// A single request can get a maximum of 30 services at a time.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1106,6 +1133,7 @@ impl wkt::message::Message for BatchGetServicesRequest {
 pub struct BatchGetServicesResponse {
     /// The requested Service states.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub services: std::vec::Vec<crate::model::Service>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -191,7 +191,7 @@ pub mod advanced_settings {
         /// Sensitivity of the speech model that detects the end of speech.
         /// Scale from 0 to 100.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub endpointer_sensitivity: i32,
 
         /// Timeout before detecting no speech.
@@ -201,6 +201,7 @@ pub mod advanced_settings {
         /// Use timeout based endpointing, interpreting endpointer sensitivity as
         /// seconds of timeout value.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub use_timeout_based_endpointing: bool,
 
         /// Mapping from language to Speech-to-Text model. The mapped Speech-to-Text
@@ -209,6 +210,7 @@ pub mod advanced_settings {
         /// [Speech
         /// models](https://cloud.google.com/dialogflow/cx/docs/concept/speech-models).
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub models: std::collections::HashMap<std::string::String, std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -285,15 +287,17 @@ pub mod advanced_settings {
         /// to the bot to drive business logic (e.g. when 3 is pressed, return the
         /// account balance).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enabled: bool,
 
         /// Max length of DTMF digits.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub max_digits: i32,
 
         /// The digit that terminates a DTMF digit sequence.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub finish_digit: std::string::String,
 
         /// Interdigit timeout setting for matching dtmf input to regex.
@@ -391,16 +395,19 @@ pub mod advanced_settings {
     pub struct LoggingSettings {
         /// Enables Google Cloud Logging.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_stackdriver_logging: bool,
 
         /// Enables DF Interaction logging.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_interaction_logging: bool,
 
         /// Enables consent-based end-user input redaction, if true, a pre-defined
         /// session parameter `$session.params.conversation-redaction` will be
         /// used to determine if the utterance should be redacted.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_consent_based_redaction: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -449,6 +456,7 @@ pub mod advanced_settings {
 pub struct SpeechToTextSettings {
     /// Whether to use speech adaptation for speech recognition.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_speech_adaptation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -509,10 +517,12 @@ pub struct Agent {
     /// [google.cloud.dialogflow.cx.v3.Agents.CreateAgent]: crate::client::Agents::create_agent
     /// [google.cloud.dialogflow.cx.v3.Agents.UpdateAgent]: crate::client::Agents::update_agent
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human-readable name of the agent, unique within the location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Required. Immutable. The default language of the agent as a language tag.
@@ -525,22 +535,26 @@ pub struct Agent {
     ///
     /// [google.cloud.dialogflow.cx.v3.Agents.UpdateAgent]: crate::client::Agents::update_agent
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_language_code: std::string::String,
 
     /// The list of all languages supported by the agent (except for the
     /// `default_language_code`).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub supported_language_codes: std::vec::Vec<std::string::String>,
 
     /// Required. The time zone of the agent from the [time zone
     /// database](https://www.iana.org/time-zones), e.g., America/New_York,
     /// Europe/Paris.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub time_zone: std::string::String,
 
     /// The description of the agent. The maximum length is 500 characters. If
     /// exceeded, the request is rejected.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// The URI of the agent's avatar. Avatars are used throughout the Dialogflow
@@ -548,6 +562,7 @@ pub struct Agent {
     /// Demo](https://cloud.google.com/dialogflow/docs/integrations/web-demo)
     /// integration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub avatar_uri: std::string::String,
 
     /// Speech recognition related settings.
@@ -559,6 +574,7 @@ pub struct Agent {
     /// deleting the agent. Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub start_flow: std::string::String,
 
     /// Name of the
@@ -568,6 +584,7 @@ pub struct Agent {
     ///
     /// [google.cloud.dialogflow.cx.v3.SecuritySettings]: crate::model::SecuritySettings
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub security_settings: std::string::String,
 
     /// Indicates if stackdriver logging is enabled for the agent.
@@ -577,22 +594,26 @@ pub struct Agent {
     ///
     /// [google.cloud.dialogflow.cx.v3.AdvancedSettings.LoggingSettings]: crate::model::advanced_settings::LoggingSettings
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub enable_stackdriver_logging: bool,
 
     /// Indicates if automatic spell correction is enabled in detect intent
     /// requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_spell_correction: bool,
 
     /// Optional. Enable training multi-lingual models for this agent. These models
     /// will be trained on all the languages supported by the agent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_multi_language_training: bool,
 
     /// Indicates whether the agent is locked for changes. If the agent is locked,
     /// modifications to the agent will be rejected except for [RestoreAgent][].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub locked: bool,
 
     /// Hierarchical advanced settings for this agent. The settings exposed at the
@@ -1021,23 +1042,28 @@ pub mod agent {
         pub struct GithubSettings {
             /// The unique repository display name for the GitHub repository.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub display_name: std::string::String,
 
             /// The GitHub repository URI related to the agent.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub repository_uri: std::string::String,
 
             /// The branch of the GitHub repository tracked for this agent.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub tracking_branch: std::string::String,
 
             /// The access token used to authenticate the access to the GitHub
             /// repository.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub access_token: std::string::String,
 
             /// A list of branches configured to be used from Dialogflow.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub branches: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1126,6 +1152,7 @@ pub mod agent {
         /// agent if there is one. Format: `projects/{Project ID}/locations/{Location
         /// ID}/collections/{Collection ID}/engines/{Engine ID}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub engine: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1163,6 +1190,7 @@ pub mod agent {
         ///
         /// [google.cloud.dialogflow.cx.v3.AnswerFeedback]: crate::model::AnswerFeedback
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_answer_feedback: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1253,12 +1281,14 @@ pub mod agent {
         /// Required. The ssl certificate encoded in PEM format. This string must
         /// include the begin header and end footer lines.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub ssl_certificate: std::string::String,
 
         /// Required. The name of the SecretManager secret version resource storing
         /// the private key encoded in PEM format. Format:
         /// `projects/{project}/secrets/{secret}/versions/{version}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub private_key: std::string::String,
 
         /// Optional. The name of the SecretManager secret version resource storing
@@ -1266,6 +1296,7 @@ pub mod agent {
         /// not encrypted.
         /// Format: `projects/{project}/secrets/{secret}/versions/{version}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub passphrase: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1318,16 +1349,18 @@ pub struct ListAgentsRequest {
     /// Required. The location to list all agents for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1376,11 +1409,13 @@ pub struct ListAgentsResponse {
     /// The list of agents. There will be a maximum number of items returned based
     /// on the page_size field in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub agents: std::vec::Vec<crate::model::Agent>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1442,6 +1477,7 @@ pub struct GetAgentRequest {
     /// Required. The name of the agent.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1478,6 +1514,7 @@ pub struct CreateAgentRequest {
     /// Required. The location to create a agent for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The agent to create.
@@ -1606,6 +1643,7 @@ pub struct DeleteAgentRequest {
     /// Required. The name of the agent to delete.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1642,6 +1680,7 @@ pub struct ExportAgentRequest {
     /// Required. The name of the agent to export.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The [Google Cloud
@@ -1655,17 +1694,20 @@ pub struct ExportAgentRequest {
     /// [Dialogflow access
     /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub agent_uri: std::string::String,
 
     /// Optional. The data format of the exported agent. If not specified, `BLOB`
     /// is assumed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_format: crate::model::export_agent_request::DataFormat,
 
     /// Optional. Environment name. If not set, draft environment is assumed.
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/environments/<EnvironmentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     /// Optional. The Git branch to export the agent to.
@@ -1674,6 +1716,7 @@ pub struct ExportAgentRequest {
 
     /// Optional. Whether to include BigQuery Export setting.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_bigquery_export_settings: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1761,10 +1804,12 @@ pub mod export_agent_request {
     pub struct GitDestination {
         /// Tracking branch for the git push.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub tracking_branch: std::string::String,
 
         /// Commit message for the git push.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub commit_message: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2066,19 +2111,22 @@ pub mod export_agent_response {
         /// [ExportAgentRequest][google.cloud.dialogflow.cx.v3.ExportAgentRequest].
         ///
         /// [google.cloud.dialogflow.cx.v3.ExportAgentRequest]: crate::model::ExportAgentRequest
-        AgentUri(std::string::String),
+        AgentUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Uncompressed raw byte content for agent. This field is populated
         /// if none of `agent_uri` and `git_destination` are specified in
         /// [ExportAgentRequest][google.cloud.dialogflow.cx.v3.ExportAgentRequest].
         ///
         /// [google.cloud.dialogflow.cx.v3.ExportAgentRequest]: crate::model::ExportAgentRequest
-        AgentContent(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        AgentContent(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// Commit SHA of the git push. This field is populated if
         /// `git_destination` is specified in
         /// [ExportAgentRequest][google.cloud.dialogflow.cx.v3.ExportAgentRequest].
         ///
         /// [google.cloud.dialogflow.cx.v3.ExportAgentRequest]: crate::model::ExportAgentRequest
-        CommitSha(std::string::String),
+        CommitSha(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -2094,10 +2142,12 @@ pub struct RestoreAgentRequest {
     /// Required. The name of the agent to restore into.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Agent restore mode. If not specified, `KEEP` is assumed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub restore_option: crate::model::restore_agent_request::RestoreOption,
 
     /// Required. The agent to restore.
@@ -2244,6 +2294,7 @@ pub mod restore_agent_request {
     pub struct GitSource {
         /// tracking branch for the git pull
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub tracking_branch: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2421,9 +2472,12 @@ pub mod restore_agent_request {
         /// have read permissions for the object. For more information, see
         /// [Dialogflow access
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
-        AgentUri(std::string::String),
+        AgentUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Uncompressed raw byte content for agent.
-        AgentContent(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        AgentContent(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// Setting for restoring from a git branch
         GitSource(std::boxed::Box<crate::model::restore_agent_request::GitSource>),
     }
@@ -2441,10 +2495,12 @@ pub struct ValidateAgentRequest {
     /// Required. The agent to validate.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If not specified, the agent's default language is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2488,10 +2544,12 @@ pub struct GetAgentValidationResultRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/validationResult`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If not specified, the agent's default language is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2535,10 +2593,12 @@ pub struct AgentValidationResult {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/validationResult`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Contains all flow validation results.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub flow_validation_results: std::vec::Vec<crate::model::FlowValidationResult>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2587,10 +2647,12 @@ pub struct GetGenerativeSettingsRequest {
     /// Required. Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/generativeSettings`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Language code of the generative settings.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2700,6 +2762,7 @@ impl wkt::message::Message for UpdateGenerativeSettingsRequest {
 pub struct SpeechWordInfo {
     /// The word this info is for.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub word: std::string::String,
 
     /// Time offset relative to the beginning of the audio that corresponds to the
@@ -2722,7 +2785,7 @@ pub struct SpeechWordInfo {
     /// This field is not guaranteed to be fully stable over time for the same
     /// audio input. Users should also not rely on it to always be provided.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2888,6 +2951,7 @@ impl wkt::message::Message for BargeInConfig {
 pub struct InputAudioConfig {
     /// Required. Audio encoding of the audio content to process.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub audio_encoding: crate::model::AudioEncoding,
 
     /// Sample rate (in Hertz) of the audio content sent in the query.
@@ -2896,7 +2960,7 @@ pub struct InputAudioConfig {
     /// documentation](https://cloud.google.com/speech-to-text/docs/basics) for
     /// more details.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub sample_rate_hertz: i32,
 
     /// Optional. If `true`, Dialogflow returns
@@ -2909,6 +2973,7 @@ pub struct InputAudioConfig {
     /// [google.cloud.dialogflow.cx.v3.SpeechWordInfo]: crate::model::SpeechWordInfo
     /// [google.cloud.dialogflow.cx.v3.StreamingRecognitionResult]: crate::model::StreamingRecognitionResult
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_word_info: bool,
 
     /// Optional. A list of strings containing words and phrases that the speech
@@ -2918,6 +2983,7 @@ pub struct InputAudioConfig {
     /// documentation](https://cloud.google.com/speech-to-text/docs/basics#phrase-hints)
     /// for more details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub phrase_hints: std::vec::Vec<std::string::String>,
 
     /// Optional. Which Speech model to select for the given request.
@@ -2925,6 +2991,7 @@ pub struct InputAudioConfig {
     /// [Speech
     /// models](https://cloud.google.com/dialogflow/cx/docs/concept/speech-models).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     /// Optional. Which variant of the [Speech
@@ -2932,6 +2999,7 @@ pub struct InputAudioConfig {
     ///
     /// [google.cloud.dialogflow.cx.v3.InputAudioConfig.model]: crate::model::InputAudioConfig::model
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model_variant: crate::model::SpeechModelVariant,
 
     /// Optional. If `false` (default), recognition does not cease until the
@@ -2943,6 +3011,7 @@ pub struct InputAudioConfig {
     /// needed.
     /// Note: This setting is relevant only for streaming methods.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub single_utterance: bool,
 
     /// Configuration of barge-in behavior during the streaming of input audio.
@@ -2954,6 +3023,7 @@ pub struct InputAudioConfig {
     /// 2024. Please refer to [Dialogflow CX Speech model
     /// migration](https://cloud.google.com/dialogflow/cx/docs/concept/speech-model-migration).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub opt_out_conformer_model_migration: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3067,6 +3137,7 @@ pub struct VoiceSelectionParams {
     ///
     /// [google.cloud.dialogflow.cx.v3.VoiceSelectionParams.ssml_gender]: crate::model::VoiceSelectionParams::ssml_gender
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The preferred gender of the voice. If not set, the service will
@@ -3078,6 +3149,7 @@ pub struct VoiceSelectionParams {
     ///
     /// [google.cloud.dialogflow.cx.v3.VoiceSelectionParams.name]: crate::model::VoiceSelectionParams::name
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ssml_gender: crate::model::SsmlVoiceGender,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3122,14 +3194,14 @@ pub struct SynthesizeSpeechConfig {
     /// 0.5 is half as fast. If unset(0.0), defaults to the native 1.0 speed. Any
     /// other values < 0.25 or > 4.0 will return an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub speaking_rate: f64,
 
     /// Optional. Speaking pitch, in the range [-20.0, 20.0]. 20 means increase 20
     /// semitones from the original pitch. -20 means decrease 20 semitones from the
     /// original pitch.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub pitch: f64,
 
     /// Optional. Volume gain (in dB) of the normal native volume supported by the
@@ -3141,13 +3213,14 @@ pub struct SynthesizeSpeechConfig {
     /// to exceed +10 (dB) as there's usually no effective increase in loudness for
     /// any value greater than that.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub volume_gain_db: f64,
 
     /// Optional. An identifier which selects 'audio effects' profiles that are
     /// applied on (post synthesized) text to speech. Effects are applied on top of
     /// each other in the order they are given.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub effects_profile_id: std::vec::Vec<std::string::String>,
 
     /// Optional. The desired voice of the synthesized audio.
@@ -3225,6 +3298,7 @@ impl wkt::message::Message for SynthesizeSpeechConfig {
 pub struct OutputAudioConfig {
     /// Required. Audio encoding of the synthesized audio content.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub audio_encoding: crate::model::OutputAudioEncoding,
 
     /// Optional. The synthesis sample rate (in hertz) for this audio. If not
@@ -3233,7 +3307,7 @@ pub struct OutputAudioConfig {
     /// rate, then the synthesizer will honor this request by converting to the
     /// desired sample rate (which might result in worse audio quality).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub sample_rate_hertz: i32,
 
     /// Optional. Configuration of how speech should be synthesized.
@@ -3323,6 +3397,7 @@ pub struct TextToSpeechSettings {
     /// [google.cloud.dialogflow.cx.v3.OutputAudioConfig.synthesize_speech_config]: crate::model::OutputAudioConfig::synthesize_speech_config
     /// [google.cloud.dialogflow.cx.v3.Sessions]: crate::client::Sessions
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub synthesize_speech_configs:
         std::collections::HashMap<std::string::String, crate::model::SynthesizeSpeechConfig>,
 
@@ -3366,6 +3441,7 @@ pub struct ListChangelogsRequest {
     /// Required. The agent containing the changelogs.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The filter string. Supports filter by user_email, resource, type and
@@ -3390,16 +3466,18 @@ pub struct ListChangelogsRequest {
     ///   AND user_email = "someone@google.com"
     ///   AND create_time <= 2017-01-15T01:30:15.01Z
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3455,11 +3533,13 @@ pub struct ListChangelogsResponse {
     /// based on the page_size field in the request. The changelogs will be ordered
     /// by timestamp.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub changelogs: std::vec::Vec<crate::model::Changelog>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3522,6 +3602,7 @@ pub struct GetChangelogRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/changelogs/<ChangelogID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3556,27 +3637,33 @@ pub struct Changelog {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/changelogs/<ChangelogID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Email address of the authenticated user.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub user_email: std::string::String,
 
     /// The affected resource display name of the change.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The action of the change.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub action: std::string::String,
 
     /// The affected resource type.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// The affected resource name of the change.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource: std::string::String,
 
     /// The timestamp of the change.
@@ -3585,6 +3672,7 @@ pub struct Changelog {
 
     /// The affected language code of the change.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3672,6 +3760,7 @@ impl wkt::message::Message for Changelog {
 pub struct DataStoreConnection {
     /// The type of the connected data store.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_store_type: crate::model::DataStoreType,
 
     /// The full name of the referenced data store.
@@ -3679,12 +3768,14 @@ pub struct DataStoreConnection {
     /// `projects/{project}/locations/{location}/collections/{collection}/dataStores/{data_store}`
     /// `projects/{project}/locations/{location}/dataStores/{data_store}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_store: std::string::String,
 
     /// The document processing mode for the data store connection. Should only be
     /// set for PUBLIC_WEB and UNSTRUCTURED data stores. If not set it is
     /// considered as DOCUMENTS, as this is the legacy mode.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub document_processing_mode: crate::model::DocumentProcessingMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3745,10 +3836,12 @@ pub struct DataStoreConnectionSignals {
 
     /// Optional. Rewritten string query used for search.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rewritten_query: std::string::String,
 
     /// Optional. Search snippets included in the answer generation prompt.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub search_snippets: std::vec::Vec<crate::model::data_store_connection_signals::SearchSnippet>,
 
     /// Optional. Diagnostic info related to the answer generation model call.
@@ -3759,17 +3852,20 @@ pub struct DataStoreConnectionSignals {
 
     /// Optional. The final compiled answer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub answer: std::string::String,
 
     /// Optional. Answer parts with relevant citations.
     /// Concatenation of texts should add up the `answer` (not counting
     /// whitespaces).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub answer_parts: std::vec::Vec<crate::model::data_store_connection_signals::AnswerPart>,
 
     /// Optional. Snippets cited by the answer generation model from the most to
     /// least relevant.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub cited_snippets: std::vec::Vec<crate::model::data_store_connection_signals::CitedSnippet>,
 
     /// Optional. Grounding signals.
@@ -3939,15 +4035,18 @@ pub mod data_store_connection_signals {
     pub struct RewriterModelCallSignals {
         /// Prompt as sent to the model.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub rendered_prompt: std::string::String,
 
         /// Output of the generative model.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub model_output: std::string::String,
 
         /// Name of the generative model. For example, "gemini-ultra", "gemini-pro",
         /// "gemini-1.5-flash" etc. Defaults to "Other" if the model is unknown.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub model: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3998,14 +4097,17 @@ pub mod data_store_connection_signals {
     pub struct SearchSnippet {
         /// Title of the enclosing document.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub document_title: std::string::String,
 
         /// Uri for the document. Present if specified for the document.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub document_uri: std::string::String,
 
         /// Text included in the prompt.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub text: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4056,15 +4158,18 @@ pub mod data_store_connection_signals {
     pub struct AnswerGenerationModelCallSignals {
         /// Prompt as sent to the model.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub rendered_prompt: std::string::String,
 
         /// Output of the generative model.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub model_output: std::string::String,
 
         /// Name of the generative model. For example, "gemini-ultra", "gemini-pro",
         /// "gemini-1.5-flash" etc. Defaults to "Other" if the model is unknown.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub model: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4115,11 +4220,12 @@ pub mod data_store_connection_signals {
     pub struct AnswerPart {
         /// Substring of the answer.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub text: std::string::String,
 
         /// Citations for this answer part. Indices of `search_snippets`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
         pub supporting_indices: std::vec::Vec<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4168,7 +4274,7 @@ pub mod data_store_connection_signals {
 
         /// Index of the snippet in `search_snippets` field.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub snippet_index: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4219,11 +4325,13 @@ pub mod data_store_connection_signals {
     pub struct GroundingSignals {
         /// Represents the decision of the grounding check.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub decision:
             crate::model::data_store_connection_signals::grounding_signals::GroundingDecision,
 
         /// Grounding score bucket setting.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub score:
             crate::model::data_store_connection_signals::grounding_signals::GroundingScoreBucket,
 
@@ -4562,15 +4670,18 @@ pub mod data_store_connection_signals {
     pub struct SafetySignals {
         /// Safety decision.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub decision: crate::model::data_store_connection_signals::safety_signals::SafetyDecision,
 
         /// Specifies banned phrase match subject.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub banned_phrase_match:
             crate::model::data_store_connection_signals::safety_signals::BannedPhraseMatch,
 
         /// The matched banned phrase if there was a match.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub matched_banned_phrase: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4927,16 +5038,19 @@ pub struct Deployment {
     /// Format:
     /// projects/\<ProjectID\>/locations/\<LocationID\>/agents/\<AgentID\>/environments/\<EnvironmentID\>/deployments/\<DeploymentID\>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The name of the flow version for this deployment.
     /// Format:
     /// projects/\<ProjectID\>/locations/\<LocationID\>/agents/\<AgentID\>/flows/\<FlowID\>/versions/\<VerionID\>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub flow_version: std::string::String,
 
     /// The current state of the deployment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::deployment::State,
 
     /// Result of the deployment.
@@ -5057,12 +5171,14 @@ pub mod deployment {
         /// Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/testCases/<TestCaseID>/results/<TestCaseResultID>`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub deployment_test_results: std::vec::Vec<std::string::String>,
 
         /// The name of the experiment triggered by this deployment.
         /// Format:
         /// projects/\<ProjectID\>/locations/\<LocationID\>/agents/\<AgentID\>/environments/\<EnvironmentID\>/experiments/\<ExperimentID\>.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub experiment: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5253,16 +5369,18 @@ pub struct ListDeploymentsRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 20 and
     /// at most 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5313,11 +5431,13 @@ pub struct ListDeploymentsResponse {
     /// cases be empty or contain fewer entries than page_size even if this isn't
     /// the last page.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub deployments: std::vec::Vec<crate::model::Deployment>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5382,6 +5502,7 @@ pub struct GetDeploymentRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.Deployment]: crate::model::Deployment
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5451,23 +5572,28 @@ pub struct EntityType {
     ///
     /// [google.cloud.dialogflow.cx.v3.EntityTypes.UpdateEntityType]: crate::client::EntityTypes::update_entity_type
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human-readable name of the entity type, unique within the
     /// agent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Required. Indicates the kind of entity type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kind: crate::model::entity_type::Kind,
 
     /// Indicates whether the entity type can be automatically expanded.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub auto_expansion_mode: crate::model::entity_type::AutoExpansionMode,
 
     /// The collection of entity entries associated with the entity type.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entities: std::vec::Vec<crate::model::entity_type::Entity>,
 
     /// Collection of exceptional words and phrases that shouldn't be matched.
@@ -5476,16 +5602,19 @@ pub struct EntityType {
     /// If the kind of entity type is `KIND_MAP`, then the phrases specified by
     /// entities and excluded phrases should be mutually exclusive.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub excluded_phrases: std::vec::Vec<crate::model::entity_type::ExcludedPhrase>,
 
     /// Enables fuzzy entity extraction during classification.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_fuzzy_extraction: bool,
 
     /// Indicates whether parameters of the entity type should be redacted in log.
     /// If redaction is enabled, page parameters and intent parameters referring to
     /// the entity type will be replaced by parameter name when logging.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub redact: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5594,6 +5723,7 @@ pub mod entity_type {
         /// * A string that can contain references to other entity types (with or
         ///   without aliases).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub value: std::string::String,
 
         /// Required. A collection of value synonyms. For example, if the entity type
@@ -5604,6 +5734,7 @@ pub mod entity_type {
         ///
         /// * This collection must contain exactly one synonym equal to `value`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub synonyms: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5647,6 +5778,7 @@ pub mod entity_type {
     pub struct ExcludedPhrase {
         /// Required. The word or phrase to be excluded.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub value: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5955,17 +6087,20 @@ pub struct ExportEntityTypesRequest {
     /// Required. The name of the parent agent to export entity types.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The name of the entity types to export.
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/entityTypes/<EntityTypeID>`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entity_types: std::vec::Vec<std::string::String>,
 
     /// Optional. The data format of the exported entity types. If not specified,
     /// `BLOB` is assumed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_format: crate::model::export_entity_types_request::DataFormat,
 
     /// Optional. The language to retrieve the entity type for. The following
@@ -5981,6 +6116,7 @@ pub struct ExportEntityTypesRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The destination to export.
@@ -6261,9 +6397,9 @@ pub mod export_entity_types_request {
         /// have write permissions for the object. For more information, see
         /// [Dialogflow access
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
-        EntityTypesUri(std::string::String),
+        EntityTypesUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Optional. The option to return the serialized entity types inline.
-        EntityTypesContentInline(bool),
+        EntityTypesContentInline(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
     }
 }
 
@@ -6395,7 +6531,7 @@ pub mod export_entity_types_response {
         /// [ExportEntityTypesRequest][google.cloud.dialogflow.cx.v3.ExportEntityTypesRequest].
         ///
         /// [google.cloud.dialogflow.cx.v3.ExportEntityTypesRequest]: crate::model::ExportEntityTypesRequest
-        EntityTypesUri(std::string::String),
+        EntityTypesUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Uncompressed byte content for entity types. This field is populated only
         /// if `entity_types_content_inline` is set to true in
         /// [ExportEntityTypesRequest][google.cloud.dialogflow.cx.v3.ExportEntityTypesRequest].
@@ -6443,10 +6579,12 @@ pub struct ImportEntityTypesRequest {
     /// Required. The agent to import the entity types into.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Merge option for importing entity types.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub merge_option: crate::model::import_entity_types_request::MergeOption,
 
     /// Optional. The target entity type to import into.
@@ -6461,6 +6599,7 @@ pub struct ImportEntityTypesRequest {
     /// [google.cloud.dialogflow.cx.v3.EntityType.entities]: crate::model::EntityType::entities
     /// [google.cloud.dialogflow.cx.v3.ImportEntityTypesRequest.entity_types]: crate::model::ImportEntityTypesRequest::entity_types
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_entity_type: std::string::String,
 
     /// Required. The entity types to import.
@@ -6763,7 +6902,7 @@ pub mod import_entity_types_request {
         /// have read permissions for the object. For more information, see
         /// [Dialogflow access
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
-        EntityTypesUri(std::string::String),
+        EntityTypesUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Uncompressed byte content of entity types.
         EntityTypesContent(std::boxed::Box<crate::model::InlineSource>),
     }
@@ -6782,6 +6921,7 @@ pub struct ImportEntityTypesResponse {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/entity_types/<EntityTypeID>`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entity_types: std::vec::Vec<std::string::String>,
 
     /// Info which resources have conflicts when
@@ -6851,10 +6991,12 @@ pub mod import_entity_types_response {
     pub struct ConflictingResources {
         /// Display names of conflicting entity types.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub entity_type_display_names: std::vec::Vec<std::string::String>,
 
         /// Display names of conflicting entities.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub entity_display_names: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6934,6 +7076,7 @@ pub struct ListEntityTypesRequest {
     /// Required. The agent to list all entity types for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The language to list entity types for. The following fields are language
@@ -6949,16 +7092,18 @@ pub struct ListEntityTypesRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7013,11 +7158,13 @@ pub struct ListEntityTypesResponse {
     /// The list of entity types. There will be a maximum number of items returned
     /// based on the page_size field in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entity_types: std::vec::Vec<crate::model::EntityType>,
 
     /// Token to retrieve the next page of results, or empty if there are no
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7080,6 +7227,7 @@ pub struct GetEntityTypeRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/entityTypes/<EntityTypeID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The language to retrieve the entity type for. The following fields are
@@ -7095,6 +7243,7 @@ pub struct GetEntityTypeRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7137,6 +7286,7 @@ pub struct CreateEntityTypeRequest {
     /// Required. The agent to create a entity type for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The entity type to create.
@@ -7155,6 +7305,7 @@ pub struct CreateEntityTypeRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7228,6 +7379,7 @@ pub struct UpdateEntityTypeRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The mask to control which fields get updated.
@@ -7305,6 +7457,7 @@ pub struct DeleteEntityTypeRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/entityTypes/<EntityTypeID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// This field has no effect for entity type not being used.
@@ -7323,6 +7476,7 @@ pub struct DeleteEntityTypeRequest {
     /// [google.cloud.dialogflow.cx.v3.Form.Parameter]: crate::model::form::Parameter
     /// [google.cloud.dialogflow.cx.v3.Intent.Parameter]: crate::model::intent::Parameter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7370,16 +7524,19 @@ pub struct Environment {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/environments/<EnvironmentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human-readable name of the environment (unique in an agent).
     /// Limit of 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The human-readable description of the environment. The maximum length is
     /// 500 characters. If exceeded, the request is rejected.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// A list of configurations for flow versions. You should include version
@@ -7389,6 +7546,7 @@ pub struct Environment {
     ///
     /// [Agent.start_flow]: crate::model::Agent::start_flow
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub version_configs: std::vec::Vec<crate::model::environment::VersionConfig>,
 
     /// Output only. Update time of this environment.
@@ -7519,6 +7677,7 @@ pub mod environment {
         /// Format for playbook version:
         /// projects/\<ProjectID\>/locations/\<LocationID\>/agents/\<AgentID\>/playbooks/\<PlaybookID\>/versions/\<VersionID\>.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub version: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7553,6 +7712,7 @@ pub mod environment {
         /// Format of each test case name:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/testCases/<TestCaseID>`
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub test_cases: std::vec::Vec<std::string::String>,
 
         /// Whether to run test cases in
@@ -7561,6 +7721,7 @@ pub mod environment {
         ///
         /// [google.cloud.dialogflow.cx.v3.Environment.TestCasesConfig.test_cases]: crate::model::environment::TestCasesConfig::test_cases
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_continuous_run: bool,
 
         /// Whether to run test cases in
@@ -7569,6 +7730,7 @@ pub mod environment {
         ///
         /// [google.cloud.dialogflow.cx.v3.Environment.TestCasesConfig.test_cases]: crate::model::environment::TestCasesConfig::test_cases
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_predeployment_run: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7625,6 +7787,7 @@ pub mod environment {
         /// [google.cloud.dialogflow.cx.v3.Webhook.generic_web_service]: crate::model::Webhook::webhook
         /// [google.cloud.dialogflow.cx.v3.Webhook.service_directory]: crate::model::Webhook::webhook
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub webhook_overrides: std::vec::Vec<crate::model::Webhook>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7670,16 +7833,18 @@ pub struct ListEnvironmentsRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.Agent]: crate::model::Agent
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 20 and
     /// at most 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7730,11 +7895,13 @@ pub struct ListEnvironmentsResponse {
     /// cases be empty or contain fewer entries than page_size even if this isn't
     /// the last page.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub environments: std::vec::Vec<crate::model::Environment>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7799,6 +7966,7 @@ pub struct GetEnvironmentRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7839,6 +8007,7 @@ pub struct CreateEnvironmentRequest {
     /// [google.cloud.dialogflow.cx.v3.Agent]: crate::model::Agent
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The environment to create.
@@ -7969,6 +8138,7 @@ pub struct DeleteEnvironmentRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8006,16 +8176,18 @@ pub struct LookupEnvironmentHistoryRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/environments/<EnvironmentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8067,11 +8239,13 @@ pub struct LookupEnvironmentHistoryResponse {
     ///
     /// [google.cloud.dialogflow.cx.v3.Environment.update_time]: crate::model::Environment::update_time
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub environments: std::vec::Vec<crate::model::Environment>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8130,15 +8304,18 @@ pub struct ContinuousTestResult {
     /// The resource name for the continuous test result. Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/environments/<EnvironmentID>/continuousTestResults/<ContinuousTestResultID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The result of this continuous test run, i.e. whether all the tests in this
     /// continuous test run pass or not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub result: crate::model::continuous_test_result::AggregatedTestResult,
 
     /// A list of individual test case results names in this continuous test run.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub test_case_results: std::vec::Vec<std::string::String>,
 
     /// Time when the continuous testing run starts.
@@ -8359,6 +8536,7 @@ pub struct RunContinuousTestRequest {
     /// Required. Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/environments/<EnvironmentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8442,6 +8620,7 @@ impl wkt::message::Message for RunContinuousTestResponse {
 pub struct RunContinuousTestMetadata {
     /// The test errors.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<crate::model::TestError>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8484,16 +8663,18 @@ pub struct ListContinuousTestResultsRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/environments/<EnvironmentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8538,11 +8719,13 @@ impl wkt::message::Message for ListContinuousTestResultsRequest {
 pub struct ListContinuousTestResultsResponse {
     /// The list of continuous test results.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub continuous_test_results: std::vec::Vec<crate::model::ContinuousTestResult>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8605,12 +8788,14 @@ pub struct DeployFlowRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/environments/<EnvironmentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     /// Required. The flow version to deploy.
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>/versions/<VersionID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub flow_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8660,6 +8845,7 @@ pub struct DeployFlowResponse {
     ///
     /// [google.cloud.dialogflow.cx.v3.Deployment]: crate::model::Deployment
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deployment: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8714,6 +8900,7 @@ impl wkt::message::Message for DeployFlowResponse {
 pub struct DeployFlowMetadata {
     /// Errors of running deployment tests.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub test_errors: std::vec::Vec<crate::model::TestError>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8753,15 +8940,18 @@ pub struct Experiment {
     /// Format:
     /// projects/\<ProjectID\>/locations/\<LocationID\>/agents/\<AgentID\>/environments/\<EnvironmentID\>/experiments/\<ExperimentID\>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human-readable name of the experiment (unique in an
     /// environment). Limit of 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The human-readable description of the experiment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// The current state of the experiment.
@@ -8769,6 +8959,7 @@ pub struct Experiment {
     /// Transition triggered by Experiments.CancelExperiment: DRAFT->DONE or
     /// RUNNING->DONE.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::experiment::State,
 
     /// The definition of the experiment.
@@ -8790,6 +8981,7 @@ pub struct Experiment {
     /// The reason why rollout has failed. Should only be set when state is
     /// ROLLOUT_FAILED.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_failure_reason: std::string::String,
 
     /// Inference result of the experiment.
@@ -8820,6 +9012,7 @@ pub struct Experiment {
 
     /// The history of updates to the experiment variants.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub variants_history: std::vec::Vec<crate::model::VariantsHistory>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9063,6 +9256,7 @@ pub mod experiment {
         /// "query_input.language_code=en" See the [conditions
         /// reference](https://cloud.google.com/dialogflow/cx/docs/reference/condition).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub condition: std::string::String,
 
         /// The variants of the experiment. We currently only support single variant
@@ -9164,6 +9358,7 @@ pub mod experiment {
     pub struct Result {
         /// Version variants and metrics.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub version_metrics: std::vec::Vec<crate::model::experiment::result::VersionMetrics>,
 
         /// The last time the experiment's stats data was updated. Will have default
@@ -9231,23 +9426,23 @@ pub mod experiment {
             /// The confidence level used to construct the interval, i.e. there is X%
             /// chance that the true value is within this interval.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
             pub confidence_level: f64,
 
             /// The percent change between an experiment metric's value and the value
             /// for its control.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
             pub ratio: f64,
 
             /// Lower bound of the interval.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
             pub lower_bound: f64,
 
             /// Upper bound of the interval.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
             pub upper_bound: f64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9300,11 +9495,13 @@ pub mod experiment {
             /// each Metric.
             #[serde(rename = "type")]
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub r#type: crate::model::experiment::result::MetricType,
 
             /// Count-based metric type. Only one of type or count_type is specified in
             /// each Metric.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub count_type: crate::model::experiment::result::CountType,
 
             /// The probability that the treatment is better than all other treatments
@@ -9449,9 +9646,9 @@ pub mod experiment {
             #[non_exhaustive]
             pub enum Value {
                 /// Ratio value of a metric.
-                Ratio(#[serde_as(as = "wkt::internal::F64")] f64),
+                Ratio(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")] f64),
                 /// Count value of a metric.
-                Count(#[serde_as(as = "wkt::internal::F64")] f64),
+                Count(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")] f64),
             }
         }
 
@@ -9467,16 +9664,18 @@ pub mod experiment {
             ///
             /// [google.cloud.dialogflow.cx.v3.Version]: crate::model::Version
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub version: std::string::String,
 
             /// The metrics and corresponding confidence intervals in the inference
             /// result.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub metrics: std::vec::Vec<crate::model::experiment::result::Metric>,
 
             /// Number of sessions that were allocated to this version.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub session_count: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9979,6 +10178,7 @@ pub mod experiment {
 pub struct VersionVariants {
     /// A list of flow version variants.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub variants: std::vec::Vec<crate::model::version_variants::Variant>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10023,16 +10223,18 @@ pub mod version_variants {
         /// Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>/versions/<VersionID>`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub version: std::string::String,
 
         /// Percentage of the traffic which should be routed to this
         /// version of flow. Traffic allocation for a single flow must sum up to 1.0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub traffic_allocation: f32,
 
         /// Whether the variant is for the control group.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub is_control_group: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10191,6 +10393,7 @@ pub struct RolloutConfig {
     /// Steps to roll out a flow version. Steps should be sorted by percentage in
     /// ascending order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rollout_steps: std::vec::Vec<crate::model::rollout_config::RolloutStep>,
 
     /// The conditions that are used to evaluate the success of a rollout
@@ -10199,6 +10402,7 @@ pub struct RolloutConfig {
     /// callback_rate < 20%". See the [conditions
     /// reference](https://cloud.google.com/dialogflow/cx/docs/reference/condition).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_condition: std::string::String,
 
     /// The conditions that are used to evaluate the failure of a rollout
@@ -10206,6 +10410,7 @@ pub struct RolloutConfig {
     /// < 10% OR average_turn_count < 3". See the [conditions
     /// reference](https://cloud.google.com/dialogflow/cx/docs/reference/condition).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_condition: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10266,12 +10471,13 @@ pub mod rollout_config {
     pub struct RolloutStep {
         /// The name of the rollout step;
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_name: std::string::String,
 
         /// The percentage of traffic allocated to the flow version of this rollout
         /// step. (0%, 100%].
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub traffic_percent: i32,
 
         /// The minimum time that this step should last. Should be longer than 1
@@ -10338,11 +10544,12 @@ pub mod rollout_config {
 pub struct RolloutState {
     /// Display name of the current auto rollout step.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub step: std::string::String,
 
     /// Index of the current step in the auto rollout steps list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub step_index: i32,
 
     /// Start time of the current step.
@@ -10410,16 +10617,18 @@ pub struct ListExperimentsRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 20 and
     /// at most 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10470,11 +10679,13 @@ pub struct ListExperimentsResponse {
     /// cases be empty or contain fewer entries than page_size even if this isn't
     /// the last page.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub experiments: std::vec::Vec<crate::model::Experiment>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10539,6 +10750,7 @@ pub struct GetExperimentRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10579,6 +10791,7 @@ pub struct CreateExperimentRequest {
     /// [google.cloud.dialogflow.cx.v3.Agent]: crate::model::Agent
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The experiment to create.
@@ -10709,6 +10922,7 @@ pub struct DeleteExperimentRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.Environment]: crate::model::Environment
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10746,6 +10960,7 @@ pub struct StartExperimentRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/environments/<EnvironmentID>/experiments/<ExperimentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10783,6 +10998,7 @@ pub struct StopExperimentRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/environments/<EnvironmentID>/experiments/<ExperimentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10815,6 +11031,7 @@ impl wkt::message::Message for StopExperimentRequest {
 pub struct NluSettings {
     /// Indicates the type of NLU model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model_type: crate::model::nlu_settings::ModelType,
 
     /// To filter out false positive results and still get variety in matched
@@ -10825,11 +11042,12 @@ pub struct NluSettings {
     /// to 0.0, the default of 0.3 is used. You can set a separate classification
     /// threshold for the flow in each language enabled for the agent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub classification_threshold: f32,
 
     /// Indicates NLU model training mode.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model_training_mode: crate::model::nlu_settings::ModelTrainingMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11169,15 +11387,18 @@ pub struct Flow {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human-readable name of the flow.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The description of the flow. The maximum length is 500 characters. If
     /// exceeded, the request is rejected.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// A flow's transition routes serve two purposes:
@@ -11199,6 +11420,7 @@ pub struct Flow {
     ///
     /// [Page.transition_routes]: crate::model::Page::transition_routes
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transition_routes: std::vec::Vec<crate::model::TransitionRoute>,
 
     /// A flow's event handlers serve two purposes:
@@ -11218,6 +11440,7 @@ pub struct Flow {
     /// [Page.event_handlers]: crate::model::Page::event_handlers
     /// [google.cloud.dialogflow.cx.v3.Flow.transition_routes]: crate::model::Flow::transition_routes
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub event_handlers: std::vec::Vec<crate::model::EventHandler>,
 
     /// A flow's transition route group serve two purposes:
@@ -11236,6 +11459,7 @@ pub struct Flow {
     ///
     /// [Page.transition_route_groups]: crate::model::Page::transition_route_groups
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transition_route_groups: std::vec::Vec<std::string::String>,
 
     /// NLU related settings of the flow.
@@ -11258,6 +11482,7 @@ pub struct Flow {
     /// Indicates whether the flow is locked for changes. If the flow is locked,
     /// modifications to the flow will be rejected.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub locked: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11422,6 +11647,7 @@ pub mod flow {
         ///
         /// [Agent.enable_multi_language_training]: crate::model::Agent::enable_multi_language_training
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_multi_language_detection: bool,
 
         /// Optional. Agent will respond in the detected language if the detected
@@ -11436,6 +11662,7 @@ pub mod flow {
         /// [google.cloud.dialogflow.cx.v3.Agent.enable_multi_language_training]: crate::model::Agent::enable_multi_language_training
         /// [google.cloud.dialogflow.cx.v3.Flow.MultiLanguageSettings.enable_multi_language_detection]: crate::model::flow::MultiLanguageSettings::enable_multi_language_detection
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub supported_response_language_codes: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11487,6 +11714,7 @@ pub struct CreateFlowRequest {
     /// Required. The agent to create a flow for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The flow to create.
@@ -11506,6 +11734,7 @@ pub struct CreateFlowRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11567,6 +11796,7 @@ pub struct DeleteFlowRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// This field has no effect for flows with no incoming transitions.
@@ -11583,6 +11813,7 @@ pub struct DeleteFlowRequest {
     /// [EventHandler.target_flow]: crate::model::EventHandler::target
     /// [TransitionRoute.target_flow]: crate::model::TransitionRoute::target
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11625,16 +11856,18 @@ pub struct ListFlowsRequest {
     /// Required. The agent containing the flows.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The language to list flows for. The following fields are language
@@ -11651,6 +11884,7 @@ pub struct ListFlowsRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11705,11 +11939,13 @@ pub struct ListFlowsResponse {
     /// The list of flows. There will be a maximum number of items returned based
     /// on the page_size field in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub flows: std::vec::Vec<crate::model::Flow>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11772,6 +12008,7 @@ pub struct GetFlowRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The language to retrieve the flow for. The following fields are language
@@ -11788,6 +12025,7 @@ pub struct GetFlowRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11849,6 +12087,7 @@ pub struct UpdateFlowRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11922,6 +12161,7 @@ pub struct TrainFlowRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11959,10 +12199,12 @@ pub struct ValidateFlowRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If not specified, the agent's default language is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12006,10 +12248,12 @@ pub struct GetFlowValidationResultRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>/validationResult`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If not specified, the agent's default language is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12053,10 +12297,12 @@ pub struct FlowValidationResult {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>/validationResult`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Contains all validation messages.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub validation_messages: std::vec::Vec<crate::model::ValidationMessage>,
 
     /// Last time the flow was validated.
@@ -12126,10 +12372,12 @@ pub struct ImportFlowRequest {
     /// Required. The agent to import the flow into.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Flow import mode. If not specified, `KEEP` is assumed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub import_option: crate::model::import_flow_request::ImportOption,
 
     /// Optional. Specifies the import strategy used when resolving resource
@@ -12407,9 +12655,12 @@ pub mod import_flow_request {
         /// have read permissions for the object. For more information, see
         /// [Dialogflow access
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
-        FlowUri(std::string::String),
+        FlowUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Uncompressed raw byte content for flow.
-        FlowContent(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        FlowContent(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
     }
 }
 
@@ -12427,6 +12678,7 @@ pub struct FlowImportStrategy {
     /// conflicts in the imported content. If not specified, 'CREATE_NEW' is
     /// assumed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub global_import_strategy: crate::model::ImportStrategy,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12467,6 +12719,7 @@ pub struct ImportFlowResponse {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub flow: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12504,6 +12757,7 @@ pub struct ExportFlowRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The [Google Cloud
@@ -12517,10 +12771,12 @@ pub struct ExportFlowRequest {
     /// [Dialogflow access
     /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub flow_uri: std::string::String,
 
     /// Optional. Whether to export flows referenced by the specified flow.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_referenced_flows: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12663,9 +12919,12 @@ pub mod export_flow_response {
         /// [ExportFlowRequest][google.cloud.dialogflow.cx.v3.ExportFlowRequest].
         ///
         /// [google.cloud.dialogflow.cx.v3.ExportFlowRequest]: crate::model::ExportFlowRequest
-        FlowUri(std::string::String),
+        FlowUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Uncompressed raw byte content for flow.
-        FlowContent(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        FlowContent(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
     }
 }
 
@@ -12697,12 +12956,14 @@ pub mod export_flow_response {
 pub struct Fulfillment {
     /// The list of rich message responses to present to the user.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub messages: std::vec::Vec<crate::model::ResponseMessage>,
 
     /// The webhook to call.
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/webhooks/<WebhookID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub webhook: std::string::String,
 
     /// Whether Dialogflow should return currently queued fulfillment response
@@ -12716,6 +12977,7 @@ pub struct Fulfillment {
     ///   responses will be returned. You may only want to apply it to fulfillments
     ///   that have slow webhooks.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub return_partial_responses: bool,
 
     /// The value of this field will be populated in the
@@ -12728,14 +12990,17 @@ pub struct Fulfillment {
     ///
     /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tag: std::string::String,
 
     /// Set parameter values before executing the webhook.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub set_parameter_actions: std::vec::Vec<crate::model::fulfillment::SetParameterAction>,
 
     /// Conditional cases for this fulfillment.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub conditional_cases: std::vec::Vec<crate::model::fulfillment::ConditionalCases>,
 
     /// Hierarchical advanced settings for this fulfillment. The settings exposed
@@ -12751,6 +13016,7 @@ pub struct Fulfillment {
     ///
     /// [google.cloud.dialogflow.cx.v3.Fulfillment.messages]: crate::model::Fulfillment::messages
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_generative_fallback: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12857,10 +13123,12 @@ pub mod fulfillment {
     pub struct SetParameterAction {
         /// Display name of the parameter.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub parameter: std::string::String,
 
         /// The new value of the parameter. A null value clears the parameter.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "wkt::internal::OptionalValue")]
         pub value: std::option::Option<wkt::Value>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12912,6 +13180,7 @@ pub mod fulfillment {
     pub struct ConditionalCases {
         /// A list of cascading if-else conditions.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub cases: std::vec::Vec<crate::model::fulfillment::conditional_cases::Case>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12964,10 +13233,12 @@ pub mod fulfillment {
             /// [Form.parameters]: crate::model::Form::parameters
             /// [SessionInfo.parameters]: crate::model::SessionInfo::parameters
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub condition: std::string::String,
 
             /// A list of case content.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub case_content:
                 std::vec::Vec<crate::model::fulfillment::conditional_cases::case::CaseContent>,
 
@@ -13152,6 +13423,7 @@ pub struct GcsDestination {
     /// of the form: `gs://bucket/object-name-or-prefix` Whether a full object
     /// name, or just a prefix, its usage depends on the Dialogflow operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13185,6 +13457,7 @@ pub struct GenerativeSettings {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/generativeSettings`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Settings for Generative Fallback.
@@ -13202,6 +13475,7 @@ pub struct GenerativeSettings {
 
     /// Language for this settings.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13299,11 +13573,13 @@ pub mod generative_settings {
     pub struct FallbackSettings {
         /// Display name of the selected prompt.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub selected_prompt: std::string::String,
 
         /// Stored prompts that can be selected, for example default templates like
         /// "conservative" or "chatty", or user defined ones.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub prompt_templates:
             std::vec::Vec<crate::model::generative_settings::fallback_settings::PromptTemplate>,
 
@@ -13358,17 +13634,20 @@ pub mod generative_settings {
         pub struct PromptTemplate {
             /// Prompt name.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub display_name: std::string::String,
 
             /// Prompt text that is sent to a LLM on no-match default, placeholders are
             /// filled downstream. For example: "Here is a conversation $conversation,
             /// a response is: "
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub prompt_text: std::string::String,
 
             /// If the flag is true, the prompt is frozen and cannot be modified by
             /// users.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub frozen: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13425,29 +13704,35 @@ pub mod generative_settings {
         /// represents. Used for knowledge connector LLM prompt and for knowledge
         /// search.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub business: std::string::String,
 
         /// Name of the virtual agent. Used for LLM prompt. Can be left empty.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub agent: std::string::String,
 
         /// Identity of the agent, e.g. "virtual agent", "AI assistant".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub agent_identity: std::string::String,
 
         /// Company description, used for LLM prompt, e.g. "a family company selling
         /// freshly roasted coffee beans".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub business_description: std::string::String,
 
         /// Agent scope, e.g. "Example company website", "internal Example
         /// company website for employees", "manual of car owner".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub agent_scope: std::string::String,
 
         /// Whether to disable fallback to Data Store search results (in case the LLM
         /// couldn't pick a proper answer). Per default the feature is enabled.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub disable_data_store_fallback: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13530,6 +13815,7 @@ pub struct Generator {
     ///
     /// [google.cloud.dialogflow.cx.v3.Generators.UpdateGenerator]: crate::client::Generators::update_generator
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human-readable name of the generator, unique within the
@@ -13537,6 +13823,7 @@ pub struct Generator {
     /// $last-user-utterance, etc. populated by Dialogflow. It can also contain
     /// custom placeholders which will be resolved during fulfillment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Required. Prompt for the LLM model.
@@ -13545,6 +13832,7 @@ pub struct Generator {
 
     /// Optional. List of custom placeholders in the prompt text.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub placeholders: std::vec::Vec<crate::model::generator::Placeholder>,
 
     /// Parameters passed to the LLM to configure its behavior.
@@ -13639,10 +13927,12 @@ pub mod generator {
     pub struct Placeholder {
         /// Unique ID used to map custom placeholder to parameters in fulfillment.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub id: std::string::String,
 
         /// Custom placeholder value in the prompt text.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13808,6 +14098,7 @@ pub mod generator {
 pub struct Phrase {
     /// Required. Text input which can be used for prompt or banned phrases.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub text: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13844,20 +14135,23 @@ pub struct ListGeneratorsRequest {
     /// Required. The agent to list all generators for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The language to list generators for.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13912,11 +14206,13 @@ pub struct ListGeneratorsResponse {
     /// The list of generators. There will be a maximum number of items returned
     /// based on the page_size field in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub generators: std::vec::Vec<crate::model::Generator>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13979,10 +14275,12 @@ pub struct GetGeneratorRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/generators/<GeneratorID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The language to list generators for.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14025,6 +14323,7 @@ pub struct CreateGeneratorRequest {
     /// Required. The agent to create a generator for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The generator to create.
@@ -14036,6 +14335,7 @@ pub struct CreateGeneratorRequest {
     /// * `Generator.prompt_text.text`
     ///   If not specified, the agent's default language is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14099,6 +14399,7 @@ pub struct UpdateGeneratorRequest {
 
     /// The language to list generators for.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The mask to control which fields get updated. If the mask is not present,
@@ -14177,6 +14478,7 @@ pub struct DeleteGeneratorRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/generators/<GeneratorID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// This field has no effect for generators not being used.
@@ -14188,6 +14490,7 @@ pub struct DeleteGeneratorRequest {
     ///   as any references to the generator (i.e.
     ///   [Generator][Fulfillment.generator]) in fulfillments.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14230,7 +14533,7 @@ pub struct InlineDestination {
     /// Output only. The uncompressed byte content for the objects.
     /// Only populated in responses.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub content: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14266,7 +14569,7 @@ impl wkt::message::Message for InlineDestination {
 pub struct InlineSource {
     /// The uncompressed byte content for the objects.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub content: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14313,19 +14616,23 @@ pub struct Intent {
     /// [google.cloud.dialogflow.cx.v3.Intents.CreateIntent]: crate::client::Intents::create_intent
     /// [google.cloud.dialogflow.cx.v3.Intents.UpdateIntent]: crate::client::Intents::update_intent
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human-readable name of the intent, unique within the agent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The collection of training phrases the agent is trained on to identify the
     /// intent.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub training_phrases: std::vec::Vec<crate::model::intent::TrainingPhrase>,
 
     /// The collection of parameters associated with the intent.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub parameters: std::vec::Vec<crate::model::intent::Parameter>,
 
     /// The priority of this intent. Higher numbers represent higher
@@ -14337,7 +14644,7 @@ pub struct Intent {
     /// - If the supplied value is negative, the intent is ignored
     ///   in runtime detect intent requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub priority: i32,
 
     /// Indicates whether this is a fallback intent. Currently only default
@@ -14347,6 +14654,7 @@ pub struct Intent {
     /// requests that are mistakenly matched, since training phrases assigned to
     /// fallback intents act as negative examples that triggers no-match event.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_fallback: bool,
 
     /// The key/value metadata to label an intent. Labels can contain
@@ -14363,11 +14671,13 @@ pub struct Intent {
     ///   The above labels do not require value. "sys-head" means the intent is a
     ///   head intent. "sys.contextual" means the intent is a contextual intent.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Human readable description for better understanding an intent like its
     /// scope, content, result etc. Maximum character limit: 140 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14463,6 +14773,7 @@ pub mod intent {
     pub struct TrainingPhrase {
         /// Output only. The unique identifier of the training phrase.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub id: std::string::String,
 
         /// Required. The ordered list of training phrase parts.
@@ -14488,11 +14799,12 @@ pub mod intent {
         ///
         /// [google.cloud.dialogflow.cx.v3.Intent.TrainingPhrase.Part.text]: crate::model::intent::training_phrase::Part::text
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub parts: std::vec::Vec<crate::model::intent::training_phrase::Part>,
 
         /// Indicates how many times this example was added to the intent.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub repeat_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14547,6 +14859,7 @@ pub mod intent {
         pub struct Part {
             /// Required. The text for this part.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub text: std::string::String,
 
             /// The [parameter][google.cloud.dialogflow.cx.v3.Intent.Parameter] used to
@@ -14555,6 +14868,7 @@ pub mod intent {
             ///
             /// [google.cloud.dialogflow.cx.v3.Intent.Parameter]: crate::model::intent::Parameter
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub parameter_id: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14603,6 +14917,7 @@ pub mod intent {
         /// [google.cloud.dialogflow.cx.v3.Intent.TrainingPhrase]: crate::model::intent::TrainingPhrase
         /// [google.cloud.dialogflow.cx.v3.Intent.TrainingPhrase.Part]: crate::model::intent::training_phrase::Part
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub id: std::string::String,
 
         /// Required. The entity type of the parameter.
@@ -14613,10 +14928,12 @@ pub mod intent {
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/entityTypes/<EntityTypeID>`
         /// for developer entity types.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub entity_type: std::string::String,
 
         /// Indicates whether the parameter represents a list of values.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub is_list: bool,
 
         /// Indicates whether the parameter content should be redacted in log. If
@@ -14628,6 +14945,7 @@ pub mod intent {
         ///
         /// [google.cloud.dialogflow.cx.v3.EntityType.redact]: crate::model::EntityType::redact
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub redact: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14683,6 +15001,7 @@ pub struct ListIntentsRequest {
     /// Required. The agent to list all intents for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The language to list intents for. The following fields are language
@@ -14696,20 +15015,23 @@ pub struct ListIntentsRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The resource view to apply to the returned intent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub intent_view: crate::model::IntentView,
 
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14773,11 +15095,13 @@ pub struct ListIntentsResponse {
     /// The list of intents. There will be a maximum number of items returned based
     /// on the page_size field in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub intents: std::vec::Vec<crate::model::Intent>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14840,6 +15164,7 @@ pub struct GetIntentRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/intents/<IntentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The language to retrieve the intent for. The following fields are language
@@ -14853,6 +15178,7 @@ pub struct GetIntentRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14895,6 +15221,7 @@ pub struct CreateIntentRequest {
     /// Required. The agent to create an intent for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The intent to create.
@@ -14911,6 +15238,7 @@ pub struct CreateIntentRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14982,6 +15310,7 @@ pub struct UpdateIntentRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The mask to control which fields get updated. If the mask is not present,
@@ -15060,6 +15389,7 @@ pub struct DeleteIntentRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/intents/<IntentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15096,10 +15426,12 @@ pub struct ImportIntentsRequest {
     /// Required. The agent to import the intents into.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Merge option for importing intents. If not specified, `REJECT` is assumed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub merge_option: crate::model::import_intents_request::MergeOption,
 
     /// Required. The intents to import.
@@ -15399,7 +15731,7 @@ pub mod import_intents_request {
         /// have read permissions for the object. For more information, see
         /// [Dialogflow access
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
-        IntentsUri(std::string::String),
+        IntentsUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Uncompressed byte content of intents.
         IntentsContent(std::boxed::Box<crate::model::InlineSource>),
     }
@@ -15418,6 +15750,7 @@ pub struct ImportIntentsResponse {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/intents/<IntentID>`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub intents: std::vec::Vec<std::string::String>,
 
     /// Info which resources have conflicts when
@@ -15487,10 +15820,12 @@ pub mod import_intents_response {
     pub struct ConflictingResources {
         /// Display names of conflicting intents.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub intent_display_names: std::vec::Vec<std::string::String>,
 
         /// Display names of conflicting entities.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub entity_display_names: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15570,17 +15905,20 @@ pub struct ExportIntentsRequest {
     /// Required. The name of the parent agent to export intents.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The name of the intents to export.
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/intents/<IntentID>`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub intents: std::vec::Vec<std::string::String>,
 
     /// Optional. The data format of the exported intents. If not specified, `BLOB`
     /// is assumed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_format: crate::model::export_intents_request::DataFormat,
 
     /// The destination to export.
@@ -15855,9 +16193,9 @@ pub mod export_intents_request {
         /// have write permissions for the object. For more information, see
         /// [Dialogflow access
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
-        IntentsUri(std::string::String),
+        IntentsUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Optional. The option to return the serialized intents inline.
-        IntentsContentInline(bool),
+        IntentsContentInline(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
     }
 }
 
@@ -15977,7 +16315,7 @@ pub mod export_intents_response {
         /// [ExportIntentsRequest][google.cloud.dialogflow.cx.v3.ExportIntentsRequest].
         ///
         /// [google.cloud.dialogflow.cx.v3.ExportIntentsRequest]: crate::model::ExportIntentsRequest
-        IntentsUri(std::string::String),
+        IntentsUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Uncompressed byte content for intents. This field is populated only if
         /// `intents_content_inline` is set to true in
         /// [ExportIntentsRequest][google.cloud.dialogflow.cx.v3.ExportIntentsRequest].
@@ -16045,14 +16383,17 @@ pub struct Page {
     /// [google.cloud.dialogflow.cx.v3.Pages.CreatePage]: crate::client::Pages::create_page
     /// [google.cloud.dialogflow.cx.v3.Pages.UpdatePage]: crate::client::Pages::update_page
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human-readable name of the page, unique within the flow.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The description of the page. The maximum length is 500 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// The fulfillment to call when the session is entering the page.
@@ -16086,6 +16427,7 @@ pub struct Page {
     ///
     /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroup]: crate::model::TransitionRouteGroup
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transition_route_groups: std::vec::Vec<std::string::String>,
 
     /// A list of transitions for the transition rules of this page.
@@ -16114,11 +16456,13 @@ pub struct Page {
     /// [google.cloud.dialogflow.cx.v3.Flow.transition_route_groups]: crate::model::Flow::transition_route_groups
     /// [google.cloud.dialogflow.cx.v3.Page.transition_route_groups]: crate::model::Page::transition_route_groups
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transition_routes: std::vec::Vec<crate::model::TransitionRoute>,
 
     /// Handlers associated with the page to handle events such as webhook errors,
     /// no match or no input.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub event_handlers: std::vec::Vec<crate::model::EventHandler>,
 
     /// Hierarchical advanced settings for this page. The settings exposed at the
@@ -16285,6 +16629,7 @@ impl wkt::message::Message for Page {
 pub struct Form {
     /// Parameters to collect from the user.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub parameters: std::vec::Vec<crate::model::form::Parameter>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16328,12 +16673,14 @@ pub mod form {
         /// Required. The human-readable name of the parameter, unique within the
         /// form.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_name: std::string::String,
 
         /// Indicates whether the parameter is required. Optional parameters will not
         /// trigger prompts; however, they are filled if the user specifies them.
         /// Required parameters must be filled before form filling concludes.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub required: bool,
 
         /// Required. The entity type of the parameter.
@@ -16344,10 +16691,12 @@ pub mod form {
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/entityTypes/<EntityTypeID>`
         /// for developer entity types.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub entity_type: std::string::String,
 
         /// Indicates whether the parameter represents a list of values.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub is_list: bool,
 
         /// Required. Defines fill behavior for the parameter.
@@ -16357,6 +16706,7 @@ pub mod form {
         /// The default value of an optional parameter. If the parameter is required,
         /// the default value will be ignored.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "wkt::internal::OptionalValue")]
         pub default_value: std::option::Option<wkt::Value>,
 
         /// Indicates whether the parameter content should be redacted in log.  If
@@ -16368,6 +16718,7 @@ pub mod form {
         ///
         /// [google.cloud.dialogflow.cx.v3.EntityType.redact]: crate::model::EntityType::redact
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub redact: bool,
 
         /// Hierarchical advanced settings for this parameter. The settings exposed
@@ -16528,6 +16879,7 @@ pub mod form {
             /// If the event handler for the corresponding event can't be found on the
             /// parameter, `initial_prompt_fulfillment` will be re-prompted.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub reprompt_event_handlers: std::vec::Vec<crate::model::EventHandler>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16608,10 +16960,12 @@ pub mod form {
 pub struct EventHandler {
     /// Output only. The unique identifier of this event handler.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The name of the event to handle.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub event: std::string::String,
 
     /// The fulfillment to call when the event occurs.
@@ -16753,11 +17107,11 @@ pub mod event_handler {
         /// The target page to transition to.
         /// Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>/pages/<PageID>`.
-        TargetPage(std::string::String),
+        TargetPage(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// The target flow to transition to.
         /// Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
-        TargetFlow(std::string::String),
+        TargetFlow(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -16789,11 +17143,13 @@ pub mod event_handler {
 pub struct TransitionRoute {
     /// Output only. The unique identifier of this transition route.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The description of the transition route. The maximum length is
     /// 500 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// The unique identifier of an [Intent][google.cloud.dialogflow.cx.v3.Intent].
@@ -16807,6 +17163,7 @@ pub struct TransitionRoute {
     ///
     /// [google.cloud.dialogflow.cx.v3.Intent]: crate::model::Intent
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub intent: std::string::String,
 
     /// The condition to evaluate against [form
@@ -16822,6 +17179,7 @@ pub struct TransitionRoute {
     /// [google.cloud.dialogflow.cx.v3.Form.parameters]: crate::model::Form::parameters
     /// [google.cloud.dialogflow.cx.v3.SessionInfo.parameters]: crate::model::SessionInfo::parameters
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub condition: std::string::String,
 
     /// The fulfillment to call when the condition is satisfied. At least one of
@@ -16974,11 +17332,11 @@ pub mod transition_route {
         /// The target page to transition to.
         /// Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>/pages/<PageID>`.
-        TargetPage(std::string::String),
+        TargetPage(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// The target flow to transition to.
         /// Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
-        TargetFlow(std::string::String),
+        TargetFlow(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -16995,6 +17353,7 @@ pub struct ListPagesRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The language to list pages for. The following fields are language
@@ -17021,16 +17380,18 @@ pub struct ListPagesRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17085,11 +17446,13 @@ pub struct ListPagesResponse {
     /// The list of pages. There will be a maximum number of items returned based
     /// on the page_size field in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub pages: std::vec::Vec<crate::model::Page>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17152,6 +17515,7 @@ pub struct GetPageRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>/pages/<PageID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The language to retrieve the page for. The following fields are language
@@ -17178,6 +17542,7 @@ pub struct GetPageRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17221,6 +17586,7 @@ pub struct CreatePageRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The page to create.
@@ -17250,6 +17616,7 @@ pub struct CreatePageRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17334,6 +17701,7 @@ pub struct UpdatePageRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The mask to control which fields get updated. If the mask is not present,
@@ -17412,6 +17780,7 @@ pub struct DeletePageRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/Flows/<flowID>/pages/<PageID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// This field has no effect for pages with no incoming transitions.
@@ -17428,6 +17797,7 @@ pub struct DeletePageRequest {
     /// [EventHandler.target_page]: crate::model::EventHandler::target
     /// [TransitionRoute.target_page]: crate::model::TransitionRoute::target
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17468,6 +17838,7 @@ impl wkt::message::Message for DeletePageRequest {
 pub struct KnowledgeConnectorSettings {
     /// Whether Knowledge Connector is enabled or not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enabled: bool,
 
     /// The fulfillment to be triggered.
@@ -17482,6 +17853,7 @@ pub struct KnowledgeConnectorSettings {
 
     /// Optional. List of related data store connections.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_store_connections: std::vec::Vec<crate::model::DataStoreConnection>,
 
     /// The target to transition to, either a page in the same host flow (the flow
@@ -17627,11 +17999,11 @@ pub mod knowledge_connector_settings {
         /// The target page to transition to.
         /// Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>/pages/<PageID>`.
-        TargetPage(std::string::String),
+        TargetPage(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// The target flow to transition to.
         /// Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
-        TargetFlow(std::string::String),
+        TargetFlow(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -17659,6 +18031,7 @@ pub mod knowledge_connector_settings {
 pub struct ResponseMessage {
     /// Response type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_type: crate::model::response_message::ResponseType,
 
     /// The channel which the response is associated with. Clients can specify the
@@ -17668,6 +18041,7 @@ pub struct ResponseMessage {
     ///
     /// [google.cloud.dialogflow.cx.v3.QueryParameters.channel]: crate::model::QueryParameters::channel
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub channel: std::string::String,
 
     /// Required. The rich response message.
@@ -18045,12 +18419,14 @@ pub mod response_message {
         /// Required. A collection of text response variants. If multiple variants
         /// are defined, only one text response variant is returned at runtime.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub text: std::vec::Vec<std::string::String>,
 
         /// Output only. Whether the playback of this message can be interrupted by
         /// the end user's speech and the client can then starts the next Dialogflow
         /// request.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub allow_playback_interruption: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18226,6 +18602,7 @@ pub mod response_message {
         /// the end user's speech and the client can then starts the next Dialogflow
         /// request.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub allow_playback_interruption: bool,
 
         /// The source, which is either plain text or SSML.
@@ -18335,10 +18712,10 @@ pub mod response_message {
         #[non_exhaustive]
         pub enum Source {
             /// The raw text to be synthesized.
-            Text(std::string::String),
+            Text(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// The SSML text to be synthesized. For more information, see
             /// [SSML](/speech/text-to-speech/docs/ssml).
-            Ssml(std::string::String),
+            Ssml(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 
@@ -18375,12 +18752,14 @@ pub mod response_message {
         /// Required. URI of the audio clip. Dialogflow does not impose any
         /// validation on this value. It is specific to the client that reads it.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub audio_uri: std::string::String,
 
         /// Output only. Whether the playback of this message can be interrupted by
         /// the end user's speech and the client can then starts the next Dialogflow
         /// request.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub allow_playback_interruption: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18430,6 +18809,7 @@ pub mod response_message {
     pub struct MixedAudio {
         /// Segments this audio response is composed of.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub segments: std::vec::Vec<crate::model::response_message::mixed_audio::Segment>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18474,6 +18854,7 @@ pub mod response_message {
             /// the end user's speech and the client should then start the next
             /// Dialogflow request.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub allow_playback_interruption: bool,
 
             /// Content of the segment.
@@ -18587,10 +18968,13 @@ pub mod response_message {
             pub enum Content {
                 /// Raw audio synthesized from the Dialogflow agent's response using
                 /// the output config specified in the request.
-                Audio(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+                Audio(
+                    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+                    ::bytes::Bytes,
+                ),
                 /// Client-specific URI that points to an audio clip accessible to the
                 /// client. Dialogflow does not impose any validation on it.
-                Uri(std::string::String),
+                Uri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             }
         }
     }
@@ -18684,7 +19068,7 @@ pub mod response_message {
         pub enum Endpoint {
             /// Transfer the call to a phone number
             /// in [E.164 format](https://en.wikipedia.org/wiki/E.164).
-            PhoneNumber(std::string::String),
+            PhoneNumber(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 
@@ -18925,6 +19309,7 @@ pub mod response_message {
 pub struct SafetySettings {
     /// Banned phrases for generated text.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub banned_phrases: std::vec::Vec<crate::model::safety_settings::Phrase>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18967,10 +19352,12 @@ pub mod safety_settings {
     pub struct Phrase {
         /// Required. Text input which can be used for prompt or banned phrases.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub text: std::string::String,
 
         /// Required. Language code of the phrase.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub language_code: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19018,6 +19405,7 @@ pub struct GetSecuritySettingsRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/securitySettings/<securitysettingsID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19122,16 +19510,18 @@ pub struct ListSecuritySettingsRequest {
     /// Required. The location to list all security settings for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 20 and
     /// at most 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19176,11 +19566,13 @@ impl wkt::message::Message for ListSecuritySettingsRequest {
 pub struct ListSecuritySettingsResponse {
     /// The list of security settings.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub security_settings: std::vec::Vec<crate::model::SecuritySettings>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19242,6 +19634,7 @@ pub struct CreateSecuritySettingsRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.SecuritySettings]: crate::model::SecuritySettings
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The security settings to create.
@@ -19301,6 +19694,7 @@ pub struct DeleteSecuritySettingsRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.SecuritySettings]: crate::model::SecuritySettings
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19344,21 +19738,25 @@ pub struct SecuritySettings {
     /// [google.cloud.dialogflow.cx.v3.SecuritySettingsService.CreateSecuritySettings]: crate::client::SecuritySettingsService::create_security_settings
     /// [google.cloud.dialogflow.cx.v3.SecuritySettingsService.UpdateSecuritySettings]: crate::client::SecuritySettingsService::update_security_settings
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human-readable name of the security settings, unique within
     /// the location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Strategy that defines how we do redaction.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub redaction_strategy: crate::model::security_settings::RedactionStrategy,
 
     /// Defines the data for which Dialogflow applies redaction. Dialogflow does
     /// not redact data that it does not have access to – for example, Cloud
     /// logging.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub redaction_scope: crate::model::security_settings::RedactionScope,
 
     /// [DLP](https://cloud.google.com/dlp/docs) inspect template name. Use this
@@ -19379,6 +19777,7 @@ pub struct SecuritySettings {
     /// Note: `inspect_template` must be located in the same region as the
     /// `SecuritySettings`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub inspect_template: std::string::String,
 
     /// [DLP](https://cloud.google.com/dlp/docs) deidentify template name. Use this
@@ -19399,10 +19798,12 @@ pub struct SecuritySettings {
     /// Note: `deidentify_template` must be located in the same region as the
     /// `SecuritySettings`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deidentify_template: std::string::String,
 
     /// List of types of data to remove when retention settings triggers purge.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub purge_data_types: std::vec::Vec<crate::model::security_settings::PurgeDataType>,
 
     /// Controls audio export settings for post-conversation analytics when
@@ -19651,26 +20052,31 @@ pub mod security_settings {
         /// API caller that tries to modify this field should have the permission of
         /// storage.buckets.setIamPolicy.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub gcs_bucket: std::string::String,
 
         /// Filename pattern for exported audio.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub audio_export_pattern: std::string::String,
 
         /// Enable audio redaction if it is true.
         /// Note that this only redacts end-user audio data;
         /// Synthesised audio from the virtual agent is not redacted.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_audio_redaction: bool,
 
         /// File format for exported audio file. Currently only in telephony
         /// recordings.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub audio_format: crate::model::security_settings::audio_export_settings::AudioFormat,
 
         /// Whether to store TTS audio. By default, TTS audio from the virtual agent
         /// is not exported.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub store_tts_audio: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19885,6 +20291,7 @@ pub mod security_settings {
         /// If enabled, we will automatically exports
         /// conversations to Insights and Insights runs its analyzers.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_insights_export: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20432,12 +20839,15 @@ pub mod security_settings {
         /// When data retention configuration is changed, it only applies to the data
         /// created after the change; the TTL of existing data created before the
         /// change stays intact.
-        RetentionWindowDays(#[serde_as(as = "wkt::internal::I32")] i32),
+        RetentionWindowDays(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
         /// Specifies the retention behavior defined by
         /// [SecuritySettings.RetentionStrategy][google.cloud.dialogflow.cx.v3.SecuritySettings.RetentionStrategy].
         ///
         /// [google.cloud.dialogflow.cx.v3.SecuritySettings.RetentionStrategy]: crate::model::security_settings::RetentionStrategy
-        RetentionStrategy(crate::model::security_settings::RetentionStrategy),
+        RetentionStrategy(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            crate::model::security_settings::RetentionStrategy,
+        ),
     }
 }
 
@@ -20449,6 +20859,7 @@ pub mod security_settings {
 pub struct AnswerFeedback {
     /// Optional. Rating from user for the specific Dialogflow response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rating: crate::model::answer_feedback::Rating,
 
     /// Optional. In case of thumbs down rating provided, users can optionally
@@ -20460,6 +20871,7 @@ pub struct AnswerFeedback {
     /// maximum length of 1024 characters. For example, client could use a
     /// customized JSON object to indicate the rating.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub custom_rating: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20526,11 +20938,13 @@ pub mod answer_feedback {
         /// user. The maximum number of labels allowed is 10 and the maximum length
         /// of a single label is 128 characters.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub reason_labels: std::vec::Vec<std::string::String>,
 
         /// Optional. Additional feedback about the rating.
         /// This field can be populated without choosing a predefined `reason`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub feedback: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -20707,11 +21121,13 @@ pub mod answer_feedback {
 pub struct SubmitAnswerFeedbackRequest {
     /// Required. The name of the session the feedback was sent to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub session: std::string::String,
 
     /// Required. ID of the response to update its feedback. This is the same as
     /// DetectIntentResponse.response_id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_id: std::string::String,
 
     /// Required. Feedback provided for a bot answer.
@@ -20811,6 +21227,7 @@ pub struct DetectIntentRequest {
     /// See [Versions and
     /// environments](https://cloud.google.com/dialogflow/cx/docs/concept/version).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub session: std::string::String,
 
     /// The parameters of this query.
@@ -20910,6 +21327,7 @@ pub struct DetectIntentResponse {
     /// Output only. The unique identifier of the response. It can be used to
     /// locate a response in the training example set or for reporting issues.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_id: std::string::String,
 
     /// The result of the conversational query.
@@ -20930,7 +21348,7 @@ pub struct DetectIntentResponse {
     ///
     /// [google.cloud.dialogflow.cx.v3.QueryResult.response_messages]: crate::model::QueryResult::response_messages
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub output_audio: ::bytes::Bytes,
 
     /// The config used by the speech synthesizer to generate the output audio.
@@ -20939,12 +21357,14 @@ pub struct DetectIntentResponse {
 
     /// Response type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_type: crate::model::detect_intent_response::ResponseType,
 
     /// Indicates whether the partial response can be cancelled when a later
     /// response arrives. e.g. if the agent specified some music as partial
     /// response, it can be cancelled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_cancellation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21233,6 +21653,7 @@ pub struct StreamingDetectIntentRequest {
     /// See [Versions and
     /// environments](https://cloud.google.com/dialogflow/cx/docs/concept/version).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub session: std::string::String,
 
     /// The parameters of this query.
@@ -21252,10 +21673,12 @@ pub struct StreamingDetectIntentRequest {
     /// if some `Fulfillment`s in the agent have been configured to return partial
     /// responses.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_partial_response: bool,
 
     /// If true, `StreamingDetectIntentResponse.debugging_info` will get populated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_debugging_info: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -21357,7 +21780,7 @@ impl wkt::message::Message for StreamingDetectIntentRequest {
 pub struct CloudConversationDebuggingInfo {
     /// Number of input audio data chunks in streaming requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub audio_data_chunks: i32,
 
     /// Time offset of the end of speech utterance relative to the
@@ -21371,46 +21794,53 @@ pub struct CloudConversationDebuggingInfo {
 
     /// Whether client used single utterance mode.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub single_utterance: bool,
 
     /// Time offsets of the speech partial results relative to the beginning of
     /// the stream.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub speech_partial_results_end_times: std::vec::Vec<wkt::Duration>,
 
     /// Time offsets of the speech final results (is_final=true) relative to the
     /// beginning of the stream.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub speech_final_results_end_times: std::vec::Vec<wkt::Duration>,
 
     /// Total number of partial responses.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub partial_responses: i32,
 
     /// Time offset of Speaker ID stream close time relative to the Speech stream
     /// close time in milliseconds. Only meaningful for conversations involving
     /// passive verification.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub speaker_id_passive_latency_ms_offset: i32,
 
     /// Whether a barge-in event is triggered in this request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bargein_event_triggered: bool,
 
     /// Whether speech uses single utterance mode.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub speech_single_utterance: bool,
 
     /// Time offsets of the DTMF partial results relative to the beginning of
     /// the stream.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dtmf_partial_results_times: std::vec::Vec<wkt::Duration>,
 
     /// Time offsets of the DTMF final results relative to the beginning of
     /// the stream.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dtmf_final_results_times: std::vec::Vec<wkt::Duration>,
 
     /// Time offset of the end-of-single-utterance signal relative to the
@@ -21428,6 +21858,7 @@ pub struct CloudConversationDebuggingInfo {
 
     /// Whether the streaming terminates with an injected text query.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_input_text: bool,
 
     /// Client half close time in terms of input audio duration.
@@ -21896,11 +22327,13 @@ pub mod streaming_detect_intent_response {
 pub struct StreamingRecognitionResult {
     /// Type of the result message.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message_type: crate::model::streaming_recognition_result::MessageType,
 
     /// Transcript text representing the words that the user spoke.
     /// Populated if and only if `message_type` = `TRANSCRIPT`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub transcript: std::string::String,
 
     /// If `false`, the `StreamingRecognitionResult` represents an
@@ -21908,6 +22341,7 @@ pub struct StreamingRecognitionResult {
     /// any further hypotheses about this piece of the audio. May only be populated
     /// for `message_type` = `TRANSCRIPT`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_final: bool,
 
     /// The Speech confidence between 0.0 and 1.0 for the current portion of audio.
@@ -21918,7 +22352,7 @@ pub struct StreamingRecognitionResult {
     /// This field is typically only provided if `is_final` is true and you should
     /// not rely on it being accurate or even set.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// An estimate of the likelihood that the speech recognizer will
@@ -21930,7 +22364,7 @@ pub struct StreamingRecognitionResult {
     /// * Otherwise, the value is in (0.0, 1.0] where 0.0 means completely
     ///   unstable and 1.0 means completely stable.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub stability: f32,
 
     /// Word-specific information for the words recognized by Speech in
@@ -21940,6 +22374,7 @@ pub struct StreamingRecognitionResult {
     ///
     /// [google.cloud.dialogflow.cx.v3.StreamingRecognitionResult.transcript]: crate::model::StreamingRecognitionResult::transcript
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub speech_word_info: std::vec::Vec<crate::model::SpeechWordInfo>,
 
     /// Time offset of the end of this Speech recognition result relative to the
@@ -21950,6 +22385,7 @@ pub struct StreamingRecognitionResult {
 
     /// Detected language code for the transcript.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22196,6 +22632,7 @@ pub struct QueryParameters {
     /// Europe/Paris. If not provided, the time zone specified in the agent is
     /// used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub time_zone: std::string::String,
 
     /// The geo location of this conversational query.
@@ -22206,6 +22643,7 @@ pub struct QueryParameters {
     /// with. The entity synonyms apply to all languages and persist for the
     /// session of this query.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub session_entity_types: std::vec::Vec<crate::model::SessionEntityType>,
 
     /// This field can be used to pass custom data into the webhook associated with
@@ -22270,15 +22708,18 @@ pub struct QueryParameters {
     /// [google.cloud.dialogflow.cx.v3.QueryParameters.current_page]: crate::model::QueryParameters::current_page
     /// [google.cloud.dialogflow.cx.v3.QueryParameters.parameters]: crate::model::QueryParameters::parameters
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub current_page: std::string::String,
 
     /// Whether to disable webhook calls for this request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disable_webhook: bool,
 
     /// Configures whether sentiment analysis should be performed. If not
     /// provided, sentiment analysis is not performed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub analyze_query_text_sentiment: bool,
 
     /// This field can be used to pass HTTP headers for a webhook
@@ -22290,6 +22731,7 @@ pub struct QueryParameters {
     /// "Content-Length", "Connection", "From", "User-Agent", "Accept-Encoding",
     /// "If-Modified-Since", "If-None-Match", "X-Forwarded-For", etc.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub webhook_headers: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// A list of flow versions to override for the request.
@@ -22301,6 +22743,7 @@ pub struct QueryParameters {
     /// the environment. Each flow can have at most one version specified in this
     /// list.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub flow_versions: std::vec::Vec<std::string::String>,
 
     /// The channel which this query is for.
@@ -22319,6 +22762,7 @@ pub struct QueryParameters {
     ///
     /// [google.cloud.dialogflow.cx.v3.ResponseMessage]: crate::model::ResponseMessage
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub channel: std::string::String,
 
     /// Optional. Configure lifetime of the Dialogflow session.
@@ -22357,6 +22801,7 @@ pub struct QueryParameters {
     /// DetectIntentResponse.query_result.data_store_connection_signals
     /// will be filled with data that can help evaluations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub populate_data_store_connection_signals: bool,
 
@@ -22570,6 +23015,7 @@ pub struct SearchConfig {
     /// than one BoostSpecs for each datastore name. If multiple BoostSpecs are
     /// provided for the same datastore name, the behavior is undefined.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub boost_specs: std::vec::Vec<crate::model::BoostSpecs>,
 
     /// Optional. Filter configuration for the datastores.
@@ -22579,6 +23025,7 @@ pub struct SearchConfig {
     /// FilterSpecs are provided for the same datastore name, the behavior is
     /// undefined.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub filter_specs: std::vec::Vec<crate::model::FilterSpecs>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22633,6 +23080,7 @@ pub struct BoostSpec {
     /// are all applied and combined in a non-linear way. Maximum number of
     /// specifications is 20.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub condition_boost_specs: std::vec::Vec<crate::model::boost_spec::ConditionBoostSpec>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22682,6 +23130,7 @@ pub mod boost_spec {
         ///   "Red" or "Blue":
         ///   * (id: ANY("doc_1", "doc_2")) AND (color: ANY("Red","Blue"))
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub condition: std::string::String,
 
         /// Optional. Strength of the condition boost, which should be in [-1, 1].
@@ -22702,7 +23151,7 @@ pub mod boost_spec {
         /// Setting to 0.0 means no boost applied. The boosting condition is
         /// ignored.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub boost: f32,
 
         /// Optional. Complex specification for custom ranking based on customer
@@ -22774,6 +23223,7 @@ pub mod boost_spec {
             /// Optional. The name of the field whose value will be used to determine
             /// the boost amount.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub field_name: std::string::String,
 
             /// Optional. The attribute type to be used to determine the boost amount.
@@ -22782,17 +23232,20 @@ pub mod boost_spec {
             /// i.e. attribute_value = numerical_field_value. In the case of freshness
             /// however, attribute_value = (time.now() - datetime_field_value).
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub attribute_type: crate::model::boost_spec::condition_boost_spec::boost_control_spec::AttributeType,
 
             /// Optional. The interpolation type to be applied to connect the control
             /// points listed below.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub interpolation_type: crate::model::boost_spec::condition_boost_spec::boost_control_spec::InterpolationType,
 
             /// Optional. The control points used to define the curve. The monotonic
             /// function (defined through the interpolation_type above) passes through
             /// the control points listed here.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub control_points: std::vec::Vec<crate::model::boost_spec::condition_boost_spec::boost_control_spec::ControlPoint>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -22864,12 +23317,13 @@ pub mod boost_spec {
                 ///   restricted subset of an ISO 8601 duration value). The pattern for
                 ///   this is: `[nD][T[nH][nM][nS]]`.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub attribute_value: std::string::String,
 
                 /// Optional. The value between -1 to 1 by which to boost the score if
                 /// the attribute_value evaluates to the value specified above.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::F32")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
                 pub boost_amount: f32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23193,10 +23647,12 @@ pub struct BoostSpecs {
     /// `projects/{project}/locations/{location}/collections/{collection}/dataStores/{data_store}`
     /// `projects/{project}/locations/{location}/dataStores/{data_store}`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_stores: std::vec::Vec<std::string::String>,
 
     /// Optional. A list of boosting specifications.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub spec: std::vec::Vec<crate::model::BoostSpec>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23248,12 +23704,14 @@ pub struct FilterSpecs {
     /// `projects/{project}/locations/{location}/collections/{collection}/dataStores/{data_store}`
     /// `projects/{project}/locations/{location}/dataStores/{data_store}`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub data_stores: std::vec::Vec<std::string::String>,
 
     /// Optional. The filter expression to be applied.
     /// Expression syntax is documented at
     /// <https://cloud.google.com/generative-ai-app-builder/docs/filter-search-metadata#filter-expression-syntax>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -23313,6 +23771,7 @@ pub struct QueryInput {
     /// for a list of the currently supported language codes. Note that queries in
     /// the same session do not necessarily need to specify the same language.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// Required. The input specification.
@@ -23510,6 +23969,7 @@ pub struct QueryResult {
     /// Support](https://cloud.google.com/dialogflow/cx/docs/reference/language)
     /// for a list of the currently supported language codes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The collected [session
@@ -23536,26 +23996,32 @@ pub struct QueryResult {
     /// simple text messages to more sophisticated, structured payloads used
     /// to drive complex logic.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub response_messages: std::vec::Vec<crate::model::ResponseMessage>,
 
     /// The list of webhook ids in the order of call sequence.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub webhook_ids: std::vec::Vec<std::string::String>,
 
     /// The list of webhook display names in the order of call sequence.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub webhook_display_names: std::vec::Vec<std::string::String>,
 
     /// The list of webhook latencies in the order of call sequence.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub webhook_latencies: std::vec::Vec<wkt::Duration>,
 
     /// The list of webhook tags in the order of call sequence.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub webhook_tags: std::vec::Vec<std::string::String>,
 
     /// The list of webhook call status in the order of call sequence.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub webhook_statuses: std::vec::Vec<rpc::model::Status>,
 
     /// The list of webhook payload in
@@ -23565,6 +24031,7 @@ pub struct QueryResult {
     ///
     /// [google.cloud.dialogflow.cx.v3.WebhookResponse.payload]: crate::model::WebhookResponse::payload
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub webhook_payloads: std::vec::Vec<wkt::Struct>,
 
     /// The current [Page][google.cloud.dialogflow.cx.v3.Page]. Some, not all
@@ -23608,7 +24075,7 @@ pub struct QueryResult {
     ///
     /// [google.cloud.dialogflow.cx.v3.QueryResult.match]: crate::model::QueryResult::match
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     #[deprecated]
     pub intent_detection_confidence: f32,
 
@@ -23655,6 +24122,7 @@ pub struct QueryResult {
     /// Indicates whether the Thumbs up/Thumbs down rating controls are need to be
     /// shown for the response in the Dialogflow Messenger widget.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_answer_feedback: bool,
 
     /// Optional. Data store connection feature output signals.
@@ -24086,24 +24554,24 @@ pub mod query_result {
         /// provided as input, this field will contain a copy of the text.
         ///
         /// [google.cloud.dialogflow.cx.v3.TextInput]: crate::model::TextInput
-        Text(std::string::String),
+        Text(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If an [intent][google.cloud.dialogflow.cx.v3.IntentInput] was provided as
         /// input, this field will contain a copy of the intent identifier. Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/intents/<IntentID>`.
         ///
         /// [google.cloud.dialogflow.cx.v3.IntentInput]: crate::model::IntentInput
-        TriggerIntent(std::string::String),
+        TriggerIntent(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If [natural language speech
         /// audio][google.cloud.dialogflow.cx.v3.AudioInput] was provided as input,
         /// this field will contain the transcript for the audio.
         ///
         /// [google.cloud.dialogflow.cx.v3.AudioInput]: crate::model::AudioInput
-        Transcript(std::string::String),
+        Transcript(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If an [event][google.cloud.dialogflow.cx.v3.EventInput] was provided as
         /// input, this field will contain the name of the event.
         ///
         /// [google.cloud.dialogflow.cx.v3.EventInput]: crate::model::EventInput
-        TriggerEvent(std::string::String),
+        TriggerEvent(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If a [DTMF][google.cloud.dialogflow.cx.v3.DtmfInput] was provided as
         /// input, this field will contain a copy of the
         /// [DtmfInput][google.cloud.dialogflow.cx.v3.DtmfInput].
@@ -24121,6 +24589,7 @@ pub mod query_result {
 pub struct TextInput {
     /// Required. The UTF-8 encoded natural language text to be processed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub text: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24156,6 +24625,7 @@ pub struct IntentInput {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/intents/<IntentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub intent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24203,7 +24673,7 @@ pub struct AudioInput {
     ///
     /// [google.cloud.dialogflow.cx.v3.QueryResult.transcript]: crate::model::QueryResult::query
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub audio: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24254,6 +24724,7 @@ impl wkt::message::Message for AudioInput {
 pub struct EventInput {
     /// Name of the event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub event: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24286,10 +24757,12 @@ impl wkt::message::Message for EventInput {
 pub struct DtmfInput {
     /// The dtmf digits.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub digits: std::string::String,
 
     /// The finish digit (if any).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub finish_digit: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24343,6 +24816,7 @@ pub struct Match {
     ///
     /// [google.cloud.dialogflow.cx.v3.Match.MatchType]: crate::model::r#match::MatchType
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub event: std::string::String,
 
     /// The collection of parameters extracted from the query.
@@ -24366,12 +24840,14 @@ pub struct Match {
     /// different from original input sent in request because of spelling
     /// correction or other processing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resolved_input: std::string::String,
 
     /// Type of this [Match][google.cloud.dialogflow.cx.v3.Match].
     ///
     /// [google.cloud.dialogflow.cx.v3.Match]: crate::model::Match
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub match_type: crate::model::r#match::MatchType,
 
     /// The confidence of this match. Values range from 0.0 (completely uncertain)
@@ -24381,7 +24857,7 @@ pub struct Match {
     /// for the same end-user expression at any time due to a model retraining or
     /// change in implementation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24663,6 +25139,7 @@ pub struct MatchIntentRequest {
     /// For more information, see the [sessions
     /// guide](https://cloud.google.com/dialogflow/cx/docs/concept/session).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub session: std::string::String,
 
     /// The parameters of this query.
@@ -24675,6 +25152,7 @@ pub struct MatchIntentRequest {
 
     /// Persist session parameter changes from `query_params`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub persist_parameter_changes: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -24750,6 +25228,7 @@ pub struct MatchIntentResponse {
     /// Match results, if more than one, ordered descendingly by the confidence
     /// we have that the particular intent matches the query.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub matches: std::vec::Vec<crate::model::Match>,
 
     /// The current [Page][google.cloud.dialogflow.cx.v3.Page]. Some, not all
@@ -24935,24 +25414,24 @@ pub mod match_intent_response {
         /// provided as input, this field will contain a copy of the text.
         ///
         /// [google.cloud.dialogflow.cx.v3.TextInput]: crate::model::TextInput
-        Text(std::string::String),
+        Text(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If an [intent][google.cloud.dialogflow.cx.v3.IntentInput] was provided as
         /// input, this field will contain a copy of the intent identifier. Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/intents/<IntentID>`.
         ///
         /// [google.cloud.dialogflow.cx.v3.IntentInput]: crate::model::IntentInput
-        TriggerIntent(std::string::String),
+        TriggerIntent(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If [natural language speech
         /// audio][google.cloud.dialogflow.cx.v3.AudioInput] was provided as input,
         /// this field will contain the transcript for the audio.
         ///
         /// [google.cloud.dialogflow.cx.v3.AudioInput]: crate::model::AudioInput
-        Transcript(std::string::String),
+        Transcript(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If an [event][google.cloud.dialogflow.cx.v3.EventInput] was provided as
         /// input, this field will contain a copy of the event name.
         ///
         /// [google.cloud.dialogflow.cx.v3.EventInput]: crate::model::EventInput
-        TriggerEvent(std::string::String),
+        TriggerEvent(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -25055,6 +25534,7 @@ pub struct FulfillIntentResponse {
     /// Output only. The unique identifier of the response. It can be used to
     /// locate a response in the training example set or for reporting issues.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_id: std::string::String,
 
     /// The result of the conversational query.
@@ -25075,7 +25555,7 @@ pub struct FulfillIntentResponse {
     ///
     /// [google.cloud.dialogflow.cx.v3.QueryResult.response_messages]: crate::model::QueryResult::response_messages
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub output_audio: ::bytes::Bytes,
 
     /// The config used by the speech synthesizer to generate the output audio.
@@ -25157,13 +25637,13 @@ pub struct SentimentAnalysisResult {
     /// Sentiment score between -1.0 (negative sentiment) and 1.0 (positive
     /// sentiment).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub score: f32,
 
     /// A non-negative number in the [0, +inf) range, which represents the absolute
     /// magnitude of sentiment, regardless of score (positive or negative).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub magnitude: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25222,16 +25702,19 @@ pub struct SessionEntityType {
     /// If `Environment ID` is not specified, we assume default 'draft'
     /// environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Indicates whether the additional data should override or
     /// supplement the custom entity type definition.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity_override_mode: crate::model::session_entity_type::EntityOverrideMode,
 
     /// Required. The collection of entities to override or supplement the custom
     /// entity type.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entities: std::vec::Vec<crate::model::entity_type::Entity>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25445,16 +25928,18 @@ pub struct ListSessionEntityTypesRequest {
     /// If `Environment ID` is not specified, we assume default 'draft'
     /// environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25503,11 +25988,13 @@ pub struct ListSessionEntityTypesResponse {
     /// The list of session entity types. There will be a maximum number of items
     /// returned based on the page_size field in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub session_entity_types: std::vec::Vec<crate::model::SessionEntityType>,
 
     /// Token to retrieve the next page of results, or empty if there are no
     /// more results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25574,6 +26061,7 @@ pub struct GetSessionEntityTypeRequest {
     /// If `Environment ID` is not specified, we assume default 'draft'
     /// environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25615,6 +26103,7 @@ pub struct CreateSessionEntityTypeRequest {
     /// If `Environment ID` is not specified, we assume default 'draft'
     /// environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The session entity type to create.
@@ -25753,6 +26242,7 @@ pub struct DeleteSessionEntityTypeRequest {
     /// If `Environment ID` is not specified,
     /// we assume default 'draft' environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -25790,21 +26280,25 @@ pub struct TestCase {
     ///
     /// [google.cloud.dialogflow.cx.v3.TestCases.CreateTestCase]: crate::client::TestCases::create_test_case
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Tags are short descriptions that users may apply to test cases for
     /// organizational and filtering purposes. Each tag should start with "#" and
     /// has a limit of 30 characters.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tags: std::vec::Vec<std::string::String>,
 
     /// Required. The human-readable name of the test case, unique within the
     /// agent. Limit of 200 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Additional freeform notes about the test case. Limit of 400 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub notes: std::string::String,
 
     /// Config for the test case.
@@ -25815,6 +26309,7 @@ pub struct TestCase {
     /// chronological order. These include the canonical set of agent utterances
     /// that should occur when the agent is working properly.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub test_case_conversation_turns: std::vec::Vec<crate::model::ConversationTurn>,
 
     /// Output only. When the test was created.
@@ -25944,20 +26439,24 @@ pub struct TestCaseResult {
     /// The resource name for the test case result. Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/testCases/<TestCaseID>/results/<TestCaseResultID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Environment where the test was run. If not set, it indicates the draft
     /// environment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     /// The conversation turns uttered during the test case replay in chronological
     /// order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub conversation_turns: std::vec::Vec<crate::model::ConversationTurn>,
 
     /// Whether the test case passed in the agent environment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub test_result: crate::model::TestResult,
 
     /// The time that the test was run.
@@ -26038,6 +26537,7 @@ impl wkt::message::Message for TestCaseResult {
 pub struct TestConfig {
     /// Session parameters to be compared when calculating differences.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tracking_parameters: std::vec::Vec<std::string::String>,
 
     /// Flow name to start the test case with.
@@ -26048,6 +26548,7 @@ pub struct TestConfig {
     /// of the test case. If neither is set, the test case will start with start
     /// page on the default start flow.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub flow: std::string::String,
 
     /// The [page][google.cloud.dialogflow.cx.v3.Page] to start the test case with.
@@ -26060,6 +26561,7 @@ pub struct TestConfig {
     ///
     /// [google.cloud.dialogflow.cx.v3.Page]: crate::model::Page
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26199,10 +26701,12 @@ pub mod conversation_turn {
         /// utterance. Often if parameters are injected, webhooks should not be
         /// enabled.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub is_webhook_enabled: bool,
 
         /// Whether sentiment analysis is enabled.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_sentiment_analysis: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26285,6 +26789,7 @@ pub mod conversation_turn {
         ///
         /// [TestCaseResult.conversation_turns]: crate::model::TestCaseResult::conversation_turns
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub differences: std::vec::Vec<crate::model::TestRunDifference>,
 
         /// Required. Input only. The diagnostic
@@ -26312,6 +26817,7 @@ pub mod conversation_turn {
         ///
         /// [google.cloud.dialogflow.cx.v3.ResponseMessage.Text]: crate::model::response_message::Text
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub text_responses: std::vec::Vec<crate::model::response_message::Text>,
 
         /// Response error from the agent in the test result. If set, other output
@@ -26457,11 +26963,13 @@ pub struct TestRunDifference {
     /// The type of diff.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::test_run_difference::DiffType,
 
     /// A human readable description of the diff, showing the actual output vs
     /// expected output.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26664,11 +27172,12 @@ pub mod test_run_difference {
 pub struct TransitionCoverage {
     /// The list of Transitions present in the agent.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transitions: std::vec::Vec<crate::model::transition_coverage::Transition>,
 
     /// The percent of transitions in the agent that are covered.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub coverage_score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -26843,7 +27352,7 @@ pub mod transition_coverage {
 
         /// The index of a transition in the transition list. Starting from 0.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub index: i32,
 
         /// The end node of a transition.
@@ -26853,6 +27362,7 @@ pub mod transition_coverage {
         /// Whether the transition is covered by at least one of the
         /// agent's test cases.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub covered: bool,
 
         /// The detailed transition.
@@ -27032,12 +27542,13 @@ pub mod transition_coverage {
 pub struct TransitionRouteGroupCoverage {
     /// Transition route group coverages.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub coverages: std::vec::Vec<crate::model::transition_route_group_coverage::Coverage>,
 
     /// The percent of transition routes in all the transition route groups that
     /// are covered.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub coverage_score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27090,13 +27601,14 @@ pub mod transition_route_group_coverage {
 
         /// The list of transition routes and coverage in the transition route group.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub transitions:
             std::vec::Vec<crate::model::transition_route_group_coverage::coverage::Transition>,
 
         /// The percent of transition routes in the transition route group that are
         /// covered.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub coverage_score: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27170,6 +27682,7 @@ pub mod transition_route_group_coverage {
             /// Whether the transition route is covered by at least one of the
             /// agent's test cases.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub covered: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27223,11 +27736,12 @@ pub mod transition_route_group_coverage {
 pub struct IntentCoverage {
     /// The list of Intents present in the agent
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub intents: std::vec::Vec<crate::model::intent_coverage::Intent>,
 
     /// The percent of intents in the agent that are covered.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub coverage_score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27276,11 +27790,13 @@ pub mod intent_coverage {
     pub struct Intent {
         /// The intent full resource name
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub intent: std::string::String,
 
         /// Whether the intent is covered by at least one of the agent's
         /// test cases.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub covered: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27324,11 +27840,13 @@ pub struct CalculateCoverageRequest {
     /// Required. The agent to calculate coverage for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub agent: std::string::String,
 
     /// Required. The type of coverage requested.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::calculate_coverage_request::CoverageType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27521,6 +28039,7 @@ pub struct CalculateCoverageResponse {
     /// The agent to calculate coverage for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub agent: std::string::String,
 
     /// The type of coverage requested.
@@ -27693,21 +28212,24 @@ pub struct ListTestCasesRequest {
     /// Required. The agent to list all pages for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 20.
     /// Note that when TestCaseView = FULL, the maximum page size allowed is 20.
     /// When TestCaseView = BASIC, the maximum page size allowed is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Specifies whether response should include all fields or just the metadata.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::list_test_cases_request::TestCaseView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27905,11 +28427,13 @@ pub struct ListTestCasesResponse {
     /// The list of test cases. There will be a maximum number of items returned
     /// based on the page_size field in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub test_cases: std::vec::Vec<crate::model::TestCase>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -27971,11 +28495,13 @@ pub struct BatchDeleteTestCasesRequest {
     /// Required. The agent to delete test cases from.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Format of test case names:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/testCases/<TestCaseID>`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28023,6 +28549,7 @@ pub struct CreateTestCaseRequest {
     /// Required. The agent to create the test case for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The test case to create.
@@ -28157,6 +28684,7 @@ pub struct GetTestCaseRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/testCases/<TestCaseID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28193,12 +28721,14 @@ pub struct RunTestCaseRequest {
     /// Required. Format of test case name to run:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/testCases/<TestCaseID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Environment name. If not set, draft environment is assumed.
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/environments/<EnvironmentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28314,16 +28844,19 @@ pub struct BatchRunTestCasesRequest {
     /// Required. Agent name. Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. If not set, draft environment is assumed. Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/environments/<EnvironmentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub environment: std::string::String,
 
     /// Required. Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/testCases/<TestCaseID>`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub test_cases: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28381,6 +28914,7 @@ pub struct BatchRunTestCasesResponse {
     ///
     /// [google.cloud.dialogflow.cx.v3.TestCaseResult.conversation_turns]: crate::model::TestCaseResult::conversation_turns
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub results: std::vec::Vec<crate::model::TestCaseResult>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28422,6 +28956,7 @@ impl wkt::message::Message for BatchRunTestCasesResponse {
 pub struct BatchRunTestCasesMetadata {
     /// The test errors.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<crate::model::TestError>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28459,6 +28994,7 @@ impl wkt::message::Message for BatchRunTestCasesMetadata {
 pub struct TestError {
     /// The test case resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub test_case: std::string::String,
 
     /// The status associated with the test.
@@ -28539,6 +29075,7 @@ pub struct ImportTestCasesRequest {
     /// Required. The agent to import test cases to.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The source to import.
@@ -28651,9 +29188,12 @@ pub mod import_test_cases_request {
         /// have read permissions for the object. For more information, see
         /// [Dialogflow access
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
-        GcsUri(std::string::String),
+        GcsUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Uncompressed raw byte content for test cases.
-        Content(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Content(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
     }
 }
 
@@ -28670,6 +29210,7 @@ pub struct ImportTestCasesResponse {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/testCases/<TestCaseID>`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28711,6 +29252,7 @@ impl wkt::message::Message for ImportTestCasesResponse {
 pub struct ImportTestCasesMetadata {
     /// Errors for failed test cases.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<crate::model::TestCaseError>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -28818,11 +29360,13 @@ pub struct ExportTestCasesRequest {
     /// Required. The agent where to export test cases from.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The data format of the exported test cases. If not specified, `BLOB` is
     /// assumed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_format: crate::model::export_test_cases_request::DataFormat,
 
     /// The filter expression used to filter exported test cases, see
@@ -28836,6 +29380,7 @@ pub struct ExportTestCasesRequest {
     /// * "name = t1 OR name = t2" matches the test case with the exact resource
     ///   name "t1" or "t2".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The destination to export.
@@ -29075,7 +29620,7 @@ pub mod export_test_cases_request {
         /// have write permissions for the object. For more information, see
         /// [Dialogflow access
         /// control](https://cloud.google.com/dialogflow/cx/docs/concept/access-control#storage).
-        GcsUri(std::string::String),
+        GcsUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -29190,9 +29735,12 @@ pub mod export_test_cases_response {
         /// [ExportTestCasesRequest][google.cloud.dialogflow.cx.v3.ExportTestCasesRequest].
         ///
         /// [google.cloud.dialogflow.cx.v3.ExportTestCasesRequest]: crate::model::ExportTestCasesRequest
-        GcsUri(std::string::String),
+        GcsUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Uncompressed raw byte content for test cases.
-        Content(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Content(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
     }
 }
 
@@ -29237,16 +29785,18 @@ pub struct ListTestCaseResultsRequest {
     /// Specify a `-` as a wildcard for TestCase ID to
     /// list results across multiple test cases.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The filter expression used to filter test case results. See
@@ -29275,6 +29825,7 @@ pub struct ListTestCaseResultsRequest {
     /// * "test_time > 1602540713" matches any test case results with test time
     ///   later than a unix timestamp in seconds 1602540713.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29328,11 +29879,13 @@ impl wkt::message::Message for ListTestCaseResultsRequest {
 pub struct ListTestCaseResultsResponse {
     /// The list of test case results.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub test_case_results: std::vec::Vec<crate::model::TestCaseResult>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29395,6 +29948,7 @@ pub struct GetTestCaseResultRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/testCases/<TestCaseID>/results/<TestCaseResultID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29438,11 +29992,13 @@ pub struct TransitionRouteGroup {
     ///
     /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroups.CreateTransitionRouteGroup]: crate::client::TransitionRouteGroups::create_transition_route_group
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human-readable name of the transition route group, unique
     /// within the flow. The display name can be no longer than 30 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Transition routes associated with the
@@ -29450,6 +30006,7 @@ pub struct TransitionRouteGroup {
     ///
     /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroup]: crate::model::TransitionRouteGroup
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transition_routes: std::vec::Vec<crate::model::TransitionRoute>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29505,16 +30062,18 @@ pub struct ListTransitionRouteGroupsRequest {
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`
     /// or `projects/\<ProjectID\>/locations/\<LocationID\>/agents/\<AgentID\>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The language to list transition route groups for. The following fields are
@@ -29530,6 +30089,7 @@ pub struct ListTransitionRouteGroupsRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29586,11 +30146,13 @@ pub struct ListTransitionRouteGroupsResponse {
     /// some cases be empty or contain fewer entries than page_size even if this
     /// isn't the last page.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transition_route_groups: std::vec::Vec<crate::model::TransitionRouteGroup>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29658,6 +30220,7 @@ pub struct GetTransitionRouteGroupRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroup]: crate::model::TransitionRouteGroup
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The language to retrieve the transition route group for. The following
@@ -29673,6 +30236,7 @@ pub struct GetTransitionRouteGroupRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29721,6 +30285,7 @@ pub struct CreateTransitionRouteGroupRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroup]: crate::model::TransitionRouteGroup
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The transition route group to create.
@@ -29739,6 +30304,7 @@ pub struct CreateTransitionRouteGroupRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29816,6 +30382,7 @@ pub struct UpdateTransitionRouteGroupRequest {
     /// are supported.
     /// Note: languages must be enabled in the agent before they can be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29894,6 +30461,7 @@ pub struct DeleteTransitionRouteGroupRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroup]: crate::model::TransitionRouteGroup
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// This field has no effect for transition route group that no page is using.
@@ -29904,6 +30472,7 @@ pub struct DeleteTransitionRouteGroupRequest {
     /// * If `force` is set to true, Dialogflow will remove the transition route
     ///   group, as well as any reference to it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -29942,23 +30511,28 @@ impl wkt::message::Message for DeleteTransitionRouteGroupRequest {
 pub struct ValidationMessage {
     /// The type of the resources where the message is found.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_type: crate::model::validation_message::ResourceType,
 
     /// The names of the resources where the message is found.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub resources: std::vec::Vec<std::string::String>,
 
     /// The resource names of the resources where the message is found.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_names: std::vec::Vec<crate::model::ResourceName>,
 
     /// Indicates the severity of the message.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub severity: crate::model::validation_message::Severity,
 
     /// The message detail.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub detail: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -30397,10 +30971,12 @@ pub mod validation_message {
 pub struct ResourceName {
     /// Name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Display name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -30444,6 +31020,7 @@ pub struct CreateVersionOperationMetadata {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>/versions/<VersionID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -30479,15 +31056,18 @@ pub struct Version {
     /// Version ID is a self-increasing number generated by Dialogflow upon version
     /// creation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human-readable name of the version. Limit of 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The description of the version. The maximum length is 500 characters. If
     /// exceeded, the request is rejected.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The NLU settings of the flow at version creation.
@@ -30501,6 +31081,7 @@ pub struct Version {
     /// Output only. The state of this version. This field is read-only and cannot
     /// be set by create and update methods.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::version::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -30739,16 +31320,18 @@ pub struct ListVersionsRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.Flow]: crate::model::Flow
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 20 and
     /// at most 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -30798,11 +31381,13 @@ pub struct ListVersionsResponse {
     /// on the page_size field in the request. The list may in some cases be empty
     /// or contain fewer entries than page_size even if this isn't the last page.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub versions: std::vec::Vec<crate::model::Version>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -30867,6 +31452,7 @@ pub struct GetVersionRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.Version]: crate::model::Version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -30907,6 +31493,7 @@ pub struct CreateVersionRequest {
     /// [google.cloud.dialogflow.cx.v3.Flow]: crate::model::Flow
     /// [google.cloud.dialogflow.cx.v3.Version]: crate::model::Version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The version to create.
@@ -31038,6 +31625,7 @@ pub struct DeleteVersionRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.Version]: crate::model::Version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -31077,6 +31665,7 @@ pub struct LoadVersionRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.Version]: crate::model::Version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// This field is used to prevent accidental overwrite of other agent
@@ -31084,6 +31673,7 @@ pub struct LoadVersionRequest {
     /// `allow_override_agent_resources` is false, conflicted agent-level resources
     /// will not be overridden (i.e. intents, entities, webhooks).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_override_agent_resources: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -31129,6 +31719,7 @@ pub struct CompareVersionsRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>/versions/<VersionID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub base_version: std::string::String,
 
     /// Required. Name of the target flow version to compare with the
@@ -31136,6 +31727,7 @@ pub struct CompareVersionsRequest {
     /// specified flow. Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>/versions/<VersionID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_version: std::string::String,
 
     /// The language to compare the flow versions for.
@@ -31146,6 +31738,7 @@ pub struct CompareVersionsRequest {
     /// supported. Note: languages must be enabled in the agent before they can be
     /// used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -31193,10 +31786,12 @@ impl wkt::message::Message for CompareVersionsRequest {
 pub struct CompareVersionsResponse {
     /// JSON representation of the base version content.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub base_version_content_json: std::string::String,
 
     /// JSON representation of the target version content.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_version_content_json: std::string::String,
 
     /// The timestamp when the two version compares.
@@ -31275,10 +31870,12 @@ pub struct Webhook {
     /// [google.cloud.dialogflow.cx.v3.Webhooks.CreateWebhook]: crate::client::Webhooks::create_webhook
     /// [google.cloud.dialogflow.cx.v3.Webhooks.UpdateWebhook]: crate::client::Webhooks::update_webhook
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The human-readable name of the webhook, unique within the agent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Webhook execution timeout. Execution is considered failed if Dialogflow
@@ -31289,6 +31886,7 @@ pub struct Webhook {
 
     /// Indicates whether the webhook is disabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disabled: bool,
 
     /// Required. The webhook configuration.
@@ -31433,20 +32031,24 @@ pub mod webhook {
         /// Required. The webhook URI for receiving POST requests. It must use https
         /// protocol.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub uri: std::string::String,
 
         /// The user name for HTTP Basic authentication.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         #[deprecated]
         pub username: std::string::String,
 
         /// The password for HTTP Basic authentication.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         #[deprecated]
         pub password: std::string::String,
 
         /// The HTTP request headers to send together with webhook requests.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub request_headers: std::collections::HashMap<std::string::String, std::string::String>,
 
         /// Optional. Specifies a list of allowed custom CA certificates (in DER
@@ -31463,7 +32065,7 @@ pub mod webhook {
         ///      -extfile <(printf "\nsubjectAltName='DNS:www.example.com'")
         /// ```
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<serde_with::base64::Base64>>")]
         pub allowed_ca_certs: std::vec::Vec<::bytes::Bytes>,
 
         /// Optional. The OAuth configuration of the webhook. If specified,
@@ -31478,20 +32080,24 @@ pub mod webhook {
         /// agent](https://cloud.google.com/iam/docs/service-agents#dialogflow-service-agent).
         /// The generated token is sent in the Authorization header.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service_agent_auth: crate::model::webhook::generic_web_service::ServiceAgentAuth,
 
         /// Optional. Type of the webhook.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub webhook_type: crate::model::webhook::generic_web_service::WebhookType,
 
         /// Optional. HTTP method for the flexible webhook calls. Standard webhook
         /// always uses POST.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub http_method: crate::model::webhook::generic_web_service::HttpMethod,
 
         /// Optional. Defines a custom JSON object as request body to send to
         /// flexible webhook.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub request_body: std::string::String,
 
         /// Optional. Maps the values extracted from specific fields of the flexible
@@ -31500,6 +32106,7 @@ pub mod webhook {
         /// - Key: session parameter name
         /// - Value: field path in the webhook response
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub parameter_mapping: std::collections::HashMap<std::string::String, std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -31647,19 +32254,23 @@ pub mod webhook {
         pub struct OAuthConfig {
             /// Required. The client ID provided by the 3rd party platform.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub client_id: std::string::String,
 
             /// Optional. The client secret provided by the 3rd party platform.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub client_secret: std::string::String,
 
             /// Required. The token endpoint provided by the 3rd party platform to
             /// exchange an access token.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub token_endpoint: std::string::String,
 
             /// Optional. The OAuth scopes to grant.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub scopes: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32189,6 +32800,7 @@ pub mod webhook {
         /// `Location ID` of the service directory must be the same as the location
         /// of the agent.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service: std::string::String,
 
         /// Generic Service configuration of this webhook.
@@ -32261,16 +32873,18 @@ pub struct ListWebhooksRequest {
     /// Required. The agent to list all webhooks for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 100 and
     /// at most 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The next_page_token value returned from a previous list request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32319,11 +32933,13 @@ pub struct ListWebhooksResponse {
     /// The list of webhooks. There will be a maximum number of items returned
     /// based on the page_size field in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub webhooks: std::vec::Vec<crate::model::Webhook>,
 
     /// Token to retrieve the next page of results, or empty if there are no more
     /// results in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32386,6 +33002,7 @@ pub struct GetWebhookRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/webhooks/<WebhookID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32422,6 +33039,7 @@ pub struct CreateWebhookRequest {
     /// Required. The agent to create a webhook for.
     /// Format: `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The webhook to create.
@@ -32551,6 +33169,7 @@ pub struct DeleteWebhookRequest {
     /// Format:
     /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/webhooks/<WebhookID>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// This field has no effect for webhook not being used.
@@ -32567,6 +33186,7 @@ pub struct DeleteWebhookRequest {
     /// [google.cloud.dialogflow.cx.v3.Fulfillment.tag]: crate::model::Fulfillment::tag
     /// [google.cloud.dialogflow.cx.v3.Fulfillment.webhook]: crate::model::Fulfillment::webhook
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -32613,6 +33233,7 @@ pub struct WebhookRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.DetectIntentResponse]: crate::model::DetectIntentResponse
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub detect_intent_response_id: std::string::String,
 
     /// The language code specified in the [original
@@ -32620,6 +33241,7 @@ pub struct WebhookRequest {
     ///
     /// [QueryInput.language_code]: crate::model::QueryInput::language_code
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// Always present. Information about the fulfillment that triggered this
@@ -32645,6 +33267,7 @@ pub struct WebhookRequest {
     ///
     /// [google.cloud.dialogflow.cx.v3.WebhookResponse.fulfillment_response]: crate::model::WebhookResponse::fulfillment_response
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub messages: std::vec::Vec<crate::model::ResponseMessage>,
 
     /// Custom data set in
@@ -32982,6 +33605,7 @@ pub mod webhook_request {
         ///
         /// [google.cloud.dialogflow.cx.v3.Fulfillment.tag]: crate::model::Fulfillment::tag
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub tag: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33019,6 +33643,7 @@ pub mod webhook_request {
         ///
         /// [google.cloud.dialogflow.cx.v3.Intent]: crate::model::Intent
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub last_matched_intent: std::string::String,
 
         /// Always present. The display name of the last matched
@@ -33026,6 +33651,7 @@ pub mod webhook_request {
         ///
         /// [google.cloud.dialogflow.cx.v3.Intent]: crate::model::Intent
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_name: std::string::String,
 
         /// Parameters identified as a result of intent matching. This is a map of
@@ -33033,6 +33659,7 @@ pub mod webhook_request {
         /// identified from the user's utterance. All parameters defined in the
         /// matched intent that are identified will be surfaced here.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub parameters: std::collections::HashMap<
             std::string::String,
             crate::model::webhook_request::intent_info::IntentParameterValue,
@@ -33041,7 +33668,7 @@ pub mod webhook_request {
         /// The confidence of the matched intent. Values range from 0.0 (completely
         /// uncertain) to 1.0 (completely certain).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub confidence: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33109,11 +33736,13 @@ pub mod webhook_request {
         pub struct IntentParameterValue {
             /// Always present. Original text value extracted from user utterance.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub original_value: std::string::String,
 
             /// Always present. Structured value for the parameter extracted from user
             /// utterance.
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "wkt::internal::OptionalValue")]
             pub resolved_value: std::option::Option<wkt::Value>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33169,14 +33798,14 @@ pub mod webhook_request {
         /// Sentiment score between -1.0 (negative sentiment) and 1.0 (positive
         /// sentiment).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub score: f32,
 
         /// A non-negative number in the [0, +inf) range, which represents the
         /// absolute magnitude of sentiment, regardless of score (positive or
         /// negative).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub magnitude: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33217,29 +33846,29 @@ pub mod webhook_request {
         /// provided as input, this field will contain a copy of the text.
         ///
         /// [google.cloud.dialogflow.cx.v3.TextInput]: crate::model::TextInput
-        Text(std::string::String),
+        Text(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If an [intent][google.cloud.dialogflow.cx.v3.IntentInput] was provided as
         /// input, this field will contain a copy of the intent identifier. Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/intents/<IntentID>`.
         ///
         /// [google.cloud.dialogflow.cx.v3.IntentInput]: crate::model::IntentInput
-        TriggerIntent(std::string::String),
+        TriggerIntent(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If [natural language speech
         /// audio][google.cloud.dialogflow.cx.v3.AudioInput] was provided as input,
         /// this field will contain the transcript for the audio.
         ///
         /// [google.cloud.dialogflow.cx.v3.AudioInput]: crate::model::AudioInput
-        Transcript(std::string::String),
+        Transcript(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If an [event][google.cloud.dialogflow.cx.v3.EventInput] was provided as
         /// input, this field will contain the name of the event.
         ///
         /// [google.cloud.dialogflow.cx.v3.EventInput]: crate::model::EventInput
-        TriggerEvent(std::string::String),
+        TriggerEvent(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// If [DTMF][google.cloud.dialogflow.cx.v3.DtmfInput] was provided as input,
         /// this field will contain the DTMF digits.
         ///
         /// [google.cloud.dialogflow.cx.v3.DtmfInput]: crate::model::DtmfInput
-        DtmfDigits(std::string::String),
+        DtmfDigits(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -33443,10 +34072,12 @@ pub mod webhook_response {
     pub struct FulfillmentResponse {
         /// The list of rich message responses to present to the user.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub messages: std::vec::Vec<crate::model::ResponseMessage>,
 
         /// Merge behavior for `messages`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub merge_behavior: crate::model::webhook_response::fulfillment_response::MergeBehavior,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33640,11 +34271,11 @@ pub mod webhook_response {
         /// The target page to transition to.
         /// Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>/pages/<PageID>`.
-        TargetPage(std::string::String),
+        TargetPage(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// The target flow to transition to.
         /// Format:
         /// `projects/<ProjectID>/locations/<LocationID>/agents/<AgentID>/flows/<FlowID>`.
-        TargetFlow(std::string::String),
+        TargetFlow(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -33663,6 +34294,7 @@ pub struct PageInfo {
     /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
     /// [google.cloud.dialogflow.cx.v3.WebhookResponse]: crate::model::WebhookResponse
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub current_page: std::string::String,
 
     /// Always present for
@@ -33673,6 +34305,7 @@ pub struct PageInfo {
     /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
     /// [google.cloud.dialogflow.cx.v3.WebhookResponse]: crate::model::WebhookResponse
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional for both
@@ -33751,6 +34384,7 @@ pub mod page_info {
         /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
         /// [google.cloud.dialogflow.cx.v3.WebhookResponse]: crate::model::WebhookResponse
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub parameter_info: std::vec::Vec<crate::model::page_info::form_info::ParameterInfo>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -33801,6 +34435,7 @@ pub mod page_info {
             /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
             /// [google.cloud.dialogflow.cx.v3.WebhookResponse]: crate::model::WebhookResponse
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub display_name: std::string::String,
 
             /// Optional for both
@@ -33813,6 +34448,7 @@ pub mod page_info {
             /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
             /// [google.cloud.dialogflow.cx.v3.WebhookResponse]: crate::model::WebhookResponse
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub required: bool,
 
             /// Always present for
@@ -33828,6 +34464,7 @@ pub mod page_info {
             /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
             /// [google.cloud.dialogflow.cx.v3.WebhookResponse]: crate::model::WebhookResponse
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub state: crate::model::page_info::form_info::parameter_info::ParameterState,
 
             /// Optional for both
@@ -33839,6 +34476,7 @@ pub mod page_info {
             /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
             /// [google.cloud.dialogflow.cx.v3.WebhookResponse]: crate::model::WebhookResponse
             #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            #[serde_as(as = "wkt::internal::OptionalValue")]
             pub value: std::option::Option<wkt::Value>,
 
             /// Optional for
@@ -33850,6 +34488,7 @@ pub mod page_info {
             /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
             /// [google.cloud.dialogflow.cx.v3.WebhookResponse]: crate::model::WebhookResponse
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub just_collected: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -34095,6 +34734,7 @@ pub struct SessionInfo {
     /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
     /// [google.cloud.dialogflow.cx.v3.WebhookResponse]: crate::model::WebhookResponse
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub session: std::string::String,
 
     /// Optional for
@@ -34109,6 +34749,7 @@ pub struct SessionInfo {
     /// [google.cloud.dialogflow.cx.v3.WebhookRequest]: crate::model::WebhookRequest
     /// [google.cloud.dialogflow.cx.v3.WebhookResponse]: crate::model::WebhookResponse
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub parameters: std::collections::HashMap<std::string::String, wkt::Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -34156,16 +34797,18 @@ pub struct LanguageInfo {
     ///
     /// [google.cloud.dialogflow.cx.v3.QueryInput.language_code]: crate::model::QueryInput::language_code
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_language_code: std::string::String,
 
     /// The language code detected for this request based on the user
     /// conversation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resolved_language_code: std::string::String,
 
     /// The confidence score of the detected language between 0 and 1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence_score: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

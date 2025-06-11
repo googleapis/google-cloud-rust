@@ -46,10 +46,12 @@ pub struct AuthorizationPolicy {
     /// Required. Name of the AuthorizationPolicy resource. It matches pattern
     /// `projects/{project}/locations/{location}/authorizationPolicies/<authorization_policy>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Free-text description of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -62,11 +64,13 @@ pub struct AuthorizationPolicy {
 
     /// Optional. Set of label tags associated with the AuthorizationPolicy resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. The action to take when a rule match is found. Possible values
     /// are "ALLOW" or "DENY".
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub action: crate::model::authorization_policy::Action,
 
     /// Optional. List of rules to match. Note that at least one of the rules must match in
@@ -74,6 +78,7 @@ pub struct AuthorizationPolicy {
     /// a match if there is a matching source and destination. If left blank, the
     /// action specified in the `action` field will be applied on every request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::authorization_policy::Rule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -188,6 +193,7 @@ pub mod authorization_policy {
         /// the action specified in the 'action' field will be applied without any
         /// rule checks for the source.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub sources: std::vec::Vec<crate::model::authorization_policy::rule::Source>,
 
         /// Optional. List of attributes for the traffic destination. All of the destinations
@@ -196,6 +202,7 @@ pub mod authorization_policy {
         /// action specified in the 'action' field will be applied without any rule
         /// checks for the destination.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub destinations: std::vec::Vec<crate::model::authorization_policy::rule::Destination>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -254,6 +261,7 @@ pub mod authorization_policy {
             /// the principal name without certificate validation (configured by
             /// ServerTlsPolicy resource) is considered insecure.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub principals: std::vec::Vec<std::string::String>,
 
             /// Optional. List of CIDR ranges to match based on source IP address. At least one
@@ -262,6 +270,7 @@ pub mod authorization_policy {
             /// should be avoided. The IP addresses of any load balancers or proxies
             /// should be considered untrusted.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub ip_blocks: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -313,15 +322,18 @@ pub mod authorization_policy {
             /// exact match, or a prefix match (example "mydomain.*") or a suffix
             /// match (example "*.myorg.com") or a presence (any) match "*".
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub hosts: std::vec::Vec<std::string::String>,
 
             /// Required. List of destination ports to match. At least one port should match.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::U32>>")]
             pub ports: std::vec::Vec<u32>,
 
             /// Optional. A list of HTTP methods to match. At least one method should
             /// match. Should not be set for gRPC services.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub methods: std::vec::Vec<std::string::String>,
 
             /// Optional. Match against key:value pair in http header. Provides a flexible match
@@ -421,6 +433,7 @@ pub mod authorization_policy {
                 /// with the header name ":authority". For matching a
                 /// request's method, use the headerName ":method".
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub header_name: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -508,7 +521,9 @@ pub mod authorization_policy {
                     /// request, use a headerMatch with headerName set to Host
                     /// and a regular expression that satisfies the RFC2616 Host
                     /// header's port specifier.
-                    RegexMatch(std::string::String),
+                    RegexMatch(
+                        #[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String,
+                    ),
                 }
             }
         }
@@ -659,11 +674,12 @@ pub struct ListAuthorizationPoliciesRequest {
     /// should be listed, specified in the format
     /// `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of AuthorizationPolicies to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last
@@ -671,6 +687,7 @@ pub struct ListAuthorizationPoliciesRequest {
     /// continuation of a prior `ListAuthorizationPolicies` call, and
     /// that the system should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -715,12 +732,14 @@ impl wkt::message::Message for ListAuthorizationPoliciesRequest {
 pub struct ListAuthorizationPoliciesResponse {
     /// List of AuthorizationPolicies resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub authorization_policies: std::vec::Vec<crate::model::AuthorizationPolicy>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -779,6 +798,7 @@ pub struct GetAuthorizationPolicyRequest {
     /// Required. A name of the AuthorizationPolicy to get. Must be in the format
     /// `projects/{project}/locations/{location}/authorizationPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -812,6 +832,7 @@ pub struct CreateAuthorizationPolicyRequest {
     /// Required. The parent resource of the AuthorizationPolicy. Must be in the
     /// format `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Short name of the AuthorizationPolicy resource to be created.
@@ -819,6 +840,7 @@ pub struct CreateAuthorizationPolicyRequest {
     /// letters, numbers, hyphens, and underscores, and should not start
     /// with a number. E.g. "authz_policy".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub authorization_policy_id: std::string::String,
 
     /// Required. AuthorizationPolicy resource to be created.
@@ -953,6 +975,7 @@ pub struct DeleteAuthorizationPolicyRequest {
     /// Required. A name of the AuthorizationPolicy to delete. Must be in the format
     /// `projects/{project}/locations/{location}/authorizationPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -988,10 +1011,12 @@ pub struct ClientTlsPolicy {
     /// Required. Name of the ClientTlsPolicy resource. It matches the pattern
     /// `projects/*/locations/{location}/clientTlsPolicies/{client_tls_policy}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Free-text description of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -1004,11 +1029,13 @@ pub struct ClientTlsPolicy {
 
     /// Optional. Set of label tags associated with the resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Server Name Indication string to present to the server during TLS
     /// handshake. E.g: "secure.example.com".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sni: std::string::String,
 
     /// Optional. Defines a mechanism to provision client identity (public and private keys)
@@ -1020,6 +1047,7 @@ pub struct ClientTlsPolicy {
     /// validate the server certificate. If empty, client does not validate the
     /// server certificate.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub server_validation_ca: std::vec::Vec<crate::model::ValidationCA>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1142,11 +1170,12 @@ pub struct ListClientTlsPoliciesRequest {
     /// Required. The project and location from which the ClientTlsPolicies should
     /// be listed, specified in the format `projects/*/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of ClientTlsPolicies to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListClientTlsPoliciesResponse`
@@ -1154,6 +1183,7 @@ pub struct ListClientTlsPoliciesRequest {
     /// `ListClientTlsPolicies` call, and that the system
     /// should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1198,12 +1228,14 @@ impl wkt::message::Message for ListClientTlsPoliciesRequest {
 pub struct ListClientTlsPoliciesResponse {
     /// List of ClientTlsPolicy resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub client_tls_policies: std::vec::Vec<crate::model::ClientTlsPolicy>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1262,6 +1294,7 @@ pub struct GetClientTlsPolicyRequest {
     /// Required. A name of the ClientTlsPolicy to get. Must be in the format
     /// `projects/*/locations/{location}/clientTlsPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1295,12 +1328,14 @@ pub struct CreateClientTlsPolicyRequest {
     /// Required. The parent resource of the ClientTlsPolicy. Must be in
     /// the format `projects/*/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Short name of the ClientTlsPolicy resource to be created. This value should
     /// be 1-63 characters long, containing only letters, numbers, hyphens, and
     /// underscores, and should not start with a number. E.g. "client_mtls_policy".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub client_tls_policy_id: std::string::String,
 
     /// Required. ClientTlsPolicy resource to be created.
@@ -1436,6 +1471,7 @@ pub struct DeleteClientTlsPolicyRequest {
     /// Required. A name of the ClientTlsPolicy to delete. Must be in
     /// the format `projects/*/locations/{location}/clientTlsPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1476,14 +1512,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -1493,10 +1532,12 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1592,10 +1633,12 @@ pub struct ServerTlsPolicy {
     /// Required. Name of the ServerTlsPolicy resource. It matches the pattern
     /// `projects/*/locations/{location}/serverTlsPolicies/{server_tls_policy}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Free-text description of the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The timestamp when the resource was created.
@@ -1608,6 +1651,7 @@ pub struct ServerTlsPolicy {
 
     /// Set of label tags associated with the resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Determines if server allows plaintext connections. If set to true, server
@@ -1620,6 +1664,7 @@ pub struct ServerTlsPolicy {
     /// Consider using it if you wish to upgrade in place your deployment to TLS
     /// while having mixed TLS and non-TLS traffic reaching port :80.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_open: bool,
 
     /// Defines a mechanism to provision server identity (public and private keys).
@@ -1768,6 +1813,7 @@ pub mod server_tls_policy {
         /// Defines the mechanism to obtain the Certificate Authority certificate to
         /// validate the client certificate.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub client_validation_ca: std::vec::Vec<crate::model::ValidationCA>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1807,11 +1853,12 @@ pub struct ListServerTlsPoliciesRequest {
     /// Required. The project and location from which the ServerTlsPolicies should
     /// be listed, specified in the format `projects/*/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of ServerTlsPolicies to return per call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The value returned by the last `ListServerTlsPoliciesResponse`
@@ -1819,6 +1866,7 @@ pub struct ListServerTlsPoliciesRequest {
     /// `ListServerTlsPolicies` call, and that the system
     /// should return the next page of data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1863,12 +1911,14 @@ impl wkt::message::Message for ListServerTlsPoliciesRequest {
 pub struct ListServerTlsPoliciesResponse {
     /// List of ServerTlsPolicy resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub server_tls_policies: std::vec::Vec<crate::model::ServerTlsPolicy>,
 
     /// If there might be more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1927,6 +1977,7 @@ pub struct GetServerTlsPolicyRequest {
     /// Required. A name of the ServerTlsPolicy to get. Must be in the format
     /// `projects/*/locations/{location}/serverTlsPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1960,12 +2011,14 @@ pub struct CreateServerTlsPolicyRequest {
     /// Required. The parent resource of the ServerTlsPolicy. Must be in
     /// the format `projects/*/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Short name of the ServerTlsPolicy resource to be created. This value should
     /// be 1-63 characters long, containing only letters, numbers, hyphens, and
     /// underscores, and should not start with a number. E.g. "server_mtls_policy".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub server_tls_policy_id: std::string::String,
 
     /// Required. ServerTlsPolicy resource to be created.
@@ -2101,6 +2154,7 @@ pub struct DeleteServerTlsPolicyRequest {
     /// Required. A name of the ServerTlsPolicy to delete. Must be in
     /// the format `projects/*/locations/{location}/serverTlsPolicies/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2134,6 +2188,7 @@ pub struct GrpcEndpoint {
     /// Required. The target URI of the gRPC endpoint. Only UDS path is supported, and
     /// should start with "unix:".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2292,6 +2347,7 @@ pub struct CertificateProviderInstance {
     /// configuration. Set to "google_cloud_private_spiffe" to use Certificate
     /// Authority Service certificate provider instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub plugin_instance: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

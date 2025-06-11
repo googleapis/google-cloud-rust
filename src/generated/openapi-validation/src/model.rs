@@ -38,6 +38,7 @@ extern crate wkt;
 pub struct ListLocationsResponse {
     /// A list of locations that matches the specified filter in the request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub locations: std::vec::Vec<crate::model::Location>,
 
     /// The standard List next-page token.
@@ -129,6 +130,7 @@ pub struct Location {
     /// {"cloud.googleapis.com/region": "us-east1"}
     /// ```
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Service-specific metadata. For example the available capacity at the given
@@ -245,6 +247,7 @@ pub struct ListSecretsResponse {
     /// The list of Secrets sorted in reverse by create_time (newest
     /// first).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub secrets: std::vec::Vec<crate::model::Secret>,
 
     /// A token to retrieve the next page of results. Pass this value in
@@ -371,11 +374,13 @@ pub struct Secret {
     ///
     /// No more than 64 labels can be assigned to a given resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published when
     /// control plane operations are called on the secret or its versions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub topics: std::vec::Vec<crate::model::Topic>,
 
     /// Optional. Timestamp in UTC when the Secret is scheduled to expire. This is
@@ -408,7 +413,7 @@ pub struct Secret {
     /// UpdateSecret. Access by alias is only be supported on
     /// GetSecretVersion and AccessSecretVersion.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::I64>>")]
     pub version_aliases: std::collections::HashMap<std::string::String, i64>,
 
     /// Optional. Custom metadata about the secret.
@@ -424,6 +429,7 @@ pub struct Secret {
     ///
     /// The total size of annotation keys and values must be less than 16KiB.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Secret Version TTL after destruction request
@@ -804,6 +810,7 @@ pub struct CustomerManagedEncryption {
     ///
     /// The expected format is `projects/_*_/locations/_*_/keyRings/_*_/cryptoKeys/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -839,6 +846,7 @@ pub struct UserManaged {
     ///
     /// Cannot be empty.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub replicas: std::vec::Vec<crate::model::Replica>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -954,6 +962,7 @@ pub struct Topic {
     /// permission on the topic. The Pub/Sub Publisher role
     /// (`roles/pubsub.publisher`) includes this permission.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1153,7 +1162,7 @@ pub struct SecretPayload {
     /// <https://cloud.google.com/apis/design/design_patterns#integer_types>
     #[serde(rename = "dataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub data_crc_32_c: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1579,6 +1588,7 @@ pub struct CustomerManagedEncryptionStatus {
     /// secret payload, in the following format:
     /// `projects/_*_/locations/_*_/keyRings/_*_/cryptoKeys/_*_/versions/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_version_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1618,6 +1628,7 @@ impl wkt::message::Message for CustomerManagedEncryptionStatus {
 pub struct UserManagedStatus {
     /// Output only. The list of replica statuses for the SecretVersion.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub replicas: std::vec::Vec<crate::model::ReplicaStatus>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1755,6 +1766,7 @@ pub struct ListSecretVersionsResponse {
     /// The list of SecretVersions sorted in reverse by
     /// create_time (newest first).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub versions: std::vec::Vec<crate::model::SecretVersion>,
 
     /// A token to retrieve the next page of results. Pass this value in
@@ -2394,10 +2406,12 @@ pub struct Policy {
     /// principal, then you can add another 1,450 principals to the `bindings` in
     /// the `Policy`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub bindings: std::vec::Vec<crate::model::Binding>,
 
     /// Specifies cloud audit logging configuration for this policy.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub audit_configs: std::vec::Vec<crate::model::AuditConfig>,
 
     /// `etag` is used for optimistic concurrency control as a way to help
@@ -2585,6 +2599,7 @@ pub struct Binding {
     ///   `deleted:principal://iam.googleapis.com/locations/global/workforcePools/my-pool-id/subject/my-subject-attribute-value`.
     ///
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub members: std::vec::Vec<std::string::String>,
 
     /// The condition that is associated with this binding.
@@ -2884,6 +2899,7 @@ pub struct AuditConfig {
 
     /// The configuration for logging of each type of permission.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub audit_log_configs: std::vec::Vec<crate::model::AuditLogConfig>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2965,6 +2981,7 @@ pub struct AuditLogConfig {
     /// permission.
     /// Follows the same format of Binding.members.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub exempted_members: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3023,6 +3040,7 @@ pub struct TestIamPermissionsRequest {
     /// information see
     /// [IAM Overview](https://cloud.google.com/iam/docs/overview#permissions).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub permissions: std::vec::Vec<std::string::String>,
 
     /// The `{project}` component of the target path.
@@ -3091,6 +3109,7 @@ pub struct TestIamPermissionsResponse {
     /// A subset of `TestPermissionsRequest.permissions` that the caller is
     /// allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub permissions: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

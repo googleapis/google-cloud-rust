@@ -45,6 +45,7 @@ pub struct BillingAccount {
     /// `billingAccounts/012345-567890-ABCDEF` would be the resource name for
     /// billing account `012345-567890-ABCDEF`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. True if the billing account is open, and will therefore be
@@ -52,11 +53,13 @@ pub struct BillingAccount {
     /// is closed, and therefore projects associated with it are unable to use paid
     /// services.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub open: bool,
 
     /// The display name given to the billing account, such as `My Billing
     /// Account`. This name is displayed in the Google Cloud Console.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// If this account is a
@@ -65,6 +68,7 @@ pub struct BillingAccount {
     /// resold through.
     /// Otherwise this will be empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub master_billing_account: std::string::String,
 
     /// Output only. The billing account's parent resource identifier.
@@ -77,6 +81,7 @@ pub struct BillingAccount {
     /// - `billingAccounts/{billing_account_id}`, for example,
     ///   `billingAccounts/012345-567890-ABCDEF`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The currency in which the billing account is billed and charged,
@@ -89,6 +94,7 @@ pub struct BillingAccount {
     /// subaccount creation requests. Clients can read this field to determine the
     /// currency of an existing billing account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub currency_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -159,17 +165,20 @@ pub struct ProjectBillingInfo {
     /// billing information for project `tokyo-rain-123` would be
     /// `projects/tokyo-rain-123/billingInfo`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The ID of the project that this `ProjectBillingInfo`
     /// represents, such as `tokyo-rain-123`. This is a convenience field so that
     /// you don't need to parse the `name` field to obtain a project ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// The resource name of the billing account associated with the project, if
     /// any. For example, `billingAccounts/012345-567890-ABCDEF`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub billing_account_name: std::string::String,
 
     /// Output only. True if the project is associated with an open billing
@@ -177,6 +186,7 @@ pub struct ProjectBillingInfo {
     /// associated with a closed billing account, or no billing account at all, and
     /// therefore cannot use paid services.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub billing_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -231,6 +241,7 @@ pub struct GetBillingAccountRequest {
     /// Required. The resource name of the billing account to retrieve. For
     /// example, `billingAccounts/012345-567890-ABCDEF`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -264,13 +275,14 @@ pub struct ListBillingAccountsRequest {
     /// Requested page size. The maximum page size is 100; this is also the
     /// default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results to return. This should be a
     /// `next_page_token` value returned from a previous `ListBillingAccounts`
     /// call. If unspecified, the first page of results is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Options for how to filter the returned billing accounts.
@@ -281,6 +293,7 @@ pub struct ListBillingAccountsRequest {
     /// `master_billing_account=billingAccounts/012345-678901-ABCDEF`).
     /// Boolean algebra and other fields are not currently supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. The parent resource to list billing accounts from.
@@ -291,6 +304,7 @@ pub struct ListBillingAccountsRequest {
     /// - `billingAccounts/{billing_account_id}`, for example,
     ///   `billingAccounts/012345-567890-ABCDEF`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -341,12 +355,14 @@ impl wkt::message::Message for ListBillingAccountsRequest {
 pub struct ListBillingAccountsResponse {
     /// A list of billing accounts.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub billing_accounts: std::vec::Vec<crate::model::BillingAccount>,
 
     /// A token to retrieve the next page of results. To retrieve the next page,
     /// call `ListBillingAccounts` again with the `page_token` field set to this
     /// value. This field is empty if there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -415,6 +431,7 @@ pub struct CreateBillingAccountRequest {
     /// - `billingAccounts/{billing_account_id}`, for example,
     ///   `billingAccounts/012345-567890-ABCDEF`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -465,6 +482,7 @@ impl wkt::message::Message for CreateBillingAccountRequest {
 pub struct UpdateBillingAccountRequest {
     /// Required. The name of the billing account resource to be updated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The billing account resource to replace the resource on the
@@ -545,18 +563,20 @@ pub struct ListProjectBillingInfoRequest {
     /// projects that you want to list. For example,
     /// `billingAccounts/012345-567890-ABCDEF`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Requested page size. The maximum page size is 100; this is also the
     /// default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results to be returned. This should be a
     /// `next_page_token` value returned from a previous `ListProjectBillingInfo`
     /// call. If unspecified, the first page of results is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -602,12 +622,14 @@ pub struct ListProjectBillingInfoResponse {
     /// A list of `ProjectBillingInfo` resources representing the projects
     /// associated with the billing account.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub project_billing_info: std::vec::Vec<crate::model::ProjectBillingInfo>,
 
     /// A token to retrieve the next page of results. To retrieve the next page,
     /// call `ListProjectBillingInfo` again with the `page_token` field set to this
     /// value. This field is empty if there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -666,6 +688,7 @@ pub struct GetProjectBillingInfoRequest {
     /// Required. The resource name of the project for which billing information is
     /// retrieved. For example, `projects/tokyo-rain-123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -700,6 +723,7 @@ pub struct UpdateProjectBillingInfoRequest {
     /// information that you want to update. For example,
     /// `projects/tokyo-rain-123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The new billing information for the project. Output-only fields are
@@ -759,12 +783,14 @@ pub struct MoveBillingAccountRequest {
     /// The specified billing account cannot be a subaccount, since a subaccount
     /// always belongs to the same organization as its parent account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The resource name of the Organization to move
     /// the billing account under.
     /// Must be of the form `organizations/{organization_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -807,20 +833,24 @@ pub struct Service {
     /// The resource name for the service.
     /// Example: "services/6F81-5844-456A"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The identifier for the service.
     /// Example: "6F81-5844-456A"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_id: std::string::String,
 
     /// A human readable display name for this service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The business under which the service is offered.
     /// Ex. "businessEntities/GCP", "businessEntities/Maps"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub business_entity_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -875,16 +905,19 @@ pub struct Sku {
     /// The resource name for the SKU.
     /// Example: "services/6F81-5844-456A/skus/D041-B8A1-6E0B"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The identifier for the SKU.
     /// Example: "D041-B8A1-6E0B"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sku_id: std::string::String,
 
     /// A human readable description of the SKU, has a maximum length of 256
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// The category hierarchy of this SKU, purely for organizational purpose.
@@ -895,15 +928,18 @@ pub struct Sku {
     /// Example: "asia-east1"
     /// Service regions can be found at <https://cloud.google.com/about/locations/>
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service_regions: std::vec::Vec<std::string::String>,
 
     /// A timeline of pricing info for this SKU in chronological order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub pricing_info: std::vec::Vec<crate::model::PricingInfo>,
 
     /// Identifies the service provider.
     /// This is 'Google' for first party services in Google Cloud Platform.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_provider_name: std::string::String,
 
     /// The geographic taxonomy for this sku.
@@ -1019,21 +1055,25 @@ impl wkt::message::Message for Sku {
 pub struct Category {
     /// The display name of the service this SKU belongs to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_display_name: std::string::String,
 
     /// The type of product the SKU refers to.
     /// Example: "Compute", "Storage", "Network", "ApplicationServices" etc.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_family: std::string::String,
 
     /// A group classification for related SKUs.
     /// Example: "RAM", "GPU", "Prediction", "Ops", "GoogleEgress" etc.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_group: std::string::String,
 
     /// Represents how the SKU is consumed.
     /// Example: "OnDemand", "Preemptible", "Commit1Mo", "Commit1Yr" etc.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub usage_type: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1097,6 +1137,7 @@ pub struct PricingInfo {
     /// An optional human readable summary of the pricing information, has a
     /// maximum length of 256 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub summary: std::string::String,
 
     /// Expresses the pricing formula. See `PricingExpression` for an example.
@@ -1114,7 +1155,7 @@ pub struct PricingInfo {
     /// defaults to 1.0.
     /// Example: USD * currency_conversion_rate = JPY
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub currency_conversion_rate: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1217,6 +1258,7 @@ pub struct PricingExpression {
     /// The short hand for unit of usage this pricing is specified in.
     /// Example: usage_unit of "GiBy" means that usage is specified in "Gibi Byte".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub usage_unit: std::string::String,
 
     /// The recommended quantity of units for displaying pricing info. When
@@ -1228,28 +1270,32 @@ pub struct PricingExpression {
     /// the display_quantity is "1000" then the recommended way of displaying the
     /// pricing info is "0.10 USD per 1000 GB"
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub display_quantity: f64,
 
     /// The list of tiered rates for this pricing. The total cost is computed by
     /// applying each of the tiered rates on usage. This repeated list is sorted
     /// by ascending order of start_usage_amount.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tiered_rates: std::vec::Vec<crate::model::pricing_expression::TierRate>,
 
     /// The unit of usage in human readable form.
     /// Example: "gibi byte".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub usage_unit_description: std::string::String,
 
     /// The base unit for the SKU which is the unit used in usage exports.
     /// Example: "By"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub base_unit: std::string::String,
 
     /// The base unit in human readable form.
     /// Example: "byte".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub base_unit_description: std::string::String,
 
     /// Conversion factor for converting from price per usage_unit to price per
@@ -1258,7 +1304,7 @@ pub struct PricingExpression {
     /// start_usage_amount * base_unit_conversion_factor = start_usage_amount in
     /// base_unit.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub base_unit_conversion_factor: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1345,7 +1391,7 @@ pub mod pricing_expression {
         /// Example: start_usage_amount of 10 indicates that the usage will be priced
         /// at the unit_price after the first 10 usage_units.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub start_usage_amount: f64,
 
         /// The price per unit of usage.
@@ -1401,16 +1447,18 @@ pub mod pricing_expression {
 #[non_exhaustive]
 pub struct AggregationInfo {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub aggregation_level: crate::model::aggregation_info::AggregationLevel,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub aggregation_interval: crate::model::aggregation_info::AggregationInterval,
 
     /// The number of intervals to aggregate over.
     /// Example: If aggregation_level is "DAILY" and aggregation_count is 14,
     /// aggregation will be over 14 days.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub aggregation_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1734,11 +1782,13 @@ pub struct GeoTaxonomy {
     /// The type of Geo Taxonomy: GLOBAL, REGIONAL, or MULTI_REGIONAL.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::geo_taxonomy::Type,
 
     /// The list of regions associated with a sku. Empty for Global skus, which are
     /// associated with all Google Cloud regions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub regions: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1932,13 +1982,14 @@ pub mod geo_taxonomy {
 pub struct ListServicesRequest {
     /// Requested page size. Defaults to 5000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results to return. This should be a
     /// `next_page_token` value returned from a previous `ListServices`
     /// call. If unspecified, the first page of results is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1977,12 +2028,14 @@ impl wkt::message::Message for ListServicesRequest {
 pub struct ListServicesResponse {
     /// A list of services.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub services: std::vec::Vec<crate::model::Service>,
 
     /// A token to retrieve the next page of results. To retrieve the next page,
     /// call `ListServices` again with the `page_token` field set to this
     /// value. This field is empty if there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2041,6 +2094,7 @@ pub struct ListSkusRequest {
     /// Required. The name of the service.
     /// Example: "services/6F81-5844-456A"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional inclusive start time of the time range for which the pricing
@@ -2065,17 +2119,19 @@ pub struct ListSkusRequest {
     /// Will use the conversion rate as of start_time.
     /// Optional. If not specified USD will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub currency_code: std::string::String,
 
     /// Requested page size. Defaults to 5000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results to return. This should be a
     /// `next_page_token` value returned from a previous `ListSkus`
     /// call. If unspecified, the first page of results is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2162,12 +2218,14 @@ impl wkt::message::Message for ListSkusRequest {
 pub struct ListSkusResponse {
     /// The list of public SKUs of the given service.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub skus: std::vec::Vec<crate::model::Sku>,
 
     /// A token to retrieve the next page of results. To retrieve the next page,
     /// call `ListSkus` again with the `page_token` field set to this
     /// value. This field is empty if there are no more results to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

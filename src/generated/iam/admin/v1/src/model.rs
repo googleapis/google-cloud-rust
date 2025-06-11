@@ -92,10 +92,12 @@ pub mod audit_data {
     pub struct PermissionDelta {
         /// Added permissions.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub added_permissions: std::vec::Vec<std::string::String>,
 
         /// Removed permissions.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub removed_permissions: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -173,10 +175,12 @@ pub struct ServiceAccount {
     /// response contains an HTTP `403 Forbidden` error instead of a `404 Not
     /// Found` error.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The ID of the project that owns the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Output only. The unique, stable numeric ID for the service account.
@@ -186,34 +190,40 @@ pub struct ServiceAccount {
     /// service account with the same name, the new service account has a different
     /// unique ID than the deleted service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub unique_id: std::string::String,
 
     /// Output only. The email address of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub email: std::string::String,
 
     /// Optional. A user-specified, human-readable name for the service account. The maximum
     /// length is 100 UTF-8 bytes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Deprecated. Do not use.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     #[deprecated]
     pub etag: ::bytes::Bytes,
 
     /// Optional. A user-specified, human-readable description of the service account. The
     /// maximum length is 256 UTF-8 bytes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The OAuth 2.0 client ID for the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub oauth2_client_id: std::string::String,
 
     /// Output only. Whether the service account is disabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -299,6 +309,7 @@ pub struct CreateServiceAccountRequest {
     /// Required. The resource name of the project associated with the service
     /// accounts, such as `projects/my-project-123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The account id that is used to generate the service account
@@ -306,6 +317,7 @@ pub struct CreateServiceAccountRequest {
     /// must be 6-30 characters long, and match the regular expression
     /// `[a-z]([-a-z0-9]*[a-z0-9])` to comply with RFC1035.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub account_id: std::string::String,
 
     /// The [ServiceAccount][google.iam.admin.v1.ServiceAccount] resource to
@@ -371,6 +383,7 @@ pub struct ListServiceAccountsRequest {
     /// Required. The resource name of the project associated with the service
     /// accounts, such as `projects/my-project-123`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional limit on the number of service accounts to include in the
@@ -382,7 +395,7 @@ pub struct ListServiceAccountsRequest {
     ///
     /// [google.iam.admin.v1.ListServiceAccountsResponse.next_page_token]: crate::model::ListServiceAccountsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional pagination token returned in an earlier
@@ -390,6 +403,7 @@ pub struct ListServiceAccountsRequest {
     ///
     /// [google.iam.admin.v1.ListServiceAccountsResponse.next_page_token]: crate::model::ListServiceAccountsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -434,6 +448,7 @@ impl wkt::message::Message for ListServiceAccountsRequest {
 pub struct ListServiceAccountsResponse {
     /// The list of matching service accounts.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub accounts: std::vec::Vec<crate::model::ServiceAccount>,
 
     /// To retrieve the next page of results, set
@@ -442,6 +457,7 @@ pub struct ListServiceAccountsResponse {
     ///
     /// [google.iam.admin.v1.ListServiceAccountsRequest.page_token]: crate::model::ListServiceAccountsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -503,6 +519,7 @@ pub struct GetServiceAccountRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -539,6 +556,7 @@ pub struct DeleteServiceAccountRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -644,6 +662,7 @@ pub struct UndeleteServiceAccountRequest {
     /// Using `-` as a wildcard for the `PROJECT_ID` will infer the project from
     /// the account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -723,6 +742,7 @@ pub struct EnableServiceAccountRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -759,6 +779,7 @@ pub struct DisableServiceAccountRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -796,12 +817,14 @@ pub struct ListServiceAccountKeysRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Filters the types of keys the user wants to include in the list
     /// response. Duplicate key types are not allowed. If no key type
     /// is provided, all keys are returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub key_types: std::vec::Vec<crate::model::list_service_account_keys_request::KeyType>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -985,6 +1008,7 @@ pub mod list_service_account_keys_request {
 pub struct ListServiceAccountKeysResponse {
     /// The public keys for the service account.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub keys: std::vec::Vec<crate::model::ServiceAccountKey>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1027,11 +1051,13 @@ pub struct GetServiceAccountKeyRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The output format of the public key. The default is `TYPE_NONE`, which
     /// means that the public key is not returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub public_key_type: crate::model::ServiceAccountPublicKeyType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1097,6 +1123,7 @@ pub struct ServiceAccountKey {
     /// The resource name of the service account key in the following format
     /// `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}/keys/{key}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The output format for the private key.
@@ -1106,10 +1133,12 @@ pub struct ServiceAccountKey {
     /// Google never exposes system-managed private keys, and never retains
     /// user-managed private keys.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub private_key_type: crate::model::ServiceAccountPrivateKeyType,
 
     /// Specifies the algorithm (and possibly key size) for the key.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_algorithm: crate::model::ServiceAccountKeyAlgorithm,
 
     /// The private key data. Only provided in `CreateServiceAccountKey`
@@ -1120,12 +1149,12 @@ pub struct ServiceAccountKey {
     /// <a href="/sdk/gcloud/reference/auth/activate-service-account">gcloud
     /// auth activate-service-account</a>.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub private_key_data: ::bytes::Bytes,
 
     /// The public key data. Only provided in `GetServiceAccountKey` responses.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub public_key_data: ::bytes::Bytes,
 
     /// The key can be used after this timestamp.
@@ -1141,14 +1170,17 @@ pub struct ServiceAccountKey {
 
     /// The key origin.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_origin: crate::model::ServiceAccountKeyOrigin,
 
     /// The key type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_type: crate::model::list_service_account_keys_request::KeyType,
 
     /// The key status.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1279,18 +1311,21 @@ pub struct CreateServiceAccountKeyRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The output format of the private key. The default value is
     /// `TYPE_GOOGLE_CREDENTIALS_FILE`, which is the Google Credentials File
     /// format.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub private_key_type: crate::model::ServiceAccountPrivateKeyType,
 
     /// Which type of key and algorithm to use for the key.
     /// The default is currently a 2K RSA key.  However this may change in the
     /// future.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_algorithm: crate::model::ServiceAccountKeyAlgorithm,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1347,6 +1382,7 @@ pub struct UploadServiceAccountKeyRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The public key to associate with the service account. Must be an RSA public
@@ -1354,7 +1390,7 @@ pub struct UploadServiceAccountKeyRequest {
     /// `-----BEGIN CERTIFICATE-----`, and the last line,
     /// `-----END CERTIFICATE-----`.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub public_key_data: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1397,6 +1433,7 @@ pub struct DeleteServiceAccountKeyRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1434,6 +1471,7 @@ pub struct DisableServiceAccountKeyRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1471,6 +1509,7 @@ pub struct EnableServiceAccountKeyRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1513,6 +1552,7 @@ pub struct SignBlobRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub name: std::string::String,
 
@@ -1521,7 +1561,7 @@ pub struct SignBlobRequest {
     ///
     /// The bytes to sign.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     #[deprecated]
     pub bytes_to_sign: ::bytes::Bytes,
 
@@ -1569,6 +1609,7 @@ pub struct SignBlobResponse {
     ///
     /// The id of the key used to sign the blob.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub key_id: std::string::String,
 
@@ -1577,7 +1618,7 @@ pub struct SignBlobResponse {
     ///
     /// The signed blob.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     #[deprecated]
     pub signature: ::bytes::Bytes,
 
@@ -1629,6 +1670,7 @@ pub struct SignJwtRequest {
     /// the account. The `ACCOUNT` value can be the `email` address or the
     /// `unique_id` of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub name: std::string::String,
 
@@ -1646,6 +1688,7 @@ pub struct SignJwtRequest {
     /// this claim is added automatically, with a timestamp that is 1 hour in the
     /// future.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub payload: std::string::String,
 
@@ -1693,6 +1736,7 @@ pub struct SignJwtResponse {
     ///
     /// The id of the key used to sign the JWT.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub key_id: std::string::String,
 
@@ -1701,6 +1745,7 @@ pub struct SignJwtResponse {
     ///
     /// The signed JWT.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub signed_jwt: std::string::String,
 
@@ -1748,35 +1793,41 @@ pub struct Role {
     /// name is the complete path, e.g., roles/logging.viewer for predefined roles
     /// and organizations/{ORGANIZATION_ID}/roles/logging.viewer for custom roles.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A human-readable title for the role.  Typically this
     /// is limited to 100 UTF-8 bytes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// Optional. A human-readable description for the role.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// The names of the permissions this role grants when bound in an IAM policy.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub included_permissions: std::vec::Vec<std::string::String>,
 
     /// The current launch stage of the role. If the `ALPHA` launch stage has been
     /// selected for a role, the `stage` field will not be included in the
     /// returned definition for the role.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub stage: crate::model::role::RoleLaunchStage,
 
     /// Used to perform a consistent read-modify-write.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub etag: ::bytes::Bytes,
 
     /// The current deleted state of the role. This field is read only.
     /// It will be ignored in calls to CreateRole and UpdateRole.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2019,21 +2070,24 @@ pub struct QueryGrantableRolesRequest {
     /// For example, a Cloud Platform project with id `my-project` will be named
     /// `//cloudresourcemanager.googleapis.com/projects/my-project`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource_name: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::RoleView,
 
     /// Optional limit on the number of roles to include in the response.
     ///
     /// The default is 300, and the maximum is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional pagination token returned in an earlier
     /// QueryGrantableRolesResponse.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2087,11 +2141,13 @@ impl wkt::message::Message for QueryGrantableRolesRequest {
 pub struct QueryGrantableRolesResponse {
     /// The list of matching roles.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub roles: std::vec::Vec<crate::model::Role>,
 
     /// To retrieve the next page of results, set
     /// `QueryGrantableRolesRequest.page_token` to this value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2179,17 +2235,19 @@ pub struct ListRolesRequest {
     /// Note: Wildcard (*) values are invalid; you must specify a complete project
     /// ID or organization ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional limit on the number of roles to include in the response.
     ///
     /// The default is 300, and the maximum is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional pagination token returned in an earlier ListRolesResponse.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional view for the returned Role objects. When `FULL` is specified,
@@ -2197,10 +2255,12 @@ pub struct ListRolesRequest {
     /// permissions in the role. The default value is `BASIC`, which does not
     /// return the `includedPermissions` field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::RoleView,
 
     /// Include Roles that have been deleted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2257,11 +2317,13 @@ impl wkt::message::Message for ListRolesRequest {
 pub struct ListRolesResponse {
     /// The Roles defined on this resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub roles: std::vec::Vec<crate::model::Role>,
 
     /// To retrieve the next page of results, set
     /// `ListRolesRequest.page_token` to this value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2350,6 +2412,7 @@ pub struct GetRoleRequest {
     /// Note: Wildcard (*) values are invalid; you must specify a complete project
     /// ID or organization ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2405,6 +2468,7 @@ pub struct CreateRoleRequest {
     /// Note: Wildcard (*) values are invalid; you must specify a complete project
     /// ID or organization ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The role ID to use for this role.
@@ -2413,6 +2477,7 @@ pub struct CreateRoleRequest {
     /// periods (`.`). It must contain a minimum of 3 characters and a maximum of
     /// 64 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub role_id: std::string::String,
 
     /// The Role resource to create.
@@ -2496,6 +2561,7 @@ pub struct UpdateRoleRequest {
     /// Note: Wildcard (*) values are invalid; you must specify a complete project
     /// ID or organization ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The updated role.
@@ -2595,11 +2661,12 @@ pub struct DeleteRoleRequest {
     /// Note: Wildcard (*) values are invalid; you must specify a complete project
     /// ID or organization ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Used to perform a consistent read-modify-write.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub etag: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2661,11 +2728,12 @@ pub struct UndeleteRoleRequest {
     /// Note: Wildcard (*) values are invalid; you must specify a complete project
     /// ID or organization ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Used to perform a consistent read-modify-write.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub etag: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2704,36 +2772,44 @@ impl wkt::message::Message for UndeleteRoleRequest {
 pub struct Permission {
     /// The name of this Permission.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The title of this Permission.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub title: std::string::String,
 
     /// A brief description of what this Permission is used for.
     /// This permission can ONLY be used in predefined roles.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub only_in_predefined_roles: bool,
 
     /// The current launch stage of the permission.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub stage: crate::model::permission::PermissionLaunchStage,
 
     /// The current custom role support level.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub custom_roles_support_level: crate::model::permission::CustomRolesSupportLevel,
 
     /// The service API associated with the permission is not enabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_disabled: bool,
 
     /// The preferred name for this permission. If present, then this permission is
     /// an alias of, and equivalent to, the listed primary_permission.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub primary_permission: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3104,18 +3180,20 @@ pub struct QueryTestablePermissionsRequest {
     /// For example, a Cloud Platform project with id `my-project` will be named
     /// `//cloudresourcemanager.googleapis.com/projects/my-project`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource_name: std::string::String,
 
     /// Optional limit on the number of permissions to include in the response.
     ///
     /// The default is 100, and the maximum is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional pagination token returned in an earlier
     /// QueryTestablePermissionsRequest.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3163,11 +3241,13 @@ impl wkt::message::Message for QueryTestablePermissionsRequest {
 pub struct QueryTestablePermissionsResponse {
     /// The Permissions testable on the requested resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub permissions: std::vec::Vec<crate::model::Permission>,
 
     /// To retrieve the next page of results, set
     /// `QueryTestableRolesRequest.page_token` to this value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3230,6 +3310,7 @@ pub struct QueryAuditableServicesRequest {
     /// For example, a Cloud Platform project with id `my-project` will be named
     /// `//cloudresourcemanager.googleapis.com/projects/my-project`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3265,6 +3346,7 @@ impl wkt::message::Message for QueryAuditableServicesRequest {
 pub struct QueryAuditableServicesResponse {
     /// The auditable services for a resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub services: std::vec::Vec<crate::model::query_auditable_services_response::AuditableService>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3308,6 +3390,7 @@ pub mod query_auditable_services_response {
         /// Public name of the service.
         /// For example, the service name for Cloud IAM is 'iam.googleapis.com'.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3349,6 +3432,7 @@ pub struct LintPolicyRequest {
     /// IAM database. The candidate policy for lint has to be provided in the same
     /// request object.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource_name: std::string::String,
 
     /// Required. The Cloud IAM object to be linted.
@@ -3446,15 +3530,18 @@ pub mod lint_policy_request {
 pub struct LintResult {
     /// The validation unit level.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub level: crate::model::lint_result::Level,
 
     /// The validation unit name, for instance
     /// "lintValidationUnits/ConditionComplexityCheck".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validation_unit_name: std::string::String,
 
     /// The validation unit severity.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub severity: crate::model::lint_result::Severity,
 
     /// The name of the field for which this lint result is about.
@@ -3465,17 +3552,19 @@ pub struct LintResult {
     /// `condition.expression` identifies a lint result for the `expression` field
     /// of the provided condition.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub field_name: std::string::String,
 
     /// 0-based character position of problematic construct within the object
     /// identified by `field_name`. Currently, this is populated only for condition
     /// expression.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub location_offset: i32,
 
     /// Human readable debug message associated with the issue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub debug_message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3849,6 +3938,7 @@ pub mod lint_result {
 pub struct LintPolicyResponse {
     /// List of lint results sorted by `severity` in descending order.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub lint_results: std::vec::Vec<crate::model::LintResult>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

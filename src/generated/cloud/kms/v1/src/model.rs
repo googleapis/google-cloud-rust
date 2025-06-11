@@ -49,6 +49,7 @@ pub struct CreateKeyHandleRequest {
     ///
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Id of the [KeyHandle][google.cloud.kms.v1.KeyHandle]. Must be
@@ -57,6 +58,7 @@ pub struct CreateKeyHandleRequest {
     ///
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_handle_id: std::string::String,
 
     /// Required. [KeyHandle][google.cloud.kms.v1.KeyHandle] to create.
@@ -125,6 +127,7 @@ pub struct GetKeyHandleRequest {
     ///
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -164,6 +167,7 @@ pub struct KeyHandle {
     ///
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Name of a [CryptoKey][google.cloud.kms.v1.CryptoKey] that has
@@ -182,6 +186,7 @@ pub struct KeyHandle {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key: std::string::String,
 
     /// Required. Indicates the resource type that the resulting
@@ -191,6 +196,7 @@ pub struct KeyHandle {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_type_selector: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -271,6 +277,7 @@ pub struct ListKeyHandlesRequest {
     ///
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Optional limit on the number of
@@ -285,7 +292,7 @@ pub struct ListKeyHandlesRequest {
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     /// [google.cloud.kms.v1.ListKeyHandlesResponse.next_page_token]: crate::model::ListKeyHandlesResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -293,6 +300,7 @@ pub struct ListKeyHandlesRequest {
     ///
     /// [google.cloud.kms.v1.ListKeyHandlesResponse.next_page_token]: crate::model::ListKeyHandlesResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter to apply when listing
@@ -301,6 +309,7 @@ pub struct ListKeyHandlesRequest {
     ///
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -356,6 +365,7 @@ pub struct ListKeyHandlesResponse {
     ///
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub key_handles: std::vec::Vec<crate::model::KeyHandle>,
 
     /// A token to retrieve next page of results. Pass this value in
@@ -364,6 +374,7 @@ pub struct ListKeyHandlesResponse {
     ///
     /// [google.cloud.kms.v1.ListKeyHandlesRequest.page_token]: crate::model::ListKeyHandlesRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -503,6 +514,7 @@ pub struct GetAutokeyConfigRequest {
     ///
     /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -538,6 +550,7 @@ pub struct AutokeyConfig {
     ///
     /// [google.cloud.kms.v1.AutokeyConfig]: crate::model::AutokeyConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Name of the key project, e.g. `projects/{PROJECT_ID}` or
@@ -556,10 +569,12 @@ pub struct AutokeyConfig {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.KeyHandle]: crate::model::KeyHandle
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_project: std::string::String,
 
     /// Output only. The state for the AutokeyConfig.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::autokey_config::State,
 
     /// Optional. A checksum computed by the server based on the value of other
@@ -567,6 +582,7 @@ pub struct AutokeyConfig {
     /// an up-to-date value before proceeding. The request will be rejected with an
     /// ABORTED error on a mismatched etag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -772,6 +788,7 @@ pub struct ShowEffectiveAutokeyConfigRequest {
     /// Autokey configuration for. This may be helpful for interrogating the effect
     /// of nested folder configurations on a given resource project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -808,6 +825,7 @@ pub struct ShowEffectiveAutokeyConfigResponse {
     /// Name of the key project configured in the resource project's folder
     /// ancestry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_project: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -847,6 +865,7 @@ pub struct ListEkmConnectionsRequest {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Optional limit on the number of
@@ -860,7 +879,7 @@ pub struct ListEkmConnectionsRequest {
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.ListEkmConnectionsResponse.next_page_token]: crate::model::ListEkmConnectionsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -868,6 +887,7 @@ pub struct ListEkmConnectionsRequest {
     ///
     /// [google.cloud.kms.v1.ListEkmConnectionsResponse.next_page_token]: crate::model::ListEkmConnectionsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Only include resources that match the filter in the response. For
@@ -875,6 +895,7 @@ pub struct ListEkmConnectionsRequest {
     /// [Sorting and filtering list
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Specify how the results should be sorted. If not specified, the
@@ -882,6 +903,7 @@ pub struct ListEkmConnectionsRequest {
     /// [Sorting and filtering list
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -943,6 +965,7 @@ pub struct ListEkmConnectionsResponse {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ekm_connections: std::vec::Vec<crate::model::EkmConnection>,
 
     /// A token to retrieve next page of results. Pass this value in
@@ -951,6 +974,7 @@ pub struct ListEkmConnectionsResponse {
     ///
     /// [google.cloud.kms.v1.ListEkmConnectionsRequest.page_token]: crate::model::ListEkmConnectionsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// The total number of [EkmConnections][google.cloud.kms.v1.EkmConnection]
@@ -963,7 +987,7 @@ pub struct ListEkmConnectionsResponse {
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.ListEkmConnectionsRequest.filter]: crate::model::ListEkmConnectionsRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1034,6 +1058,7 @@ pub struct GetEkmConnectionRequest {
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.EkmConnection.name]: crate::model::EkmConnection::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1073,11 +1098,13 @@ pub struct CreateEkmConnectionRequest {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. It must be unique within a location and match the regular
     /// expression `[a-zA-Z0-9_-]{1,63}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ekm_connection_id: std::string::String,
 
     /// Required. An [EkmConnection][google.cloud.kms.v1.EkmConnection] with
@@ -1223,6 +1250,7 @@ pub struct GetEkmConfigRequest {
     /// [google.cloud.kms.v1.EkmConfig]: crate::model::EkmConfig
     /// [google.cloud.kms.v1.EkmConfig.name]: crate::model::EkmConfig::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1329,11 +1357,12 @@ impl wkt::message::Message for UpdateEkmConfigRequest {
 pub struct Certificate {
     /// Required. The raw certificate bytes in DER format.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub raw_der: ::bytes::Bytes,
 
     /// Output only. True if the certificate was parsed successfully.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parsed: bool,
 
     /// Output only. The issuer distinguished name in RFC 2253 format. Only present
@@ -1341,6 +1370,7 @@ pub struct Certificate {
     ///
     /// [google.cloud.kms.v1.Certificate.parsed]: crate::model::Certificate::parsed
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub issuer: std::string::String,
 
     /// Output only. The subject distinguished name in RFC 2253 format. Only
@@ -1348,6 +1378,7 @@ pub struct Certificate {
     ///
     /// [google.cloud.kms.v1.Certificate.parsed]: crate::model::Certificate::parsed
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub subject: std::string::String,
 
     /// Output only. The subject Alternative DNS names. Only present if
@@ -1355,6 +1386,7 @@ pub struct Certificate {
     ///
     /// [google.cloud.kms.v1.Certificate.parsed]: crate::model::Certificate::parsed
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub subject_alternative_dns_names: std::vec::Vec<std::string::String>,
 
     /// Output only. The certificate is not valid before this time. Only present if
@@ -1376,6 +1408,7 @@ pub struct Certificate {
     ///
     /// [google.cloud.kms.v1.Certificate.parsed]: crate::model::Certificate::parsed
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub serial_number: std::string::String,
 
     /// Output only. The SHA-256 certificate fingerprint as a hex string. Only
@@ -1383,6 +1416,7 @@ pub struct Certificate {
     ///
     /// [google.cloud.kms.v1.Certificate.parsed]: crate::model::Certificate::parsed
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sha256_fingerprint: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1512,6 +1546,7 @@ pub struct EkmConnection {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The time at which the
@@ -1530,6 +1565,7 @@ pub struct EkmConnection {
     ///
     /// [google.cloud.kms.v1.EkmConnection.ServiceResolver]: crate::model::ekm_connection::ServiceResolver
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service_resolvers: std::vec::Vec<crate::model::ekm_connection::ServiceResolver>,
 
     /// Optional. Etag of the currently stored
@@ -1537,6 +1573,7 @@ pub struct EkmConnection {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. Describes who can perform control plane operations on the EKM. If
@@ -1545,6 +1582,7 @@ pub struct EkmConnection {
     ///
     /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode.MANUAL]: crate::model::ekm_connection::KeyManagementMode::Manual
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_management_mode: crate::model::ekm_connection::KeyManagementMode,
 
     /// Optional. Identifies the EKM Crypto Space that this
@@ -1557,6 +1595,7 @@ pub struct EkmConnection {
     /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode]: crate::model::ekm_connection::KeyManagementMode
     /// [google.cloud.kms.v1.EkmConnection.KeyManagementMode.CLOUD_KMS]: crate::model::ekm_connection::KeyManagementMode::CloudKms
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub crypto_space_path: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1656,6 +1695,7 @@ pub mod ekm_connection {
         /// an EKM replica, in the format
         /// `projects/*/locations/*/namespaces/*/services/*`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service_directory_service: std::string::String,
 
         /// Optional. The filter applied to the endpoints of the resolved service. If
@@ -1665,10 +1705,12 @@ pub mod ekm_connection {
         /// For endpoint filter syntax and examples, see
         /// <https://cloud.google.com/service-directory/docs/reference/rpc/google.cloud.servicedirectory.v1#resolveservicerequest>.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub endpoint_filter: std::string::String,
 
         /// Required. The hostname of the EKM replica used at TLS and HTTP layers.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub hostname: std::string::String,
 
         /// Required. A list of leaf server certificates used to authenticate HTTPS
@@ -1677,6 +1719,7 @@ pub mod ekm_connection {
         ///
         /// [google.cloud.kms.v1.Certificate]: crate::model::Certificate
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub server_certificates: std::vec::Vec<crate::model::Certificate>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1928,6 +1971,7 @@ pub struct EkmConfig {
     ///
     /// [google.cloud.kms.v1.EkmConfig]: crate::model::EkmConfig
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Resource name of the default
@@ -1936,6 +1980,7 @@ pub struct EkmConfig {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_ekm_connection: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1984,6 +2029,7 @@ pub struct VerifyConnectivityRequest {
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     /// [google.cloud.kms.v1.EkmConnection.name]: crate::model::EkmConnection::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2049,6 +2095,7 @@ pub struct KeyRing {
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The time at which this [KeyRing][google.cloud.kms.v1.KeyRing]
@@ -2118,6 +2165,7 @@ pub struct CryptoKey {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. A copy of the "primary"
@@ -2149,6 +2197,7 @@ pub struct CryptoKey {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub purpose: crate::model::crypto_key::CryptoKeyPurpose,
 
     /// Output only. The time at which this
@@ -2199,10 +2248,12 @@ pub struct CryptoKey {
     /// Labels with user-defined metadata. For more information, see
     /// [Labeling Keys](https://cloud.google.com/kms/docs/labeling-keys).
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Immutable. Whether this key may contain imported versions only.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub import_only: bool,
 
     /// Immutable. The period of time that versions of this key spend in the
@@ -2232,6 +2283,7 @@ pub struct CryptoKey {
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL_VPC]: crate::model::ProtectionLevel::ExternalVpc
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub crypto_key_backend: std::string::String,
 
     /// Optional. The policy used for Key Access Justifications Policy Enforcement.
@@ -2711,6 +2763,7 @@ pub struct CryptoKeyVersionTemplate {
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::ProtectionLevel::Software
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protection_level: crate::model::ProtectionLevel,
 
     /// Required.
@@ -2729,6 +2782,7 @@ pub struct CryptoKeyVersionTemplate {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub algorithm: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2777,12 +2831,13 @@ impl wkt::message::Message for CryptoKeyVersionTemplate {
 pub struct KeyOperationAttestation {
     /// Output only. The format of the attestation data.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub format: crate::model::key_operation_attestation::AttestationFormat,
 
     /// Output only. The attestation data provided by the HSM when the key
     /// operation was performed.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub content: ::bytes::Bytes,
 
     /// Output only. The certificate chains needed to validate the attestation
@@ -2856,14 +2911,17 @@ pub mod key_operation_attestation {
     pub struct CertificateChains {
         /// Cavium certificate chain corresponding to the attestation.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub cavium_certs: std::vec::Vec<std::string::String>,
 
         /// Google card certificate chain corresponding to the attestation.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub google_card_certs: std::vec::Vec<std::string::String>,
 
         /// Google partition certificate chain corresponding to the attestation.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub google_partition_certs: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3078,6 +3136,7 @@ pub struct CryptoKeyVersion {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The current state of the
@@ -3085,6 +3144,7 @@ pub struct CryptoKeyVersion {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::crypto_key_version::CryptoKeyVersionState,
 
     /// Output only. The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel]
@@ -3094,6 +3154,7 @@ pub struct CryptoKeyVersion {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protection_level: crate::model::ProtectionLevel,
 
     /// Output only. The
@@ -3104,6 +3165,7 @@ pub struct CryptoKeyVersion {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub algorithm: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm,
 
     /// Output only. Statement that was generated and signed by the HSM at key
@@ -3162,6 +3224,7 @@ pub struct CryptoKeyVersion {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub import_job: std::string::String,
 
     /// Output only. The time at which this
@@ -3179,6 +3242,7 @@ pub struct CryptoKeyVersion {
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.IMPORT_FAILED]: crate::model::crypto_key_version::CryptoKeyVersionState::ImportFailed
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub import_failure_reason: std::string::String,
 
     /// Output only. The root cause of the most recent generation failure. Only
@@ -3188,6 +3252,7 @@ pub struct CryptoKeyVersion {
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.GENERATION_FAILED]: crate::model::crypto_key_version::CryptoKeyVersionState::GenerationFailed
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub generation_failure_reason: std::string::String,
 
     /// Output only. The root cause of the most recent external destruction
@@ -3198,6 +3263,7 @@ pub struct CryptoKeyVersion {
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionState.EXTERNAL_DESTRUCTION_FAILED]: crate::model::crypto_key_version::CryptoKeyVersionState::ExternalDestructionFailed
     /// [google.cloud.kms.v1.CryptoKeyVersion.state]: crate::model::CryptoKeyVersion::state
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub external_destruction_failure_reason: std::string::String,
 
     /// ExternalProtectionLevelOptions stores a group of additional fields for
@@ -3220,6 +3286,7 @@ pub struct CryptoKeyVersion {
     ///
     /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.crypto_key_version]: crate::model::ImportCryptoKeyVersionRequest::crypto_key_version
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reimport_eligible: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4328,7 +4395,7 @@ pub mod crypto_key_version {
 pub struct ChecksummedData {
     /// Raw Data.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub data: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C
@@ -4349,7 +4416,7 @@ pub struct ChecksummedData {
     /// [google.cloud.kms.v1.ChecksummedData.data]: crate::model::ChecksummedData::data
     #[serde(rename = "crc32cChecksum")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub crc32c_checksum: std::option::Option<wkt::Int64Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4409,6 +4476,7 @@ pub struct PublicKey {
     /// [Textual Encoding of Subject Public Key Info]
     /// (<https://tools.ietf.org/html/rfc7468#section-13>).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pem: std::string::String,
 
     /// The
@@ -4417,6 +4485,7 @@ pub struct PublicKey {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub algorithm: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm,
 
     /// Integrity verification field. A CRC32C checksum of the returned
@@ -4437,7 +4506,7 @@ pub struct PublicKey {
     /// [google.cloud.kms.v1.PublicKey.pem]: crate::model::PublicKey::pem
     #[serde(rename = "pemCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub pem_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// The [name][google.cloud.kms.v1.CryptoKeyVersion.name] of the
@@ -4449,6 +4518,7 @@ pub struct PublicKey {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.CryptoKeyVersion.name]: crate::model::CryptoKeyVersion::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -4457,6 +4527,7 @@ pub struct PublicKey {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protection_level: crate::model::ProtectionLevel,
 
     /// The [PublicKey][google.cloud.kms.v1.PublicKey] format specified by the
@@ -4467,6 +4538,7 @@ pub struct PublicKey {
     /// [google.cloud.kms.v1.GetPublicKeyRequest.public_key_format]: crate::model::GetPublicKeyRequest::public_key_format
     /// [google.cloud.kms.v1.PublicKey]: crate::model::PublicKey
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub public_key_format: crate::model::public_key::PublicKeyFormat,
 
     /// This field contains the public key (with integrity verification), formatted
@@ -4785,11 +4857,13 @@ pub struct ImportJob {
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Immutable. The wrapping method to be used for incoming key
     /// material.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub import_method: crate::model::import_job::ImportMethod,
 
     /// Required. Immutable. The protection level of the
@@ -4804,6 +4878,7 @@ pub struct ImportJob {
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protection_level: crate::model::ProtectionLevel,
 
     /// Output only. The time at which this
@@ -4843,6 +4918,7 @@ pub struct ImportJob {
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::import_job::ImportJobState,
 
     /// Output only. The public key with which to wrap key material prior to
@@ -5044,6 +5120,7 @@ pub mod import_job {
         /// [Textual Encoding of Subject Public Key Info]
         /// (<https://tools.ietf.org/html/rfc7468#section-13>).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub pem: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5442,6 +5519,7 @@ pub struct ExternalProtectionLevelOptions {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub external_key_uri: std::string::String,
 
     /// The path to the external key material on the EKM when using
@@ -5451,6 +5529,7 @@ pub struct ExternalProtectionLevelOptions {
     ///
     /// [google.cloud.kms.v1.EkmConnection]: crate::model::EkmConnection
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ekm_connection_key_path: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5509,6 +5588,7 @@ pub struct KeyAccessJustificationsPolicy {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_access_reasons: std::vec::Vec<crate::model::AccessReason>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5553,6 +5633,7 @@ pub struct ListKeyRingsRequest {
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Optional limit on the number of
@@ -5566,7 +5647,7 @@ pub struct ListKeyRingsRequest {
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     /// [google.cloud.kms.v1.ListKeyRingsResponse.next_page_token]: crate::model::ListKeyRingsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -5574,6 +5655,7 @@ pub struct ListKeyRingsRequest {
     ///
     /// [google.cloud.kms.v1.ListKeyRingsResponse.next_page_token]: crate::model::ListKeyRingsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Only include resources that match the filter in the response. For
@@ -5581,6 +5663,7 @@ pub struct ListKeyRingsRequest {
     /// [Sorting and filtering list
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Specify how the results should be sorted. If not specified, the
@@ -5588,6 +5671,7 @@ pub struct ListKeyRingsRequest {
     /// [Sorting and filtering list
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5650,6 +5734,7 @@ pub struct ListCryptoKeysRequest {
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Optional limit on the number of
@@ -5663,7 +5748,7 @@ pub struct ListCryptoKeysRequest {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.ListCryptoKeysResponse.next_page_token]: crate::model::ListCryptoKeysResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -5671,10 +5756,12 @@ pub struct ListCryptoKeysRequest {
     ///
     /// [google.cloud.kms.v1.ListCryptoKeysResponse.next_page_token]: crate::model::ListCryptoKeysResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The fields of the primary version to include in the response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version_view: crate::model::crypto_key_version::CryptoKeyVersionView,
 
     /// Optional. Only include resources that match the filter in the response. For
@@ -5682,6 +5769,7 @@ pub struct ListCryptoKeysRequest {
     /// [Sorting and filtering list
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Specify how the results should be sorted. If not specified, the
@@ -5689,6 +5777,7 @@ pub struct ListCryptoKeysRequest {
     /// [Sorting and filtering list
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5763,6 +5852,7 @@ pub struct ListCryptoKeyVersionsRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Optional limit on the number of
@@ -5776,7 +5866,7 @@ pub struct ListCryptoKeyVersionsRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ListCryptoKeyVersionsResponse.next_page_token]: crate::model::ListCryptoKeyVersionsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -5784,10 +5874,12 @@ pub struct ListCryptoKeyVersionsRequest {
     ///
     /// [google.cloud.kms.v1.ListCryptoKeyVersionsResponse.next_page_token]: crate::model::ListCryptoKeyVersionsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The fields to include in the response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::crypto_key_version::CryptoKeyVersionView,
 
     /// Optional. Only include resources that match the filter in the response. For
@@ -5795,6 +5887,7 @@ pub struct ListCryptoKeyVersionsRequest {
     /// [Sorting and filtering list
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Specify how the results should be sorted. If not specified, the
@@ -5802,6 +5895,7 @@ pub struct ListCryptoKeyVersionsRequest {
     /// [Sorting and filtering list
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5875,6 +5969,7 @@ pub struct ListImportJobsRequest {
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Optional limit on the number of
@@ -5888,7 +5983,7 @@ pub struct ListImportJobsRequest {
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     /// [google.cloud.kms.v1.ListImportJobsResponse.next_page_token]: crate::model::ListImportJobsResponse::next_page_token
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Optional pagination token, returned earlier via
@@ -5896,6 +5991,7 @@ pub struct ListImportJobsRequest {
     ///
     /// [google.cloud.kms.v1.ListImportJobsResponse.next_page_token]: crate::model::ListImportJobsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Only include resources that match the filter in the response. For
@@ -5903,6 +5999,7 @@ pub struct ListImportJobsRequest {
     /// [Sorting and filtering list
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Specify how the results should be sorted. If not specified, the
@@ -5910,6 +6007,7 @@ pub struct ListImportJobsRequest {
     /// [Sorting and filtering list
     /// results](https://cloud.google.com/kms/docs/sorting-and-filtering).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5971,6 +6069,7 @@ pub struct ListKeyRingsResponse {
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub key_rings: std::vec::Vec<crate::model::KeyRing>,
 
     /// A token to retrieve next page of results. Pass this value in
@@ -5979,6 +6078,7 @@ pub struct ListKeyRingsResponse {
     ///
     /// [google.cloud.kms.v1.ListKeyRingsRequest.page_token]: crate::model::ListKeyRingsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// The total number of [KeyRings][google.cloud.kms.v1.KeyRing] that matched
@@ -5991,7 +6091,7 @@ pub struct ListKeyRingsResponse {
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     /// [google.cloud.kms.v1.ListKeyRingsRequest.filter]: crate::model::ListKeyRingsRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6060,6 +6160,7 @@ pub struct ListCryptoKeysResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub crypto_keys: std::vec::Vec<crate::model::CryptoKey>,
 
     /// A token to retrieve next page of results. Pass this value in
@@ -6068,6 +6169,7 @@ pub struct ListCryptoKeysResponse {
     ///
     /// [google.cloud.kms.v1.ListCryptoKeysRequest.page_token]: crate::model::ListCryptoKeysRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// The total number of [CryptoKeys][google.cloud.kms.v1.CryptoKey] that
@@ -6080,7 +6182,7 @@ pub struct ListCryptoKeysResponse {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.ListCryptoKeysRequest.filter]: crate::model::ListCryptoKeysRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6149,6 +6251,7 @@ pub struct ListCryptoKeyVersionsResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub crypto_key_versions: std::vec::Vec<crate::model::CryptoKeyVersion>,
 
     /// A token to retrieve next page of results. Pass this value in
@@ -6157,6 +6260,7 @@ pub struct ListCryptoKeyVersionsResponse {
     ///
     /// [google.cloud.kms.v1.ListCryptoKeyVersionsRequest.page_token]: crate::model::ListCryptoKeyVersionsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// The total number of
@@ -6170,7 +6274,7 @@ pub struct ListCryptoKeyVersionsResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ListCryptoKeyVersionsRequest.filter]: crate::model::ListCryptoKeyVersionsRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6239,6 +6343,7 @@ pub struct ListImportJobsResponse {
     ///
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub import_jobs: std::vec::Vec<crate::model::ImportJob>,
 
     /// A token to retrieve next page of results. Pass this value in
@@ -6247,6 +6352,7 @@ pub struct ListImportJobsResponse {
     ///
     /// [google.cloud.kms.v1.ListImportJobsRequest.page_token]: crate::model::ListImportJobsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// The total number of [ImportJobs][google.cloud.kms.v1.ImportJob] that
@@ -6259,7 +6365,7 @@ pub struct ListImportJobsResponse {
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     /// [google.cloud.kms.v1.ListImportJobsRequest.filter]: crate::model::ListImportJobsRequest::filter
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6330,6 +6436,7 @@ pub struct GetKeyRingRequest {
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     /// [google.cloud.kms.v1.KeyRing.name]: crate::model::KeyRing::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6369,6 +6476,7 @@ pub struct GetCryptoKeyRequest {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.CryptoKey.name]: crate::model::CryptoKey::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6408,6 +6516,7 @@ pub struct GetCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.CryptoKeyVersion.name]: crate::model::CryptoKeyVersion::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6447,6 +6556,7 @@ pub struct GetPublicKeyRequest {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.CryptoKeyVersion.name]: crate::model::CryptoKeyVersion::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The [PublicKey][google.cloud.kms.v1.PublicKey] format specified
@@ -6461,6 +6571,7 @@ pub struct GetPublicKeyRequest {
     /// [google.cloud.kms.v1.PublicKey.pem]: crate::model::PublicKey::pem
     /// [google.cloud.kms.v1.PublicKey.public_key]: crate::model::PublicKey::public_key
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub public_key_format: crate::model::public_key::PublicKeyFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6511,6 +6622,7 @@ pub struct GetImportJobRequest {
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     /// [google.cloud.kms.v1.ImportJob.name]: crate::model::ImportJob::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6550,11 +6662,13 @@ pub struct CreateKeyRingRequest {
     ///
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. It must be unique within a location and match the regular
     /// expression `[a-zA-Z0-9_-]{1,63}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_ring_id: std::string::String,
 
     /// Required. A [KeyRing][google.cloud.kms.v1.KeyRing] with initial field
@@ -6625,11 +6739,13 @@ pub struct CreateCryptoKeyRequest {
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     /// [google.cloud.kms.v1.KeyRing.name]: crate::model::KeyRing::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. It must be unique within a KeyRing and match the regular
     /// expression `[a-zA-Z0-9_-]{1,63}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub crypto_key_id: std::string::String,
 
     /// Required. A [CryptoKey][google.cloud.kms.v1.CryptoKey] with initial field
@@ -6653,6 +6769,7 @@ pub struct CreateCryptoKeyRequest {
     /// [google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]: crate::client::KeyManagementService::create_crypto_key_version
     /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_initial_version_creation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6724,6 +6841,7 @@ pub struct CreateCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.CryptoKey.name]: crate::model::CryptoKey::name
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. A [CryptoKeyVersion][google.cloud.kms.v1.CryptoKeyVersion] with
@@ -6792,6 +6910,7 @@ pub struct ImportCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.CryptoKey.name]: crate::model::CryptoKey::name
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The optional [name][google.cloud.kms.v1.CryptoKeyVersion.name] of
@@ -6824,6 +6943,7 @@ pub struct ImportCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.parent]: crate::model::ImportCryptoKeyVersionRequest::parent
     /// [google.cloud.kms.v1.KeyManagementService.ImportCryptoKeyVersion]: crate::client::KeyManagementService::import_crypto_key_version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub crypto_key_version: std::string::String,
 
     /// Required. The
@@ -6836,6 +6956,7 @@ pub struct ImportCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.CryptoKey.version_template]: crate::model::CryptoKey::version_template
     /// [google.cloud.kms.v1.CryptoKeyVersion.CryptoKeyVersionAlgorithm]: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub algorithm: crate::model::crypto_key_version::CryptoKeyVersionAlgorithm,
 
     /// Required. The [name][google.cloud.kms.v1.ImportJob.name] of the
@@ -6845,6 +6966,7 @@ pub struct ImportCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.ImportJob]: crate::model::ImportJob
     /// [google.cloud.kms.v1.ImportJob.name]: crate::model::ImportJob::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub import_job: std::string::String,
 
     /// Optional. The wrapped key material to import.
@@ -6885,7 +7007,7 @@ pub struct ImportCryptoKeyVersionRequest {
     /// [google.cloud.kms.v1.ImportJob.ImportMethod.RSA_OAEP_4096_SHA256_AES_256]: crate::model::import_job::ImportMethod::RsaOaep4096Sha256Aes256
     /// [google.cloud.kms.v1.ImportJob.public_key]: crate::model::ImportJob::public_key
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub wrapped_key: ::bytes::Bytes,
 
     /// This field is legacy. Use the field
@@ -7015,7 +7137,10 @@ pub mod import_crypto_key_version_request {
         /// (but not both) must be specified.
         ///
         /// [google.cloud.kms.v1.ImportCryptoKeyVersionRequest.wrapped_key]: crate::model::ImportCryptoKeyVersionRequest::wrapped_key
-        RsaAesWrappedKey(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        RsaAesWrappedKey(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
     }
 }
 
@@ -7036,11 +7161,13 @@ pub struct CreateImportJobRequest {
     /// [google.cloud.kms.v1.KeyRing]: crate::model::KeyRing
     /// [google.cloud.kms.v1.KeyRing.name]: crate::model::KeyRing::name
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. It must be unique within a KeyRing and match the regular
     /// expression `[a-zA-Z0-9_-]{1,63}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub import_job_id: std::string::String,
 
     /// Required. An [ImportJob][google.cloud.kms.v1.ImportJob] with initial field
@@ -7253,6 +7380,7 @@ pub struct UpdateCryptoKeyPrimaryVersionRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The id of the child
@@ -7260,6 +7388,7 @@ pub struct UpdateCryptoKeyPrimaryVersionRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub crypto_key_version_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7307,6 +7436,7 @@ pub struct DestroyCryptoKeyVersionRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7345,6 +7475,7 @@ pub struct RestoreCryptoKeyVersionRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7390,6 +7521,7 @@ pub struct EncryptRequest {
     /// [google.cloud.kms.v1.CryptoKey.primary]: crate::model::CryptoKey::primary
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The data to encrypt. Must be no larger than 64KiB.
@@ -7410,7 +7542,7 @@ pub struct EncryptRequest {
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
     /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::ProtectionLevel::Software
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub plaintext: ::bytes::Bytes,
 
     /// Optional. Optional data that, if specified, must also be provided during
@@ -7434,7 +7566,7 @@ pub struct EncryptRequest {
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
     /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::ProtectionLevel::Software
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub additional_authenticated_data: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
@@ -7462,7 +7594,7 @@ pub struct EncryptRequest {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "plaintextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub plaintext_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Optional. An optional CRC32C checksum of the
@@ -7490,7 +7622,7 @@ pub struct EncryptRequest {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "additionalAuthenticatedDataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub additional_authenticated_data_crc32c: std::option::Option<wkt::Int64Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7584,6 +7716,7 @@ pub struct DecryptRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: crate::model::CryptoKey
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The encrypted data originally returned in
@@ -7591,7 +7724,7 @@ pub struct DecryptRequest {
     ///
     /// [google.cloud.kms.v1.EncryptResponse.ciphertext]: crate::model::EncryptResponse::ciphertext
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub ciphertext: ::bytes::Bytes,
 
     /// Optional. Optional data that must match the data originally supplied in
@@ -7599,7 +7732,7 @@ pub struct DecryptRequest {
     ///
     /// [google.cloud.kms.v1.EncryptRequest.additional_authenticated_data]: crate::model::EncryptRequest::additional_authenticated_data
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub additional_authenticated_data: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
@@ -7627,7 +7760,7 @@ pub struct DecryptRequest {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "ciphertextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub ciphertext_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Optional. An optional CRC32C checksum of the
@@ -7655,7 +7788,7 @@ pub struct DecryptRequest {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "additionalAuthenticatedDataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub additional_authenticated_data_crc32c: std::option::Option<wkt::Int64Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7749,6 +7882,7 @@ pub struct RawEncryptRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The data to encrypt. Must be no larger than 64KiB.
@@ -7765,7 +7899,7 @@ pub struct RawEncryptRequest {
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
     /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::ProtectionLevel::Software
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub plaintext: ::bytes::Bytes,
 
     /// Optional. Optional data that, if specified, must also be provided during
@@ -7790,7 +7924,7 @@ pub struct RawEncryptRequest {
     /// [google.cloud.kms.v1.ProtectionLevel.SOFTWARE]: crate::model::ProtectionLevel::Software
     /// [google.cloud.kms.v1.RawDecryptRequest.additional_authenticated_data]: crate::model::RawDecryptRequest::additional_authenticated_data
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub additional_authenticated_data: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
@@ -7812,7 +7946,7 @@ pub struct RawEncryptRequest {
     /// [google.cloud.kms.v1.RawEncryptRequest.plaintext]: crate::model::RawEncryptRequest::plaintext
     #[serde(rename = "plaintextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub plaintext_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Optional. An optional CRC32C checksum of the
@@ -7837,7 +7971,7 @@ pub struct RawEncryptRequest {
     /// [google.cloud.kms.v1.RawEncryptRequest.additional_authenticated_data]: crate::model::RawEncryptRequest::additional_authenticated_data
     #[serde(rename = "additionalAuthenticatedDataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub additional_authenticated_data_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Optional. A customer-supplied initialization vector that will be used for
@@ -7847,7 +7981,7 @@ pub struct RawEncryptRequest {
     ///
     /// [google.cloud.kms.v1.RawEncryptResponse.initialization_vector]: crate::model::RawEncryptResponse::initialization_vector
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub initialization_vector: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
@@ -7871,7 +8005,7 @@ pub struct RawEncryptRequest {
     /// [google.cloud.kms.v1.RawEncryptRequest.initialization_vector]: crate::model::RawEncryptRequest::initialization_vector
     #[serde(rename = "initializationVectorCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub initialization_vector_crc32c: std::option::Option<wkt::Int64Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7992,6 +8126,7 @@ pub struct RawDecryptRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The encrypted data originally returned in
@@ -7999,7 +8134,7 @@ pub struct RawDecryptRequest {
     ///
     /// [google.cloud.kms.v1.RawEncryptResponse.ciphertext]: crate::model::RawEncryptResponse::ciphertext
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub ciphertext: ::bytes::Bytes,
 
     /// Optional. Optional data that must match the data originally supplied in
@@ -8007,7 +8142,7 @@ pub struct RawDecryptRequest {
     ///
     /// [google.cloud.kms.v1.RawEncryptRequest.additional_authenticated_data]: crate::model::RawEncryptRequest::additional_authenticated_data
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub additional_authenticated_data: ::bytes::Bytes,
 
     /// Required. The initialization vector (IV) used during encryption, which must
@@ -8016,14 +8151,14 @@ pub struct RawDecryptRequest {
     ///
     /// [google.cloud.kms.v1.RawEncryptResponse.initialization_vector]: crate::model::RawEncryptResponse::initialization_vector
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub initialization_vector: ::bytes::Bytes,
 
     /// The length of the authentication tag that is appended to the end of
     /// the ciphertext. If unspecified (0), the default value for the key's
     /// algorithm will be used (for AES-GCM, the default value is 16).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub tag_length: i32,
 
     /// Optional. An optional CRC32C checksum of the
@@ -8045,7 +8180,7 @@ pub struct RawDecryptRequest {
     /// [google.cloud.kms.v1.RawDecryptRequest.ciphertext]: crate::model::RawDecryptRequest::ciphertext
     #[serde(rename = "ciphertextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub ciphertext_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Optional. An optional CRC32C checksum of the
@@ -8070,7 +8205,7 @@ pub struct RawDecryptRequest {
     /// [google.cloud.kms.v1.RawDecryptRequest.additional_authenticated_data]: crate::model::RawDecryptRequest::additional_authenticated_data
     #[serde(rename = "additionalAuthenticatedDataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub additional_authenticated_data_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Optional. An optional CRC32C checksum of the
@@ -8093,7 +8228,7 @@ pub struct RawDecryptRequest {
     /// [google.cloud.kms.v1.RawDecryptRequest.initialization_vector]: crate::model::RawDecryptRequest::initialization_vector
     #[serde(rename = "initializationVectorCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub initialization_vector_crc32c: std::option::Option<wkt::Int64Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8220,6 +8355,7 @@ pub struct AsymmetricSignRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The digest of the data to sign. The digest must be produced with
@@ -8260,7 +8396,7 @@ pub struct AsymmetricSignRequest {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "digestCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub digest_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Optional. The data to sign.
@@ -8270,7 +8406,7 @@ pub struct AsymmetricSignRequest {
     ///
     /// [google.cloud.kms.v1.AsymmetricSignRequest.digest]: crate::model::AsymmetricSignRequest::digest
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub data: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
@@ -8298,7 +8434,7 @@ pub struct AsymmetricSignRequest {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "dataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub data_crc32c: std::option::Option<wkt::Int64Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8398,6 +8534,7 @@ pub struct AsymmetricDecryptRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The data encrypted with the named
@@ -8406,7 +8543,7 @@ pub struct AsymmetricDecryptRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub ciphertext: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
@@ -8434,7 +8571,7 @@ pub struct AsymmetricDecryptRequest {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "ciphertextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub ciphertext_crc32c: std::option::Option<wkt::Int64Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8498,12 +8635,13 @@ pub struct MacSignRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The data to sign. The MAC tag is computed over this data field
     /// based on the specific algorithm.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub data: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
@@ -8529,7 +8667,7 @@ pub struct MacSignRequest {
     /// [google.cloud.kms.v1.MacSignRequest.data_crc32c]: crate::model::MacSignRequest::data_crc32c
     #[serde(rename = "dataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub data_crc32c: std::option::Option<wkt::Int64Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8593,6 +8731,7 @@ pub struct MacVerifyRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The data used previously as a
@@ -8601,7 +8740,7 @@ pub struct MacVerifyRequest {
     ///
     /// [google.cloud.kms.v1.MacSignRequest.data]: crate::model::MacSignRequest::data
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub data: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
@@ -8628,12 +8767,12 @@ pub struct MacVerifyRequest {
     /// [google.cloud.kms.v1.MacVerifyRequest.data_crc32c]: crate::model::MacVerifyRequest::data_crc32c
     #[serde(rename = "dataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub data_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Required. The signature to verify.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub mac: ::bytes::Bytes,
 
     /// Optional. An optional CRC32C checksum of the
@@ -8659,7 +8798,7 @@ pub struct MacVerifyRequest {
     /// [google.cloud.kms.v1.MacVerifyRequest.mac_crc32c]: crate::model::MacVerifyRequest::mac_crc32c
     #[serde(rename = "macCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub mac_crc32c: std::option::Option<wkt::Int64Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8744,12 +8883,13 @@ pub struct GenerateRandomBytesRequest {
     /// The project-specific location in which to generate random bytes.
     /// For example, "projects/my-project/locations/us-central1".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     /// The length in bytes of the amount of randomness to retrieve.  Minimum 8
     /// bytes, maximum 1024 bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub length_bytes: i32,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] to use when
@@ -8760,6 +8900,7 @@ pub struct GenerateRandomBytesRequest {
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8815,11 +8956,12 @@ pub struct EncryptResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The encrypted data.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub ciphertext: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
@@ -8839,7 +8981,7 @@ pub struct EncryptResponse {
     /// [google.cloud.kms.v1.EncryptResponse.ciphertext]: crate::model::EncryptResponse::ciphertext
     #[serde(rename = "ciphertextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub ciphertext_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Integrity verification field. A flag indicating whether
@@ -8862,6 +9004,7 @@ pub struct EncryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedPlaintextCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_plaintext_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -8884,6 +9027,7 @@ pub struct EncryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedAdditionalAuthenticatedDataCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_additional_authenticated_data_crc32c: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -8893,6 +9037,7 @@ pub struct EncryptResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8979,7 +9124,7 @@ pub struct DecryptResponse {
     ///
     /// [google.cloud.kms.v1.EncryptRequest.plaintext]: crate::model::EncryptRequest::plaintext
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub plaintext: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
@@ -9005,11 +9150,12 @@ pub struct DecryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "plaintextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub plaintext_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Whether the Decryption was performed using the primary key version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub used_primary: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -9019,6 +9165,7 @@ pub struct DecryptResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9091,7 +9238,7 @@ pub struct RawEncryptResponse {
     ///
     /// [google.cloud.kms.v1.RawEncryptResponse.tag_length]: crate::model::RawEncryptResponse::tag_length
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub ciphertext: ::bytes::Bytes,
 
     /// The initialization vector (IV) generated by the service during
@@ -9101,13 +9248,13 @@ pub struct RawEncryptResponse {
     ///
     /// [google.cloud.kms.v1.RawDecryptRequest.initialization_vector]: crate::model::RawDecryptRequest::initialization_vector
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub initialization_vector: ::bytes::Bytes,
 
     /// The length of the authentication tag that is appended to
     /// the end of the ciphertext.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub tag_length: i32,
 
     /// Integrity verification field. A CRC32C checksum of the returned
@@ -9124,7 +9271,7 @@ pub struct RawEncryptResponse {
     /// [google.cloud.kms.v1.RawEncryptResponse.ciphertext]: crate::model::RawEncryptResponse::ciphertext
     #[serde(rename = "ciphertextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub ciphertext_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Integrity verification field. A CRC32C checksum of the returned
@@ -9141,7 +9288,7 @@ pub struct RawEncryptResponse {
     /// [google.cloud.kms.v1.RawEncryptResponse.initialization_vector]: crate::model::RawEncryptResponse::initialization_vector
     #[serde(rename = "initializationVectorCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub initialization_vector_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Integrity verification field. A flag indicating whether
@@ -9162,6 +9309,7 @@ pub struct RawEncryptResponse {
     /// [google.cloud.kms.v1.RawEncryptRequest.plaintext_crc32c]: crate::model::RawEncryptRequest::plaintext_crc32c
     #[serde(rename = "verifiedPlaintextCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_plaintext_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -9182,6 +9330,7 @@ pub struct RawEncryptResponse {
     /// [google.cloud.kms.v1.RawEncryptRequest.additional_authenticated_data_crc32c]: crate::model::RawEncryptRequest::additional_authenticated_data_crc32c
     #[serde(rename = "verifiedAdditionalAuthenticatedDataCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_additional_authenticated_data_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -9202,6 +9351,7 @@ pub struct RawEncryptResponse {
     /// [google.cloud.kms.v1.RawEncryptRequest.initialization_vector_crc32c]: crate::model::RawEncryptRequest::initialization_vector_crc32c
     #[serde(rename = "verifiedInitializationVectorCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_initialization_vector_crc32c: bool,
 
     /// The resource name of the
@@ -9211,6 +9361,7 @@ pub struct RawEncryptResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -9220,6 +9371,7 @@ pub struct RawEncryptResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9345,7 +9497,7 @@ impl wkt::message::Message for RawEncryptResponse {
 pub struct RawDecryptResponse {
     /// The decrypted data.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub plaintext: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
@@ -9369,7 +9521,7 @@ pub struct RawDecryptResponse {
     /// [google.cloud.kms.v1.RawDecryptResponse.plaintext]: crate::model::RawDecryptResponse::plaintext
     #[serde(rename = "plaintextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub plaintext_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -9379,6 +9531,7 @@ pub struct RawDecryptResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protection_level: crate::model::ProtectionLevel,
 
     /// Integrity verification field. A flag indicating whether
@@ -9399,6 +9552,7 @@ pub struct RawDecryptResponse {
     /// [google.cloud.kms.v1.RawDecryptRequest.ciphertext_crc32c]: crate::model::RawDecryptRequest::ciphertext_crc32c
     #[serde(rename = "verifiedCiphertextCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_ciphertext_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -9419,6 +9573,7 @@ pub struct RawDecryptResponse {
     /// [google.cloud.kms.v1.RawDecryptRequest.additional_authenticated_data_crc32c]: crate::model::RawDecryptRequest::additional_authenticated_data_crc32c
     #[serde(rename = "verifiedAdditionalAuthenticatedDataCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_additional_authenticated_data_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -9439,6 +9594,7 @@ pub struct RawDecryptResponse {
     /// [google.cloud.kms.v1.RawDecryptRequest.initialization_vector_crc32c]: crate::model::RawDecryptRequest::initialization_vector_crc32c
     #[serde(rename = "verifiedInitializationVectorCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_initialization_vector_crc32c: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9525,7 +9681,7 @@ impl wkt::message::Message for RawDecryptResponse {
 pub struct AsymmetricSignResponse {
     /// The created signature.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub signature: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
@@ -9545,7 +9701,7 @@ pub struct AsymmetricSignResponse {
     /// [google.cloud.kms.v1.AsymmetricSignResponse.signature]: crate::model::AsymmetricSignResponse::signature
     #[serde(rename = "signatureCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub signature_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Integrity verification field. A flag indicating whether
@@ -9568,6 +9724,7 @@ pub struct AsymmetricSignResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedDigestCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_digest_crc32c: bool,
 
     /// The resource name of the
@@ -9576,6 +9733,7 @@ pub struct AsymmetricSignResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Integrity verification field. A flag indicating whether
@@ -9598,6 +9756,7 @@ pub struct AsymmetricSignResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedDataCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_data_crc32c: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -9606,6 +9765,7 @@ pub struct AsymmetricSignResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9686,7 +9846,7 @@ impl wkt::message::Message for AsymmetricSignResponse {
 pub struct AsymmetricDecryptResponse {
     /// The decrypted data originally encrypted with the matching public key.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub plaintext: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
@@ -9706,7 +9866,7 @@ pub struct AsymmetricDecryptResponse {
     /// [google.cloud.kms.v1.AsymmetricDecryptResponse.plaintext]: crate::model::AsymmetricDecryptResponse::plaintext
     #[serde(rename = "plaintextCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub plaintext_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Integrity verification field. A flag indicating whether
@@ -9729,6 +9889,7 @@ pub struct AsymmetricDecryptResponse {
     /// [google.cloud.kms.v1.KeyManagementService]: crate::client::KeyManagementService
     #[serde(rename = "verifiedCiphertextCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_ciphertext_crc32c: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -9738,6 +9899,7 @@ pub struct AsymmetricDecryptResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9810,11 +9972,12 @@ pub struct MacSignResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The created signature.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub mac: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
@@ -9834,7 +9997,7 @@ pub struct MacSignResponse {
     /// [google.cloud.kms.v1.MacSignResponse.mac]: crate::model::MacSignResponse::mac
     #[serde(rename = "macCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub mac_crc32c: std::option::Option<wkt::Int64Value>,
 
     /// Integrity verification field. A flag indicating whether
@@ -9857,6 +10020,7 @@ pub struct MacSignResponse {
     /// [google.cloud.kms.v1.MacSignRequest.data_crc32c]: crate::model::MacSignRequest::data_crc32c
     #[serde(rename = "verifiedDataCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_data_crc32c: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -9865,6 +10029,7 @@ pub struct MacSignResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9944,6 +10109,7 @@ pub struct MacVerifyResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// This field indicates whether or not the verification operation for
@@ -9954,6 +10120,7 @@ pub struct MacVerifyResponse {
     /// [google.cloud.kms.v1.MacVerifyRequest.data]: crate::model::MacVerifyRequest::data
     /// [google.cloud.kms.v1.MacVerifyRequest.mac]: crate::model::MacVerifyRequest::mac
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub success: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -9976,6 +10143,7 @@ pub struct MacVerifyResponse {
     /// [google.cloud.kms.v1.MacVerifyRequest.data_crc32c]: crate::model::MacVerifyRequest::data_crc32c
     #[serde(rename = "verifiedDataCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_data_crc32c: bool,
 
     /// Integrity verification field. A flag indicating whether
@@ -9998,6 +10166,7 @@ pub struct MacVerifyResponse {
     /// [google.cloud.kms.v1.MacVerifyRequest.mac_crc32c]: crate::model::MacVerifyRequest::mac_crc32c
     #[serde(rename = "verifiedMacCrc32c")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_mac_crc32c: bool,
 
     /// Integrity verification field. This value is used for the integrity
@@ -10005,6 +10174,7 @@ pub struct MacVerifyResponse {
     /// contradicts the value of [MacVerifyResponse.success], discard the response
     /// and perform a limited number of retries.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verified_success_integrity: bool,
 
     /// The [ProtectionLevel][google.cloud.kms.v1.ProtectionLevel] of the
@@ -10014,6 +10184,7 @@ pub struct MacVerifyResponse {
     /// [google.cloud.kms.v1.CryptoKeyVersion]: crate::model::CryptoKeyVersion
     /// [google.cloud.kms.v1.ProtectionLevel]: crate::model::ProtectionLevel
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protection_level: crate::model::ProtectionLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10082,7 +10253,7 @@ impl wkt::message::Message for MacVerifyResponse {
 pub struct GenerateRandomBytesResponse {
     /// The generated data.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub data: ::bytes::Bytes,
 
     /// Integrity verification field. A CRC32C checksum of the returned
@@ -10102,7 +10273,7 @@ pub struct GenerateRandomBytesResponse {
     /// [google.cloud.kms.v1.GenerateRandomBytesResponse.data]: crate::model::GenerateRandomBytesResponse::data
     #[serde(rename = "dataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub data_crc32c: std::option::Option<wkt::Int64Value>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10260,11 +10431,20 @@ pub mod digest {
     #[non_exhaustive]
     pub enum Digest {
         /// A message digest produced with the SHA-256 algorithm.
-        Sha256(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Sha256(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// A message digest produced with the SHA-384 algorithm.
-        Sha384(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Sha384(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// A message digest produced with the SHA-512 algorithm.
-        Sha512(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Sha512(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
     }
 }
 
@@ -10286,6 +10466,7 @@ pub struct LocationMetadata {
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
     /// [google.cloud.kms.v1.ProtectionLevel.HSM]: crate::model::ProtectionLevel::Hsm
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub hsm_available: bool,
 
     /// Indicates whether [CryptoKeys][google.cloud.kms.v1.CryptoKey] with
@@ -10297,6 +10478,7 @@ pub struct LocationMetadata {
     /// [google.cloud.kms.v1.CryptoKeyVersionTemplate.protection_level]: crate::model::CryptoKeyVersionTemplate::protection_level
     /// [google.cloud.kms.v1.ProtectionLevel.EXTERNAL]: crate::model::ProtectionLevel::External
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ekm_available: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

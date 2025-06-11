@@ -46,6 +46,7 @@ pub struct Service {
     ///
     /// `projects/{project_number}/locations/{location_id}/services/{service_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The time when the metastore service was created.
@@ -58,6 +59,7 @@ pub struct Service {
 
     /// User-defined labels for the metastore service.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Immutable. The relative resource name of the VPC network on which the
@@ -65,33 +67,39 @@ pub struct Service {
     ///
     /// `projects/{project_number}/global/networks/{network_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub network: std::string::String,
 
     /// Output only. The URI of the endpoint used to access the metastore service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub endpoint_uri: std::string::String,
 
     /// The TCP port at which the metastore service is reached. Default: 9083.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub port: i32,
 
     /// Output only. The current state of the metastore service.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::service::State,
 
     /// Output only. Additional information about the current state of the
     /// metastore service, if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_message: std::string::String,
 
     /// Output only. A Cloud Storage URI (starting with `gs://`) that specifies
     /// where artifacts related to the metastore service are stored.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub artifact_gcs_uri: std::string::String,
 
     /// The tier of the service.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tier: crate::model::service::Tier,
 
     /// The one hour maintenance window of the metastore service. This specifies
@@ -104,6 +112,7 @@ pub struct Service {
     /// Output only. The globally unique resource identifier of the metastore
     /// service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Output only. The metadata management activities of the metastore service.
@@ -113,6 +122,7 @@ pub struct Service {
     /// Immutable. The release channel of the service.
     /// If unspecified, defaults to `STABLE`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release_channel: crate::model::service::ReleaseChannel,
 
     /// Immutable. Information used to configure the Dataproc Metastore service to
@@ -127,6 +137,7 @@ pub struct Service {
 
     /// Immutable. The database type that the Metastore service stores its data.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_type: crate::model::service::DatabaseType,
 
     /// The configuration specifying telemetry settings for the Dataproc Metastore
@@ -1041,6 +1052,7 @@ pub struct MaintenanceWindow {
 
     /// The day of week, when the window starts.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub day_of_week: gtype::model::DayOfWeek,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1092,6 +1104,7 @@ impl wkt::message::Message for MaintenanceWindow {
 pub struct HiveMetastoreConfig {
     /// Immutable. The Hive metastore schema version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// A mapping of Hive metastore configuration key-value pairs to apply to the
@@ -1100,6 +1113,7 @@ pub struct HiveMetastoreConfig {
     /// overrides are also applied to auxiliary versions and can be further
     /// customized in the auxiliary version's `AuxiliaryVersionConfig`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub config_overrides: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Information used to configure the Hive metastore service as a service
@@ -1113,6 +1127,7 @@ pub struct HiveMetastoreConfig {
     /// The protocol to use for the metastore service endpoint. If unspecified,
     /// defaults to `THRIFT`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub endpoint_protocol: crate::model::hive_metastore_config::EndpointProtocol,
 
     /// A mapping of Hive metastore version to the auxiliary version
@@ -1124,6 +1139,7 @@ pub struct HiveMetastoreConfig {
     /// following characters must be hyphens, lowercase letters, or digits, except
     /// the last character, which cannot be a hyphen.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub auxiliary_versions:
         std::collections::HashMap<std::string::String, crate::model::AuxiliaryVersionConfig>,
 
@@ -1355,12 +1371,14 @@ pub struct KerberosConfig {
     /// to authenticate as. A typical principal is of the form
     /// `primary/instance@REALM`, but there is no exact format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub principal: std::string::String,
 
     /// A Cloud Storage URI that specifies the path to a
     /// krb5.conf file. It is of the form `gs://{bucket_name}/path/to/krb5.conf`,
     /// although the file does not need to be named krb5.conf explicitly.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub krb5_config_gcs_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1484,7 +1502,7 @@ pub mod secret {
         /// following form:
         ///
         /// `projects/{project_number}/secrets/{secret_id}/versions/{version_id}`.
-        CloudSecret(std::string::String),
+        CloudSecret(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -1499,6 +1517,7 @@ pub struct EncryptionConfig {
     ///
     /// `projects/{project_number}/locations/{location_id}/keyRings/{key_ring_id}/cryptoKeys/{crypto_key_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1532,6 +1551,7 @@ pub struct AuxiliaryVersionConfig {
     /// The Hive metastore version of the auxiliary service. It must be less
     /// than the primary Hive metastore service's version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// A mapping of Hive metastore configuration key-value pairs to apply to the
@@ -1540,6 +1560,7 @@ pub struct AuxiliaryVersionConfig {
     /// version's overrides and the primary version's overrides, the value from
     /// the auxiliary version's overrides takes precedence.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub config_overrides: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The network configuration contains the endpoint URI(s) of the
@@ -1610,6 +1631,7 @@ pub struct NetworkConfig {
     /// Immutable. The consumer-side network configuration for the Dataproc
     /// Metastore instance.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub consumers: std::vec::Vec<crate::model::network_config::Consumer>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1655,11 +1677,13 @@ pub mod network_config {
         /// Output only. The URI of the endpoint used to access the metastore
         /// service.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub endpoint_uri: std::string::String,
 
         /// Output only. The location of the endpoint URI. Format:
         /// `projects/{project}/locations/{location}`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub endpoint_location: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -1758,7 +1782,7 @@ pub mod network_config {
             /// subnet is specified in the following form:
             ///
             /// `projects/{project_number}/regions/{region_id}/subnetworks/{subnetwork_id}`
-            Subnetwork(std::string::String),
+            Subnetwork(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 }
@@ -1771,6 +1795,7 @@ pub mod network_config {
 pub struct TelemetryConfig {
     /// The output format of the Dataproc Metastore service's logs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub log_format: crate::model::telemetry_config::LogFormat,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1943,10 +1968,12 @@ pub mod telemetry_config {
 pub struct MetadataManagementActivity {
     /// Output only. The latest metadata exports of the metastore service.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub metadata_exports: std::vec::Vec<crate::model::MetadataExport>,
 
     /// Output only. The latest restores of the metastore service.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub restores: std::vec::Vec<crate::model::Restore>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1997,10 +2024,12 @@ pub struct MetadataImport {
     ///
     /// `projects/{project_number}/locations/{location_id}/services/{service_id}/metadataImports/{metadata_import_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The description of the metadata import.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The time when the metadata import was started.
@@ -2017,6 +2046,7 @@ pub struct MetadataImport {
 
     /// Output only. The current state of the metadata import.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::metadata_import::State,
 
     /// The metadata to be imported.
@@ -2174,16 +2204,19 @@ pub mod metadata_import {
     pub struct DatabaseDump {
         /// The type of the database.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         #[deprecated]
         pub database_type: crate::model::metadata_import::database_dump::DatabaseType,
 
         /// A Cloud Storage object or folder URI that specifies the source from which
         /// to import metadata. It must begin with `gs://`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub gcs_uri: std::string::String,
 
         /// The name of the source database.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         #[deprecated]
         pub source_database: std::string::String,
 
@@ -2191,6 +2224,7 @@ pub mod metadata_import {
         /// `MYSQL`.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::database_dump_spec::Type,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2554,10 +2588,12 @@ pub struct MetadataExport {
 
     /// Output only. The current state of the export.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::metadata_export::State,
 
     /// Output only. The type of the database dump.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_dump_type: crate::model::database_dump_spec::Type,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -2835,7 +2871,7 @@ pub mod metadata_export {
         /// to, in the form of
         /// `gs://<bucket_name>/<path_inside_bucket>/<export_folder>`, where
         /// `<export_folder>` is automatically generated.
-        DestinationGcsUri(std::string::String),
+        DestinationGcsUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -2849,6 +2885,7 @@ pub struct Backup {
     ///
     /// `projects/{project_number}/locations/{location_id}/services/{service_id}/backups/{backup_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The time when the backup was started.
@@ -2861,6 +2898,7 @@ pub struct Backup {
 
     /// Output only. The current state of the backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::backup::State,
 
     /// Output only. The revision of the service at the time of backup.
@@ -2869,10 +2907,12 @@ pub struct Backup {
 
     /// The description of the backup.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. Services that are restoring from the backup.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub restoring_services: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3149,6 +3189,7 @@ pub struct Restore {
 
     /// Output only. The current state of the restore.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::restore::State,
 
     /// Output only. The relative resource name of the metastore service backup to
@@ -3156,16 +3197,19 @@ pub struct Restore {
     ///
     /// `projects/{project_id}/locations/{location_id}/services/{service_id}/backups/{backup_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup: std::string::String,
 
     /// Output only. The type of restore.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::restore::RestoreType,
 
     /// Output only. The restore details containing the revision of the service to
     /// be restored to, in format of JSON.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub details: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3794,10 +3838,13 @@ pub mod scaling_config {
     pub enum ScalingModel {
         /// An enum of readable instance sizes, with each instance size mapping to a
         /// float value (e.g. InstanceSize.EXTRA_SMALL = scaling_factor(0.1))
-        InstanceSize(crate::model::scaling_config::InstanceSize),
+        InstanceSize(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            crate::model::scaling_config::InstanceSize,
+        ),
         /// Scaling factor, increments of 0.1 for values less than 1.0, and
         /// increments of 1.0 for values greater than 1.0.
-        ScalingFactor(#[serde_as(as = "wkt::internal::F32")] f32),
+        ScalingFactor(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")] f32),
     }
 }
 
@@ -3815,6 +3862,7 @@ pub struct ListServicesRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of services to return. The response may
@@ -3822,7 +3870,7 @@ pub struct ListServicesRequest {
     /// services are returned. The maximum value is 1000; values above 1000 are
     /// changed to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -3837,16 +3885,19 @@ pub struct ListServicesRequest {
     ///
     /// [google.cloud.metastore.v1.DataprocMetastore.ListServices]: crate::client::DataprocMetastore::list_services
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter to apply to list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Specify the ordering of results as described in [Sorting
     /// Order](https://cloud.google.com/apis/design/design_patterns#sorting_order).
     /// If not specified, the results will be sorted in the default order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3906,15 +3957,18 @@ impl wkt::message::Message for ListServicesRequest {
 pub struct ListServicesResponse {
     /// The services in the specified location.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub services: std::vec::Vec<crate::model::Service>,
 
     /// A token that can be sent as `page_token` to retrieve the next page. If this
     /// field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3989,6 +4043,7 @@ pub struct GetServiceRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}/services/{service_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4027,6 +4082,7 @@ pub struct CreateServiceRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID of the metastore service, which is used as the final
@@ -4036,6 +4092,7 @@ pub struct CreateServiceRequest {
     /// letter, end with a letter or number, and consist of alpha-numeric
     /// ASCII characters or hyphens.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_id: std::string::String,
 
     /// Required. The Metastore service to create. The `name` field is
@@ -4057,6 +4114,7 @@ pub struct CreateServiceRequest {
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format)
     /// A zero UUID (00000000-0000-0000-0000-000000000000) is not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4148,6 +4206,7 @@ pub struct UpdateServiceRequest {
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format)
     /// A zero UUID (00000000-0000-0000-0000-000000000000) is not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4222,6 +4281,7 @@ pub struct DeleteServiceRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}/services/{service_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A request ID. Specify a unique request ID to allow the server to
@@ -4237,6 +4297,7 @@ pub struct DeleteServiceRequest {
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format)
     /// A zero UUID (00000000-0000-0000-0000-000000000000) is not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4281,13 +4342,14 @@ pub struct ListMetadataImportsRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}/services/{service_id}/metadataImports`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of imports to return. The response may contain
     /// less than the maximum number. If unspecified, no more than 500 imports are
     /// returned. The maximum value is 1000; values above 1000 are changed to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -4302,16 +4364,19 @@ pub struct ListMetadataImportsRequest {
     ///
     /// [google.cloud.metastore.v1.DataprocMetastore.ListServices]: crate::client::DataprocMetastore::list_services
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter to apply to list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Specify the ordering of results as described in [Sorting
     /// Order](https://cloud.google.com/apis/design/design_patterns#sorting_order).
     /// If not specified, the results will be sorted in the default order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4371,15 +4436,18 @@ impl wkt::message::Message for ListMetadataImportsRequest {
 pub struct ListMetadataImportsResponse {
     /// The imports in the specified service.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub metadata_imports: std::vec::Vec<crate::model::MetadataImport>,
 
     /// A token that can be sent as `page_token` to retrieve the next page. If this
     /// field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4454,6 +4522,7 @@ pub struct GetMetadataImportRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}/services/{service_id}/metadataImports/{import_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4492,6 +4561,7 @@ pub struct CreateMetadataImportRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}/services/{service_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID of the metadata import, which is used as the final
@@ -4501,6 +4571,7 @@ pub struct CreateMetadataImportRequest {
     /// end with a letter or number, and consist of alpha-numeric ASCII characters
     /// or hyphens.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metadata_import_id: std::string::String,
 
     /// Required. The metadata import to create. The `name` field is ignored. The
@@ -4522,6 +4593,7 @@ pub struct CreateMetadataImportRequest {
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format)
     /// A zero UUID (00000000-0000-0000-0000-000000000000) is not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4616,6 +4688,7 @@ pub struct UpdateMetadataImportRequest {
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format)
     /// A zero UUID (00000000-0000-0000-0000-000000000000) is not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4690,13 +4763,14 @@ pub struct ListBackupsRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}/services/{service_id}/backups`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of backups to return. The response may contain
     /// less than the maximum number. If unspecified, no more than 500 backups are
     /// returned. The maximum value is 1000; values above 1000 are changed to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -4711,16 +4785,19 @@ pub struct ListBackupsRequest {
     ///
     /// [google.cloud.metastore.v1.DataprocMetastore.ListBackups]: crate::client::DataprocMetastore::list_backups
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter to apply to list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Specify the ordering of results as described in [Sorting
     /// Order](https://cloud.google.com/apis/design/design_patterns#sorting_order).
     /// If not specified, the results will be sorted in the default order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4780,15 +4857,18 @@ impl wkt::message::Message for ListBackupsRequest {
 pub struct ListBackupsResponse {
     /// The backups of the specified service.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub backups: std::vec::Vec<crate::model::Backup>,
 
     /// A token that can be sent as `page_token` to retrieve the next page. If this
     /// field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4863,6 +4943,7 @@ pub struct GetBackupRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}/services/{service_id}/backups/{backup_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4901,6 +4982,7 @@ pub struct CreateBackupRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}/services/{service_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID of the backup, which is used as the final component of the
@@ -4910,6 +4992,7 @@ pub struct CreateBackupRequest {
     /// end with a letter or number, and consist of alpha-numeric ASCII characters
     /// or hyphens.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup_id: std::string::String,
 
     /// Required. The backup to create. The `name` field is ignored. The ID of the
@@ -4930,6 +5013,7 @@ pub struct CreateBackupRequest {
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format)
     /// A zero UUID (00000000-0000-0000-0000-000000000000) is not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4998,6 +5082,7 @@ pub struct DeleteBackupRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}/services/{service_id}/backups/{backup_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A request ID. Specify a unique request ID to allow the server to
@@ -5013,6 +5098,7 @@ pub struct DeleteBackupRequest {
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format)
     /// A zero UUID (00000000-0000-0000-0000-000000000000) is not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5057,6 +5143,7 @@ pub struct ExportMetadataRequest {
     ///
     /// `projects/{project_id}/locations/{location_id}/services/{service_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     /// Optional. A request ID. Specify a unique request ID to allow the server to
@@ -5072,11 +5159,13 @@ pub struct ExportMetadataRequest {
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format).
     /// A zero UUID (00000000-0000-0000-0000-000000000000) is not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. The type of the database dump. If unspecified, defaults to
     /// `MYSQL`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_dump_type: crate::model::database_dump_spec::Type,
 
     /// Required. Destination that metadata is exported to.
@@ -5176,7 +5265,7 @@ pub mod export_metadata_request {
         /// A Cloud Storage URI of a folder, in the format
         /// `gs://<bucket_name>/<path_inside_bucket>`. A sub-folder
         /// `<export_folder>` containing exported files will be created below it.
-        DestinationGcsFolder(std::string::String),
+        DestinationGcsFolder(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -5191,6 +5280,7 @@ pub struct RestoreServiceRequest {
     ///
     /// `projects/{project_id}/locations/{location_id}/services/{service_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     /// Required. The relative resource name of the metastore service backup to
@@ -5198,10 +5288,12 @@ pub struct RestoreServiceRequest {
     ///
     /// `projects/{project_id}/locations/{location_id}/services/{service_id}/backups/{backup_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup: std::string::String,
 
     /// Optional. The type of restore. If unspecified, defaults to `METADATA_ONLY`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub restore_type: crate::model::restore::RestoreType,
 
     /// Optional. A request ID. Specify a unique request ID to allow the server to
@@ -5217,6 +5309,7 @@ pub struct RestoreServiceRequest {
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format).
     /// A zero UUID (00000000-0000-0000-0000-000000000000) is not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5278,14 +5371,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the caller has requested cancellation
@@ -5296,10 +5392,12 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5394,6 +5492,7 @@ pub struct LocationMetadata {
     /// metastore service in this location. The server guarantees that exactly one
     /// `HiveMetastoreVersion` in the list will set `is_default`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub supported_hive_metastore_versions:
         std::vec::Vec<crate::model::location_metadata::HiveMetastoreVersion>,
 
@@ -5437,11 +5536,13 @@ pub mod location_metadata {
     pub struct HiveMetastoreVersion {
         /// The semantic version of the Hive Metastore software.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub version: std::string::String,
 
         /// Whether `version` will be chosen by the server if a metastore service is
         /// created with a `HiveMetastoreConfig` that omits the `version`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub is_default: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5647,11 +5748,13 @@ pub struct QueryMetadataRequest {
     ///
     /// `projects/{project_id}/locations/{location_id}/services/{service_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     /// Required. A read-only SQL query to execute against the metadata database.
     /// The query cannot change or mutate the data.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5696,6 +5799,7 @@ pub struct QueryMetadataResponse {
     /// content of the URI is not retriable until the long-running operation query
     /// against the metadata finishes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub result_manifest_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5737,6 +5841,7 @@ pub struct ErrorDetails {
     /// Keys define the failure items.
     /// Value describes the exception or details of the item.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub details: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5781,18 +5886,22 @@ pub struct MoveTableToDatabaseRequest {
     ///
     /// `projects/{project_id}/locations/{location_id}/services/{service_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     /// Required. The name of the table to be moved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table_name: std::string::String,
 
     /// Required. The name of the database where the table resides.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub db_name: std::string::String,
 
     /// Required. The name of the database where the table should be moved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_db_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5877,6 +5986,7 @@ pub struct AlterMetadataResourceLocationRequest {
     ///
     /// `projects/{project_id}/locations/{location_id}/services/{service_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     /// Required. The relative metadata resource name in the following format.
@@ -5887,10 +5997,12 @@ pub struct AlterMetadataResourceLocationRequest {
     /// or
     /// `databases/{database_id}/tables/{table_id}/partitions/{partition_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_name: std::string::String,
 
     /// Required. The new location URI for the metadata resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5962,6 +6074,7 @@ pub struct Federation {
     /// form:
     /// projects/{project_number}/locations/{location_id}/federations/{federation_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The time when the metastore federation was created.
@@ -5974,11 +6087,13 @@ pub struct Federation {
 
     /// User-defined labels for the metastore federation.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Immutable. The Apache Hive metastore version of the federation. All backend
     /// metastore versions must be compatible with the federation version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// A map from `BackendMetastore` rank to `BackendMetastore`s from which the
@@ -5988,25 +6103,29 @@ pub struct Federation {
     /// `BackendMetastore` with a lower number will be evaluated before a
     /// `BackendMetastore` with a higher number.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<wkt::internal::I32, _>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I32, _>>")]
     pub backend_metastores: std::collections::HashMap<i32, crate::model::BackendMetastore>,
 
     /// Output only. The federation endpoint.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub endpoint_uri: std::string::String,
 
     /// Output only. The current state of the federation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::federation::State,
 
     /// Output only. Additional information about the current state of the
     /// metastore federation, if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_message: std::string::String,
 
     /// Output only. The globally unique resource identifier of the metastore
     /// federation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6300,10 +6419,12 @@ pub struct BackendMetastore {
     /// * Dataproc Metastore
     ///   * `projects/{project_id}/locations/{location}/services/{service_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The type of the backend metastore.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metastore_type: crate::model::backend_metastore::MetastoreType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6487,6 +6608,7 @@ pub struct ListFederationsRequest {
     /// federations to list, in the following form:
     /// `projects/{project_number}/locations/{location_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of federations to return. The response may
@@ -6494,7 +6616,7 @@ pub struct ListFederationsRequest {
     /// services are returned. The maximum value is 1000; values above 1000 are
     /// changed to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous ListFederationServices
@@ -6506,16 +6628,19 @@ pub struct ListFederationsRequest {
     /// ListFederationServices must match the call that provided the
     /// page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter to apply to list results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Specify the ordering of results as described in [Sorting
     /// Order](https://cloud.google.com/apis/design/design_patterns#sorting_order).
     /// If not specified, the results will be sorted in the default order.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6572,15 +6697,18 @@ impl wkt::message::Message for ListFederationsRequest {
 pub struct ListFederationsResponse {
     /// The services in the specified location.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub federations: std::vec::Vec<crate::model::Federation>,
 
     /// A token that can be sent as `page_token` to retrieve the next page. If this
     /// field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6652,6 +6780,7 @@ pub struct GetFederationRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}/federations/{federation_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6687,6 +6816,7 @@ pub struct CreateFederationRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID of the metastore federation, which is used as the final
@@ -6696,6 +6826,7 @@ pub struct CreateFederationRequest {
     /// letter, end with a letter or number, and consist of alpha-numeric
     /// ASCII characters or hyphens.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub federation_id: std::string::String,
 
     /// Required. The Metastore Federation to create. The `name` field is
@@ -6717,6 +6848,7 @@ pub struct CreateFederationRequest {
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format)
     /// A zero UUID (00000000-0000-0000-0000-000000000000) is not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6805,6 +6937,7 @@ pub struct UpdateFederationRequest {
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format)
     /// A zero UUID (00000000-0000-0000-0000-000000000000) is not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6876,6 +7009,7 @@ pub struct DeleteFederationRequest {
     ///
     /// `projects/{project_number}/locations/{location_id}/federations/{federation_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A request ID. Specify a unique request ID to allow the server to
@@ -6891,6 +7025,7 @@ pub struct DeleteFederationRequest {
     /// [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier#Format)
     /// A zero UUID (00000000-0000-0000-0000-000000000000) is not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

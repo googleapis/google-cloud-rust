@@ -45,26 +45,31 @@ pub struct AutonomousDatabase {
     /// format:
     /// projects/{project}/locations/{region}/autonomousDatabases/{autonomous_database}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The name of the Autonomous Database. The database name must be
     /// unique in the project. The name must begin with a letter and can contain a
     /// maximum of 30 alphanumeric characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database: std::string::String,
 
     /// Optional. The display name for the Autonomous Database. The name does not
     /// have to be unique within your project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. The ID of the subscription entitlement associated with the
     /// Autonomous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entitlement_id: std::string::String,
 
     /// Optional. The password for the default ADMIN user.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub admin_password: std::string::String,
 
     /// Optional. The properties of the Autonomous Database.
@@ -73,15 +78,18 @@ pub struct AutonomousDatabase {
 
     /// Optional. The labels or tags associated with the Autonomous Database.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. The name of the VPC network used by the Autonomous Database in
     /// the following format: projects/{project}/global/networks/{network}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub network: std::string::String,
 
     /// Optional. The subnet CIDR range for the Autonmous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cidr: std::string::String,
 
     /// Output only. The date and time that the Autonomous Database was created.
@@ -203,111 +211,127 @@ pub struct AutonomousDatabaseProperties {
     /// Output only. OCID of the Autonomous Database.
     /// <https://docs.oracle.com/en-us/iaas/Content/General/Concepts/identifiers.htm#Oracle>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ocid: std::string::String,
 
     /// Optional. The number of compute servers for the Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub compute_count: f32,
 
     /// Optional. The number of CPU cores to be made available to the database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub cpu_core_count: i32,
 
     /// Optional. The size of the data stored in the database, in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub data_storage_size_tb: i32,
 
     /// Optional. The size of the data stored in the database, in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub data_storage_size_gb: i32,
 
     /// Required. The workload type of the Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub db_workload: crate::model::DBWorkload,
 
     /// Optional. The edition of the Autonomous Databases.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub db_edition: crate::model::autonomous_database_properties::DatabaseEdition,
 
     /// Optional. The character set for the Autonomous Database. The default is
     /// AL32UTF8.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub character_set: std::string::String,
 
     /// Optional. The national character set for the Autonomous Database. The
     /// default is AL16UTF16.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub n_character_set: std::string::String,
 
     /// Optional. The private endpoint IP address for the Autonomous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub private_endpoint_ip: std::string::String,
 
     /// Optional. The private endpoint label for the Autonomous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub private_endpoint_label: std::string::String,
 
     /// Optional. The Oracle Database version for the Autonomous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub db_version: std::string::String,
 
     /// Optional. This field indicates if auto scaling is enabled for the
     /// Autonomous Database CPU core count.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_auto_scaling_enabled: bool,
 
     /// Optional. This field indicates if auto scaling is enabled for the
     /// Autonomous Database storage.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_storage_auto_scaling_enabled: bool,
 
     /// Required. The license type used for the Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub license_type: crate::model::autonomous_database_properties::LicenseType,
 
     /// Optional. The list of customer contacts.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub customer_contacts: std::vec::Vec<crate::model::CustomerContact>,
 
     /// Optional. The ID of the Oracle Cloud Infrastructure vault secret.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secret_id: std::string::String,
 
     /// Optional. The ID of the Oracle Cloud Infrastructure vault.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vault_id: std::string::String,
 
     /// Optional. The maintenance schedule of the Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub maintenance_schedule_type:
         crate::model::autonomous_database_properties::MaintenanceScheduleType,
 
     /// Optional. This field specifies if the Autonomous Database requires mTLS
     /// connections.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mtls_connection_required: bool,
 
     /// Optional. The retention period for the Autonomous Database. This field is
     /// specified in days, can range from 1 day to 60 days, and has a default value
     /// of 60 days.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub backup_retention_period_days: i32,
 
     /// Output only. The amount of storage currently being used for user and system
     /// data, in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub actual_used_data_storage_size_tb: f64,
 
     /// Output only. The amount of storage currently allocated for the database
     /// tables and billed for, rounded up in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub allocated_storage_size_tb: f64,
 
     /// Output only. The details for the Oracle APEX Application Development.
@@ -328,19 +352,23 @@ pub struct AutonomousDatabaseProperties {
     /// Output only. The details of the current lifestyle state of the Autonomous
     /// Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lifecycle_details: std::string::String,
 
     /// Output only. The current lifecycle state of the Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::State,
 
     /// Output only. The Autonomous Container Database OCID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub autonomous_container_database_id: std::string::String,
 
     /// Output only. The list of available Oracle Database upgrade versions for an
     /// Autonomous Database.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub available_upgrade_versions: std::vec::Vec<std::string::String>,
 
     /// Output only. The connection strings used to connect to an Autonomous
@@ -360,18 +388,19 @@ pub struct AutonomousDatabaseProperties {
     /// Output only. The memory assigned to in-memory tables in an Autonomous
     /// Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub memory_table_gbs: i32,
 
     /// Output only. This field indicates whether the Autonomous Database has local
     /// (in-region) Data Guard enabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_local_data_guard_enabled: bool,
 
     /// Output only. This field indicates the maximum data loss limit for an
     /// Autonomous Database, in seconds.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub local_adg_auto_failover_max_data_loss_limit: i32,
 
     /// Output only. The details of the Autonomous Data Guard standby database.
@@ -380,89 +409,104 @@ pub struct AutonomousDatabaseProperties {
 
     /// Output only. The amount of memory enabled per ECPU, in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub memory_per_oracle_compute_unit_gbs: i32,
 
     /// Output only. This field indicates the local disaster recovery (DR) type of
     /// an Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub local_disaster_recovery_type:
         crate::model::autonomous_database_properties::LocalDisasterRecoveryType,
 
     /// Output only. The current state of the Data Safe registration for the
     /// Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_safe_state: crate::model::autonomous_database_properties::DataSafeState,
 
     /// Output only. The current state of database management for the Autonomous
     /// Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_management_state:
         crate::model::autonomous_database_properties::DatabaseManagementState,
 
     /// Output only. This field indicates the current mode of the Autonomous
     /// Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub open_mode: crate::model::autonomous_database_properties::OpenMode,
 
     /// Output only. This field indicates the state of Operations Insights for the
     /// Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub operations_insights_state: crate::model::OperationsInsightsState,
 
     /// Output only. The list of OCIDs of standby databases located in Autonomous
     /// Data Guard remote regions that are associated with the source database.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub peer_db_ids: std::vec::Vec<std::string::String>,
 
     /// Output only. The permission level of the Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub permission_level: crate::model::autonomous_database_properties::PermissionLevel,
 
     /// Output only. The private endpoint for the Autonomous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub private_endpoint: std::string::String,
 
     /// Output only. The refresh mode of the cloned Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub refreshable_mode: crate::model::autonomous_database_properties::RefreshableMode,
 
     /// Output only. The refresh State of the clone.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub refreshable_state: crate::model::autonomous_database_properties::RefreshableState,
 
     /// Output only. The Data Guard role of the Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub role: crate::model::autonomous_database_properties::Role,
 
     /// Output only. The list and details of the scheduled operations of the
     /// Autonomous Database.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub scheduled_operation_details: std::vec::Vec<crate::model::ScheduledOperationDetails>,
 
     /// Output only. The SQL Web Developer URL for the Autonomous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sql_web_developer_url: std::string::String,
 
     /// Output only. The list of available regions that can be used to create a
     /// clone for the Autonomous Database.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub supported_clone_regions: std::vec::Vec<std::string::String>,
 
     /// Output only. The storage space used by Autonomous Database, in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub used_data_storage_size_tbs: i32,
 
     /// Output only. The Oracle Cloud Infrastructure link for the Autonomous
     /// Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub oci_url: std::string::String,
 
     /// Output only. The storage space used by automatic backups of Autonomous
     /// Database, in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub total_auto_backup_storage_size_gbs: f32,
 
     /// Output only. The long term backup schedule of the Autonomous Database.
@@ -2611,10 +2655,12 @@ pub mod autonomous_database_properties {
 pub struct AutonomousDatabaseApex {
     /// Output only. The Oracle APEX Application Development version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub apex_version: std::string::String,
 
     /// Output only. The Oracle REST Data Services (ORDS) version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ords_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2661,26 +2707,31 @@ pub struct AutonomousDatabaseConnectionStrings {
     /// each SQL statement, but supports the most number of concurrent SQL
     /// statements.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dedicated: std::string::String,
 
     /// Output only. The database service provides the highest level of resources
     /// to each SQL statement.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub high: std::string::String,
 
     /// Output only. The database service provides the least level of resources to
     /// each SQL statement.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub low: std::string::String,
 
     /// Output only. The database service provides a lower level of resources to
     /// each SQL statement.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub medium: std::string::String,
 
     /// Output only. A list of connection string profiles to allow clients to
     /// group, filter, and select values based on the structured metadata.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub profiles: std::vec::Vec<crate::model::DatabaseConnectionStringProfile>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2761,41 +2812,50 @@ impl wkt::message::Message for AutonomousDatabaseConnectionStrings {
 pub struct DatabaseConnectionStringProfile {
     /// Output only. The current consumer group being used by the connection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub consumer_group: crate::model::database_connection_string_profile::ConsumerGroup,
 
     /// Output only. The display name for the database connection.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. The host name format being currently used in connection
     /// string.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub host_format: crate::model::database_connection_string_profile::HostFormat,
 
     /// Output only. This field indicates if the connection string is regional and
     /// is only applicable for cross-region Data Guard.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_regional: bool,
 
     /// Output only. The protocol being used by the connection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub protocol: crate::model::database_connection_string_profile::Protocol,
 
     /// Output only. The current session mode of the connection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub session_mode: crate::model::database_connection_string_profile::SessionMode,
 
     /// Output only. The syntax of the connection string.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub syntax_format: crate::model::database_connection_string_profile::SyntaxFormat,
 
     /// Output only. This field indicates the TLS authentication type of the
     /// connection.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tls_authentication: crate::model::database_connection_string_profile::TLSAuthentication,
 
     /// Output only. The value of the connection string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3734,16 +3794,19 @@ pub struct AllConnectionStrings {
     /// Output only. The database service provides the highest level of resources
     /// to each SQL statement.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub high: std::string::String,
 
     /// Output only. The database service provides the least level of resources to
     /// each SQL statement.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub low: std::string::String,
 
     /// Output only. The database service provides a lower level of resources to
     /// each SQL statement.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub medium: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3790,39 +3853,47 @@ impl wkt::message::Message for AllConnectionStrings {
 pub struct AutonomousDatabaseConnectionUrls {
     /// Output only. Oracle Application Express (APEX) URL.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub apex_uri: std::string::String,
 
     /// Output only. The URL of the Database Transforms for the Autonomous
     /// Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub database_transforms_uri: std::string::String,
 
     /// Output only. The URL of the Graph Studio for the Autonomous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub graph_studio_uri: std::string::String,
 
     /// Output only. The URL of the Oracle Machine Learning (OML) Notebook for the
     /// Autonomous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub machine_learning_notebook_uri: std::string::String,
 
     /// Output only. The URL of Machine Learning user management the Autonomous
     /// Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub machine_learning_user_management_uri: std::string::String,
 
     /// Output only. The URL of the MongoDB API for the Autonomous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mongo_db_uri: std::string::String,
 
     /// Output only. The Oracle REST Data Services (ORDS) URL of the Web Access for
     /// the Autonomous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ords_uri: std::string::String,
 
     /// Output only. The URL of the Oracle SQL Developer Web for the Autonomous
     /// Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sql_dev_web_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3916,10 +3987,12 @@ pub struct AutonomousDatabaseStandbySummary {
     /// Output only. The additional details about the current lifecycle state of
     /// the Autonomous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lifecycle_details: std::string::String,
 
     /// Output only. The current lifecycle state of the Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::State,
 
     /// Output only. The date and time the Autonomous Data Guard role was switched
@@ -4029,6 +4102,7 @@ impl wkt::message::Message for AutonomousDatabaseStandbySummary {
 pub struct ScheduledOperationDetails {
     /// Output only. Day of week.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub day_of_week: gtype::model::DayOfWeek,
 
     /// Output only. Auto start time.
@@ -4108,15 +4182,18 @@ pub struct AutonomousDatabaseCharacterSet {
     /// the following format:
     /// projects/{project}/locations/{region}/autonomousDatabaseCharacterSets/{autonomous_database_character_set}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The character set type for the Autonomous Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub character_set_type: crate::model::autonomous_database_character_set::CharacterSetType,
 
     /// Output only. The character set name for the Autonomous Database which is
     /// the ID in the resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub character_set: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4307,17 +4384,20 @@ pub struct AutonomousDatabaseBackup {
     /// format:
     /// projects/{project}/locations/{region}/autonomousDatabaseBackups/{autonomous_database_backup}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The name of the Autonomous Database resource for which the backup
     /// is being created. Format:
     /// projects/{project}/locations/{region}/autonomousDatabases/{autonomous_database}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub autonomous_database: std::string::String,
 
     /// Optional. User friendly name for the Backup. The name does not have to be
     /// unique.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. Various properties of the backup.
@@ -4326,6 +4406,7 @@ pub struct AutonomousDatabaseBackup {
 
     /// Optional. labels or tags associated with the resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4404,50 +4485,59 @@ pub struct AutonomousDatabaseBackupProperties {
     /// Output only. OCID of the Autonomous Database backup.
     /// <https://docs.oracle.com/en-us/iaas/Content/General/Concepts/identifiers.htm#Oracle>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ocid: std::string::String,
 
     /// Optional. Retention period in days for the backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub retention_period_days: i32,
 
     /// Output only. The OCID of the compartment.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub compartment_id: std::string::String,
 
     /// Output only. The quantity of data in the database, in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub database_size_tb: f32,
 
     /// Output only. A valid Oracle Database version for Autonomous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub db_version: std::string::String,
 
     /// Output only. Indicates if the backup is long term backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_long_term_backup: bool,
 
     /// Output only. Indicates if the backup is automatic or user initiated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_automatic_backup: bool,
 
     /// Output only. Indicates if the backup can be used to restore the Autonomous
     /// Database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_restorable: bool,
 
     /// Optional. The OCID of the key store of Oracle Vault.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_store_id: std::string::String,
 
     /// Optional. The wallet name for Oracle Key Vault.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_store_wallet: std::string::String,
 
     /// Optional. The OCID of the key container that is used as the master
     /// encryption key in database transparent data encryption (TDE) operations.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_id: std::string::String,
 
     /// Optional. The OCID of the key container version that is used in database
@@ -4457,19 +4547,22 @@ pub struct AutonomousDatabaseBackupProperties {
     /// key versions, hence is not applicable for Autonomous Database Serverless
     /// instances.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_version_id: std::string::String,
 
     /// Output only. Additional information about the current lifecycle state.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lifecycle_details: std::string::String,
 
     /// Output only. The lifecycle state of the backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lifecycle_state: crate::model::autonomous_database_backup_properties::State,
 
     /// Output only. The backup size in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub size_tb: f32,
 
     /// Output only. Timestamp until when the backup will be available.
@@ -4487,10 +4580,12 @@ pub struct AutonomousDatabaseBackupProperties {
     /// Output only. The type of the backup.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::autonomous_database_backup_properties::Type,
 
     /// Optional. The OCID of the vault.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vault_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5000,19 +5095,23 @@ pub struct AutonomousDbVersion {
     /// format:
     /// projects/{project}/locations/{region}/autonomousDbVersions/{autonomous_db_version}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. An Oracle Database version for Autonomous Database.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Output only. The Autonomous Database workload type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub db_workload: crate::model::DBWorkload,
 
     /// Output only. A URL that points to a detailed description of the Autonomous
     /// Database version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub workload_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5068,6 +5167,7 @@ pub struct CustomerContact {
     /// Required. The email address used by Oracle to send notifications regarding
     /// databases and infrastructure.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub email: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5102,6 +5202,7 @@ pub struct DbNode {
     /// Identifier. The name of the database node resource in the following format:
     /// projects/{project}/locations/{location}/cloudVmClusters/{cloud_vm_cluster}/dbNodes/{db_node}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Various properties of the database node.
@@ -5156,38 +5257,42 @@ impl wkt::message::Message for DbNode {
 pub struct DbNodeProperties {
     /// Output only. OCID of database node.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ocid: std::string::String,
 
     /// Optional. OCPU count per database node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub ocpu_count: i32,
 
     /// Memory allocated in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub memory_size_gb: i32,
 
     /// Optional. Local storage per database node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub db_node_storage_size_gb: i32,
 
     /// Optional. Database server OCID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub db_server_ocid: std::string::String,
 
     /// Optional. DNS
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub hostname: std::string::String,
 
     /// Output only. State of the database node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::db_node_properties::State,
 
     /// Total CPU core count of the database node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_cpu_core_count: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5454,10 +5559,12 @@ pub struct DbServer {
     /// Identifier. The name of the database server resource with the format:
     /// projects/{project}/locations/{location}/cloudExadataInfrastructures/{cloud_exadata_infrastructure}/dbServers/{db_server}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. User friendly name for this resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. Various properties of the database server.
@@ -5518,49 +5625,52 @@ impl wkt::message::Message for DbServer {
 pub struct DbServerProperties {
     /// Output only. OCID of database server.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ocid: std::string::String,
 
     /// Optional. OCPU count per database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub ocpu_count: i32,
 
     /// Optional. Maximum OCPU count per database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_ocpu_count: i32,
 
     /// Optional. Memory allocated in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub memory_size_gb: i32,
 
     /// Optional. Maximum memory allocated in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_memory_size_gb: i32,
 
     /// Optional. Local storage per VM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub db_node_storage_size_gb: i32,
 
     /// Optional. Maximum local storage per VM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_db_node_storage_size_gb: i32,
 
     /// Optional. Vm count per database.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub vm_count: i32,
 
     /// Output only. State of the database server.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::db_server_properties::State,
 
     /// Output only. OCID of database nodes associated with the database server.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub db_node_ids: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5816,60 +5926,62 @@ pub struct DbSystemShape {
     /// Identifier. The name of the Database System Shape resource with the format:
     /// projects/{project}/locations/{region}/dbSystemShapes/{db_system_shape}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. shape
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub shape: std::string::String,
 
     /// Optional. Minimum number of database servers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub min_node_count: i32,
 
     /// Optional. Maximum number of database servers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_node_count: i32,
 
     /// Optional. Minimum number of storage servers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub min_storage_count: i32,
 
     /// Optional. Maximum number of storage servers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_storage_count: i32,
 
     /// Optional. Number of cores per node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub available_core_count_per_node: i32,
 
     /// Optional. Memory per database server node in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub available_memory_per_node_gb: i32,
 
     /// Optional. Storage per storage server in terabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub available_data_storage_tb: i32,
 
     /// Optional. Minimum core count per node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub min_core_count_per_node: i32,
 
     /// Optional. Minimum memory per node in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub min_memory_per_node_gb: i32,
 
     /// Optional. Minimum node storage per database server in gigabytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub min_db_node_storage_per_node_gb: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5969,6 +6081,7 @@ pub struct Entitlement {
     /// Identifier. The name of the Entitlement resource with the format:
     /// projects/{project}/locations/{region}/entitlements/{entitlement}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Details of the OCI Cloud Account.
@@ -5977,10 +6090,12 @@ pub struct Entitlement {
 
     /// Output only. Google Cloud Marketplace order ID (aka entitlement ID)
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entitlement_id: std::string::String,
 
     /// Output only. Entitlement State.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::entitlement::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6207,10 +6322,12 @@ pub mod entitlement {
 pub struct CloudAccountDetails {
     /// Output only. OCI account name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cloud_account: std::string::String,
 
     /// Output only. OCI account home region.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cloud_account_home_region: std::string::String,
 
     /// Output only. URL to link an existing account.
@@ -6299,19 +6416,23 @@ pub struct CloudExadataInfrastructure {
     /// format:
     /// projects/{project}/locations/{region}/cloudExadataInfrastructures/{cloud_exadata_infrastructure}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. User friendly name for this resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. Google Cloud Platform location where Oracle Exadata is hosted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gcp_oracle_zone: std::string::String,
 
     /// Output only. Entitlement ID of the private offer against which this
     /// infrastructure resource is provisioned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entitlement_id: std::string::String,
 
     /// Optional. Various properties of the infra.
@@ -6320,6 +6441,7 @@ pub struct CloudExadataInfrastructure {
 
     /// Optional. Labels or tags associated with the resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The date and time that the Exadata Infrastructure was created.
@@ -6423,29 +6545,30 @@ pub struct CloudExadataInfrastructureProperties {
     /// Output only. OCID of created infra.
     /// <https://docs.oracle.com/en-us/iaas/Content/General/Concepts/identifiers.htm#Oracle>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ocid: std::string::String,
 
     /// Optional. The number of compute servers for the Exadata Infrastructure.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub compute_count: i32,
 
     /// Optional. The number of Cloud Exadata storage servers for the Exadata
     /// Infrastructure.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub storage_count: i32,
 
     /// Optional. The total storage allocated to the Exadata Infrastructure
     /// resource, in gigabytes (GB).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_storage_size_gb: i32,
 
     /// Output only. The available storage can be allocated to the Exadata
     /// Infrastructure resource, in gigabytes (GB).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub available_storage_size_gb: i32,
 
     /// Optional. Maintenance window for repair.
@@ -6454,81 +6577,87 @@ pub struct CloudExadataInfrastructureProperties {
 
     /// Output only. The current lifecycle state of the Exadata Infrastructure.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::cloud_exadata_infrastructure_properties::State,
 
     /// Required. The shape of the Exadata Infrastructure. The shape determines the
     /// amount of CPU, storage, and memory resources allocated to the instance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub shape: std::string::String,
 
     /// Output only. Deep link to the OCI console to view this resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub oci_url: std::string::String,
 
     /// Output only. The number of enabled CPU cores.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub cpu_count: i32,
 
     /// Output only. The total number of CPU cores available.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_cpu_count: i32,
 
     /// Output only. The memory allocated in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub memory_size_gb: i32,
 
     /// Output only. The total memory available in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_memory_gb: i32,
 
     /// Output only. The local node storage allocated in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub db_node_storage_size_gb: i32,
 
     /// Output only. The total local node storage available in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_db_node_storage_size_gb: i32,
 
     /// Output only. Size, in terabytes, of the DATA disk group.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub data_storage_size_tb: f64,
 
     /// Output only. The total available DATA disk group size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub max_data_storage_tb: f64,
 
     /// Output only. The requested number of additional storage servers activated
     /// for the Exadata Infrastructure.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub activated_storage_count: i32,
 
     /// Output only. The requested number of additional storage servers for the
     /// Exadata Infrastructure.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub additional_storage_count: i32,
 
     /// Output only. The software version of the database servers (dom0) in the
     /// Exadata Infrastructure.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub db_server_version: std::string::String,
 
     /// Output only. The software version of the storage servers (cells) in the
     /// Exadata Infrastructure.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub storage_server_version: std::string::String,
 
     /// Output only. The OCID of the next maintenance run.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_maintenance_run_id: std::string::String,
 
     /// Output only. The time when the next maintenance run will occur.
@@ -6541,16 +6670,19 @@ pub struct CloudExadataInfrastructureProperties {
 
     /// Optional. The list of customer contacts.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub customer_contacts: std::vec::Vec<crate::model::CustomerContact>,
 
     /// Output only. The monthly software version of the storage servers (cells)
     /// in the Exadata Infrastructure. Example: 20.1.15
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub monthly_storage_server_version: std::string::String,
 
     /// Output only. The monthly software version of the database servers (dom0)
     /// in the Exadata Infrastructure. Example: 20.1.15
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub monthly_db_server_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6977,10 +7109,12 @@ pub mod cloud_exadata_infrastructure_properties {
 pub struct MaintenanceWindow {
     /// Optional. The maintenance window scheduling preference.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub preference: crate::model::maintenance_window::MaintenanceWindowPreference,
 
     /// Optional. Months during the year when maintenance should be performed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub months: std::vec::Vec<gtype::model::Month>,
 
     /// Optional. Weeks during the month when maintenance should be performed.
@@ -6988,11 +7122,12 @@ pub struct MaintenanceWindow {
     /// duration of 7 days. Weeks start and end based on calendar dates, not days
     /// of the week.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub weeks_of_month: std::vec::Vec<i32>,
 
     /// Optional. Days during the week when maintenance should be performed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub days_of_week: std::vec::Vec<gtype::model::DayOfWeek>,
 
     /// Optional. The window of hours during the day when maintenance should be
@@ -7004,30 +7139,32 @@ pub struct MaintenanceWindow {
     /// 16 - represents time slot 16:00 - 19:59 UTC
     /// 20 - represents time slot 20:00 - 23:59 UTC
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub hours_of_day: std::vec::Vec<i32>,
 
     /// Optional. Lead time window allows user to set a lead time to prepare for a
     /// down time. The lead time is in weeks and valid value is between 1 to 4.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub lead_time_week: i32,
 
     /// Optional. Cloud CloudExadataInfrastructure node patching method, either
     /// "ROLLING" or "NONROLLING". Default value is ROLLING.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub patching_mode: crate::model::maintenance_window::PatchingMode,
 
     /// Optional. Determines the amount of time the system will wait before the
     /// start of each database server patching operation. Custom action timeout is
     /// in minutes and valid value is between 15 to 120 (inclusive).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub custom_action_timeout_mins: i32,
 
     /// Optional. If true, enables the configuration of a custom action timeout
     /// (waiting period) between database server patching operations.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_custom_action_timeout_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7419,10 +7556,12 @@ pub struct GiVersion {
     /// resource with the format:
     /// projects/{project}/locations/{region}/giVersions/{gi_versions}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7463,6 +7602,7 @@ impl wkt::message::Message for GiVersion {
 pub struct LocationMetadata {
     /// Output only. Google Cloud Platform Oracle zones in a location.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub gcp_oracle_zones: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7501,17 +7641,19 @@ pub struct ListCloudExadataInfrastructuresRequest {
     /// Required. The parent value for CloudExadataInfrastructure in the following
     /// format: projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
     /// If unspecified, at most 50 Exadata infrastructures will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7556,10 +7698,12 @@ impl wkt::message::Message for ListCloudExadataInfrastructuresRequest {
 pub struct ListCloudExadataInfrastructuresResponse {
     /// The list of Exadata Infrastructures.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub cloud_exadata_infrastructures: std::vec::Vec<crate::model::CloudExadataInfrastructure>,
 
     /// A token for fetching next page of response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7619,6 +7763,7 @@ pub struct GetCloudExadataInfrastructureRequest {
     /// format:
     /// projects/{project}/locations/{location}/cloudExadataInfrastructures/{cloud_exadata_infrastructure}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7652,6 +7797,7 @@ pub struct CreateCloudExadataInfrastructureRequest {
     /// Required. The parent value for CloudExadataInfrastructure in the following
     /// format: projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID of the Exadata Infrastructure to create. This value is
@@ -7659,6 +7805,7 @@ pub struct CreateCloudExadataInfrastructureRequest {
     /// 63 characters in length. The value must start with a letter and end with a
     /// letter or a number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cloud_exadata_infrastructure_id: std::string::String,
 
     /// Required. Details of the Exadata Infrastructure instance to create.
@@ -7674,6 +7821,7 @@ pub struct CreateCloudExadataInfrastructureRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7741,6 +7889,7 @@ pub struct DeleteCloudExadataInfrastructureRequest {
     /// format:
     /// projects/{project}/locations/{location}/cloudExadataInfrastructures/{cloud_exadata_infrastructure}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional ID to identify the request. This value is used to
@@ -7752,12 +7901,14 @@ pub struct DeleteCloudExadataInfrastructureRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, all VM clusters for this Exadata Infrastructure
     /// will be deleted. An Exadata Infrastructure can only be deleted once all its
     /// VM clusters have been deleted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7803,21 +7954,24 @@ pub struct ListCloudVmClustersRequest {
     /// Required. The name of the parent in the following format:
     /// projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The number of VM clusters to return.
     /// If unspecified, at most 50 VM clusters will be returned.
     /// The maximum value is 1,000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying the page of results the server returns.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. An expression for filtering the results of the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7868,10 +8022,12 @@ impl wkt::message::Message for ListCloudVmClustersRequest {
 pub struct ListCloudVmClustersResponse {
     /// The list of VM Clusters.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub cloud_vm_clusters: std::vec::Vec<crate::model::CloudVmCluster>,
 
     /// A token to fetch the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7930,6 +8086,7 @@ pub struct GetCloudVmClusterRequest {
     /// Required. The name of the Cloud VM Cluster in the following format:
     /// projects/{project}/locations/{location}/cloudVmClusters/{cloud_vm_cluster}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7963,6 +8120,7 @@ pub struct CreateCloudVmClusterRequest {
     /// Required. The name of the parent in the following format:
     /// projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID of the VM Cluster to create. This value is restricted
@@ -7970,6 +8128,7 @@ pub struct CreateCloudVmClusterRequest {
     /// characters in length. The value must start with a letter and end with
     /// a letter or a number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cloud_vm_cluster_id: std::string::String,
 
     /// Required. The resource being created
@@ -7985,6 +8144,7 @@ pub struct CreateCloudVmClusterRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8051,6 +8211,7 @@ pub struct DeleteCloudVmClusterRequest {
     /// Required. The name of the Cloud VM Cluster in the following format:
     /// projects/{project}/locations/{location}/cloudVmClusters/{cloud_vm_cluster}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional ID to identify the request. This value is used to
@@ -8062,12 +8223,14 @@ pub struct DeleteCloudVmClusterRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, all child resources for the VM Cluster will be
     /// deleted. A VM Cluster can only be deleted once all its child resources have
     /// been deleted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8113,17 +8276,19 @@ pub struct ListEntitlementsRequest {
     /// Required. The parent value for the entitlement in the following format:
     /// projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
     /// If unspecified, a maximum of 50 entitlements will be returned.
     /// The maximum value is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8168,10 +8333,12 @@ impl wkt::message::Message for ListEntitlementsRequest {
 pub struct ListEntitlementsResponse {
     /// The list of Entitlements
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entitlements: std::vec::Vec<crate::model::Entitlement>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8230,17 +8397,19 @@ pub struct ListDbServersRequest {
     /// Required. The parent value for database server in the following format:
     /// projects/{project}/locations/{location}/cloudExadataInfrastructures/{cloudExadataInfrastructure}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
     /// If unspecified, a maximum of 50 db servers will be returned.
     /// The maximum value is 1000; values above 1000 will be reset to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8285,10 +8454,12 @@ impl wkt::message::Message for ListDbServersRequest {
 pub struct ListDbServersResponse {
     /// The list of database servers.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub db_servers: std::vec::Vec<crate::model::DbServer>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8347,17 +8518,19 @@ pub struct ListDbNodesRequest {
     /// Required. The parent value for database node in the following format:
     /// projects/{project}/locations/{location}/cloudVmClusters/{cloudVmCluster}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
     /// If unspecified, at most 50 db nodes will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the node should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8402,10 +8575,12 @@ impl wkt::message::Message for ListDbNodesRequest {
 pub struct ListDbNodesResponse {
     /// The list of DB Nodes
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub db_nodes: std::vec::Vec<crate::model::DbNode>,
 
     /// A token identifying a page of results the node should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8464,6 +8639,7 @@ pub struct ListGiVersionsRequest {
     /// Required. The parent value for Grid Infrastructure Version in the following
     /// format: Format: projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
@@ -8471,11 +8647,12 @@ pub struct ListGiVersionsRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// reset to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8520,10 +8697,12 @@ impl wkt::message::Message for ListGiVersionsRequest {
 pub struct ListGiVersionsResponse {
     /// The list of Oracle Grid Infrastructure (GI) versions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub gi_versions: std::vec::Vec<crate::model::GiVersion>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8582,17 +8761,19 @@ pub struct ListDbSystemShapesRequest {
     /// Required. The parent value for Database System Shapes in the following
     /// format: projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
     /// If unspecified, at most 50 database system shapes will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8637,10 +8818,12 @@ impl wkt::message::Message for ListDbSystemShapesRequest {
 pub struct ListDbSystemShapesResponse {
     /// The list of Database System shapes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub db_system_shapes: std::vec::Vec<crate::model::DbSystemShape>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8706,14 +8889,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. The status of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -8724,16 +8910,18 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     /// Output only. An estimated percentage of the operation that has been
     /// completed at a given moment of time, between 0 and 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub percent_complete: f64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8833,25 +9021,29 @@ pub struct ListAutonomousDatabasesRequest {
     /// Required. The parent value for the Autonomous Database in the following
     /// format: projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
     /// If unspecified, at most 50 Autonomous Database will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. An expression for filtering the results of the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. An expression for ordering the results of the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8908,10 +9100,12 @@ impl wkt::message::Message for ListAutonomousDatabasesRequest {
 pub struct ListAutonomousDatabasesResponse {
     /// The list of Autonomous Databases.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub autonomous_databases: std::vec::Vec<crate::model::AutonomousDatabase>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8970,6 +9164,7 @@ pub struct GetAutonomousDatabaseRequest {
     /// Required. The name of the Autonomous Database in the following format:
     /// projects/{project}/locations/{location}/autonomousDatabases/{autonomous_database}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9003,6 +9198,7 @@ pub struct CreateAutonomousDatabaseRequest {
     /// Required. The name of the parent in the following format:
     /// projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID of the Autonomous Database to create. This value is
@@ -9010,6 +9206,7 @@ pub struct CreateAutonomousDatabaseRequest {
     /// 63 characters in length. The value must start with a letter and end with a
     /// letter or a number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub autonomous_database_id: std::string::String,
 
     /// Required. The Autonomous Database being created.
@@ -9025,6 +9222,7 @@ pub struct CreateAutonomousDatabaseRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9091,6 +9289,7 @@ pub struct DeleteAutonomousDatabaseRequest {
     /// Required. The name of the resource in the following format:
     /// projects/{project}/locations/{location}/autonomousDatabases/{autonomous_database}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional ID to identify the request. This value is used to
@@ -9102,6 +9301,7 @@ pub struct DeleteAutonomousDatabaseRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9141,6 +9341,7 @@ pub struct RestoreAutonomousDatabaseRequest {
     /// Required. The name of the Autonomous Database in the following format:
     /// projects/{project}/locations/{location}/autonomousDatabases/{autonomous_database}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The time and date to restore the database to.
@@ -9196,6 +9397,7 @@ pub struct StopAutonomousDatabaseRequest {
     /// Required. The name of the Autonomous Database in the following format:
     /// projects/{project}/locations/{location}/autonomousDatabases/{autonomous_database}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9229,6 +9431,7 @@ pub struct StartAutonomousDatabaseRequest {
     /// Required. The name of the Autonomous Database in the following format:
     /// projects/{project}/locations/{location}/autonomousDatabases/{autonomous_database}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9262,6 +9465,7 @@ pub struct RestartAutonomousDatabaseRequest {
     /// Required. The name of the Autonomous Database in the following format:
     /// projects/{project}/locations/{location}/autonomousDatabases/{autonomous_database}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9295,22 +9499,26 @@ pub struct GenerateAutonomousDatabaseWalletRequest {
     /// Required. The name of the Autonomous Database in the following format:
     /// projects/{project}/locations/{location}/autonomousDatabases/{autonomous_database}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The type of wallet generation for the Autonomous Database. The
     /// default value is SINGLE.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::GenerateType,
 
     /// Optional. True when requesting regional connection strings in PDB connect
     /// info, applicable to cross-region Data Guard only.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_regional: bool,
 
     /// Required. The password used to encrypt the keys inside the wallet. The
     /// password must be a minimum of 8 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub password: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9361,7 +9569,7 @@ impl wkt::message::Message for GenerateAutonomousDatabaseWalletRequest {
 pub struct GenerateAutonomousDatabaseWalletResponse {
     /// Output only. The base64 encoded wallet files.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub archive_content: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9395,17 +9603,19 @@ pub struct ListAutonomousDbVersionsRequest {
     /// Required. The parent value for the Autonomous Database in the following
     /// format: projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
     /// If unspecified, at most 50 Autonomous DB Versions will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9450,10 +9660,12 @@ impl wkt::message::Message for ListAutonomousDbVersionsRequest {
 pub struct ListAutonomousDbVersionsResponse {
     /// The list of Autonomous Database versions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub autonomous_db_versions: std::vec::Vec<crate::model::AutonomousDbVersion>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9512,17 +9724,19 @@ pub struct ListAutonomousDatabaseCharacterSetsRequest {
     /// Required. The parent value for the Autonomous Database in the following
     /// format: projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of items to return.
     /// If unspecified, at most 50 Autonomous DB Character Sets will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. An expression for filtering the results of the request. Only the
@@ -9530,6 +9744,7 @@ pub struct ListAutonomousDatabaseCharacterSetsRequest {
     /// `character_set_type="{characterSetType}"`. Accepted values include
     /// `DATABASE` and `NATIONAL`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9580,11 +9795,13 @@ impl wkt::message::Message for ListAutonomousDatabaseCharacterSetsRequest {
 pub struct ListAutonomousDatabaseCharacterSetsResponse {
     /// The list of Autonomous Database Character Sets.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub autonomous_database_character_sets:
         std::vec::Vec<crate::model::AutonomousDatabaseCharacterSet>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9643,6 +9860,7 @@ pub struct ListAutonomousDatabaseBackupsRequest {
     /// Required. The parent value for ListAutonomousDatabaseBackups in the
     /// following format: projects/{project}/locations/{location}.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. An expression for filtering the results of the request. Only the
@@ -9653,17 +9871,19 @@ pub struct ListAutonomousDatabaseBackupsRequest {
     /// The ID must start with a letter, end with a letter or a number, and be
     /// a maximum of 63 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. The maximum number of items to return.
     /// If unspecified, at most 50 Autonomous DB Backups will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9714,10 +9934,12 @@ impl wkt::message::Message for ListAutonomousDatabaseBackupsRequest {
 pub struct ListAutonomousDatabaseBackupsResponse {
     /// The list of Autonomous Database Backups.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub autonomous_database_backups: std::vec::Vec<crate::model::AutonomousDatabaseBackup>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9777,21 +9999,25 @@ pub struct CloudVmCluster {
     /// Identifier. The name of the VM Cluster resource with the format:
     /// projects/{project}/locations/{region}/cloudVmClusters/{cloud_vm_cluster}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The name of the Exadata Infrastructure resource on which VM
     /// cluster resource is created, in the following format:
     /// projects/{project}/locations/{region}/cloudExadataInfrastuctures/{cloud_extradata_infrastructure}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub exadata_infrastructure: std::string::String,
 
     /// Optional. User friendly name for this resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. Google Cloud Platform location where Oracle Exadata is hosted.
     /// It is same as Google Cloud Platform Oracle zone of Exadata infrastructure.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gcp_oracle_zone: std::string::String,
 
     /// Optional. Various properties of the VM Cluster.
@@ -9800,6 +10026,7 @@ pub struct CloudVmCluster {
 
     /// Optional. Labels or tags associated with the VM Cluster.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The date and time that the VM cluster was created.
@@ -9808,15 +10035,18 @@ pub struct CloudVmCluster {
 
     /// Required. Network settings. CIDR to use for cluster IP allocation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cidr: std::string::String,
 
     /// Required. CIDR range of the backup subnet.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backup_subnet_cidr: std::string::String,
 
     /// Required. The name of the VPC network.
     /// Format: projects/{project}/global/networks/{network}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub network: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9939,14 +10169,17 @@ impl wkt::message::Message for CloudVmCluster {
 pub struct CloudVmClusterProperties {
     /// Output only. Oracle Cloud Infrastructure ID of VM Cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ocid: std::string::String,
 
     /// Required. License type of VM Cluster.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub license_type: crate::model::cloud_vm_cluster_properties::LicenseType,
 
     /// Optional. Grid Infrastructure Version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gi_version: std::string::String,
 
     /// Optional. Time zone of VM Cluster to set. Defaults to UTC if not specified.
@@ -9955,56 +10188,62 @@ pub struct CloudVmClusterProperties {
 
     /// Optional. SSH public keys to be stored with cluster.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ssh_public_keys: std::vec::Vec<std::string::String>,
 
     /// Optional. Number of database servers.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub node_count: i32,
 
     /// Output only. Shape of VM Cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub shape: std::string::String,
 
     /// Optional. OCPU count per VM. Minimum is 0.1.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub ocpu_count: f32,
 
     /// Optional. Memory allocated in GBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub memory_size_gb: i32,
 
     /// Optional. Local storage per VM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub db_node_storage_size_gb: i32,
 
     /// Output only. The storage allocation for the disk group, in gigabytes (GB).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub storage_size_gb: i32,
 
     /// Optional. The data disk group size to be allocated in TBs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub data_storage_size_tb: f64,
 
     /// Optional. The type of redundancy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disk_redundancy: crate::model::cloud_vm_cluster_properties::DiskRedundancy,
 
     /// Optional. Use exadata sparse snapshots.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sparse_diskgroup_enabled: bool,
 
     /// Optional. Use local backup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub local_backup_enabled: bool,
 
     /// Optional. Prefix for VM cluster host names.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub hostname_prefix: std::string::String,
 
     /// Optional. Data collection options for diagnostics.
@@ -10014,69 +10253,81 @@ pub struct CloudVmClusterProperties {
 
     /// Output only. State of the cluster.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::cloud_vm_cluster_properties::State,
 
     /// Output only. SCAN listener port - TCP
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub scan_listener_port_tcp: i32,
 
     /// Output only. SCAN listener port - TLS
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub scan_listener_port_tcp_ssl: i32,
 
     /// Output only. Parent DNS domain where SCAN DNS and hosts names are
     /// qualified. ex: ocispdelegated.ocisp10jvnet.oraclevcn.com
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub domain: std::string::String,
 
     /// Output only. SCAN DNS name.
     /// ex: sp2-yi0xq-scan.ocispdelegated.ocisp10jvnet.oraclevcn.com
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scan_dns: std::string::String,
 
     /// Output only. host name without domain.
     /// format: "<hostname_prefix>-" with some suffix.
     /// ex: sp2-yi0xq where "sp2" is the hostname_prefix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub hostname: std::string::String,
 
     /// Required. Number of enabled CPU cores.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub cpu_core_count: i32,
 
     /// Optional. Operating system version of the image.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub system_version: std::string::String,
 
     /// Output only. OCIDs of scan IPs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub scan_ip_ids: std::vec::Vec<std::string::String>,
 
     /// Output only. OCID of scan DNS record.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scan_dns_record_id: std::string::String,
 
     /// Output only. Deep link to the OCI console to view this resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub oci_url: std::string::String,
 
     /// Optional. OCID of database servers.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub db_server_ocids: std::vec::Vec<std::string::String>,
 
     /// Output only. Compartment ID of cluster.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub compartment_id: std::string::String,
 
     /// Output only. DNS listener IP.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dns_listener_ip: std::string::String,
 
     /// Optional. OCI Cluster name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cluster_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10791,15 +11042,18 @@ pub struct DataCollectionOptions {
     /// Optional. Indicates whether diagnostic collection is enabled for the VM
     /// cluster
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub diagnostics_events_enabled: bool,
 
     /// Optional. Indicates whether health monitoring is enabled for the VM cluster
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub health_monitoring_enabled: bool,
 
     /// Optional. Indicates whether incident logs and trace collection are enabled
     /// for the VM cluster
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub incident_logs_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

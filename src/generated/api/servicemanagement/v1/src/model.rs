@@ -45,10 +45,12 @@ pub struct ManagedService {
     /// [overview](https://cloud.google.com/service-infrastructure/docs/overview)
     /// for naming requirements.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     /// ID of the project that produces and owns this service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub producer_project_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -91,15 +93,17 @@ pub struct OperationMetadata {
     /// The full name of the resources that this operation is directly
     /// associated with.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_names: std::vec::Vec<std::string::String>,
 
     /// Detailed status information for each step. The order is undetermined.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub steps: std::vec::Vec<crate::model::operation_metadata::Step>,
 
     /// Percentage of completion of this operation, ranging from 0 to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub progress_percentage: i32,
 
     /// The start time of the operation.
@@ -181,10 +185,12 @@ pub mod operation_metadata {
     pub struct Step {
         /// The short description of the step.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub description: std::string::String,
 
         /// The status code.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub status: crate::model::operation_metadata::Status,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -381,14 +387,17 @@ pub mod operation_metadata {
 pub struct Diagnostic {
     /// File name and line number of the error or warning.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     /// The kind of diagnostic information provided.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kind: crate::model::diagnostic::Kind,
 
     /// Message describing the error or warning.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -567,11 +576,13 @@ pub struct ConfigSource {
     /// by the client for tracking purpose. If empty, the server may choose to
     /// generate one instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Set of source configuration files that are used to generate a service
     /// configuration (`google.api.Service`).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub files: std::vec::Vec<crate::model::ConfigFile>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -615,15 +626,17 @@ impl wkt::message::Message for ConfigSource {
 pub struct ConfigFile {
     /// The file name of the configuration file (full or relative path).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file_path: std::string::String,
 
     /// The bytes that constitute the file.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub file_contents: ::bytes::Bytes,
 
     /// The type of configuration file this represents.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file_type: crate::model::config_file::FileType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -842,6 +855,7 @@ pub struct ConfigRef {
     /// Resource name of a service config. It must have the following
     /// format: "services/{service name}/configs/{config id}".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -881,6 +895,7 @@ pub struct ChangeReport {
     /// A ConfigChange identifier is a dot separated path to the configuration.
     /// Example: visibility.rules[selector='LibraryService.CreateBook'].restriction
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub config_changes: std::vec::Vec<api::model::ConfigChange>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -928,6 +943,7 @@ pub struct Rollout {
     /// positive number that is reset every day for each service.
     /// An example of the generated rollout_id is '2016-02-16r1'
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_id: std::string::String,
 
     /// Creation time of the rollout. Readonly.
@@ -936,16 +952,19 @@ pub struct Rollout {
 
     /// The user who created the Rollout. Readonly.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub created_by: std::string::String,
 
     /// The status of this rollout. Readonly. In case of a failed rollout,
     /// the system will automatically rollback to the current Rollout
     /// version. Readonly.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status: crate::model::rollout::RolloutStatus,
 
     /// The name of the service associated with this Rollout.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     /// Strategy that defines which versions of service configurations should be
@@ -1141,7 +1160,9 @@ pub mod rollout {
         /// Key is the service configuration ID, Value is the traffic percentage
         /// which must be greater than 0.0 and the sum must equal to 100.0.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(as = "std::collections::HashMap<_, wkt::internal::F64>")]
+        #[serde_as(
+            as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::F64>>"
+        )]
         pub percentages: std::collections::HashMap<std::string::String, f64>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1382,17 +1403,19 @@ pub mod rollout {
 pub struct ListServicesRequest {
     /// Include services produced by the specified project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub producer_project_id: std::string::String,
 
     /// The max number of items to include in the response list. Page size is 50
     /// if not specified. Maximum value is 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Token identifying which result to start with; returned by a previous list
     /// call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Include services consumed by the specified consumer.
@@ -1402,6 +1425,7 @@ pub struct ListServicesRequest {
     ///
     /// - project:<project_id>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub consumer_id: std::string::String,
 
@@ -1457,10 +1481,12 @@ impl wkt::message::Message for ListServicesRequest {
 pub struct ListServicesResponse {
     /// The returned services will only have the name field set.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub services: std::vec::Vec<crate::model::ManagedService>,
 
     /// Token that can be passed to `ListServices` to resume a paginated query.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1519,6 +1545,7 @@ pub struct GetServiceRequest {
     /// Required. The name of the service.  See the `ServiceManager` overview for
     /// naming requirements.  For example: `example.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1597,6 +1624,7 @@ pub struct DeleteServiceRequest {
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1631,6 +1659,7 @@ pub struct UndeleteServiceRequest {
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements. For example: `example.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1709,6 +1738,7 @@ pub struct GetServiceConfigRequest {
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     /// Required. The id of the service configuration resource.
@@ -1716,11 +1746,13 @@ pub struct GetServiceConfigRequest {
     /// This field must be specified for the server to return all fields, including
     /// `SourceInfo`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub config_id: std::string::String,
 
     /// Specifies which parts of the Service Config should be returned in the
     /// response.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::get_service_config_request::ConfigView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1903,16 +1935,18 @@ pub struct ListServiceConfigsRequest {
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     /// The token of the page to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The max number of items to include in the response list. Page size is 50
     /// if not specified. Maximum value is 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1957,10 +1991,12 @@ impl wkt::message::Message for ListServiceConfigsRequest {
 pub struct ListServiceConfigsResponse {
     /// The list of service configuration resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service_configs: std::vec::Vec<api::model::Service>,
 
     /// The token of the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2020,6 +2056,7 @@ pub struct CreateServiceConfigRequest {
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     /// Required. The service configuration resource.
@@ -2076,6 +2113,7 @@ pub struct SubmitConfigSourceRequest {
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     /// Required. The source configuration for the service.
@@ -2086,6 +2124,7 @@ pub struct SubmitConfigSourceRequest {
     /// `google.api.Service` configuration based on the `ConfigSource` provided,
     /// but the generated config and the sources will NOT be persisted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2188,6 +2227,7 @@ pub struct CreateServiceRolloutRequest {
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     /// Required. The rollout resource. The `service_name` field is output only.
@@ -2244,16 +2284,18 @@ pub struct ListServiceRolloutsRequest {
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     /// The token of the page to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The max number of items to include in the response list. Page size is 50
     /// if not specified. Maximum value is 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Required. Use `filter` to return subset of rollouts.
@@ -2267,6 +2309,7 @@ pub struct ListServiceRolloutsRequest {
     /// [google.api.servicemanagement.v1.Rollout.strategy]. For example,
     /// `filter='strategy=TrafficPercentStrategy'`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2317,10 +2360,12 @@ impl wkt::message::Message for ListServiceRolloutsRequest {
 pub struct ListServiceRolloutsResponse {
     /// The list of rollout resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rollouts: std::vec::Vec<crate::model::Rollout>,
 
     /// The token of the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2380,10 +2425,12 @@ pub struct GetServiceRolloutRequest {
     /// [overview](https://cloud.google.com/service-management/overview) for naming
     /// requirements.  For example: `example.googleapis.com`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     /// Required. The id of the rollout resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2526,21 +2573,25 @@ impl wkt::message::Message for GenerateConfigReportRequest {
 pub struct GenerateConfigReportResponse {
     /// Name of the service this report belongs to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_name: std::string::String,
 
     /// ID of the service configuration this report belongs to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// list of ChangeReport, each corresponding to comparison between two
     /// service configurations.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub change_reports: std::vec::Vec<crate::model::ChangeReport>,
 
     /// Errors / Linter warnings associated with the service definition this
     /// report
     /// belongs to.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub diagnostics: std::vec::Vec<crate::model::Diagnostic>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

@@ -43,18 +43,20 @@ pub struct ListCryptoKeysRequest {
     /// Required. The Google Cloud project for which to retrieve key metadata, in
     /// the format `projects/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of keys to return. The service may return
     /// fewer than this value. If unspecified, at most 1000 keys will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Pass this into a subsequent request in order to receive the next
     /// page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -104,11 +106,13 @@ pub struct ListCryptoKeysResponse {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub crypto_keys: std::vec::Vec<kms::model::CryptoKey>,
 
     /// The page token returned from the previous response if the next page is
     /// desired.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -172,6 +176,7 @@ pub struct GetProtectedResourcesSummaryRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -207,33 +212,34 @@ pub struct ProtectedResourcesSummary {
     /// Example:
     /// projects/test-project/locations/us/keyRings/test-keyring/cryptoKeys/test-key/protectedResourcesSummary
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The total number of protected resources in the same Cloud organization as
     /// the key.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub resource_count: i64,
 
     /// The number of distinct Cloud projects in the same Cloud organization as the
     /// key that have resources protected by the key.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub project_count: i32,
 
     /// The number of resources protected by the key grouped by resource type.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::I64>>")]
     pub resource_types: std::collections::HashMap<std::string::String, i64>,
 
     /// The number of resources protected by the key grouped by Cloud product.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::I64>>")]
     pub cloud_products: std::collections::HashMap<std::string::String, i64>,
 
     /// The number of resources protected by the key grouped by region.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::I64>>")]
     pub locations: std::collections::HashMap<std::string::String, i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -318,6 +324,7 @@ pub struct SearchProtectedResourcesRequest {
     /// Required. Resource name of the organization.
     /// Example: organizations/123
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: std::string::String,
 
     /// Required. The resource name of the
@@ -325,6 +332,7 @@ pub struct SearchProtectedResourcesRequest {
     ///
     /// [google.cloud.kms.v1.CryptoKey]: kms::model::CryptoKey
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub crypto_key: std::string::String,
 
     /// The maximum number of resources to return. The service may return fewer
@@ -332,7 +340,7 @@ pub struct SearchProtectedResourcesRequest {
     /// If unspecified, at most 500 resources will be returned.
     /// The maximum value is 500; values above 500 will be coerced to 500.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous
@@ -345,6 +353,7 @@ pub struct SearchProtectedResourcesRequest {
     ///
     /// [google.cloud.kms.inventory.v1.KeyTrackingService.SearchProtectedResources]: crate::client::KeyTrackingService::search_protected_resources
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. A list of resource types that this request searches for. If
@@ -362,6 +371,7 @@ pub struct SearchProtectedResourcesRequest {
     /// regular expression syntax. If the regular expression does not match any
     /// supported resource type, an INVALID_ARGUMENT error will be returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_types: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -426,11 +436,13 @@ impl wkt::message::Message for SearchProtectedResourcesRequest {
 pub struct SearchProtectedResourcesResponse {
     /// Protected resources for this page.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub protected_resources: std::vec::Vec<crate::model::ProtectedResource>,
 
     /// A token that can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -490,32 +502,39 @@ pub struct ProtectedResource {
     /// Example:
     /// `//compute.googleapis.com/projects/my_project_123/zones/zone1/instances/instance1`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Format: `projects/{PROJECT_NUMBER}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project: std::string::String,
 
     /// The ID of the project that owns the resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// The Cloud product that owns the resource.
     /// Example: `compute`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cloud_product: std::string::String,
 
     /// Example: `compute.googleapis.com/Disk`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_type: std::string::String,
 
     /// Location can be `global`, regional like `us-east1`, or zonal like
     /// `us-west1-b`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     /// A key-value pair of the resource's labels (v1) to their values.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The name of the Cloud KMS
@@ -526,6 +545,7 @@ pub struct ProtectedResource {
     /// resource, then this is same value as the first element of
     /// crypto_key_versions.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub crypto_key_version: std::string::String,
 
     /// The names of the Cloud KMS
@@ -535,6 +555,7 @@ pub struct ProtectedResource {
     /// to Asset Inventory. The first element of this field is stored in
     /// crypto_key_version.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub crypto_key_versions: std::vec::Vec<std::string::String>,
 
     /// Output only. The time at which this resource was created. The granularity

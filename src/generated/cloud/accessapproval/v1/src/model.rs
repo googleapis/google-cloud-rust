@@ -51,6 +51,7 @@ pub struct AccessLocations {
     /// * ANT: Antarctica
     /// * ANY: Any location
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub principal_office_country: std::string::String,
 
     /// Physical location of the principal at the time of the access. A
@@ -68,6 +69,7 @@ pub struct AccessLocations {
     /// * ANT: Antarctica
     /// * ANY: Any location
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub principal_physical_location_country: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -112,10 +114,12 @@ pub struct AccessReason {
     /// Type of access justification.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::access_reason::Type,
 
     /// More detail about certain reason types. See comments for each type above.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub detail: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -339,7 +343,7 @@ pub mod access_reason {
 pub struct SignatureInfo {
     /// The digital signature.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub signature: ::bytes::Bytes,
 
     /// How this signature may be verified.
@@ -452,9 +456,9 @@ pub mod signature_info {
         /// The public key for the Google default signing, encoded in PEM format. The
         /// signature was created using a private key which may be verified using
         /// this public key.
-        GooglePublicKeyPem(std::string::String),
+        GooglePublicKeyPem(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// The resource name of the customer CryptoKeyVersion used for signing.
-        CustomerKmsKeyVersion(std::string::String),
+        CustomerKmsKeyVersion(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -482,6 +486,7 @@ pub struct ApproveDecision {
 
     /// True when the request has been auto-approved.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub auto_approved: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -592,6 +597,7 @@ pub struct DismissDecision {
     /// to inaction by the access approval approvers (the request is not acted
     /// on by the approvers before the exiration time).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub implicit: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -643,6 +649,7 @@ pub struct ResourceProperties {
     /// Whether an approval will exclude the descendants of the resource being
     /// requested.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub excludes_descendants: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -676,6 +683,7 @@ pub struct ApprovalRequest {
     /// The resource name of the request. Format is
     /// "{projects|folders|organizations}/{id}/approvalRequests/{approval_request}".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The resource for which approval is being requested. The format of the
@@ -686,6 +694,7 @@ pub struct ApprovalRequest {
     /// resource name (e.g. "shelves/shelf1/books/book2") as described in the
     /// resource name specification.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_resource_name: std::string::String,
 
     /// Properties related to the resource represented by requested_resource_name.
@@ -988,10 +997,12 @@ pub struct EnrolledService {
     /// More information about levels of support is available at
     /// <https://cloud.google.com/access-approval/docs/supported-services>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cloud_product: std::string::String,
 
     /// The enrollment level of the service.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enrollment_level: crate::model::EnrollmentLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1037,6 +1048,7 @@ pub struct AccessApprovalSettings {
     /// * "folders/{folder}/accessApprovalSettings"
     /// * "organizations/{organization}/accessApprovalSettings"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// A list of email addresses to which notifications relating to approval
@@ -1044,6 +1056,7 @@ pub struct AccessApprovalSettings {
     /// to all emails in the settings of ancestor resources of that resource. A
     /// maximum of 50 email addresses are allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub notification_emails: std::vec::Vec<std::string::String>,
 
     /// A list of Google Cloud Services for which the given resource has Access
@@ -1058,6 +1071,7 @@ pub struct AccessApprovalSettings {
     /// enrolled services will be enforced, to be expanded as the set of supported
     /// services is expanded.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub enrolled_services: std::vec::Vec<crate::model::EnrolledService>,
 
     /// Output only. This field is read only (not settable via
@@ -1066,6 +1080,7 @@ pub struct AccessApprovalSettings {
     /// or more ancestors of the Project or Folder (this field will always be
     /// unset for the organization since organizations do not have ancestors).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enrolled_ancestor: bool,
 
     /// The asymmetric crypto key version to use for signing approval requests.
@@ -1073,6 +1088,7 @@ pub struct AccessApprovalSettings {
     /// for signing. This property will be ignored if set by an ancestor of this
     /// resource, and new non-empty values may not be set.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub active_key_version: std::string::String,
 
     /// Output only. This field is read only (not settable via UpdateAccessApprovalSettings
@@ -1080,6 +1096,7 @@ pub struct AccessApprovalSettings {
     /// Project or Folder has set active_key_version (this field will always be
     /// unset for the organization since organizations do not have ancestors).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ancestor_has_active_key_version: bool,
 
     /// Output only. This field is read only (not settable via UpdateAccessApprovalSettings
@@ -1090,6 +1107,7 @@ pub struct AccessApprovalSettings {
     /// version is not necessarily the effective key version at this level, as key
     /// versions are inherited top-down.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub invalid_key_version: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1178,10 +1196,12 @@ pub struct AccessApprovalServiceAccount {
     /// * "folders/{folder}/serviceAccount"
     /// * "organizations/{organization}/serviceAccount"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Email address of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub account_email: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1221,6 +1241,7 @@ pub struct ListApprovalRequestsMessage {
     /// The parent resource. This may be "projects/{project}",
     /// "folders/{folder}", or "organizations/{organization}".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// A filter on the type of approval requests to retrieve. Must be one of the
@@ -1236,15 +1257,17 @@ pub struct ListApprovalRequestsMessage {
     ///   expired.
     /// * HISTORY: Active, dismissed and expired requests.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Requested page size.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying the page of results to return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1295,10 +1318,12 @@ impl wkt::message::Message for ListApprovalRequestsMessage {
 pub struct ListApprovalRequestsResponse {
     /// Approval request details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub approval_requests: std::vec::Vec<crate::model::ApprovalRequest>,
 
     /// Token to retrieve the next page of results, or empty if there are no more.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1358,6 +1383,7 @@ pub struct GetApprovalRequestMessage {
     /// Format:
     /// "{projects|folders|organizations}/{id}/approvalRequests/{approval_request}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1390,6 +1416,7 @@ impl wkt::message::Message for GetApprovalRequestMessage {
 pub struct ApproveApprovalRequestMessage {
     /// Name of the approval request to approve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The expiration time of this approval.
@@ -1444,6 +1471,7 @@ impl wkt::message::Message for ApproveApprovalRequestMessage {
 pub struct DismissApprovalRequestMessage {
     /// Name of the ApprovalRequest to dismiss.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1476,6 +1504,7 @@ impl wkt::message::Message for DismissApprovalRequestMessage {
 pub struct InvalidateApprovalRequestMessage {
     /// Name of the ApprovalRequest to invalidate.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1509,6 +1538,7 @@ pub struct GetAccessApprovalSettingsMessage {
     /// The name of the AccessApprovalSettings to retrieve.
     /// Format: "{projects|folders|organizations}/{id}/accessApprovalSettings"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1616,6 +1646,7 @@ impl wkt::message::Message for UpdateAccessApprovalSettingsMessage {
 pub struct DeleteAccessApprovalSettingsMessage {
     /// Name of the AccessApprovalSettings to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1648,6 +1679,7 @@ impl wkt::message::Message for DeleteAccessApprovalSettingsMessage {
 pub struct GetAccessApprovalServiceAccountMessage {
     /// Name of the AccessApprovalServiceAccount to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

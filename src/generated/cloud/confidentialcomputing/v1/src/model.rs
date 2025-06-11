@@ -41,6 +41,7 @@ pub struct Challenge {
     /// Output only. The resource name for this Challenge in the format
     /// `projects/*/locations/*/challenges/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The time at which this Challenge was created
@@ -54,10 +55,12 @@ pub struct Challenge {
 
     /// Output only. Indicates if this challenge has been used to generate a token.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub used: bool,
 
     /// Output only. Identical to nonce, but as a string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tpm_nonce: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -139,6 +142,7 @@ pub struct CreateChallengeRequest {
     /// Required. The resource name of the location where the Challenge will be
     /// used, in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The Challenge to be created. Currently this field can be empty as
@@ -197,6 +201,7 @@ pub struct VerifyAttestationRequest {
     /// attestation, in the format `projects/*/locations/*/challenges/*`. The
     /// provided Challenge will be consumed, and cannot be used again.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub challenge: std::string::String,
 
     /// Optional. Credentials used to populate the "emails" claim in the
@@ -221,6 +226,7 @@ pub struct VerifyAttestationRequest {
     /// Optional. An optional indicator of the attester, only applies to certain
     /// products.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attester: std::string::String,
 
     /// An optional tee attestation report, used to populate hardware rooted
@@ -435,24 +441,24 @@ pub struct TdxCcelAttestation {
     /// Optional. The Confidential Computing Event Log (CCEL) ACPI table. Formatted
     /// as described in the ACPI Specification 6.5.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub ccel_acpi_table: ::bytes::Bytes,
 
     /// Optional. The CCEL event log. Formatted as described in the UEFI 2.10.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub ccel_data: ::bytes::Bytes,
 
     /// Optional. An Event Log containing additional events measured into the RTMR
     /// that are not already present in the CCEL.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub canonical_event_log: ::bytes::Bytes,
 
     /// Optional. The TDX attestation quote from the guest. It contains the RTMR
     /// values.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub td_quote: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -508,7 +514,7 @@ pub struct SevSnpAttestation {
     /// Structure in this document:
     /// <https://www.amd.com/content/dam/amd/en/documents/epyc-technical-docs/specifications/56860.pdf>
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub report: ::bytes::Bytes,
 
     /// Optional. Certificate bundle defined in the GHCB protocol definition
@@ -516,7 +522,7 @@ pub struct SevSnpAttestation {
     /// cert_table in this document:
     /// <https://www.amd.com/content/dam/amd/en/documents/epyc-technical-docs/specifications/56421.pdf>
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub aux_blob: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -556,11 +562,13 @@ impl wkt::message::Message for SevSnpAttestation {
 pub struct VerifyAttestationResponse {
     /// Output only. Same as claims_token, but as a string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub oidc_claims_token: std::string::String,
 
     /// Output only. A list of messages that carry the partial error details
     /// related to VerifyAttestation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub partial_errors: std::vec::Vec<rpc::model::Status>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -608,6 +616,7 @@ impl wkt::message::Message for VerifyAttestationResponse {
 pub struct GcpCredentials {
     /// Same as id_tokens, but as a string.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service_account_id_tokens: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -646,16 +655,19 @@ pub struct TokenOptions {
     /// Optional. Optional string to issue the token with a custom audience claim.
     /// Required if one or more nonces are specified.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub audience: std::string::String,
 
     /// Optional. Optional parameter to place one or more nonces in the eat_nonce
     /// claim in the output token. The minimum size for JSON-encoded EATs is 10
     /// bytes and the maximum size is 74 bytes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub nonce: std::vec::Vec<std::string::String>,
 
     /// Optional. Optional token type to select what type of token to return.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub token_type: crate::model::TokenType,
 
     /// An optional additional configuration per token type.
@@ -868,6 +880,7 @@ pub mod token_options {
                 /// keys that have been validated and added to the token will be filtered
                 /// into principal tags. Unrecognized key ids will be ignored.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub key_ids: std::vec::Vec<std::string::String>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -921,32 +934,33 @@ pub mod token_options {
 pub struct TpmAttestation {
     /// TPM2 PCR Quotes generated by calling TPM2_Quote on each PCR bank.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub quotes: std::vec::Vec<crate::model::tpm_attestation::Quote>,
 
     /// The binary TCG Event Log containing events measured into the TPM by the
     /// platform firmware and operating system. Formatted as described in the
     /// "TCG PC Client Platform Firmware Profile Specification".
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub tcg_event_log: ::bytes::Bytes,
 
     /// An Event Log containing additional events measured into the TPM that are
     /// not already present in the tcg_event_log. Formatted as described in the
     /// "Canonical Event Log Format" TCG Specification.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub canonical_event_log: ::bytes::Bytes,
 
     /// DER-encoded X.509 certificate of the Attestation Key (otherwise known as
     /// an AK or a TPM restricted signing key) used to generate the quotes.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub ak_cert: ::bytes::Bytes,
 
     /// List of DER-encoded X.509 certificates which, together with the ak_cert,
     /// chain back to a trusted Root Certificate.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<serde_with::base64::Base64>>")]
     pub cert_chain: std::vec::Vec<::bytes::Bytes>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1019,24 +1033,24 @@ pub mod tpm_attestation {
     pub struct Quote {
         /// The hash algorithm of the PCR bank being quoted, encoded as a TPM_ALG_ID
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub hash_algo: i32,
 
         /// Raw binary values of each PCRs being quoted.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
         #[serde_as(
-            as = "std::collections::HashMap<wkt::internal::I32, serde_with::base64::Base64>"
+            as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I32, serde_with::base64::Base64>>"
         )]
         pub pcr_values: std::collections::HashMap<i32, ::bytes::Bytes>,
 
         /// TPM2 quote, encoded as a TPMS_ATTEST
         #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-        #[serde_as(as = "serde_with::base64::Base64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
         pub raw_quote: ::bytes::Bytes,
 
         /// TPM2 signature, encoded as a TPMT_SIGNATURE
         #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-        #[serde_as(as = "serde_with::base64::Base64")]
+        #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
         pub raw_signature: ::bytes::Bytes,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1096,6 +1110,7 @@ pub struct ConfidentialSpaceInfo {
     /// Optional. A list of signed entities containing container image signatures
     /// that can be used for server-side signature verification.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub signed_entities: std::vec::Vec<crate::model::SignedEntity>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1135,6 +1150,7 @@ pub struct SignedEntity {
     /// Optional. A list of container image signatures attached to an OCI image
     /// object.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub container_image_signatures: std::vec::Vec<crate::model::ContainerImageSignature>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1175,7 +1191,7 @@ pub struct ContainerImageSignature {
     /// <https://github.com/sigstore/cosign/blob/main/specs/SIGNATURE_SPEC.md#simple-signing>.
     /// This payload includes the container image digest.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub payload: ::bytes::Bytes,
 
     /// Optional. A signature over the payload.
@@ -1187,16 +1203,17 @@ pub struct ContainerImageSignature {
     ///   The signature generation process can be represented as follows:
     ///   `Sign(sha256(SimpleSigningPayload(sha256(Image Manifest))))`
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub signature: ::bytes::Bytes,
 
     /// Optional. Reserved for future use.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub public_key: ::bytes::Bytes,
 
     /// Optional. Reserved for future use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sig_alg: crate::model::SigningAlgorithm,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

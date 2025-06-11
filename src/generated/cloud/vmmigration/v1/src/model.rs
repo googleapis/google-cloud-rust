@@ -43,11 +43,12 @@ extern crate wkt;
 pub struct ReplicationCycle {
     /// The identifier of the ReplicationCycle.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The cycle's ordinal number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub cycle_number: i32,
 
     /// The time the replication cycle has started.
@@ -66,16 +67,18 @@ pub struct ReplicationCycle {
     /// Was replaced by 'steps' field, which breaks down the cycle progression more
     /// accurately.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     #[deprecated]
     pub progress_percent: i32,
 
     /// The cycle's steps list representing its progress.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub steps: std::vec::Vec<crate::model::CycleStep>,
 
     /// State of the ReplicationCycle.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::replication_cycle::State,
 
     /// Provides details on the state of the cycle in case of an error.
@@ -582,24 +585,24 @@ impl wkt::message::Message for InitializingReplicationStep {
 pub struct ReplicatingStep {
     /// Total bytes to be handled in the step.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_bytes: i64,
 
     /// Replicated bytes in the step.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub replicated_bytes: i64,
 
     /// The source disks replication rate for the last 2 minutes in bytes per
     /// second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub last_two_minutes_average_bytes_per_second: i64,
 
     /// The source disks replication rate for the last 30 minutes in bytes per
     /// second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub last_thirty_minutes_average_bytes_per_second: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -724,20 +727,24 @@ impl wkt::message::Message for ReplicationSync {
 pub struct MigratingVm {
     /// Output only. The identifier of the MigratingVm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The unique ID of the VM in the source.
     /// The VM's name in vSphere can be changed, so this is not the VM's name but
     /// rather its moRef id. This id is of the form vm-\<num\>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_vm_id: std::string::String,
 
     /// The display name attached to the MigratingVm by the user.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The description attached to the migrating VM by the user.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// The replication schedule policy.
@@ -760,6 +767,7 @@ pub struct MigratingVm {
 
     /// Output only. State of the MigratingVm.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::migrating_vm::State,
 
     /// Output only. The last time the migrating VM state was updated.
@@ -777,10 +785,12 @@ pub struct MigratingVm {
     ///
     /// [google.cloud.vmmigration.v1.Group]: crate::model::Group
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub group: std::string::String,
 
     /// The labels of the migrating VM.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The recent [clone jobs][google.cloud.vmmigration.v1.CloneJob]
@@ -791,6 +801,7 @@ pub struct MigratingVm {
     ///
     /// [google.cloud.vmmigration.v1.CloneJob]: crate::model::CloneJob
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub recent_clone_jobs: std::vec::Vec<crate::model::CloneJob>,
 
     /// Output only. Provides details on the state of the Migrating VM in case of
@@ -804,6 +815,7 @@ pub struct MigratingVm {
     /// Note: To have this field populated you need to explicitly request it via
     /// the "view" parameter of the Get/List request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub recent_cutover_jobs: std::vec::Vec<crate::model::CutoverJob>,
 
     /// The default configuration of the target VM that will be created in Google
@@ -1378,10 +1390,12 @@ pub struct CloneJob {
 
     /// Output only. The name of the clone.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. State of the clone job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::clone_job::State,
 
     /// Output only. The time the state was last updated.
@@ -1395,6 +1409,7 @@ pub struct CloneJob {
 
     /// Output only. The clone steps list representing its progress.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub steps: std::vec::Vec<crate::model::CloneStep>,
 
     /// Details of the VM to create as the target of this clone job.
@@ -2017,10 +2032,12 @@ pub struct CutoverJob {
 
     /// Output only. The name of the cutover job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. State of the cutover job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::cutover_job::State,
 
     /// Output only. The time the state was last updated.
@@ -2029,7 +2046,7 @@ pub struct CutoverJob {
 
     /// Output only. The current progress in percentage of the cutover job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub progress_percent: i32,
 
     /// Output only. Provides details for the errors that led to the Cutover Job's
@@ -2040,10 +2057,12 @@ pub struct CutoverJob {
     /// Output only. A message providing possible extra details about the current
     /// state.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_message: std::string::String,
 
     /// Output only. The cutover steps list representing its progress.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub steps: std::vec::Vec<crate::model::CutoverStep>,
 
     /// Details of the VM to create as the target of this cutover job.
@@ -2696,10 +2715,12 @@ impl wkt::message::Message for ShuttingDownSourceVMStep {
 pub struct CreateCloneJobRequest {
     /// Required. The Clone's parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The clone job identifier.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub clone_job_id: std::string::String,
 
     /// Required. The clone request body.
@@ -2720,6 +2741,7 @@ pub struct CreateCloneJobRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2782,6 +2804,7 @@ impl wkt::message::Message for CreateCloneJobRequest {
 pub struct CancelCloneJobRequest {
     /// Required. The clone job id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2836,6 +2859,7 @@ impl wkt::message::Message for CancelCloneJobResponse {
 pub struct ListCloneJobsRequest {
     /// Required. The parent, which owns this collection of source VMs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of clone jobs to return. The service may
@@ -2843,7 +2867,7 @@ pub struct ListCloneJobsRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListCloneJobs` call.
@@ -2852,14 +2876,17 @@ pub struct ListCloneJobsRequest {
     /// When paginating, all other parameters provided to `ListCloneJobs` must
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2916,15 +2943,18 @@ impl wkt::message::Message for ListCloneJobsRequest {
 pub struct ListCloneJobsResponse {
     /// Output only. The list of clone jobs response.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub clone_jobs: std::vec::Vec<crate::model::CloneJob>,
 
     /// Output only. A token, which can be sent as `page_token` to retrieve the
     /// next page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2993,6 +3023,7 @@ impl gax::paginator::internal::PageableResponse for ListCloneJobsResponse {
 pub struct GetCloneJobRequest {
     /// Required. The name of the CloneJob.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3026,6 +3057,7 @@ impl wkt::message::Message for GetCloneJobRequest {
 pub struct Source {
     /// Output only. The Source name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The create time timestamp.
@@ -3038,10 +3070,12 @@ pub struct Source {
 
     /// The labels of the source.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// User-provided description of the source.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -3215,19 +3249,23 @@ pub mod source {
 pub struct VmwareSourceDetails {
     /// The credentials username.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub username: std::string::String,
 
     /// Input only. The credentials password. This is write only and can not be
     /// read in a GET operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub password: std::string::String,
 
     /// The ip address of the vcenter this Source represents.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vcenter_ip: std::string::String,
 
     /// The thumbprint representing the certificate for the vcenter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub thumbprint: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3279,10 +3317,12 @@ impl wkt::message::Message for VmwareSourceDetails {
 pub struct AwsSourceDetails {
     /// Immutable. The AWS region that the source VMs will be migrated from.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub aws_region: std::string::String,
 
     /// Output only. State of the source as determined by the health check.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::aws_source_details::State,
 
     /// Output only. Provides details on the state of the Source in case of an
@@ -3292,11 +3332,13 @@ pub struct AwsSourceDetails {
 
     /// AWS resource tags to limit the scope of the source inventory.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub inventory_tag_list: std::vec::Vec<crate::model::aws_source_details::Tag>,
 
     /// AWS security group names to limit the scope of the source
     /// inventory.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub inventory_security_group_names: std::vec::Vec<std::string::String>,
 
     /// User specified tags to add to every M2VM generated resource in AWS.
@@ -3304,12 +3346,14 @@ pub struct AwsSourceDetails {
     /// of the migration process. The tags must not begin with the reserved prefix
     /// `m2vm`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub migration_resources_user_tags:
         std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The source's public IP. All communication initiated by this
     /// source will originate from this IP.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub public_ip: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -3465,10 +3509,12 @@ pub mod aws_source_details {
     pub struct AccessKeyCredentials {
         /// AWS access key ID.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub access_key_id: std::string::String,
 
         /// Input only. AWS secret access key.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub secret_access_key: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3513,10 +3559,12 @@ pub mod aws_source_details {
     pub struct Tag {
         /// Key of tag.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub key: std::string::String,
 
         /// Value of tag.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub value: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3719,32 +3767,38 @@ pub struct DatacenterConnector {
 
     /// Output only. The connector's name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Immutable. A unique key for this connector. This key is internal to the OVA
     /// connector and is supplied with its creation during the registration process
     /// and can not be modified.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub registration_id: std::string::String,
 
     /// The service account to use in the connector when communicating with the
     /// cloud.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// The version running in the DatacenterConnector. This is supplied by the OVA
     /// connector during the registration process and can not be modified.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Output only. The communication channel between the datacenter connector and
     /// Google Cloud.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket: std::string::String,
 
     /// Output only. State of the DatacenterConnector, as determined by the health
     /// checks.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::datacenter_connector::State,
 
     /// Output only. The time the state was last set.
@@ -3760,12 +3814,14 @@ pub struct DatacenterConnector {
     /// This is the OVA which is manually installed by the user and contains the
     /// infrastructure for the automatically updatable components on the appliance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub appliance_infrastructure_version: std::string::String,
 
     /// Output only. Appliance last installed update bundle version.
     /// This is the version of the automatically updatable components on the
     /// appliance.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub appliance_software_version: std::string::String,
 
     /// Output only. The available versions for updating this appliance.
@@ -4120,10 +4176,12 @@ pub mod datacenter_connector {
 pub struct UpgradeStatus {
     /// The version to upgrade to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// The state of the upgradeAppliance operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::upgrade_status::State,
 
     /// Provides details on the state of the upgrade operation in case of an error.
@@ -4136,6 +4194,7 @@ pub struct UpgradeStatus {
 
     /// The version from which we upgraded.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub previous_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4437,18 +4496,22 @@ impl wkt::message::Message for AvailableUpdates {
 pub struct ApplianceVersion {
     /// The appliance version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// A link for downloading the version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Determine whether it's critical to upgrade the appliance to this version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub critical: bool,
 
     /// Link to a page that contains the version release notes.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release_notes_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4502,6 +4565,7 @@ impl wkt::message::Message for ApplianceVersion {
 pub struct ListSourcesRequest {
     /// Required. The parent, which owns this collection of sources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of sources to return. The service may return
@@ -4509,7 +4573,7 @@ pub struct ListSourcesRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListSources` call.
@@ -4518,14 +4582,17 @@ pub struct ListSourcesRequest {
     /// When paginating, all other parameters provided to `ListSources` must
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4582,15 +4649,18 @@ impl wkt::message::Message for ListSourcesRequest {
 pub struct ListSourcesResponse {
     /// Output only. The list of sources response.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub sources: std::vec::Vec<crate::model::Source>,
 
     /// Output only. A token, which can be sent as `page_token` to retrieve the
     /// next page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4659,6 +4729,7 @@ impl gax::paginator::internal::PageableResponse for ListSourcesResponse {
 pub struct GetSourceRequest {
     /// Required. The Source name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4691,10 +4762,12 @@ impl wkt::message::Message for GetSourceRequest {
 pub struct CreateSourceRequest {
     /// Required. The Source's parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The source identifier.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_id: std::string::String,
 
     /// Required. The create request body.
@@ -4715,6 +4788,7 @@ pub struct CreateSourceRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4801,6 +4875,7 @@ pub struct UpdateSourceRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4869,6 +4944,7 @@ impl wkt::message::Message for UpdateSourceRequest {
 pub struct DeleteSourceRequest {
     /// Required. The Source name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A request ID to identify requests. Specify a unique request ID
@@ -4885,6 +4961,7 @@ pub struct DeleteSourceRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4926,11 +5003,13 @@ impl wkt::message::Message for DeleteSourceRequest {
 pub struct FetchInventoryRequest {
     /// Required. The name of the Source.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source: std::string::String,
 
     /// If this flag is set to true, the source will be queried instead of using
     /// cached results. Using this flag will make the call slower.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force_refresh: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4970,56 +5049,64 @@ pub struct VmwareVmDetails {
     /// The VM's id in the source (note that this is not the MigratingVm's id).
     /// This is the moref id of the VM.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vm_id: std::string::String,
 
     /// The id of the vCenter's datacenter this VM is contained in.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub datacenter_id: std::string::String,
 
     /// The descriptive name of the vCenter's datacenter this VM is contained in.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub datacenter_description: std::string::String,
 
     /// The unique identifier of the VM in vCenter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uuid: std::string::String,
 
     /// The display name of the VM. Note that this is not necessarily unique.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The power state of the VM at the moment list was taken.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub power_state: crate::model::vmware_vm_details::PowerState,
 
     /// The number of cpus in the VM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub cpu_count: i32,
 
     /// The size of the memory of the VM in MB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub memory_mb: i32,
 
     /// The number of disks the VM has.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub disk_count: i32,
 
     /// The total size of the storage allocated to the VM in MB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub committed_storage_mb: i64,
 
     /// The VM's OS. See for example
     /// <https://vdc-repo.vmware.com/vmwb-repository/dcr-public/da47f910-60ac-438b-8b9b-6122f4d14524/16b7274a-bf8b-4b4c-a05e-746f2aa93c8c/doc/vim.vm.GuestOsDescriptor.GuestOsIdentifier.html>
     /// for types of strings this might hold.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub guest_description: std::string::String,
 
     /// Output only. The VM Boot Option.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub boot_option: crate::model::vmware_vm_details::BootOption,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5407,78 +5494,92 @@ pub mod vmware_vm_details {
 pub struct AwsVmDetails {
     /// The VM ID in AWS.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vm_id: std::string::String,
 
     /// The display name of the VM. Note that this value is not necessarily unique.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The id of the AWS's source this VM is connected to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_id: std::string::String,
 
     /// The descriptive name of the AWS's source this VM is connected to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_description: std::string::String,
 
     /// Output only. The power state of the VM at the moment list was taken.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub power_state: crate::model::aws_vm_details::PowerState,
 
     /// The number of cpus the VM has.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub cpu_count: i32,
 
     /// The memory size of the VM in MB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub memory_mb: i32,
 
     /// The number of disks the VM has.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub disk_count: i32,
 
     /// The total size of the storage allocated to the VM in MB.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub committed_storage_mb: i64,
 
     /// The VM's OS.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub os_description: std::string::String,
 
     /// The VM Boot Option.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub boot_option: crate::model::aws_vm_details::BootOption,
 
     /// The instance type of the VM.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub instance_type: std::string::String,
 
     /// The VPC ID the VM belongs to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vpc_id: std::string::String,
 
     /// The security groups the VM belongs to.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub security_groups: std::vec::Vec<crate::model::AwsSecurityGroup>,
 
     /// The tags of the VM.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The AWS zone of the VM.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub zone: std::string::String,
 
     /// The virtualization type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub virtualization_type: crate::model::aws_vm_details::VmVirtualizationType,
 
     /// The CPU architecture.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub architecture: crate::model::aws_vm_details::VmArchitecture,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6206,10 +6307,12 @@ pub mod aws_vm_details {
 pub struct AwsSecurityGroup {
     /// The AWS security group id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// The AWS security group name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6248,6 +6351,7 @@ impl wkt::message::Message for AwsSecurityGroup {
 pub struct VmwareVmsDetails {
     /// The details of the vmware VMs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub details: std::vec::Vec<crate::model::VmwareVmDetails>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6285,6 +6389,7 @@ impl wkt::message::Message for VmwareVmsDetails {
 pub struct AwsVmsDetails {
     /// The details of the AWS VMs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub details: std::vec::Vec<crate::model::AwsVmDetails>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6465,14 +6570,17 @@ pub mod fetch_inventory_response {
 pub struct UtilizationReport {
     /// Output only. The report unique name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The report display name, as assigned by the user.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. Current state of the report.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::utilization_report::State,
 
     /// Output only. The time the state was last set.
@@ -6491,6 +6599,7 @@ pub struct UtilizationReport {
 
     /// Time frame of the report.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub time_frame: crate::model::utilization_report::TimeFrame,
 
     /// Output only. The point in time when the time frame ends. Notice that the
@@ -6502,7 +6611,7 @@ pub struct UtilizationReport {
 
     /// Output only. Total number of VMs included in the report.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub vm_count: i32,
 
     /// List of utilization information per VM.
@@ -6510,6 +6619,7 @@ pub struct UtilizationReport {
     /// specify which VMs to include in the report. In that case all other fields
     /// are ignored.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub vms: std::vec::Vec<crate::model::VmUtilizationInfo>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6939,6 +7049,7 @@ pub mod utilization_report {
 pub struct VmUtilizationInfo {
     /// The VM's ID in the source.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vm_id: std::string::String,
 
     /// Utilization metrics for this VM.
@@ -7057,44 +7168,44 @@ pub mod vm_utilization_info {
 pub struct VmUtilizationMetrics {
     /// Max CPU usage, percent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub cpu_max_percent: i32,
 
     /// Average CPU usage, percent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub cpu_average_percent: i32,
 
     /// Max memory usage, percent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub memory_max_percent: i32,
 
     /// Average memory usage, percent.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub memory_average_percent: i32,
 
     /// Max disk IO rate, in kilobytes per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub disk_io_rate_max_kbps: i64,
 
     /// Average disk IO rate, in kilobytes per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub disk_io_rate_average_kbps: i64,
 
     /// Max network throughput (combined transmit-rates and receive-rates), in
     /// kilobytes per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub network_throughput_max_kbps: i64,
 
     /// Average network throughput (combined transmit-rates and receive-rates), in
     /// kilobytes per second.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub network_throughput_average_kbps: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7169,11 +7280,13 @@ impl wkt::message::Message for VmUtilizationMetrics {
 pub struct ListUtilizationReportsRequest {
     /// Required. The Utilization Reports parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The level of details of each report.
     /// Defaults to BASIC.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::UtilizationReportView,
 
     /// Optional. The maximum number of reports to return. The service may return
@@ -7181,7 +7294,7 @@ pub struct ListUtilizationReportsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListUtilizationReports`
@@ -7190,14 +7303,17 @@ pub struct ListUtilizationReportsRequest {
     /// When paginating, all other parameters provided to `ListUtilizationReports`
     /// must match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7263,15 +7379,18 @@ impl wkt::message::Message for ListUtilizationReportsRequest {
 pub struct ListUtilizationReportsResponse {
     /// Output only. The list of reports.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub utilization_reports: std::vec::Vec<crate::model::UtilizationReport>,
 
     /// Output only. A token, which can be sent as `page_token` to retrieve the
     /// next page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7340,11 +7459,13 @@ impl gax::paginator::internal::PageableResponse for ListUtilizationReportsRespon
 pub struct GetUtilizationReportRequest {
     /// Required. The Utilization Report name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The level of details of the report.
     /// Defaults to FULL
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::UtilizationReportView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7386,6 +7507,7 @@ impl wkt::message::Message for GetUtilizationReportRequest {
 pub struct CreateUtilizationReportRequest {
     /// Required. The Utilization Report's parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The report to create.
@@ -7399,6 +7521,7 @@ pub struct CreateUtilizationReportRequest {
     /// are /[a-z][0-9]-/. It must start with an english letter and must not
     /// end with a hyphen.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub utilization_report_id: std::string::String,
 
     /// A request ID to identify requests. Specify a unique request ID
@@ -7415,6 +7538,7 @@ pub struct CreateUtilizationReportRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7480,6 +7604,7 @@ impl wkt::message::Message for CreateUtilizationReportRequest {
 pub struct DeleteUtilizationReportRequest {
     /// Required. The Utilization Report name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A request ID to identify requests. Specify a unique request ID
@@ -7496,6 +7621,7 @@ pub struct DeleteUtilizationReportRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7534,15 +7660,18 @@ impl wkt::message::Message for DeleteUtilizationReportRequest {
 pub struct ListDatacenterConnectorsResponse {
     /// Output only. The list of sources response.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub datacenter_connectors: std::vec::Vec<crate::model::DatacenterConnector>,
 
     /// Output only. A token, which can be sent as `page_token` to retrieve the
     /// next page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7611,6 +7740,7 @@ impl gax::paginator::internal::PageableResponse for ListDatacenterConnectorsResp
 pub struct GetDatacenterConnectorRequest {
     /// Required. The name of the DatacenterConnector.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7646,10 +7776,12 @@ pub struct CreateDatacenterConnectorRequest {
     /// For example:
     /// `projects/my-project/locations/us-central1/sources/my-source`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The datacenterConnector identifier.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub datacenter_connector_id: std::string::String,
 
     /// Required. The create request body.
@@ -7670,6 +7802,7 @@ pub struct CreateDatacenterConnectorRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7735,6 +7868,7 @@ impl wkt::message::Message for CreateDatacenterConnectorRequest {
 pub struct DeleteDatacenterConnectorRequest {
     /// Required. The DatacenterConnector name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// A request ID to identify requests. Specify a unique request ID
@@ -7751,6 +7885,7 @@ pub struct DeleteDatacenterConnectorRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7789,6 +7924,7 @@ impl wkt::message::Message for DeleteDatacenterConnectorRequest {
 pub struct UpgradeApplianceRequest {
     /// Required. The DatacenterConnector name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub datacenter_connector: std::string::String,
 
     /// A request ID to identify requests. Specify a unique request ID
@@ -7805,6 +7941,7 @@ pub struct UpgradeApplianceRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7868,6 +8005,7 @@ impl wkt::message::Message for UpgradeApplianceResponse {
 pub struct ListDatacenterConnectorsRequest {
     /// Required. The parent, which owns this collection of connectors.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of connectors to return. The service may
@@ -7875,7 +8013,7 @@ pub struct ListDatacenterConnectorsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListDatacenterConnectors`
@@ -7885,14 +8023,17 @@ pub struct ListDatacenterConnectorsRequest {
     /// `ListDatacenterConnectors` must match the call that provided the page
     /// token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7950,47 +8091,58 @@ impl wkt::message::Message for ListDatacenterConnectorsRequest {
 pub struct ComputeEngineTargetDefaults {
     /// The name of the VM to create.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vm_name: std::string::String,
 
     /// The full path of the resource of type TargetProject which represents the
     /// Compute Engine project in which to create this VM.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_project: std::string::String,
 
     /// The zone in which to create the VM.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub zone: std::string::String,
 
     /// The machine type series to create the VM with.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub machine_type_series: std::string::String,
 
     /// The machine type to create the VM with.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub machine_type: std::string::String,
 
     /// A map of network tags to associate with the VM.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub network_tags: std::vec::Vec<std::string::String>,
 
     /// List of NICs connected to this VM.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub network_interfaces: std::vec::Vec<crate::model::NetworkInterface>,
 
     /// The service account to associate the VM with.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// The disk type to use in the VM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disk_type: crate::model::ComputeEngineDiskType,
 
     /// A map of labels to associate with the VM.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The license type to use in OS adaptation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub license_type: crate::model::ComputeEngineLicenseType,
 
     /// Output only. The OS license returned from the adaptation module report.
@@ -8004,22 +8156,27 @@ pub struct ComputeEngineTargetDefaults {
     /// Defines whether the instance has Secure Boot enabled.
     /// This can be set to true only if the vm boot option is EFI.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secure_boot: bool,
 
     /// Output only. The VM Boot Option, as set in the source vm.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub boot_option: crate::model::ComputeEngineBootOption,
 
     /// The metadata key/value pairs to assign to the VM.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Additional licenses to assign to the VM.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub additional_licenses: std::vec::Vec<std::string::String>,
 
     /// The hostname to assign to the VM.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub hostname: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8218,46 +8375,57 @@ impl wkt::message::Message for ComputeEngineTargetDefaults {
 pub struct ComputeEngineTargetDetails {
     /// The name of the VM to create.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vm_name: std::string::String,
 
     /// The Google Cloud target project ID or project name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project: std::string::String,
 
     /// The zone in which to create the VM.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub zone: std::string::String,
 
     /// The machine type series to create the VM with.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub machine_type_series: std::string::String,
 
     /// The machine type to create the VM with.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub machine_type: std::string::String,
 
     /// A map of network tags to associate with the VM.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub network_tags: std::vec::Vec<std::string::String>,
 
     /// List of NICs connected to this VM.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub network_interfaces: std::vec::Vec<crate::model::NetworkInterface>,
 
     /// The service account to associate the VM with.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// The disk type to use in the VM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disk_type: crate::model::ComputeEngineDiskType,
 
     /// A map of labels to associate with the VM.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The license type to use in OS adaptation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub license_type: crate::model::ComputeEngineLicenseType,
 
     /// The OS license returned from the adaptation module report.
@@ -8271,22 +8439,27 @@ pub struct ComputeEngineTargetDetails {
     /// Defines whether the instance has Secure Boot enabled.
     /// This can be set to true only if the vm boot option is EFI.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secure_boot: bool,
 
     /// The VM Boot Option, as set in the source vm.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub boot_option: crate::model::ComputeEngineBootOption,
 
     /// The metadata key/value pairs to assign to the VM.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Additional licenses to assign to the VM.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub additional_licenses: std::vec::Vec<std::string::String>,
 
     /// The hostname to assign to the VM.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub hostname: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8484,20 +8657,24 @@ impl wkt::message::Message for ComputeEngineTargetDetails {
 pub struct NetworkInterface {
     /// The network to connect the NIC to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub network: std::string::String,
 
     /// The subnetwork to connect the NIC to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub subnetwork: std::string::String,
 
     /// The internal IP to define in the NIC.
     /// The formats accepted are: `ephemeral` \ ipv4 address \ a named address
     /// resource full path.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub internal_ip: std::string::String,
 
     /// The external IP to define in the NIC.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub external_ip: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8549,10 +8726,12 @@ pub struct AppliedLicense {
     /// The license type that was used in OS adaptation.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::applied_license::Type,
 
     /// The OS license returned from the adaptation module's report.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub os_license: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8741,15 +8920,18 @@ pub mod applied_license {
 pub struct SchedulingNodeAffinity {
     /// The label key of Node resource to reference.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key: std::string::String,
 
     /// The operator to use for the node resources specified in the `values`
     /// parameter.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub operator: crate::model::scheduling_node_affinity::Operator,
 
     /// Corresponds to the label values of Node resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub values: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8943,6 +9125,7 @@ pub struct ComputeScheduling {
     /// How the instance should behave when the host machine undergoes
     /// maintenance that may temporarily impact instance performance.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub on_host_maintenance: crate::model::compute_scheduling::OnHostMaintenance,
 
     /// Whether the Instance should be automatically restarted whenever it is
@@ -8952,18 +9135,20 @@ pub struct ComputeScheduling {
     /// It was changed to an enum (instead of a boolean) to match the default
     /// value in Compute Engine which is automatic restart.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub restart_type: crate::model::compute_scheduling::RestartType,
 
     /// A set of node affinity and anti-affinity configurations for sole tenant
     /// nodes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub node_affinities: std::vec::Vec<crate::model::SchedulingNodeAffinity>,
 
     /// The minimum number of virtual CPUs this instance will consume when
     /// running on a sole-tenant node. Ignored if no node_affinites are
     /// configured.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub min_node_cpus: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9307,6 +9492,7 @@ pub struct SchedulePolicy {
     /// sync. OS adaptation is a process where the VM's operating system undergoes
     /// changes and adaptations to fully function on Compute Engine.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_os_adaptation: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9357,10 +9543,12 @@ impl wkt::message::Message for SchedulePolicy {
 pub struct CreateMigratingVmRequest {
     /// Required. The MigratingVm's parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The migratingVm identifier.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub migrating_vm_id: std::string::String,
 
     /// Required. The create request body.
@@ -9381,6 +9569,7 @@ pub struct CreateMigratingVmRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9443,6 +9632,7 @@ impl wkt::message::Message for CreateMigratingVmRequest {
 pub struct ListMigratingVmsRequest {
     /// Required. The parent, which owns this collection of MigratingVms.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of migrating VMs to return. The service may
@@ -9450,7 +9640,7 @@ pub struct ListMigratingVmsRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be
     /// coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListMigratingVms` call.
@@ -9459,18 +9649,22 @@ pub struct ListMigratingVmsRequest {
     /// When paginating, all other parameters provided to `ListMigratingVms`
     /// must match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Optional. The level of details of each migrating VM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::MigratingVmView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9533,15 +9727,18 @@ impl wkt::message::Message for ListMigratingVmsRequest {
 pub struct ListMigratingVmsResponse {
     /// Output only. The list of Migrating VMs response.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub migrating_vms: std::vec::Vec<crate::model::MigratingVm>,
 
     /// Output only. A token, which can be sent as `page_token` to retrieve the
     /// next page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9610,10 +9807,12 @@ impl gax::paginator::internal::PageableResponse for ListMigratingVmsResponse {
 pub struct GetMigratingVmRequest {
     /// Required. The name of the MigratingVm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The level of details of the migrating VM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::MigratingVmView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9676,6 +9875,7 @@ pub struct UpdateMigratingVmRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9744,6 +9944,7 @@ impl wkt::message::Message for UpdateMigratingVmRequest {
 pub struct DeleteMigratingVmRequest {
     /// Required. The name of the MigratingVm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9776,6 +9977,7 @@ impl wkt::message::Message for DeleteMigratingVmRequest {
 pub struct StartMigrationRequest {
     /// Required. The name of the MigratingVm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub migrating_vm: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9830,6 +10032,7 @@ impl wkt::message::Message for StartMigrationResponse {
 pub struct PauseMigrationRequest {
     /// Required. The name of the MigratingVm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub migrating_vm: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9884,6 +10087,7 @@ impl wkt::message::Message for PauseMigrationResponse {
 pub struct ResumeMigrationRequest {
     /// Required. The name of the MigratingVm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub migrating_vm: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9938,6 +10142,7 @@ impl wkt::message::Message for ResumeMigrationResponse {
 pub struct FinalizeMigrationRequest {
     /// Required. The name of the MigratingVm.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub migrating_vm: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9993,14 +10198,17 @@ impl wkt::message::Message for FinalizeMigrationResponse {
 pub struct TargetProject {
     /// Output only. The name of the target project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The target project ID (number) or project name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project: std::string::String,
 
     /// The target project's description.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The time this target project resource was created (not related
@@ -10090,6 +10298,7 @@ impl wkt::message::Message for TargetProject {
 pub struct GetTargetProjectRequest {
     /// Required. The TargetProject name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10122,6 +10331,7 @@ impl wkt::message::Message for GetTargetProjectRequest {
 pub struct ListTargetProjectsRequest {
     /// Required. The parent, which owns this collection of targets.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of targets to return. The service may return
@@ -10129,7 +10339,7 @@ pub struct ListTargetProjectsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListTargets` call.
@@ -10138,14 +10348,17 @@ pub struct ListTargetProjectsRequest {
     /// When paginating, all other parameters provided to `ListTargets` must
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10202,15 +10415,18 @@ impl wkt::message::Message for ListTargetProjectsRequest {
 pub struct ListTargetProjectsResponse {
     /// Output only. The list of target response.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub target_projects: std::vec::Vec<crate::model::TargetProject>,
 
     /// Output only. A token, which can be sent as `page_token` to retrieve the
     /// next page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10279,10 +10495,12 @@ impl gax::paginator::internal::PageableResponse for ListTargetProjectsResponse {
 pub struct CreateTargetProjectRequest {
     /// Required. The TargetProject's parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The target_project identifier.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_project_id: std::string::String,
 
     /// Required. The create request body.
@@ -10303,6 +10521,7 @@ pub struct CreateTargetProjectRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10392,6 +10611,7 @@ pub struct UpdateTargetProjectRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10460,6 +10680,7 @@ impl wkt::message::Message for UpdateTargetProjectRequest {
 pub struct DeleteTargetProjectRequest {
     /// Required. The TargetProject name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A request ID to identify requests. Specify a unique request ID
@@ -10476,6 +10697,7 @@ pub struct DeleteTargetProjectRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10515,6 +10737,7 @@ impl wkt::message::Message for DeleteTargetProjectRequest {
 pub struct Group {
     /// Output only. The Group name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The create time timestamp.
@@ -10527,10 +10750,12 @@ pub struct Group {
 
     /// User-provided description of the group.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Display name is a user defined name for this group which can be updated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10611,6 +10836,7 @@ impl wkt::message::Message for Group {
 pub struct ListGroupsRequest {
     /// Required. The parent, which owns this collection of groups.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of groups to return. The service may return
@@ -10618,7 +10844,7 @@ pub struct ListGroupsRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListGroups` call.
@@ -10627,14 +10853,17 @@ pub struct ListGroupsRequest {
     /// When paginating, all other parameters provided to `ListGroups` must
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10691,15 +10920,18 @@ impl wkt::message::Message for ListGroupsRequest {
 pub struct ListGroupsResponse {
     /// Output only. The list of groups response.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub groups: std::vec::Vec<crate::model::Group>,
 
     /// Output only. A token, which can be sent as `page_token` to retrieve the
     /// next page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10768,6 +11000,7 @@ impl gax::paginator::internal::PageableResponse for ListGroupsResponse {
 pub struct GetGroupRequest {
     /// Required. The group name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10800,10 +11033,12 @@ impl wkt::message::Message for GetGroupRequest {
 pub struct CreateGroupRequest {
     /// Required. The Group's parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The group identifier.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub group_id: std::string::String,
 
     /// Required. The create request body.
@@ -10824,6 +11059,7 @@ pub struct CreateGroupRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10910,6 +11146,7 @@ pub struct UpdateGroupRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10978,6 +11215,7 @@ impl wkt::message::Message for UpdateGroupRequest {
 pub struct DeleteGroupRequest {
     /// Required. The Group name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A request ID to identify requests. Specify a unique request ID
@@ -10994,6 +11232,7 @@ pub struct DeleteGroupRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11032,10 +11271,12 @@ impl wkt::message::Message for DeleteGroupRequest {
 pub struct AddGroupMigrationRequest {
     /// Required. The full path name of the Group to add to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub group: std::string::String,
 
     /// The full path name of the MigratingVm to add.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub migrating_vm: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11096,10 +11337,12 @@ impl wkt::message::Message for AddGroupMigrationResponse {
 pub struct RemoveGroupMigrationRequest {
     /// Required. The name of the Group.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub group: std::string::String,
 
     /// The MigratingVm to remove.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub migrating_vm: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11160,10 +11403,12 @@ impl wkt::message::Message for RemoveGroupMigrationResponse {
 pub struct CreateCutoverJobRequest {
     /// Required. The Cutover's parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The cutover job identifier.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cutover_job_id: std::string::String,
 
     /// Required. The cutover request body.
@@ -11184,6 +11429,7 @@ pub struct CreateCutoverJobRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11246,6 +11492,7 @@ impl wkt::message::Message for CreateCutoverJobRequest {
 pub struct CancelCutoverJobRequest {
     /// Required. The cutover job id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11300,6 +11547,7 @@ impl wkt::message::Message for CancelCutoverJobResponse {
 pub struct ListCutoverJobsRequest {
     /// Required. The parent, which owns this collection of migrating VMs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of cutover jobs to return. The service may
@@ -11307,7 +11555,7 @@ pub struct ListCutoverJobsRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListCutoverJobs` call.
@@ -11316,14 +11564,17 @@ pub struct ListCutoverJobsRequest {
     /// When paginating, all other parameters provided to `ListCutoverJobs` must
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11380,15 +11631,18 @@ impl wkt::message::Message for ListCutoverJobsRequest {
 pub struct ListCutoverJobsResponse {
     /// Output only. The list of cutover jobs response.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub cutover_jobs: std::vec::Vec<crate::model::CutoverJob>,
 
     /// Output only. A token, which can be sent as `page_token` to retrieve the
     /// next page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11457,6 +11711,7 @@ impl gax::paginator::internal::PageableResponse for ListCutoverJobsResponse {
 pub struct GetCutoverJobRequest {
     /// Required. The name of the CutoverJob.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11497,14 +11752,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -11515,10 +11773,12 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11613,6 +11873,7 @@ impl wkt::message::Message for OperationMetadata {
 pub struct MigrationError {
     /// Output only. The error code.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub code: crate::model::migration_error::ErrorCode,
 
     /// Output only. The localized error message.
@@ -11626,6 +11887,7 @@ pub struct MigrationError {
     /// Output only. URL(s) pointing to additional information on handling the
     /// current error.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub help_links: std::vec::Vec<rpc::model::help::Link>,
 
     /// Output only. The time the error occurred.
@@ -11925,11 +12187,12 @@ pub mod migration_error {
 pub struct AwsSourceVmDetails {
     /// The firmware type of the source VM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub firmware: crate::model::aws_source_vm_details::Firmware,
 
     /// The total size of the disks being migrated in bytes.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub committed_storage_bytes: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12109,6 +12372,7 @@ pub mod aws_source_vm_details {
 pub struct ListReplicationCyclesRequest {
     /// Required. The parent, which owns this collection of ReplicationCycles.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of replication cycles to return. The service
@@ -12116,7 +12380,7 @@ pub struct ListReplicationCyclesRequest {
     /// will be returned. The maximum value is 100; values above 100 will be
     /// coerced to 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Required. A page token, received from a previous `ListReplicationCycles`
@@ -12125,14 +12389,17 @@ pub struct ListReplicationCyclesRequest {
     /// When paginating, all other parameters provided to `ListReplicationCycles`
     /// must match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. The filter request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. the order by fields for the result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12189,15 +12456,18 @@ impl wkt::message::Message for ListReplicationCyclesRequest {
 pub struct ListReplicationCyclesResponse {
     /// Output only. The list of replication cycles response.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub replication_cycles: std::vec::Vec<crate::model::ReplicationCycle>,
 
     /// Output only. A token, which can be sent as `page_token` to retrieve the
     /// next page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Output only. Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12266,6 +12536,7 @@ impl gax::paginator::internal::PageableResponse for ListReplicationCyclesRespons
 pub struct GetReplicationCycleRequest {
     /// Required. The name of the ReplicationCycle.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

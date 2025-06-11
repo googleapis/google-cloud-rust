@@ -60,6 +60,7 @@ pub struct Barcode {
     /// - `AZTEC`: 2D Aztec code type.
     /// - `DATABAR`: GS1 DataBar code type.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub format: std::string::String,
 
     /// Value format describes the format of the value that a barcode
@@ -79,11 +80,13 @@ pub struct Barcode {
     /// - `CALENDAR_EVENT`: Calendar event.
     /// - `DRIVER_LICENSE`: Driver's license.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value_format: std::string::String,
 
     /// Raw value encoded in the barcode.
     /// For example: `'MEBKM:TITLE:Google;URL:<https://www.google.com>;;'`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub raw_value: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -131,21 +134,25 @@ impl wkt::message::Message for Barcode {
 pub struct Document {
     /// Optional. An internal identifier for document. Should be loggable (no PII).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub docid: std::string::String,
 
     /// An IANA published [media type (MIME
     /// type)](https://www.iana.org/assignments/media-types/media-types.xhtml).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mime_type: std::string::String,
 
     /// Optional. UTF-8 encoded text in reading order from the document.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub text: std::string::String,
 
     /// Styles for the [Document.text][google.cloud.documentai.v1.Document.text].
     ///
     /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub text_styles: std::vec::Vec<crate::model::document::Style>,
 
@@ -153,6 +160,7 @@ pub struct Document {
     ///
     /// [google.cloud.documentai.v1.Document]: crate::model::Document
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub pages: std::vec::Vec<crate::model::document::Page>,
 
     /// A list of entities detected on
@@ -161,6 +169,7 @@ pub struct Document {
     ///
     /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entities: std::vec::Vec<crate::model::document::Entity>,
 
     /// Placeholder.  Relationship among
@@ -168,6 +177,7 @@ pub struct Document {
     ///
     /// [google.cloud.documentai.v1.Document.entities]: crate::model::Document::entities
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entity_relations: std::vec::Vec<crate::model::document::EntityRelation>,
 
     /// Placeholder.  A list of text corrections made to
@@ -177,6 +187,7 @@ pub struct Document {
     ///
     /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub text_changes: std::vec::Vec<crate::model::document::TextChange>,
 
     /// Information about the sharding if this document is sharded part of a larger
@@ -190,6 +201,7 @@ pub struct Document {
 
     /// Placeholder. Revision history of this document.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub revisions: std::vec::Vec<crate::model::document::Revision>,
 
     /// Parsed layout of the document.
@@ -448,12 +460,12 @@ pub mod document {
     pub struct ShardInfo {
         /// The 0-based index of this shard.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub shard_index: i64,
 
         /// Total number of shards.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub shard_count: i64,
 
         /// The index of the first character in
@@ -462,7 +474,7 @@ pub mod document {
         ///
         /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub text_offset: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -524,11 +536,13 @@ pub mod document {
         /// [Font weight](https://www.w3schools.com/cssref/pr_font_weight.asp).
         /// Possible values are `normal`, `bold`, `bolder`, and `lighter`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub font_weight: std::string::String,
 
         /// [Text style](https://www.w3schools.com/cssref/pr_font_font-style.asp).
         /// Possible values are `normal`, `italic`, and `oblique`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub text_style: std::string::String,
 
         /// [Text
@@ -536,6 +550,7 @@ pub mod document {
         /// Follows CSS standard. \<text-decoration-line\> \<text-decoration-color\>
         /// \<text-decoration-style\>
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub text_decoration: std::string::String,
 
         /// Font size.
@@ -545,6 +560,7 @@ pub mod document {
         /// Font family such as `Arial`, `Times New Roman`.
         /// <https://www.w3schools.com/cssref/pr_font_font-family.asp>
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub font_family: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -675,12 +691,13 @@ pub mod document {
         pub struct FontSize {
             /// Font size for the text.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
             pub size: f32,
 
             /// Unit for the font size. Follows CSS naming (such as `in`, `px`, and
             /// `pt`).
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub unit: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -729,7 +746,7 @@ pub mod document {
         /// [google.cloud.documentai.v1.Document]: crate::model::Document
         /// [google.cloud.documentai.v1.Document.Page]: crate::model::document::Page
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub page_number: i32,
 
         /// Rendered image for this page. This image is preprocessed to remove any
@@ -743,6 +760,7 @@ pub mod document {
         ///
         /// [google.cloud.documentai.v1.Document.Page.image]: crate::model::document::Page::image
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub transforms: std::vec::Vec<crate::model::document::page::Matrix>,
 
         /// Physical dimension of the page.
@@ -757,47 +775,57 @@ pub mod document {
 
         /// A list of detected languages together with confidence.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
         /// A list of visually detected text blocks on the page.
         /// A block has a set of lines (collected into paragraphs) that have a common
         /// line-spacing and orientation.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub blocks: std::vec::Vec<crate::model::document::page::Block>,
 
         /// A list of visually detected text paragraphs on the page.
         /// A collection of lines that a human would perceive as a paragraph.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub paragraphs: std::vec::Vec<crate::model::document::page::Paragraph>,
 
         /// A list of visually detected text lines on the page.
         /// A collection of tokens that a human would perceive as a line.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub lines: std::vec::Vec<crate::model::document::page::Line>,
 
         /// A list of visually detected tokens on the page.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub tokens: std::vec::Vec<crate::model::document::page::Token>,
 
         /// A list of detected non-text visual elements e.g. checkbox,
         /// signature etc. on the page.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub visual_elements: std::vec::Vec<crate::model::document::page::VisualElement>,
 
         /// A list of visually detected tables on the page.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub tables: std::vec::Vec<crate::model::document::page::Table>,
 
         /// A list of visually detected form fields on the page.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub form_fields: std::vec::Vec<crate::model::document::page::FormField>,
 
         /// A list of visually detected symbols on the page.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub symbols: std::vec::Vec<crate::model::document::page::Symbol>,
 
         /// A list of detected barcodes.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub detected_barcodes: std::vec::Vec<crate::model::document::page::DetectedBarcode>,
 
         /// Image quality scores.
@@ -1058,16 +1086,17 @@ pub mod document {
         pub struct Dimension {
             /// Page width.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
             pub width: f32,
 
             /// Page height.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
             pub height: f32,
 
             /// Dimension unit.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub unit: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1112,23 +1141,24 @@ pub mod document {
         pub struct Image {
             /// Raw byte content of the image.
             #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-            #[serde_as(as = "serde_with::base64::Base64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
             pub content: ::bytes::Bytes,
 
             /// Encoding [media type (MIME
             /// type)](https://www.iana.org/assignments/media-types/media-types.xhtml)
             /// for the image.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub mime_type: std::string::String,
 
             /// Width of the image in pixels.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub width: i32,
 
             /// Height of the image in pixels.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub height: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1183,12 +1213,12 @@ pub mod document {
         pub struct Matrix {
             /// Number of rows in the matrix.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub rows: i32,
 
             /// Number of columns in the matrix.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub cols: i32,
 
             /// This encodes information about what data type the matrix uses.
@@ -1197,12 +1227,12 @@ pub mod document {
             /// <https://docs.opencv.org/4.3.0/d1/d1b/group__core__hal__interface.html>
             #[serde(rename = "type")]
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub r#type: i32,
 
             /// The matrix data.
             #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-            #[serde_as(as = "serde_with::base64::Base64")]
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
             pub data: ::bytes::Bytes,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1266,7 +1296,7 @@ pub mod document {
             ///
             /// [google.cloud.documentai.v1.Document.Page.Layout]: crate::model::document::page::Layout
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
             pub confidence: f32,
 
             /// The bounding polygon for the
@@ -1281,6 +1311,7 @@ pub mod document {
             ///
             /// [google.cloud.documentai.v1.Document.Page.Layout]: crate::model::document::page::Layout
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub orientation: crate::model::document::page::layout::Orientation,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1527,6 +1558,7 @@ pub mod document {
 
             /// A list of detected languages together with confidence.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
             /// The history of this annotation.
@@ -1615,6 +1647,7 @@ pub mod document {
 
             /// A list of detected languages together with confidence.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
             /// The  history of this annotation.
@@ -1704,6 +1737,7 @@ pub mod document {
 
             /// A list of detected languages together with confidence.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
             /// The  history of this annotation.
@@ -1800,6 +1834,7 @@ pub mod document {
 
             /// A list of detected languages together with confidence.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
             /// The history of this annotation.
@@ -1929,6 +1964,7 @@ pub mod document {
                 /// Detected break type.
                 #[serde(rename = "type")]
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub r#type: crate::model::document::page::token::detected_break::Type,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2114,7 +2150,7 @@ pub mod document {
             pub struct StyleInfo {
                 /// Font size in points (`1` point is `¹⁄₇₂` inches).
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::I32")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
                 pub font_size: i32,
 
                 /// Font size in pixels, equal to _unrounded
@@ -2124,16 +2160,17 @@ pub mod document {
                 ///
                 /// [google.cloud.documentai.v1.Document.Page.Token.StyleInfo.font_size]: crate::model::document::page::token::StyleInfo::font_size
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::F64")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
                 pub pixel_font_size: f64,
 
                 /// Letter spacing in points.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::F64")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
                 pub letter_spacing: f64,
 
                 /// Name or style of the font.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub font_type: std::string::String,
 
                 /// Whether the text is bold (equivalent to
@@ -2142,40 +2179,48 @@ pub mod document {
                 ///
                 /// [google.cloud.documentai.v1.Document.Page.Token.StyleInfo.font_weight]: crate::model::document::page::token::StyleInfo::font_weight
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub bold: bool,
 
                 /// Whether the text is italic.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub italic: bool,
 
                 /// Whether the text is underlined.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub underlined: bool,
 
                 /// Whether the text is strikethrough. This feature is not supported yet.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub strikeout: bool,
 
                 /// Whether the text is a subscript. This feature is not supported yet.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub subscript: bool,
 
                 /// Whether the text is a superscript. This feature is not supported yet.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub superscript: bool,
 
                 /// Whether the text is in small caps. This feature is not supported yet.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub smallcaps: bool,
 
                 /// TrueType weight on a scale `100` (thin) to `1000` (ultra-heavy).
                 /// Normal is `400`, bold is `700`.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::I32")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
                 pub font_weight: i32,
 
                 /// Whether the text is handwritten.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub handwritten: bool,
 
                 /// Color of the text.
@@ -2336,6 +2381,7 @@ pub mod document {
 
             /// A list of detected languages together with confidence.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2404,10 +2450,12 @@ pub mod document {
             /// [google.cloud.documentai.v1.Document.Page.VisualElement]: crate::model::document::page::VisualElement
             #[serde(rename = "type")]
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub r#type: std::string::String,
 
             /// A list of detected languages together with confidence.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2477,14 +2525,17 @@ pub mod document {
 
             /// Header rows of the table.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub header_rows: std::vec::Vec<crate::model::document::page::table::TableRow>,
 
             /// Body rows of the table.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub body_rows: std::vec::Vec<crate::model::document::page::table::TableRow>,
 
             /// A list of detected languages together with confidence.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub detected_languages: std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
             /// The history of this table.
@@ -2592,6 +2643,7 @@ pub mod document {
             pub struct TableRow {
                 /// Cells that make up this row.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub cells: std::vec::Vec<crate::model::document::page::table::TableCell>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2637,16 +2689,17 @@ pub mod document {
 
                 /// How many rows this cell spans.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::I32")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
                 pub row_span: i32,
 
                 /// How many columns this cell spans.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::I32")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
                 pub col_span: i32,
 
                 /// A list of detected languages together with confidence.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub detected_languages:
                     std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
@@ -2733,11 +2786,13 @@ pub mod document {
 
             /// A list of detected languages for name together with confidence.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub name_detected_languages:
                 std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
             /// A list of detected languages for value together with confidence.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub value_detected_languages:
                 std::vec::Vec<crate::model::document::page::DetectedLanguage>,
 
@@ -2748,18 +2803,21 @@ pub mod document {
             /// - `unfilled_checkbox`
             /// - `filled_checkbox`
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub value_type: std::string::String,
 
             /// Created for Labeling UI to export key text.
             /// If corrections were made to the text identified by the
             /// `field_name.text_anchor`, this field will contain the correction.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub corrected_key_text: std::string::String,
 
             /// Created for Labeling UI to export value text.
             /// If corrections were made to the text identified by the
             /// `field_value.text_anchor`, this field will contain the correction.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub corrected_value_text: std::string::String,
 
             /// The history of this annotation.
@@ -2968,11 +3026,12 @@ pub mod document {
             /// code](https://www.unicode.org/reports/tr35/#Unicode_locale_identifier),
             /// such as `en-US` or `sr-Latn`.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub language_code: std::string::String,
 
             /// Confidence of detected language. Range `[0, 1]`.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
             pub confidence: f32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3014,11 +3073,12 @@ pub mod document {
         pub struct ImageQualityScores {
             /// The overall quality score. Range `[0, 1]` where `1` is perfect quality.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
             pub quality_score: f32,
 
             /// A list of detected defects.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub detected_defects:
                 std::vec::Vec<crate::model::document::page::image_quality_scores::DetectedDefect>,
 
@@ -3080,12 +3140,13 @@ pub mod document {
                 /// - `quality/defect_glare`
                 #[serde(rename = "type")]
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub r#type: std::string::String,
 
                 /// Confidence of detected defect. Range `[0, 1]` where `1` indicates
                 /// strong confidence that the defect exists.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::F32")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
                 pub confidence: f32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3140,19 +3201,22 @@ pub mod document {
         /// Required. Entity type from a schema e.g. `Address`.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: std::string::String,
 
         /// Optional. Text value of the entity e.g. `1600 Amphitheatre Pkwy`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub mention_text: std::string::String,
 
         /// Optional. Deprecated.  Use `id` field instead.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub mention_id: std::string::String,
 
         /// Optional. Confidence of detected Schema entity. Range `[0, 1]`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub confidence: f32,
 
         /// Optional. Represents the provenance of this entity wrt. the location on
@@ -3163,6 +3227,7 @@ pub mod document {
         /// Optional. Canonical id. This will be a unique value in the entity list
         /// for this document.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub id: std::string::String,
 
         /// Optional. Normalized entity value. Absent if the extracted value could
@@ -3175,6 +3240,7 @@ pub mod document {
         /// Optional. Entities can be nested to form a hierarchical data structure
         /// representing the content in the document.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub properties: std::vec::Vec<crate::model::document::Entity>,
 
         /// Optional. The history of this annotation.
@@ -3184,6 +3250,7 @@ pub mod document {
         /// Optional. Whether the entity will be redacted for de-identification
         /// purposes.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub redacted: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3347,6 +3414,7 @@ pub mod document {
             /// - Date type (`date_value`) is in the ISO 8601 text format.
             /// - Datetime type (`datetime_value`) is in the ISO 8601 text format.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub text: std::string::String,
 
             /// An optional structured entity value.
@@ -3623,11 +3691,11 @@ pub mod document {
                 AddressValue(std::boxed::Box<gtype::model::PostalAddress>),
                 /// Boolean value. Can be used for entities with binary values, or for
                 /// checkboxes.
-                BooleanValue(bool),
+                BooleanValue(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
                 /// Integer value.
-                IntegerValue(#[serde_as(as = "wkt::internal::I32")] i32),
+                IntegerValue(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
                 /// Float value.
-                FloatValue(#[serde_as(as = "wkt::internal::F32")] f32),
+                FloatValue(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")] f32),
             }
         }
     }
@@ -3643,14 +3711,17 @@ pub mod document {
     pub struct EntityRelation {
         /// Subject entity id.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub subject_id: std::string::String,
 
         /// Object entity id.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub object_id: std::string::String,
 
         /// Relationship description.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub relation: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3701,12 +3772,14 @@ pub mod document {
         ///
         /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub text_segments: std::vec::Vec<crate::model::document::text_anchor::TextSegment>,
 
         /// Contains the content of the text span so that users do
         /// not have to look it up in the text_segments.  It is always
         /// populated for formFields.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub content: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3767,7 +3840,7 @@ pub mod document {
             /// [google.cloud.documentai.v1.Document.TextAnchor.TextSegment]: crate::model::document::text_anchor::TextSegment
             /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub start_index: i64,
 
             /// [TextSegment][google.cloud.documentai.v1.Document.TextAnchor.TextSegment]
@@ -3777,7 +3850,7 @@ pub mod document {
             /// [google.cloud.documentai.v1.Document.TextAnchor.TextSegment]: crate::model::document::text_anchor::TextSegment
             /// [google.cloud.documentai.v1.Document.text]: crate::model::Document::text
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub end_index: i64,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3822,6 +3895,7 @@ pub mod document {
     pub struct PageAnchor {
         /// One or more references to visual page elements
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub page_refs: std::vec::Vec<crate::model::document::page_anchor::PageRef>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3871,12 +3945,13 @@ pub mod document {
             ///
             /// [google.cloud.documentai.v1.Document.pages]: crate::model::Document::pages
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DisplayFromStr")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub page: i64,
 
             /// Optional. The type of the layout element that is being referenced if
             /// any.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub layout_type: crate::model::document::page_anchor::page_ref::LayoutType,
 
             /// Optional. Deprecated.  Use
@@ -3885,6 +3960,7 @@ pub mod document {
             ///
             /// [google.cloud.documentai.v1.Document.PageAnchor.PageRef.bounding_poly]: crate::model::document::page_anchor::PageRef::bounding_poly
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             #[deprecated]
             pub layout_id: std::string::String,
 
@@ -3897,7 +3973,7 @@ pub mod document {
             /// Optional. Confidence of detected page element, if applicable. Range
             /// `[0, 1]`.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::F32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
             pub confidence: f32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4180,24 +4256,26 @@ pub mod document {
     pub struct Provenance {
         /// The index of the revision that produced this element.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         #[deprecated]
         pub revision: i32,
 
         /// The Id of this operation.  Needs to be unique within the scope of the
         /// revision.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         #[deprecated]
         pub id: i32,
 
         /// References to the original elements that are replaced.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub parents: std::vec::Vec<crate::model::document::provenance::Parent>,
 
         /// The type of provenance operation.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::document::provenance::OperationType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4266,18 +4344,18 @@ pub mod document {
         pub struct Parent {
             /// The index of the index into current revision's parent_ids list.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub revision: i32,
 
             /// The index of the parent item in the corresponding item list (eg. list
             /// of entities, properties within entities, etc.) in the parent revision.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub index: i32,
 
             /// The id of the parent provenance.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             #[deprecated]
             pub id: i32,
 
@@ -4505,13 +4583,14 @@ pub mod document {
         /// Id of the revision, internally generated by doc proto storage.
         /// Unique within the context of the document.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub id: std::string::String,
 
         /// The revisions that this revision is based on.  This can include one or
         /// more parent (when documents are merged.)  This field represents the
         /// index into the `revisions` field.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
         #[deprecated]
         pub parent: std::vec::Vec<i32>,
 
@@ -4519,6 +4598,7 @@ pub mod document {
         /// that have anything to do with this revision - eg. there are
         /// `provenance.parent.revision` fields that index into this field.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub parent_ids: std::vec::Vec<std::string::String>,
 
         /// The time that the revision was created, internally generated by
@@ -4690,11 +4770,13 @@ pub mod document {
         pub struct HumanReview {
             /// Human review state. e.g. `requested`, `succeeded`, `rejected`.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub state: std::string::String,
 
             /// A message providing more details about the current state of processing.
             /// For example, the rejection reason when the state is `rejected`.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub state_message: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4736,10 +4818,10 @@ pub mod document {
         pub enum Source {
             /// If the change was made by a person specify the name or id of that
             /// person.
-            Agent(std::string::String),
+            Agent(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// If the annotation was made by processor identify the processor by its
             /// resource name.
-            Processor(std::string::String),
+            Processor(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 
@@ -4762,10 +4844,12 @@ pub mod document {
 
         /// The text that replaces the text identified in the `text_anchor`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub changed_text: std::string::String,
 
         /// The history of this annotation.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         #[deprecated]
         pub provenance: std::vec::Vec<crate::model::document::Provenance>,
 
@@ -4833,6 +4917,7 @@ pub mod document {
     pub struct DocumentLayout {
         /// List of blocks in the document.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub blocks: std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4876,6 +4961,7 @@ pub mod document {
         pub struct DocumentLayoutBlock {
             /// ID of the block.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub block_id: std::string::String,
 
             /// Page span of the block.
@@ -5070,12 +5156,12 @@ pub mod document {
             pub struct LayoutPageSpan {
                 /// Page where block starts in the document.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::I32")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
                 pub page_start: i32,
 
                 /// Page where block ends in the document.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::I32")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
                 pub page_end: i32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5114,6 +5200,7 @@ pub mod document {
             pub struct LayoutTextBlock {
                 /// Text content stored in the block.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub text: std::string::String,
 
                 /// Type of the text in the block. Available options are: `paragraph`,
@@ -5121,11 +5208,13 @@ pub mod document {
                 /// `heading-5`, `header`, `footer`.
                 #[serde(rename = "type")]
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub r#type: std::string::String,
 
                 /// A text block could further have child blocks.
                 /// Repeated blocks support further hierarchies and nested blocks.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub blocks:
                     std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
 
@@ -5184,18 +5273,21 @@ pub mod document {
             pub struct LayoutTableBlock {
                 /// Header rows at the top of the table.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub header_rows: std::vec::Vec<
                     crate::model::document::document_layout::document_layout_block::LayoutTableRow,
                 >,
 
                 /// Body rows containing main table content.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub body_rows: std::vec::Vec<
                     crate::model::document::document_layout::document_layout_block::LayoutTableRow,
                 >,
 
                 /// Table caption/title.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub caption: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5253,6 +5345,7 @@ pub mod document {
             pub struct LayoutTableRow {
                 /// A table row is a list of table cells.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub cells: std::vec::Vec<
                     crate::model::document::document_layout::document_layout_block::LayoutTableCell,
                 >,
@@ -5293,17 +5386,18 @@ pub mod document {
                 /// A table cell is a list of blocks.
                 /// Repeated blocks support further hierarchies and nested blocks.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub blocks:
                     std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
 
                 /// How many rows this cell spans.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::I32")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
                 pub row_span: i32,
 
                 /// How many columns this cell spans.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::I32")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
                 pub col_span: i32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5355,6 +5449,7 @@ pub mod document {
             pub struct LayoutListBlock {
                 /// List entries that constitute a list block.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub list_entries: std::vec::Vec<
                     crate::model::document::document_layout::document_layout_block::LayoutListEntry,
                 >,
@@ -5363,6 +5458,7 @@ pub mod document {
                 /// and `unordered`.
                 #[serde(rename = "type")]
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub r#type: std::string::String,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5410,6 +5506,7 @@ pub mod document {
                 /// A list entry is a list of blocks.
                 /// Repeated blocks support further hierarchies and nested blocks.
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub blocks:
                     std::vec::Vec<crate::model::document::document_layout::DocumentLayoutBlock>,
 
@@ -5465,6 +5562,7 @@ pub mod document {
     pub struct ChunkedDocument {
         /// List of chunks.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub chunks: std::vec::Vec<crate::model::document::chunked_document::Chunk>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5507,14 +5605,17 @@ pub mod document {
         pub struct Chunk {
             /// ID of the chunk.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub chunk_id: std::string::String,
 
             /// Unused.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub source_block_ids: std::vec::Vec<std::string::String>,
 
             /// Text content of the chunk.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub content: std::string::String,
 
             /// Page span of the chunk.
@@ -5524,11 +5625,13 @@ pub mod document {
 
             /// Page headers associated with the chunk.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub page_headers:
                 std::vec::Vec<crate::model::document::chunked_document::chunk::ChunkPageHeader>,
 
             /// Page footers associated with the chunk.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub page_footers:
                 std::vec::Vec<crate::model::document::chunked_document::chunk::ChunkPageFooter>,
 
@@ -5635,12 +5738,12 @@ pub mod document {
             pub struct ChunkPageSpan {
                 /// Page where chunk starts in the document.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::I32")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
                 pub page_start: i32,
 
                 /// Page where chunk ends in the document.
                 #[serde(skip_serializing_if = "wkt::internal::is_default")]
-                #[serde_as(as = "wkt::internal::I32")]
+                #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
                 pub page_end: i32,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5679,6 +5782,7 @@ pub mod document {
             pub struct ChunkPageHeader {
                 /// Header in text format.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub text: std::string::String,
 
                 /// Page span of the header.
@@ -5742,6 +5846,7 @@ pub mod document {
             pub struct ChunkPageFooter {
                 /// Footer in text format.
                 #[serde(skip_serializing_if = "std::string::String::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                 pub text: std::string::String,
 
                 /// Page span of the footer.
@@ -5809,11 +5914,14 @@ pub mod document {
         /// `gs://bucket_name/object_name`. Object versioning is not supported.
         /// For more information, refer to [Google Cloud Storage Request
         /// URIs](https://cloud.google.com/storage/docs/reference-uris).
-        Uri(std::string::String),
+        Uri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Optional. Inline document content, represented as a stream of bytes.
         /// Note: As with all `bytes` fields, protobuffers use a pure binary
         /// representation, whereas JSON representations use base64.
-        Content(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Content(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
     }
 }
 
@@ -5825,7 +5933,7 @@ pub mod document {
 pub struct RawDocument {
     /// Inline document content.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub content: ::bytes::Bytes,
 
     /// An IANA MIME type (RFC6838) indicating the nature and format of the
@@ -5833,6 +5941,7 @@ pub struct RawDocument {
     ///
     /// [google.cloud.documentai.v1.RawDocument.content]: crate::model::RawDocument::content
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mime_type: std::string::String,
 
     /// The display name of the document, it supports all Unicode characters except
@@ -5841,6 +5950,7 @@ pub struct RawDocument {
     /// `~`, `=` and `:` are reserved.
     /// If not specified, a default ID is generated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5885,10 +5995,12 @@ impl wkt::message::Message for RawDocument {
 pub struct GcsDocument {
     /// The Cloud Storage object uri.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gcs_uri: std::string::String,
 
     /// An IANA MIME type (RFC6838) of the content.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mime_type: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5927,6 +6039,7 @@ impl wkt::message::Message for GcsDocument {
 pub struct GcsDocuments {
     /// The list of documents.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub documents: std::vec::Vec<crate::model::GcsDocument>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5964,6 +6077,7 @@ impl wkt::message::Message for GcsDocuments {
 pub struct GcsPrefix {
     /// The URI prefix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gcs_uri_prefix: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6193,6 +6307,7 @@ pub mod document_output_config {
     pub struct GcsOutputConfig {
         /// The Cloud Storage uri (a directory) of the output.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub gcs_uri: std::string::String,
 
         /// Specifies which fields to include in the output documents.
@@ -6282,12 +6397,12 @@ pub mod document_output_config {
         pub struct ShardingConfig {
             /// The number of pages per shard.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub pages_per_shard: i32,
 
             /// The number of overlapping pages between consecutive shards.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub pages_overlap: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6343,12 +6458,14 @@ pub struct OcrConfig {
     /// Enables special handling for PDFs with existing text information. Results
     /// in better text extraction quality in such PDF inputs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_native_pdf_parsing: bool,
 
     /// Enables intelligent document quality scores after OCR. Can help with
     /// diagnosing why OCR responses are of poor quality for a given input.
     /// Adds additional latency comparable to regular OCR to the process call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_image_quality_scores: bool,
 
     /// A list of advanced OCR options to further fine-tune OCR behavior. Current
@@ -6359,10 +6476,12 @@ pub struct OcrConfig {
     ///   Customers can choose the best suitable layout algorithm based on their
     ///   situation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub advanced_ocr_options: std::vec::Vec<std::string::String>,
 
     /// Includes symbol level OCR information if set to true.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_symbol: bool,
 
     /// Turn on font identification model and return font style information.
@@ -6372,12 +6491,14 @@ pub struct OcrConfig {
     ///
     /// [google.cloud.documentai.v1.OcrConfig.PremiumFeatures.compute_style_info]: crate::model::ocr_config::PremiumFeatures::compute_style_info
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub compute_style_info: bool,
 
     /// Turn off character box detector in OCR engine. Character box detection is
     /// enabled by default in OCR 2.0 (and later) processors.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disable_character_boxes_detection: bool,
 
     /// Configurations for premium OCR features.
@@ -6499,6 +6620,7 @@ pub mod ocr_config {
         /// image is known, setting a hint will help get better results (although it
         /// will be a significant hindrance if the hint is wrong).
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub language_hints: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6537,14 +6659,17 @@ pub mod ocr_config {
         /// Turn on selection mark detector in OCR engine. Only available in OCR 2.0
         /// (and later) processors.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_selection_mark_detection: bool,
 
         /// Turn on font identification model and return font style information.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub compute_style_info: bool,
 
         /// Turn on the model that can extract LaTeX math formulas.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_math_ocr: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6804,11 +6929,13 @@ pub mod process_options {
 
         /// Optional. Whether to include images in layout parser processor response.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub return_images: bool,
 
         /// Optional. Whether to include bounding boxes in layout parser processor
         /// response.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub return_bounding_boxes: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6871,11 +6998,12 @@ pub mod process_options {
             /// Optional. The chunk sizes to use when splitting documents, in order of
             /// level.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub chunk_size: i32,
 
             /// Optional. Whether or not to include ancestor headings when splitting.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub include_ancestor_headings: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6918,7 +7046,7 @@ pub mod process_options {
     pub struct IndividualPageSelector {
         /// Optional. Indices of the pages (starting from 1).
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
         pub pages: std::vec::Vec<i32>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6969,9 +7097,9 @@ pub mod process_options {
         ),
         /// Only process certain pages from the start. Process all if the document
         /// has fewer pages.
-        FromStart(#[serde_as(as = "wkt::internal::I32")] i32),
+        FromStart(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
         /// Only process certain pages from the end, same as above.
-        FromEnd(#[serde_as(as = "wkt::internal::I32")] i32),
+        FromEnd(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
     }
 }
 
@@ -7000,11 +7128,13 @@ pub struct ProcessRequest {
     /// [google.cloud.documentai.v1.Processor.default_processor_version]: crate::model::Processor::default_processor_version
     /// [google.cloud.documentai.v1.ProcessorVersion]: crate::model::ProcessorVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Whether human review should be skipped for this request. Default to
     /// `false`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_human_review: bool,
 
     /// Specifies which fields to include in the
@@ -7027,10 +7157,12 @@ pub struct ProcessRequest {
     /// characters, underscores, and dashes. International characters are allowed.
     /// Label values are optional. Label keys must start with a letter.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Option to remove images from the document.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub imageless_mode: bool,
 
     /// The document payload.
@@ -7239,10 +7371,12 @@ pub mod process_request {
 pub struct HumanReviewStatus {
     /// The state of human review on the processing request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::human_review_status::State,
 
     /// A message providing more details about the human review state.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_message: std::string::String,
 
     /// The name of the operation triggered by the processed document. This field
@@ -7255,6 +7389,7 @@ pub struct HumanReviewStatus {
     /// [google.cloud.documentai.v1.DocumentProcessorService.ReviewDocument]: crate::client::DocumentProcessorService::review_document
     /// [google.cloud.documentai.v1.HumanReviewStatus.state]: crate::model::HumanReviewStatus::state
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub human_review_operation: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7545,6 +7680,7 @@ pub struct BatchProcessRequest {
     /// [google.cloud.documentai.v1.Processor]: crate::model::Processor
     /// [google.cloud.documentai.v1.ProcessorVersion]: crate::model::ProcessorVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The input documents for the
@@ -7566,6 +7702,7 @@ pub struct BatchProcessRequest {
     /// Whether human review should be skipped for this request. Default to
     /// `false`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_human_review: bool,
 
     /// Inference-time options for the process API
@@ -7579,6 +7716,7 @@ pub struct BatchProcessRequest {
     /// characters, underscores, and dashes. International characters are allowed.
     /// Label values are optional. Label keys must start with a letter.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7711,11 +7849,13 @@ impl wkt::message::Message for BatchProcessResponse {
 pub struct BatchProcessMetadata {
     /// The state of the current batch processing.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::batch_process_metadata::State,
 
     /// A message providing more details about the current state of processing.
     /// For example, the error message if the operation is failed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_message: std::string::String,
 
     /// The creation time of the operation.
@@ -7728,6 +7868,7 @@ pub struct BatchProcessMetadata {
 
     /// The list of response details of each document.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub individual_process_statuses:
         std::vec::Vec<crate::model::batch_process_metadata::IndividualProcessStatus>,
 
@@ -7826,6 +7967,7 @@ pub mod batch_process_metadata {
         ///
         /// [google.cloud.documentai.v1.BatchProcessMetadata.IndividualProcessStatus.input_gcs_source]: crate::model::batch_process_metadata::IndividualProcessStatus::input_gcs_source
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub input_gcs_source: std::string::String,
 
         /// The status processing the document.
@@ -7838,6 +7980,7 @@ pub mod batch_process_metadata {
         ///
         /// [google.cloud.documentai.v1.DocumentOutputConfig.GcsOutputConfig.gcs_uri]: crate::model::document_output_config::GcsOutputConfig::gcs_uri
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub output_gcs_destination: std::string::String,
 
         /// The status of human review on the processed document.
@@ -8089,6 +8232,7 @@ pub struct FetchProcessorTypesRequest {
     /// Required. The location of processor types to list.
     /// Format: `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8125,6 +8269,7 @@ impl wkt::message::Message for FetchProcessorTypesRequest {
 pub struct FetchProcessorTypesResponse {
     /// The list of processor types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub processor_types: std::vec::Vec<crate::model::ProcessorType>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8168,17 +8313,19 @@ pub struct ListProcessorTypesRequest {
     /// Required. The location of processor types to list.
     /// Format: `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of processor types to return.
     /// If unspecified, at most `100` processor types will be returned.
     /// The maximum value is `500`. Values above `500` will be coerced to `500`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Used to retrieve the next page of results, empty if at the end of the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8227,10 +8374,12 @@ impl wkt::message::Message for ListProcessorTypesRequest {
 pub struct ListProcessorTypesResponse {
     /// The processor types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub processor_types: std::vec::Vec<crate::model::ProcessorType>,
 
     /// Points to the next page, otherwise empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8289,18 +8438,20 @@ pub struct ListProcessorsRequest {
     /// Required. The parent (project and location) which owns this collection of
     /// Processors. Format: `projects/{project}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of processors to return.
     /// If unspecified, at most `50` processors will be returned.
     /// The maximum value is `100`. Values above `100` will be coerced to `100`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// We will return the processors sorted by creation time. The page token
     /// will point to the next processor.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8349,10 +8500,12 @@ impl wkt::message::Message for ListProcessorsRequest {
 pub struct ListProcessorsResponse {
     /// The list of processors.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub processors: std::vec::Vec<crate::model::Processor>,
 
     /// Points to the next processor, otherwise empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8414,6 +8567,7 @@ impl gax::paginator::internal::PageableResponse for ListProcessorsResponse {
 pub struct GetProcessorTypeRequest {
     /// Required. The processor type resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8450,6 +8604,7 @@ impl wkt::message::Message for GetProcessorTypeRequest {
 pub struct GetProcessorRequest {
     /// Required. The processor resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8486,6 +8641,7 @@ impl wkt::message::Message for GetProcessorRequest {
 pub struct GetProcessorVersionRequest {
     /// Required. The processor resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8520,18 +8676,20 @@ pub struct ListProcessorVersionsRequest {
     /// versions. Format:
     /// `projects/{project}/locations/{location}/processors/{processor}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of processor versions to return.
     /// If unspecified, at most `10` processor versions will be returned.
     /// The maximum value is `20`. Values above `20` will be coerced to `20`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// We will return the processor versions sorted by creation time. The page
     /// token will point to the next processor version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8580,10 +8738,12 @@ impl wkt::message::Message for ListProcessorVersionsRequest {
 pub struct ListProcessorVersionsResponse {
     /// The list of processors.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub processor_versions: std::vec::Vec<crate::model::ProcessorVersion>,
 
     /// Points to the next processor, otherwise empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8645,6 +8805,7 @@ impl gax::paginator::internal::PageableResponse for ListProcessorVersionsRespons
 pub struct DeleteProcessorVersionRequest {
     /// Required. The processor version resource name to be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8729,6 +8890,7 @@ impl wkt::message::Message for DeleteProcessorVersionMetadata {
 pub struct DeployProcessorVersionRequest {
     /// Required. The processor version resource name to be deployed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8839,6 +9001,7 @@ impl wkt::message::Message for DeployProcessorVersionMetadata {
 pub struct UndeployProcessorVersionRequest {
     /// Required. The processor version resource name to be undeployed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8953,6 +9116,7 @@ pub struct CreateProcessorRequest {
     /// Required. The parent (project and location) under which to create the
     /// processor. Format: `projects/{project}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The processor to be created, requires
@@ -9020,6 +9184,7 @@ impl wkt::message::Message for CreateProcessorRequest {
 pub struct DeleteProcessorRequest {
     /// Required. The processor resource name to be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9104,6 +9269,7 @@ impl wkt::message::Message for DeleteProcessorMetadata {
 pub struct EnableProcessorRequest {
     /// Required. The processor resource name to be enabled.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9214,6 +9380,7 @@ impl wkt::message::Message for EnableProcessorMetadata {
 pub struct DisableProcessorRequest {
     /// Required. The processor resource name to be disabled.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9328,6 +9495,7 @@ pub struct SetDefaultProcessorVersionRequest {
     ///
     /// [google.cloud.documentai.v1.Processor]: crate::model::Processor
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub processor: std::string::String,
 
     /// Required. The resource name of child
@@ -9337,6 +9505,7 @@ pub struct SetDefaultProcessorVersionRequest {
     ///
     /// [google.cloud.documentai.v1.ProcessorVersion]: crate::model::ProcessorVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_processor_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9458,6 +9627,7 @@ pub struct TrainProcessorVersionRequest {
     /// version for. Format:
     /// `projects/{project}/locations/{location}/processors/{processor}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The processor version to be created.
@@ -9479,6 +9649,7 @@ pub struct TrainProcessorVersionRequest {
     /// processor version must be a child of `parent`. Format:
     /// `projects/{project}/locations/{location}/processors/{processor}/processorVersions/{processorVersion}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub base_processor_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -9750,6 +9921,7 @@ pub mod train_processor_version_request {
 
         /// Training method to use for CDE training.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub training_method: crate::model::train_processor_version_request::custom_document_extraction_options::TrainingMethod,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9921,14 +10093,14 @@ pub mod train_processor_version_request {
         /// Optional. The number of steps to run for model tuning. Valid values are
         /// between 1 and 400. If not provided, recommended steps will be used.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub train_steps: i32,
 
         /// Optional. The multiplier to apply to the recommended learning rate. Valid
         /// values are between 0.1 and 10. If not provided, recommended learning rate
         /// will be used.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub learning_rate_multiplier: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9990,6 +10162,7 @@ pub mod train_processor_version_request {
 pub struct TrainProcessorVersionResponse {
     /// The resource name of the processor version produced by training.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub processor_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10121,24 +10294,26 @@ pub mod train_processor_version_metadata {
     pub struct DatasetValidation {
         /// The total number of document errors.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub document_error_count: i32,
 
         /// The total number of dataset errors.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub dataset_error_count: i32,
 
         /// Error information pertaining to specific documents. A maximum of 10
         /// document errors will be returned.
         /// Any document with errors will not be used throughout training.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub document_errors: std::vec::Vec<rpc::model::Status>,
 
         /// Error information for the dataset as a whole. A maximum of 10 dataset
         /// errors will be returned.
         /// A single dataset error is terminal for training.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub dataset_errors: std::vec::Vec<rpc::model::Status>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10206,14 +10381,17 @@ pub struct ReviewDocumentRequest {
     /// [HumanReviewConfig][google.cloud.documentai.v1.HumanReviewConfig] that the
     /// document will be reviewed with.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub human_review_config: std::string::String,
 
     /// Whether the validation should be performed on the ad-hoc review request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_schema_validation: bool,
 
     /// The priority of the human review task.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub priority: crate::model::review_document_request::Priority,
 
     /// The document schema of the human review task.
@@ -10479,14 +10657,17 @@ pub struct ReviewDocumentResponse {
     /// The Cloud Storage uri for the human reviewed document if the review is
     /// succeeded.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gcs_destination: std::string::String,
 
     /// The state of the review operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::review_document_response::State,
 
     /// The reason why the review is rejected by reviewer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rejection_reason: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10683,6 +10864,7 @@ pub struct ReviewDocumentOperationMetadata {
 
     /// The Crowd Compute question ID.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub question_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10742,6 +10924,7 @@ pub struct EvaluateProcessorVersionRequest {
     ///
     /// [google.cloud.documentai.v1.ProcessorVersion]: crate::model::ProcessorVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub processor_version: std::string::String,
 
     /// Optional. The documents used in the evaluation. If unspecified, use the
@@ -10852,6 +11035,7 @@ impl wkt::message::Message for EvaluateProcessorVersionMetadata {
 pub struct EvaluateProcessorVersionResponse {
     /// The resource name of the created evaluation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub evaluation: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10888,6 +11072,7 @@ pub struct GetEvaluationRequest {
     ///
     /// [google.cloud.documentai.v1.Evaluation]: crate::model::Evaluation
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10928,18 +11113,20 @@ pub struct ListEvaluationsRequest {
     ///
     /// [google.cloud.documentai.v1.ProcessorVersion]: crate::model::ProcessorVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The standard list page size.
     /// If unspecified, at most `5` evaluations are returned.
     /// The maximum value is `100`. Values above `100` are coerced to `100`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListEvaluations` call.
     /// Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10984,11 +11171,13 @@ impl wkt::message::Message for ListEvaluationsRequest {
 pub struct ListEvaluationsResponse {
     /// The evaluations requested.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub evaluations: std::vec::Vec<crate::model::Evaluation>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11046,14 +11235,17 @@ impl gax::paginator::internal::PageableResponse for ListEvaluationsResponse {
 pub struct DocumentSchema {
     /// Display name to show to users.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Description of the schema.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Entity types of the schema.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entity_types: std::vec::Vec<crate::model::document_schema::EntityType>,
 
     /// Metadata of the schema.
@@ -11132,6 +11324,7 @@ pub mod document_schema {
     pub struct EntityType {
         /// User defined name for the type.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_name: std::string::String,
 
         /// Name of the type. It must be unique within the schema file and
@@ -11148,15 +11341,18 @@ pub mod document_schema {
         ///   `line_item/amount`.  This convention is deprecated, but will still be
         ///   honored for backward compatibility.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// The entity type that this type is derived from.  For now, one and only
         /// one should be set.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub base_types: std::vec::Vec<std::string::String>,
 
         /// Description the nested structure, or composition of an entity.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub properties: std::vec::Vec<crate::model::document_schema::entity_type::Property>,
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -11281,6 +11477,7 @@ pub mod document_schema {
         pub struct EnumValues {
             /// The individual values that this enum values type can include.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub values: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11319,20 +11516,24 @@ pub mod document_schema {
             /// The name of the property.  Follows the same guidelines as the
             /// EntityType name.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub name: std::string::String,
 
             /// User defined name for the property.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub display_name: std::string::String,
 
             /// A reference to the value type of the property.  This type is subject
             /// to the same conventions as the `Entity.base_types` field.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub value_type: std::string::String,
 
             /// Occurrence type limits the number of instances an entity type appears
             /// in the document.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub occurrence_type:
                 crate::model::document_schema::entity_type::property::OccurrenceType,
 
@@ -11579,21 +11780,25 @@ pub mod document_schema {
         /// (splitting). Otherwise, it can only be applied to the entire document
         /// (classification).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub document_splitter: bool,
 
         /// If true, on a given page, there can be multiple `document` annotations
         /// covering it.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub document_allow_multiple_labels: bool,
 
         /// If set, all the nested entities must be prefixed with the parents.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub prefixed_naming_on_properties: bool,
 
         /// If set, we will skip the naming format validation in the schema. So the
         /// string values in `DocumentSchema.EntityType.name` and
         /// `DocumentSchema.EntityType.Property.name` will not be checked.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub skip_naming_validation: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11651,10 +11856,12 @@ pub mod document_schema {
 pub struct EvaluationReference {
     /// The resource name of the Long Running Operation for the evaluation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub operation: std::string::String,
 
     /// The resource name of the evaluation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub evaluation: std::string::String,
 
     /// An aggregate of the statistics for the evaluation with fuzzy matching on.
@@ -11739,6 +11946,7 @@ pub struct Evaluation {
     /// Format:
     /// `projects/{project}/locations/{location}/processors/{processor}/processorVersions/{processor_version}/evaluations/{evaluation}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The time that the evaluation was created.
@@ -11755,6 +11963,7 @@ pub struct Evaluation {
 
     /// Metrics across confidence levels, for different entities.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub entity_metrics: std::collections::HashMap<
         std::string::String,
         crate::model::evaluation::MultiConfidenceMetrics,
@@ -11762,10 +11971,12 @@ pub struct Evaluation {
 
     /// The KMS key name used for encryption.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// The KMS key version with which data is encrypted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_version_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11884,24 +12095,24 @@ pub mod evaluation {
     pub struct Counters {
         /// How many documents were sent for evaluation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub input_documents_count: i32,
 
         /// How many documents were not included in the evaluation as they didn't
         /// pass validation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub invalid_documents_count: i32,
 
         /// How many documents were not included in the evaluation as Document AI
         /// failed to process them.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub failed_documents_count: i32,
 
         /// How many documents were used in the evaluation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub evaluated_documents_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11952,57 +12163,57 @@ pub mod evaluation {
     pub struct Metrics {
         /// The calculated precision.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub precision: f32,
 
         /// The calculated recall.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub recall: f32,
 
         /// The calculated f1 score.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub f1_score: f32,
 
         /// The amount of occurrences in predicted documents.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub predicted_occurrences_count: i32,
 
         /// The amount of occurrences in ground truth documents.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub ground_truth_occurrences_count: i32,
 
         /// The amount of documents with a predicted occurrence.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub predicted_document_count: i32,
 
         /// The amount of documents with a ground truth occurrence.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub ground_truth_document_count: i32,
 
         /// The amount of true positives.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub true_positives_count: i32,
 
         /// The amount of false positives.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub false_positives_count: i32,
 
         /// The amount of false negatives.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub false_negatives_count: i32,
 
         /// The amount of documents that had an occurrence of this label.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub total_documents_count: i32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12098,7 +12309,7 @@ pub mod evaluation {
     pub struct ConfidenceLevelMetrics {
         /// The confidence level.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub confidence_level: f32,
 
         /// The metrics at the specific confidence level.
@@ -12153,40 +12364,43 @@ pub mod evaluation {
     pub struct MultiConfidenceMetrics {
         /// Metrics across confidence levels with fuzzy matching enabled.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub confidence_level_metrics:
             std::vec::Vec<crate::model::evaluation::ConfidenceLevelMetrics>,
 
         /// Metrics across confidence levels with only exact matching.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub confidence_level_metrics_exact:
             std::vec::Vec<crate::model::evaluation::ConfidenceLevelMetrics>,
 
         /// The calculated area under the precision recall curve (AUPRC), computed by
         /// integrating over all confidence thresholds.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub auprc: f32,
 
         /// The Estimated Calibration Error (ECE) of the confidence of the predicted
         /// entities.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub estimated_calibration_error: f32,
 
         /// The AUPRC for metrics with fuzzy matching disabled, i.e., exact matching
         /// only.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub auprc_exact: f32,
 
         /// The ECE for the predicted entities with fuzzy matching disabled, i.e.,
         /// exact matching only.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::F32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
         pub estimated_calibration_error_exact: f32,
 
         /// The metrics type for the label.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub metrics_type: crate::model::evaluation::multi_confidence_metrics::MetricsType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12415,12 +12629,12 @@ pub mod evaluation {
 pub struct Vertex {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub x: i32,
 
     /// Y coordinate (starts from the top of the image).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub y: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12461,12 +12675,12 @@ impl wkt::message::Message for Vertex {
 pub struct NormalizedVertex {
     /// X coordinate.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub x: f32,
 
     /// Y coordinate (starts from the top of the image).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub y: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12505,10 +12719,12 @@ impl wkt::message::Message for NormalizedVertex {
 pub struct BoundingPoly {
     /// The bounding polygon vertices.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub vertices: std::vec::Vec<crate::model::Vertex>,
 
     /// The bounding polygon normalized vertices.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub normalized_vertices: std::vec::Vec<crate::model::NormalizedVertex>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12557,14 +12773,17 @@ impl wkt::message::Message for BoundingPoly {
 pub struct CommonOperationMetadata {
     /// The state of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::common_operation_metadata::State,
 
     /// A message providing more details about the current state of processing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_message: std::string::String,
 
     /// A related resource to this operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource: std::string::String,
 
     /// The creation time of the operation.
@@ -12820,10 +13039,12 @@ pub struct ProcessorVersion {
     /// Format:
     /// `projects/{project}/locations/{location}/processors/{processor}/processorVersions/{processor_version}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The display name of the processor version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The schema of the processor version. Describes the output.
@@ -12832,6 +13053,7 @@ pub struct ProcessorVersion {
 
     /// Output only. The state of the processor version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::processor_version::State,
 
     /// The time the processor version was created.
@@ -12844,14 +13066,17 @@ pub struct ProcessorVersion {
 
     /// The KMS key name used for encryption.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// The KMS key version with which data is encrypted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_version_name: std::string::String,
 
     /// Output only. Denotes that this `ProcessorVersion` is managed by Google.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub google_managed: bool,
 
     /// If set, information about the eventual deprecation of this version.
@@ -12860,14 +13085,17 @@ pub struct ProcessorVersion {
 
     /// Output only. The model type of this processor version.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model_type: crate::model::processor_version::ModelType,
 
     /// Output only. Reserved for future use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub satisfies_pzs: bool,
 
     /// Output only. Reserved for future use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub satisfies_pzi: bool,
 
     /// Output only. Information about Generative AI model-based processor
@@ -13061,6 +13289,7 @@ pub mod processor_version {
 
         /// If set, the processor version that will be used as a replacement.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub replacement_processor_version: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13236,12 +13465,13 @@ pub mod processor_version {
         pub struct FoundationGenAiModelInfo {
             /// Whether finetuning is allowed for this base processor version.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub finetuning_allowed: bool,
 
             /// The minimum number of labeled documents in the training dataset
             /// required for finetuning.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "wkt::internal::I32")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub min_train_labeled_documents: i32,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13286,10 +13516,12 @@ pub mod processor_version {
 
             /// The type of custom model created by the user.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub custom_model_type: crate::model::processor_version::gen_ai_model_info::custom_gen_ai_model_info::CustomModelType,
 
             /// The base processor version ID for the custom model.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub base_processor_version_id: std::string::String,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13804,10 +14036,12 @@ pub mod processor_version {
 pub struct ProcessorVersionAlias {
     /// The alias in the form of `processor_version` resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub alias: std::string::String,
 
     /// The resource name of aliased processor version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub processor_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13851,6 +14085,7 @@ pub struct Processor {
     /// Output only. Immutable. The resource name of the processor.
     /// Format: `projects/{project}/locations/{location}/processors/{processor}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The processor type, such as: `OCR_PROCESSOR`, `INVOICE_PROCESSOR`.
@@ -13860,27 +14095,33 @@ pub struct Processor {
     /// [google.cloud.documentai.v1.DocumentProcessorService.FetchProcessorTypes]: crate::client::DocumentProcessorService::fetch_processor_types
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// The display name of the processor.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. The state of the processor.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::processor::State,
 
     /// The default processor version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_processor_version: std::string::String,
 
     /// Output only. The processor version aliases.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub processor_version_aliases: std::vec::Vec<crate::model::ProcessorVersionAlias>,
 
     /// Output only. Immutable. The http endpoint that can be called to invoke
     /// processing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub process_endpoint: std::string::String,
 
     /// The time the processor was created.
@@ -13890,14 +14131,17 @@ pub struct Processor {
     /// The [KMS key](https://cloud.google.com/security-key-management) used for
     /// encryption and decryption in CMEK scenarios.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// Output only. Reserved for future use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub satisfies_pzs: bool,
 
     /// Output only. Reserved for future use.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub satisfies_pzi: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14199,32 +14443,39 @@ pub struct ProcessorType {
     /// The resource name of the processor type.
     /// Format: `projects/{project}/processorTypes/{processor_type}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The processor type, such as: `OCR_PROCESSOR`, `INVOICE_PROCESSOR`.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// The processor category, used by UI to group processor types.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub category: std::string::String,
 
     /// The locations in which this processor is available.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub available_locations: std::vec::Vec<crate::model::processor_type::LocationInfo>,
 
     /// Whether the processor type allows creation. If true, users can create a
     /// processor of this processor type. Otherwise, users need to request access.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_creation: bool,
 
     /// Launch stage of the processor type
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub launch_stage: api::model::LaunchStage,
 
     /// A set of Cloud Storage URIs of sample documents for this processor.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub sample_document_uris: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14312,6 +14563,7 @@ pub mod processor_type {
         /// The location ID. For supported locations, refer to [regional and
         /// multi-regional support](/document-ai/docs/regions).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub location_id: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

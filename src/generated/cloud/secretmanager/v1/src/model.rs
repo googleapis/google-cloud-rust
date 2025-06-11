@@ -52,6 +52,7 @@ pub struct Secret {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Immutable. The replication policy of the secret data attached to
@@ -82,11 +83,13 @@ pub struct Secret {
     ///
     /// No more than 64 labels can be assigned to a given resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. A list of up to 10 Pub/Sub topics to which messages are published
     /// when control plane operations are called on the secret or its versions.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub topics: std::vec::Vec<crate::model::Topic>,
 
     /// Optional. Etag of the currently stored
@@ -94,6 +97,7 @@ pub struct Secret {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. Rotation policy attached to the
@@ -116,7 +120,7 @@ pub struct Secret {
     /// UpdateSecret. Access by alias is only be supported on
     /// GetSecretVersion and AccessSecretVersion.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::I64>>")]
     pub version_aliases: std::collections::HashMap<std::string::String, i64>,
 
     /// Optional. Custom metadata about the secret.
@@ -132,6 +136,7 @@ pub struct Secret {
     ///
     /// The total size of annotation keys and values must be less than 16KiB.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Secret Version TTL after destruction request
@@ -456,6 +461,7 @@ pub struct SecretVersion {
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The time at which the
@@ -482,6 +488,7 @@ pub struct SecretVersion {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::secret_version::State,
 
     /// The replication status of the
@@ -496,6 +503,7 @@ pub struct SecretVersion {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Output only. True if payload checksum specified in
@@ -509,6 +517,7 @@ pub struct SecretVersion {
     /// [google.cloud.secretmanager.v1.SecretManagerService.AddSecretVersion]: crate::client::SecretManagerService::add_secret_version
     /// [google.cloud.secretmanager.v1.SecretPayload]: crate::model::SecretPayload
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub client_specified_payload_checksum: bool,
 
     /// Optional. Output only. Scheduled destroy time for secret version.
@@ -1015,6 +1024,7 @@ pub mod replication {
         ///
         /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub replicas: std::vec::Vec<crate::model::replication::user_managed::Replica>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1061,6 +1071,7 @@ pub mod replication {
             /// The canonical IDs of the location to replicate data.
             /// For example: `"us-east1"`.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub location: std::string::String,
 
             /// Optional. The customer-managed encryption configuration of the
@@ -1170,6 +1181,7 @@ pub struct CustomerManagedEncryption {
     /// [google.cloud.secretmanager.v1.Replication.Automatic]: crate::model::replication::Automatic
     /// [google.cloud.secretmanager.v1.Replication.UserManaged]: crate::model::replication::UserManaged
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1393,6 +1405,7 @@ pub mod replication_status {
         ///
         /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub replicas:
             std::vec::Vec<crate::model::replication_status::user_managed_status::ReplicaStatus>,
 
@@ -1442,6 +1455,7 @@ pub mod replication_status {
             /// Output only. The canonical ID of the replica location.
             /// For example: `"us-east1"`.
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub location: std::string::String,
 
             /// Output only. The customer-managed encryption status of the
@@ -1544,6 +1558,7 @@ pub struct CustomerManagedEncryptionStatus {
     /// encrypt the secret payload, in the following format:
     /// `projects/*/locations/*/keyRings/*/cryptoKeys/*/versions/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_version_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1584,6 +1599,7 @@ pub struct Topic {
     /// `pubsub.topic.publish` permission on the topic. The Pub/Sub Publisher role
     /// (`roles/pubsub.publisher`) includes this permission.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1718,7 +1734,7 @@ impl wkt::message::Message for Rotation {
 pub struct SecretPayload {
     /// The secret data. Must be no larger than 64KiB.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub data: ::bytes::Bytes,
 
     /// Optional. If specified,
@@ -1744,7 +1760,7 @@ pub struct SecretPayload {
     /// [google.cloud.secretmanager.v1.SecretPayload.data]: crate::model::SecretPayload::data
     #[serde(rename = "dataCrc32c")]
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub data_crc32c: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1802,13 +1818,14 @@ pub struct ListSecretsRequest {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
@@ -1816,6 +1833,7 @@ pub struct ListSecretsRequest {
     ///
     /// [google.cloud.secretmanager.v1.ListSecretsResponse.next_page_token]: crate::model::ListSecretsResponse::next_page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter string, adhering to the rules in
@@ -1824,6 +1842,7 @@ pub struct ListSecretsRequest {
     /// only secrets matching the filter. If filter is empty, all secrets are
     /// listed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1880,6 +1899,7 @@ pub struct ListSecretsResponse {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub secrets: std::vec::Vec<crate::model::Secret>,
 
     /// A token to retrieve the next page of results. Pass this value in
@@ -1888,6 +1908,7 @@ pub struct ListSecretsResponse {
     ///
     /// [google.cloud.secretmanager.v1.ListSecretsRequest.page_token]: crate::model::ListSecretsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// The total number of [Secrets][google.cloud.secretmanager.v1.Secret] but 0
@@ -1898,7 +1919,7 @@ pub struct ListSecretsResponse {
     /// [google.cloud.secretmanager.v1.ListSecretsRequest.filter]: crate::model::ListSecretsRequest::filter
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1969,6 +1990,7 @@ pub struct CreateSecretRequest {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. This must be unique within the project.
@@ -1977,6 +1999,7 @@ pub struct CreateSecretRequest {
     /// contain uppercase and lowercase letters, numerals, and the hyphen (`-`) and
     /// underscore (`_`) characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secret_id: std::string::String,
 
     /// Required. A [Secret][google.cloud.secretmanager.v1.Secret] with initial
@@ -2049,6 +2072,7 @@ pub struct AddSecretVersionRequest {
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The secret payload of the
@@ -2113,6 +2137,7 @@ pub struct GetSecretRequest {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2154,18 +2179,20 @@ pub struct ListSecretVersionsRequest {
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of results to be returned in a single page. If
     /// set to 0, the server decides the number of results to return. If the
     /// number is greater than 25000, it is capped at 25000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Pagination token, returned earlier via
     /// ListSecretVersionsResponse.next_page_token][].
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter string, adhering to the rules in
@@ -2174,6 +2201,7 @@ pub struct ListSecretVersionsRequest {
     /// only secret versions matching the filter. If filter is empty, all secret
     /// versions are listed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2230,6 +2258,7 @@ pub struct ListSecretVersionsResponse {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub versions: std::vec::Vec<crate::model::SecretVersion>,
 
     /// A token to retrieve the next page of results. Pass this value in
@@ -2238,6 +2267,7 @@ pub struct ListSecretVersionsResponse {
     ///
     /// [google.cloud.secretmanager.v1.ListSecretVersionsRequest.page_token]: crate::model::ListSecretVersionsRequest::page_token
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// The total number of
@@ -2249,7 +2279,7 @@ pub struct ListSecretVersionsResponse {
     /// [google.cloud.secretmanager.v1.ListSecretsRequest.filter]: crate::model::ListSecretsRequest::filter
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub total_size: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2326,6 +2356,7 @@ pub struct GetSecretVersionRequest {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2443,6 +2474,7 @@ pub struct AccessSecretVersionRequest {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2483,6 +2515,7 @@ pub struct AccessSecretVersionResponse {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Secret payload
@@ -2544,6 +2577,7 @@ pub struct DeleteSecretRequest {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Etag of the [Secret][google.cloud.secretmanager.v1.Secret]. The
@@ -2552,6 +2586,7 @@ pub struct DeleteSecretRequest {
     ///
     /// [google.cloud.secretmanager.v1.Secret]: crate::model::Secret
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2598,6 +2633,7 @@ pub struct DisableSecretVersionRequest {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Etag of the
@@ -2607,6 +2643,7 @@ pub struct DisableSecretVersionRequest {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2653,6 +2690,7 @@ pub struct EnableSecretVersionRequest {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Etag of the
@@ -2662,6 +2700,7 @@ pub struct EnableSecretVersionRequest {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2708,6 +2747,7 @@ pub struct DestroySecretVersionRequest {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Etag of the
@@ -2717,6 +2757,7 @@ pub struct DestroySecretVersionRequest {
     ///
     /// [google.cloud.secretmanager.v1.SecretVersion]: crate::model::SecretVersion
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

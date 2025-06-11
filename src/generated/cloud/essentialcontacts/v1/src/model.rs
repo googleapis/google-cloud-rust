@@ -39,16 +39,19 @@ pub struct Contact {
     /// Output only. The identifier for the contact.
     /// Format: {resource_type}/{resource_id}/contacts/{contact_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The email address to send notifications to. The email address
     /// does not need to be a Google Account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub email: std::string::String,
 
     /// Required. The categories of notifications that the contact will receive
     /// communications for.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub notification_category_subscriptions: std::vec::Vec<crate::model::NotificationCategory>,
 
     /// Required. The preferred language for notifications, as a ISO 639-1 language
@@ -56,11 +59,13 @@ pub struct Contact {
     /// languages](https://cloud.google.com/resource-manager/docs/managing-notification-contacts#supported-languages)
     /// for a list of supported languages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_tag: std::string::String,
 
     /// Output only. The validity of the contact. A contact is considered valid if
     /// it is the correct recipient for notifications for a particular resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validation_state: crate::model::ValidationState,
 
     /// The last time the validation_state was updated, either manually or
@@ -151,6 +156,7 @@ pub struct ListContactsRequest {
     /// Format: organizations/{organization_id}, folders/{folder_id} or
     /// projects/{project_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of results to return from this request.
@@ -158,7 +164,7 @@ pub struct ListContactsRequest {
     /// response indicates that more results might be available.
     /// If not specified, the default page_size is 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. If present, retrieves the next batch of results from the
@@ -166,6 +172,7 @@ pub struct ListContactsRequest {
     /// `next_page_token` from the previous response. The values of other method
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -210,6 +217,7 @@ impl wkt::message::Message for ListContactsRequest {
 pub struct ListContactsResponse {
     /// The contacts for the specified resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub contacts: std::vec::Vec<crate::model::Contact>,
 
     /// If there are more results than those appearing in this response, then
@@ -217,6 +225,7 @@ pub struct ListContactsResponse {
     /// method again using the value of `next_page_token` as `page_token` and the
     /// rest of the parameters the same as the original request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -277,6 +286,7 @@ pub struct GetContactRequest {
     /// folders/{folder_id}/contacts/{contact_id} or
     /// projects/{project_id}/contacts/{contact_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -312,6 +322,7 @@ pub struct DeleteContactRequest {
     /// folders/{folder_id}/contacts/{contact_id} or
     /// projects/{project_id}/contacts/{contact_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -346,6 +357,7 @@ pub struct CreateContactRequest {
     /// Format: organizations/{organization_id}, folders/{folder_id} or
     /// projects/{project_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The contact to create. Must specify an email address and language
@@ -472,12 +484,14 @@ pub struct ComputeContactsRequest {
     /// Format: organizations/{organization_id},
     /// folders/{folder_id} or projects/{project_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The categories of notifications to compute contacts for. If ALL is included
     /// in this list, contacts subscribed to any notification category will be
     /// returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub notification_categories: std::vec::Vec<crate::model::NotificationCategory>,
 
     /// Optional. The maximum number of results to return from this request.
@@ -485,7 +499,7 @@ pub struct ComputeContactsRequest {
     /// response indicates that more results might be available.
     /// If not specified, the default page_size is 100.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. If present, retrieves the next batch of results from the
@@ -493,6 +507,7 @@ pub struct ComputeContactsRequest {
     /// `next_page_token` from the previous response. The values of other method
     /// parameters should be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -550,6 +565,7 @@ pub struct ComputeContactsResponse {
     /// notification categories, including contacts inherited from any parent
     /// resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub contacts: std::vec::Vec<crate::model::Contact>,
 
     /// If there are more results than those appearing in this response, then
@@ -557,6 +573,7 @@ pub struct ComputeContactsResponse {
     /// method again using the value of `next_page_token` as `page_token` and the
     /// rest of the parameters the same as the original request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -617,6 +634,7 @@ pub struct SendTestMessageRequest {
     /// folders/{folder_id}/contacts/{contact_id} or
     /// projects/{project_id}/contacts/{contact_id}
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub contacts: std::vec::Vec<std::string::String>,
 
     /// Required. The name of the resource to send the test message for. All
@@ -625,11 +643,13 @@ pub struct SendTestMessageRequest {
     /// organizations/{organization_id}, folders/{folder_id} or
     /// projects/{project_id}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource: std::string::String,
 
     /// Required. The notification category to send the test message for. All
     /// contacts must be subscribed to this category.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub notification_category: crate::model::NotificationCategory,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

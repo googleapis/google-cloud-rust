@@ -43,25 +43,29 @@ pub struct AdaptiveMtDataset {
     /// Required. The resource name of the dataset, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The name of the dataset to show in the interface. The name can be
     /// up to 32 characters long and can consist only of ASCII Latin letters A-Z
     /// and a-z, underscores (_), and ASCII digits 0-9.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The BCP-47 language code of the source language.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_language_code: std::string::String,
 
     /// The BCP-47 language code of the target language.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_language_code: std::string::String,
 
     /// The number of examples in the dataset.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub example_count: i32,
 
     /// Output only. Timestamp when this dataset was created.
@@ -169,6 +173,7 @@ pub struct CreateAdaptiveMtDatasetRequest {
     /// Required. Name of the parent project. In form of
     /// `projects/{project-number-or-id}/locations/{location-id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The AdaptiveMtDataset to be created.
@@ -224,6 +229,7 @@ pub struct DeleteAdaptiveMtDatasetRequest {
     /// Required. Name of the dataset. In the form of
     /// `projects/{project-number-or-id}/locations/{location-id}/adaptiveMtDatasets/{adaptive-mt-dataset-id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -257,6 +263,7 @@ pub struct GetAdaptiveMtDatasetRequest {
     /// Required. Name of the dataset. In the form of
     /// `projects/{project-number-or-id}/locations/{location-id}/adaptiveMtDatasets/{adaptive-mt-dataset-id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -291,12 +298,13 @@ pub struct ListAdaptiveMtDatasetsRequest {
     /// Required. The resource name of the project from which to list the Adaptive
     /// MT datasets. `projects/{project-number-or-id}/locations/{location-id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. The server may return fewer results than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -305,11 +313,13 @@ pub struct ListAdaptiveMtDatasetsRequest {
     /// previous call to `ListAdaptiveMtDatasets` method. The first page is
     /// returned if `page_token`is empty or missing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. An expression for filtering the results of the request.
     /// Filter is not supported yet.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -360,12 +370,14 @@ impl wkt::message::Message for ListAdaptiveMtDatasetsRequest {
 pub struct ListAdaptiveMtDatasetsResponse {
     /// Output only. A list of Adaptive MT datasets.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub adaptive_mt_datasets: std::vec::Vec<crate::model::AdaptiveMtDataset>,
 
     /// Optional. A token to retrieve a page of results. Pass this value in the
     /// [ListAdaptiveMtDatasetsRequest.page_token] field in the subsequent call to
     /// `ListAdaptiveMtDatasets` method to retrieve the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -425,15 +437,18 @@ pub struct AdaptiveMtTranslateRequest {
     ///
     /// Format: `projects/{project-number-or-id}/locations/{location-id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The resource name for the dataset to use for adaptive MT.
     /// `projects/{project}/locations/{location-id}/adaptiveMtDatasets/{dataset}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset: std::string::String,
 
     /// Required. The content of the input in string format.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub content: std::vec::Vec<std::string::String>,
 
     /// Configuration for caller provided reference sentences.
@@ -536,10 +551,12 @@ pub mod adaptive_mt_translate_request {
     pub struct ReferenceSentencePair {
         /// Source sentence in the sentence pair.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub source_sentence: std::string::String,
 
         /// Target sentence in the sentence pair.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub target_sentence: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -584,6 +601,7 @@ pub mod adaptive_mt_translate_request {
     pub struct ReferenceSentencePairList {
         /// Reference sentence pairs.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub reference_sentence_pairs:
             std::vec::Vec<crate::model::adaptive_mt_translate_request::ReferenceSentencePair>,
 
@@ -627,15 +645,18 @@ pub mod adaptive_mt_translate_request {
         /// index. Length of the list is required to be equal to the length of
         /// "content" field.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub reference_sentence_pair_lists:
             std::vec::Vec<crate::model::adaptive_mt_translate_request::ReferenceSentencePairList>,
 
         /// Source language code.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub source_language_code: std::string::String,
 
         /// Target language code.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub target_language_code: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -700,16 +721,19 @@ pub mod adaptive_mt_translate_request {
         /// - User-provided custom glossary:
         ///   `projects/{project-number-or-id}/locations/{location-id}/glossaries/{glossary-id}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub glossary: std::string::String,
 
         /// Optional. Indicates match is case insensitive. The default value is
         /// `false` if missing.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub ignore_case: bool,
 
         /// Optional. If set to true, the glossary will be used for contextual
         /// translation.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub contextual_translation_enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -758,6 +782,7 @@ pub mod adaptive_mt_translate_request {
 pub struct AdaptiveMtTranslation {
     /// Output only. The translated text.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub translated_text: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -790,15 +815,18 @@ impl wkt::message::Message for AdaptiveMtTranslation {
 pub struct AdaptiveMtTranslateResponse {
     /// Output only. The translation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub translations: std::vec::Vec<crate::model::AdaptiveMtTranslation>,
 
     /// Output only. The translation's language code.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// Text translation response if a glossary is provided in the request. This
     /// could be the same as 'translation' above if no terms apply.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub glossary_translations: std::vec::Vec<crate::model::AdaptiveMtTranslation>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -854,15 +882,17 @@ pub struct AdaptiveMtFile {
     /// Required. The resource name of the file, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The file's display name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The number of entries that the file contains.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub entry_count: i32,
 
     /// Output only. Timestamp when this file was created.
@@ -952,6 +982,7 @@ pub struct GetAdaptiveMtFileRequest {
     /// Required. The resource name of the file, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -985,6 +1016,7 @@ pub struct DeleteAdaptiveMtFileRequest {
     /// Required. The resource name of the file to delete, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1018,6 +1050,7 @@ pub struct ImportAdaptiveMtFileRequest {
     /// Required. The resource name of the file, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The source for the document.
@@ -1198,11 +1231,12 @@ pub struct ListAdaptiveMtFilesRequest {
     /// MT files.
     /// `projects/{project}/locations/{location}/adaptiveMtDatasets/{dataset}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -1211,6 +1245,7 @@ pub struct ListAdaptiveMtFilesRequest {
     /// previous call to `ListAdaptiveMtFiles` method. The first page is
     /// returned if `page_token`is empty or missing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1255,12 +1290,14 @@ impl wkt::message::Message for ListAdaptiveMtFilesRequest {
 pub struct ListAdaptiveMtFilesResponse {
     /// Output only. The Adaptive MT files.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub adaptive_mt_files: std::vec::Vec<crate::model::AdaptiveMtFile>,
 
     /// Optional. A token to retrieve a page of results. Pass this value in the
     /// ListAdaptiveMtFilesRequest.page_token field in the subsequent call to
     /// `ListAdaptiveMtFiles` method to retrieve the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1319,14 +1356,17 @@ pub struct AdaptiveMtSentence {
     /// Required. The resource name of the file, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}/adaptiveMtSentences/{sentence}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The source sentence.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_sentence: std::string::String,
 
     /// Required. The target sentence.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_sentence: std::string::String,
 
     /// Output only. Timestamp when this sentence was created.
@@ -1419,10 +1459,11 @@ pub struct ListAdaptiveMtSentencesRequest {
     /// The following format lists all sentences within a dataset.
     /// `projects/{project}/locations/{location}/adaptiveMtDatasets/{dataset}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A token identifying a page of results the server should return.
@@ -1431,6 +1472,7 @@ pub struct ListAdaptiveMtSentencesRequest {
     /// previous call to `ListTranslationMemories` method. The first page is
     /// returned if `page_token` is empty or missing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1475,10 +1517,12 @@ impl wkt::message::Message for ListAdaptiveMtSentencesRequest {
 pub struct ListAdaptiveMtSentencesResponse {
     /// Output only. The list of AdaptiveMtSentences.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub adaptive_mt_sentences: std::vec::Vec<crate::model::AdaptiveMtSentence>,
 
     /// Optional.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1537,6 +1581,7 @@ pub struct ImportDataRequest {
     /// Required. Name of the dataset. In form of
     /// `projects/{project-number-or-id}/locations/{location-id}/datasets/{dataset-id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset: std::string::String,
 
     /// Required. The config for the input content.
@@ -1591,6 +1636,7 @@ impl wkt::message::Message for ImportDataRequest {
 pub struct DatasetInputConfig {
     /// Files containing the sentence pairs to be imported to the dataset.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub input_files: std::vec::Vec<crate::model::dataset_input_config::InputFile>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1634,6 +1680,7 @@ pub mod dataset_input_config {
         /// Optional. Usage of the file contents. Options are TRAIN|VALIDATION|TEST,
         /// or UNASSIGNED (by default) for auto split.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub usage: std::string::String,
 
         /// Source of the file containing sentence pairs.
@@ -1739,6 +1786,7 @@ pub mod dataset_input_config {
 pub struct ImportDataMetadata {
     /// The current state of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::OperationState,
 
     /// The creation time of the operation.
@@ -1838,6 +1886,7 @@ pub struct ExportDataRequest {
     /// Required. Name of the dataset. In form of
     /// `projects/{project-number-or-id}/locations/{location-id}/datasets/{dataset-id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset: std::string::String,
 
     /// Required. The config for the output content.
@@ -1980,6 +2029,7 @@ pub mod dataset_output_config {
 pub struct ExportDataMetadata {
     /// The current state of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::OperationState,
 
     /// The creation time of the operation.
@@ -2078,6 +2128,7 @@ impl wkt::message::Message for ExportDataMetadata {
 pub struct DeleteDatasetRequest {
     /// Required. The name of the dataset to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2110,6 +2161,7 @@ impl wkt::message::Message for DeleteDatasetRequest {
 pub struct DeleteDatasetMetadata {
     /// The current state of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::OperationState,
 
     /// The creation time of the operation.
@@ -2208,6 +2260,7 @@ impl wkt::message::Message for DeleteDatasetMetadata {
 pub struct GetDatasetRequest {
     /// Required. The resource name of the dataset to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2241,18 +2294,20 @@ pub struct ListDatasetsRequest {
     /// Required. Name of the parent project. In form of
     /// `projects/{project-number-or-id}/locations/{location-id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. The server can return fewer results than
     /// requested.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results for the server to return.
     /// Typically obtained from next_page_token field in the response of a
     /// ListDatasets call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2297,12 +2352,14 @@ impl wkt::message::Message for ListDatasetsRequest {
 pub struct ListDatasetsResponse {
     /// The datasets read.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub datasets: std::vec::Vec<crate::model::Dataset>,
 
     /// A token to retrieve next page of results.
     /// Pass this token to the page_token field in the ListDatasetsRequest to
     /// obtain the corresponding page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2360,6 +2417,7 @@ impl gax::paginator::internal::PageableResponse for ListDatasetsResponse {
 pub struct CreateDatasetRequest {
     /// Required. The project name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The Dataset to create.
@@ -2414,6 +2472,7 @@ impl wkt::message::Message for CreateDatasetRequest {
 pub struct CreateDatasetMetadata {
     /// The current state of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::OperationState,
 
     /// The creation time of the operation.
@@ -2513,6 +2572,7 @@ pub struct ListExamplesRequest {
     /// Required. Name of the parent dataset. In form of
     /// `projects/{project-number-or-id}/locations/{location-id}/datasets/{dataset-id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. An expression for filtering the examples that will be returned.
@@ -2520,18 +2580,20 @@ pub struct ListExamplesRequest {
     ///
     /// * `usage=TRAIN`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Requested page size. The server can return fewer results than
     /// requested.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results for the server to return.
     /// Typically obtained from next_page_token field in the response of a
     /// ListExamples call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2582,12 +2644,14 @@ impl wkt::message::Message for ListExamplesRequest {
 pub struct ListExamplesResponse {
     /// The sentence pairs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub examples: std::vec::Vec<crate::model::Example>,
 
     /// A token to retrieve next page of results.
     /// Pass this token to the page_token field in the ListExamplesRequest to
     /// obtain the corresponding page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2646,18 +2710,22 @@ pub struct Example {
     /// Output only. The resource name of the example, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/datasets/{dataset_id}/examples/{example_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Sentence in source language.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_text: std::string::String,
 
     /// Sentence in target language.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_text: std::string::String,
 
     /// Output only. Usage of the sentence pair. Options are TRAIN|VALIDATION|TEST.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub usage: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2708,6 +2776,7 @@ impl wkt::message::Message for Example {
 pub struct BatchTransferResourcesResponse {
     /// Responses of the transfer for individual resources.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub responses:
         std::vec::Vec<crate::model::batch_transfer_resources_response::TransferResourceResponse>,
 
@@ -2753,11 +2822,13 @@ pub mod batch_transfer_resources_response {
     pub struct TransferResourceResponse {
         /// Full name of the resource to transfer as specified in the request.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub source: std::string::String,
 
         /// Full name of the new resource successfully transferred from the source
         /// hosted by Translation API. Target will be empty if the transfer failed.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub target: std::string::String,
 
         /// The error result in case of failure.
@@ -2821,40 +2892,44 @@ pub struct Dataset {
     /// The resource name of the dataset, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/datasets/{dataset_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The name of the dataset to show in the interface. The name can be
     /// up to 32 characters long and can consist only of ASCII Latin letters A-Z
     /// and a-z, underscores (_), and ASCII digits 0-9.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The BCP-47 language code of the source language.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_language_code: std::string::String,
 
     /// The BCP-47 language code of the target language.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_language_code: std::string::String,
 
     /// Output only. The number of examples in the dataset.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub example_count: i32,
 
     /// Output only. Number of training examples (sentence pairs).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub train_example_count: i32,
 
     /// Output only. Number of validation examples (sentence pairs).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub validate_example_count: i32,
 
     /// Output only. Number of test examples (sentence pairs).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub test_example_count: i32,
 
     /// Output only. Timestamp when this dataset was created.
@@ -2980,6 +3055,7 @@ pub struct CreateModelRequest {
     /// Required. The project name, in form of
     /// `projects/{project}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The Model to create.
@@ -3034,6 +3110,7 @@ impl wkt::message::Message for CreateModelRequest {
 pub struct CreateModelMetadata {
     /// The current state of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::OperationState,
 
     /// The creation time of the operation.
@@ -3133,24 +3210,27 @@ pub struct ListModelsRequest {
     /// Required. Name of the parent project. In form of
     /// `projects/{project-number-or-id}/locations/{location-id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. An expression for filtering the models that will be returned.
     /// Supported filter:
     /// `dataset_id=${dataset_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Requested page size. The server can return fewer results than
     /// requested.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results for the server to return.
     /// Typically obtained from next_page_token field in the response of a
     /// ListModels call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3201,12 +3281,14 @@ impl wkt::message::Message for ListModelsRequest {
 pub struct ListModelsResponse {
     /// The models read.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub models: std::vec::Vec<crate::model::Model>,
 
     /// A token to retrieve next page of results.
     /// Pass this token to the page_token field in the ListModelsRequest to
     /// obtain the corresponding page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3264,6 +3346,7 @@ impl gax::paginator::internal::PageableResponse for ListModelsResponse {
 pub struct GetModelRequest {
     /// Required. The resource name of the model to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3296,6 +3379,7 @@ impl wkt::message::Message for GetModelRequest {
 pub struct DeleteModelRequest {
     /// Required. The name of the model to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3328,6 +3412,7 @@ impl wkt::message::Message for DeleteModelRequest {
 pub struct DeleteModelMetadata {
     /// The current state of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::OperationState,
 
     /// The creation time of the operation.
@@ -3427,41 +3512,46 @@ pub struct Model {
     /// The resource name of the model, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/models/{model_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The name of the model to show in the interface. The name can be
     /// up to 32 characters long and can consist only of ASCII Latin letters A-Z
     /// and a-z, underscores (_), and ASCII digits 0-9.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// The dataset from which the model is trained, in form of
     /// `projects/{project-number-or-id}/locations/{location_id}/datasets/{dataset_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset: std::string::String,
 
     /// Output only. The BCP-47 language code of the source language.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_language_code: std::string::String,
 
     /// Output only. The BCP-47 language code of the target language.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_language_code: std::string::String,
 
     /// Output only. Number of examples (sentence pairs) used to train the model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub train_example_count: i32,
 
     /// Output only. Number of examples (sentence pairs) used to validate the
     /// model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub validate_example_count: i32,
 
     /// Output only. Number of examples (sentence pairs) used to test the model.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub test_example_count: i32,
 
     /// Output only. Timestamp when the model resource was created, which is also
@@ -3587,6 +3677,7 @@ impl wkt::message::Message for Model {
 pub struct GcsInputSource {
     /// Required. Source data URI. For example, `gs://my_bucket/my_object`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3619,15 +3710,17 @@ impl wkt::message::Message for GcsInputSource {
 pub struct FileInputSource {
     /// Required. The file's mime type.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mime_type: std::string::String,
 
     /// Required. The file's byte contents.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub content: ::bytes::Bytes,
 
     /// Required. The file's display name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3674,6 +3767,7 @@ pub struct GcsOutputDestination {
     /// `gs://bucket/directory`. The requesting user must have write permission to
     /// the bucket. The directory will be created if it doesn't exist.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_uri_prefix: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3711,10 +3805,12 @@ pub struct GlossaryEntry {
     /// Format:
     /// `projects/*/locations/*/glossaries/*/glossaryEntries/*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Describes the glossary entry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// The different data for the glossary types (Unidirectional, Equivalent term
@@ -3905,6 +4001,7 @@ pub mod glossary_entry {
         /// Each term in the set represents a term that can be replaced by the other
         /// terms.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub terms: std::vec::Vec<crate::model::GlossaryTerm>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3956,10 +4053,12 @@ pub mod glossary_entry {
 pub struct GlossaryTerm {
     /// The language for this glossary term.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The text for the glossary term.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub text: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3999,6 +4098,7 @@ pub struct TransliterationConfig {
     /// If true, source text in romanized form can be translated to the target
     /// language.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_transliteration: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4033,11 +4133,13 @@ pub struct TranslateTextRequest {
     /// We recommend the total content be less than 30,000 codepoints. The max
     /// length of this field is 1024. Use BatchTranslateText for larger text.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub contents: std::vec::Vec<std::string::String>,
 
     /// Optional. The format of the source text, for example, "text/html",
     /// "text/plain". If left blank, the MIME type defaults to "text/html".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mime_type: std::string::String,
 
     /// Optional. The ISO-639 language code of the input text if
@@ -4046,11 +4148,13 @@ pub struct TranslateTextRequest {
     /// attempts to identify the source language automatically and returns the
     /// source language within the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_language_code: std::string::String,
 
     /// Required. The ISO-639 language code to use for translation of the input
     /// text, set to one of the language codes listed in Language Support.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_language_code: std::string::String,
 
     /// Required. Project or location to make a call. Must refer to a caller's
@@ -4068,6 +4172,7 @@ pub struct TranslateTextRequest {
     /// Models and glossaries must be within the same region (have same
     /// location-id), otherwise an INVALID_ARGUMENT (400) error is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The `model` type requested for this translation.
@@ -4090,6 +4195,7 @@ pub struct TranslateTextRequest {
     ///
     /// If not provided, the default Google model (NMT) will be used
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     /// Optional. Glossary to be applied. The glossary must be
@@ -4112,6 +4218,7 @@ pub struct TranslateTextRequest {
     /// See <https://cloud.google.com/translate/docs/advanced/labels> for more
     /// information.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4236,6 +4343,7 @@ pub struct TranslateTextResponse {
     ///
     /// [google.cloud.translation.v3.TranslateTextRequest.contents]: crate::model::TranslateTextRequest::contents
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub translations: std::vec::Vec<crate::model::Translation>,
 
     /// Text translation responses if a glossary is provided in the request.
@@ -4247,6 +4355,7 @@ pub struct TranslateTextResponse {
     /// [google.cloud.translation.v3.TranslateTextRequest.contents]: crate::model::TranslateTextRequest::contents
     /// [google.cloud.translation.v3.TranslateTextResponse.translations]: crate::model::TranslateTextResponse::translations
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub glossary_translations: std::vec::Vec<crate::model::Translation>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4297,6 +4406,7 @@ pub struct Translation {
     /// If an error occurs during translation, this field might be excluded from
     /// the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub translated_text: std::string::String,
 
     /// Only present when `model` is present in the request.
@@ -4308,6 +4418,7 @@ pub struct Translation {
     /// `model` here would be normalized to
     /// `projects/{project-number}/locations/{location-id}/models/general/nmt`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     /// The ISO-639 language code of source text in the initial request, detected
@@ -4315,6 +4426,7 @@ pub struct Translation {
     /// request. If the source language was passed, auto-detection of the language
     /// does not occur and this field is empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub detected_language_code: std::string::String,
 
     /// The `glossary_config` used for this translation.
@@ -4391,10 +4503,12 @@ pub struct RomanizeTextRequest {
     /// For global calls, use `projects/{project-number-or-id}/locations/global` or
     /// `projects/{project-number-or-id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The content of the input in string format.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub contents: std::vec::Vec<std::string::String>,
 
     /// Optional. The ISO-639 language code of the input text if
@@ -4402,6 +4516,7 @@ pub struct RomanizeTextRequest {
     /// the API attempts to identify the source language automatically and returns
     /// the source language for each content in the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4456,6 +4571,7 @@ pub struct Romanization {
     /// If an error occurs during romanization, this field might be excluded from
     /// the response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub romanized_text: std::string::String,
 
     /// The ISO-639 language code of source text in the initial request, detected
@@ -4463,6 +4579,7 @@ pub struct Romanization {
     /// request. If the source language was passed, auto-detection of the language
     /// does not occur and this field is empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub detected_language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4508,6 +4625,7 @@ pub struct RomanizeTextResponse {
     ///
     /// [google.cloud.translation.v3.RomanizeTextRequest.contents]: crate::model::RomanizeTextRequest::contents
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub romanizations: std::vec::Vec<crate::model::Romanization>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4555,6 +4673,7 @@ pub struct DetectLanguageRequest {
     /// Only models within the same region (has same location-id) can be used.
     /// Otherwise an INVALID_ARGUMENT (400) error is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The language detection model to be used.
@@ -4567,11 +4686,13 @@ pub struct DetectLanguageRequest {
     ///
     /// If not specified, the default model is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     /// Optional. The format of the source text, for example, "text/html",
     /// "text/plain". If left blank, the MIME type defaults to "text/html".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mime_type: std::string::String,
 
     /// Optional. The labels with user-defined metadata for the request.
@@ -4584,6 +4705,7 @@ pub struct DetectLanguageRequest {
     /// See <https://cloud.google.com/translate/docs/advanced/labels> for more
     /// information.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. The source of the document from which to detect the language.
@@ -4687,7 +4809,7 @@ pub mod detect_language_request {
     #[non_exhaustive]
     pub enum Source {
         /// The content of the input stored as a string.
-        Content(std::string::String),
+        Content(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -4700,11 +4822,12 @@ pub struct DetectedLanguage {
     /// The ISO-639 language code of the source content in the request, detected
     /// automatically.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// The confidence of the detection result for this language.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::F32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4744,6 +4867,7 @@ pub struct DetectLanguageResponse {
     /// The most probable language detected by the Translation API. For each
     /// request, the Translation API will always return only one result.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub languages: std::vec::Vec<crate::model::DetectedLanguage>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4793,12 +4917,14 @@ pub struct GetSupportedLanguagesRequest {
     /// Only models within the same region (have same location-id) can be used,
     /// otherwise an INVALID_ARGUMENT (400) error is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The language to use to return localized, human readable names
     /// of supported languages. If missing, then display names are not returned
     /// in a response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_language_code: std::string::String,
 
     /// Optional. Get supported languages of this model.
@@ -4815,6 +4941,7 @@ pub struct GetSupportedLanguagesRequest {
     /// Returns languages supported by the specified model.
     /// If missing, we get supported languages of Google general NMT model.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4863,6 +4990,7 @@ pub struct SupportedLanguages {
     /// A list of supported language responses. This list contains an entry
     /// for each language the Translation API supports.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub languages: std::vec::Vec<crate::model::SupportedLanguage>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4904,19 +5032,23 @@ pub struct SupportedLanguage {
     /// including language and region identifiers are returned (for example,
     /// 'zh-TW' and 'zh-CN').
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// Human-readable name of the language localized in the display language
     /// specified in the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Can be used as a source language.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub support_source: bool,
 
     /// Can be used as a target language.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub support_target: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4967,6 +5099,7 @@ impl wkt::message::Message for SupportedLanguage {
 pub struct GcsSource {
     /// Required. Source data URI. For example, `gs://my_bucket/my_object`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5002,6 +5135,7 @@ pub struct InputConfig {
     /// For `.html`, this field must be "text/html" or empty.
     /// For `.txt`, this field must be "text/plain" or empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mime_type: std::string::String,
 
     /// Required. Specify the input.
@@ -5114,6 +5248,7 @@ pub struct GcsDestination {
     /// batch translation job at a time. Otherwise an INVALID_ARGUMENT (400) error
     /// is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_uri_prefix: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5317,6 +5452,7 @@ pub struct DocumentInputConfig {
     /// - application/vnd.openxmlformats-officedocument.presentationml.presentation
     /// - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mime_type: std::string::String,
 
     /// Specifies the source for the document's content.
@@ -5436,7 +5572,10 @@ pub mod document_input_config {
     #[non_exhaustive]
     pub enum Source {
         /// Document's content represented as a stream of bytes.
-        Content(#[serde_as(as = "serde_with::base64::Base64")] ::bytes::Bytes),
+        Content(
+            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+            ::bytes::Bytes,
+        ),
         /// Google Cloud Storage location. This must be a single file.
         /// For example: gs://example_bucket/example_file.pdf
         GcsSource(std::boxed::Box<crate::model::GcsSource>),
@@ -5460,6 +5599,7 @@ pub struct DocumentOutputConfig {
     /// - application/vnd.openxmlformats-officedocument.presentationml.presentation
     /// - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mime_type: std::string::String,
 
     /// A URI destination for the translated document.
@@ -5622,6 +5762,7 @@ pub struct TranslateDocumentRequest {
     /// Models and glossaries must be within the same region (have the same
     /// location-id), otherwise an INVALID_ARGUMENT (400) error is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The ISO-639 language code of the input document if known, for
@@ -5631,11 +5772,13 @@ pub struct TranslateDocumentRequest {
     /// language within the response. Source language must be specified if the
     /// request contains a glossary or a custom model.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_language_code: std::string::String,
 
     /// Required. The ISO-639 language code to use for translation of the input
     /// document, set to one of the language codes listed in Language Support.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_language_code: std::string::String,
 
     /// Required. Input configurations.
@@ -5664,6 +5807,7 @@ pub struct TranslateDocumentRequest {
     /// If not provided, the default Google model (NMT) will be used for
     /// translation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     /// Optional. Glossary to be applied. The glossary must be within the same
@@ -5682,6 +5826,7 @@ pub struct TranslateDocumentRequest {
     /// See <https://cloud.google.com/translate/docs/advanced/labels> for more
     /// information.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. This flag is to support user customized attribution.
@@ -5689,12 +5834,14 @@ pub struct TranslateDocumentRequest {
     /// Customized attribution should follow rules in
     /// <https://cloud.google.com/translate/attribution#attribution_and_logos>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub customized_attribution: std::string::String,
 
     /// Optional. is_translate_native_pdf_only field for external customers.
     /// If true, the page limit of online native pdf translation is 300 and only
     /// native pdf pages will be translated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_translate_native_pdf_only: bool,
 
     /// Optional. If true, use the text removal server to remove the shadow text on
@@ -5702,10 +5849,12 @@ pub struct TranslateDocumentRequest {
     /// Shadow removal feature can only be enabled when
     /// is_translate_native_pdf_only: false && pdf_native_only: false
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_shadow_removal_native_pdf: bool,
 
     /// Optional. If true, enable auto rotation correction in DVS.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_rotation_correction: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5860,11 +6009,12 @@ pub struct DocumentTranslation {
     /// may produce multiple translated documents in the future for other type of
     /// file formats.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<serde_with::base64::Base64>>")]
     pub byte_stream_outputs: std::vec::Vec<::bytes::Bytes>,
 
     /// The translated document's mime type.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mime_type: std::string::String,
 
     /// The detected language for the input document.
@@ -5873,6 +6023,7 @@ pub struct DocumentTranslation {
     /// source language was passed, auto-detection of the language does not occur
     /// and this field is empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub detected_language_code: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5942,6 +6093,7 @@ pub struct TranslateDocumentResponse {
     /// `model` here would be normalized to
     /// `projects/{project-number}/locations/{location-id}/models/general/nmt`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     /// The `glossary_config` used for this translation.
@@ -6043,14 +6195,17 @@ pub struct BatchTranslateTextRequest {
     /// the same location-id) can be used, otherwise an INVALID_ARGUMENT (400)
     /// error is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Source language code.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_language_code: std::string::String,
 
     /// Required. Specify up to 10 language codes here.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub target_language_codes: std::vec::Vec<std::string::String>,
 
     /// Optional. The models to use for translation. Map's key is target language
@@ -6069,6 +6224,7 @@ pub struct BatchTranslateTextRequest {
     /// If the map is empty or a specific model is
     /// not requested for a language pair, then default google model (nmt) is used.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub models: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Input configurations.
@@ -6076,6 +6232,7 @@ pub struct BatchTranslateTextRequest {
     /// The total content size should be <= 100M Unicode codepoints.
     /// The files must use UTF-8 encoding.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub input_configs: std::vec::Vec<crate::model::InputConfig>,
 
     /// Required. Output configuration.
@@ -6087,6 +6244,7 @@ pub struct BatchTranslateTextRequest {
     /// Optional. Glossaries to be applied for translation.
     /// It's keyed by target language code.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub glossaries:
         std::collections::HashMap<std::string::String, crate::model::TranslateTextGlossaryConfig>,
 
@@ -6100,6 +6258,7 @@ pub struct BatchTranslateTextRequest {
     /// See <https://cloud.google.com/translate/docs/advanced/labels> for more
     /// information.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6217,24 +6376,25 @@ impl wkt::message::Message for BatchTranslateTextRequest {
 pub struct BatchTranslateMetadata {
     /// The state of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::batch_translate_metadata::State,
 
     /// Number of successfully translated characters so far (Unicode codepoints).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub translated_characters: i64,
 
     /// Number of characters that have failed to process so far (Unicode
     /// codepoints).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub failed_characters: i64,
 
     /// Total number of characters (Unicode codepoints).
     /// This is the total number of codepoints from input files times the number of
     /// target languages and appears here shortly after the call is submitted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_characters: i64,
 
     /// Time when the operation was submitted.
@@ -6478,17 +6638,17 @@ pub mod batch_translate_metadata {
 pub struct BatchTranslateResponse {
     /// Total number of characters (Unicode codepoints).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_characters: i64,
 
     /// Number of successfully translated characters (Unicode codepoints).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub translated_characters: i64,
 
     /// Number of characters that have failed to process (Unicode codepoints).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub failed_characters: i64,
 
     /// Time when the operation was submitted.
@@ -6687,6 +6847,7 @@ pub struct Glossary {
     /// Required. The resource name of the glossary. Glossary names have the form
     /// `projects/{project-number-or-id}/locations/{location-id}/glossaries/{glossary-id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Provides examples to build the glossary from.
@@ -6696,7 +6857,7 @@ pub struct Glossary {
 
     /// Output only. The number of entries defined in the glossary.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub entry_count: i32,
 
     /// Output only. When CreateGlossary was called.
@@ -6709,6 +6870,7 @@ pub struct Glossary {
 
     /// Optional. The display name of the glossary.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Languages supported by the glossary.
@@ -6890,11 +7052,13 @@ pub mod glossary {
         /// Required. The ISO-639 language code of the input text, for example,
         /// "en-US". Expected to be an exact match for GlossaryTerm.language_code.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub source_language_code: std::string::String,
 
         /// Required. The ISO-639 language code for translation output, for example,
         /// "zh-CN". Expected to be an exact match for GlossaryTerm.language_code.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub target_language_code: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6941,6 +7105,7 @@ pub mod glossary {
         /// All entries are unique. The list contains at least two entries.
         /// Expected to be an exact match for GlossaryTerm.language_code.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub language_codes: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6991,6 +7156,7 @@ pub mod glossary {
 pub struct CreateGlossaryRequest {
     /// Required. The project name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The glossary to create.
@@ -7112,6 +7278,7 @@ impl wkt::message::Message for UpdateGlossaryRequest {
 pub struct GetGlossaryRequest {
     /// Required. The name of the glossary to retrieve.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7144,6 +7311,7 @@ impl wkt::message::Message for GetGlossaryRequest {
 pub struct DeleteGlossaryRequest {
     /// Required. The name of the glossary to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7176,12 +7344,13 @@ impl wkt::message::Message for DeleteGlossaryRequest {
 pub struct ListGlossariesRequest {
     /// Required. The name of the project from which to list all of the glossaries.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. The server may return fewer glossaries than
     /// requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -7189,6 +7358,7 @@ pub struct ListGlossariesRequest {
     /// returned from the previous call to `ListGlossaries` method.
     /// The first page is returned if `page_token`is empty or missing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter specifying constraints of a list operation.
@@ -7208,6 +7378,7 @@ pub struct ListGlossariesRequest {
     /// contain "en-US" and "zh-CN" in their language set will be picked.
     /// If missing, no filtering is performed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7258,12 +7429,14 @@ impl wkt::message::Message for ListGlossariesRequest {
 pub struct ListGlossariesResponse {
     /// The list of glossaries for a project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub glossaries: std::vec::Vec<crate::model::Glossary>,
 
     /// A token to retrieve a page of results. Pass this value in the
     /// [ListGlossariesRequest.page_token] field in the subsequent call to
     /// `ListGlossaries` method to retrieve the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7321,6 +7494,7 @@ impl gax::paginator::internal::PageableResponse for ListGlossariesResponse {
 pub struct GetGlossaryEntryRequest {
     /// Required. The resource name of the glossary entry to get
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7353,6 +7527,7 @@ impl wkt::message::Message for GetGlossaryEntryRequest {
 pub struct DeleteGlossaryEntryRequest {
     /// Required. The resource name of the glossary entry to delete
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7386,12 +7561,13 @@ pub struct ListGlossaryEntriesRequest {
     /// Required. The parent glossary resource name for listing the glossary's
     /// entries.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. The server may return fewer glossary entries
     /// than requested. If unspecified, the server picks an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
@@ -7399,6 +7575,7 @@ pub struct ListGlossaryEntriesRequest {
     /// [ListGlossaryEntriesResponse.next_page_token] returned from the previous
     /// call. The first page is returned if `page_token`is empty or missing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7443,11 +7620,13 @@ impl wkt::message::Message for ListGlossaryEntriesRequest {
 pub struct ListGlossaryEntriesResponse {
     /// Optional. The Glossary Entries
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub glossary_entries: std::vec::Vec<crate::model::GlossaryEntry>,
 
     /// Optional. A token to retrieve a page of results. Pass this value in the
     /// [ListGLossaryEntriesRequest.page_token] field in the subsequent calls.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7505,6 +7684,7 @@ impl gax::paginator::internal::PageableResponse for ListGlossaryEntriesResponse 
 pub struct CreateGlossaryEntryRequest {
     /// Required. The resource name of the glossary to create the entry under.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The glossary entry to create
@@ -7607,10 +7787,12 @@ impl wkt::message::Message for UpdateGlossaryEntryRequest {
 pub struct CreateGlossaryMetadata {
     /// The name of the glossary that is being created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The current state of the glossary creation operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::create_glossary_metadata::State,
 
     /// The time when the operation was submitted to the server.
@@ -7843,6 +8025,7 @@ pub struct UpdateGlossaryMetadata {
     /// The current state of the glossary update operation. If the glossary input
     /// file was not updated this will be completed immediately
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::update_glossary_metadata::State,
 
     /// The time when the operation was submitted to the server.
@@ -8082,10 +8265,12 @@ pub mod update_glossary_metadata {
 pub struct DeleteGlossaryMetadata {
     /// The name of the glossary that is being deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The current state of the glossary deletion operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::delete_glossary_metadata::State,
 
     /// The time when the operation was submitted to the server.
@@ -8313,6 +8498,7 @@ pub mod delete_glossary_metadata {
 pub struct DeleteGlossaryResponse {
     /// The name of the deleted glossary.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The time when the operation was submitted to the server.
@@ -8401,17 +8587,20 @@ pub struct BatchTranslateDocumentRequest {
     /// the same location-id) can be used, otherwise an INVALID_ARGUMENT (400)
     /// error is returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ISO-639 language code of the input document if known, for
     /// example, "en-US" or "sr-Latn". Supported language codes are listed in
     /// [Language Support](https://cloud.google.com/translate/docs/languages).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_language_code: std::string::String,
 
     /// Required. The ISO-639 language code to use for translation of the input
     /// document. Specify up to 10 language codes here.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub target_language_codes: std::vec::Vec<std::string::String>,
 
     /// Required. Input configurations.
@@ -8419,6 +8608,7 @@ pub struct BatchTranslateDocumentRequest {
     /// The total content size to translate should be <= 100M Unicode codepoints.
     /// The files must use UTF-8 encoding.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub input_configs: std::vec::Vec<crate::model::BatchDocumentInputConfig>,
 
     /// Required. Output configuration.
@@ -8443,10 +8633,12 @@ pub struct BatchTranslateDocumentRequest {
     /// If the map is empty or a specific model is
     /// not requested for a language pair, then default google model (nmt) is used.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub models: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Glossaries to be applied. It's keyed by target language code.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub glossaries:
         std::collections::HashMap<std::string::String, crate::model::TranslateTextGlossaryConfig>,
 
@@ -8462,6 +8654,7 @@ pub struct BatchTranslateDocumentRequest {
     /// If nothing specified, output files will be in the same format as the
     /// original file.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub format_conversions: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. This flag is to support user customized attribution.
@@ -8469,6 +8662,7 @@ pub struct BatchTranslateDocumentRequest {
     /// Customized attribution should follow rules in
     /// <https://cloud.google.com/translate/attribution#attribution_and_logos>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub customized_attribution: std::string::String,
 
     /// Optional. If true, use the text removal server to remove the shadow text on
@@ -8476,10 +8670,12 @@ pub struct BatchTranslateDocumentRequest {
     /// Shadow removal feature can only be enabled when
     /// is_translate_native_pdf_only: false && pdf_native_only: false
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_shadow_removal_native_pdf: bool,
 
     /// Optional. If true, enable auto rotation correction in DVS.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_rotation_correction: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8866,48 +9062,48 @@ pub struct BatchTranslateDocumentResponse {
     /// Total number of pages to translate in all documents. Documents without
     /// clear page definition (such as XLSX) are not counted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_pages: i64,
 
     /// Number of successfully translated pages in all documents. Documents without
     /// clear page definition (such as XLSX) are not counted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub translated_pages: i64,
 
     /// Number of pages that failed to process in all documents. Documents without
     /// clear page definition (such as XLSX) are not counted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub failed_pages: i64,
 
     /// Number of billable pages in documents with clear page definition (such as
     /// PDF, DOCX, PPTX)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_billable_pages: i64,
 
     /// Total number of characters (Unicode codepoints) in all documents.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_characters: i64,
 
     /// Number of successfully translated characters (Unicode codepoints) in all
     /// documents.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub translated_characters: i64,
 
     /// Number of characters that have failed to process (Unicode codepoints) in
     /// all documents.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub failed_characters: i64,
 
     /// Number of billable characters (Unicode codepoints) in documents without
     /// clear page definition, such as XLSX.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_billable_characters: i64,
 
     /// Time when the operation was submitted.
@@ -9030,53 +9226,54 @@ impl wkt::message::Message for BatchTranslateDocumentResponse {
 pub struct BatchTranslateDocumentMetadata {
     /// The state of the operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::batch_translate_document_metadata::State,
 
     /// Total number of pages to translate in all documents so far. Documents
     /// without clear page definition (such as XLSX) are not counted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_pages: i64,
 
     /// Number of successfully translated pages in all documents so far. Documents
     /// without clear page definition (such as XLSX) are not counted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub translated_pages: i64,
 
     /// Number of pages that failed to process in all documents so far. Documents
     /// without clear page definition (such as XLSX) are not counted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub failed_pages: i64,
 
     /// Number of billable pages in documents with clear page definition (such as
     /// PDF, DOCX, PPTX) so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_billable_pages: i64,
 
     /// Total number of characters (Unicode codepoints) in all documents so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_characters: i64,
 
     /// Number of successfully translated characters (Unicode codepoints) in all
     /// documents so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub translated_characters: i64,
 
     /// Number of characters that have failed to process (Unicode codepoints) in
     /// all documents so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub failed_characters: i64,
 
     /// Number of billable characters (Unicode codepoints) in documents without
     /// clear page definition (such as XLSX) so far.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_billable_characters: i64,
 
     /// Time when the operation was submitted.
@@ -9352,16 +9549,19 @@ pub struct TranslateTextGlossaryConfig {
     /// - User-provided custom glossary:
     ///   `projects/{project-number-or-id}/locations/{location-id}/glossaries/{glossary-id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub glossary: std::string::String,
 
     /// Optional. Indicates match is case insensitive. The default value is `false`
     /// if missing.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ignore_case: bool,
 
     /// Optional. If set to true, the glossary will be used for contextual
     /// translation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub contextual_translation_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

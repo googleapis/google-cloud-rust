@@ -40,6 +40,7 @@ extern crate wkt;
 pub struct CreateKeyRequest {
     /// Required. The project in which the API key is created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The API key fields to set at creation time.
@@ -58,6 +59,7 @@ pub struct CreateKeyRequest {
     ///
     /// The id must NOT be a UUID-like string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -114,20 +116,23 @@ impl wkt::message::Message for CreateKeyRequest {
 pub struct ListKeysRequest {
     /// Required. Lists all API keys associated with this project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Specifies the maximum number of results to be returned at a time.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. Requests a specific page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Indicate that keys deleted in the past 30 days should also be
     /// returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub show_deleted: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -178,10 +183,12 @@ impl wkt::message::Message for ListKeysRequest {
 pub struct ListKeysResponse {
     /// A list of API keys.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub keys: std::vec::Vec<crate::model::Key>,
 
     /// The pagination token for the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -239,6 +246,7 @@ impl gax::paginator::internal::PageableResponse for ListKeysResponse {
 pub struct GetKeyRequest {
     /// Required. The resource name of the API key to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -271,6 +279,7 @@ impl wkt::message::Message for GetKeyRequest {
 pub struct GetKeyStringRequest {
     /// Required. The resource name of the API key to be retrieved.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -303,6 +312,7 @@ impl wkt::message::Message for GetKeyStringRequest {
 pub struct GetKeyStringResponse {
     /// An encrypted and signed value of the key.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_string: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -409,11 +419,13 @@ impl wkt::message::Message for UpdateKeyRequest {
 pub struct DeleteKeyRequest {
     /// Required. The resource name of the API key to be deleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The etag known to the client for the expected state of the key.
     /// This is to be used for optimistic concurrency.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -452,6 +464,7 @@ impl wkt::message::Message for DeleteKeyRequest {
 pub struct UndeleteKeyRequest {
     /// Required. The resource name of the API key to be undeleted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -484,6 +497,7 @@ impl wkt::message::Message for UndeleteKeyRequest {
 pub struct LookupKeyRequest {
     /// Required. Finds the project that owns the key string value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_string: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -516,11 +530,13 @@ impl wkt::message::Message for LookupKeyRequest {
 pub struct LookupKeyResponse {
     /// The project that owns the key with the value specified in the request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The resource name of the API key. If the API key has been purged,
     /// resource name is empty.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -566,20 +582,24 @@ pub struct Key {
     /// NOTE: Key is a global resource; hence the only supported value for
     /// location is `global`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Unique id in UUID4 format.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Human-readable display name of this key that you can modify.
     /// The maximum length is 63 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. An encrypted and signed value held by this key.
     /// This field can be accessed only through the `GetKeyString` method.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_string: std::string::String,
 
     /// Output only. A timestamp identifying the time this key was originally
@@ -601,6 +621,7 @@ pub struct Key {
     /// may be set by external tools to store and retrieve arbitrary metadata.
     /// They are not queryable and should be preserved when modifying objects.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Key restrictions.
@@ -612,6 +633,7 @@ pub struct Key {
     /// ensure the client has an up-to-date value before proceeding. See
     /// <https://google.aip.dev/154>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -755,6 +777,7 @@ pub struct Restrictions {
     /// match any of these restrictions. If no restrictions are
     /// specified, all targets are allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub api_targets: std::vec::Vec<crate::model::ApiTarget>,
 
     /// The websites, IP addresses, Android apps, or iOS apps (the clients) that
@@ -965,6 +988,7 @@ pub struct BrowserKeyRestrictions {
     /// A list of regular expressions for the referrer URLs that are allowed
     /// to make API calls with this key.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_referrers: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1003,6 +1027,7 @@ pub struct ServerKeyRestrictions {
     /// A list of the caller IP addresses that are allowed to make API calls
     /// with this key.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_ips: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1041,6 +1066,7 @@ pub struct AndroidKeyRestrictions {
     /// A list of Android applications that are allowed to make API calls with
     /// this key.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_applications: std::vec::Vec<crate::model::AndroidApplication>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1081,10 +1107,12 @@ pub struct AndroidApplication {
     /// DA39A3EE5E6B4B0D3255BFEF95601890AFD80709.
     /// Output format is the latter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sha1_fingerprint: std::string::String,
 
     /// The package name of the application.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub package_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1126,6 +1154,7 @@ impl wkt::message::Message for AndroidApplication {
 pub struct IosKeyRestrictions {
     /// A list of bundle IDs that are allowed when making API calls with this key.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub allowed_bundle_ids: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1167,6 +1196,7 @@ pub struct ApiTarget {
     /// You can use [`gcloud services list`](/sdk/gcloud/reference/services/list)
     /// to get a list of services that are enabled in the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     /// Optional. List of one or more methods that can be called.
@@ -1178,6 +1208,7 @@ pub struct ApiTarget {
     /// `Get*`
     /// `translate.googleapis.com.Get*`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub methods: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

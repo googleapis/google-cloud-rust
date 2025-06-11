@@ -25,6 +25,7 @@
 pub struct PendingRenameInfo {
     /// Output only. The name of the rename operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub operation: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -59,12 +60,13 @@ pub struct Folder {
     /// Identifier. The name of this folder.
     /// Format: `projects/{project}/buckets/{bucket}/folders/{folder}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The version of the metadata for this folder. Used for
     /// preconditions and for detecting changes in metadata.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub metageneration: i64,
 
     /// Output only. The creation time of the folder.
@@ -175,23 +177,25 @@ pub struct GetFolderRequest {
     /// Required. Name of the folder.
     /// Format: `projects/{project}/buckets/{bucket}/folders/{folder}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Makes the operation only succeed conditional on whether the folder's
     /// current metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation only succeed conditional on whether the folder's
     /// current metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -268,6 +272,7 @@ pub struct CreateFolderRequest {
     /// Required. Name of the bucket in which the folder will reside. The bucket
     /// must be a hierarchical namespace enabled bucket.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Properties of the new folder being created.
@@ -283,16 +288,19 @@ pub struct CreateFolderRequest {
     /// For example, the folder_id of "books/biographies/" would create a new
     /// "biographies/" folder under the "books/" folder.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub folder_id: std::string::String,
 
     /// Optional. If true, parent folder doesn't have to be present and all missing
     /// ancestor folders will be created atomically.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub recursive: bool,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -363,23 +371,25 @@ pub struct DeleteFolderRequest {
     /// Required. Name of the folder.
     /// Format: `projects/{project}/buckets/{bucket}/folders/{folder}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Makes the operation only succeed conditional on whether the folder's
     /// current metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation only succeed conditional on whether the folder's
     /// current metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -456,28 +466,32 @@ pub struct ListFoldersRequest {
     /// Required. Name of the bucket in which to look for folders. The bucket must
     /// be a hierarchical namespace enabled bucket.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of folders to return in a single response. The
     /// service will use this parameter or 1,000 items, whichever is smaller.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A previously-returned page token representing part of the larger
     /// set of results to view.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter results to folders whose names begin with this prefix.
     /// If set, the value must either be an empty string or end with a '/'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub prefix: std::string::String,
 
     /// Optional. If set, returns results in a directory-like mode. The results
     /// will only include folders that either exactly match the above prefix, or
     /// are one level below the prefix. The only supported value is '/'.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub delimiter: std::string::String,
 
     /// Optional. Filter results to folders whose names are lexicographically equal
@@ -485,6 +499,7 @@ pub struct ListFoldersRequest {
     /// folders listed have names between lexicographic_start (inclusive) and
     /// lexicographic_end (exclusive).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lexicographic_start: std::string::String,
 
     /// Optional. Filter results to folders whose names are lexicographically
@@ -492,11 +507,13 @@ pub struct ListFoldersRequest {
     /// listed have names between lexicographic_start (inclusive) and
     /// lexicographic_end (exclusive).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lexicographic_end: std::string::String,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -577,11 +594,13 @@ impl wkt::message::Message for ListFoldersRequest {
 pub struct ListFoldersResponse {
     /// The list of child folders
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub folders: std::vec::Vec<crate::model::Folder>,
 
     /// The continuation token, used to page through large result sets. Provide
     /// this value in a subsequent request to return the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -641,28 +660,31 @@ pub struct RenameFolderRequest {
     /// Required. Name of the source folder being renamed.
     /// Format: `projects/{project}/buckets/{bucket}/folders/{folder}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The destination folder ID, e.g. `foo/bar/`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_folder_id: std::string::String,
 
     /// Makes the operation only succeed conditional on whether the source
     /// folder's current metageneration matches the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// Makes the operation only succeed conditional on whether the source
     /// folder's current metageneration does not match the given value.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted. This request is only
     /// idempotent if a `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -761,16 +783,18 @@ pub struct CommonLongRunningOperationMetadata {
     /// Output only. The type of operation invoked.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. The estimated progress of the operation in percentage [0,
     /// 100]. The value -1 means the progress is unknown.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub progress_percent: i32,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -874,10 +898,12 @@ pub struct RenameFolderMetadata {
 
     /// The path of the source folder.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_folder_id: std::string::String,
 
     /// The path of the destination folder.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_folder_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -941,15 +967,18 @@ pub struct StorageLayout {
     /// Output only. The name of the StorageLayout resource.
     /// Format: `projects/{project}/buckets/{bucket}/storageLayout`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The location of the bucket.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     /// Output only. The location type of the bucket (region, dual-region,
     /// multi-region, etc).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_type: std::string::String,
 
     /// Output only. The data placement configuration for custom dual region. If
@@ -1049,6 +1078,7 @@ pub mod storage_layout {
     pub struct CustomPlacementConfig {
         /// List of locations to use for data placement.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub data_locations: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1086,6 +1116,7 @@ pub mod storage_layout {
     pub struct HierarchicalNamespace {
         /// Enables the hierarchical namespace feature.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enabled: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1120,16 +1151,19 @@ pub struct GetStorageLayoutRequest {
     /// Required. The name of the StorageLayout resource.
     /// Format: `projects/{project}/buckets/{bucket}/storageLayout`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// An optional prefix used for permission check. It is useful when the caller
     /// only has limited permissions under a specific prefix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub prefix: std::string::String,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1176,13 +1210,14 @@ pub struct ManagedFolder {
     /// Format:
     /// `projects/{project}/buckets/{bucket}/managedFolders/{managedFolder}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The metadata version of this managed folder. It increases
     /// whenever the metadata is updated. Used for preconditions and for detecting
     /// changes in metadata. Managed folders don't have a generation number.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub metageneration: i64,
 
     /// Output only. The creation time of the managed folder.
@@ -1267,23 +1302,25 @@ pub struct GetManagedFolderRequest {
     /// Format:
     /// `projects/{project}/buckets/{bucket}/managedFolders/{managedFolder}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The operation succeeds conditional on the managed folder's current
     /// metageneration matching the value here specified.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// The operation succeeds conditional on the managed folder's current
     /// metageneration NOT matching the value here specified.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1358,6 +1395,7 @@ impl wkt::message::Message for GetManagedFolderRequest {
 pub struct CreateManagedFolderRequest {
     /// Required. Name of the bucket this managed folder belongs to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Properties of the managed folder being created.
@@ -1370,11 +1408,13 @@ pub struct CreateManagedFolderRequest {
     /// Required. The name of the managed folder. It uses a single `/` as delimiter
     /// and leading and trailing `/` are allowed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub managed_folder_id: std::string::String,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1442,18 +1482,19 @@ pub struct DeleteManagedFolderRequest {
     /// Format:
     /// `projects/{project}/buckets/{bucket}/managedFolders/{managedFolder}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The operation succeeds conditional on the managed folder's current
     /// metageneration matching the value here specified.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_match: std::option::Option<i64>,
 
     /// The operation succeeds conditional on the managed folder's current
     /// metageneration NOT matching the value here specified.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub if_metageneration_not_match: std::option::Option<i64>,
 
     /// Allows deletion of a managed folder even if it is not empty.
@@ -1461,11 +1502,13 @@ pub struct DeleteManagedFolderRequest {
     /// objects. Caller must have permission for
     /// storage.managedFolders.setIamPolicy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_non_empty: bool,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1546,27 +1589,31 @@ impl wkt::message::Message for DeleteManagedFolderRequest {
 pub struct ListManagedFoldersRequest {
     /// Required. Name of the bucket this managed folder belongs to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Maximum number of managed folders to return in a single response.
     /// The service will use this parameter or 1,000 items, whichever is smaller.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A previously-returned page token representing part of the larger
     /// set of results to view.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter results to match managed folders with name starting with
     /// this prefix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub prefix: std::string::String,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1623,11 +1670,13 @@ impl wkt::message::Message for ListManagedFoldersRequest {
 pub struct ListManagedFoldersResponse {
     /// The list of matching managed folders
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub managed_folders: std::vec::Vec<crate::model::ManagedFolder>,
 
     /// The continuation token, used to page through large result sets. Provide
     /// this value in a subsequent request to return the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1963,11 +2012,13 @@ pub struct AnywhereCache {
     /// Format:
     /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Immutable. The zone in which the cache instance is running. For example,
     /// us-central1-a.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub zone: std::string::String,
 
     /// Cache entry TTL (ranges between 1h to 7d). This is a cache-level config
@@ -1982,10 +2033,12 @@ pub struct AnywhereCache {
     /// `admit-on-first-miss`. Default value is applied if not specified in the
     /// create request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub admission_policy: std::string::String,
 
     /// Output only. Cache state including RUNNING, CREATING, DISABLED and PAUSED.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: std::string::String,
 
     /// Output only. Time when Anywhere cache instance is allocated.
@@ -2001,6 +2054,7 @@ pub struct AnywhereCache {
     /// instance. Subsequential update requests will be rejected if this field is
     /// true. Output only.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pending_update: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2115,6 +2169,7 @@ pub struct CreateAnywhereCacheRequest {
     /// Required. The bucket to which this cache belongs.
     /// Format: `projects/{project}/buckets/{bucket}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Properties of the Anywhere Cache instance being created.
@@ -2128,6 +2183,7 @@ pub struct CreateAnywhereCacheRequest {
     /// format, but other formats are still accepted. This request is only
     /// idempotent if a `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2202,6 +2258,7 @@ pub struct UpdateAnywhereCacheRequest {
     /// format, but other formats are still accepted. This request is only
     /// idempotent if a `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2271,12 +2328,14 @@ pub struct DisableAnywhereCacheRequest {
     /// Required. The name field in the request should be:
     /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted. This request is only
     /// idempotent if a `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2316,12 +2375,14 @@ pub struct PauseAnywhereCacheRequest {
     /// Required. The name field in the request should be:
     /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted. This request is only
     /// idempotent if a `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2361,12 +2422,14 @@ pub struct ResumeAnywhereCacheRequest {
     /// Required. The name field in the request should be:
     /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted. This request is only
     /// idempotent if a `request_id` is provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2406,11 +2469,13 @@ pub struct GetAnywhereCacheRequest {
     /// Required. The name field in the request should be:
     /// `projects/{project}/buckets/{bucket}/anywhereCaches/{anywhere_cache}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2449,22 +2514,25 @@ impl wkt::message::Message for GetAnywhereCacheRequest {
 pub struct ListAnywhereCachesRequest {
     /// Required. The bucket to which this cache belongs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Maximum number of caches to return in a single response.
     /// The service will use this parameter or 1,000 items, whichever is smaller.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A previously-returned page token representing part of the larger set of
     /// results to view.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. A unique identifier for this request. UUID is the recommended
     /// format, but other formats are still accepted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2515,11 +2583,13 @@ impl wkt::message::Message for ListAnywhereCachesRequest {
 pub struct ListAnywhereCachesResponse {
     /// The list of items.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub anywhere_caches: std::vec::Vec<crate::model::AnywhereCache>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2587,10 +2657,12 @@ pub struct IntelligenceConfig {
     ///   `organizations/{org_id}/locations/global/intelligenceConfig`
     /// * For folder: `folders/{folder_id}/locations/global/intelligenceConfig`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The edition configuration of the `IntelligenceConfig` resource.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub edition_config: crate::model::intelligence_config::EditionConfig,
 
     /// Output only. The time at which the `IntelligenceConfig` resource is last
@@ -2960,6 +3032,7 @@ pub mod intelligence_config {
             /// regions specified in lower case format. For example, `us-east1`,
             /// `us-west1`.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub locations: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3004,6 +3077,7 @@ pub mod intelligence_config {
             /// If you want to match a single bucket, say `gs://sample_bucket`,
             /// use `sample_bucket`.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub bucket_id_regexes: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3117,6 +3191,7 @@ pub mod intelligence_config {
         /// Output only. The `IntelligenceConfig` edition that is applicable for the
         /// resource.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub effective_edition:
             crate::model::intelligence_config::effective_intelligence_config::EffectiveEdition,
 
@@ -3124,6 +3199,7 @@ pub mod intelligence_config {
         /// target resource. Format:
         /// `{organizations|folders|projects}/{id}/locations/{location}/intelligenceConfig`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub intelligence_config: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3524,6 +3600,7 @@ pub struct UpdateOrganizationIntelligenceConfigRequest {
     /// Optional. The ID that uniquely identifies the request, preventing duplicate
     /// processing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3610,6 +3687,7 @@ pub struct UpdateFolderIntelligenceConfigRequest {
     /// Optional. The ID that uniquely identifies the request, preventing duplicate
     /// processing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3696,6 +3774,7 @@ pub struct UpdateProjectIntelligenceConfigRequest {
     /// Optional. The ID that uniquely identifies the request, preventing duplicate
     /// processing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3774,6 +3853,7 @@ pub struct GetOrganizationIntelligenceConfigRequest {
     ///
     /// Format: `organizations/{org_id}/locations/global/intelligenceConfig`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3816,6 +3896,7 @@ pub struct GetFolderIntelligenceConfigRequest {
     ///
     /// Format: `folders/{id}/locations/global/intelligenceConfig`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3858,6 +3939,7 @@ pub struct GetProjectIntelligenceConfigRequest {
     ///
     /// Format: `projects/{id}/locations/global/intelligenceConfig`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

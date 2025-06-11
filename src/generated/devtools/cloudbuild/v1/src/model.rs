@@ -42,14 +42,17 @@ pub struct RetryBuildRequest {
     /// The name of the `Build` to retry.
     /// Format: `projects/{project}/locations/{location}/builds/{build}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. ID of the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Required. Build ID of the original build.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -95,14 +98,17 @@ pub struct RunBuildTriggerRequest {
     /// The name of the `Trigger` to run.
     /// Format: `projects/{project}/locations/{location}/triggers/{trigger}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. ID of the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Required. ID of the trigger.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trigger_id: std::string::String,
 
     /// Source to build against this trigger.
@@ -172,6 +178,7 @@ pub struct StorageSource {
     /// [Bucket Name
     /// Requirements](https://cloud.google.com/storage/docs/bucket-naming#requirements)).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket: std::string::String,
 
     /// Cloud Storage object containing the source.
@@ -179,16 +186,18 @@ pub struct StorageSource {
     /// This object must be a zipped (`.zip`) or gzipped archive file (`.tar.gz`)
     /// containing source to build.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub object: std::string::String,
 
     /// Cloud Storage generation for the object. If the generation is
     /// omitted, the latest generation will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub generation: i64,
 
     /// Option to specify the tool to fetch the source file for the build.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_fetcher: crate::model::storage_source::SourceFetcher,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -385,6 +394,7 @@ pub struct GitSource {
     /// This will be used as a `git remote`, see
     /// <https://git-scm.com/docs/git-remote>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub url: std::string::String,
 
     /// Directory, relative to the source root, in which to run the build.
@@ -392,6 +402,7 @@ pub struct GitSource {
     /// This must be a relative path. If a step's `dir` is specified and is an
     /// absolute path, this value is ignored for that step's execution.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dir: std::string::String,
 
     /// The revision to fetch from the Git repository such as a branch, a tag, a
@@ -404,6 +415,7 @@ pub struct GitSource {
     /// <https://git-scm.com/docs/gitrevisions#_specifying_revisions>. For
     /// information on `git fetch`, see <https://git-scm.com/docs/git-fetch>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -449,10 +461,12 @@ pub struct RepoSource {
     /// ID of the project that owns the Cloud Source Repository. If omitted, the
     /// project ID requesting the build is assumed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Name of the Cloud Source Repository.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub repo_name: std::string::String,
 
     /// Directory, relative to the source root, in which to run the build.
@@ -460,16 +474,19 @@ pub struct RepoSource {
     /// This must be a relative path. If a step's `dir` is specified and is an
     /// absolute path, this value is ignored for that step's execution.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dir: std::string::String,
 
     /// Only trigger a build if the revision regex does NOT match the revision
     /// regex.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub invert_regex: bool,
 
     /// Substitutions to use in a triggered build.
     /// Should only be used with RunBuildTrigger
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub substitutions: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// A revision within the Cloud Source Repository must be specified in
@@ -625,14 +642,14 @@ pub mod repo_source {
         ///
         /// The syntax of the regular expressions accepted is the syntax accepted by
         /// RE2 and described at <https://github.com/google/re2/wiki/Syntax>
-        BranchName(std::string::String),
+        BranchName(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Regex matching tags to build.
         ///
         /// The syntax of the regular expressions accepted is the syntax accepted by
         /// RE2 and described at <https://github.com/google/re2/wiki/Syntax>
-        TagName(std::string::String),
+        TagName(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Explicit commit SHA to build.
-        CommitSha(std::string::String),
+        CommitSha(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -648,18 +665,20 @@ pub struct StorageSourceManifest {
     /// Name
     /// Requirements](https://cloud.google.com/storage/docs/bucket-naming#requirements)).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub bucket: std::string::String,
 
     /// Cloud Storage object containing the source manifest.
     ///
     /// This object must be a JSON file.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub object: std::string::String,
 
     /// Cloud Storage generation for the object. If the generation is
     /// omitted, the latest generation will be used.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub generation: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -875,10 +894,12 @@ pub struct BuiltImage {
     /// Name used to push the container image to Google Container Registry, as
     /// presented to `docker push`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Docker Registry 2.0 digest.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub digest: std::string::String,
 
     /// Output only. Stores timing information for pushing the specified image.
@@ -939,6 +960,7 @@ impl wkt::message::Message for BuiltImage {
 pub struct UploadedPythonPackage {
     /// URI of the uploaded artifact.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Hash types and values of the Python Artifact.
@@ -1015,6 +1037,7 @@ impl wkt::message::Message for UploadedPythonPackage {
 pub struct UploadedMavenArtifact {
     /// URI of the uploaded artifact.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Hash types and values of the Maven Artifact.
@@ -1092,6 +1115,7 @@ impl wkt::message::Message for UploadedMavenArtifact {
 pub struct UploadedGoModule {
     /// URI of the uploaded artifact.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Hash types and values of the Go Module Artifact.
@@ -1169,6 +1193,7 @@ impl wkt::message::Message for UploadedGoModule {
 pub struct UploadedNpmPackage {
     /// URI of the uploaded npm package.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Hash types and values of the npm package.
@@ -1261,6 +1286,7 @@ pub struct BuildStep {
     /// host's Docker daemon's cache and is available to use as the name for a
     /// later build step.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// A list of environment variable definitions to be used when running a step.
@@ -1268,6 +1294,7 @@ pub struct BuildStep {
     /// The elements are of the form "KEY=VALUE" for the environment variable "KEY"
     /// being given the value "VALUE".
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub env: std::vec::Vec<std::string::String>,
 
     /// A list of arguments that will be presented to the step when it is started.
@@ -1277,6 +1304,7 @@ pub struct BuildStep {
     /// an entrypoint, the first element in args is used as the entrypoint,
     /// and the remainder will be used as arguments.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub args: std::vec::Vec<std::string::String>,
 
     /// Working directory to use when running this step's container.
@@ -1290,11 +1318,13 @@ pub struct BuildStep {
     /// which specifies an absolute path, the `RepoSource` `dir` is ignored for
     /// the step's execution.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dir: std::string::String,
 
     /// Unique identifier for this build step, used in `wait_for` to
     /// reference this build step as a dependency.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// The ID(s) of the step(s) that this build step depends on.
@@ -1303,17 +1333,20 @@ pub struct BuildStep {
     /// start when all previous build steps in the `Build.Steps` list have
     /// completed successfully.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub wait_for: std::vec::Vec<std::string::String>,
 
     /// Entrypoint to be used instead of the build step image's default entrypoint.
     /// If unset, the image's default entrypoint is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entrypoint: std::string::String,
 
     /// A list of environment variables which are encrypted using a Cloud Key
     /// Management Service crypto key. These values must be specified in the
     /// build's `Secret`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub secret_env: std::vec::Vec<std::string::String>,
 
     /// List of volumes to mount into the build step.
@@ -1325,6 +1358,7 @@ pub struct BuildStep {
     /// Using a named volume in only one step is not valid as it is indicative
     /// of a build request with an incorrect configuration.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub volumes: std::vec::Vec<crate::model::Volume>,
 
     /// Output only. Stores timing information for executing this build step.
@@ -1346,6 +1380,7 @@ pub struct BuildStep {
     /// only updated on build completion; step status is not updated in real-time
     /// as the build progresses.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status: crate::model::build::Status,
 
     /// Allow this build step to fail without failing the entire build.
@@ -1354,24 +1389,26 @@ pub struct BuildStep {
     /// build will succeed, but this step will still have a failure status.
     /// Error information will be reported in the failure_detail field.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_failure: bool,
 
     /// Output only. Return code from running the step.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub exit_code: i32,
 
     /// Allow this build step to fail without failing the entire build if and
     /// only if the exit code is one of the specified codes. If allow_failure
     /// is also specified, this field will take precedence.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub allow_exit_codes: std::vec::Vec<i32>,
 
     /// A shell script to be executed in the step.
     ///
     /// When script is provided, the user cannot specify the entrypoint or args.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub script: std::string::String,
 
     /// Option to include built-in and custom substitutions as env variables
@@ -1594,6 +1631,7 @@ pub struct Volume {
     /// Volume names must be unique per build step and must be valid names for
     /// Docker volumes. Each named volume must be used by at least two build steps.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Path at which to mount the volume.
@@ -1601,6 +1639,7 @@ pub struct Volume {
     /// Paths must be absolute and cannot conflict with other volume paths on the
     /// same build step or with certain reserved volume paths.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1639,22 +1678,25 @@ impl wkt::message::Message for Volume {
 pub struct Results {
     /// Container images that were built as a part of the build.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub images: std::vec::Vec<crate::model::BuiltImage>,
 
     /// List of build step digests, in the order corresponding to build step
     /// indices.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub build_step_images: std::vec::Vec<std::string::String>,
 
     /// Path to the artifact manifest for non-container artifacts uploaded to Cloud
     /// Storage. Only populated when artifacts are uploaded to Cloud Storage.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub artifact_manifest: std::string::String,
 
     /// Number of non-container artifacts uploaded to Cloud Storage. Only populated
     /// when artifacts are uploaded to Cloud Storage.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub num_artifacts: i64,
 
     /// List of build step outputs, produced by builder images, in the order
@@ -1665,7 +1707,7 @@ pub struct Results {
     /// first 50KB of data is stored. Note that the `$BUILDER_OUTPUT` variable is
     /// read-only and can't be substituted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<serde_with::base64::Base64>>")]
     pub build_step_outputs: std::vec::Vec<::bytes::Bytes>,
 
     /// Time to push all non-container artifacts to Cloud Storage.
@@ -1674,19 +1716,23 @@ pub struct Results {
 
     /// Python artifacts uploaded to Artifact Registry at the end of the build.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub python_packages: std::vec::Vec<crate::model::UploadedPythonPackage>,
 
     /// Maven artifacts uploaded to Artifact Registry at the end of the build.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub maven_artifacts: std::vec::Vec<crate::model::UploadedMavenArtifact>,
 
     /// Optional. Go module artifacts uploaded to Artifact Registry at the end of
     /// the build.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub go_modules: std::vec::Vec<crate::model::UploadedGoModule>,
 
     /// Npm packages uploaded to Artifact Registry at the end of the build.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub npm_packages: std::vec::Vec<crate::model::UploadedNpmPackage>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1826,10 +1872,12 @@ pub struct ArtifactResult {
     /// generation number. For example,
     /// `gs://mybucket/path/to/output.jar#generation`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     /// The file hash of the artifact.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub file_hash: std::vec::Vec<crate::model::FileHashes>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1893,22 +1941,27 @@ pub struct Build {
     /// `projects/{project}/locations/{location}/builds/{build}`, where {build}
     /// is a unique identifier generated by the service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Unique identifier of the build.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Output only. ID of the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Output only. Status of the build.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status: crate::model::build::Status,
 
     /// Output only. Customer-readable message about the current status.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_detail: std::string::String,
 
     /// The location of the source files to build.
@@ -1917,6 +1970,7 @@ pub struct Build {
 
     /// Required. The operations to be performed on the workspace.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub steps: std::vec::Vec<crate::model::BuildStep>,
 
     /// Output only. Results of the build.
@@ -1959,6 +2013,7 @@ pub struct Build {
     /// If any of the images fail to be pushed, the build status is marked
     /// `FAILURE`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub images: std::vec::Vec<std::string::String>,
 
     /// TTL in queue for this build. If provided and the build is enqueued longer
@@ -1979,6 +2034,7 @@ pub struct Build {
     /// Requirements](https://cloud.google.com/storage/docs/bucket-naming#requirements)).
     /// Logs file names will be of the format `${logs_bucket}/log-${build_id}.txt`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub logs_bucket: std::string::String,
 
     /// Output only. A permanent fixed identifier for source.
@@ -1988,6 +2044,7 @@ pub struct Build {
     /// Output only. The ID of the `BuildTrigger` that triggered this build, if it
     /// was triggered automatically.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub build_trigger_id: std::string::String,
 
     /// Special options for this build.
@@ -1996,14 +2053,17 @@ pub struct Build {
 
     /// Output only. URL to logs for this build in Google Cloud Console.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub log_url: std::string::String,
 
     /// Substitutions data for `Build` resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub substitutions: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Tags for annotation of a `Build`. These are not docker tags.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tags: std::vec::Vec<std::string::String>,
 
     /// Secrets to decrypt using Cloud Key Management Service.
@@ -2012,6 +2072,7 @@ pub struct Build {
     /// configure builds to access secrets from Secret Manager. For instructions,
     /// see: <https://cloud.google.com/cloud-build/docs/securing-builds/use-secrets>
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub secrets: std::vec::Vec<crate::model::Secret>,
 
     /// Output only. Stores timing information for phases of the build. Valid keys
@@ -2026,6 +2087,7 @@ pub struct Build {
     /// If the build does not specify source or images,
     /// these keys will not be included.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub timing: std::collections::HashMap<std::string::String, crate::model::TimeSpan>,
 
     /// Output only. Describes this build's approval configuration, status,
@@ -2037,6 +2099,7 @@ pub struct Build {
     /// Must be of the format `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT}`.
     /// ACCOUNT can be email address or uniqueId of the service account.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// Secrets and secret environment variables.
@@ -2046,6 +2109,7 @@ pub struct Build {
     /// Output only. Non-fatal problems encountered during the execution of the
     /// build.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub warnings: std::vec::Vec<crate::model::build::Warning>,
 
     /// Optional. Configuration for git operations.
@@ -2059,6 +2123,7 @@ pub struct Build {
     /// Optional. Dependencies that the Cloud Build worker will fetch before
     /// executing user steps.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dependencies: std::vec::Vec<crate::model::Dependency>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2489,10 +2554,12 @@ pub mod build {
     pub struct Warning {
         /// Explanation of the warning generated.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub text: std::string::String,
 
         /// The priority for this warning.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub priority: crate::model::build::warning::Priority,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2683,10 +2750,12 @@ pub mod build {
         /// The name of the failure.
         #[serde(rename = "type")]
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: crate::model::build::failure_info::FailureType,
 
         /// Explains the failure issue in more detail using hard-coded text.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub detail: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3178,20 +3247,23 @@ pub mod dependency {
 
         /// Required. The revision that we will fetch the repo at.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub revision: std::string::String,
 
         /// Optional. True if submodules should be fetched too (default false).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub recurse_submodules: bool,
 
         /// Optional. How much history should be fetched for the build (default 1, -1
         /// for all history).
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub depth: i64,
 
         /// Required. Where should the files be placed on the worker.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub dest_path: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3362,11 +3434,11 @@ pub mod dependency {
         #[non_exhaustive]
         pub enum Repotype {
             /// Location of the Git repository.
-            Url(std::string::String),
+            Url(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// The Developer Connect Git repository link or the url that matches a
             /// repository link in the current project, formatted as
             /// `projects/*/locations/*/connections/*/gitRepositoryLink/*`
-            DeveloperConnect(std::string::String),
+            DeveloperConnect(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 
@@ -3378,7 +3450,7 @@ pub mod dependency {
     pub enum Dep {
         /// If set to true disable all dependency fetching (ignoring the default
         /// source as well).
-        Empty(bool),
+        Empty(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         /// Represents a git repository as a build dependency.
         GitSource(std::boxed::Box<crate::model::dependency::GitSourceDependency>),
     }
@@ -3445,6 +3517,7 @@ pub mod git_config {
         /// `secretmanager.versions.access` permissions on this secret. The proxy URL
         /// should be in format `[protocol://][user[:password]@]proxyhost[:port]`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub proxy_secret_version_name: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3490,6 +3563,7 @@ pub struct Artifacts {
     ///
     /// If any of the images fail to be pushed, the build is marked FAILURE.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub images: std::vec::Vec<std::string::String>,
 
     /// A list of objects to be uploaded to Cloud Storage upon successful
@@ -3515,6 +3589,7 @@ pub struct Artifacts {
     ///
     /// If any artifacts fail to be pushed, the build is marked FAILURE.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub maven_artifacts: std::vec::Vec<crate::model::artifacts::MavenArtifact>,
 
     /// Optional. A list of Go modules to be uploaded to Artifact Registry upon
@@ -3522,6 +3597,7 @@ pub struct Artifacts {
     ///
     /// If any objects fail to be pushed, the build is marked FAILURE.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub go_modules: std::vec::Vec<crate::model::artifacts::GoModule>,
 
     /// A list of Python packages to be uploaded to Artifact Registry upon
@@ -3531,6 +3607,7 @@ pub struct Artifacts {
     ///
     /// If any objects fail to be pushed, the build is marked FAILURE.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub python_packages: std::vec::Vec<crate::model::artifacts::PythonPackage>,
 
     /// A list of npm packages to be uploaded to Artifact Registry upon
@@ -3542,6 +3619,7 @@ pub struct Artifacts {
     ///
     /// If any packages fail to be pushed, the build is marked FAILURE.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub npm_packages: std::vec::Vec<crate::model::artifacts::NpmPackage>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3652,10 +3730,12 @@ pub mod artifacts {
         /// Files in the workspace matching any path pattern will be uploaded to
         /// Cloud Storage with this location as a prefix.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub location: std::string::String,
 
         /// Path globs used to match files in the build's workspace.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub paths: std::vec::Vec<std::string::String>,
 
         /// Output only. Stores timing information for pushing all artifact objects.
@@ -3726,6 +3806,7 @@ pub mod artifacts {
         /// Artifact in the workspace specified by path will be uploaded to
         /// Artifact Registry with this location as a prefix.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub repository: std::string::String,
 
         /// Path to an artifact in the build's workspace to be uploaded to
@@ -3735,21 +3816,25 @@ pub mod artifacts {
         /// or a relative path from /workspace,
         /// e.g. my-app/target/my-app-1.0.SNAPSHOT.jar.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub path: std::string::String,
 
         /// Maven `artifactId` value used when uploading the artifact to Artifact
         /// Registry.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub artifact_id: std::string::String,
 
         /// Maven `groupId` value used when uploading the artifact to Artifact
         /// Registry.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub group_id: std::string::String,
 
         /// Maven `version` value used when uploading the artifact to Artifact
         /// Registry.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub version: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3811,27 +3896,32 @@ pub mod artifacts {
         /// with this location as a prefix.
         /// e.g. my-go-repo
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub repository_name: std::string::String,
 
         /// Optional. Location of the Artifact Registry repository. i.e. us-east1
         /// Defaults to the build’s location.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub repository_location: std::string::String,
 
         /// Optional. Project ID of the Artifact Registry repository.
         /// Defaults to the build project.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub repository_project_id: std::string::String,
 
         /// Optional. Source path of the go.mod file in the build's workspace. If not
         /// specified, this will default to the current directory.
         /// e.g. ~/code/go/mypackage
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub source_path: std::string::String,
 
         /// Optional. The Go module's "module path".
         /// e.g. example.com/foo/v2
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub module_path: std::string::String,
 
         /// Optional. The Go module's semantic version in the form vX.Y.Z. e.g.
@@ -3839,6 +3929,7 @@ pub mod artifacts {
         /// dot separated ASCII alphanumeric characters and hyphens.
         /// e.g. v0.2.3-alpha.x.12m.5
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub module_version: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3919,12 +4010,14 @@ pub mod artifacts {
         /// Files in the workspace matching any path pattern will be uploaded to
         /// Artifact Registry with this location as a prefix.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub repository: std::string::String,
 
         /// Path globs used to match files in the build's workspace. For Python/
         /// Twine, this is usually `dist/*`, and sometimes additionally an `.asc`
         /// file.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub paths: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3973,11 +4066,13 @@ pub mod artifacts {
         /// Npm package in the workspace specified by path will be zipped and
         /// uploaded to Artifact Registry with this location as a prefix.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub repository: std::string::String,
 
         /// Path to the package.json.
         /// e.g. workspace/path/to/package
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub package_path: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4156,6 +4251,7 @@ pub struct SourceProvenance {
     /// If the build source came in a single package such as a gzipped tarfile
     /// (`.tar.gz`), the `FileHash` will be for the single path to that file.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub file_hashes: std::collections::HashMap<std::string::String, crate::model::FileHashes>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4252,6 +4348,7 @@ impl wkt::message::Message for SourceProvenance {
 pub struct FileHashes {
     /// Collection of file hashes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub file_hash: std::vec::Vec<crate::model::Hash>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4290,11 +4387,12 @@ pub struct Hash {
     /// The type of hash that was performed.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::hash::HashType,
 
     /// The hash value.
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub value: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4485,11 +4583,13 @@ pub mod hash {
 pub struct Secrets {
     /// Secrets in Secret Manager and associated secret environment variable.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub secret_manager: std::vec::Vec<crate::model::SecretManagerSecret>,
 
     /// Secrets encrypted with KMS key and the associated secret environment
     /// variable.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub inline: std::vec::Vec<crate::model::InlineSecret>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4540,6 +4640,7 @@ pub struct InlineSecret {
     /// Resource name of Cloud KMS crypto key to decrypt the encrypted value.
     /// In format: projects/*/locations/*/keyRings/*/cryptoKeys/*
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// Map of environment variable name to its encrypted value.
@@ -4549,7 +4650,9 @@ pub struct InlineSecret {
     /// 64 KB in size. There can be at most 100 secret values across all of a
     /// build's secrets.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]
+    #[serde_as(
+        as = "serde_with::DefaultOnNull<std::collections::HashMap<_, serde_with::base64::Base64>>"
+    )]
     pub env_map: std::collections::HashMap<std::string::String, ::bytes::Bytes>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4595,12 +4698,14 @@ pub struct SecretManagerSecret {
     /// Resource name of the SecretVersion. In format:
     /// projects/*/secrets/*/versions/*
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version_name: std::string::String,
 
     /// Environment variable name to associate with the secret.
     /// Secret environment variables must be unique across all of a build's
     /// secrets, and must be used by at least one build step.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub env: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4643,6 +4748,7 @@ impl wkt::message::Message for SecretManagerSecret {
 pub struct Secret {
     /// Cloud KMS key name to use to decrypt these envs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kms_key_name: std::string::String,
 
     /// Map of environment variable name to its encrypted value.
@@ -4652,7 +4758,9 @@ pub struct Secret {
     /// 64 KB in size. There can be at most 100 secret values across all of a
     /// build's secrets.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]
+    #[serde_as(
+        as = "serde_with::DefaultOnNull<std::collections::HashMap<_, serde_with::base64::Base64>>"
+    )]
     pub secret_env: std::collections::HashMap<std::string::String, ::bytes::Bytes>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4698,10 +4806,12 @@ pub struct CreateBuildRequest {
     /// The parent resource where this build will be created.
     /// Format: `projects/{project}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID of the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Required. Build resource to create.
@@ -4763,14 +4873,17 @@ pub struct GetBuildRequest {
     /// The name of the `Build` to retrieve.
     /// Format: `projects/{project}/locations/{location}/builds/{build}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. ID of the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Required. ID of the build.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4816,15 +4929,17 @@ pub struct ListBuildsRequest {
     /// The parent of the collection of `Builds`.
     /// Format: `projects/{project}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID of the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Number of results to return in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The page token for the next page of Builds.
@@ -4837,10 +4952,12 @@ pub struct ListBuildsRequest {
     ///
     /// See <https://google.aip.dev/158> for more.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// The raw filter text to constrain the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4897,11 +5014,13 @@ impl wkt::message::Message for ListBuildsRequest {
 pub struct ListBuildsResponse {
     /// Builds will be sorted by `create_time`, descending.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub builds: std::vec::Vec<crate::model::Build>,
 
     /// Token to receive the next page of results.
     /// This will be absent if the end of the response list has been reached.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4960,14 +5079,17 @@ pub struct CancelBuildRequest {
     /// The name of the `Build` to cancel.
     /// Format: `projects/{project}/locations/{location}/builds/{build}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. ID of the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Required. ID of the build.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5013,6 +5135,7 @@ pub struct ApproveBuildRequest {
     /// Required. Name of the target build.
     /// For example: "projects/{$project_id}/builds/{$build_id}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Approval decision and metadata.
@@ -5068,6 +5191,7 @@ impl wkt::message::Message for ApproveBuildRequest {
 pub struct BuildApproval {
     /// Output only. The state of this build's approval.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::build_approval::State,
 
     /// Output only. Configuration for manual approval of this build.
@@ -5301,6 +5425,7 @@ pub struct ApprovalConfig {
     /// become pending when created, and will need to be explicitly approved
     /// to start.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub approval_required: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5335,6 +5460,7 @@ pub struct ApprovalResult {
     /// Output only. Email of the user that called the ApproveBuild API to
     /// approve or reject a build at the time that the API was called.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub approver_account: std::string::String,
 
     /// Output only. The time when the approval decision was made.
@@ -5343,10 +5469,12 @@ pub struct ApprovalResult {
 
     /// Required. The decision of this manual approval.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub decision: crate::model::approval_result::Decision,
 
     /// Optional. An optional comment for this manual approval result.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub comment: std::string::String,
 
     /// Optional. An optional URL tied to this manual approval result. This field
@@ -5354,6 +5482,7 @@ pub struct ApprovalResult {
     /// UI differently. An example use case is a link to an external job that
     /// approved this Build.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub url: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5568,15 +5697,18 @@ pub struct GitRepoSource {
     /// The URI of the repo (e.g. <https://github.com/user/repo.git>).
     /// Either `uri` or `repository` can be specified and is required.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// The branch or tag to use. Must start with "refs/" (required).
     #[serde(rename = "ref")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#ref: std::string::String,
 
     /// See RepoType below.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub repo_type: crate::model::git_file_source::RepoType,
 
     /// The source of the SCM repo.
@@ -5717,7 +5849,7 @@ pub mod git_repo_source {
         /// The connected repository resource name, in the format
         /// `projects/*/locations/*/connections/*/repositories/*`. Either `uri` or
         /// `repository` can be specified and is required.
-        Repository(std::string::String),
+        Repository(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 
     /// The resource name of the enterprise config that should be applied
@@ -5731,7 +5863,9 @@ pub mod git_repo_source {
         /// Format:
         /// `projects/{project}/locations/{location}/githubEnterpriseConfigs/{id}`.
         /// `projects/{project}/githubEnterpriseConfigs/{id}`.
-        GithubEnterpriseConfig(std::string::String),
+        GithubEnterpriseConfig(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String,
+        ),
     }
 }
 
@@ -5743,6 +5877,7 @@ pub mod git_repo_source {
 pub struct GitFileSource {
     /// The path of the file, with the repo root as the root of the path.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path: std::string::String,
 
     /// The URI of the repo.
@@ -5750,10 +5885,12 @@ pub struct GitFileSource {
     /// If unspecified, the repo from which the trigger invocation originated is
     /// assumed to be the repo from which to read the specified path.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// See RepoType above.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub repo_type: crate::model::git_file_source::RepoType,
 
     /// The branch, tag, arbitrary ref, or SHA version of the repo to use when
@@ -5763,6 +5900,7 @@ pub struct GitFileSource {
     /// If unspecified, the revision from which the trigger invocation originated
     /// is assumed to be the revision from which to read the specified path.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision: std::string::String,
 
     /// The source of the SCM repo.
@@ -6061,7 +6199,7 @@ pub mod git_file_source {
         /// Either URI or repository can be specified.
         /// If unspecified, the repo from which the trigger invocation originated is
         /// assumed to be the repo from which to read the specified path.
-        Repository(std::string::String),
+        Repository(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 
     /// The resource name of the enterprise config that should be applied
@@ -6075,7 +6213,9 @@ pub mod git_file_source {
         /// Format:
         /// `projects/{project}/locations/{location}/githubEnterpriseConfigs/{id}`.
         /// `projects/{project}/githubEnterpriseConfigs/{id}`.
-        GithubEnterpriseConfig(std::string::String),
+        GithubEnterpriseConfig(
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String,
+        ),
     }
 }
 
@@ -6090,14 +6230,17 @@ pub struct BuildTrigger {
     /// `projects/{project}/locations/{location}/triggers/{trigger}`, where
     /// {trigger} is a unique identifier generated by the service.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_name: std::string::String,
 
     /// Output only. Unique identifier of the trigger.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Human-readable description of this trigger.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// User-assigned name of the trigger. Must be unique within the project.
@@ -6107,10 +6250,12 @@ pub struct BuildTrigger {
     /// + They can be 1-64 characters long.
     /// + They must begin and end with an alphanumeric character.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Tags for annotation of a `BuildTrigger`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tags: std::vec::Vec<std::string::String>,
 
     /// Template describing the types of source changes to trigger a build.
@@ -6146,11 +6291,13 @@ pub struct BuildTrigger {
 
     /// If true, the trigger will never automatically execute a build.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disabled: bool,
 
     /// Substitutions for Build resource. The keys must match the following
     /// regular expression: `^_[A-Z0-9_]+$`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub substitutions: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// ignored_files and included_files are file glob matches using
@@ -6163,6 +6310,7 @@ pub struct BuildTrigger {
     /// any of the ignored_file globs. If the change has no files that are
     /// outside of the ignored_files globs, then we do not trigger a build.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ignored_files: std::vec::Vec<std::string::String>,
 
     /// If any of the files altered in the commit pass the ignored_files
@@ -6174,10 +6322,12 @@ pub struct BuildTrigger {
     /// least one of those files matches a included_files glob. If not,
     /// then we do not trigger a build.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub included_files: std::vec::Vec<std::string::String>,
 
     /// Optional. A Common Expression Language string.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The repo and ref of the repository from which to build. This field
@@ -6196,6 +6346,7 @@ pub struct BuildTrigger {
     /// project then it will be used instead.
     /// Format: `projects/{PROJECT_ID}/serviceAccounts/{ACCOUNT_ID_OR_EMAIL}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// The configuration of a trigger that creates a build whenever an event from
@@ -6577,12 +6728,12 @@ pub mod build_trigger {
         /// . Dockerfile
         ///
         /// Currently only available for GitHub App Triggers.
-        Autodetect(bool),
+        Autodetect(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         /// Contents of the build template.
         Build(std::boxed::Box<crate::model::Build>),
         /// Path, from the source root, to the build configuration file
         /// (i.e. cloudbuild.yaml).
-        Filename(std::string::String),
+        Filename(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// The file source describing the local or remote Build template.
         GitFileSource(std::boxed::Box<crate::model::GitFileSource>),
     }
@@ -6597,10 +6748,12 @@ pub mod build_trigger {
 pub struct RepositoryEventConfig {
     /// The resource name of the Repo API resource.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub repository: std::string::String,
 
     /// Output only. The type of the SCM vendor the repository points to.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub repository_type: crate::model::repository_event_config::RepositoryType,
 
     /// The types of filter to trigger a build.
@@ -6878,7 +7031,7 @@ pub mod repository_event_config {
 pub struct GitHubEventsConfig {
     /// The installationID that emits the GitHub event.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     #[deprecated]
     pub installation_id: i64,
 
@@ -6886,11 +7039,13 @@ pub struct GitHubEventsConfig {
     /// <https://github.com/googlecloudplatform/cloud-builders> is
     /// "googlecloudplatform".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub owner: std::string::String,
 
     /// Name of the repository. For example: The name for
     /// <https://github.com/googlecloudplatform/cloud-builders> is "cloud-builders".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Filter describing the types of events to trigger a build.
@@ -7033,20 +7188,24 @@ pub struct PubsubConfig {
     /// Output only. Name of the subscription. Format is
     /// `projects/{project}/subscriptions/{subscription}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub subscription: std::string::String,
 
     /// The name of the topic from which this subscription is receiving messages.
     /// Format is `projects/{project}/topics/{topic}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub topic: std::string::String,
 
     /// Service account that will make the push request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account_email: std::string::String,
 
     /// Potential issues with the underlying Pub/Sub subscription configuration.
     /// Only populated on get requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::pubsub_config::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7260,6 +7419,7 @@ pub struct WebhookConfig {
     /// Potential issues with the underlying Pub/Sub subscription configuration.
     /// Only populated on get requests.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::webhook_config::State,
 
     /// Auth method specifies how the webhook authenticates with GCP.
@@ -7472,7 +7632,7 @@ pub mod webhook_config {
     #[non_exhaustive]
     pub enum AuthMethod {
         /// Required. Resource name for the secret required as a URL parameter.
-        Secret(std::string::String),
+        Secret(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -7492,10 +7652,12 @@ pub struct PullRequestFilter {
     /// with repository write permission or above will
     /// still trigger builds to run.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub comment_control: crate::model::pull_request_filter::CommentControl,
 
     /// If true, branches that do NOT match the git_ref will trigger a build.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub invert_regex: bool,
 
     /// Target refs to match.
@@ -7744,7 +7906,7 @@ pub mod pull_request_filter {
         ///
         /// The syntax of the regular expressions accepted is the syntax accepted by
         /// RE2 and described at <https://github.com/google/re2/wiki/Syntax>
-        Branch(std::string::String),
+        Branch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -7757,6 +7919,7 @@ pub struct PushFilter {
     /// When true, only trigger a build if the revision regex does NOT match the
     /// git_ref regex.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub invert_regex: bool,
 
     /// Modified refs to match.
@@ -7859,12 +8022,12 @@ pub mod push_filter {
         ///
         /// The syntax of the regular expressions accepted is the syntax accepted by
         /// RE2 and described at <https://github.com/google/re2/wiki/Syntax>
-        Branch(std::string::String),
+        Branch(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Regexes matching tags to build.
         ///
         /// The syntax of the regular expressions accepted is the syntax accepted by
         /// RE2 and described at <https://github.com/google/re2/wiki/Syntax>
-        Tag(std::string::String),
+        Tag(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -7877,10 +8040,12 @@ pub struct CreateBuildTriggerRequest {
     /// The parent resource where this trigger will be created.
     /// Format: `projects/{project}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID of the project for which to configure automatic builds.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Required. `BuildTrigger` to create.
@@ -7942,14 +8107,17 @@ pub struct GetBuildTriggerRequest {
     /// The name of the `Trigger` to retrieve.
     /// Format: `projects/{project}/locations/{location}/triggers/{trigger}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. ID of the project that owns the trigger.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Required. Identifier (`id` or `name`) of the `BuildTrigger` to get.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trigger_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7995,19 +8163,22 @@ pub struct ListBuildTriggersRequest {
     /// The parent of the collection of `Triggers`.
     /// Format: `projects/{project}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID of the project for which to list BuildTriggers.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Number of results to return in the list.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Token to provide to skip to a particular spot in the list.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8058,10 +8229,12 @@ impl wkt::message::Message for ListBuildTriggersRequest {
 pub struct ListBuildTriggersResponse {
     /// `BuildTriggers` for the project, sorted by `create_time` descending.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub triggers: std::vec::Vec<crate::model::BuildTrigger>,
 
     /// Token to receive the next page of results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8120,14 +8293,17 @@ pub struct DeleteBuildTriggerRequest {
     /// The name of the `Trigger` to delete.
     /// Format: `projects/{project}/locations/{location}/triggers/{trigger}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. ID of the project that owns the trigger.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Required. ID of the `BuildTrigger` to delete.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trigger_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8172,10 +8348,12 @@ impl wkt::message::Message for DeleteBuildTriggerRequest {
 pub struct UpdateBuildTriggerRequest {
     /// Required. ID of the project that owns the trigger.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Required. ID of the `BuildTrigger` to update.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trigger_id: std::string::String,
 
     /// Required. `BuildTrigger` to update.
@@ -8260,14 +8438,17 @@ impl wkt::message::Message for UpdateBuildTriggerRequest {
 pub struct BuildOptions {
     /// Requested hash for SourceProvenance.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub source_provenance_hash: std::vec::Vec<crate::model::hash::HashType>,
 
     /// Requested verifiability options.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_verify_option: crate::model::build_options::VerifyOption,
 
     /// Compute Engine machine type on which to run the build.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub machine_type: crate::model::build_options::MachineType,
 
     /// Requested disk size for the VM that runs the build. Note that this is *NOT*
@@ -8277,7 +8458,7 @@ pub struct BuildOptions {
     /// requested. At present, the maximum disk size is 4000GB; builds that request
     /// more than the maximum are rejected with an error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub disk_size_gb: i64,
 
     /// Option to specify behavior when there is an error in the substitution
@@ -8286,6 +8467,7 @@ pub struct BuildOptions {
     /// NOTE: this is always set to ALLOW_LOOSE for triggered builds and cannot
     /// be overridden in the build configuration file.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub substitution_option: crate::model::build_options::SubstitutionOption,
 
     /// Option to specify whether or not to apply bash style string
@@ -8294,20 +8476,24 @@ pub struct BuildOptions {
     /// NOTE: this is always enabled for triggered builds and cannot be
     /// overridden in the build configuration file.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dynamic_substitutions: bool,
 
     /// Option to include built-in and custom substitutions as env variables
     /// for all build steps.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub automap_substitutions: bool,
 
     /// Option to define build log streaming behavior to Cloud
     /// Storage.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub log_streaming_option: crate::model::build_options::LogStreamingOption,
 
     /// This field deprecated; please use `pool.name` instead.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub worker_pool: std::string::String,
 
@@ -8322,6 +8508,7 @@ pub struct BuildOptions {
     /// Option to specify the logging mode, which determines if and where build
     /// logs are stored.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub logging: crate::model::build_options::LoggingMode,
 
     /// A list of global environment variable definitions that will exist for all
@@ -8331,6 +8518,7 @@ pub struct BuildOptions {
     /// The elements are of the form "KEY=VALUE" for the environment variable "KEY"
     /// being given the value "VALUE".
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub env: std::vec::Vec<std::string::String>,
 
     /// A list of global environment variables, which are encrypted using a Cloud
@@ -8338,6 +8526,7 @@ pub struct BuildOptions {
     /// build's `Secret`. These variables will be available to all build steps
     /// in this build.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub secret_env: std::vec::Vec<std::string::String>,
 
     /// Global list of volumes to mount for ALL build steps
@@ -8350,16 +8539,19 @@ pub struct BuildOptions {
     /// Using a global volume in a build with only one step is not valid as
     /// it is indicative of a build request with an incorrect configuration.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub volumes: std::vec::Vec<crate::model::Volume>,
 
     /// Optional. Option to specify how default logs buckets are setup.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_logs_bucket_behavior: crate::model::build_options::DefaultLogsBucketBehavior,
 
     /// Optional. Option to specify whether structured logging is enabled.
     ///
     /// If true, JSON-formatted logs are parsed as structured logs.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_structured_logging: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8554,6 +8746,7 @@ pub mod build_options {
         ///
         /// Format projects/{project}/locations/{location}/workerPools/{workerPoolId}
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9434,6 +9627,7 @@ pub struct ReceiveTriggerWebhookRequest {
     /// The name of the `ReceiveTriggerWebhook` to retrieve.
     /// Format: `projects/{project}/locations/{location}/triggers/{trigger}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// HTTP request body.
@@ -9442,14 +9636,17 @@ pub struct ReceiveTriggerWebhookRequest {
 
     /// Project in which the specified trigger lives
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
     /// Name of the trigger to run the payload against
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub trigger: std::string::String,
 
     /// Secret token used for authorization if an OAuth token isn't provided.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secret: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9544,16 +9741,18 @@ pub struct GitHubEnterpriseConfig {
     /// For example:
     /// "projects/{$project_id}/locations/{$location_id}/githubEnterpriseConfigs/{$config_id}"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The URL of the github enterprise host the configuration is for.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub host_url: std::string::String,
 
     /// Required. The GitHub app id of the Cloud Build app on the GitHub Enterprise
     /// server.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub app_id: i64,
 
     /// Output only. Time when the installation was associated with the project.
@@ -9563,6 +9762,7 @@ pub struct GitHubEnterpriseConfig {
     /// The key that should be attached to webhook calls to the ReceiveWebhook
     /// endpoint.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub webhook_key: std::string::String,
 
     /// Optional. The network to be used when reaching out to the GitHub
@@ -9576,6 +9776,7 @@ pub struct GitHubEnterpriseConfig {
     /// is a project number or id and {network} is the name of a
     /// VPC network in the project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub peered_network: std::string::String,
 
     /// Names of secrets in Secret Manager.
@@ -9584,10 +9785,12 @@ pub struct GitHubEnterpriseConfig {
 
     /// Name to display for this config.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. SSL certificate to use for requests to GitHub Enterprise.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ssl_ca: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9694,18 +9897,22 @@ impl wkt::message::Message for GitHubEnterpriseConfig {
 pub struct GitHubEnterpriseSecrets {
     /// The resource name for the private key secret version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub private_key_version_name: std::string::String,
 
     /// The resource name for the webhook secret secret version in Secret Manager.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub webhook_secret_version_name: std::string::String,
 
     /// The resource name for the OAuth secret secret version in Secret Manager.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub oauth_secret_version_name: std::string::String,
 
     /// The resource name for the OAuth client ID secret version in Secret Manager.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub oauth_client_id_version_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9784,20 +9991,24 @@ pub struct WorkerPool {
     /// `CreateWorkerPool` request and the value of `{location}` is determined by
     /// the endpoint accessed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// A user-specified, human-readable name for the `WorkerPool`. If provided,
     /// this value must be 1-63 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. A unique identifier for the `WorkerPool`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// User specified annotations. See <https://google.aip.dev/128#annotations>
     /// for more details such as format and size limitations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Time at which the request to create the `WorkerPool` was
@@ -9817,12 +10028,14 @@ pub struct WorkerPool {
 
     /// Output only. `WorkerPool` state.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::worker_pool::State,
 
     /// Output only. Checksum computed by the server. May be sent on update and
     /// delete requests to ensure that the client has an up-to-date value before
     /// proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Configuration for the `WorkerPool`.
@@ -10265,6 +10478,7 @@ pub mod private_pool_v_1_config {
         /// file](https://cloud.google.com/build/docs/private-pools/worker-pool-config-file-schema).
         /// If left blank, Cloud Build will use a sensible default.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub machine_type: std::string::String,
 
         /// Size of the disk attached to the worker, in GB.
@@ -10273,7 +10487,7 @@ pub mod private_pool_v_1_config {
         /// Specify a value of up to 2000. If `0` is specified, Cloud Build will use
         /// a standard disk size.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub disk_size_gb: i64,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10322,10 +10536,12 @@ pub mod private_pool_v_1_config {
         /// [Understanding network configuration
         /// options](https://cloud.google.com/build/docs/private-pools/set-up-private-pool-environment)
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub peered_network: std::string::String,
 
         /// Option to configure network egress for the workers.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub egress_option: crate::model::private_pool_v_1_config::network_config::EgressOption,
 
         /// Immutable. Subnet IP range within the peered network. This is specified
@@ -10337,6 +10553,7 @@ pub mod private_pool_v_1_config {
         /// determined IP within the peered VPC.
         /// If unspecified, a value of `/24` will be used.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub peered_network_ip_range: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10540,6 +10757,7 @@ pub mod private_pool_v_1_config {
         /// See [Network
         /// Attachments](https://cloud.google.com/vpc/docs/about-network-attachments)
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub network_attachment: std::string::String,
 
         /// Required. Immutable. Disable public IP on the primary network interface.
@@ -10552,6 +10770,7 @@ pub mod private_pool_v_1_config {
         /// If `route_all_traffic` is set to true, all traffic will go through the
         /// non-primary network interface, this boolean has no effect.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub public_ip_address_disabled: bool,
 
         /// Immutable. Route all traffic through PSC interface. Enable this if you
@@ -10561,6 +10780,7 @@ pub mod private_pool_v_1_config {
         /// If false, Only route private IPs, e.g. 10.0.0.0/8, 172.16.0.0/12, and
         /// 192.168.0.0/16 through PSC interface.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub route_all_traffic: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10610,6 +10830,7 @@ pub struct CreateWorkerPoolRequest {
     /// Required. The parent resource where this worker pool will be created.
     /// Format: `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. `WorkerPool` resource to create.
@@ -10622,11 +10843,13 @@ pub struct CreateWorkerPoolRequest {
     /// This value should be 1-63 characters, and valid characters
     /// are /[a-z][0-9]-/.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub worker_pool_id: std::string::String,
 
     /// If set, validate the request and preview the response, but do not actually
     /// post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10690,6 +10913,7 @@ pub struct GetWorkerPoolRequest {
     /// Required. The name of the `WorkerPool` to retrieve.
     /// Format: `projects/{project}/locations/{location}/workerPools/{workerPool}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10724,21 +10948,25 @@ pub struct DeleteWorkerPoolRequest {
     /// Format:
     /// `projects/{project}/locations/{location}/workerPools/{workerPool}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. If provided, it must match the server's etag on the workerpool
     /// for the request to be processed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// If set to true, and the `WorkerPool` is not found, the request will succeed
     /// but no action will be taken on the server.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// If set, validate the request and preview the response, but do not actually
     /// post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10801,6 +11029,7 @@ pub struct UpdateWorkerPoolRequest {
     /// If set, validate the request and preview the response, but do not actually
     /// post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10870,17 +11099,19 @@ pub struct ListWorkerPoolsRequest {
     /// Required. The parent of the collection of `WorkerPools`.
     /// Format: `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of `WorkerPool`s to return. The service may return
     /// fewer than this value. If omitted, the server will use a sensible default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListWorkerPools` call. Provide this
     /// to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10925,12 +11156,14 @@ impl wkt::message::Message for ListWorkerPoolsRequest {
 pub struct ListWorkerPoolsResponse {
     /// `WorkerPools` for the specified project.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub worker_pools: std::vec::Vec<crate::model::WorkerPool>,
 
     /// Continuation token used to page through large result sets. Provide this
     /// value in a subsequent ListWorkerPoolsRequest to return the next page of
     /// results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10990,6 +11223,7 @@ pub struct CreateWorkerPoolOperationMetadata {
     /// Format:
     /// `projects/{project}/locations/{location}/workerPools/{worker_pool}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub worker_pool: std::string::String,
 
     /// Time the operation was created.
@@ -11068,6 +11302,7 @@ pub struct UpdateWorkerPoolOperationMetadata {
     /// Format:
     /// `projects/{project}/locations/{location}/workerPools/{worker_pool}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub worker_pool: std::string::String,
 
     /// Time the operation was created.
@@ -11146,6 +11381,7 @@ pub struct DeleteWorkerPoolOperationMetadata {
     /// Format:
     /// `projects/{project}/locations/{location}/workerPools/{worker_pool}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub worker_pool: std::string::String,
 
     /// Time the operation was created.

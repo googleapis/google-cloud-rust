@@ -45,19 +45,23 @@ pub struct AutomationEvent {
     /// Debug message for when there is an update on the AutomationRun.
     /// Provides further details about the resource creation or state change.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// The name of the `AutomationRun`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub automation: std::string::String,
 
     /// Unique identifier of the `DeliveryPipeline`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pipeline_uid: std::string::String,
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -110,31 +114,38 @@ pub struct AutomationRunEvent {
     /// Debug message for when there is an update on the AutomationRun.
     /// Provides further details about the resource creation or state change.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// The name of the `AutomationRun`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub automation_run: std::string::String,
 
     /// Unique identifier of the `DeliveryPipeline`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pipeline_uid: std::string::String,
 
     /// Identifier of the `Automation`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub automation_id: std::string::String,
 
     /// Identifier of the `Automation` rule.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rule_id: std::string::String,
 
     /// ID of the `Target` to which the `AutomationRun` is created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_target_id: std::string::String,
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -212,20 +223,24 @@ pub struct DeliveryPipeline {
     /// The `deliveryPipeline` component must match
     /// `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Unique identifier of the `DeliveryPipeline`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Optional. Description of the `DeliveryPipeline`. Max length is 255
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. User annotations. These attributes can only be set and used by
     /// the user, and not by Cloud Deploy.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Labels are attributes that can be set and used by both the
@@ -240,6 +255,7 @@ pub struct DeliveryPipeline {
     ///
     /// Both keys and values are additionally constrained to be <= 128 bytes.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Time at which the pipeline was created.
@@ -258,11 +274,13 @@ pub struct DeliveryPipeline {
     /// fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. When suspended, no new releases or rollouts can be created,
     /// but in-progress ones will complete.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub suspended: bool,
 
     /// The ordering configuration of the `DeliveryPipeline`.
@@ -465,6 +483,7 @@ pub struct SerialPipeline {
     /// Optional. Each stage specifies configuration for a `Target`. The ordering
     /// of this list defines the promotion flow.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub stages: std::vec::Vec<crate::model::Stage>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -507,11 +526,13 @@ pub struct Stage {
     /// the `Target` is inferred to be the same as the location of the
     /// `DeliveryPipeline` that contains this `Stage`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_id: std::string::String,
 
     /// Optional. Skaffold profiles to use when rendering the manifest for this
     /// stage's `Target`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub profiles: std::vec::Vec<std::string::String>,
 
     /// Optional. The strategy to use for a `Rollout` to this stage.
@@ -520,6 +541,7 @@ pub struct Stage {
 
     /// Optional. The deploy parameters to use for the target in this stage.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub deploy_parameters: std::vec::Vec<crate::model::DeployParameters>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -592,12 +614,14 @@ impl wkt::message::Message for Stage {
 pub struct DeployParameters {
     /// Required. Values are deploy parameters in key-value pairs.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub values: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Deploy parameters are applied to targets with match labels.
     /// If unspecified, deploy parameters are applied to all targets (including
     /// child targets of a multi-target).
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub match_target_labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -760,6 +784,7 @@ pub struct Predeploy {
     /// Optional. A sequence of Skaffold custom actions to invoke during execution
     /// of the predeploy job.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub actions: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -798,6 +823,7 @@ pub struct Postdeploy {
     /// Optional. A sequence of Skaffold custom actions to invoke during execution
     /// of the postdeploy job.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub actions: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -835,6 +861,7 @@ impl wkt::message::Message for Postdeploy {
 pub struct Standard {
     /// Optional. Whether to verify a deployment via `skaffold verify`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verify: bool,
 
     /// Optional. Configuration for the predeploy job. If this is not configured,
@@ -1057,12 +1084,13 @@ pub struct CanaryDeployment {
     /// If the GatewayServiceMesh is configured for Kubernetes, then the range for
     /// n is 0 <= n <= 100.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub percentages: std::vec::Vec<i32>,
 
     /// Optional. Whether to run verify tests after each percentage deployment via
     /// `skaffold verify`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verify: bool,
 
     /// Optional. Configuration for the predeploy job of the first phase. If this
@@ -1154,6 +1182,7 @@ pub struct CustomCanaryDeployment {
     /// Required. Configuration for each phase in the canary deployment in the
     /// order executed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub phase_configs: std::vec::Vec<crate::model::custom_canary_deployment::PhaseConfig>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1201,22 +1230,25 @@ pub mod custom_canary_deployment {
         /// length of 63 characters. In other words, it must match the following
         /// regex: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub phase_id: std::string::String,
 
         /// Required. Percentage deployment for the phase.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub percentage: i32,
 
         /// Optional. Skaffold profiles to use when rendering the manifest for this
         /// phase. These are in addition to the profiles list specified in the
         /// `DeliveryPipeline` stage.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub profiles: std::vec::Vec<std::string::String>,
 
         /// Optional. Whether to run verify tests after the deployment via `skaffold
         /// verify`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub verify: bool,
 
         /// Optional. Configuration for the predeploy job of this phase. If this is
@@ -1430,15 +1462,18 @@ pub mod kubernetes_config {
     pub struct GatewayServiceMesh {
         /// Required. Name of the Gateway API HTTPRoute.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub http_route: std::string::String,
 
         /// Required. Name of the Kubernetes Service.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service: std::string::String,
 
         /// Required. Name of the Kubernetes Deployment whose traffic is managed by
         /// the specified HTTPRoute and Service.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub deployment: std::string::String,
 
         /// Optional. The time to wait for route updates to propagate. The maximum
@@ -1457,6 +1492,7 @@ pub mod kubernetes_config {
         /// Optional. The label to use when selecting Pods for the Deployment and
         /// Service resources. This label must already be present in both resources.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub pod_selector_label: std::string::String,
 
         /// Optional. Route destinations allow configuring the Gateway API HTTPRoute
@@ -1586,6 +1622,7 @@ pub mod kubernetes_config {
             /// configured in the Target resource and "@self" to include the Target
             /// cluster.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub destination_ids: std::vec::Vec<std::string::String>,
 
             /// Optional. Whether to propagate the Kubernetes Service to the route
@@ -1594,6 +1631,7 @@ pub mod kubernetes_config {
             /// facilitate successful DNS lookup in the route destination clusters. Can
             /// only be set to true if destinations are specified.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub propagate_service: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1638,11 +1676,13 @@ pub mod kubernetes_config {
     pub struct ServiceNetworking {
         /// Required. Name of the Kubernetes Service.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service: std::string::String,
 
         /// Required. Name of the Kubernetes Deployment whose traffic is managed by
         /// the specified Service.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub deployment: std::string::String,
 
         /// Optional. Whether to disable Pod overprovisioning. If Pod
@@ -1650,11 +1690,13 @@ pub mod kubernetes_config {
         /// total Pods used for the deployment strategy to the number of Pods the
         /// Deployment has on the cluster.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub disable_pod_overprovisioning: bool,
 
         /// Optional. The label to use when selecting Pods for the Deployment
         /// resource. This label must already be present in the Deployment.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub pod_selector_label: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1727,21 +1769,25 @@ pub struct CloudRunConfig {
     /// required to be true for CanaryDeployments, but optional for
     /// CustomCanaryDeployments.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub automatic_traffic_control: bool,
 
     /// Optional. A list of tags that are added to the canary revision while the
     /// canary phase is in progress.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub canary_revision_tags: std::vec::Vec<std::string::String>,
 
     /// Optional. A list of tags that are added to the prior revision while the
     /// canary phase is in progress.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub prior_revision_tags: std::vec::Vec<std::string::String>,
 
     /// Optional. A list of tags that are added to the final stable revision when
     /// the stable phase is applied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub stable_revision_tags: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1930,6 +1976,7 @@ pub struct PipelineReadyCondition {
     /// conditions and see which condition(s) has status = false to find out what
     /// is wrong with the Pipeline.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status: bool,
 
     /// Last time the condition was updated.
@@ -1985,11 +2032,13 @@ impl wkt::message::Message for PipelineReadyCondition {
 pub struct TargetsPresentCondition {
     /// True if there aren't any missing Targets.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status: bool,
 
     /// The list of Target names that do not exist. For example,
     /// `projects/{project_id}/locations/{location_name}/targets/{target_name}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub missing_targets: std::vec::Vec<std::string::String>,
 
     /// Last time the condition was updated.
@@ -2058,10 +2107,12 @@ pub struct TargetsTypeCondition {
     /// all targets are GKE clusters. This is false if some targets are Cloud Run
     /// targets and others are GKE clusters.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status: bool,
 
     /// Human readable error message.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_details: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2190,6 +2241,7 @@ pub struct ListDeliveryPipelinesRequest {
     /// Required. The parent, which owns this collection of pipelines. Format must
     /// be `projects/{project_id}/locations/{location_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of pipelines to return. The service may return
@@ -2197,7 +2249,7 @@ pub struct ListDeliveryPipelinesRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListDeliveryPipelines` call.
@@ -2206,15 +2258,18 @@ pub struct ListDeliveryPipelinesRequest {
     /// When paginating, all other provided parameters match
     /// the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter pipelines to be returned. See <https://google.aip.dev/160> for more
     /// details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Field to sort by. See <https://google.aip.dev/132#ordering> for more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2271,15 +2326,18 @@ impl wkt::message::Message for ListDeliveryPipelinesRequest {
 pub struct ListDeliveryPipelinesResponse {
     /// The `DeliveryPipeline` objects.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub delivery_pipelines: std::vec::Vec<crate::model::DeliveryPipeline>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2349,6 +2407,7 @@ pub struct GetDeliveryPipelineRequest {
     /// Required. Name of the `DeliveryPipeline`. Format must be
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2382,10 +2441,12 @@ pub struct CreateDeliveryPipelineRequest {
     /// Required. The parent collection in which the `DeliveryPipeline` must be
     /// created. The format is `projects/{project_id}/locations/{location_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID of the `DeliveryPipeline`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub delivery_pipeline_id: std::string::String,
 
     /// Required. The `DeliveryPipeline` to create.
@@ -2406,11 +2467,13 @@ pub struct CreateDeliveryPipelineRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2506,16 +2569,19 @@ pub struct UpdateDeliveryPipelineRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, updating a `DeliveryPipeline` that does not exist
     /// will result in the creation of a new `DeliveryPipeline`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2597,6 +2663,7 @@ pub struct DeleteDeliveryPipelineRequest {
     /// Required. The name of the `DeliveryPipeline` to delete. The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A request ID to identify requests. Specify a unique request ID
@@ -2613,28 +2680,33 @@ pub struct DeleteDeliveryPipelineRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, then deleting an already deleted or non-existing
     /// `DeliveryPipeline` will succeed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. If set to true, all child resources under this pipeline will also
     /// be deleted. Otherwise, the request will only work if the pipeline has no
     /// child resources.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     /// Optional. This checksum is computed by the server based on the value of
     /// other fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2702,6 +2774,7 @@ pub struct RollbackTargetConfig {
     /// Optional. The starting phase ID for the `Rollout`. If unspecified, the
     /// `Rollout` will start in the stable phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub starting_phase_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2757,25 +2830,30 @@ pub struct RollbackTargetRequest {
     /// created. The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. ID of the `Target` that is being rolled back.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_id: std::string::String,
 
     /// Required. ID of the rollback `Rollout` to create.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_id: std::string::String,
 
     /// Optional. ID of the `Release` to roll back to. If this isn't specified, the
     /// previous successful `Rollout` to the specified target will be used to
     /// determine the `Release`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release_id: std::string::String,
 
     /// Optional. If provided, this must be the latest `Rollout` that is on the
     /// `Target`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_to_roll_back: std::string::String,
 
     /// Optional. Configs for the rollback `Rollout`.
@@ -2785,11 +2863,13 @@ pub struct RollbackTargetRequest {
     /// Optional. If set to true, the request is validated and the user is provided
     /// with a `RollbackTargetResponse`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. Deploy policies to override. Format is
     /// `projects/{project}/locations/{location}/deployPolicies/{deploy_policy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2933,18 +3013,22 @@ pub struct Target {
     /// `projects/{project}/locations/{location}/targets/{target}`.
     /// The `target` component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Resource id of the `Target`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_id: std::string::String,
 
     /// Output only. Unique identifier of the `Target`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Optional. Description of the `Target`. Max length is 255 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. User annotations. These attributes can only be set and used by
@@ -2952,6 +3036,7 @@ pub struct Target {
     /// <https://google.aip.dev/128#annotations> for more details such as format and
     /// size limitations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Labels are attributes that can be set and used by both the
@@ -2966,10 +3051,12 @@ pub struct Target {
     ///
     /// Both keys and values are additionally constrained to be <= 128 bytes.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Whether or not the `Target` requires approval.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub require_approval: bool,
 
     /// Output only. Time at which the `Target` was created.
@@ -2989,6 +3076,7 @@ pub struct Target {
     /// number, and have a max length of 63 characters. In other words, it must
     /// match the following regex: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub associated_entities:
         std::collections::HashMap<std::string::String, crate::model::AssociatedEntities>,
 
@@ -2996,6 +3084,7 @@ pub struct Target {
     /// other fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. Configurations for all execution that relates to this `Target`.
@@ -3006,10 +3095,12 @@ pub struct Target {
     /// When no configurations are specified, execution will use the default
     /// specified in `DefaultPool`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub execution_configs: std::vec::Vec<crate::model::ExecutionConfig>,
 
     /// Optional. The deploy parameters to use for this target.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub deploy_parameters: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Destination to which the Skaffold configuration is applied during a
@@ -3347,6 +3438,7 @@ pub mod target {
 pub struct ExecutionConfig {
     /// Required. Usages when this configuration should be applied.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub usages: std::vec::Vec<crate::model::execution_config::ExecutionEnvironmentUsage>,
 
     /// Optional. The resource name of the `WorkerPool`, with the format
@@ -3354,12 +3446,14 @@ pub struct ExecutionConfig {
     /// If this optional field is unspecified, the default Cloud Build pool will be
     /// used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub worker_pool: std::string::String,
 
     /// Optional. Google service account to use for execution. If unspecified,
     /// the project execution service account
     /// (<PROJECT_NUMBER>-compute@developer.gserviceaccount.com) is used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// Optional. Cloud Storage location in which to store execution outputs. This
@@ -3367,6 +3461,7 @@ pub struct ExecutionConfig {
     /// ("gs://my-bucket/my-dir").
     /// If unspecified, a default bucket located in the same region will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub artifact_storage: std::string::String,
 
     /// Optional. Execution timeout for a Cloud Build Execution. This must be
@@ -3378,6 +3473,7 @@ pub struct ExecutionConfig {
     /// Optional. If true, additional logging will be enabled when running builds
     /// in this execution environment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verbose: bool,
 
     /// Details of the environment.
@@ -3714,6 +3810,7 @@ pub struct DefaultPool {
     /// the project execution service account
     /// (<PROJECT_NUMBER>-compute@developer.gserviceaccount.com) will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// Optional. Cloud Storage location where execution outputs should be stored.
@@ -3721,6 +3818,7 @@ pub struct DefaultPool {
     /// ("gs://my-bucket/my-dir").
     /// If unspecified, a default bucket located in the same region will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub artifact_storage: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3763,12 +3861,14 @@ pub struct PrivatePool {
     /// Required. Resource name of the Cloud Build worker pool to use. The format
     /// is `projects/{project}/locations/{location}/workerPools/{pool}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub worker_pool: std::string::String,
 
     /// Optional. Google service account to use for execution. If unspecified,
     /// the project execution service account
     /// (<PROJECT_NUMBER>-compute@developer.gserviceaccount.com) will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// Optional. Cloud Storage location where execution outputs should be stored.
@@ -3776,6 +3876,7 @@ pub struct PrivatePool {
     /// ("gs://my-bucket/my-dir").
     /// If unspecified, a default bucket located in the same region will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub artifact_storage: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3824,6 +3925,7 @@ pub struct GkeCluster {
     /// Optional. Information specifying a GKE Cluster. Format is
     /// `projects/{project_id}/locations/{location_id}/clusters/{cluster_id}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cluster: std::string::String,
 
     /// Optional. If true, `cluster` is accessed using the private IP address of
@@ -3836,17 +3938,20 @@ pub struct GkeCluster {
     /// cluster](https://cloud.google.com/kubernetes-engine/docs/concepts/private-cluster-concept).
     /// Note that `internal_ip` and `dns_endpoint` cannot both be set to true.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub internal_ip: bool,
 
     /// Optional. If set, used to configure a
     /// [proxy](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/#proxy)
     /// to the Kubernetes server.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub proxy_url: std::string::String,
 
     /// Optional. If set, the cluster will be accessed using the DNS endpoint. Note
     /// that both `dns_endpoint` and `internal_ip` cannot be set to true.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dns_endpoint: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3899,6 +4004,7 @@ pub struct AnthosCluster {
     /// the Skaffold configuration. Format is
     /// `projects/{project}/locations/{location}/memberships/{membership_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub membership: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3932,6 +4038,7 @@ pub struct CloudRunLocation {
     /// Required. The location for the Cloud Run Service. Format must be
     /// `projects/{project}/locations/{location}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3964,6 +4071,7 @@ impl wkt::message::Message for CloudRunLocation {
 pub struct MultiTarget {
     /// Required. The target_ids of this multiTarget.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub target_ids: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4002,6 +4110,7 @@ pub struct CustomTarget {
     /// Required. The name of the CustomTargetType. Format must be
     /// `projects/{project}/locations/{location}/customTargetTypes/{custom_target_type}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub custom_target_type: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4037,10 +4146,12 @@ impl wkt::message::Message for CustomTarget {
 pub struct AssociatedEntities {
     /// Optional. Information specifying GKE clusters as associated entities.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub gke_clusters: std::vec::Vec<crate::model::GkeCluster>,
 
     /// Optional. Information specifying Anthos clusters as associated entities.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub anthos_clusters: std::vec::Vec<crate::model::AnthosCluster>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4090,6 +4201,7 @@ pub struct ListTargetsRequest {
     /// Required. The parent, which owns this collection of targets. Format must be
     /// `projects/{project_id}/locations/{location_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of `Target` objects to return. The service may
@@ -4097,7 +4209,7 @@ pub struct ListTargetsRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListTargets` call.
@@ -4106,16 +4218,19 @@ pub struct ListTargetsRequest {
     /// When paginating, all other provided parameters match
     /// the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter targets to be returned. See <https://google.aip.dev/160> for
     /// more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Field to sort by. See <https://google.aip.dev/132#ordering> for
     /// more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4172,15 +4287,18 @@ impl wkt::message::Message for ListTargetsRequest {
 pub struct ListTargetsResponse {
     /// The `Target` objects.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub targets: std::vec::Vec<crate::model::Target>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4250,6 +4368,7 @@ pub struct GetTargetRequest {
     /// Required. Name of the `Target`. Format must be
     /// `projects/{project_id}/locations/{location_name}/targets/{target_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4284,10 +4403,12 @@ pub struct CreateTargetRequest {
     /// The format is
     /// `projects/{project_id}/locations/{location_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID of the `Target`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_id: std::string::String,
 
     /// Required. The `Target` to create.
@@ -4308,11 +4429,13 @@ pub struct CreateTargetRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4405,16 +4528,19 @@ pub struct UpdateTargetRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, updating a `Target` that does not exist will
     /// result in the creation of a new `Target`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4496,6 +4622,7 @@ pub struct DeleteTargetRequest {
     /// Required. The name of the `Target` to delete. The format is
     /// `projects/{project_id}/locations/{location_name}/targets/{target_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A request ID to identify requests. Specify a unique request ID
@@ -4512,22 +4639,26 @@ pub struct DeleteTargetRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, then deleting an already deleted or non-existing
     /// `Target` will succeed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. This checksum is computed by the server based on the value of
     /// other fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4591,19 +4722,23 @@ pub struct CustomTargetType {
     /// The `customTargetType` component must match
     /// `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Resource id of the `CustomTargetType`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub custom_target_type_id: std::string::String,
 
     /// Output only. Unique identifier of the `CustomTargetType`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Optional. Description of the `CustomTargetType`. Max length is 255
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. User annotations. These attributes can only be set and used by
@@ -4611,6 +4746,7 @@ pub struct CustomTargetType {
     /// <https://google.aip.dev/128#annotations> for more details such as format and
     /// size limitations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Labels are attributes that can be set and used by both the
@@ -4625,6 +4761,7 @@ pub struct CustomTargetType {
     ///
     /// Both keys and values are additionally constrained to be <= 128 bytes.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Time at which the `CustomTargetType` was created.
@@ -4639,6 +4776,7 @@ pub struct CustomTargetType {
     /// other fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Defines the `CustomTargetType` renderer and deployer.
@@ -4828,15 +4966,18 @@ pub struct CustomTargetSkaffoldActions {
     /// not provided then Cloud Deploy will perform the render operations via
     /// `skaffold render`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub render_action: std::string::String,
 
     /// Required. The Skaffold custom action responsible for deploy operations.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deploy_action: std::string::String,
 
     /// Optional. List of Skaffold modules Cloud Deploy will include in the
     /// Skaffold Config as required before performing diagnose.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub include_skaffold_modules: std::vec::Vec<crate::model::SkaffoldModules>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4886,6 +5027,7 @@ impl wkt::message::Message for CustomTargetSkaffoldActions {
 pub struct SkaffoldModules {
     /// Optional. The Skaffold Config modules to use from the specified source.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub configs: std::vec::Vec<std::string::String>,
 
     /// The source that contains the Skaffold Config modules.
@@ -5042,15 +5184,18 @@ pub mod skaffold_modules {
     pub struct SkaffoldGitSource {
         /// Required. Git repository the package should be cloned from.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub repo: std::string::String,
 
         /// Optional. Relative path from the repository root to the Skaffold file.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub path: std::string::String,
 
         /// Optional. Git branch or tag to use when cloning the repository.
         #[serde(rename = "ref")]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#ref: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5097,10 +5242,12 @@ pub mod skaffold_modules {
         /// providing "gs://my-bucket/dir/configs/*" will result in Skaffold copying
         /// all files within the "dir/configs" directory in the bucket "my-bucket".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub source: std::string::String,
 
         /// Optional. Relative path from the source to the Skaffold file.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub path: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5141,16 +5288,19 @@ pub mod skaffold_modules {
         /// Format is
         /// projects/{project}/locations/{location}/connections/{connection}/repositories/{repository}.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub repository: std::string::String,
 
         /// Optional. Relative path from the repository root to the Skaffold Config
         /// file.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub path: std::string::String,
 
         /// Optional. Branch or tag to use when cloning the repository.
         #[serde(rename = "ref")]
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#ref: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5214,6 +5364,7 @@ pub struct ListCustomTargetTypesRequest {
     /// Required. The parent that owns this collection of custom target types.
     /// Format must be `projects/{project_id}/locations/{location_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of `CustomTargetType` objects to return. The
@@ -5221,7 +5372,7 @@ pub struct ListCustomTargetTypesRequest {
     /// `CustomTargetType` objects will be returned. The maximum value is 1000;
     /// values above 1000 will be set to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListCustomTargetTypes`
@@ -5230,16 +5381,19 @@ pub struct ListCustomTargetTypesRequest {
     /// When paginating, all other provided parameters match
     /// the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter custom target types to be returned. See
     /// <https://google.aip.dev/160> for more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Field to sort by. See <https://google.aip.dev/132#ordering> for
     /// more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5296,15 +5450,18 @@ impl wkt::message::Message for ListCustomTargetTypesRequest {
 pub struct ListCustomTargetTypesResponse {
     /// The `CustomTargetType` objects.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub custom_target_types: std::vec::Vec<crate::model::CustomTargetType>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5374,6 +5531,7 @@ pub struct GetCustomTargetTypeRequest {
     /// Required. Name of the `CustomTargetType`. Format must be
     /// `projects/{project_id}/locations/{location_name}/customTargetTypes/{custom_target_type}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5407,10 +5565,12 @@ pub struct CreateCustomTargetTypeRequest {
     /// Required. The parent collection in which the `CustomTargetType` must be
     /// created. The format is `projects/{project_id}/locations/{location_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID of the `CustomTargetType`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub custom_target_type_id: std::string::String,
 
     /// Required. The `CustomTargetType` to create.
@@ -5431,11 +5591,13 @@ pub struct CreateCustomTargetTypeRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5531,16 +5693,19 @@ pub struct UpdateCustomTargetTypeRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, updating a `CustomTargetType` that does not exist
     /// will result in the creation of a new `CustomTargetType`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5622,6 +5787,7 @@ pub struct DeleteCustomTargetTypeRequest {
     /// Required. The name of the `CustomTargetType` to delete. Format must be
     /// `projects/{project_id}/locations/{location_name}/customTargetTypes/{custom_target_type}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A request ID to identify requests. Specify a unique request ID
@@ -5638,22 +5804,26 @@ pub struct DeleteCustomTargetTypeRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, then deleting an already deleted or non-existing
     /// `CustomTargetType` will succeed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the request is validated but no actual change is
     /// made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. This checksum is computed by the server based on the value of
     /// other fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5715,14 +5885,17 @@ pub struct DeployPolicy {
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     /// The `deployPolicy` component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Unique identifier of the `DeployPolicy`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Optional. Description of the `DeployPolicy`. Max length is 255 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. User annotations. These attributes can only be set and used by
@@ -5743,6 +5916,7 @@ pub struct DeployPolicy {
     /// <https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/#syntax-and-character-set>
     /// for more details.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Labels are attributes that can be set and used by both the
@@ -5757,6 +5931,7 @@ pub struct DeployPolicy {
     ///
     /// Both keys and values are additionally constrained to be <= 128 bytes.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Time at which the deploy policy was created.
@@ -5770,6 +5945,7 @@ pub struct DeployPolicy {
     /// Optional. When suspended, the policy will not prevent actions from
     /// occurring, even if the action violates the policy.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub suspended: bool,
 
     /// Required. Selected resources to which the policy will be applied. At least
@@ -5777,10 +5953,12 @@ pub struct DeployPolicy {
     /// applies. For example, if there are two selectors and the action being
     /// attempted matches one of them, the policy will apply to that action.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub selectors: std::vec::Vec<crate::model::DeployPolicyResourceSelector>,
 
     /// Required. Rules to apply. At least one rule must be present.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::PolicyRule>,
 
     /// The weak etag of the `DeployPolicy` resource.
@@ -5788,6 +5966,7 @@ pub struct DeployPolicy {
     /// fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6140,10 +6319,12 @@ pub struct DeliveryPipelineAttribute {
     /// * The last segment of a pipeline name
     /// * "*", all delivery pipelines in a location
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// DeliveryPipeline labels.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6193,10 +6374,12 @@ pub struct TargetAttribute {
     /// * The last segment of a target name
     /// * "*", all targets in a location
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Target labels.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6324,16 +6507,19 @@ pub struct RolloutRestriction {
     /// Required. Restriction rule ID. Required and must be unique within a
     /// DeployPolicy. The format is `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Optional. What invoked the action. If left empty, all invoker types will be
     /// restricted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub invokers: std::vec::Vec<crate::model::deploy_policy::Invoker>,
 
     /// Optional. Rollout actions to be restricted as part of the policy. If left
     /// empty, all actions will be restricted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub actions: std::vec::Vec<crate::model::rollout_restriction::RolloutActions>,
 
     /// Required. Time window within which actions are restricted.
@@ -6593,14 +6779,17 @@ pub struct TimeWindows {
     /// Required. The time zone in IANA format [IANA Time Zone
     /// Database](https://www.iana.org/time-zones) (e.g. America/New_York).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub time_zone: std::string::String,
 
     /// Optional. One-time windows within which actions are restricted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub one_time_windows: std::vec::Vec<crate::model::OneTimeWindow>,
 
     /// Optional. Recurring weekly windows within which actions are restricted.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub weekly_windows: std::vec::Vec<crate::model::WeeklyWindow>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6768,6 +6957,7 @@ pub struct WeeklyWindow {
     /// Optional. Days of week. If left empty, all days of the week will be
     /// included.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub days_of_week: std::vec::Vec<gtype::model::DayOfWeek>,
 
     /// Optional. Start time (inclusive). Use 00:00 for the beginning of the day.
@@ -6855,6 +7045,7 @@ impl wkt::message::Message for WeeklyWindow {
 pub struct PolicyViolation {
     /// Policy violation details.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policy_violation_details: std::vec::Vec<crate::model::PolicyViolationDetails>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6894,15 +7085,18 @@ pub struct PolicyViolationDetails {
     /// Policy resource will be in the format of
     /// `projects/{project}/locations/{location}/policies/{policy}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub policy: std::string::String,
 
     /// Id of the rule that triggered the policy violation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rule_id: std::string::String,
 
     /// User readable message about why the request violated a policy. This is not
     /// intended for machine parsing.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6952,14 +7146,17 @@ pub struct Release {
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}`.
     /// The `release` component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Unique identifier of the `Release`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Optional. Description of the `Release`. Max length is 255 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. User annotations. These attributes can only be set and used by
@@ -6967,6 +7164,7 @@ pub struct Release {
     /// <https://google.aip.dev/128#annotations> for more details such as format and
     /// size limitations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Labels are attributes that can be set and used by both the
@@ -6981,10 +7179,12 @@ pub struct Release {
     ///
     /// Both keys and values are additionally constrained to be <= 128 bytes.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Indicates whether this is an abandoned release.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub abandoned: bool,
 
     /// Output only. Time at which the `Release` was created.
@@ -7002,14 +7202,17 @@ pub struct Release {
     /// Optional. Cloud Storage URI of tar.gz archive containing Skaffold
     /// configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skaffold_config_uri: std::string::String,
 
     /// Optional. Filepath of the Skaffold config inside of the config URI.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skaffold_config_path: std::string::String,
 
     /// Optional. List of artifacts to pass through to Skaffold command.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub build_artifacts: std::vec::Vec<crate::model::BuildArtifact>,
 
     /// Output only. Snapshot of the parent pipeline taken at release creation
@@ -7019,21 +7222,25 @@ pub struct Release {
 
     /// Output only. Snapshot of the targets taken at release creation time.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub target_snapshots: std::vec::Vec<crate::model::Target>,
 
     /// Output only. Snapshot of the custom target types referenced by the targets
     /// taken at release creation time.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub custom_target_type_snapshots: std::vec::Vec<crate::model::CustomTargetType>,
 
     /// Output only. Current state of the render operation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub render_state: crate::model::release::RenderState,
 
     /// This checksum is computed by the server based on the value of other
     /// fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. The Skaffold version to use when operating on this release, such
@@ -7042,17 +7249,20 @@ pub struct Release {
     ///
     /// If unset, the most recent supported Skaffold version will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skaffold_version: std::string::String,
 
     /// Output only. Map from target ID to the target artifacts created
     /// during the render operation.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub target_artifacts:
         std::collections::HashMap<std::string::String, crate::model::TargetArtifact>,
 
     /// Output only. Map from target ID to details of the render operation for that
     /// target.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub target_renders:
         std::collections::HashMap<std::string::String, crate::model::release::TargetRender>,
 
@@ -7062,6 +7272,7 @@ pub struct Release {
 
     /// Optional. The deploy parameters to use for all targets in this release.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub deploy_parameters: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7344,10 +7555,12 @@ pub mod release {
         /// used to render the manifest for this target. Format is
         /// `projects/{project}/locations/{location}/builds/{build}`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub rendering_build: std::string::String,
 
         /// Output only. Current state of the render operation for this Target.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub rendering_state: crate::model::release::target_render::TargetRenderState,
 
         /// Output only. Metadata related to the `Release` render for this Target.
@@ -7357,11 +7570,13 @@ pub mod release {
         /// Output only. Reason this render failed. This will always be unspecified
         /// while the render in progress.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub failure_cause: crate::model::release::target_render::FailureCause,
 
         /// Output only. Additional information about the render failure, if
         /// available.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub failure_message: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7792,6 +8007,7 @@ pub mod release {
         /// conditions and see which condition(s) has status = false to find out what
         /// is wrong with the Release.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub status: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7825,10 +8041,12 @@ pub mod release {
     pub struct SkaffoldSupportedCondition {
         /// True if the version of Skaffold used by this release is supported.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub status: bool,
 
         /// The Skaffold support state for this release's version of Skaffold.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub skaffold_support_state: crate::model::SkaffoldSupportState,
 
         /// The time at which this release's version of Skaffold will enter
@@ -8131,10 +8349,12 @@ pub struct CreateDeployPolicyRequest {
     /// Required. The parent collection in which the `DeployPolicy` must be
     /// created. The format is `projects/{project_id}/locations/{location_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID of the `DeployPolicy`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deploy_policy_id: std::string::String,
 
     /// Required. The `DeployPolicy` to create.
@@ -8155,11 +8375,13 @@ pub struct CreateDeployPolicyRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8255,16 +8477,19 @@ pub struct UpdateDeployPolicyRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, updating a `DeployPolicy` that does not exist
     /// will result in the creation of a new `DeployPolicy`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8346,6 +8571,7 @@ pub struct DeleteDeployPolicyRequest {
     /// Required. The name of the `DeployPolicy` to delete. The format is
     /// `projects/{project_id}/locations/{location_name}/deployPolicies/{deploy_policy_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A request ID to identify requests. Specify a unique request ID
@@ -8362,22 +8588,26 @@ pub struct DeleteDeployPolicyRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, then deleting an already deleted or non-existing
     /// `DeployPolicy` will succeed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and preview the review, but do not
     /// actually post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. This checksum is computed by the server based on the value of
     /// other fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8435,6 +8665,7 @@ pub struct ListDeployPoliciesRequest {
     /// Required. The parent, which owns this collection of deploy policies. Format
     /// must be `projects/{project_id}/locations/{location_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of deploy policies to return. The service may return
@@ -8442,7 +8673,7 @@ pub struct ListDeployPoliciesRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListDeployPolicies` call.
@@ -8451,15 +8682,18 @@ pub struct ListDeployPoliciesRequest {
     /// When paginating, all other provided parameters match
     /// the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter deploy policies to be returned. See <https://google.aip.dev/160> for
     /// more details. All fields can be used in the filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Field to sort by. See <https://google.aip.dev/132#ordering> for more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8516,15 +8750,18 @@ impl wkt::message::Message for ListDeployPoliciesRequest {
 pub struct ListDeployPoliciesResponse {
     /// The `DeployPolicy` objects.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub deploy_policies: std::vec::Vec<crate::model::DeployPolicy>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8594,6 +8831,7 @@ pub struct GetDeployPolicyRequest {
     /// Required. Name of the `DeployPolicy`. Format must be
     /// `projects/{project_id}/locations/{location_name}/deployPolicies/{deploy_policy_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8626,12 +8864,14 @@ impl wkt::message::Message for GetDeployPolicyRequest {
 pub struct BuildArtifact {
     /// Optional. Image name in Skaffold configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub image: std::string::String,
 
     /// Optional. Image tag to use. This will generally be the full path to an
     /// image, such as "gcr.io/my-project/busybox:1.2.3" or
     /// "gcr.io/my-project/busybox@sha256:abc123".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub tag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8671,15 +8911,18 @@ pub struct TargetArtifact {
     /// Output only. File path of the resolved Skaffold configuration for the
     /// stable phase, relative to the URI.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skaffold_config_path: std::string::String,
 
     /// Output only. File path of the rendered manifest relative to the URI for the
     /// stable phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub manifest_path: std::string::String,
 
     /// Output only. Map from the phase ID to the phase artifacts for the `Target`.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub phase_artifacts: std::collections::HashMap<
         std::string::String,
         crate::model::target_artifact::PhaseArtifact,
@@ -8781,15 +9024,18 @@ pub mod target_artifact {
         /// Output only. File path of the resolved Skaffold configuration relative to
         /// the URI.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub skaffold_config_path: std::string::String,
 
         /// Output only. File path of the rendered manifest relative to the URI.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub manifest_path: std::string::String,
 
         /// Output only. File path of the directory of rendered job manifests
         /// relative to the URI. This is only set if it is applicable.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub job_manifests_path: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8843,7 +9089,7 @@ pub mod target_artifact {
         /// Output only. URI of a directory containing the artifacts. This contains
         /// deployment configuration used by Skaffold during a rollout, and all
         /// paths are relative to this location.
-        ArtifactUri(std::string::String),
+        ArtifactUri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -8856,11 +9102,13 @@ pub struct DeployArtifact {
     /// Output only. URI of a directory containing the artifacts. All paths are
     /// relative to this location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub artifact_uri: std::string::String,
 
     /// Output only. File paths of the manifests applied during the deploy
     /// operation relative to the URI.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub manifest_paths: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8906,6 +9154,7 @@ pub struct CloudRunRenderMetadata {
     /// Output only. The name of the Cloud Run Service in the rendered manifest.
     /// Format is `projects/{project}/locations/{location}/services/{service}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9005,6 +9254,7 @@ pub struct ListReleasesRequest {
     /// Required. The `DeliveryPipeline` which owns this collection of `Release`
     /// objects.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of `Release` objects to return. The service
@@ -9012,7 +9262,7 @@ pub struct ListReleasesRequest {
     /// objects will be returned. The maximum value is 1000; values above 1000 will
     /// be set to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListReleases` call.
@@ -9021,16 +9271,19 @@ pub struct ListReleasesRequest {
     /// When paginating, all other provided parameters match
     /// the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter releases to be returned. See <https://google.aip.dev/160>
     /// for more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Field to sort by. See <https://google.aip.dev/132#ordering> for
     /// more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9087,15 +9340,18 @@ impl wkt::message::Message for ListReleasesRequest {
 pub struct ListReleasesResponse {
     /// The `Release` objects.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub releases: std::vec::Vec<crate::model::Release>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9165,6 +9421,7 @@ pub struct GetReleaseRequest {
     /// Required. Name of the `Release`. Format must be
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/releases/{release_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9199,10 +9456,12 @@ pub struct CreateReleaseRequest {
     /// The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID of the `Release`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release_id: std::string::String,
 
     /// Required. The `Release` to create.
@@ -9223,16 +9482,19 @@ pub struct CreateReleaseRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. Deploy policies to override. Format is
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9316,15 +9578,18 @@ pub struct Rollout {
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     /// The `rollout` component must match `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Unique identifier of the `Rollout`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Optional. Description of the `Rollout` for user purposes. Max length is 255
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Optional. User annotations. These attributes can only be set and used by
@@ -9332,6 +9597,7 @@ pub struct Rollout {
     /// <https://google.aip.dev/128#annotations> for more details such as format and
     /// size limitations.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Labels are attributes that can be set and used by both the
@@ -9346,6 +9612,7 @@ pub struct Rollout {
     ///
     /// Both keys and values are additionally constrained to be <= 128 bytes.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. Time at which the `Rollout` was created.
@@ -9370,40 +9637,48 @@ pub struct Rollout {
 
     /// Required. The ID of Target to which this `Rollout` is deploying.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_id: std::string::String,
 
     /// Output only. Approval state of the `Rollout`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub approval_state: crate::model::rollout::ApprovalState,
 
     /// Output only. Current state of the `Rollout`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::rollout::State,
 
     /// Output only. Additional information about the rollout failure, if
     /// available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_reason: std::string::String,
 
     /// Output only. The resource name of the Cloud Build `Build` object that is
     /// used to deploy the Rollout. Format is
     /// `projects/{project}/locations/{location}/builds/{build}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deploying_build: std::string::String,
 
     /// This checksum is computed by the server based on the value of other
     /// fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Output only. The reason this rollout failed. This will always be
     /// unspecified while the rollout is in progress.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deploy_failure_cause: crate::model::rollout::FailureCause,
 
     /// Output only. The phases that represent the workflows of this `Rollout`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub phases: std::vec::Vec<crate::model::Phase>,
 
     /// Output only. Metadata contains information about the rollout.
@@ -9413,19 +9688,23 @@ pub struct Rollout {
     /// Output only. Name of the `ControllerRollout`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub controller_rollout: std::string::String,
 
     /// Output only. Name of the `Rollout` that is rolled back by this `Rollout`.
     /// Empty if this `Rollout` wasn't created as a rollback.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollback_of_rollout: std::string::String,
 
     /// Output only. Names of `Rollouts` that rolled back this `Rollout`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rolled_back_by_rollouts: std::vec::Vec<std::string::String>,
 
     /// Output only. The AutomationRun actively repairing the rollout.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub active_repair_automation_run: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10406,21 +10685,25 @@ pub struct CloudRunMetadata {
     /// `Rollout`. Format is
     /// `projects/{project}/locations/{location}/services/{service}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service: std::string::String,
 
     /// Output only. The Cloud Run Service urls that are associated with a
     /// `Rollout`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service_urls: std::vec::Vec<std::string::String>,
 
     /// Output only. The Cloud Run Revision id associated with a `Rollout`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub revision: std::string::String,
 
     /// Output only. The name of the Cloud Run job that is associated with a
     /// `Rollout`. Format is
     /// `projects/{project}/locations/{location}/jobs/{job_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10478,6 +10761,7 @@ pub struct CustomTargetDeployMetadata {
     /// Output only. Skip message provided in the results of a custom deploy
     /// operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10512,16 +10796,19 @@ pub struct AutomationRolloutMetadata {
     /// Output only. The name of the AutomationRun initiated by a promote release
     /// rule.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub promote_automation_run: std::string::String,
 
     /// Output only. The names of the AutomationRuns initiated by an advance
     /// rollout rule.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub advance_automation_runs: std::vec::Vec<std::string::String>,
 
     /// Output only. The names of the AutomationRuns initiated by a repair rollout
     /// rule.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub repair_automation_runs: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10579,6 +10866,7 @@ impl wkt::message::Message for AutomationRolloutMetadata {
 pub struct CustomMetadata {
     /// Output only. Key-value pairs provided by the user-defined operation.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub values: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10618,15 +10906,18 @@ impl wkt::message::Message for CustomMetadata {
 pub struct Phase {
     /// Output only. The ID of the Phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Output only. Current state of the Phase.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::phase::State,
 
     /// Output only. Additional information on why the Phase was skipped, if
     /// available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_message: std::string::String,
 
     /// The job composition of this Phase.
@@ -11032,10 +11323,12 @@ impl wkt::message::Message for DeploymentJobs {
 pub struct ChildRolloutJobs {
     /// Output only. List of CreateChildRolloutJobs
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub create_rollout_jobs: std::vec::Vec<crate::model::Job>,
 
     /// Output only. List of AdvanceChildRolloutJobs
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub advance_rollout_jobs: std::vec::Vec<crate::model::Job>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11084,20 +11377,24 @@ impl wkt::message::Message for ChildRolloutJobs {
 pub struct Job {
     /// Output only. The ID of the Job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Output only. The current state of the Job.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::job::State,
 
     /// Output only. Additional information on why the Job was skipped, if
     /// available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_message: std::string::String,
 
     /// Output only. The name of the `JobRun` responsible for the most recent
     /// invocation of this Job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_run: std::string::String,
 
     /// The type of Job.
@@ -11570,6 +11867,7 @@ impl wkt::message::Message for VerifyJob {
 pub struct PredeployJob {
     /// Output only. The custom actions that the predeploy Job executes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub actions: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11607,6 +11905,7 @@ impl wkt::message::Message for PredeployJob {
 pub struct PostdeployJob {
     /// Output only. The custom actions that the postdeploy Job executes.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub actions: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11688,6 +11987,7 @@ impl wkt::message::Message for AdvanceChildRolloutJob {
 pub struct ListRolloutsRequest {
     /// Required. The `Release` which owns this collection of `Rollout` objects.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of `Rollout` objects to return. The service
@@ -11695,7 +11995,7 @@ pub struct ListRolloutsRequest {
     /// objects will be returned. The maximum value is 1000; values above 1000 will
     /// be set to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListRollouts` call.
@@ -11704,16 +12004,19 @@ pub struct ListRolloutsRequest {
     /// When paginating, all other provided parameters match
     /// the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter rollouts to be returned. See <https://google.aip.dev/160>
     /// for more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Field to sort by. See <https://google.aip.dev/132#ordering> for
     /// more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11770,15 +12073,18 @@ impl wkt::message::Message for ListRolloutsRequest {
 pub struct ListRolloutsResponse {
     /// The `Rollout` objects.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rollouts: std::vec::Vec<crate::model::Rollout>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11848,6 +12154,7 @@ pub struct GetRolloutRequest {
     /// Required. Name of the `Rollout`. Format must be
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/releases/{release_name}/rollouts/{rollout_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11882,10 +12189,12 @@ pub struct CreateRolloutRequest {
     /// The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/releases/{release_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID of the `Rollout`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_id: std::string::String,
 
     /// Required. The `Rollout` to create.
@@ -11906,21 +12215,25 @@ pub struct CreateRolloutRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. Deploy policies to override. Format is
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
 
     /// Optional. The starting phase ID for the `Rollout`. If empty the `Rollout`
     /// will start at the first phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub starting_phase_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12017,14 +12330,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -12037,10 +12353,12 @@ pub struct OperationMetadata {
     /// [google.longrunning.Operation.error]: longrunning::model::Operation::result
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12134,15 +12452,18 @@ pub struct ApproveRolloutRequest {
     /// Required. Name of the Rollout. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. True = approve; false = reject
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub approved: bool,
 
     /// Optional. Deploy policies to override. Format is
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12215,15 +12536,18 @@ pub struct AdvanceRolloutRequest {
     /// Required. Name of the Rollout. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The phase ID to advance the `Rollout` to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub phase_id: std::string::String,
 
     /// Optional. Deploy policies to override. Format is
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12296,11 +12620,13 @@ pub struct CancelRolloutRequest {
     /// Required. Name of the Rollout. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Deploy policies to override. Format is
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12367,19 +12693,23 @@ pub struct IgnoreJobRequest {
     /// Required. Name of the Rollout. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout: std::string::String,
 
     /// Required. The phase ID the Job to ignore belongs to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub phase_id: std::string::String,
 
     /// Required. The job ID for the Job to ignore.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_id: std::string::String,
 
     /// Optional. Deploy policies to override. Format is
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12458,19 +12788,23 @@ pub struct RetryJobRequest {
     /// Required. Name of the Rollout. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout: std::string::String,
 
     /// Required. The phase ID the Job to retry belongs to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub phase_id: std::string::String,
 
     /// Required. The job ID for the Job to retry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_id: std::string::String,
 
     /// Optional. Deploy policies to override. Format is
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12549,6 +12883,7 @@ pub struct AbandonReleaseRequest {
     /// Required. Name of the Release. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12606,18 +12941,22 @@ pub struct JobRun {
     /// Output only. Name of the `JobRun`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{releases}/rollouts/{rollouts}/jobRuns/{uuid}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Unique identifier of the `JobRun`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Output only. ID of the `Rollout` phase this `JobRun` belongs in.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub phase_id: std::string::String,
 
     /// Output only. ID of the `Rollout` job this `JobRun` corresponds to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_id: std::string::String,
 
     /// Output only. Time at which the `JobRun` was created.
@@ -12634,12 +12973,14 @@ pub struct JobRun {
 
     /// Output only. The current state of the `JobRun`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::job_run::State,
 
     /// Output only. This checksum is computed by the server based on the value of
     /// other fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// The `JobRun` type and the information for that type.
@@ -13135,15 +13476,18 @@ pub struct DeployJobRun {
     /// used to deploy. Format is
     /// `projects/{project}/locations/{location}/builds/{build}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub build: std::string::String,
 
     /// Output only. The reason the deploy failed. This will always be unspecified
     /// while the deploy is in progress or if it succeeded.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_cause: crate::model::deploy_job_run::FailureCause,
 
     /// Output only. Additional information about the deploy failure, if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_message: std::string::String,
 
     /// Output only. Metadata containing information about the deploy job run.
@@ -13414,25 +13758,30 @@ pub struct VerifyJobRun {
     /// used to verify. Format is
     /// `projects/{project}/locations/{location}/builds/{build}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub build: std::string::String,
 
     /// Output only. URI of a directory containing the verify artifacts. This
     /// contains the Skaffold event log.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub artifact_uri: std::string::String,
 
     /// Output only. File path of the Skaffold event log relative to the artifact
     /// URI.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub event_log_path: std::string::String,
 
     /// Output only. The reason the verify failed. This will always be unspecified
     /// while the verify is in progress or if it succeeded.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_cause: crate::model::verify_job_run::FailureCause,
 
     /// Output only. Additional information about the verify failure, if available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13661,16 +14010,19 @@ pub struct PredeployJobRun {
     /// used to execute the custom actions associated with the predeploy Job.
     /// Format is `projects/{project}/locations/{location}/builds/{build}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub build: std::string::String,
 
     /// Output only. The reason the predeploy failed. This will always be
     /// unspecified while the predeploy is in progress or if it succeeded.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_cause: crate::model::predeploy_job_run::FailureCause,
 
     /// Output only. Additional information about the predeploy failure, if
     /// available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -13880,16 +14232,19 @@ pub struct PostdeployJobRun {
     /// used to execute the custom actions associated with the postdeploy Job.
     /// Format is `projects/{project}/locations/{location}/builds/{build}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub build: std::string::String,
 
     /// Output only. The reason the postdeploy failed. This will always be
     /// unspecified while the postdeploy is in progress or if it succeeded.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_cause: crate::model::postdeploy_job_run::FailureCause,
 
     /// Output only. Additional information about the postdeploy failure, if
     /// available.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14099,10 +14454,12 @@ pub struct CreateChildRolloutJobRun {
     /// Output only. Name of the `ChildRollout`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout: std::string::String,
 
     /// Output only. The ID of the childRollout Phase initiated by this JobRun.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_phase_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14146,10 +14503,12 @@ pub struct AdvanceChildRolloutJobRun {
     /// Output only. Name of the `ChildRollout`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout: std::string::String,
 
     /// Output only. the ID of the ChildRollout's Phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_phase_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14191,6 +14550,7 @@ impl wkt::message::Message for AdvanceChildRolloutJobRun {
 pub struct ListJobRunsRequest {
     /// Required. The `Rollout` which owns this collection of `JobRun` objects.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of `JobRun` objects to return. The service may
@@ -14198,7 +14558,7 @@ pub struct ListJobRunsRequest {
     /// will be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListJobRuns` call.
@@ -14207,16 +14567,19 @@ pub struct ListJobRunsRequest {
     /// When paginating, all other provided parameters match the call that provided
     /// the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filter results to be returned. See <https://google.aip.dev/160> for
     /// more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Field to sort by. See <https://google.aip.dev/132#ordering> for
     /// more details.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14273,15 +14636,18 @@ impl wkt::message::Message for ListJobRunsRequest {
 pub struct ListJobRunsResponse {
     /// The `JobRun` objects.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub job_runs: std::vec::Vec<crate::model::JobRun>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page. If
     /// this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14351,6 +14717,7 @@ pub struct GetJobRunRequest {
     /// Required. Name of the `JobRun`. Format must be
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/releases/{release_name}/rollouts/{rollout_name}/jobRuns/{job_run_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14384,11 +14751,13 @@ pub struct TerminateJobRunRequest {
     /// Required. Name of the `JobRun`. Format must be
     /// `projects/{project}/locations/{location}/deliveryPipelines/{deliveryPipeline}/releases/{release}/rollouts/{rollout}/jobRuns/{jobRun}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. Deploy policies to override. Format is
     /// `projects/{project}/locations/{location}/deployPolicies/{deployPolicy}`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub override_deploy_policy: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14454,15 +14823,18 @@ impl wkt::message::Message for TerminateJobRunResponse {
 pub struct Config {
     /// Name of the configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// All supported versions of Skaffold.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub supported_versions: std::vec::Vec<crate::model::SkaffoldVersion>,
 
     /// Default Skaffold version that is assigned when a Release is created without
     /// specifying a Skaffold version.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_skaffold_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14515,6 +14887,7 @@ impl wkt::message::Message for Config {
 pub struct SkaffoldVersion {
     /// Release version number. For example, "1.20.3".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// The time at which this version of Skaffold will enter maintenance mode.
@@ -14613,6 +14986,7 @@ impl wkt::message::Message for SkaffoldVersion {
 pub struct GetConfigRequest {
     /// Required. Name of requested configuration.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14652,14 +15026,17 @@ pub struct Automation {
     /// Output only. Name of the `Automation`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{delivery_pipeline}/automations/{automation}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Unique identifier of the `Automation`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Optional. Description of the `Automation`. Max length is 255 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. Time at which the automation was created.
@@ -14688,6 +15065,7 @@ pub struct Automation {
     /// <https://kubernetes.io/docs/concepts/overview/working-with-objects/annotations/#syntax-and-character-set>
     /// for more details.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. Labels are attributes that can be set and used by both the
@@ -14702,6 +15080,7 @@ pub struct Automation {
     ///
     /// Both keys and values are additionally constrained to be <= 63 characters.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Optional. The weak etag of the `Automation` resource.
@@ -14709,15 +15088,18 @@ pub struct Automation {
     /// fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. When Suspended, automation is deactivated from execution.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub suspended: bool,
 
     /// Required. Email address of the user-managed IAM service account that
     /// creates Cloud Deploy release and rollout resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// Required. Selected resources to which the automation will be applied.
@@ -14729,6 +15111,7 @@ pub struct Automation {
     /// Note: the order of the rules here is not the same as the order of
     /// execution.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::AutomationRule>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -14881,6 +15264,7 @@ impl wkt::message::Message for Automation {
 pub struct AutomationResourceSelector {
     /// Optional. Contains attributes about a target.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub targets: std::vec::Vec<crate::model::TargetAttribute>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15116,6 +15500,7 @@ pub struct TimedPromoteReleaseRule {
     /// resource to which this rule belongs. The format is
     /// `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Optional. The ID of the stage in the pipeline to which this `Release` is
@@ -15125,16 +15510,19 @@ pub struct TimedPromoteReleaseRule {
     /// * The last segment of a target name
     /// * "@next", the next target in the promotion sequence
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_target_id: std::string::String,
 
     /// Required. Schedule in crontab format. e.g. "0 9 * * 1" for every Monday at
     /// 9am.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub schedule: std::string::String,
 
     /// Required. The time zone in IANA format [IANA Time Zone
     /// Database](https://www.iana.org/time-zones) (e.g. America/New_York).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub time_zone: std::string::String,
 
     /// Output only. Information around the state of the Automation rule.
@@ -15144,6 +15532,7 @@ pub struct TimedPromoteReleaseRule {
     /// Optional. The starting phase of the rollout created by this rule. Default
     /// to the first phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_phase: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15227,6 +15616,7 @@ pub struct PromoteReleaseRule {
     /// resource to which this rule belongs. The format is
     /// `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Optional. How long the release need to be paused until being promoted to
@@ -15241,6 +15631,7 @@ pub struct PromoteReleaseRule {
     /// * The last segment of a target name
     /// * "@next", the next target in the promotion sequence
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_target_id: std::string::String,
 
     /// Output only. Information around the state of the Automation rule.
@@ -15250,6 +15641,7 @@ pub struct PromoteReleaseRule {
     /// Optional. The starting phase of the rollout created by this operation.
     /// Default to the first phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_phase: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15339,6 +15731,7 @@ pub struct AdvanceRolloutRule {
     /// resource to which this rule belongs. The format is
     /// `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Optional. Proceeds only after phase name matched any one in the list.
@@ -15347,6 +15740,7 @@ pub struct AdvanceRolloutRule {
     /// length of 63 characters. In other words, it must match the following
     /// regex: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub source_phases: std::vec::Vec<std::string::String>,
 
     /// Optional. How long to wait after a rollout is finished.
@@ -15437,6 +15831,7 @@ pub struct RepairRolloutRule {
     /// resource to which this rule belongs. The format is
     /// `[a-z]([a-z0-9-]{0,61}[a-z0-9])?`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Optional. Phases within which jobs are subject to automatic repair actions
@@ -15446,6 +15841,7 @@ pub struct RepairRolloutRule {
     /// a number, and have a max length of 63 characters. In other words, it must
     /// match the following regex: `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub phases: std::vec::Vec<std::string::String>,
 
     /// Optional. Jobs to repair. Proceeds only after job name matched any one in
@@ -15456,6 +15852,7 @@ pub struct RepairRolloutRule {
     /// characters. In other words, it must match the following regex:
     /// `^[a-z]([a-z0-9-]{0,61}[a-z0-9])?$`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub jobs: std::vec::Vec<std::string::String>,
 
     /// Output only. Information around the state of the 'Automation' rule.
@@ -15464,6 +15861,7 @@ pub struct RepairRolloutRule {
 
     /// Required. Defines the types of automatic repair phases for failed jobs.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub repair_phases: std::vec::Vec<crate::model::RepairPhaseConfig>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15662,7 +16060,7 @@ pub struct Retry {
     /// Required. Total number of retries. Retry is skipped if set to 0; The
     /// minimum value is 1, and the maximum value is 10.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub attempts: i64,
 
     /// Optional. How long to wait for the first retry. Default is 0, and the
@@ -15673,6 +16071,7 @@ pub struct Retry {
     /// Optional. The pattern of how wait time will be increased. Default is
     /// linear. Backoff mode will be ignored if `wait` is 0.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backoff_mode: crate::model::BackoffMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15733,11 +16132,13 @@ pub struct Rollback {
     /// Optional. The starting phase ID for the `Rollout`. If unspecified, the
     /// `Rollout` will start in the stable phase.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_phase: std::string::String,
 
     /// Optional. If pending rollout exists on the target, the rollback operation
     /// will be aborted.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disable_rollback_if_rollout_pending: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15902,6 +16303,7 @@ pub struct TimedPromoteReleaseCondition {
 
     /// Output only. A list of targets involved in the upcoming timed promotion(s).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub targets_list: std::vec::Vec<crate::model::timed_promote_release_condition::Targets>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -15962,10 +16364,12 @@ pub mod timed_promote_release_condition {
     pub struct Targets {
         /// Optional. The source target ID.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub source_target_id: std::string::String,
 
         /// Optional. The destination target ID.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub destination_target_id: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16013,10 +16417,12 @@ pub struct CreateAutomationRequest {
     /// The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. ID of the `Automation`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub automation_id: std::string::String,
 
     /// Required. The `Automation` to create.
@@ -16037,11 +16443,13 @@ pub struct CreateAutomationRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16134,16 +16542,19 @@ pub struct UpdateAutomationRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, updating a `Automation` that does not exist will
     /// result in the creation of a new `Automation`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// Optional. If set to true, the request is validated and the user is provided
     /// with an expected result, but no actual change is made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16225,6 +16636,7 @@ pub struct DeleteAutomationRequest {
     /// Required. The name of the `Automation` to delete. The format is
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/automations/{automation_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. A request ID to identify requests. Specify a unique request ID
@@ -16241,16 +16653,19 @@ pub struct DeleteAutomationRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     /// Optional. If set to true, then deleting an already deleted or non-existing
     /// `Automation` will succeed.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_missing: bool,
 
     /// Optional. If set, validate the request and verify whether the resource
     /// exists, but do not actually post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. The weak etag of the request.
@@ -16258,6 +16673,7 @@ pub struct DeleteAutomationRequest {
     /// fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16316,6 +16732,7 @@ pub struct ListAutomationsRequest {
     /// automations. Format must be
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of automations to return. The service may return
@@ -16323,7 +16740,7 @@ pub struct ListAutomationsRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListAutomations` call.
@@ -16332,15 +16749,18 @@ pub struct ListAutomationsRequest {
     /// When paginating, all other provided parameters match
     /// the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter automations to be returned. All fields can be used in the
     /// filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Field to sort by.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16397,15 +16817,18 @@ impl wkt::message::Message for ListAutomationsRequest {
 pub struct ListAutomationsResponse {
     /// The `Automation` objects.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub automations: std::vec::Vec<crate::model::Automation>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16475,6 +16898,7 @@ pub struct GetAutomationRequest {
     /// Required. Name of the `Automation`. Format must be
     /// `projects/{project_id}/locations/{location_name}/deliveryPipelines/{pipeline_name}/automations/{automation_name}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -16511,6 +16935,7 @@ pub struct AutomationRun {
     /// Output only. Name of the `AutomationRun`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{delivery_pipeline}/automationRuns/{automation_run}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Time at which the `AutomationRun` was created.
@@ -16526,11 +16951,13 @@ pub struct AutomationRun {
     /// fields, and may be sent on update and delete requests to ensure the
     /// client has an up-to-date value before proceeding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Output only. Email address of the user-managed IAM service account that
     /// performs the operations against Cloud Deploy resources.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// Output only. Snapshot of the Automation taken at AutomationRun creation
@@ -16542,15 +16969,18 @@ pub struct AutomationRun {
     /// `AutomationRun`. The value of this field is the last segment of a target
     /// name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_id: std::string::String,
 
     /// Output only. Current state of the `AutomationRun`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::automation_run::State,
 
     /// Output only. Explains the current state of the `AutomationRun`. Present
     /// only when an explanation is needed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_description: std::string::String,
 
     /// Output only. Contains information about what policies prevented the
@@ -16565,10 +16995,12 @@ pub struct AutomationRun {
 
     /// Output only. The ID of the automation rule that initiated the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rule_id: std::string::String,
 
     /// Output only. The ID of the automation that initiated the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub automation_id: std::string::String,
 
     /// Output only. Earliest time the `AutomationRun` will attempt to resume.
@@ -17093,6 +17525,7 @@ pub struct PromoteReleaseOperation {
     /// which the release will be promoted. The value of this field is the last
     /// segment of a target name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_id: std::string::String,
 
     /// Output only. How long the operation will be paused.
@@ -17101,10 +17534,12 @@ pub struct PromoteReleaseOperation {
 
     /// Output only. The name of the rollout that initiates the `AutomationRun`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout: std::string::String,
 
     /// Output only. The starting phase of the rollout created by this operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub phase: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17167,6 +17602,7 @@ impl wkt::message::Message for PromoteReleaseOperation {
 pub struct AdvanceRolloutOperation {
     /// Output only. The phase of a deployment that initiated the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_phase: std::string::String,
 
     /// Output only. How long the operation will be paused.
@@ -17175,10 +17611,12 @@ pub struct AdvanceRolloutOperation {
 
     /// Output only. The name of the rollout that initiates the `AutomationRun`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout: std::string::String,
 
     /// Output only. The phase the rollout will be advanced to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_phase: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17244,25 +17682,29 @@ impl wkt::message::Message for AdvanceRolloutOperation {
 pub struct RepairRolloutOperation {
     /// Output only. The name of the rollout that initiates the `AutomationRun`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout: std::string::String,
 
     /// Output only. The index of the current repair action in the repair sequence.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub current_repair_phase_index: i64,
 
     /// Output only. Records of the repair attempts. Each repair phase may have
     /// multiple retry attempts or single rollback attempt.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub repair_phases: std::vec::Vec<crate::model::RepairPhase>,
 
     /// Output only. The phase ID of the phase that includes the job being
     /// repaired.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub phase_id: std::string::String,
 
     /// Output only. The job ID for the Job to repair.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17326,14 +17768,17 @@ pub struct TimedPromoteReleaseOperation {
     /// which the release will be promoted. The value of this field is the last
     /// segment of a target name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_id: std::string::String,
 
     /// Output only. The name of the release to be promoted.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release: std::string::String,
 
     /// Output only. The starting phase of the rollout created by this operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub phase: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17488,16 +17933,18 @@ pub mod repair_phase {
 pub struct RetryPhase {
     /// Output only. The number of attempts that have been made.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_attempts: i64,
 
     /// Output only. The pattern of how the wait time of the retry attempt is
     /// calculated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub backoff_mode: crate::model::BackoffMode,
 
     /// Output only. Detail of a retry action.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub attempts: std::vec::Vec<crate::model::RetryAttempt>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17550,7 +17997,7 @@ impl wkt::message::Message for RetryPhase {
 pub struct RetryAttempt {
     /// Output only. The index of this retry attempt.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub attempt: i64,
 
     /// Output only. How long the operation will be paused.
@@ -17559,10 +18006,12 @@ pub struct RetryAttempt {
 
     /// Output only. Valid state of this retry action.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::RepairState,
 
     /// Output only. Description of the state of the Retry.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_desc: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17625,22 +18074,27 @@ impl wkt::message::Message for RetryAttempt {
 pub struct RollbackAttempt {
     /// Output only. The phase to which the rollout will be rolled back to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_phase: std::string::String,
 
     /// Output only. ID of the rollback `Rollout` to create.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_id: std::string::String,
 
     /// Output only. Valid state of this rollback action.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::RepairState,
 
     /// Output only. Description of the state of the Rollback.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_desc: std::string::String,
 
     /// Output only. If active rollout exists on the target, abort this rollback.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub disable_rollback_if_rollout_pending: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17705,6 +18159,7 @@ pub struct ListAutomationRunsRequest {
     /// automationRuns. Format must be
     /// `projects/{project}/locations/{location}/deliveryPipelines/{delivery_pipeline}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of automationRuns to return. The service may return
@@ -17712,7 +18167,7 @@ pub struct ListAutomationRunsRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be set
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListAutomationRuns` call.
@@ -17721,15 +18176,18 @@ pub struct ListAutomationRunsRequest {
     /// When paginating, all other provided parameters match
     /// the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Filter automationRuns to be returned. All fields can be used in the
     /// filter.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Field to sort by.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17786,15 +18244,18 @@ impl wkt::message::Message for ListAutomationRunsRequest {
 pub struct ListAutomationRunsResponse {
     /// The `AutomationRuns` objects.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub automation_runs: std::vec::Vec<crate::model::AutomationRun>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17864,6 +18325,7 @@ pub struct GetAutomationRunRequest {
     /// Required. Name of the `AutomationRun`. Format must be
     /// `projects/{project}/locations/{location}/deliveryPipelines/{delivery_pipeline}/automationRuns/{automation_run}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17897,6 +18359,7 @@ pub struct CancelAutomationRunRequest {
     /// Required. Name of the `AutomationRun`. Format is
     /// `projects/{project}/locations/{location}/deliveryPipelines/{delivery_pipeline}/automationRuns/{automation_run}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -17953,19 +18416,23 @@ impl wkt::message::Message for CancelAutomationRunResponse {
 pub struct CustomTargetTypeNotificationEvent {
     /// Debug message for when a notification fails to send.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// Unique identifier of the `CustomTargetType`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub custom_target_type_uid: std::string::String,
 
     /// The name of the `CustomTargetType`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub custom_target_type: std::string::String,
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18024,19 +18491,23 @@ impl wkt::message::Message for CustomTargetTypeNotificationEvent {
 pub struct DeliveryPipelineNotificationEvent {
     /// Debug message for when a notification fails to send.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// Unique identifier of the `DeliveryPipeline`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pipeline_uid: std::string::String,
 
     /// The name of the `Delivery Pipeline`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub delivery_pipeline: std::string::String,
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18091,44 +18562,54 @@ impl wkt::message::Message for DeliveryPipelineNotificationEvent {
 pub struct DeployPolicyEvaluationEvent {
     /// Debug message for when a deploy policy event occurs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// Rule type (e.g. Restrict Rollouts).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rule_type: std::string::String,
 
     /// Rule id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rule: std::string::String,
 
     /// Unique identifier of the `Delivery Pipeline`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pipeline_uid: std::string::String,
 
     /// The name of the `Delivery Pipeline`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub delivery_pipeline: std::string::String,
 
     /// Unique identifier of the `Target`. This is an optional field, as a `Target`
     /// may not always be applicable to a policy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_uid: std::string::String,
 
     /// The name of the `Target`. This is an optional field, as a `Target` may not
     /// always be applicable to a policy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// What invoked the action (e.g. a user or automation).
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub invoker: crate::model::deploy_policy::Invoker,
 
     /// The name of the `DeployPolicy`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deploy_policy: std::string::String,
 
     /// Unique identifier of the `DeployPolicy`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deploy_policy_uid: std::string::String,
 
     /// Whether the request is allowed. Allowed is set as true if:
@@ -18137,15 +18618,18 @@ pub struct DeployPolicyEvaluationEvent {
     /// overridden; or
     /// (3) the request doesn't comply with the policy but the policy was suspended
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allowed: bool,
 
     /// The policy verdict of the request.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verdict: crate::model::deploy_policy_evaluation_event::PolicyVerdict,
 
     /// Things that could have overridden the policy verdict. Overrides together
     /// with verdict decide whether the request is allowed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub overrides:
         std::vec::Vec<crate::model::deploy_policy_evaluation_event::PolicyVerdictOverride>,
 
@@ -18548,19 +19032,23 @@ pub struct DeployPolicyNotificationEvent {
     /// Debug message for when a deploy policy fails to send a pub/sub
     /// notification.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// The name of the `DeployPolicy`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deploy_policy: std::string::String,
 
     /// Unique identifier of the deploy policy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deploy_policy_uid: std::string::String,
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18616,39 +19104,48 @@ impl wkt::message::Message for DeployPolicyNotificationEvent {
 pub struct JobRunNotificationEvent {
     /// Debug message for when a notification fails to send.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// The name of the `JobRun`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_run: std::string::String,
 
     /// Unique identifier of the `DeliveryPipeline`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pipeline_uid: std::string::String,
 
     /// Unique identifier of the `Release`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release_uid: std::string::String,
 
     /// The name of the `Release`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release: std::string::String,
 
     /// Unique identifier of the `Rollout`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_uid: std::string::String,
 
     /// The name of the `Rollout`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout: std::string::String,
 
     /// ID of the `Target`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_id: std::string::String,
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18731,23 +19228,28 @@ impl wkt::message::Message for JobRunNotificationEvent {
 pub struct ReleaseNotificationEvent {
     /// Debug message for when a notification fails to send.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// Unique identifier of the `DeliveryPipeline`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pipeline_uid: std::string::String,
 
     /// Unique identifier of the `Release`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release_uid: std::string::String,
 
     /// The name of the `Release`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release: std::string::String,
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18806,25 +19308,30 @@ pub struct ReleaseRenderEvent {
     /// Debug message for when a render transition occurs. Provides further
     /// details as rendering progresses through render states.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// Unique identifier of the `DeliveryPipeline`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pipeline_uid: std::string::String,
 
     /// The name of the release.
     /// release_uid is not in this log message because we write some of these log
     /// messages at release creation time, before we've generated the uid.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release: std::string::String,
 
     /// Type of this notification, e.g. for a release render state change event.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::Type,
 
     /// The state of the release render.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release_render_state: crate::model::release::RenderState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18886,35 +19393,43 @@ impl wkt::message::Message for ReleaseRenderEvent {
 pub struct RolloutNotificationEvent {
     /// Debug message for when a notification fails to send.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// Unique identifier of the `DeliveryPipeline`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pipeline_uid: std::string::String,
 
     /// Unique identifier of the `Release`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release_uid: std::string::String,
 
     /// The name of the `Release`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release: std::string::String,
 
     /// Unique identifier of the `Rollout`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_uid: std::string::String,
 
     /// The name of the `Rollout`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout: std::string::String,
 
     /// ID of the `Target` that the rollout is deployed to.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_id: std::string::String,
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -18990,37 +19505,45 @@ impl wkt::message::Message for RolloutNotificationEvent {
 pub struct RolloutUpdateEvent {
     /// Debug message for when a rollout update event occurs.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// Unique identifier of the pipeline.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pipeline_uid: std::string::String,
 
     /// Unique identifier of the release.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release_uid: std::string::String,
 
     /// The name of the `Release`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub release: std::string::String,
 
     /// The name of the rollout.
     /// rollout_uid is not in this log message because we write some of these log
     /// messages at rollout creation time, before we've generated the uid.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout: std::string::String,
 
     /// ID of the target.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_id: std::string::String,
 
     /// Type of this notification, e.g. for a rollout update event.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::Type,
 
     /// The type of the rollout update.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rollout_update_type: crate::model::rollout_update_event::RolloutUpdateType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -19317,15 +19840,18 @@ pub mod rollout_update_event {
 pub struct TargetNotificationEvent {
     /// Debug message for when a notification fails to send.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     /// The name of the `Target`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Type of this notification, e.g. for a Pub/Sub failure.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::Type,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

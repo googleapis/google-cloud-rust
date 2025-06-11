@@ -441,7 +441,7 @@ func TestOneOfAnnotations(t *testing.T) {
 		BranchName:         "OneofField",
 		FQMessageName:      "crate::model::Message",
 		DocLines:           nil,
-		Attributes:         []string{},
+		Attributes:         []string{`#[serde_as(as = "serde_with::DefaultOnNull<_>")]`},
 		FieldType:          "std::string::String",
 		PrimitiveFieldType: "std::string::String",
 		AddQueryParameter:  `let builder = req.oneof_field().iter().fold(builder, |builder, p| builder.query(&[("oneofField", p)]));`,
@@ -457,7 +457,7 @@ func TestOneOfAnnotations(t *testing.T) {
 		BranchName:         "OneofFieldRepeated",
 		FQMessageName:      "crate::model::Message",
 		DocLines:           nil,
-		Attributes:         []string{},
+		Attributes:         []string{`#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]`},
 		FieldType:          "std::vec::Vec<std::string::String>",
 		PrimitiveFieldType: "std::string::String",
 		AddQueryParameter:  `let builder = req.oneof_field_repeated().iter().fold(builder, |builder, p| builder.query(&[("oneofFieldRepeated", p)]));`,
@@ -473,15 +473,16 @@ func TestOneOfAnnotations(t *testing.T) {
 		BranchName:         "OneofFieldMap",
 		FQMessageName:      "crate::model::Message",
 		DocLines:           nil,
-		Attributes:         []string{`#[serde_as(as = "std::collections::HashMap<wkt::internal::I32, wkt::internal::F32>")]`},
+		Attributes:         []string{`#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I32, wkt::internal::F32>>")]`},
 		FieldType:          "std::collections::HashMap<i32,f32>",
 		PrimitiveFieldType: "std::collections::HashMap<i32,f32>",
-		AddQueryParameter:  `let builder = req.oneof_field_map().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "oneofFieldMap") });`,
+		AddQueryParameter:  `let builder = req.oneof_field_map().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "oneofFieldMap") });`,
 		KeyType:            "i32",
 		KeyField:           key_field,
 		ValueType:          "f32",
 		ValueField:         value_field,
 		IsBoxed:            true,
+		RequiresSerdeAs:    true,
 	}, map_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -492,12 +493,13 @@ func TestOneOfAnnotations(t *testing.T) {
 		BranchName:         "OneofFieldInteger",
 		FQMessageName:      "crate::model::Message",
 		DocLines:           nil,
-		Attributes:         []string{`#[serde_as(as = "serde_with::DisplayFromStr")]`},
+		Attributes:         []string{`#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]`},
 		FieldType:          "i64",
 		PrimitiveFieldType: "i64",
 		AddQueryParameter:  `let builder = req.oneof_field_integer().iter().fold(builder, |builder, p| builder.query(&[("oneofFieldInteger", p)]));`,
 		KeyType:            "",
 		ValueType:          "",
+		RequiresSerdeAs:    true,
 	}, integer_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -511,10 +513,11 @@ func TestOneOfAnnotations(t *testing.T) {
 		Attributes:         []string{`#[serde_as(as = "std::boxed::Box<wkt::internal::F64>")]`},
 		FieldType:          "std::boxed::Box<>",
 		PrimitiveFieldType: "",
-		AddQueryParameter:  `let builder = req.oneof_field_boxed().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "oneofFieldBoxed") });`,
+		AddQueryParameter:  `let builder = req.oneof_field_boxed().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "oneofFieldBoxed") });`,
 		KeyType:            "",
 		ValueType:          "",
 		IsBoxed:            true,
+		RequiresSerdeAs:    true,
 	}, boxed_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -781,6 +784,7 @@ func TestJsonNameAnnotations(t *testing.T) {
 		DocLines:      nil,
 		Attributes: []string{
 			`#[serde(skip_serializing_if = "std::string::String::is_empty")]`,
+			`#[serde_as(as = "serde_with::DefaultOnNull<_>")]`,
 		},
 		FieldType:          "std::string::String",
 		PrimitiveFieldType: "std::string::String",
@@ -800,6 +804,7 @@ func TestJsonNameAnnotations(t *testing.T) {
 		Attributes: []string{
 			`#[serde(rename = "public_key")]`,
 			`#[serde(skip_serializing_if = "std::string::String::is_empty")]`,
+			`#[serde_as(as = "serde_with::DefaultOnNull<_>")]`,
 		},
 		FieldType:          "std::string::String",
 		PrimitiveFieldType: "std::string::String",
@@ -818,13 +823,14 @@ func TestJsonNameAnnotations(t *testing.T) {
 		DocLines:      nil,
 		Attributes: []string{
 			`#[serde(skip_serializing_if = "wkt::internal::is_default")]`,
-			`#[serde_as(as = "wkt::internal::I32")]`,
+			`#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]`,
 		},
 		FieldType:          "i32",
 		PrimitiveFieldType: "i32",
 		AddQueryParameter:  `let builder = builder.query(&[("readTime", &req.read_time)]);`,
 		KeyType:            "",
 		ValueType:          "",
+		RequiresSerdeAs:    true,
 	}, readTime.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -844,6 +850,7 @@ func TestJsonNameAnnotations(t *testing.T) {
 		AddQueryParameter:  `let builder = req.optional.iter().fold(builder, |builder, p| builder.query(&[("optional", p)]));`,
 		KeyType:            "",
 		ValueType:          "",
+		RequiresSerdeAs:    true,
 	}, optional.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -856,13 +863,14 @@ func TestJsonNameAnnotations(t *testing.T) {
 		DocLines:      nil,
 		Attributes: []string{
 			`#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
-			`#[serde_as(as = "std::vec::Vec<wkt::internal::I32>")]`,
+			`#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]`,
 		},
 		FieldType:          "std::vec::Vec<i32>",
 		PrimitiveFieldType: "i32",
 		AddQueryParameter:  `let builder = req.repeated.iter().fold(builder, |builder, p| builder.query(&[("repeated", p)]));`,
 		KeyType:            "",
 		ValueType:          "",
+		RequiresSerdeAs:    true,
 	}, repeated.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -1017,6 +1025,7 @@ func TestFieldAnnotations(t *testing.T) {
 		FQMessageName: "crate::model::TestMessage",
 		Attributes: []string{
 			`#[serde(skip_serializing_if = "std::string::String::is_empty")]`,
+			`#[serde_as(as = "serde_with::DefaultOnNull<_>")]`,
 		},
 		FieldType:          "std::string::String",
 		PrimitiveFieldType: "std::string::String",
@@ -1033,6 +1042,7 @@ func TestFieldAnnotations(t *testing.T) {
 		FQMessageName: "crate::model::TestMessage",
 		Attributes: []string{
 			`#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+			`#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]`,
 		},
 		FieldType:          "std::vec::Vec<std::string::String>",
 		PrimitiveFieldType: "std::string::String",
@@ -1049,15 +1059,16 @@ func TestFieldAnnotations(t *testing.T) {
 		FQMessageName: "crate::model::TestMessage",
 		Attributes: []string{
 			`#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
-			`#[serde_as(as = "std::collections::HashMap<wkt::internal::I32, serde_with::DisplayFromStr>")]`,
+			`#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I32, wkt::internal::I64>>")]`,
 		},
 		FieldType:          "std::collections::HashMap<i32,i64>",
 		PrimitiveFieldType: "std::collections::HashMap<i32,i64>",
-		AddQueryParameter:  `let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.map_field).map_err(Error::serde)?.add(builder, "mapField") };`,
+		AddQueryParameter:  `let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.map_field).map_err(Error::ser)?.add(builder, "mapField") };`,
 		KeyType:            "i32",
 		KeyField:           key_field,
 		ValueType:          "i64",
 		ValueField:         value_field,
+		RequiresSerdeAs:    true,
 	}
 	if diff := cmp.Diff(wantField, map_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -1073,8 +1084,9 @@ func TestFieldAnnotations(t *testing.T) {
 		},
 		FieldType:          "std::option::Option<std::boxed::Box<crate::model::TestMessage>>",
 		PrimitiveFieldType: "crate::model::TestMessage",
-		AddQueryParameter:  `let builder = req.boxed_field.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "boxedField") });`,
+		AddQueryParameter:  `let builder = req.boxed_field.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "boxedField") });`,
 		IsBoxed:            true,
+		RequiresSerdeAs:    true,
 	}
 	if diff := cmp.Diff(wantField, boxed_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -1188,7 +1200,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		SetterName:         "singular_field",
 		BranchName:         "SingularField",
 		FQMessageName:      "crate::model::TestMessage",
-		Attributes:         []string{`#[serde(skip_serializing_if = "wkt::internal::is_default")]`},
+		Attributes:         []string{`#[serde(skip_serializing_if = "wkt::internal::is_default")]`, `#[serde_as(as = "serde_with::DefaultOnNull<_>")]`},
 		FieldType:          "crate::model::TestEnum",
 		PrimitiveFieldType: "crate::model::TestEnum",
 		AddQueryParameter:  `let builder = builder.query(&[("singularField", &req.singular_field)]);`,
@@ -1204,6 +1216,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		FQMessageName: "crate::model::TestMessage",
 		Attributes: []string{
 			`#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+			`#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]`,
 		},
 		FieldType:          "std::vec::Vec<crate::model::TestEnum>",
 		PrimitiveFieldType: "crate::model::TestEnum",
@@ -1236,7 +1249,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		SetterName:         "null_value_field",
 		BranchName:         "NullValueField",
 		FQMessageName:      "crate::model::TestMessage",
-		Attributes:         []string{`#[serde(skip_serializing_if = "wkt::internal::is_default")]`},
+		Attributes:         []string{`#[serde(skip_serializing_if = "wkt::internal::is_default")]`, `#[serde_as(as = "serde_with::DefaultOnNull<_>")]`},
 		FieldType:          "wkt::NullValue",
 		PrimitiveFieldType: "wkt::NullValue",
 		AddQueryParameter:  `let builder = builder.query(&[("nullValueField", &req.null_value_field)]);`,
@@ -1252,14 +1265,16 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		FQMessageName: "crate::model::TestMessage",
 		Attributes: []string{
 			`#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
+			`#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]`,
 		},
 		FieldType:          "std::collections::HashMap<std::string::String,crate::model::TestEnum>",
 		PrimitiveFieldType: "std::collections::HashMap<std::string::String,crate::model::TestEnum>",
-		AddQueryParameter:  `let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.map_field).map_err(Error::serde)?.add(builder, "mapField") };`,
+		AddQueryParameter:  `let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.map_field).map_err(Error::ser)?.add(builder, "mapField") };`,
 		KeyType:            "std::string::String",
 		KeyField:           key_field,
 		ValueType:          "crate::model::TestEnum",
 		ValueField:         value_field,
+		RequiresSerdeAs:    true,
 	}
 	if diff := cmp.Diff(wantField, map_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)

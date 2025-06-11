@@ -52,6 +52,7 @@ wkt.workspace         = true
 [dev-dependencies]
 anyhow.workspace     = true
 mockall.workspace    = true
+paste.workspace      = true
 test-case.workspace  = true
 tokio-test.workspace = true
 # Local crates

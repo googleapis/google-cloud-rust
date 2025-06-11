@@ -586,20 +586,6 @@ impl Error {
 
     // TODO(#2221) - remove once the migration is completed.
     #[doc(hidden)]
-    pub fn serde<T: Into<BoxError>>(source: T) -> Self {
-        Self::ser(source)
-    }
-
-    /// Not part of the public API, subject to change without notice.
-    ///
-    /// A problem in serialization or deserialization.
-    #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    pub fn is_serde(&self) -> bool {
-        matches!(&self.kind, ErrorKind::Serialization)
-    }
-
-    // TODO(#2221) - remove once the migration is completed.
-    #[doc(hidden)]
     pub fn other<T: Into<BoxError>>(source: T) -> Self {
         Self {
             kind: ErrorKind::Other,
@@ -844,11 +830,6 @@ mod test {
         let source = wkt::TimestampError::OutOfRange;
         assert!(error.to_string().contains(&source.to_string()), "{error}");
         assert!(!error.is_transient_and_before_rpc(), "{error:?}");
-
-        // TODO(#2312) - remove once the migration is done
-        let error = Error::serde(source);
-        assert!(error.is_serialization(), "{error:?}");
-        assert!(error.is_serde(), "{error:?}");
     }
 
     #[test]

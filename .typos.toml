@@ -200,6 +200,9 @@ combintation = "combintation"
 # true positives
 [default]
 extend-ignore-re = [
+  # This is intentional, we call the factory function `ser()` to avoid the
+  # `serde()` which is ambiguous:
+  "Error::ser",
   # This is intentional, `typ` is the name of a field in OAuth2 claims:
   "\"typ\"",
   "\\Wtyp:",

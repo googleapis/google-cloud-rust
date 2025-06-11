@@ -496,21 +496,21 @@ func TestFieldAttributes(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{enum}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"f_int64":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]` + "\n" + `#[serde_as(as = "serde_with::DisplayFromStr")]`,
-		"f_int64_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-		"f_int64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
+		"f_int64":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]`,
+		"f_int64_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<wkt::internal::I64>")]`,
+		"f_int64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I64>>")]`,
 
-		"f_bytes":          `#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::base64::Base64")]`,
+		"f_bytes":          `#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]`,
 		"f_bytes_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
-		"f_bytes_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]`,
+		"f_bytes_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<serde_with::base64::Base64>>")]`,
 
-		"f_string":          `#[serde(skip_serializing_if = "std::string::String::is_empty")]`,
+		"f_string":          `#[serde(skip_serializing_if = "std::string::String::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<_>")]`,
 		"f_string_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"f_string_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+		"f_string_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]`,
 
-		"f_enum":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]`,
+		"f_enum":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<_>")]`,
 		"f_enum_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"f_enum_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+		"f_enum_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]`,
 	}
 	loadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
@@ -655,11 +655,11 @@ func TestMapFieldAttributes(t *testing.T) {
 
 	expectedAttributes := map[string]string{
 		"target":      `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"map":         `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`,
-		"map_i64":     `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::DisplayFromStr>")]`,
-		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
-		"map_bytes":   `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<_, serde_with::base64::Base64>")]`,
-		"map_bool":    `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "std::collections::HashMap<serde_with::DisplayFromStr, _>")]`,
+		"map":         `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]`,
+		"map_i64":     `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::I64>>")]`,
+		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I64, _>>")]`,
+		"map_bytes":   `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, serde_with::base64::Base64>>")]`,
+		"map_bool":    `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<serde_with::DisplayFromStr, _>>")]`,
 	}
 	loadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
@@ -754,16 +754,16 @@ func TestWktFieldAttributes(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
 
 	expectedAttributes := map[string]string{
-		"f_int64":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-		"f_int64_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
-		"f_uint64":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
-		"f_uint64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::DisplayFromStr>")]`,
+		"f_int64":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<wkt::internal::I64>")]`,
+		"f_int64_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I64>>")]`,
+		"f_uint64":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<wkt::internal::U64>")]`,
+		"f_uint64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::U64>>")]`,
 		"f_bytes":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
-		"f_bytes_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "std::vec::Vec<serde_with::base64::Base64>")]`,
+		"f_bytes_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<serde_with::base64::Base64>>")]`,
 		"f_string":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"f_string_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+		"f_string_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]`,
 		"f_any":             `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"f_any_repeated":    `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`,
+		"f_any_repeated":    `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]`,
 	}
 	loadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
@@ -805,10 +805,10 @@ func TestFieldLossyName(t *testing.T) {
 
 	expectedAttributes := map[string]string{
 		"data": `#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]` + "\n" +
-			`#[serde_as(as = "serde_with::base64::Base64")]`,
+			`#[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]`,
 		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" +
 			`#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" +
-			`#[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]`,
+			`#[serde_as(as = "std::option::Option<wkt::internal::I64>")]`,
 	}
 	loadWellKnownTypes(model.State)
 	for _, field := range message.Fields {
@@ -1291,15 +1291,15 @@ func TestAsQueryParameter(t *testing.T) {
 		field *api.Field
 		want  string
 	}{
-		{optionsField, `let builder = req.options_field.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "optionsField") });`},
+		{optionsField, `let builder = req.options_field.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "optionsField") });`},
 		{requiredField, `let builder = builder.query(&[("requiredField", &req.required_field)]);`},
 		{optionalField, `let builder = req.optional_field.iter().fold(builder, |builder, p| builder.query(&[("optionalField", p)]));`},
 		{repeatedField, `let builder = req.repeated_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
 		{requiredEnumField, `let builder = builder.query(&[("requiredEnumField", &req.required_enum_field)]);`},
 		{optionalEnumField, `let builder = req.optional_enum_field.iter().fold(builder, |builder, p| builder.query(&[("optionalEnumField", p)]));`},
 		{repeatedEnumField, `let builder = req.repeated_enum_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p)]));`},
-		{requiredFieldMaskField, `let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.required_field_mask).map_err(Error::serde)?.add(builder, "requiredFieldMask") };`},
-		{optionalFieldMaskField, `let builder = req.optional_field_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "optionalFieldMask") });`},
+		{requiredFieldMaskField, `let builder = { use gaxi::query_parameter::QueryParameter; serde_json::to_value(&req.required_field_mask).map_err(Error::ser)?.add(builder, "requiredFieldMask") };`},
+		{optionalFieldMaskField, `let builder = req.optional_field_mask.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "optionalFieldMask") });`},
 	} {
 		got := addQueryParameter(test.field)
 		if test.want != got {
@@ -1392,13 +1392,13 @@ func TestOneOfAsQueryParameter(t *testing.T) {
 		field *api.Field
 		want  string
 	}{
-		{optionsField, `let builder = req.options_field().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "optionsField") });`},
+		{optionsField, `let builder = req.options_field().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "optionsField") });`},
 		{typeField, `let builder = req.r#type().iter().fold(builder, |builder, p| builder.query(&[("type", p)]));`},
 		{singularField, `let builder = req.singular_field().iter().fold(builder, |builder, p| builder.query(&[("singularField", p)]));`},
 		{repeatedField, `let builder = req.repeated_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`},
 		{singularEnumField, `let builder = req.singular_enum_field().iter().fold(builder, |builder, p| builder.query(&[("singularEnumField", p)]));`},
 		{repeatedEnumField, `let builder = req.repeated_enum_field().iter().fold(builder, |builder, p| builder.query(&[("repeatedEnumField", p)]));`},
-		{singularFieldMaskField, `let builder = req.singular_field_mask().map(|p| serde_json::to_value(p).map_err(Error::serde) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "singularFieldMask") });`},
+		{singularFieldMaskField, `let builder = req.singular_field_mask().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "singularFieldMask") });`},
 	} {
 		got := addQueryParameter(test.field)
 		if test.want != got {

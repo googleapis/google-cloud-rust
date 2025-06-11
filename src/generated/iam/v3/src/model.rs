@@ -49,14 +49,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -67,10 +70,12 @@ pub struct OperationMetadata {
     ///
     /// [google.rpc.Status.code]: rpc::model::Status::code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -173,27 +178,32 @@ pub struct PolicyBinding {
     /// * `folders/{folder_id}/locations/{location}/policyBindings/{policy_binding_id}`
     /// * `organizations/{organization_id}/locations/{location}/policyBindings/{policy_binding_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The globally unique ID of the policy binding. Assigned when
     /// the policy binding is created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Optional. The etag for the policy binding.
     /// If this is provided on update, it must match the server's etag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. The description of the policy binding. Must be less than or equal
     /// to 63 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. User-defined annotations. See
     /// <https://google.aip.dev/148#annotations> for more details such as format and
     /// size limitations
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. Immutable. Target is the full resource name of the resource to
@@ -207,15 +217,18 @@ pub struct PolicyBinding {
     /// - Left empty (will be automatically set to the policy kind)
     /// - The input policy kind
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub policy_kind: crate::model::policy_binding::PolicyKind,
 
     /// Required. Immutable. The resource name of the policy to be bound. The
     /// binding parent and policy must belong to the same organization.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub policy: std::string::String,
 
     /// Output only. The globally unique ID of the policy to be bound.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub policy_uid: std::string::String,
 
     /// Optional. The condition to apply to the policy binding. When set, the
@@ -518,7 +531,7 @@ pub mod policy_binding {
             ///     * `//cloudresourcemanager.googleapis.com/projects/PROJECT_ID`
             ///   * Workload Identity Pool:
             ///     `//iam.googleapis.com/projects/PROJECT_NUMBER/locations/LOCATION/workloadIdentityPools/WORKLOAD_POOL_ID`
-            PrincipalSet(std::string::String),
+            PrincipalSet(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 
@@ -667,6 +680,7 @@ pub struct CreatePolicyBindingRequest {
     /// * `folders/{folder_id}/locations/{location}`
     /// * `organizations/{organization_id}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID to use for the policy binding, which will become the final
@@ -676,6 +690,7 @@ pub struct CreatePolicyBindingRequest {
     /// lowercase letters, numbers, hyphens, or dots. Pattern,
     /// /[a-z][a-z0-9-\.]{2,62}/.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub policy_binding_id: std::string::String,
 
     /// Required. The policy binding to create.
@@ -685,6 +700,7 @@ pub struct CreatePolicyBindingRequest {
     /// Optional. If set, validate the request and preview the creation, but do not
     /// actually post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -757,6 +773,7 @@ pub struct GetPolicyBindingRequest {
     /// * `folders/{folder_id}/locations/{location}/policyBindings/{policy_binding_id}`
     /// * `organizations/{organization_id}/locations/{location}/policyBindings/{policy_binding_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -797,6 +814,7 @@ pub struct UpdatePolicyBindingRequest {
     /// Optional. If set, validate the request and preview the update, but do not
     /// actually post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. The list of fields to update
@@ -876,16 +894,19 @@ pub struct DeletePolicyBindingRequest {
     /// * `folders/{folder_id}/locations/{location}/policyBindings/{policy_binding_id}`
     /// * `organizations/{organization_id}/locations/{location}/policyBindings/{policy_binding_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The etag of the policy binding.
     /// If this is provided, it must match the server's etag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. If set, validate the request and preview the deletion, but do not
     /// actually post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -938,6 +959,7 @@ pub struct ListPolicyBindingsRequest {
     /// * `folders/{folder_id}/locations/{location}`
     /// * `organizations/{organization_id}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of policy bindings to return. The service may
@@ -946,7 +968,7 @@ pub struct ListPolicyBindingsRequest {
     /// If unspecified, at most 50 policy bindings will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListPolicyBindings` call.
@@ -955,6 +977,7 @@ pub struct ListPolicyBindingsRequest {
     /// When paginating, all other parameters provided to `ListPolicyBindings` must
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. An expression for filtering the results of the request. Filter
@@ -969,6 +992,7 @@ pub struct ListPolicyBindingsRequest {
     /// * `target:example`: The binding target's name is `example`.
     /// * `policy:example`: The binding policy's name is `example`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1019,11 +1043,13 @@ impl wkt::message::Message for ListPolicyBindingsRequest {
 pub struct ListPolicyBindingsResponse {
     /// The policy bindings from the specified parent.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policy_bindings: std::vec::Vec<crate::model::PolicyBinding>,
 
     /// Optional. A token, which can be sent as `page_token` to retrieve the next
     /// page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1090,6 +1116,7 @@ pub struct SearchTargetPolicyBindingsRequest {
     /// * `//cloudresourcemanager.googleapis.com/folders/{folder_id}`
     /// * `//cloudresourcemanager.googleapis.com/organizations/{organization_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Optional. The maximum number of policy bindings to return. The service may
@@ -1098,7 +1125,7 @@ pub struct SearchTargetPolicyBindingsRequest {
     /// If unspecified, at most 50 policy bindings will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -1109,6 +1136,7 @@ pub struct SearchTargetPolicyBindingsRequest {
     /// `SearchTargetPolicyBindingsRequest` must match the call that provided the
     /// page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Required. The parent resource where this search will be performed. This
@@ -1122,6 +1150,7 @@ pub struct SearchTargetPolicyBindingsRequest {
     /// * `folders/{folder_id}/locations/{location}`
     /// * `organizations/{organization_id}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1172,11 +1201,13 @@ impl wkt::message::Message for SearchTargetPolicyBindingsRequest {
 pub struct SearchTargetPolicyBindingsResponse {
     /// The policy bindings bound to the specified target.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policy_bindings: std::vec::Vec<crate::model::PolicyBinding>,
 
     /// Optional. A token, which can be sent as `page_token` to retrieve the next
     /// page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1238,6 +1269,7 @@ pub struct CreatePrincipalAccessBoundaryPolicyRequest {
     /// Format:
     /// `organizations/{organization_id}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The ID to use for the principal access boundary policy, which
@@ -1248,6 +1280,7 @@ pub struct CreatePrincipalAccessBoundaryPolicyRequest {
     /// lowercase letters, numbers, hyphens, or dots. Pattern,
     /// /[a-z][a-z0-9-\.]{2,62}/.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub principal_access_boundary_policy_id: std::string::String,
 
     /// Required. The principal access boundary policy to create.
@@ -1258,6 +1291,7 @@ pub struct CreatePrincipalAccessBoundaryPolicyRequest {
     /// Optional. If set, validate the request and preview the creation, but do not
     /// actually post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1329,6 +1363,7 @@ pub struct GetPrincipalAccessBoundaryPolicyRequest {
     /// Format:
     /// `organizations/{organization_id}/locations/{location}/principalAccessBoundaryPolicies/{principal_access_boundary_policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1370,6 +1405,7 @@ pub struct UpdatePrincipalAccessBoundaryPolicyRequest {
     /// Optional. If set, validate the request and preview the update, but do not
     /// actually post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. The list of fields to update
@@ -1448,21 +1484,25 @@ pub struct DeletePrincipalAccessBoundaryPolicyRequest {
     /// Format:
     /// `organizations/{organization_id}/locations/{location}/principalAccessBoundaryPolicies/{principal_access_boundary_policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The etag of the principal access boundary policy.
     /// If this is provided, it must match the server's etag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. If set, validate the request and preview the deletion, but do not
     /// actually post it.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub validate_only: bool,
 
     /// Optional. If set to true, the request will force the deletion of the policy
     /// even if the policy is referenced in policy bindings.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1517,6 +1557,7 @@ pub struct ListPrincipalAccessBoundaryPoliciesRequest {
     /// Format:
     /// `organizations/{organization_id}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of principal access boundary policies to
@@ -1526,7 +1567,7 @@ pub struct ListPrincipalAccessBoundaryPoliciesRequest {
     /// returned. The maximum value is 1000; values above 1000 will be coerced to
     /// 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -1537,6 +1578,7 @@ pub struct ListPrincipalAccessBoundaryPoliciesRequest {
     /// `ListPrincipalAccessBoundaryPolicies` must match the call that provided the
     /// page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1581,12 +1623,14 @@ impl wkt::message::Message for ListPrincipalAccessBoundaryPoliciesRequest {
 pub struct ListPrincipalAccessBoundaryPoliciesResponse {
     /// The principal access boundary policies from the specified parent.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub principal_access_boundary_policies:
         std::vec::Vec<crate::model::PrincipalAccessBoundaryPolicy>,
 
     /// Optional. A token, which can be sent as `page_token` to retrieve the next
     /// page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1646,6 +1690,7 @@ pub struct SearchPrincipalAccessBoundaryPolicyBindingsRequest {
     /// Format:
     /// `organizations/{organization_id}/locations/{location}/principalAccessBoundaryPolicies/{principal_access_boundary_policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. The maximum number of policy bindings to return. The service may
@@ -1654,7 +1699,7 @@ pub struct SearchPrincipalAccessBoundaryPolicyBindingsRequest {
     /// If unspecified, at most 50 policy bindings will be returned.
     /// The maximum value is 1000; values above 1000 will be coerced to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
@@ -1665,6 +1710,7 @@ pub struct SearchPrincipalAccessBoundaryPolicyBindingsRequest {
     /// `SearchPrincipalAccessBoundaryPolicyBindingsRequest` must match the call
     /// that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1709,11 +1755,13 @@ impl wkt::message::Message for SearchPrincipalAccessBoundaryPolicyBindingsReques
 pub struct SearchPrincipalAccessBoundaryPolicyBindingsResponse {
     /// The policy bindings that reference the specified policy.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policy_bindings: std::vec::Vec<crate::model::PolicyBinding>,
 
     /// Optional. A token, which can be sent as `page_token` to retrieve the next
     /// page. If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1776,27 +1824,32 @@ pub struct PrincipalAccessBoundaryPolicy {
     /// The following format is supported:
     /// `organizations/{organization_id}/locations/{location}/principalAccessBoundaryPolicies/{policy_id}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. The globally unique ID of the principal access boundary
     /// policy.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uid: std::string::String,
 
     /// Optional. The etag for the principal access boundary.
     /// If this is provided on update, it must match the server's etag.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub etag: std::string::String,
 
     /// Optional. The description of the principal access boundary policy. Must be
     /// less than or equal to 63 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Optional. User defined annotations. See
     /// <https://google.aip.dev/148#annotations> for more details such as format and
     /// size limitations
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub annotations: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Output only. The time when the principal access boundary policy was
@@ -1928,6 +1981,7 @@ pub struct PrincipalAccessBoundaryPolicyDetails {
     /// Required. A list of principal access boundary policy rules. The number of
     /// rules in a policy is limited to 500.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::PrincipalAccessBoundaryPolicyRule>,
 
     /// Optional.
@@ -1936,6 +1990,7 @@ pub struct PrincipalAccessBoundaryPolicyDetails {
     /// version will be set to the most recent version number at the time of the
     /// policy's creation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enforcement_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1983,6 +2038,7 @@ pub struct PrincipalAccessBoundaryPolicyRule {
     /// Optional. The description of the principal access boundary policy rule.
     /// Must be less than or equal to 256 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Required. A list of Resource Manager resources. If a resource is listed in
@@ -1998,11 +2054,13 @@ pub struct PrincipalAccessBoundaryPolicyRule {
     /// * Projects, such as `//cloudresourcemanager.googleapis.com/projects/123`
     ///   or `//cloudresourcemanager.googleapis.com/projects/my-project-id`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resources: std::vec::Vec<std::string::String>,
 
     /// Required. The access relationship of principals to the resources in this
     /// rule.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub effect: crate::model::principal_access_boundary_policy_rule::Effect,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

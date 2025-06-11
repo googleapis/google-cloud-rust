@@ -33,6 +33,7 @@ pub struct MembershipState {
     /// This field is set to the `cluster_name` field of the Membership Spec if it
     /// is not empty. Otherwise, it is set to the cluster's fleet membership name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cluster_name: std::string::String,
 
     /// Membership configuration in the cluster. This represents the actual state
@@ -190,6 +191,7 @@ pub struct MembershipSpec {
 
     /// Version of ACM installed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// The user-specified cluster name used by Config Sync cluster-name-selector
@@ -200,10 +202,12 @@ pub struct MembershipSpec {
     /// Set this field if a name different from the cluster's fleet membership name
     /// is used by Config Sync cluster-name-selector annotation or ClusterSelector.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cluster: std::string::String,
 
     /// Enables automatic Feature management.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub management: crate::model::membership_spec::Management,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -448,6 +452,7 @@ pub struct ConfigSync {
     /// Specifies whether the Config Sync Repo is
     /// in "hierarchical" or "unstructured" mode.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_format: std::string::String,
 
     /// Enables the installation of ConfigSync.
@@ -464,6 +469,7 @@ pub struct ConfigSync {
     /// If set to `false`, disables the Config Sync admission webhook and does not
     /// prevent drifts.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub prevent_drift: bool,
 
     /// OCI repo configuration for the cluster
@@ -477,6 +483,7 @@ pub struct ConfigSync {
     /// The Kubernetes ServiceAccount `default` in the namespace
     /// `config-management-monitoring` should be bound to the GSA.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub metrics_gcp_service_account_email: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -578,39 +585,46 @@ impl wkt::message::Message for ConfigSync {
 pub struct GitConfig {
     /// The URL of the Git repository to use as the source of truth.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sync_repo: std::string::String,
 
     /// The branch of the repository to sync from. Default: master.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sync_branch: std::string::String,
 
     /// The path within the Git repository that represents the top level of the
     /// repo to sync. Default: the root directory of the repository.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub policy_dir: std::string::String,
 
     /// Period in seconds between consecutive syncs. Default: 15.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub sync_wait_secs: i64,
 
     /// Git revision (tag or hash) to check out. Default HEAD.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sync_rev: std::string::String,
 
     /// Type of secret configured for access to the Git repo. Must be one of ssh,
     /// cookiefile, gcenode, token, gcpserviceaccount or none. The
     /// validation of this is case-sensitive. Required.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secret_type: std::string::String,
 
     /// URL for the HTTPS proxy to be used when communicating with the Git repo.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub https_proxy: std::string::String,
 
     /// The Google Cloud Service Account Email used for auth when secret_type is
     /// gcpServiceAccount.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gcp_service_account_email: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -689,25 +703,29 @@ pub struct OciConfig {
     /// The OCI image repository URL for the package to sync from.
     /// e.g. `LOCATION-docker.pkg.dev/PROJECT_ID/REPOSITORY_NAME/PACKAGE_NAME`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sync_repo: std::string::String,
 
     /// The absolute path of the directory that contains
     /// the local resources.  Default: the root directory of the image.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub policy_dir: std::string::String,
 
     /// Period in seconds between consecutive syncs. Default: 15.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub sync_wait_secs: i64,
 
     /// Type of secret configured for access to the Git repo.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub secret_type: std::string::String,
 
     /// The Google Cloud Service Account Email used for auth when secret_type is
     /// gcpServiceAccount.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gcp_service_account_email: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -769,6 +787,7 @@ pub struct PolicyController {
     /// If false, the rest of PolicyController fields take no
     /// effect.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enabled: bool,
 
     /// Installs the default template library along with Policy Controller.
@@ -778,21 +797,24 @@ pub struct PolicyController {
     /// Sets the interval for Policy Controller Audit Scans (in seconds).
     /// When set to 0, this disables audit functionality altogether.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub audit_interval_seconds: std::option::Option<i64>,
 
     /// The set of namespaces that are excluded from Policy Controller checks.
     /// Namespaces do not need to currently exist on the cluster.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub exemptable_namespaces: std::vec::Vec<std::string::String>,
 
     /// Enables the ability to use Constraint Templates that reference to objects
     /// other than the object currently being evaluated.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub referential_rules_enabled: bool,
 
     /// Logs all denies and dry run failures.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub log_denies_enabled: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -884,14 +906,17 @@ impl wkt::message::Message for PolicyController {
 pub struct HierarchyControllerConfig {
     /// Whether Hierarchy Controller is enabled in this cluster.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enabled: bool,
 
     /// Whether pod tree labels are enabled in this cluster.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_pod_tree_labels: bool,
 
     /// Whether hierarchical resource quota is enabled in this cluster.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_hierarchical_resource_quota: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -939,10 +964,12 @@ impl wkt::message::Message for HierarchyControllerConfig {
 pub struct HierarchyControllerDeploymentState {
     /// The deployment state for open source HNC (e.g. v0.7.0-hc.0)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub hnc: crate::model::DeploymentState,
 
     /// The deployment state for Hierarchy Controller extension (e.g. v0.7.0-hc.1)
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub extension: crate::model::DeploymentState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -984,10 +1011,12 @@ impl wkt::message::Message for HierarchyControllerDeploymentState {
 pub struct HierarchyControllerVersion {
     /// Version for open source HNC
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub hnc: std::string::String,
 
     /// Version for Hierarchy Controller extension
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub extension: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1092,14 +1121,17 @@ impl wkt::message::Message for HierarchyControllerState {
 pub struct OperatorState {
     /// The semenatic version number of the operator
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// The state of the Operator's deployment
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deployment_state: crate::model::DeploymentState,
 
     /// Install errors.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<crate::model::InstallError>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1152,6 +1184,7 @@ impl wkt::message::Message for OperatorState {
 pub struct InstallError {
     /// A string representing the user facing error message
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1197,19 +1230,23 @@ pub struct ConfigSyncState {
 
     /// Errors pertaining to the installation of Config Sync.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<crate::model::ConfigSyncError>,
 
     /// The state of the RootSync CRD
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub rootsync_crd: crate::model::config_sync_state::CRDState,
 
     /// The state of the Reposync CRD
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reposync_crd: crate::model::config_sync_state::CRDState,
 
     /// The state of CS
     /// This field summarizes the other fields in this message.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::config_sync_state::State,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1627,6 +1664,7 @@ pub mod config_sync_state {
 pub struct ConfigSyncError {
     /// A string representing the user facing error message
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1659,30 +1697,37 @@ impl wkt::message::Message for ConfigSyncError {
 pub struct ConfigSyncVersion {
     /// Version of the deployed importer pod
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub importer: std::string::String,
 
     /// Version of the deployed syncer pod
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub syncer: std::string::String,
 
     /// Version of the deployed git-sync pod
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub git_sync: std::string::String,
 
     /// Version of the deployed monitor pod
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub monitor: std::string::String,
 
     /// Version of the deployed reconciler-manager pod
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciler_manager: std::string::String,
 
     /// Version of the deployed reconciler container in root-reconciler pod
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub root_reconciler: std::string::String,
 
     /// Version of the deployed admission_webhook pod
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub admission_webhook: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1757,30 +1802,37 @@ impl wkt::message::Message for ConfigSyncVersion {
 pub struct ConfigSyncDeploymentState {
     /// Deployment state of the importer pod
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub importer: crate::model::DeploymentState,
 
     /// Deployment state of the syncer pod
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub syncer: crate::model::DeploymentState,
 
     /// Deployment state of the git-sync pod
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub git_sync: crate::model::DeploymentState,
 
     /// Deployment state of the monitor pod
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub monitor: crate::model::DeploymentState,
 
     /// Deployment state of reconciler-manager pod
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reconciler_manager: crate::model::DeploymentState,
 
     /// Deployment state of root-reconciler
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub root_reconciler: crate::model::DeploymentState,
 
     /// Deployment state of admission-webhook
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub admission_webhook: crate::model::DeploymentState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1870,20 +1922,24 @@ impl wkt::message::Message for ConfigSyncDeploymentState {
 pub struct SyncState {
     /// Token indicating the state of the repo.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_token: std::string::String,
 
     /// Token indicating the state of the importer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub import_token: std::string::String,
 
     /// Token indicating the state of the syncer.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub sync_token: std::string::String,
 
     /// Deprecated: use last_sync_time instead.
     /// Timestamp of when ACM last successfully synced the repo
     /// The time format is specified in <https://golang.org/pkg/time/#Time.String>
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub last_sync: std::string::String,
 
@@ -1893,12 +1949,14 @@ pub struct SyncState {
 
     /// Sync status code
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub code: crate::model::sync_state::SyncCode,
 
     /// A list of errors resulting from problematic configs.
     /// This list will be truncated after 100 errors, although it is
     /// unlikely for that many errors to simultaneously exist.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub errors: std::vec::Vec<crate::model::SyncError>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2161,14 +2219,17 @@ pub mod sync_state {
 pub struct SyncError {
     /// An ACM defined error code
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub code: std::string::String,
 
     /// A description of the error
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_message: std::string::String,
 
     /// A list of config(s) associated with the error, if any
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub error_resources: std::vec::Vec<crate::model::ErrorResource>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2218,14 +2279,17 @@ impl wkt::message::Message for SyncError {
 pub struct ErrorResource {
     /// Path in the git repo of the erroneous config
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_path: std::string::String,
 
     /// Metadata name of the resource that is causing an error
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_name: std::string::String,
 
     /// Namespace of the resource that is causing an error
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_namespace: std::string::String,
 
     /// Group/version/kind of the resource that is causing an error
@@ -2295,14 +2359,17 @@ impl wkt::message::Message for ErrorResource {
 pub struct GroupVersionKind {
     /// Kubernetes Group
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub group: std::string::String,
 
     /// Kubernetes Version
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Kubernetes Kind
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kind: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2414,6 +2481,7 @@ pub struct PolicyControllerVersion {
     /// The gatekeeper image tag that is composed of ACM version, git tag, build
     /// number.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2446,10 +2514,12 @@ impl wkt::message::Message for PolicyControllerVersion {
 pub struct GatekeeperDeploymentState {
     /// Status of gatekeeper-controller-manager pod.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gatekeeper_controller_manager_state: crate::model::DeploymentState,
 
     /// Status of gatekeeper-audit deployment.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub gatekeeper_audit: crate::model::DeploymentState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

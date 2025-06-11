@@ -14,17 +14,33 @@
 
 #[cfg(test)]
 mod test {
+    use common::{__MessageWithI32, MessageWithI32};
     use serde_json::{Value, json};
     use test_case::test_case;
-
     type Result = anyhow::Result<()>;
 
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
+    #[test_case(MessageWithI32::new(), json!({}))]
+    fn test_ser(input: MessageWithI32, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithI32(input))?;
+        assert_eq!(got, want);
+        Ok(())
     }
-    use protos::MessageWithI32;
+
+    #[test_case(MessageWithI32::new(), json!({}))]
+    fn test_de(want: MessageWithI32, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithI32>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
+
+    #[test_case(json!({"unknown": "test-value"}))]
+    #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
+    fn test_unknown(input: Value) -> Result {
+        let deser = serde_json::from_value::<__MessageWithI32>(input.clone())?;
+        let got = serde_json::to_value(deser)?;
+        assert_eq!(got, input);
+        Ok(())
+    }
 
     #[test_case(123, 123)]
     #[test_case(-234, -234)]
@@ -47,6 +63,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"singular": 0}))]
+    #[test_case(json!({"singular": null}))]
     fn test_singular_default(input: Value) -> Result {
         let want = MessageWithI32::new().set_singular(0);
         let got = serde_json::from_value::<MessageWithI32>(input)?;
@@ -107,6 +124,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"repeated": []}))]
+    #[test_case(json!({"repeated": null}))]
     fn test_repeated_default(input: Value) -> Result {
         let want = MessageWithI32::new();
         let got = serde_json::from_value::<MessageWithI32>(input)?;
@@ -141,6 +159,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"mapValue": {}}))]
+    #[test_case(json!({"mapValue": null}))]
     fn test_map_value_default(input: Value) -> Result {
         let want = MessageWithI32::default();
         let got = serde_json::from_value::<MessageWithI32>(input)?;
@@ -175,6 +194,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"mapKey": {}}))]
+    #[test_case(json!({"mapKey": null}))]
     fn test_map_key_default(input: Value) -> Result {
         let want = MessageWithI32::default();
         let got = serde_json::from_value::<MessageWithI32>(input)?;
@@ -210,6 +230,7 @@ mod test {
 
     #[test_case(json!({}))]
     #[test_case(json!({"mapKeyValue": {}}))]
+    #[test_case(json!({"mapKeyValue": null}))]
     fn test_map_key_value_default(input: Value) -> Result {
         let want = MessageWithI32::default();
         let got = serde_json::from_value::<MessageWithI32>(input)?;

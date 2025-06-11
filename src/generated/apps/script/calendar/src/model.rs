@@ -43,10 +43,12 @@ pub struct CalendarAddOnManifest {
 
     /// Defines conference solutions provided by this add-on.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub conference_solution: std::vec::Vec<crate::model::ConferenceSolution>,
 
     /// An endpoint to execute that creates a URL to the add-on's settings page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub create_settings_url_function: std::string::String,
 
     /// An endpoint to trigger when an event is opened (viewed/edited).
@@ -59,6 +61,7 @@ pub struct CalendarAddOnManifest {
 
     /// Define the level of data access when an event addon is triggered.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub current_event_access: crate::model::calendar_add_on_manifest::EventAccess,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -328,6 +331,7 @@ pub mod calendar_add_on_manifest {
 pub struct ConferenceSolution {
     /// Required. The endpoint to call when ConferenceData should be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub on_create_function: std::string::String,
 
     /// Required. IDs should be unique across ConferenceSolutions within one
@@ -336,14 +340,17 @@ pub struct ConferenceSolution {
     /// used when the add-on is triggered. While the developer may change the
     /// display name of an add-on, the ID should not be changed.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Required. The display name of the ConferenceSolution.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The URL for the logo image of the ConferenceSolution.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub logo_url: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -398,6 +405,7 @@ pub struct CalendarExtensionPoint {
     /// Required. The endpoint to execute when this extension point is
     /// activated.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub run_function: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

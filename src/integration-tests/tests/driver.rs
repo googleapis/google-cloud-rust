@@ -125,6 +125,16 @@ mod driver {
             .map_err(integration_tests::report_error)
     }
 
+    #[test_case(Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_storage_objects_with_key(
+        builder: storage::client::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::storage::objects_customer_supplied_encryption(builder)
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
     #[test_case(ta::client::TelcoAutomation::builder().with_tracing(); "with tracing enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_error_details(

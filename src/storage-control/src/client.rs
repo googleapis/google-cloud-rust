@@ -559,6 +559,48 @@ impl StorageControl {
         self.control.list_anywhere_caches()
     }
 
+    /// Returns the Project scoped singleton IntelligenceConfig resource.
+    pub fn get_project_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::GetProjectIntelligenceConfig {
+        self.control.get_project_intelligence_config()
+    }
+
+    /// Updates the Project scoped singleton IntelligenceConfig resource.
+    pub fn update_project_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::UpdateProjectIntelligenceConfig {
+        self.control.update_project_intelligence_config()
+    }
+
+    /// Returns the Folder scoped singleton IntelligenceConfig resource.
+    pub fn get_folder_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::GetFolderIntelligenceConfig {
+        self.control.get_folder_intelligence_config()
+    }
+
+    /// Updates the Folder scoped singleton IntelligenceConfig resource.
+    pub fn update_folder_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::UpdateFolderIntelligenceConfig {
+        self.control.update_folder_intelligence_config()
+    }
+
+    /// Returns the Organization scoped singleton IntelligenceConfig resource.
+    pub fn get_organization_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::GetOrganizationIntelligenceConfig {
+        self.control.get_organization_intelligence_config()
+    }
+
+    /// Updates the Organization scoped singleton IntelligenceConfig resource.
+    pub fn update_organization_intelligence_config(
+        &self,
+    ) -> super::builder::storage_control::UpdateOrganizationIntelligenceConfig {
+        self.control.update_organization_intelligence_config()
+    }
+
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
     ///
     /// [google.longrunning.Operations]: longrunning::client::Operations

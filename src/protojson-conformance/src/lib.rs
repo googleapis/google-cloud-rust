@@ -18,3 +18,27 @@ pub mod conformance {
     include!("generated/protos/conformance.rs");
     include!("generated/convert/convert.rs");
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use generated::test_protos::TestAllTypesProto3;
+    use serde_json::json;
+
+    #[test]
+    fn field13() -> anyhow::Result<()> {
+        let input = json!({"FieldName13": 0});
+        let message = serde_json::from_value::<TestAllTypesProto3>(input)?;
+        let value = serde_json::to_value(message)?;
+        assert_eq!(value, json!({}));
+        Ok(())
+    }
+
+    #[test]
+    fn float_range() -> anyhow::Result<()> {
+        let input = json!({"optionalFloat": -3.502823e+38});
+        let err = serde_json::from_value::<TestAllTypesProto3>(input).unwrap_err();
+        assert!(err.is_data());
+        Ok(())
+    }
+}

@@ -46,6 +46,7 @@ extern crate wkt;
 pub struct ResourceOwners {
     /// List of resource owners.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub resource_owners: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -131,6 +132,7 @@ pub struct ExportAssetsRequest {
     /// "projects/my-project-id"), or a project number (such as "projects/12345"),
     /// or a folder number (such as "folders/123").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Timestamp to take an asset snapshot. This can only be set to a timestamp
@@ -160,11 +162,13 @@ pub struct ExportAssetsRequest {
     /// Inventory](https://cloud.google.com/asset-inventory/docs/overview)
     /// for all supported asset types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub asset_types: std::vec::Vec<std::string::String>,
 
     /// Asset content type. If not specified, no content but the asset name will be
     /// returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub content_type: crate::model::ContentType,
 
     /// Required. Output configuration indicating where the results will be output
@@ -189,6 +193,7 @@ pub struct ExportAssetsRequest {
     ///   Inventory](https://cloud.google.com/asset-inventory/docs/overview) for all
     ///   supported asset types and relationship types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub relationship_types: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -390,6 +395,7 @@ pub struct ListAssetsRequest {
     /// "projects/my-project-id"), "projects/[project-number]" (such as
     /// "projects/12345"), or "folders/[folder-number]" (such as "folders/12345").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Timestamp to take an asset snapshot. This can only be set to a timestamp
@@ -419,23 +425,26 @@ pub struct ListAssetsRequest {
     /// Inventory](https://cloud.google.com/asset-inventory/docs/overview)
     /// for all supported asset types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub asset_types: std::vec::Vec<std::string::String>,
 
     /// Asset content type. If not specified, no content but the asset name will
     /// be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub content_type: crate::model::ContentType,
 
     /// The maximum number of assets to be returned in a single response. Default
     /// is 100, minimum is 1, and maximum is 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// The `next_page_token` returned from the previous `ListAssetsResponse`, or
     /// unspecified for the first `ListAssetsRequest`. It is a continuation of a
     /// prior `ListAssets` call, and the API should return the next page of assets.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// A list of relationship types to output, for example:
@@ -455,6 +464,7 @@ pub struct ListAssetsRequest {
     ///   Inventory](https://cloud.google.com/asset-inventory/docs/overview)
     ///   for all supported asset types and relationship types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub relationship_types: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -552,12 +562,14 @@ pub struct ListAssetsResponse {
 
     /// Assets.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub assets: std::vec::Vec<crate::model::Asset>,
 
     /// Token to retrieve the next page of results. It expires 72 hours after the
     /// page token for the first page is generated. Set to empty if there are no
     /// remaining results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -635,6 +647,7 @@ pub struct BatchGetAssetsHistoryRequest {
     /// organization number (such as "organizations/123"), a project ID (such as
     /// "projects/my-project-id")", or a project number (such as "projects/12345").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// A list of the full names of the assets.
@@ -646,10 +659,12 @@ pub struct BatchGetAssetsHistoryRequest {
     /// The request becomes a no-op if the asset name list is empty, and the max
     /// size of the asset name list is 100 in one request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub asset_names: std::vec::Vec<std::string::String>,
 
     /// Optional. The content type.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub content_type: crate::model::ContentType,
 
     /// Optional. The time window for the asset history. Both start_time and
@@ -679,6 +694,7 @@ pub struct BatchGetAssetsHistoryRequest {
     ///   Inventory](https://cloud.google.com/asset-inventory/docs/overview) for all
     ///   supported asset types and relationship types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub relationship_types: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -760,6 +776,7 @@ impl wkt::message::Message for BatchGetAssetsHistoryRequest {
 pub struct BatchGetAssetsHistoryResponse {
     /// A list of assets with valid time windows.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub assets: std::vec::Vec<crate::model::TemporalAsset>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -801,11 +818,13 @@ pub struct CreateFeedRequest {
     /// (such as "projects/my-project-id"), or a project number (such as
     /// "projects/12345").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. This is the client-assigned asset feed identifier and it needs to
     /// be unique under a specific parent project/folder/organization.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub feed_id: std::string::String,
 
     /// Required. The feed details. The field `name` must be empty and it will be
@@ -872,6 +891,7 @@ pub struct GetFeedRequest {
     /// folders/folder_number/feeds/feed_id
     /// organizations/organization_number/feeds/feed_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -906,6 +926,7 @@ pub struct ListFeedsRequest {
     /// listed. It can only be using project/folder/organization number (such as
     /// "folders/12345")", or a project ID (such as "projects/my-project-id").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -937,6 +958,7 @@ impl wkt::message::Message for ListFeedsRequest {
 pub struct ListFeedsResponse {
     /// A list of feeds.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub feeds: std::vec::Vec<crate::model::Feed>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1048,6 +1070,7 @@ pub struct DeleteFeedRequest {
     /// folders/folder_number/feeds/feed_id
     /// organizations/organization_number/feeds/feed_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1287,6 +1310,7 @@ pub struct GcsOutputResult {
     /// List of URIs of the Cloud Storage objects. Example:
     /// "gs://bucket_name/object_name".
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uris: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1421,7 +1445,7 @@ pub mod gcs_destination {
         /// If the specified Cloud Storage object already exists and there is no
         /// [hold](https://cloud.google.com/storage/docs/object-holds), it will be
         /// overwritten with the exported result.
-        Uri(std::string::String),
+        Uri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// The URI prefix of all generated Cloud Storage objects. Example:
         /// "gs://bucket_name/object_name_prefix". Each object URI is in format:
         /// "gs://bucket_name/object_name_prefix/\<asset type\>/\<shard number\> and only
@@ -1431,7 +1455,7 @@ pub mod gcs_destination {
         /// compute.googleapis.com/Disk assets. An INVALID_ARGUMENT error will be
         /// returned if file with the same name "gs://bucket_name/object_name_prefix"
         /// already exists.
-        UriPrefix(std::string::String),
+        UriPrefix(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 }
 
@@ -1450,12 +1474,14 @@ pub struct BigQueryDestination {
     /// of the BigQuery table. Setting `separateTablesPerAssetType` to `TRUE` also
     /// influences the schema.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dataset: std::string::String,
 
     /// Required. The BigQuery table to which the snapshot result should be
     /// written. If this table does not exist, a new table with the given name
     /// will be created.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table: std::string::String,
 
     /// If the destination table already exists and this flag is `TRUE`, the
@@ -1463,6 +1489,7 @@ pub struct BigQueryDestination {
     /// is `FALSE` or unset and the destination table already exists, the export
     /// call returns an INVALID_ARGUMEMT error.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub force: bool,
 
     /// [partition_spec] determines whether to export to partitioned table(s) and
@@ -1513,6 +1540,7 @@ pub struct BigQueryDestination {
     /// table_type_B fails during one export call, the results in table_type_A will
     /// persist and there will not be partial results persisting in a table.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub separate_tables_per_asset_type: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1581,6 +1609,7 @@ impl wkt::message::Message for BigQueryDestination {
 pub struct PartitionSpec {
     /// The partition key for BigQuery partitioned table.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub partition_key: crate::model::partition_spec::PartitionKey,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1766,6 +1795,7 @@ pub struct PubsubDestination {
     /// The name of the Pub/Sub topic to publish to.
     /// Example: `projects/PROJECT_ID/topics/TOPIC_ID`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub topic: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1896,6 +1926,7 @@ pub struct Feed {
     /// The client-assigned feed identifier must be unique within the parent
     /// project/folder/organization.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// A list of the full names of the assets to receive updates. You must specify
@@ -1906,6 +1937,7 @@ pub struct Feed {
     /// For a list of the full names for supported asset types, see [Resource
     /// name format](/asset-inventory/docs/resource-name-format).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub asset_names: std::vec::Vec<std::string::String>,
 
     /// A list of types of the assets to receive updates. You must specify either
@@ -1916,11 +1948,13 @@ pub struct Feed {
     /// For a list of all supported asset types, see
     /// [Supported asset types](/asset-inventory/docs/supported-asset-types).
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub asset_types: std::vec::Vec<std::string::String>,
 
     /// Asset content type. If not specified, no content but the asset name and
     /// type will be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub content_type: crate::model::ContentType,
 
     /// Required. Feed output configuration defining where the asset updates are
@@ -1961,6 +1995,7 @@ pub struct Feed {
     ///   Inventory](https://cloud.google.com/asset-inventory/docs/overview)
     ///   for all supported asset types and relationship types.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub relationship_types: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2082,6 +2117,7 @@ pub struct SearchAllResourcesRequest {
     /// * folders/{FOLDER_NUMBER} (e.g., "folders/1234567")
     /// * organizations/{ORGANIZATION_NUMBER} (e.g., "organizations/123456")
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: std::string::String,
 
     /// Optional. The query statement. See [how to construct a
@@ -2165,6 +2201,7 @@ pub struct SearchAllResourcesRequest {
     ///   fields and are also located in the `us-west1` region or the `global`
     ///   location.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     /// Optional. A list of asset types that this request searches for. If empty,
@@ -2182,6 +2219,7 @@ pub struct SearchAllResourcesRequest {
     /// regular expression syntax. If the regular expression does not match any
     /// supported asset type, an INVALID_ARGUMENT error will be returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub asset_types: std::vec::Vec<std::string::String>,
 
     /// Optional. The page size for search result pagination. Page size is capped
@@ -2190,7 +2228,7 @@ pub struct SearchAllResourcesRequest {
     /// requested. When this happens, there could be more results as long as
     /// `next_page_token` is returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. If present, then retrieve the next batch of results from the
@@ -2198,6 +2236,7 @@ pub struct SearchAllResourcesRequest {
     /// `next_page_token` from the previous response. The values of all other
     /// method parameters, must be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. A comma-separated list of fields specifying the sorting order of
@@ -2218,6 +2257,7 @@ pub struct SearchAllResourcesRequest {
     /// * parentFullResourceName
     /// * parentAssetType
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Optional. A comma-separated list of fields that you want returned in the
@@ -2338,12 +2378,14 @@ pub struct SearchAllResourcesResponse {
     /// A list of Resources that match the search query. It contains the resource
     /// standard metadata information.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub results: std::vec::Vec<crate::model::ResourceSearchResult>,
 
     /// If there are more results than those appearing in this response, then
     /// `next_page_token` is included. To get the next set of results, call this
     /// method again using the value of `next_page_token` as `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2412,6 +2454,7 @@ pub struct SearchAllIamPoliciesRequest {
     /// * folders/{FOLDER_NUMBER} (e.g., "folders/1234567")
     /// * organizations/{ORGANIZATION_NUMBER} (e.g., "organizations/123456")
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: std::string::String,
 
     /// Optional. The query statement. See [how to construct a
@@ -2457,6 +2500,7 @@ pub struct SearchAllIamPoliciesRequest {
     /// * `memberTypes:user` to find IAM policy bindings that contain the
     ///   principal type "user".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
 
     /// Optional. The page size for search result pagination. Page size is capped
@@ -2465,7 +2509,7 @@ pub struct SearchAllIamPoliciesRequest {
     /// requested. When this happens, there could be more results as long as
     /// `next_page_token` is returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. If present, retrieve the next batch of results from the preceding
@@ -2473,6 +2517,7 @@ pub struct SearchAllIamPoliciesRequest {
     /// from the previous response. The values of all other method parameters must
     /// be identical to those in the previous call.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. A list of asset types that the IAM policies are attached to. If
@@ -2493,6 +2538,7 @@ pub struct SearchAllIamPoliciesRequest {
     /// regular expression syntax. If the regular expression does not match any
     /// supported asset type, an INVALID_ARGUMENT error will be returned.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub asset_types: std::vec::Vec<std::string::String>,
 
     /// Optional. A comma-separated list of fields specifying the sorting order of
@@ -2507,6 +2553,7 @@ pub struct SearchAllIamPoliciesRequest {
     ///   All the other fields such as repeated fields (e.g., `folders`) and
     ///   non-primitive fields (e.g., `policy`) are not supported.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2575,12 +2622,14 @@ pub struct SearchAllIamPoliciesResponse {
     /// A list of IAM policies that match the search query. Related information
     /// such as the associated resource is returned along with the policy.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub results: std::vec::Vec<crate::model::IamPolicySearchResult>,
 
     /// Set if there are more results than those appearing in this response; to get
     /// the next set of results, call this method again, using this value as the
     /// `page_token`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2649,6 +2698,7 @@ pub struct IamPolicyAnalysisQuery {
     /// To know how to get folder or project ID, visit [here
     /// ](https://cloud.google.com/resource-manager/docs/creating-managing-folders#viewing_or_listing_folders_and_projects).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: std::string::String,
 
     /// Optional. Specifies a resource for analysis.
@@ -2805,6 +2855,7 @@ pub mod iam_policy_analysis_query {
         /// of a resource of [supported resource
         /// types](https://cloud.google.com/asset-inventory/docs/supported-asset-types#analyzable_asset_types).
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub full_resource_name: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2853,6 +2904,7 @@ pub mod iam_policy_analysis_query {
         /// Notice that wildcard characters (such as * and ?) are not supported.
         /// You must give a specific identity.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub identity: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2889,10 +2941,12 @@ pub mod iam_policy_analysis_query {
     pub struct AccessSelector {
         /// Optional. The roles to appear in result.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub roles: std::vec::Vec<std::string::String>,
 
         /// Optional. The permissions to appear in result.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub permissions: std::vec::Vec<std::string::String>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2954,6 +3008,7 @@ pub mod iam_policy_analysis_query {
         ///
         /// [google.cloud.asset.v1.IamPolicyAnalysisQuery.identity_selector]: crate::model::IamPolicyAnalysisQuery::identity_selector
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub expand_groups: bool,
 
         /// Optional. If true, the access section of result will expand any roles
@@ -2968,6 +3023,7 @@ pub mod iam_policy_analysis_query {
         ///
         /// [google.cloud.asset.v1.IamPolicyAnalysisQuery.access_selector]: crate::model::IamPolicyAnalysisQuery::access_selector
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub expand_roles: bool,
 
         /// Optional. If true and
@@ -3000,17 +3056,20 @@ pub mod iam_policy_analysis_query {
         ///
         /// [google.cloud.asset.v1.IamPolicyAnalysisQuery.resource_selector]: crate::model::IamPolicyAnalysisQuery::resource_selector
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub expand_resources: bool,
 
         /// Optional. If true, the result will output the relevant parent/child
         /// relationships between resources. Default is false.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub output_resource_edges: bool,
 
         /// Optional. If true, the result will output the relevant membership
         /// relationships between groups and other groups, and between groups and
         /// principals. Default is false.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub output_group_edges: bool,
 
         /// Optional. If true, the response will include access analysis from
@@ -3052,6 +3111,7 @@ pub mod iam_policy_analysis_query {
         /// [google.cloud.asset.v1.AnalyzeIamPolicyResponse.service_account_impersonation_analysis]: crate::model::AnalyzeIamPolicyResponse::service_account_impersonation_analysis
         /// [google.cloud.asset.v1.AssetService.AnalyzeIamPolicyLongrunning]: crate::client::AssetService::analyze_iam_policy_longrunning
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub analyze_service_account_impersonation: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3232,6 +3292,7 @@ pub struct AnalyzeIamPolicyRequest {
     /// 0 or empty string, etc., because we use proto3, which doesn't support field
     /// presence yet.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub saved_analysis_query: std::string::String,
 
     /// Optional. Amount of time executable has to complete.  See JSON
@@ -3329,6 +3390,7 @@ pub struct AnalyzeIamPolicyResponse {
     ///
     /// [google.cloud.asset.v1.IamPolicyAnalysisQuery.Options.analyze_service_account_impersonation]: crate::model::iam_policy_analysis_query::Options::analyze_service_account_impersonation
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service_account_impersonation_analysis:
         std::vec::Vec<crate::model::analyze_iam_policy_response::IamPolicyAnalysis>,
 
@@ -3341,6 +3403,7 @@ pub struct AnalyzeIamPolicyResponse {
     /// [google.cloud.asset.v1.AnalyzeIamPolicyResponse.main_analysis]: crate::model::AnalyzeIamPolicyResponse::main_analysis
     /// [google.cloud.asset.v1.AnalyzeIamPolicyResponse.service_account_impersonation_analysis]: crate::model::AnalyzeIamPolicyResponse::service_account_impersonation_analysis
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub fully_explored: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3415,6 +3478,7 @@ pub mod analyze_iam_policy_response {
         ///
         /// [google.cloud.asset.v1.IamPolicyAnalysisResult]: crate::model::IamPolicyAnalysisResult
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub analysis_results: std::vec::Vec<crate::model::IamPolicyAnalysisResult>,
 
         /// Represents whether all entries in the
@@ -3423,10 +3487,12 @@ pub mod analyze_iam_policy_response {
         ///
         /// [google.cloud.asset.v1.AnalyzeIamPolicyResponse.IamPolicyAnalysis.analysis_results]: crate::model::analyze_iam_policy_response::IamPolicyAnalysis::analysis_results
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub fully_explored: bool,
 
         /// A list of non-critical errors happened during the query handling.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub non_critical_errors: std::vec::Vec<crate::model::IamPolicyAnalysisState>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3632,6 +3698,7 @@ pub mod iam_policy_analysis_output_config {
         /// [hold](https://cloud.google.com/storage/docs/object-holds), it will be
         /// overwritten with the analysis result.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub uri: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3667,6 +3734,7 @@ pub mod iam_policy_analysis_output_config {
         /// should be exported. If this dataset does not exist, the export call will
         /// return an INVALID_ARGUMENT error.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub dataset: std::string::String,
 
         /// Required. The prefix of the BigQuery tables to which the analysis results
@@ -3681,10 +3749,12 @@ pub mod iam_policy_analysis_output_config {
         ///
         /// [google.cloud.asset.v1.IamPolicyAnalysisResult]: crate::model::IamPolicyAnalysisResult
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub table_prefix: std::string::String,
 
         /// The partition key for BigQuery partitioned table.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub partition_key:
             crate::model::iam_policy_analysis_output_config::big_query_destination::PartitionKey,
 
@@ -3702,6 +3772,7 @@ pub mod iam_policy_analysis_output_config {
         /// if BigQuery is able to complete the job successfully. Details are at
         /// <https://cloud.google.com/bigquery/docs/loading-data-local#appending_to_or_overwriting_a_table_using_a_local_file>.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub write_disposition: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3936,6 +4007,7 @@ pub struct AnalyzeIamPolicyLongrunningRequest {
     /// 0 or empty string, etc., because we use proto3, which doesn't support field
     /// presence yet.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub saved_analysis_query: std::string::String,
 
     /// Required. Output configuration indicating where the results will be output
@@ -4041,11 +4113,13 @@ pub struct SavedQuery {
     /// * folders/folder_number/savedQueries/saved_query_id
     /// * organizations/organization_number/savedQueries/saved_query_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The description of this saved query. This value should be fewer than 255
     /// characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. The create time of this saved query.
@@ -4054,6 +4128,7 @@ pub struct SavedQuery {
 
     /// Output only. The account's email address who has created this saved query.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub creator: std::string::String,
 
     /// Output only. The last update time of this saved query.
@@ -4063,12 +4138,14 @@ pub struct SavedQuery {
     /// Output only. The account's email address who has updated this saved query
     /// most recently.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub last_updater: std::string::String,
 
     /// Labels applied on the resource.
     /// This value should not contain more than 10 entries. The key and value of
     /// each entry must be non-empty and fewer than 64 characters.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// The query content.
@@ -4298,6 +4375,7 @@ pub struct CreateSavedQueryRequest {
     /// project ID (such as "projects/my-project-id"), or a project number (such as
     /// "projects/12345").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The saved_query details. The `name` field must be empty as it
@@ -4315,6 +4393,7 @@ pub struct CreateSavedQueryRequest {
     /// Notice that this field is required in the saved query creation, and the
     /// `name` field of the `saved_query` will be ignored.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub saved_query_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4375,6 +4454,7 @@ pub struct GetSavedQueryRequest {
     /// * folders/folder_number/savedQueries/saved_query_id
     /// * organizations/organization_number/savedQueries/saved_query_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4409,6 +4489,7 @@ pub struct ListSavedQueriesRequest {
     /// be listed. It can only be using project/folder/organization number (such as
     /// "folders/12345")", or a project ID (such as "projects/my-project-id").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The expression to filter resources.
@@ -4419,6 +4500,7 @@ pub struct ListSavedQueriesRequest {
     ///
     /// See <https://google.aip.dev/160> for more information on the grammar.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. The maximum number of saved queries to return per page. The
@@ -4426,7 +4508,7 @@ pub struct ListSavedQueriesRequest {
     /// be returned. The maximum value is 1000; values above 1000 will be coerced
     /// to 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListSavedQueries` call.
@@ -4435,6 +4517,7 @@ pub struct ListSavedQueriesRequest {
     /// When paginating, all other parameters provided to `ListSavedQueries` must
     /// match the call that provided the page token.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4485,11 +4568,13 @@ impl wkt::message::Message for ListSavedQueriesRequest {
 pub struct ListSavedQueriesResponse {
     /// A list of savedQueries.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub saved_queries: std::vec::Vec<crate::model::SavedQuery>,
 
     /// A token, which can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4625,6 +4710,7 @@ pub struct DeleteSavedQueryRequest {
     /// * folders/folder_number/savedQueries/saved_query_id
     /// * organizations/organization_number/savedQueries/saved_query_id
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4660,6 +4746,7 @@ pub struct AnalyzeMoveRequest {
     /// be a project ID (such as "projects/my-project-id") or a project number
     /// (such as "projects/12345").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource: std::string::String,
 
     /// Required. Name of the Google Cloud folder or organization to reparent the
@@ -4668,11 +4755,13 @@ pub struct AnalyzeMoveRequest {
     /// a folder number (such as "folders/123") or an organization number (such as
     /// "organizations/123").
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub destination_parent: std::string::String,
 
     /// Analysis view indicating what information should be included in the
     /// analysis response. If unspecified, the default view is FULL.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub view: crate::model::analyze_move_request::AnalysisView,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4865,6 +4954,7 @@ pub struct AnalyzeMoveResponse {
     /// The list of analyses returned from performing the intended resource move
     /// analysis. The analysis is grouped by different Google Cloud services.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub move_analysis: std::vec::Vec<crate::model::MoveAnalysis>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4903,6 +4993,7 @@ pub struct MoveAnalysis {
     /// The user friendly display name of the analysis. E.g. IAM, organization
     /// policy etc.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -5024,12 +5115,14 @@ pub struct MoveAnalysisResult {
     /// Blocking information that would prevent the target resource from moving
     /// to the specified destination at runtime.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub blockers: std::vec::Vec<crate::model::MoveImpact>,
 
     /// Warning information indicating that moving the target resource to the
     /// specified destination might be unsafe. This can include important policy
     /// information and configuration changes, but will not block moves at runtime.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub warnings: std::vec::Vec<crate::model::MoveImpact>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5078,6 +5171,7 @@ impl wkt::message::Message for MoveAnalysisResult {
 pub struct MoveImpact {
     /// User friendly impact detail in a free form message.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub detail: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5161,12 +5255,14 @@ pub mod query_assets_output_config {
         /// Required. The BigQuery dataset where the query results will be saved. It
         /// has the format of "projects/{projectId}/datasets/{datasetId}".
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub dataset: std::string::String,
 
         /// Required. The BigQuery table where the query results will be saved. If
         /// this table does not exist, a new table with the given name will be
         /// created.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub table: std::string::String,
 
         /// Specifies the action that occurs if the destination table or partition
@@ -5181,6 +5277,7 @@ pub mod query_assets_output_config {
         ///
         /// The default value is WRITE_EMPTY.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub write_disposition: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5234,6 +5331,7 @@ pub struct QueryAssetsRequest {
     ///
     /// Only assets belonging to the `parent` will be returned.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of rows to return in the results. Responses
@@ -5244,13 +5342,14 @@ pub struct QueryAssetsRequest {
     ///
     /// The field will be ignored when [output_config] is specified.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token received from previous `QueryAssets`.
     ///
     /// The field will be ignored when [output_config] is specified.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Specifies the maximum amount of time that the client is willing
@@ -5510,10 +5609,10 @@ pub mod query_assets_request {
     pub enum Query {
         /// Optional. A SQL statement that's compatible with [BigQuery
         /// SQL](https://cloud.google.com/bigquery/docs/introduction-sql).
-        Statement(std::string::String),
+        Statement(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Optional. Reference to the query job, which is from the
         /// `QueryAssetsResponse` of previous `QueryAssets` call.
-        JobReference(std::string::String),
+        JobReference(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
     }
 
     /// Specifies what time period or point in time to query asset metadata at.
@@ -5547,6 +5646,7 @@ pub mod query_assets_request {
 pub struct QueryAssetsResponse {
     /// Reference to a query job.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub job_reference: std::string::String,
 
     /// The query response, which can be either an `error` or a valid `response`.
@@ -5558,6 +5658,7 @@ pub struct QueryAssetsResponse {
     /// [done] is unset unless the [QueryAssetsResponse] contains a
     /// [QueryAssetsResponse.job_reference].
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub done: bool,
 
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -5724,6 +5825,7 @@ pub mod query_assets_response {
 pub struct QueryResult {
     /// Each row hold a query result in the format of `Struct`.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rows: std::vec::Vec<wkt::Struct>,
 
     /// Describes the format of the [rows].
@@ -5732,11 +5834,12 @@ pub struct QueryResult {
 
     /// Token to retrieve the next page of the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Total rows of the whole query results.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub total_rows: i64,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5804,6 +5907,7 @@ impl wkt::message::Message for QueryResult {
 pub struct TableSchema {
     /// Describes the fields in a table.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub fields: std::vec::Vec<crate::model::TableFieldSchema>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5843,6 +5947,7 @@ pub struct TableFieldSchema {
     /// numbers (0-9), or underscores (_), and must start with a letter or
     /// underscore. The maximum length is 128 characters.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub field: std::string::String,
 
     /// The field data type. Possible values include
@@ -5863,16 +5968,19 @@ pub struct TableFieldSchema {
     ///   (where RECORD indicates that the field contains a nested schema).
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// The field mode. Possible values include NULLABLE, REQUIRED and
     /// REPEATED. The default value is NULLABLE.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub mode: std::string::String,
 
     /// Describes the nested schema fields if the type property is set
     /// to RECORD.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub fields: std::vec::Vec<crate::model::TableFieldSchema>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -5941,6 +6049,7 @@ pub struct BatchGetEffectiveIamPoliciesRequest {
     /// To know how to get folder or project ID, visit [here
     /// ](https://cloud.google.com/resource-manager/docs/creating-managing-folders#viewing_or_listing_folders_and_projects).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: std::string::String,
 
     /// Required. The names refer to the [full_resource_names]
@@ -5949,6 +6058,7 @@ pub struct BatchGetEffectiveIamPoliciesRequest {
     /// APIs](https://cloud.google.com/asset-inventory/docs/supported-asset-types).
     /// A maximum of 20 resources' effective policies can be retrieved in a batch.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub names: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6003,6 +6113,7 @@ pub struct BatchGetEffectiveIamPoliciesResponse {
     /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesRequest.names]: crate::model::BatchGetEffectiveIamPoliciesRequest::names
     /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesResponse.EffectiveIamPolicy.policies]: crate::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy::policies
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub policy_results:
         std::vec::Vec<crate::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy>,
 
@@ -6058,6 +6169,7 @@ pub mod batch_get_effective_iam_policies_response {
         /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesRequest.names]: crate::model::BatchGetEffectiveIamPoliciesRequest::names
         /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesResponse.EffectiveIamPolicy.policies]: crate::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy::policies
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub full_resource_name: std::string::String,
 
         /// The effective policies for the
@@ -6085,6 +6197,7 @@ pub mod batch_get_effective_iam_policies_response {
         /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesResponse.EffectiveIamPolicy.PolicyInfo.attached_resource]: crate::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo::attached_resource
         /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesResponse.EffectiveIamPolicy.full_resource_name]: crate::model::batch_get_effective_iam_policies_response::EffectiveIamPolicy::full_resource_name
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub policies: std::vec::Vec<crate::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6140,6 +6253,7 @@ pub mod batch_get_effective_iam_policies_response {
             ///
             /// [google.cloud.asset.v1.BatchGetEffectiveIamPoliciesResponse.EffectiveIamPolicy.PolicyInfo.policy]: crate::model::batch_get_effective_iam_policies_response::effective_iam_policy::PolicyInfo::policy
             #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub attached_resource: std::string::String,
 
             /// The IAM policy that's directly attached to the
@@ -6211,6 +6325,7 @@ pub struct AnalyzerOrgPolicy {
     /// Notice that some type of constraints are defined with default policy. This
     /// field will be empty for them.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attached_resource: std::string::String,
 
     /// The [full resource name]
@@ -6222,10 +6337,12 @@ pub struct AnalyzerOrgPolicy {
     /// the [attached_resource] field. Only for default policy, this field has
     /// the different value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub applied_resource: std::string::String,
 
     /// List of rules for this organization policy.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rules: std::vec::Vec<crate::model::analyzer_org_policy::Rule>,
 
     /// If `inherit_from_parent` is true, Rules set higher up in the
@@ -6233,6 +6350,7 @@ pub struct AnalyzerOrgPolicy {
     /// effective policy. If it is false, then no rules are inherited, and this
     /// policy becomes the effective root for evaluation.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub inherit_from_parent: bool,
 
     /// Ignores policies set above this resource and restores the default behavior
@@ -6241,6 +6359,7 @@ pub struct AnalyzerOrgPolicy {
     /// constraints. If set, `rules` must be empty and `inherit_from_parent`
     /// must be set to false.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub reset: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6534,10 +6653,12 @@ pub mod analyzer_org_policy {
         pub struct StringValues {
             /// List of values allowed at this resource.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub allowed_values: std::vec::Vec<std::string::String>,
 
             /// List of values denied at this resource.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub denied_values: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -6588,14 +6709,14 @@ pub mod analyzer_org_policy {
             Values(std::boxed::Box<crate::model::analyzer_org_policy::rule::StringValues>),
             /// Setting this to true means that all values are allowed. This field can
             /// be set only in Policies for list constraints.
-            AllowAll(bool),
+            AllowAll(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
             /// Setting this to true means that all values are denied. This field can
             /// be set only in Policies for list constraints.
-            DenyAll(bool),
+            DenyAll(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
             /// If `true`, then the `Policy` is enforced. If `false`, then any
             /// configuration is acceptable.
             /// This field can be set only in Policies for boolean constraints.
-            Enforce(bool),
+            Enforce(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
         }
     }
 }
@@ -6733,19 +6854,23 @@ pub mod analyzer_org_policy_constraint {
         ///
         /// For example, `constraints/compute.disableSerialPortAccess`.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// The human readable name of the constraint.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_name: std::string::String,
 
         /// Detailed description of what this `Constraint` controls as well as how
         /// and where it is enforced.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub description: std::string::String,
 
         /// The evaluation behavior of this constraint in the absence of 'Policy'.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub constraint_default:
             crate::model::analyzer_org_policy_constraint::constraint::ConstraintDefault,
 
@@ -6921,6 +7046,7 @@ pub mod analyzer_org_policy_constraint {
             /// `Policy.allowed_values` and `Policy.denied_values`. For example,
             /// `"in:Python"` would match any value in the 'Python' group.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub supports_in: bool,
 
             /// Indicates whether subtrees of Cloud Resource Manager resource hierarchy
@@ -6928,6 +7054,7 @@ pub mod analyzer_org_policy_constraint {
             /// example, `"under:folders/123"` would match any resource under the
             /// 'folders/123' folder.
             #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub supports_under: bool,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7161,6 +7288,7 @@ pub mod analyzer_org_policy_constraint {
         /// Example :
         /// "organizations/123/customConstraints/custom.createOnlyE2TypeVms"
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// The Resource Instance type on which this policy applies to. Format will
@@ -7168,10 +7296,12 @@ pub mod analyzer_org_policy_constraint {
         ///
         /// * `compute.googleapis.com/Instance`.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub resource_types: std::vec::Vec<std::string::String>,
 
         /// All the operations being applied for this constraint.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub method_types: std::vec::Vec<
             crate::model::analyzer_org_policy_constraint::custom_constraint::MethodType,
         >,
@@ -7180,19 +7310,23 @@ pub mod analyzer_org_policy_constraint {
         /// `resource.instanceName.matches("[production|test]_.*_(\d)+")'` or,
         /// `resource.management.auto_upgrade == true`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub condition: std::string::String,
 
         /// Allow or deny type.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub action_type:
             crate::model::analyzer_org_policy_constraint::custom_constraint::ActionType,
 
         /// One line display name for the UI.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_name: std::string::String,
 
         /// Detailed information about this custom policy constraint.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub description: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7603,12 +7737,14 @@ pub struct AnalyzeOrgPoliciesRequest {
     ///
     /// * organizations/{ORGANIZATION_NUMBER} (e.g., "organizations/123456")
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: std::string::String,
 
     /// Required. The name of the constraint to analyze organization policies for.
     /// The response only contains analyzed organization policies for the provided
     /// constraint.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub constraint: std::string::String,
 
     /// The expression to filter
@@ -7626,6 +7762,7 @@ pub struct AnalyzeOrgPoliciesRequest {
     ///
     /// [google.cloud.asset.v1.AnalyzeOrgPoliciesResponse.org_policy_results]: crate::model::AnalyzeOrgPoliciesResponse::org_policy_results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The maximum number of items to return per page. If unspecified,
@@ -7639,6 +7776,7 @@ pub struct AnalyzeOrgPoliciesRequest {
 
     /// The pagination token to retrieve the next page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7716,6 +7854,7 @@ pub struct AnalyzeOrgPoliciesResponse {
     /// [google.cloud.asset.v1.AnalyzeOrgPoliciesRequest.constraint]: crate::model::AnalyzeOrgPoliciesRequest::constraint
     /// [google.cloud.asset.v1.AnalyzeOrgPoliciesRequest.scope]: crate::model::AnalyzeOrgPoliciesRequest::scope
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub org_policy_results:
         std::vec::Vec<crate::model::analyze_org_policies_response::OrgPolicyResult>,
 
@@ -7728,6 +7867,7 @@ pub struct AnalyzeOrgPoliciesResponse {
     ///
     /// [google.cloud.asset.v1.AnalyzeOrgPoliciesResponse.org_policy_results]: crate::model::AnalyzeOrgPoliciesResponse::org_policy_results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7825,24 +7965,28 @@ pub mod analyze_org_policies_response {
         ///
         /// [google.cloud.asset.v1.AnalyzerOrgPolicy.attached_resource]: crate::model::AnalyzerOrgPolicy::attached_resource
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub policy_bundle: std::vec::Vec<crate::model::AnalyzerOrgPolicy>,
 
         /// The project that this consolidated policy belongs to, in the format of
         /// projects/{PROJECT_NUMBER}. This field is available when the consolidated
         /// policy belongs to a project.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub project: std::string::String,
 
         /// The folder(s) that this consolidated policy belongs to, in the format of
         /// folders/{FOLDER_NUMBER}. This field is available when the consolidated
         /// policy belongs (directly or cascadingly) to one or more folders.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub folders: std::vec::Vec<std::string::String>,
 
         /// The organization that this consolidated policy belongs to, in the format
         /// of organizations/{ORGANIZATION_NUMBER}. This field is available when the
         /// consolidated policy belongs (directly or cascadingly) to an organization.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub organization: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -7933,12 +8077,14 @@ pub struct AnalyzeOrgPolicyGovernedContainersRequest {
     ///
     /// * organizations/{ORGANIZATION_NUMBER} (e.g., "organizations/123456")
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: std::string::String,
 
     /// Required. The name of the constraint to analyze governed containers for.
     /// The analysis only contains organization policies for the provided
     /// constraint.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub constraint: std::string::String,
 
     /// The expression to filter
@@ -7956,6 +8102,7 @@ pub struct AnalyzeOrgPolicyGovernedContainersRequest {
     ///
     /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedContainersResponse.governed_containers]: crate::model::AnalyzeOrgPolicyGovernedContainersResponse::governed_containers
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The maximum number of items to return per page. If unspecified,
@@ -7969,6 +8116,7 @@ pub struct AnalyzeOrgPolicyGovernedContainersRequest {
 
     /// The pagination token to retrieve the next page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8040,6 +8188,7 @@ impl wkt::message::Message for AnalyzeOrgPolicyGovernedContainersRequest {
 pub struct AnalyzeOrgPolicyGovernedContainersResponse {
     /// The list of the analyzed governed containers.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub governed_containers: std::vec::Vec<
         crate::model::analyze_org_policy_governed_containers_response::GovernedContainer,
     >,
@@ -8053,6 +8202,7 @@ pub struct AnalyzeOrgPolicyGovernedContainersResponse {
     ///
     /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedContainersResponse.governed_containers]: crate::model::AnalyzeOrgPolicyGovernedContainersResponse::governed_containers
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8142,6 +8292,7 @@ pub mod analyze_org_policy_governed_containers_response {
         /// (<https://cloud.google.com/asset-inventory/docs/resource-name-format>) of
         /// an organization/folder/project resource.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub full_resource_name: std::string::String,
 
         /// The [full resource name]
@@ -8151,6 +8302,7 @@ pub mod analyze_org_policy_governed_containers_response {
         ///
         /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedContainersResponse.GovernedContainer.full_resource_name]: crate::model::analyze_org_policy_governed_containers_response::GovernedContainer::full_resource_name
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub parent: std::string::String,
 
         /// The consolidated organization policy for the analyzed resource. The
@@ -8172,28 +8324,33 @@ pub mod analyze_org_policy_governed_containers_response {
         ///
         /// [google.cloud.asset.v1.AnalyzerOrgPolicy.attached_resource]: crate::model::AnalyzerOrgPolicy::attached_resource
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub policy_bundle: std::vec::Vec<crate::model::AnalyzerOrgPolicy>,
 
         /// The project that this resource belongs to, in the format of
         /// projects/{PROJECT_NUMBER}. This field is available when the resource
         /// belongs to a project.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub project: std::string::String,
 
         /// The folder(s) that this resource belongs to, in the format of
         /// folders/{FOLDER_NUMBER}. This field is available when the resource
         /// belongs (directly or cascadingly) to one or more folders.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub folders: std::vec::Vec<std::string::String>,
 
         /// The organization that this resource belongs to, in the format of
         /// organizations/{ORGANIZATION_NUMBER}. This field is available when the
         /// resource belongs (directly or cascadingly) to an organization.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub organization: std::string::String,
 
         /// The effective tags on this resource.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub effective_tags: std::vec::Vec<crate::model::EffectiveTagDetails>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8310,12 +8467,14 @@ pub struct AnalyzeOrgPolicyGovernedAssetsRequest {
     ///
     /// * organizations/{ORGANIZATION_NUMBER} (e.g., "organizations/123456")
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scope: std::string::String,
 
     /// Required. The name of the constraint to analyze governed assets for. The
     /// analysis only contains analyzed organization policies for the provided
     /// constraint.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub constraint: std::string::String,
 
     /// The expression to filter
@@ -8350,6 +8509,7 @@ pub struct AnalyzeOrgPolicyGovernedAssetsRequest {
     ///
     /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsResponse.governed_assets]: crate::model::AnalyzeOrgPolicyGovernedAssetsResponse::governed_assets
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// The maximum number of items to return per page. If unspecified,
@@ -8363,6 +8523,7 @@ pub struct AnalyzeOrgPolicyGovernedAssetsRequest {
 
     /// The pagination token to retrieve the next page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8434,6 +8595,7 @@ impl wkt::message::Message for AnalyzeOrgPolicyGovernedAssetsRequest {
 pub struct AnalyzeOrgPolicyGovernedAssetsResponse {
     /// The list of the analyzed governed assets.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub governed_assets:
         std::vec::Vec<crate::model::analyze_org_policy_governed_assets_response::GovernedAsset>,
 
@@ -8446,6 +8608,7 @@ pub struct AnalyzeOrgPolicyGovernedAssetsResponse {
     ///
     /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsResponse.governed_assets]: crate::model::AnalyzeOrgPolicyGovernedAssetsResponse::governed_assets
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8533,6 +8696,7 @@ pub mod analyze_org_policy_governed_assets_response {
         /// (<https://cloud.google.com/asset-inventory/docs/resource-name-format>) of
         /// the Google Cloud resource.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub full_resource_name: std::string::String,
 
         /// The [full resource name]
@@ -8542,24 +8706,28 @@ pub mod analyze_org_policy_governed_assets_response {
         ///
         /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsResponse.GovernedResource.full_resource_name]: crate::model::analyze_org_policy_governed_assets_response::GovernedResource::full_resource_name
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub parent: std::string::String,
 
         /// The project that this resource belongs to, in the format of
         /// projects/{PROJECT_NUMBER}. This field is available when the resource
         /// belongs to a project.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub project: std::string::String,
 
         /// The folder(s) that this resource belongs to, in the format of
         /// folders/{FOLDER_NUMBER}. This field is available when the resource
         /// belongs (directly or cascadingly) to one or more folders.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub folders: std::vec::Vec<std::string::String>,
 
         /// The organization that this resource belongs to, in the format of
         /// organizations/{ORGANIZATION_NUMBER}. This field is available when the
         /// resource belongs (directly or cascadingly) to an organization.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub organization: std::string::String,
 
         /// The asset type of the
@@ -8572,10 +8740,12 @@ pub mod analyze_org_policy_governed_assets_response {
         ///
         /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsResponse.GovernedResource.full_resource_name]: crate::model::analyze_org_policy_governed_assets_response::GovernedResource::full_resource_name
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub asset_type: std::string::String,
 
         /// The effective tags on this resource.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub effective_tags: std::vec::Vec<crate::model::EffectiveTagDetails>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8668,6 +8838,7 @@ pub mod analyze_org_policy_governed_assets_response {
         /// Format](https://cloud.google.com/asset-inventory/docs/resource-name-format)
         /// for more information.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub attached_resource: std::string::String,
 
         /// The IAM policy directly set on the given resource.
@@ -8678,18 +8849,21 @@ pub mod analyze_org_policy_governed_assets_response {
         /// projects/{PROJECT_NUMBER}. This field is available when the IAM policy
         /// belongs to a project.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub project: std::string::String,
 
         /// The folder(s) that this IAM policy belongs to, in the format of
         /// folders/{FOLDER_NUMBER}. This field is available when the IAM policy
         /// belongs (directly or cascadingly) to one or more folders.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub folders: std::vec::Vec<std::string::String>,
 
         /// The organization that this IAM policy belongs to, in the format of
         /// organizations/{ORGANIZATION_NUMBER}. This field is available when the
         /// IAM policy belongs (directly or cascadingly) to an organization.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub organization: std::string::String,
 
         /// The asset type of the
@@ -8702,6 +8876,7 @@ pub mod analyze_org_policy_governed_assets_response {
         ///
         /// [google.cloud.asset.v1.AnalyzeOrgPolicyGovernedAssetsResponse.GovernedIamPolicy.attached_resource]: crate::model::analyze_org_policy_governed_assets_response::GovernedIamPolicy::attached_resource
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub asset_type: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -8809,6 +8984,7 @@ pub mod analyze_org_policy_governed_assets_response {
         ///
         /// [google.cloud.asset.v1.AnalyzerOrgPolicy.attached_resource]: crate::model::AnalyzerOrgPolicy::attached_resource
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub policy_bundle: std::vec::Vec<crate::model::AnalyzerOrgPolicy>,
 
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -8987,6 +9163,7 @@ pub struct TemporalAsset {
 
     /// Whether the asset has been deleted or not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deleted: bool,
 
     /// An asset in Google Cloud.
@@ -8995,6 +9172,7 @@ pub struct TemporalAsset {
 
     /// State of prior_asset.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub prior_asset_state: crate::model::temporal_asset::PriorAssetState,
 
     /// Prior copy of the asset. Populated if prior_asset_state is PRESENT.
@@ -9423,6 +9601,7 @@ pub struct Asset {
     /// names](https://cloud.google.com/apis/design/resource_names#full_resource_name)
     /// for more information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The type of the asset. Example: `compute.googleapis.com/Disk`
@@ -9431,6 +9610,7 @@ pub struct Asset {
     /// types](https://cloud.google.com/asset-inventory/docs/supported-asset-types)
     /// for more information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub asset_type: std::string::String,
 
     /// A representation of the resource.
@@ -9454,6 +9634,7 @@ pub struct Asset {
     /// There can be more than one organization policy with different constraints
     /// set on a given resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub org_policy: std::vec::Vec<orgpolicy_v1::model::Policy>,
 
     /// A representation of runtime OS Inventory information. See [this
@@ -9484,6 +9665,7 @@ pub struct Asset {
     ///
     /// Example: `["projects/123456789", "folders/5432", "organizations/1234"]`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ancestors: std::vec::Vec<std::string::String>,
 
     /// A representation of an [access
@@ -9794,6 +9976,7 @@ pub mod asset {
 pub struct Resource {
     /// The API version. Example: `v1`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// The URL of the discovery document containing the resource's JSON schema.
@@ -9803,6 +9986,7 @@ pub struct Resource {
     /// This value is unspecified for resources that do not have an API based on a
     /// discovery document, such as Cloud Bigtable.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub discovery_document_uri: std::string::String,
 
     /// The JSON schema name listed in the discovery document. Example:
@@ -9811,6 +9995,7 @@ pub struct Resource {
     /// This value is unspecified for resources that do not have an API based on a
     /// discovery document, such as Cloud Bigtable.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub discovery_name: std::string::String,
 
     /// The REST URL for accessing the resource. An HTTP `GET` request using this
@@ -9819,6 +10004,7 @@ pub struct Resource {
     ///
     /// This value is unspecified for resources without a REST API.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_url: std::string::String,
 
     /// The full name of the immediate parent of this resource. See
@@ -9832,6 +10018,7 @@ pub struct Resource {
     /// Example:
     /// `//cloudresourcemanager.googleapis.com/projects/my_project_123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The content of the resource, in which some sensitive fields are removed
@@ -9842,6 +10029,7 @@ pub struct Resource {
     /// The location of the resource in Google Cloud, such as its zone and region.
     /// For more information, see <https://cloud.google.com/about/locations/>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9933,6 +10121,7 @@ pub struct RelatedAssets {
 
     /// The peer resources of the relationship.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub assets: std::vec::Vec<crate::model::RelatedAsset>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -9995,18 +10184,22 @@ pub struct RelationshipAttributes {
     /// `INSTANCE_TO_INSTANCEGROUP`
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
     /// The source asset type. Example: `compute.googleapis.com/Instance`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub source_resource_type: std::string::String,
 
     /// The target asset type. Example: `compute.googleapis.com/Disk`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target_resource_type: std::string::String,
 
     /// The detail of the relationship, e.g. `contains`, `attaches`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub action: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10075,6 +10268,7 @@ pub struct RelatedAsset {
     /// names](https://cloud.google.com/apis/design/resource_names#full_resource_name)
     /// for more information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub asset: std::string::String,
 
     /// The type of the asset. Example: `compute.googleapis.com/Disk`
@@ -10083,6 +10277,7 @@ pub struct RelatedAsset {
     /// types](https://cloud.google.com/asset-inventory/docs/supported-asset-types)
     /// for more information.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub asset_type: std::string::String,
 
     /// The ancestors of an asset in Google Cloud [resource
@@ -10092,11 +10287,13 @@ pub struct RelatedAsset {
     ///
     /// Example: `["projects/123456789", "folders/5432", "organizations/1234"]`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ancestors: std::vec::Vec<std::string::String>,
 
     /// The unique identifier of the relationship type. Example:
     /// `INSTANCE_TO_INSTANCEGROUP`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub relationship_type: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10287,6 +10484,7 @@ pub struct EffectiveTagDetails {
     ///
     /// [google.cloud.asset.v1.EffectiveTagDetails.attached_resource]: crate::model::EffectiveTagDetails::attached_resource
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub effective_tags: std::vec::Vec<crate::model::Tag>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -10351,6 +10549,7 @@ pub struct ResourceSearchResult {
     /// * Use a field query. Example: `name:instance1`
     /// * Use a free text query. Example: `instance1`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The type of this resource. Example: `compute.googleapis.com/Disk`.
@@ -10359,6 +10558,7 @@ pub struct ResourceSearchResult {
     ///
     /// * Specify the `asset_type` field in your search request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub asset_type: std::string::String,
 
     /// The project that this resource belongs to, in the form of
@@ -10371,6 +10571,7 @@ pub struct ResourceSearchResult {
     /// * Use a free text query. Example: `12345`
     /// * Specify the `scope` field as this project in your search request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project: std::string::String,
 
     /// The folder(s) that this resource belongs to, in the form of
@@ -10383,6 +10584,7 @@ pub struct ResourceSearchResult {
     /// * Use a free text query. Example: `123`
     /// * Specify the `scope` field as this folder in your search request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub folders: std::vec::Vec<std::string::String>,
 
     /// The organization that this resource belongs to, in the form of
@@ -10395,6 +10597,7 @@ pub struct ResourceSearchResult {
     /// * Use a free text query. Example: `123`
     /// * Specify the `scope` field as this organization in your search request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub organization: std::string::String,
 
     /// The display name of this resource. This field is available only when the
@@ -10405,6 +10608,7 @@ pub struct ResourceSearchResult {
     /// * Use a field query. Example: `displayName:"My Instance"`
     /// * Use a free text query. Example: `"My Instance"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// One or more paragraphs of text description of this resource. Maximum length
@@ -10416,6 +10620,7 @@ pub struct ResourceSearchResult {
     /// * Use a field query. Example: `description:"important instance"`
     /// * Use a free text query. Example: `"important instance"`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Location can be `global`, regional like `us-east1`, or zonal like
@@ -10427,6 +10632,7 @@ pub struct ResourceSearchResult {
     /// * Use a field query. Example: `location:us-west*`
     /// * Use a free text query. Example: `us-west*`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     /// User labels associated with this resource. See [Labelling and grouping
@@ -10443,6 +10649,7 @@ pub struct ResourceSearchResult {
     ///   - query by a given label's existence. Example: `labels.env:*`
     /// * Use a free text query. Example: `prod`
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Network tags associated with this resource. Like labels, network tags are a
@@ -10457,6 +10664,7 @@ pub struct ResourceSearchResult {
     /// * Use a field query. Example: `networkTags:internal`
     /// * Use a free text query. Example: `internal`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub network_tags: std::vec::Vec<std::string::String>,
 
     /// The Cloud KMS
@@ -10477,6 +10685,7 @@ pub struct ResourceSearchResult {
     /// * Use a field query. Example: `kmsKey:key`
     /// * Use a free text query. Example: `key`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub kms_key: std::string::String,
 
@@ -10492,6 +10701,7 @@ pub struct ResourceSearchResult {
     /// * Use a field query. Example: `kmsKeys:key`
     /// * Use a free text query. Example: `key`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub kms_keys: std::vec::Vec<std::string::String>,
 
     /// The create timestamp of this resource, at which the resource was created.
@@ -10544,6 +10754,7 @@ pub struct ResourceSearchResult {
     /// * Use a field query. Example: `state:RUNNING`
     /// * Use a free text query. Example: `RUNNING`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: std::string::String,
 
     /// The additional searchable attributes of this resource. The attributes may
@@ -10576,6 +10787,7 @@ pub struct ResourceSearchResult {
     /// * Use a free text query. Example:
     ///   `project-name`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent_full_resource_name: std::string::String,
 
     /// Versioned resource representations of this resource. This is repeated
@@ -10586,6 +10798,7 @@ pub struct ResourceSearchResult {
     /// resource representations are exposed in `additional_attributes` field, so
     /// as to allow users to search on them.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub versioned_resources: std::vec::Vec<crate::model::VersionedResource>,
 
     /// Attached resources of this resource. For example, an OSConfig
@@ -10596,6 +10809,7 @@ pub struct ResourceSearchResult {
     /// of the attached resources are exposed in `additional_attributes` field, so
     /// as to allow users to search on them.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub attached_resources: std::vec::Vec<crate::model::AttachedResource>,
 
     /// A map of related resources of this resource, keyed by the
@@ -10605,6 +10819,7 @@ pub struct ResourceSearchResult {
     /// See [supported relationship
     /// types](https://cloud.google.com/asset-inventory/docs/supported-asset-types#supported_relationship_types).
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub relationships:
         std::collections::HashMap<std::string::String, crate::model::RelatedResources>,
 
@@ -10623,6 +10838,7 @@ pub struct ResourceSearchResult {
     ///
     ///   - `env`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub tag_keys: std::vec::Vec<std::string::String>,
 
@@ -10643,6 +10859,7 @@ pub struct ResourceSearchResult {
     ///
     ///   - `prod`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub tag_values: std::vec::Vec<std::string::String>,
 
@@ -10659,6 +10876,7 @@ pub struct ResourceSearchResult {
     ///
     ///   - `456`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub tag_value_ids: std::vec::Vec<std::string::String>,
 
@@ -10681,6 +10899,7 @@ pub struct ResourceSearchResult {
     ///
     ///   - `env/prod`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tags: std::vec::Vec<crate::model::Tag>,
 
     /// The effective tags on this resource. All of the tags that are both attached
@@ -10701,6 +10920,7 @@ pub struct ResourceSearchResult {
     ///   - `effectiveTagValues="123456789/env/prod"`
     ///   - `effectiveTagValueIds="tagValues/456"`
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub effective_tags: std::vec::Vec<crate::model::EffectiveTagDetails>,
 
     /// Enrichments of the asset. Currently supported enrichment types with
@@ -10729,6 +10949,7 @@ pub struct ResourceSearchResult {
     ///   }
     /// ```
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub enrichments: std::vec::Vec<crate::model::AssetEnrichment>,
 
     /// The type of this resource's immediate parent, if there is one.
@@ -10740,6 +10961,7 @@ pub struct ResourceSearchResult {
     /// * Use a free text query. Example:
     ///   `cloudresourcemanager.googleapis.com/Project`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent_asset_type: std::string::String,
 
     /// The actual content of Security Command Center security marks associated
@@ -10751,6 +10973,7 @@ pub struct ResourceSearchResult {
     ///   - query by a given key value pair. Example: `sccSecurityMarks.foo=bar`
     ///   - query by a given key's existence. Example: `sccSecurityMarks.foo:*`
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub scc_security_marks: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11070,6 +11293,7 @@ pub struct VersionedResource {
     /// in `<https://cloud.google.com/compute/docs/reference/rest/v1/instances>`,
     /// version will be "v1".
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// JSON representation of the resource as defined by the corresponding
@@ -11142,12 +11366,14 @@ pub struct AttachedResource {
     /// table:
     /// `<https://cloud.google.com/asset-inventory/docs/supported-asset-types>`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub asset_type: std::string::String,
 
     /// Versioned resource representations of this attached resource. This is
     /// repeated because there could be multiple versions of the attached resource
     /// representations during version migration.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub versioned_resources: std::vec::Vec<crate::model::VersionedResource>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11191,6 +11417,7 @@ impl wkt::message::Message for AttachedResource {
 pub struct RelatedResources {
     /// The detailed related resources of the primary resource.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub related_resources: std::vec::Vec<crate::model::RelatedResource>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11228,11 +11455,13 @@ impl wkt::message::Message for RelatedResources {
 pub struct RelatedResource {
     /// The type of the asset. Example: `compute.googleapis.com/Instance`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub asset_type: std::string::String,
 
     /// The full resource name of the related resource. Example:
     /// `//compute.googleapis.com/projects/my_proj_123/zones/instance/instance123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub full_resource_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11283,6 +11512,7 @@ pub struct IamPolicySearchResult {
     ///
     /// * use a field query. Example: `resource:organizations/123`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource: std::string::String,
 
     /// The type of the resource associated with this IAM policy. Example:
@@ -11292,6 +11522,7 @@ pub struct IamPolicySearchResult {
     ///
     /// * specify the `asset_types` field in your search request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub asset_type: std::string::String,
 
     /// The project that the associated Google Cloud resource belongs to, in the
@@ -11304,6 +11535,7 @@ pub struct IamPolicySearchResult {
     ///
     /// * specify the `scope` field as this project in your search request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project: std::string::String,
 
     /// The folder(s) that the IAM policy belongs to, in the form of
@@ -11316,6 +11548,7 @@ pub struct IamPolicySearchResult {
     /// * use a free text query. Example: `123`
     /// * specify the `scope` field as this folder in your search request.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub folders: std::vec::Vec<std::string::String>,
 
     /// The organization that the IAM policy belongs to, in the form
@@ -11328,6 +11561,7 @@ pub struct IamPolicySearchResult {
     /// * use a free text query. Example: `123`
     /// * specify the `scope` field as this organization in your search request.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub organization: std::string::String,
 
     /// The IAM policy directly set on the given resource. Note that the original
@@ -11458,6 +11692,7 @@ pub mod iam_policy_search_result {
         /// roles can also be found in the returned `policy` bindings. Note that the
         /// map is populated only for requests with permission queries.
         #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub matched_permissions: std::collections::HashMap<
             std::string::String,
             crate::model::iam_policy_search_result::explanation::Permissions,
@@ -11504,6 +11739,7 @@ pub mod iam_policy_search_result {
         pub struct Permissions {
             /// A list of permissions. A sample permission string: `compute.disk.get`.
             #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub permissions: std::vec::Vec<std::string::String>,
 
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11550,10 +11786,12 @@ pub struct IamPolicyAnalysisState {
     /// - DEADLINE_EXCEEDED means the analysis on this entity hasn't been started
     ///   in time;
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub code: rpc::model::Code,
 
     /// The human-readable description of the cause of failure.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cause: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11592,6 +11830,7 @@ impl wkt::message::Message for IamPolicyAnalysisState {
 pub struct ConditionEvaluation {
     /// The evaluation result.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub evaluation_value: crate::model::condition_evaluation::EvaluationValue,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11783,6 +12022,7 @@ pub struct IamPolicyAnalysisResult {
     ///
     /// [google.cloud.asset.v1.IamPolicyAnalysisResult.iam_binding]: crate::model::IamPolicyAnalysisResult::iam_binding
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub attached_resource_full_name: std::string::String,
 
     /// The IAM policy binding under analysis.
@@ -11796,6 +12036,7 @@ pub struct IamPolicyAnalysisResult {
     ///
     /// [google.cloud.asset.v1.IamPolicyAnalysisResult.iam_binding]: crate::model::IamPolicyAnalysisResult::iam_binding
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub access_control_lists:
         std::vec::Vec<crate::model::iam_policy_analysis_result::AccessControlList>,
 
@@ -11813,6 +12054,7 @@ pub struct IamPolicyAnalysisResult {
     ///
     /// [google.cloud.asset.v1.IamPolicyAnalysisResult.iam_binding]: crate::model::IamPolicyAnalysisResult::iam_binding
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub fully_explored: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -11907,6 +12149,7 @@ pub mod iam_policy_analysis_result {
         /// The [full resource
         /// name](https://cloud.google.com/asset-inventory/docs/resource-name-format)
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub full_resource_name: std::string::String,
 
         /// The analysis state of this resource.
@@ -12083,9 +12326,9 @@ pub mod iam_policy_analysis_result {
         #[non_exhaustive]
         pub enum OneofAccess {
             /// The role.
-            Role(std::string::String),
+            Role(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
             /// The permission.
-            Permission(std::string::String),
+            Permission(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         }
     }
 
@@ -12107,6 +12350,7 @@ pub mod iam_policy_analysis_result {
         /// - domain:google.com
         /// - allUsers
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// The analysis state of this identity.
@@ -12162,11 +12406,13 @@ pub mod iam_policy_analysis_result {
         /// The source node of the edge. For example, it could be a full resource
         /// name for a resource node or an email of an identity.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub source_node: std::string::String,
 
         /// The target node of the edge. For example, it could be a full resource
         /// name for a resource node or an email of an identity.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub target_node: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -12224,6 +12470,7 @@ pub mod iam_policy_analysis_result {
         /// - The resource_selector, if it is specified in request;
         /// - Otherwise, resources reachable from the policy attached resource.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub resources: std::vec::Vec<crate::model::iam_policy_analysis_result::Resource>,
 
         /// The accesses that match one of the following conditions:
@@ -12231,6 +12478,7 @@ pub mod iam_policy_analysis_result {
         /// - The access_selector, if it is specified in request;
         /// - Otherwise, access specifiers reachable from the policy binding's role.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub accesses: std::vec::Vec<crate::model::iam_policy_analysis_result::Access>,
 
         /// Resource edges of the graph starting from the policy attached
@@ -12244,6 +12492,7 @@ pub mod iam_policy_analysis_result {
         /// [google.cloud.asset.v1.IamPolicyAnalysisResult.Edge.source_node]: crate::model::iam_policy_analysis_result::Edge::source_node
         /// [google.cloud.asset.v1.IamPolicyAnalysisResult.Edge.target_node]: crate::model::iam_policy_analysis_result::Edge::target_node
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub resource_edges: std::vec::Vec<crate::model::iam_policy_analysis_result::Edge>,
 
         /// Condition evaluation for this AccessControlList, if there is a condition
@@ -12330,6 +12579,7 @@ pub mod iam_policy_analysis_result {
         /// - The identity_selector, if it is specified in request;
         /// - Otherwise, identities reachable from the policy binding's members.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub identities: std::vec::Vec<crate::model::iam_policy_analysis_result::Identity>,
 
         /// Group identity edges of the graph starting from the binding's
@@ -12347,6 +12597,7 @@ pub mod iam_policy_analysis_result {
         /// [google.cloud.asset.v1.IamPolicyAnalysisResult.Edge.target_node]: crate::model::iam_policy_analysis_result::Edge::target_node
         /// [google.cloud.asset.v1.IamPolicyAnalysisResult.IdentityList.identities]: crate::model::iam_policy_analysis_result::IdentityList::identities
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub group_edges: std::vec::Vec<crate::model::iam_policy_analysis_result::Edge>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

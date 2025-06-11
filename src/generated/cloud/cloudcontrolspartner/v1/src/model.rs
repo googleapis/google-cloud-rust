@@ -40,6 +40,7 @@ pub struct AccessApprovalRequest {
     /// Identifier. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/accessApprovalRequests/{access_approval_request}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The time at which approval was requested.
@@ -141,27 +142,31 @@ pub struct ListAccessApprovalRequestsRequest {
     /// Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of access requests to return. The service may
     /// return fewer than this value. If unspecified, at most 500 access requests
     /// will be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous
     /// `ListAccessApprovalRequests` call. Provide this to retrieve the subsequent
     /// page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filtering results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Hint for how to order the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -218,15 +223,18 @@ impl wkt::message::Message for ListAccessApprovalRequestsRequest {
 pub struct ListAccessApprovalRequestsResponse {
     /// List of access approval requests
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub access_approval_requests: std::vec::Vec<crate::model::AccessApprovalRequest>,
 
     /// A token that can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -296,10 +304,12 @@ pub struct AccessReason {
     /// Type of access justification.
     #[serde(rename = "type")]
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::access_reason::Type,
 
     /// More detail about certain reason types. See comments for each type above.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub detail: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -541,14 +551,17 @@ pub struct OperationMetadata {
 
     /// Output only. Server-defined resource path for the target of the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub target: std::string::String,
 
     /// Output only. Name of the verb executed by the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verb: std::string::String,
 
     /// Output only. Human-readable status of the operation, if any.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub status_message: std::string::String,
 
     /// Output only. Identifies whether the user has requested cancellation
@@ -557,10 +570,12 @@ pub struct OperationMetadata {
     /// [google.rpc.Status.code][google.rpc.Status.code] of 1, corresponding to
     /// `Code.CANCELLED`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_cancellation: bool,
 
     /// Output only. API version used to start the operation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub api_version: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -656,11 +671,12 @@ pub struct Workload {
     /// Identifier. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Folder id this workload is associated with
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub folder_id: i64,
 
     /// Output only. Time the resource was created.
@@ -669,6 +685,7 @@ pub struct Workload {
 
     /// Output only. The name of container folder of the assured workload
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub folder: std::string::String,
 
     /// Container for workload onboarding steps.
@@ -677,18 +694,22 @@ pub struct Workload {
 
     /// Indicates whether a workload is fully onboarded.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_onboarded: bool,
 
     /// The project id of the key management project for the workload
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub key_management_project_id: std::string::String,
 
     /// The Google Cloud location of the workload
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location: std::string::String,
 
     /// Partner associated with this workload.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub partner: crate::model::workload::Partner,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -980,25 +1001,29 @@ pub struct ListWorkloadsRequest {
     /// Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of workloads to return. The service may return fewer
     /// than this value. If unspecified, at most 500 workloads will be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListWorkloads` call.
     /// Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filtering results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Hint for how to order the results.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1055,15 +1080,18 @@ impl wkt::message::Message for ListWorkloadsRequest {
 pub struct ListWorkloadsResponse {
     /// List of customer workloads
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub workloads: std::vec::Vec<crate::model::Workload>,
 
     /// A token that can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1133,6 +1161,7 @@ pub struct GetWorkloadRequest {
     /// Required. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1165,6 +1194,7 @@ impl wkt::message::Message for GetWorkloadRequest {
 pub struct WorkloadOnboardingState {
     /// List of workload onboarding steps.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub onboarding_steps: std::vec::Vec<crate::model::WorkloadOnboardingStep>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1202,6 +1232,7 @@ impl wkt::message::Message for WorkloadOnboardingState {
 pub struct WorkloadOnboardingStep {
     /// The onboarding step.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub step: crate::model::workload_onboarding_step::Step,
 
     /// The starting time of the onboarding step.
@@ -1214,6 +1245,7 @@ pub struct WorkloadOnboardingStep {
 
     /// Output only. The completion state of the onboarding step.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub completion_state: crate::model::CompletionState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1435,10 +1467,12 @@ pub struct Customer {
     /// Identifier. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Display name for the customer
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// Output only. Container for customer onboarding steps
@@ -1447,11 +1481,13 @@ pub struct Customer {
 
     /// Output only. Indicates whether a customer is fully onboarded
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub is_onboarded: bool,
 
     /// Output only. The customer organization domain, extracted from
     /// CRM Organization’s display_name field. e.g. "google.com"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub organization_domain: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1524,25 +1560,29 @@ pub struct ListCustomersRequest {
     /// Required. Parent resource
     /// Format: `organizations/{organization}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// The maximum number of Customers to return. The service may return fewer
     /// than this value. If unspecified, at most 500 Customers will be returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// A page token, received from a previous `ListCustomers` call.
     /// Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filtering results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1599,15 +1639,18 @@ impl wkt::message::Message for ListCustomersRequest {
 pub struct ListCustomersResponse {
     /// List of customers
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub customers: std::vec::Vec<crate::model::Customer>,
 
     /// A token that can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1677,6 +1720,7 @@ pub struct CreateCustomerRequest {
     /// Required. Parent resource
     /// Format: `organizations/{organization}/locations/{location}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The customer to create.
@@ -1687,6 +1731,7 @@ pub struct CreateCustomerRequest {
     /// final component of the customer's resource name. The specified value must
     /// be a valid Google cloud organization id.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub customer_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1744,6 +1789,7 @@ pub struct GetCustomerRequest {
     /// Required. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1776,6 +1822,7 @@ impl wkt::message::Message for GetCustomerRequest {
 pub struct CustomerOnboardingState {
     /// List of customer onboarding steps
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub onboarding_steps: std::vec::Vec<crate::model::CustomerOnboardingStep>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1813,6 +1860,7 @@ impl wkt::message::Message for CustomerOnboardingState {
 pub struct CustomerOnboardingStep {
     /// The onboarding step
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub step: crate::model::customer_onboarding_step::Step,
 
     /// The starting time of the onboarding step
@@ -1825,6 +1873,7 @@ pub struct CustomerOnboardingStep {
 
     /// Output only. Current state of the step
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub completion_state: crate::model::CompletionState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2112,6 +2161,7 @@ pub struct DeleteCustomerRequest {
     /// Required. name of the resource to be deleted
     /// format: name=organizations/*/locations/*/customers/*
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2145,10 +2195,12 @@ pub struct EkmConnections {
     /// Identifier. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/ekmConnections`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The EKM connections associated with the workload
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ekm_connections: std::vec::Vec<crate::model::EkmConnection>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2193,6 +2245,7 @@ pub struct GetEkmConnectionsRequest {
     /// Required. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/ekmConnections`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2226,10 +2279,12 @@ pub struct EkmConnection {
     /// Resource name of the EKM connection in the format:
     /// projects/{project}/locations/{location}/ekmConnections/{ekm_connection}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub connection_name: std::string::String,
 
     /// Output only. The connection state
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub connection_state: crate::model::ekm_connection::ConnectionState,
 
     /// The connection error that occurred if any
@@ -2301,10 +2356,12 @@ pub mod ekm_connection {
     pub struct ConnectionError {
         /// The error domain for the error
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub error_domain: std::string::String,
 
         /// The error message for the error
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub error_message: std::string::String,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2497,10 +2554,12 @@ pub struct PartnerPermissions {
     /// Identifier. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/partnerPermissions`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The partner permissions granted for the workload
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub partner_permissions: std::vec::Vec<crate::model::partner_permissions::Permission>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2719,6 +2778,7 @@ pub struct GetPartnerPermissionsRequest {
     /// Required. Name of the resource to get in the format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/partnerPermissions`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2753,25 +2813,30 @@ pub struct Partner {
     /// Format: `organizations/{organization}/locations/{location}/partner`
     /// Example: "organizations/123456/locations/us-central1/partner"
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// List of SKUs the partner is offering
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub skus: std::vec::Vec<crate::model::Sku>,
 
     /// List of Google Cloud supported EKM partners supported by the partner
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub ekm_solutions: std::vec::Vec<crate::model::EkmMetadata>,
 
     /// List of Google Cloud regions that the partner sells services to customers.
     /// Valid Google Cloud regions found here:
     /// <https://cloud.google.com/compute/docs/regions-zones>
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub operated_cloud_regions: std::vec::Vec<std::string::String>,
 
     /// Google Cloud project ID in the partner's Google Cloud organization for
     /// receiving enhanced Logs for Partners.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub partner_project_id: std::string::String,
 
     /// Output only. Time the resource was created
@@ -2891,6 +2956,7 @@ pub struct GetPartnerRequest {
     /// Required. Format:
     /// `organizations/{organization}/locations/{location}/partner`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2925,12 +2991,14 @@ pub struct Sku {
     /// customers used by Syntro for billing purposes. SKUs can represent resold
     /// Google products or support services.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Display name of the product identified by the SKU. A partner may want to
     /// show partner branded names for their offerings such as local sovereign
     /// cloud solutions.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2969,11 +3037,13 @@ impl wkt::message::Message for Sku {
 pub struct EkmMetadata {
     /// The Cloud EKM partner.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ekm_solution: crate::model::ekm_metadata::EkmSolution,
 
     /// Endpoint for sending requests to the EKM for key provisioning during
     /// Assured Workload creation.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ekm_endpoint_uri: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3174,11 +3244,13 @@ pub struct Violation {
     /// Identifier. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/violations/{violation}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. Description for the Violation.
     /// e.g. OrgPolicy gcp.resourceLocations has non compliant value.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Output only. Time of the event which triggered the Violation.
@@ -3197,10 +3269,12 @@ pub struct Violation {
     /// Output only. Category under which this violation is mapped.
     /// e.g. Location, Service Usage, Access, Encryption, etc.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub category: std::string::String,
 
     /// Output only. State of the violation
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::violation::State,
 
     /// Output only. Immutable. Name of the OrgPolicy which was modified with
@@ -3209,11 +3283,12 @@ pub struct Violation {
     /// `folders/{folder_id}/policies/{constraint_name}`
     /// `organizations/{organization_id}/policies/{constraint_name}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub non_compliant_org_policy: std::string::String,
 
     /// The folder_id of the violation
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub folder_id: i64,
 
     /// Output only. Compliance violation remediation
@@ -3370,11 +3445,13 @@ pub mod violation {
         /// For example: for list org policy violations, this will either be the list
         /// of allowed or denied values
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub compliant_values: std::vec::Vec<std::string::String>,
 
         /// Output only. Remediation type based on the type of org policy values
         /// violated
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub remediation_type: crate::model::violation::remediation::RemediationType,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3519,14 +3596,17 @@ pub mod violation {
             pub struct Gcloud {
                 /// Gcloud command to resolve violation
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub gcloud_commands: std::vec::Vec<std::string::String>,
 
                 /// Steps to resolve violation via gcloud cli
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub steps: std::vec::Vec<std::string::String>,
 
                 /// Additional urls for more information about steps
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub additional_links: std::vec::Vec<std::string::String>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3586,14 +3666,17 @@ pub mod violation {
             pub struct Console {
                 /// Link to console page where violations can be resolved
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub console_uris: std::vec::Vec<std::string::String>,
 
                 /// Steps to resolve violation via cloud console
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub steps: std::vec::Vec<std::string::String>,
 
                 /// Additional urls for more information about steps
                 #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+                #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
                 pub additional_links: std::vec::Vec<std::string::String>,
 
                 #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3994,26 +4077,30 @@ pub struct ListViolationsRequest {
     /// Format
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. The maximum number of customers row to return. The service may
     /// return fewer than this value. If unspecified, at most 10 customers will be
     /// returned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A page token, received from a previous `ListViolations` call.
     /// Provide this to retrieve the subsequent page.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filtering results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     /// Optional. Specifies the interval for retrieving violations.
@@ -4093,16 +4180,19 @@ impl wkt::message::Message for ListViolationsRequest {
 pub struct ListViolationsResponse {
     /// List of violation
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub violations: std::vec::Vec<crate::model::Violation>,
 
     /// A token that can be sent as `page_token` to retrieve the next page.
     /// If this field is omitted, there are no subsequent pages.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Workloads that could not be reached due to permission errors or any other
     /// error. Ref: <https://google.aip.dev/217>
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4172,6 +4262,7 @@ pub struct GetViolationRequest {
     /// Required. Format:
     /// `organizations/{organization}/locations/{location}/customers/{customer}/workloads/{workload}/violations/{violation}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]

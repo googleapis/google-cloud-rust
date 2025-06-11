@@ -39,6 +39,7 @@ extern crate wkt;
 pub struct Template {
     /// Identifier. name of resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. [Output only] Create time stamp
@@ -51,6 +52,7 @@ pub struct Template {
 
     /// Optional. Labels as key value pairs
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. filter configuration for this template
@@ -180,37 +182,42 @@ pub mod template {
     pub struct TemplateMetadata {
         /// Optional. If true, partial detector failures should be ignored.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub ignore_partial_invocation_failures: bool,
 
         /// Optional. Indicates the custom error code set by the user to be returned
         /// to the end user by the service extension if the prompt trips Model Armor
         /// filters.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub custom_prompt_safety_error_code: i32,
 
         /// Optional. Indicates the custom error message set by the user to be
         /// returned to the end user if the prompt trips Model Armor filters.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub custom_prompt_safety_error_message: std::string::String,
 
         /// Optional. Indicates the custom error code set by the user to be returned
         /// to the end user if the LLM response trips Model Armor filters.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "wkt::internal::I32")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub custom_llm_response_safety_error_code: i32,
 
         /// Optional. Indicates the custom error message set by the user to be
         /// returned to the end user if the LLM response trips Model Armor filters.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub custom_llm_response_safety_error_message: std::string::String,
 
         /// Optional. If true, log template crud operations.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub log_template_operations: bool,
 
         /// Optional. If true, log sanitize operations.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub log_sanitize_operations: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -299,6 +306,7 @@ pub mod template {
 pub struct FloorSetting {
     /// Identifier. The resource name.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Output only. [Output only] Create timestamp
@@ -422,24 +430,28 @@ impl wkt::message::Message for FloorSetting {
 pub struct ListTemplatesRequest {
     /// Required. Parent value for ListTemplatesRequest
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Optional. Requested page size. Server may return fewer items than
     /// requested. If unspecified, server will pick an appropriate default.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "wkt::internal::I32")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub page_size: i32,
 
     /// Optional. A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
     /// Optional. Filtering results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter: std::string::String,
 
     /// Optional. Hint for how to order the results
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub order_by: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -496,14 +508,17 @@ impl wkt::message::Message for ListTemplatesRequest {
 pub struct ListTemplatesResponse {
     /// The list of Template
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub templates: std::vec::Vec<crate::model::Template>,
 
     /// A token identifying a page of results the server should return.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
     /// Locations that could not be reached.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub unreachable: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -572,6 +587,7 @@ impl gax::paginator::internal::PageableResponse for ListTemplatesResponse {
 pub struct GetTemplateRequest {
     /// Required. Name of the resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -604,12 +620,14 @@ impl wkt::message::Message for GetTemplateRequest {
 pub struct CreateTemplateRequest {
     /// Required. Value for parent.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Id of the requesting object
     /// If auto-generating Id server-side, remove this field and
     /// template_id from the method_signature of Create RPC
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub template_id: std::string::String,
 
     /// Required. The resource being created
@@ -630,6 +648,7 @@ pub struct CreateTemplateRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -716,6 +735,7 @@ pub struct UpdateTemplateRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -784,6 +804,7 @@ impl wkt::message::Message for UpdateTemplateRequest {
 pub struct DeleteTemplateRequest {
     /// Required. Name of the resource
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Optional. An optional request ID to identify requests. Specify a unique
@@ -800,6 +821,7 @@ pub struct DeleteTemplateRequest {
     /// The request ID must be a valid UUID with the exception that zero UUID is
     /// not supported (00000000-0000-0000-0000-000000000000).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_id: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -839,6 +861,7 @@ pub struct GetFloorSettingRequest {
     /// Required. The name of the floor setting to get, example
     /// projects/123/floorsetting.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1060,6 +1083,7 @@ pub struct PiAndJailbreakFilterSettings {
     /// Optional. Tells whether Prompt injection and Jailbreak filter is enabled or
     /// disabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter_enforcement:
         crate::model::pi_and_jailbreak_filter_settings::PiAndJailbreakFilterEnforcement,
 
@@ -1069,6 +1093,7 @@ pub struct PiAndJailbreakFilterSettings {
     /// positive match is reported. Confidence level will only be used if the
     /// filter is enabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub confidence_level: crate::model::DetectionConfidenceLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1257,6 +1282,7 @@ pub mod pi_and_jailbreak_filter_settings {
 pub struct MaliciousUriFilterSettings {
     /// Optional. Tells whether the Malicious URI filter is enabled or disabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter_enforcement:
         crate::model::malicious_uri_filter_settings::MaliciousUriFilterEnforcement,
 
@@ -1436,6 +1462,7 @@ pub mod malicious_uri_filter_settings {
 pub struct RaiFilterSettings {
     /// Required. List of Responsible AI filters enabled for template.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub rai_filters: std::vec::Vec<crate::model::rai_filter_settings::RaiFilter>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1478,6 +1505,7 @@ pub mod rai_filter_settings {
     pub struct RaiFilter {
         /// Required. Type of responsible AI filter.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub filter_type: crate::model::RaiFilterType,
 
         /// Optional. Confidence level for this RAI filter.
@@ -1486,6 +1514,7 @@ pub mod rai_filter_settings {
         /// match is reported. If the confidence level is unspecified (i.e., 0), the
         /// system will use a reasonable default level based on the `filter_type`.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub confidence_level: crate::model::DetectionConfidenceLevel,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1664,6 +1693,7 @@ pub struct SdpBasicConfig {
     /// Optional. Tells whether the Sensitive Data Protection basic config is
     /// enabled or disabled.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter_enforcement: crate::model::sdp_basic_config::SdpBasicConfigEnforcement,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1852,6 +1882,7 @@ pub struct SdpAdvancedConfig {
     /// e.g.
     /// `projects/{project}/locations/{location}/inspectTemplates/{inspect_template}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub inspect_template: std::string::String,
 
     /// Optional. Optional Sensitive Data Protection Deidentify template resource
@@ -1866,6 +1897,7 @@ pub struct SdpAdvancedConfig {
     /// e.g.
     /// `projects/{project}/locations/{location}/deidentifyTemplates/{deidentify_template}`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deidentify_template: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -1911,6 +1943,7 @@ pub struct SanitizeUserPromptRequest {
     /// Required. Represents resource name of template
     /// e.g. name=projects/sample-project/locations/us-central1/templates/templ01
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. User prompt data to sanitize.
@@ -1966,6 +1999,7 @@ pub struct SanitizeModelResponseRequest {
     /// Required. Represents resource name of template
     /// e.g. name=projects/sample-project/locations/us-central1/templates/templ01
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. Model response data to sanitize.
@@ -1974,6 +2008,7 @@ pub struct SanitizeModelResponseRequest {
 
     /// Optional. User Prompt associated with Model response.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub user_prompt: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2126,11 +2161,13 @@ pub struct SanitizationResult {
     ///   In other words, input did not pass one or more filters.
     ///
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter_match_state: crate::model::FilterMatchState,
 
     /// Output only. Results for all filters where the key is the filter name -
     /// either of "csam", "malicious_uris", "rai", "pi_and_jailbreak" ,"sdp".
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub filter_results: std::collections::HashMap<std::string::String, crate::model::FilterResult>,
 
     /// Output only. A field indicating the outcome of the invocation, irrespective
@@ -2138,6 +2175,7 @@ pub struct SanitizationResult {
     /// filters were executed successfully. PARTIAL: Some filters were skipped or
     /// failed execution. FAILURE: All filters were skipped or failed execution.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub invocation_result: crate::model::InvocationResult,
 
     /// Output only. Metadata related to Sanitization.
@@ -2222,16 +2260,18 @@ pub mod sanitization_result {
     pub struct SanitizationMetadata {
         /// Error code if any.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DisplayFromStr")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub error_code: i64,
 
         /// Error message if any.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub error_message: std::string::String,
 
         /// Passthrough field defined in TemplateMetadata to indicate whether to
         /// ignore partial invocation failures.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub ignore_partial_invocation_failures: bool,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2546,6 +2586,7 @@ pub struct RaiFilterResult {
     /// Output only. Reports whether the RAI filter was successfully executed or
     /// not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -2553,17 +2594,20 @@ pub struct RaiFilterResult {
     /// For example, if execution state is skipped then this field provides
     /// related reason/explanation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub message_items: std::vec::Vec<crate::model::MessageItem>,
 
     /// Output only. Overall filter match state for RAI.
     /// Value is MATCH_FOUND if at least one RAI filter confidence level is
     /// equal to or higher than the confidence level defined in configuration.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub match_state: crate::model::FilterMatchState,
 
     /// The map of RAI filter results where key is RAI filter type - either of
     /// "sexually_explicit", "hate_speech", "harassment", "dangerous".
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub rai_filter_type_results: std::collections::HashMap<
         std::string::String,
         crate::model::rai_filter_result::RaiFilterTypeResult,
@@ -2639,14 +2683,17 @@ pub mod rai_filter_result {
     pub struct RaiFilterTypeResult {
         /// Type of responsible AI filter.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub filter_type: crate::model::RaiFilterType,
 
         /// Confidence level identified for this RAI filter.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub confidence_level: crate::model::DetectionConfidenceLevel,
 
         /// Output only. Match state for this RAI filter.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub match_state: crate::model::FilterMatchState,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -2827,6 +2874,7 @@ pub struct SdpInspectResult {
     /// Output only. Reports whether Sensitive Data Protection inspection was
     /// successfully executed or not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -2834,16 +2882,19 @@ pub struct SdpInspectResult {
     /// For example, if execution state is skipped then this field provides
     /// related reason/explanation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub message_items: std::vec::Vec<crate::model::MessageItem>,
 
     /// Output only. Match state for SDP Inspection.
     /// Value is MATCH_FOUND if at least one Sensitive Data Protection finding is
     /// identified.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub match_state: crate::model::FilterMatchState,
 
     /// List of Sensitive Data Protection findings.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub findings: std::vec::Vec<crate::model::SdpFinding>,
 
     /// If true, then there is possibility that more findings were identified and
@@ -2852,6 +2903,7 @@ pub struct SdpInspectResult {
     /// the server reached the maximum amount of resources allowed for a single API
     /// call.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub findings_truncated: bool,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3015,7 +3067,7 @@ pub mod data_item {
     #[non_exhaustive]
     pub enum DataItem {
         /// Plaintext string data for sanitization.
-        Text(std::string::String),
+        Text(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
         /// Data provided in the form of bytes.
         ByteItem(std::boxed::Box<crate::model::ByteDataItem>),
     }
@@ -3029,11 +3081,12 @@ pub mod data_item {
 pub struct ByteDataItem {
     /// Required. The type of byte data
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub byte_data_type: crate::model::byte_data_item::ByteItemType,
 
     /// Required. Bytes Data
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::base64::Base64")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub byte_data: ::bytes::Bytes,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3235,6 +3288,7 @@ pub struct SdpDeidentifyResult {
     /// Output only. Reports whether Sensitive Data Protection deidentification was
     /// successfully executed or not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -3242,11 +3296,13 @@ pub struct SdpDeidentifyResult {
     /// For example, if execution state is skipped then this field provides
     /// related reason/explanation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub message_items: std::vec::Vec<crate::model::MessageItem>,
 
     /// Output only. Match state for Sensitive Data Protection Deidentification.
     /// Value is MATCH_FOUND if content is de-identified.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub match_state: crate::model::FilterMatchState,
 
     /// De-identified data.
@@ -3255,11 +3311,12 @@ pub struct SdpDeidentifyResult {
 
     /// Total size in bytes that were transformed during deidentification.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub transformed_bytes: i64,
 
     /// List of Sensitive Data Protection info-types that were de-identified.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub info_types: std::vec::Vec<std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3350,10 +3407,12 @@ impl wkt::message::Message for SdpDeidentifyResult {
 pub struct SdpFinding {
     /// Name of Sensitive Data Protection info type for this finding.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub info_type: std::string::String,
 
     /// Identified confidence likelihood for `info_type`.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub likelihood: crate::model::SdpFindingLikelihood,
 
     /// Location for this finding.
@@ -3495,6 +3554,7 @@ pub struct PiAndJailbreakFilterResult {
     /// Output only. Reports whether Prompt injection and Jailbreak filter was
     /// successfully executed or not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -3502,14 +3562,17 @@ pub struct PiAndJailbreakFilterResult {
     /// For example, if execution state is skipped then this field provides
     /// related reason/explanation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub message_items: std::vec::Vec<crate::model::MessageItem>,
 
     /// Output only. Match state for Prompt injection and Jailbreak.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub match_state: crate::model::FilterMatchState,
 
     /// Confidence level identified for Prompt injection and Jailbreak.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub confidence_level: crate::model::DetectionConfidenceLevel,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3575,6 +3638,7 @@ pub struct MaliciousUriFilterResult {
     /// Output only. Reports whether Malicious URI filter was successfully executed
     /// or not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -3582,15 +3646,18 @@ pub struct MaliciousUriFilterResult {
     /// For example, if execution state is skipped then this field provides
     /// related reason/explanation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub message_items: std::vec::Vec<crate::model::MessageItem>,
 
     /// Output only. Match state for this Malicious URI.
     /// Value is MATCH_FOUND if at least one Malicious URI is found.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub match_state: crate::model::FilterMatchState,
 
     /// List of Malicious URIs found in data.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub malicious_uri_matched_items:
         std::vec::Vec<crate::model::malicious_uri_filter_result::MaliciousUriMatchedItem>,
 
@@ -3664,12 +3731,14 @@ pub mod malicious_uri_filter_result {
     pub struct MaliciousUriMatchedItem {
         /// Malicious URI.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub uri: std::string::String,
 
         /// List of locations where Malicious URI is identified.
         /// The `locations` field is supported only for plaintext content i.e.
         /// ByteItemType.PLAINTEXT_UTF8
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub locations: std::vec::Vec<crate::model::RangeInfo>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3714,6 +3783,7 @@ pub mod malicious_uri_filter_result {
 pub struct VirusScanFilterResult {
     /// Output only. Reports whether Virus Scan was successfully executed or not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -3721,25 +3791,29 @@ pub struct VirusScanFilterResult {
     /// For example, if execution status is skipped then this field provides
     /// related reason/explanation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub message_items: std::vec::Vec<crate::model::MessageItem>,
 
     /// Output only. Match status for Virus.
     /// Value is MATCH_FOUND if the data is infected with a virus.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub match_state: crate::model::FilterMatchState,
 
     /// Type of content scanned.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub scanned_content_type: crate::model::virus_scan_filter_result::ScannedContentType,
 
     /// Size of scanned content in bytes.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub scanned_size: std::option::Option<i64>,
 
     /// List of Viruses identified.
     /// This field will be empty if no virus was detected.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub virus_details: std::vec::Vec<crate::model::VirusDetail>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -3981,14 +4055,17 @@ pub mod virus_scan_filter_result {
 pub struct VirusDetail {
     /// Name of vendor that produced this virus identification.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vendor: std::string::String,
 
     /// Names of this Virus.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub names: std::vec::Vec<std::string::String>,
 
     /// Threat type of the identified virus
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub threat_type: crate::model::virus_detail::ThreatType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4205,6 +4282,7 @@ pub struct CsamFilterResult {
     /// Output only. Reports whether the CSAM filter was successfully executed or
     /// not.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub execution_state: crate::model::FilterExecutionState,
 
     /// Optional messages corresponding to the result.
@@ -4212,10 +4290,12 @@ pub struct CsamFilterResult {
     /// For example, if execution state is skipped then this field provides
     /// related reason/explanation.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub message_items: std::vec::Vec<crate::model::MessageItem>,
 
     /// Output only. Match state for CSAM.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub match_state: crate::model::FilterMatchState,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4271,10 +4351,12 @@ impl wkt::message::Message for CsamFilterResult {
 pub struct MessageItem {
     /// Type of message.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message_type: crate::model::message_item::MessageType,
 
     /// The message content.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
@@ -4463,12 +4545,12 @@ pub struct RangeInfo {
     /// Ref: <https://protobuf.dev/programming-guides/proto3/#default>
     /// Index of first character (inclusive).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub start: std::option::Option<i64>,
 
     /// Index of last character (exclusive).
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<serde_with::DisplayFromStr>")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub end: std::option::Option<i64>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
