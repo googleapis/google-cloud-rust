@@ -237,6 +237,18 @@ mod test {
 
     type TestResult = anyhow::Result<(), Box<dyn std::error::Error>>;
 
+    #[test_case("/bin/cat /tmp/file", "/bin/cat", vec!["/tmp/file"]; "command with single arg")]
+    #[test_case("gcloud auth print-access-token", "gcloud", vec!["auth", "print-access-token"]; "command with multiple args")]
+    #[test_case("./single-command", "./single-command", vec![]; "command without args")]
+    fn parse_commands(input: &str, expected_command: &str, expected_args: Vec<&str>) -> TestResult {
+        let (command, args) = ExecutableSourcedCredentials::split_command(input.to_string());
+
+        assert_eq!(command, expected_command);
+        assert_eq!(args, expected_args);
+
+        Ok(())
+    }
+
     #[tokio::test]
     #[serial]
     async fn read_token_from_command() -> TestResult {
