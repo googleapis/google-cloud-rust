@@ -173,6 +173,7 @@ impl ExecutableSourcedCredentials {
         Self::parse_token(output)
     }
 
+    /// Parses a full command string into a command and its arguments.    
     fn split_command(command: String) -> (String, Vec<String>) {
         let mut parts = command.split_whitespace();
         let Some(cmd) = parts.next() else {
@@ -183,6 +184,8 @@ impl ExecutableSourcedCredentials {
         (cmd.to_string(), args)
     }
 
+    /// Executable and output file should follow the format defined in [ExecutableResponse] struct.
+    /// This tries to parse the output in the given format and extract just the OAuth token.
     fn parse_token(output: String) -> Result<String> {
         let res = serde_json::from_str::<ExecutableResponse>(output.as_str())
             .map_err(|e| CredentialsError::from_source(false, e))?;
