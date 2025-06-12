@@ -5274,3 +5274,1394 @@ impl serde::ser::Serialize for __MessageWithFieldMask {
         state.end()
     }
 }
+
+/// A test message for google.protobuf.FloatValue.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithFloatValue {
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F32>")]
+    pub singular: std::option::Option<wkt::FloatValue>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::F32>>")]
+    pub repeated: std::vec::Vec<wkt::FloatValue>,
+
+    /// Test google.protobuf.FloatValue as amap values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String, wkt::FloatValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithFloatValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::generated::MessageWithFloatValue::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FloatValue>,
+    {
+        self.singular = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::generated::MessageWithFloatValue::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FloatValue>,
+    {
+        self.singular = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::generated::MessageWithFloatValue::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::FloatValue>,
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::generated::MessageWithFloatValue::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::FloatValue>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithFloatValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithFloatValue"
+    }
+}
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithFloatValue(pub MessageWithFloatValue);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithFloatValue {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithFloatValue;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithFloatValue")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "singular" => {
+                            result.singular =
+                                map.next_value::<std::option::Option<wkt::FloatValue>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated = map.next_value::<std::vec::Vec<wkt::FloatValue>>()?;
+                        }
+                        "map" => {
+                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::FloatValue>>()?;
+                        }
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                Ok(result)
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithFloatValue)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithFloatValue {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
+        }
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// A test message for google.protobuf.DoubleValue.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithDoubleValue {
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
+    pub singular: std::option::Option<wkt::DoubleValue>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::F64>>")]
+    pub repeated: std::vec::Vec<wkt::DoubleValue>,
+
+    /// Test google.protobuf.DoubleValue as map values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String, wkt::DoubleValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithDoubleValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::generated::MessageWithDoubleValue::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::DoubleValue>,
+    {
+        self.singular = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::generated::MessageWithDoubleValue::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::DoubleValue>,
+    {
+        self.singular = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::generated::MessageWithDoubleValue::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::DoubleValue>,
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::generated::MessageWithDoubleValue::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::DoubleValue>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithDoubleValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithDoubleValue"
+    }
+}
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithDoubleValue(pub MessageWithDoubleValue);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithDoubleValue {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithDoubleValue;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithDoubleValue")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "singular" => {
+                            result.singular =
+                                map.next_value::<std::option::Option<wkt::DoubleValue>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated =
+                                map.next_value::<std::vec::Vec<wkt::DoubleValue>>()?;
+                        }
+                        "map" => {
+                            result.map =
+                                map.next_value::<std::collections::HashMap<
+                                    std::string::String,
+                                    wkt::DoubleValue,
+                                >>()?;
+                        }
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                Ok(result)
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithDoubleValue)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithDoubleValue {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
+        }
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// A test message for google.protobuf.Int32Value.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithInt32Value {
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
+    pub singular: std::option::Option<wkt::Int32Value>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
+    pub repeated: std::vec::Vec<wkt::Int32Value>,
+
+    /// Test google.protobuf.Int32Value as map values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String, wkt::Int32Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithInt32Value {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::generated::MessageWithInt32Value::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int32Value>,
+    {
+        self.singular = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::generated::MessageWithInt32Value::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int32Value>,
+    {
+        self.singular = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::generated::MessageWithInt32Value::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Int32Value>,
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::generated::MessageWithInt32Value::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::Int32Value>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithInt32Value {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithInt32Value"
+    }
+}
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithInt32Value(pub MessageWithInt32Value);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithInt32Value {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithInt32Value;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithInt32Value")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "singular" => {
+                            result.singular =
+                                map.next_value::<std::option::Option<wkt::Int32Value>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated = map.next_value::<std::vec::Vec<wkt::Int32Value>>()?;
+                        }
+                        "map" => {
+                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Int32Value>>()?;
+                        }
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                Ok(result)
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithInt32Value)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithInt32Value {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
+        }
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// A test message for u32.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithUInt32Value {
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U32>")]
+    pub singular: std::option::Option<wkt::UInt32Value>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::U32>>")]
+    pub repeated: std::vec::Vec<wkt::UInt32Value>,
+
+    /// Test google.protobuf.UInt32Value as map values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String, wkt::UInt32Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithUInt32Value {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::generated::MessageWithUInt32Value::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::UInt32Value>,
+    {
+        self.singular = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::generated::MessageWithUInt32Value::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::UInt32Value>,
+    {
+        self.singular = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::generated::MessageWithUInt32Value::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::UInt32Value>,
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::generated::MessageWithUInt32Value::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::UInt32Value>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithUInt32Value {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithUInt32Value"
+    }
+}
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithUInt32Value(pub MessageWithUInt32Value);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithUInt32Value {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithUInt32Value;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithUInt32Value")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "singular" => {
+                            result.singular =
+                                map.next_value::<std::option::Option<wkt::UInt32Value>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated =
+                                map.next_value::<std::vec::Vec<wkt::UInt32Value>>()?;
+                        }
+                        "map" => {
+                            result.map =
+                                map.next_value::<std::collections::HashMap<
+                                    std::string::String,
+                                    wkt::UInt32Value,
+                                >>()?;
+                        }
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                Ok(result)
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithUInt32Value)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithUInt32Value {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
+        }
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// A test message for google.protobuf.Int64Value.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithInt64Value {
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
+    pub singular: std::option::Option<wkt::Int64Value>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I64>>")]
+    pub repeated: std::vec::Vec<wkt::Int64Value>,
+
+    /// Test google.protobuf.Int64Value as values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String, wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithInt64Value {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::generated::MessageWithInt64Value::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.singular = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::generated::MessageWithInt64Value::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.singular = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::generated::MessageWithInt64Value::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Int64Value>,
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::generated::MessageWithInt64Value::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::Int64Value>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithInt64Value {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithInt64Value"
+    }
+}
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithInt64Value(pub MessageWithInt64Value);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithInt64Value {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithInt64Value;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithInt64Value")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "singular" => {
+                            result.singular =
+                                map.next_value::<std::option::Option<wkt::Int64Value>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated = map.next_value::<std::vec::Vec<wkt::Int64Value>>()?;
+                        }
+                        "map" => {
+                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Int64Value>>()?;
+                        }
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                Ok(result)
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithInt64Value)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithInt64Value {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
+        }
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// A test message for google.protobuf.Int64Value.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithUInt64Value {
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
+    pub singular: std::option::Option<wkt::Int64Value>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I64>>")]
+    pub repeated: std::vec::Vec<wkt::Int64Value>,
+
+    /// Test google.protobuf.Int64Value as values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String, wkt::Int64Value>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithUInt64Value {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::generated::MessageWithUInt64Value::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.singular = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::generated::MessageWithUInt64Value::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Int64Value>,
+    {
+        self.singular = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::generated::MessageWithUInt64Value::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::Int64Value>,
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::generated::MessageWithUInt64Value::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::Int64Value>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithUInt64Value {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithUInt64Value"
+    }
+}
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithUInt64Value(pub MessageWithUInt64Value);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithUInt64Value {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithUInt64Value;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithUInt64Value")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "singular" => {
+                            result.singular =
+                                map.next_value::<std::option::Option<wkt::Int64Value>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated = map.next_value::<std::vec::Vec<wkt::Int64Value>>()?;
+                        }
+                        "map" => {
+                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Int64Value>>()?;
+                        }
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                Ok(result)
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithUInt64Value)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithUInt64Value {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
+        }
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// A test message for google.protobuf.BytesValue.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithBytesValue {
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]
+    pub singular: std::option::Option<wkt::BytesValue>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<serde_with::base64::Base64>>")]
+    pub repeated: std::vec::Vec<wkt::BytesValue>,
+
+    /// A map field, google.protobuf.BytesValue cannot be keys, so we only need to test them as
+    /// values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String, wkt::BytesValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithBytesValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::generated::MessageWithBytesValue::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::BytesValue>,
+    {
+        self.singular = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::generated::MessageWithBytesValue::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::BytesValue>,
+    {
+        self.singular = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::generated::MessageWithBytesValue::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::BytesValue>,
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::generated::MessageWithBytesValue::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::BytesValue>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithBytesValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithBytesValue"
+    }
+}
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithBytesValue(pub MessageWithBytesValue);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithBytesValue {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithBytesValue;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithBytesValue")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "singular" => {
+                            result.singular =
+                                map.next_value::<std::option::Option<wkt::BytesValue>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated = map.next_value::<std::vec::Vec<wkt::BytesValue>>()?;
+                        }
+                        "map" => {
+                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::BytesValue>>()?;
+                        }
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                Ok(result)
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithBytesValue)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithBytesValue {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
+        }
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// A test message for google.protobuf.BoolValue.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithBoolValue {
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub singular: std::option::Option<wkt::BoolValue>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub repeated: std::vec::Vec<wkt::BoolValue>,
+
+    /// Test google.protobuf.BoolValue as map values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String, wkt::BoolValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithBoolValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::generated::MessageWithBoolValue::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.singular = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::generated::MessageWithBoolValue::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::BoolValue>,
+    {
+        self.singular = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::generated::MessageWithBoolValue::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::BoolValue>,
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::generated::MessageWithBoolValue::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::BoolValue>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithBoolValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithBoolValue"
+    }
+}
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithBoolValue(pub MessageWithBoolValue);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithBoolValue {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithBoolValue;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithBoolValue")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "singular" => {
+                            result.singular =
+                                map.next_value::<std::option::Option<wkt::BoolValue>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated = map.next_value::<std::vec::Vec<wkt::BoolValue>>()?;
+                        }
+                        "map" => {
+                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::BoolValue>>()?;
+                        }
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                Ok(result)
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithBoolValue)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithBoolValue {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
+        }
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// A test message for string.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MessageWithStringValue {
+    /// A singular field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub singular: std::option::Option<wkt::StringValue>,
+
+    /// A repeated field.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub repeated: std::vec::Vec<wkt::StringValue>,
+
+    /// Test string as map values.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub map: std::collections::HashMap<std::string::String, wkt::StringValue>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MessageWithStringValue {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [singular][crate::generated::MessageWithStringValue::singular].
+    pub fn set_singular<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.singular = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [singular][crate::generated::MessageWithStringValue::singular].
+    pub fn set_or_clear_singular<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::StringValue>,
+    {
+        self.singular = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [repeated][crate::generated::MessageWithStringValue::repeated].
+    pub fn set_repeated<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<wkt::StringValue>,
+    {
+        use std::iter::Iterator;
+        self.repeated = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [map][crate::generated::MessageWithStringValue::map].
+    pub fn set_map<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<wkt::StringValue>,
+    {
+        use std::iter::Iterator;
+        self.map = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for MessageWithStringValue {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.rust.sdk.test.MessageWithStringValue"
+    }
+}
+
+#[doc(hidden)]
+#[derive(Clone, Debug, PartialEq)]
+pub struct __MessageWithStringValue(pub MessageWithStringValue);
+
+impl<'de> serde::de::Deserialize<'de> for __MessageWithStringValue {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageWithStringValue;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageWithStringValue")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                let mut result = Self::Value::new();
+                while let Some(key) = map.next_key::<String>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match key.as_str() {
+                        "singular" => {
+                            result.singular =
+                                map.next_value::<std::option::Option<wkt::StringValue>>()?;
+                        }
+                        "repeated" => {
+                            result.repeated =
+                                map.next_value::<std::vec::Vec<wkt::StringValue>>()?;
+                        }
+                        "map" => {
+                            result.map =
+                                map.next_value::<std::collections::HashMap<
+                                    std::string::String,
+                                    wkt::StringValue,
+                                >>()?;
+                        }
+                        _ => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                Ok(result)
+            }
+        }
+        deserializer
+            .deserialize_any(Visitor)
+            .map(__MessageWithStringValue)
+    }
+}
+
+impl serde::ser::Serialize for __MessageWithStringValue {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        let mut state = serializer.serialize_map(None)?;
+        if self.0.singular.is_some() {
+            state.serialize_entry("singular", &self.0.singular)?;
+        }
+        if !self.0.repeated.is_empty() {
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
+        }
+        if !self.0._unknown_fields.is_empty() {
+            for (key, value) in self.0._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
