@@ -163,6 +163,18 @@ pub struct Secret {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub customer_managed_encryption: std::option::Option<crate::model::CustomerManagedEncryption>,
 
+    /// Optional. Input only. Immutable. Mapping of Tag keys/values directly bound
+    /// to this resource. For example:
+    /// "123/environment": "production",
+    /// "123/costCenter": "marketing"
+    ///
+    /// Tags are used to organize and group resources.
+    ///
+    /// Tags can be used to control policy evaluation for the resource.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub tags: std::collections::HashMap<std::string::String, std::string::String>,
+
     /// Expiration policy attached to the
     /// [Secret][google.cloud.secretmanager.v1.Secret]. If specified the
     /// [Secret][google.cloud.secretmanager.v1.Secret] and all
@@ -335,6 +347,18 @@ impl Secret {
         T: std::convert::Into<crate::model::CustomerManagedEncryption>,
     {
         self.customer_managed_encryption = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [tags][crate::model::Secret::tags].
+    pub fn set_tags<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.tags = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
 

@@ -312,7 +312,7 @@ pub mod endpoint_matcher {
         ///
         /// If there is more than one best match, (for example, if a
         /// config P4 with selector <A:1,D:1> exists and if a client with
-        /// label <A:1,B:1,D:1> connects), an error will be thrown.
+        /// label <A:1,B:1,D:1> connects), pick up the one with older creation time.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub metadata_label_match_criteria:
@@ -2141,7 +2141,7 @@ impl wkt::message::Message for DeleteLbRouteExtensionRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct EndpointPolicy {
-    /// Required. Name of the EndpointPolicy resource. It matches pattern
+    /// Identifier. Name of the EndpointPolicy resource. It matches pattern
     /// `projects/{project}/locations/global/endpointPolicies/{endpoint_policy}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
@@ -2523,6 +2523,13 @@ pub struct ListEndpointPoliciesRequest {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
+    /// Optional. If true, allow partial responses for multi-regional Aggregated
+    /// List requests. Otherwise if one of the locations is down or unreachable,
+    /// the Aggregated List request will fail.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub return_partial_success: bool,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2547,6 +2554,12 @@ impl ListEndpointPoliciesRequest {
     /// Sets the value of [page_token][crate::model::ListEndpointPoliciesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [return_partial_success][crate::model::ListEndpointPoliciesRequest::return_partial_success].
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
         self
     }
 }
@@ -2575,6 +2588,16 @@ pub struct ListEndpointPoliciesResponse {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
+    /// Unreachable resources. Populated when the request opts into
+    /// [return_partial_success][google.cloud.networkservices.v1.ListEndpointPoliciesRequest.return_partial_success]
+    /// and reading across collections e.g. when
+    /// attempting to list all resources across all supported locations.
+    ///
+    /// [google.cloud.networkservices.v1.ListEndpointPoliciesRequest.return_partial_success]: crate::model::ListEndpointPoliciesRequest::return_partial_success
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -2598,6 +2621,17 @@ impl ListEndpointPoliciesResponse {
     /// Sets the value of [next_page_token][crate::model::ListEndpointPoliciesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListEndpointPoliciesResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2840,7 +2874,7 @@ impl wkt::message::Message for DeleteEndpointPolicyRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Gateway {
-    /// Required. Name of the Gateway resource. It matches pattern
+    /// Identifier. Name of the Gateway resource. It matches pattern
     /// `projects/*/locations/*/gateways/<gateway_name>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
@@ -2877,17 +2911,29 @@ pub struct Gateway {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::model::gateway::Type,
 
-    /// Required. One or more ports that the Gateway must receive traffic on. The
-    /// proxy binds to the ports specified. Gateway listen on 0.0.0.0 on the ports
-    /// specified below.
+    /// Optional. Zero or one IPv4 or IPv6 address on which the Gateway will
+    /// receive the traffic. When no address is provided, an IP from the subnetwork
+    /// is allocated
+    ///
+    /// This field only applies to gateways of type 'SECURE_WEB_GATEWAY'.
+    /// Gateways of type 'OPEN_MESH' listen on 0.0.0.0 for IPv4 and :: for IPv6.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub addresses: std::vec::Vec<std::string::String>,
+
+    /// Required. One or more port numbers (1-65535), on which the Gateway will
+    /// receive traffic. The proxy binds to the specified ports.
+    /// Gateways of type 'SECURE_WEB_GATEWAY' are limited to 1 port.
+    /// Gateways of type 'OPEN_MESH' listen on 0.0.0.0 for IPv4 and :: for IPv6 and
+    /// support multiple ports.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub ports: std::vec::Vec<i32>,
 
-    /// Required. Immutable. Scope determines how configuration across multiple
-    /// Gateway instances are merged. The configuration for multiple Gateway
-    /// instances with the same scope will be merged as presented as a single
-    /// coniguration to the proxy/load balancer.
+    /// Optional. Scope determines how configuration across multiple Gateway
+    /// instances are merged. The configuration for multiple Gateway instances with
+    /// the same scope will be merged as presented as a single configuration to the
+    /// proxy/load balancer.
     ///
     /// Max length 64 characters.
     /// Scope should start with a letter and can only have letters, numbers,
@@ -2901,6 +2947,62 @@ pub struct Gateway {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub server_tls_policy: std::string::String,
+
+    /// Optional. A fully-qualified Certificates URL reference. The proxy presents
+    /// a Certificate (selected based on SNI) when establishing a TLS connection.
+    /// This feature only applies to gateways of type 'SECURE_WEB_GATEWAY'.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub certificate_urls: std::vec::Vec<std::string::String>,
+
+    /// Optional. A fully-qualified GatewaySecurityPolicy URL reference.
+    /// Defines how a server should apply security policy to inbound
+    /// (VM to Proxy) initiated connections.
+    ///
+    /// For example:
+    /// `projects/*/locations/*/gatewaySecurityPolicies/swg-policy`.
+    ///
+    /// This policy is specific to gateways of type 'SECURE_WEB_GATEWAY'.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub gateway_security_policy: std::string::String,
+
+    /// Optional. The relative resource name identifying the VPC network that is
+    /// using this configuration. For example:
+    /// `projects/*/global/networks/network-1`.
+    ///
+    /// Currently, this field is specific to gateways of type 'SECURE_WEB_GATEWAY'.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub network: std::string::String,
+
+    /// Optional. The relative resource name identifying  the subnetwork in which
+    /// this SWG is allocated. For example:
+    /// `projects/*/regions/us-central1/subnetworks/network-1`
+    ///
+    /// Currently, this field is specific to gateways of type 'SECURE_WEB_GATEWAY".
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub subnetwork: std::string::String,
+
+    /// Optional. The IP Version that will be used by this gateway. Valid options
+    /// are IPV4 or IPV6. Default is IPV4.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub ip_version: crate::model::gateway::IpVersion,
+
+    /// Optional. Determines if envoy will insert internal debug headers into
+    /// upstream requests. Other Envoy headers may still be injected. By default,
+    /// envoy will not insert any debug headers.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub envoy_headers: std::option::Option<crate::model::EnvoyHeaders>,
+
+    /// Optional. The routing mode of the Gateway.
+    /// This field is configurable only for gateways of type SECURE_WEB_GATEWAY.
+    /// This field is required for gateways of type SECURE_WEB_GATEWAY.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub routing_mode: crate::model::gateway::RoutingMode,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2983,6 +3085,17 @@ impl Gateway {
         self
     }
 
+    /// Sets the value of [addresses][crate::model::Gateway::addresses].
+    pub fn set_addresses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.addresses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
     /// Sets the value of [ports][crate::model::Gateway::ports].
     pub fn set_ports<T, V>(mut self, v: T) -> Self
     where
@@ -3006,6 +3119,74 @@ impl Gateway {
         v: T,
     ) -> Self {
         self.server_tls_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [certificate_urls][crate::model::Gateway::certificate_urls].
+    pub fn set_certificate_urls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.certificate_urls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [gateway_security_policy][crate::model::Gateway::gateway_security_policy].
+    pub fn set_gateway_security_policy<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.gateway_security_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [network][crate::model::Gateway::network].
+    pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.network = v.into();
+        self
+    }
+
+    /// Sets the value of [subnetwork][crate::model::Gateway::subnetwork].
+    pub fn set_subnetwork<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.subnetwork = v.into();
+        self
+    }
+
+    /// Sets the value of [ip_version][crate::model::Gateway::ip_version].
+    pub fn set_ip_version<T: std::convert::Into<crate::model::gateway::IpVersion>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.ip_version = v.into();
+        self
+    }
+
+    /// Sets the value of [envoy_headers][crate::model::Gateway::envoy_headers].
+    pub fn set_envoy_headers<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EnvoyHeaders>,
+    {
+        self.envoy_headers = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [envoy_headers][crate::model::Gateway::envoy_headers].
+    pub fn set_or_clear_envoy_headers<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EnvoyHeaders>,
+    {
+        self.envoy_headers = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [routing_mode][crate::model::Gateway::routing_mode].
+    pub fn set_routing_mode<T: std::convert::Into<crate::model::gateway::RoutingMode>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.routing_mode = v.into();
         self
     }
 }
@@ -3157,6 +3338,276 @@ pub mod gateway {
             ))
         }
     }
+
+    /// The types of IP version for the gateway.
+    /// Possible values are:
+    ///
+    /// * IPV4
+    /// * IPV6
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum IpVersion {
+        /// The type when IP version is not specified. Defaults to IPV4.
+        Unspecified,
+        /// The type for IP version 4.
+        Ipv4,
+        /// The type for IP version 6.
+        Ipv6,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [IpVersion::value] or
+        /// [IpVersion::name].
+        UnknownValue(ip_version::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod ip_version {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl IpVersion {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Ipv4 => std::option::Option::Some(1),
+                Self::Ipv6 => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("IP_VERSION_UNSPECIFIED"),
+                Self::Ipv4 => std::option::Option::Some("IPV4"),
+                Self::Ipv6 => std::option::Option::Some("IPV6"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for IpVersion {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for IpVersion {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for IpVersion {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Ipv4,
+                2 => Self::Ipv6,
+                _ => Self::UnknownValue(ip_version::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for IpVersion {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "IP_VERSION_UNSPECIFIED" => Self::Unspecified,
+                "IPV4" => Self::Ipv4,
+                "IPV6" => Self::Ipv6,
+                _ => Self::UnknownValue(ip_version::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for IpVersion {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Ipv4 => serializer.serialize_i32(1),
+                Self::Ipv6 => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for IpVersion {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<IpVersion>::new(
+                ".google.cloud.networkservices.v1.Gateway.IpVersion",
+            ))
+        }
+    }
+
+    /// The routing mode of the Gateway, to determine how the Gateway routes
+    /// traffic. Today, this field only applies to Gateways of type
+    /// SECURE_WEB_GATEWAY. Possible values are:
+    ///
+    /// * EXPLICIT_ROUTING_MODE
+    /// * NEXT_HOP_ROUTING_MODE
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum RoutingMode {
+        /// The routing mode is explicit; clients are configured to send
+        /// traffic through the gateway. This is the default routing mode.
+        ExplicitRoutingMode,
+        /// The routing mode is next-hop. Clients are unaware of the gateway,
+        /// and a route (advanced route or other route type)
+        /// can be configured to direct traffic from client to gateway.
+        /// The gateway then acts as a next-hop to the destination.
+        NextHopRoutingMode,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [RoutingMode::value] or
+        /// [RoutingMode::name].
+        UnknownValue(routing_mode::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod routing_mode {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl RoutingMode {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::ExplicitRoutingMode => std::option::Option::Some(0),
+                Self::NextHopRoutingMode => std::option::Option::Some(1),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::ExplicitRoutingMode => std::option::Option::Some("EXPLICIT_ROUTING_MODE"),
+                Self::NextHopRoutingMode => std::option::Option::Some("NEXT_HOP_ROUTING_MODE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for RoutingMode {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for RoutingMode {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for RoutingMode {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::ExplicitRoutingMode,
+                1 => Self::NextHopRoutingMode,
+                _ => Self::UnknownValue(routing_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for RoutingMode {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EXPLICIT_ROUTING_MODE" => Self::ExplicitRoutingMode,
+                "NEXT_HOP_ROUTING_MODE" => Self::NextHopRoutingMode,
+                _ => Self::UnknownValue(routing_mode::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for RoutingMode {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::ExplicitRoutingMode => serializer.serialize_i32(0),
+                Self::NextHopRoutingMode => serializer.serialize_i32(1),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for RoutingMode {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<RoutingMode>::new(
+                ".google.cloud.networkservices.v1.Gateway.RoutingMode",
+            ))
+        }
+    }
 }
 
 /// Request used with the ListGateways method.
@@ -3235,6 +3686,11 @@ pub struct ListGatewaysResponse {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
+    /// Locations that could not be reached.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3258,6 +3714,17 @@ impl ListGatewaysResponse {
     /// Sets the value of [next_page_token][crate::model::ListGatewaysResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListGatewaysResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -3494,7 +3961,7 @@ impl wkt::message::Message for DeleteGatewayRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GrpcRoute {
-    /// Required. Name of the GrpcRoute resource. It matches pattern
+    /// Identifier. Name of the GrpcRoute resource. It matches pattern
     /// `projects/*/locations/global/grpcRoutes/<grpc_route_name>`
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
@@ -4559,7 +5026,65 @@ pub mod grpc_route {
         }
     }
 
+    /// The specification for cookie-based stateful session affinity where the
+    /// date plane supplies a “session cookie”  with the name "GSSA" which encodes
+    /// a specific destination host and each request containing that cookie will
+    /// be directed to that host as long as the destination host remains up and
+    /// healthy.
+    ///
+    /// The gRPC proxyless mesh library or sidecar proxy will manage the session
+    /// cookie but the client application code is responsible for copying the
+    /// cookie from each RPC in the session to the next.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct StatefulSessionAffinityPolicy {
+        /// Required. The cookie TTL value for the Set-Cookie header generated by the
+        /// data plane. The lifetime of the cookie may be set to a value from 0 to
+        /// 86400 seconds (24 hours) inclusive.
+        ///
+        /// Set this to 0s to use a session cookie and disable cookie expiration.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub cookie_ttl: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl StatefulSessionAffinityPolicy {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [cookie_ttl][crate::model::grpc_route::StatefulSessionAffinityPolicy::cookie_ttl].
+        pub fn set_cookie_ttl<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.cookie_ttl = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cookie_ttl][crate::model::grpc_route::StatefulSessionAffinityPolicy::cookie_ttl].
+        pub fn set_or_clear_cookie_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.cookie_ttl = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for StatefulSessionAffinityPolicy {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkservices.v1.GrpcRoute.StatefulSessionAffinityPolicy"
+        }
+    }
+
     /// The specifications for retries.
+    /// Specifies one or more conditions for which this retry rule applies. Valid
+    /// values are:
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -4637,12 +5162,12 @@ pub mod grpc_route {
         #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub destinations: std::vec::Vec<crate::model::grpc_route::Destination>,
 
-        /// Optional. The specification for fault injection introduced into traffic to test the
-        /// resiliency of clients to destination service failure. As part of fault
-        /// injection, when clients send requests to a destination, delays can be
-        /// introduced on a percentage of requests before sending those requests to
-        /// the destination service. Similarly requests from clients can be aborted
-        /// by for a percentage of requests.
+        /// Optional. The specification for fault injection introduced into traffic
+        /// to test the resiliency of clients to destination service failure. As part
+        /// of fault injection, when clients send requests to a destination, delays
+        /// can be introduced on a percentage of requests before sending those
+        /// requests to the destination service. Similarly requests from clients can
+        /// be aborted by for a percentage of requests.
         ///
         /// timeout and retry_policy will be ignored by clients that are configured
         /// with a fault_injection_policy
@@ -4660,6 +5185,19 @@ pub mod grpc_route {
         /// Optional. Specifies the retry policy associated with this route.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub retry_policy: std::option::Option<crate::model::grpc_route::RetryPolicy>,
+
+        /// Optional. Specifies cookie-based stateful session affinity.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub stateful_session_affinity:
+            std::option::Option<crate::model::grpc_route::StatefulSessionAffinityPolicy>,
+
+        /// Optional. Specifies the idle timeout for the selected route. The idle
+        /// timeout is defined as the period in which there are no bytes sent or
+        /// received on either the upstream or downstream connection. If not set, the
+        /// default idle timeout is 1 hour. If set to 0s, the timeout will be
+        /// disabled.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub idle_timeout: std::option::Option<wkt::Duration>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4732,6 +5270,45 @@ pub mod grpc_route {
             T: std::convert::Into<crate::model::grpc_route::RetryPolicy>,
         {
             self.retry_policy = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [stateful_session_affinity][crate::model::grpc_route::RouteAction::stateful_session_affinity].
+        pub fn set_stateful_session_affinity<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::StatefulSessionAffinityPolicy>,
+        {
+            self.stateful_session_affinity = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [stateful_session_affinity][crate::model::grpc_route::RouteAction::stateful_session_affinity].
+        pub fn set_or_clear_stateful_session_affinity<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::grpc_route::StatefulSessionAffinityPolicy>,
+        {
+            self.stateful_session_affinity = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [idle_timeout][crate::model::grpc_route::RouteAction::idle_timeout].
+        pub fn set_idle_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.idle_timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [idle_timeout][crate::model::grpc_route::RouteAction::idle_timeout].
+        pub fn set_or_clear_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.idle_timeout = v.map(|x| x.into());
             self
         }
     }
@@ -4831,6 +5408,13 @@ pub struct ListGrpcRoutesRequest {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
+    /// Optional. If true, allow partial responses for multi-regional Aggregated
+    /// List requests. Otherwise if one of the locations is down or unreachable,
+    /// the Aggregated List request will fail.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub return_partial_success: bool,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4855,6 +5439,12 @@ impl ListGrpcRoutesRequest {
     /// Sets the value of [page_token][crate::model::ListGrpcRoutesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [return_partial_success][crate::model::ListGrpcRoutesRequest::return_partial_success].
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
         self
     }
 }
@@ -4883,6 +5473,16 @@ pub struct ListGrpcRoutesResponse {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
+    /// Unreachable resources. Populated when the request opts into
+    /// [return_partial_success][google.cloud.networkservices.v1.ListGrpcRoutesRequest.return_partial_success]
+    /// and reading across collections e.g. when attempting to list all resources
+    /// across all supported locations.
+    ///
+    /// [google.cloud.networkservices.v1.ListGrpcRoutesRequest.return_partial_success]: crate::model::ListGrpcRoutesRequest::return_partial_success
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4906,6 +5506,17 @@ impl ListGrpcRoutesResponse {
     /// Sets the value of [next_page_token][crate::model::ListGrpcRoutesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListGrpcRoutesResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -5142,7 +5753,7 @@ impl wkt::message::Message for DeleteGrpcRouteRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct HttpRoute {
-    /// Required. Name of the HttpRoute resource. It matches pattern
+    /// Identifier. Name of the HttpRoute resource. It matches pattern
     /// `projects/*/locations/global/httpRoutes/http_route_name>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
@@ -6058,6 +6669,21 @@ pub mod http_route {
         #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub weight: i32,
 
+        /// Optional. The specification for modifying the headers of a matching
+        /// request prior to delivery of the request to the destination. If
+        /// HeaderModifiers are set on both the Destination and the RouteAction, they
+        /// will be merged. Conflicts between the two will not be resolved on the
+        /// configuration.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub request_header_modifier: std::option::Option<crate::model::http_route::HeaderModifier>,
+
+        /// Optional. The specification for modifying the headers of a response prior
+        /// to sending the response back to the client. If HeaderModifiers are set on
+        /// both the Destination and the RouteAction, they will be merged. Conflicts
+        /// between the two will not be resolved on the configuration.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub response_header_modifier: std::option::Option<crate::model::http_route::HeaderModifier>,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -6079,6 +6705,42 @@ pub mod http_route {
         /// Sets the value of [weight][crate::model::http_route::Destination::weight].
         pub fn set_weight<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
             self.weight = v.into();
+            self
+        }
+
+        /// Sets the value of [request_header_modifier][crate::model::http_route::Destination::request_header_modifier].
+        pub fn set_request_header_modifier<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::HeaderModifier>,
+        {
+            self.request_header_modifier = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [request_header_modifier][crate::model::http_route::Destination::request_header_modifier].
+        pub fn set_or_clear_request_header_modifier<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::HeaderModifier>,
+        {
+            self.request_header_modifier = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [response_header_modifier][crate::model::http_route::Destination::response_header_modifier].
+        pub fn set_response_header_modifier<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::HeaderModifier>,
+        {
+            self.response_header_modifier = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [response_header_modifier][crate::model::http_route::Destination::response_header_modifier].
+        pub fn set_or_clear_response_header_modifier<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::HeaderModifier>,
+        {
+            self.response_header_modifier = v.map(|x| x.into());
             self
         }
     }
@@ -6566,6 +7228,62 @@ pub mod http_route {
         }
     }
 
+    /// The specification for cookie-based stateful session affinity where the
+    /// date plane supplies a “session cookie”  with the name "GSSA" which encodes
+    /// a specific destination host and each request containing that cookie will
+    /// be directed to that host as long as the destination host remains up and
+    /// healthy.
+    ///
+    /// The gRPC proxyless mesh library or sidecar proxy will manage the session
+    /// cookie but the client application code is responsible for copying the
+    /// cookie from each RPC in the session to the next.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct StatefulSessionAffinityPolicy {
+        /// Required. The cookie TTL value for the Set-Cookie header generated by
+        /// the data plane. The lifetime of the cookie may be set to a value from 0
+        /// to 86400 seconds (24 hours) inclusive.
+        ///
+        /// Set this to 0s to use a session cookie and disable cookie expiration.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub cookie_ttl: std::option::Option<wkt::Duration>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl StatefulSessionAffinityPolicy {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [cookie_ttl][crate::model::http_route::StatefulSessionAffinityPolicy::cookie_ttl].
+        pub fn set_cookie_ttl<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.cookie_ttl = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [cookie_ttl][crate::model::http_route::StatefulSessionAffinityPolicy::cookie_ttl].
+        pub fn set_or_clear_cookie_ttl<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.cookie_ttl = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for StatefulSessionAffinityPolicy {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkservices.v1.HttpRoute.StatefulSessionAffinityPolicy"
+        }
+    }
+
     /// The specification for modifying HTTP header in HTTP request and HTTP
     /// response.
     #[serde_with::serde_as]
@@ -6791,6 +7509,7 @@ pub mod http_route {
     /// destination service. The proxy does not wait for responses from the
     /// shadow service. Prior to sending traffic to the shadow service, the
     /// host/authority header is suffixed with -shadow.
+    /// Mirroring is currently not supported for Cloud Run destinations.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -6800,6 +7519,12 @@ pub mod http_route {
         /// destination will be ignored.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub destination: std::option::Option<crate::model::http_route::Destination>,
+
+        /// Optional. The percentage of requests to get mirrored to the desired
+        /// destination.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
+        pub mirror_percent: f32,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6825,6 +7550,12 @@ pub mod http_route {
             T: std::convert::Into<crate::model::http_route::Destination>,
         {
             self.destination = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [mirror_percent][crate::model::http_route::RequestMirrorPolicy::mirror_percent].
+        pub fn set_mirror_percent<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+            self.mirror_percent = v.into();
             self
         }
     }
@@ -6980,6 +7711,133 @@ pub mod http_route {
         }
     }
 
+    /// Static HTTP response object to be returned.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct HttpDirectResponse {
+        /// Required. Status to return as part of HTTP Response. Must be a positive
+        /// integer.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
+        pub status: i32,
+
+        /// Body to return as part of HTTP Response.
+        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+        pub http_body:
+            std::option::Option<crate::model::http_route::http_direct_response::HttpBody>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl HttpDirectResponse {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [status][crate::model::http_route::HttpDirectResponse::status].
+        pub fn set_status<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.status = v.into();
+            self
+        }
+
+        /// Sets the value of [http_body][crate::model::http_route::HttpDirectResponse::http_body].
+        ///
+        /// Note that all the setters affecting `http_body` are mutually
+        /// exclusive.
+        pub fn set_http_body<
+            T: std::convert::Into<
+                    std::option::Option<crate::model::http_route::http_direct_response::HttpBody>,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.http_body = v.into();
+            self
+        }
+
+        /// The value of [http_body][crate::model::http_route::HttpDirectResponse::http_body]
+        /// if it holds a `StringBody`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn string_body(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.http_body.as_ref().and_then(|v| match v {
+                crate::model::http_route::http_direct_response::HttpBody::StringBody(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [http_body][crate::model::http_route::HttpDirectResponse::http_body]
+        /// to hold a `StringBody`.
+        ///
+        /// Note that all the setters affecting `http_body` are
+        /// mutually exclusive.
+        pub fn set_string_body<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.http_body = std::option::Option::Some(
+                crate::model::http_route::http_direct_response::HttpBody::StringBody(v.into()),
+            );
+            self
+        }
+
+        /// The value of [http_body][crate::model::http_route::HttpDirectResponse::http_body]
+        /// if it holds a `BytesBody`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn bytes_body(&self) -> std::option::Option<&::bytes::Bytes> {
+            #[allow(unreachable_patterns)]
+            self.http_body.as_ref().and_then(|v| match v {
+                crate::model::http_route::http_direct_response::HttpBody::BytesBody(v) => {
+                    std::option::Option::Some(v)
+                }
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [http_body][crate::model::http_route::HttpDirectResponse::http_body]
+        /// to hold a `BytesBody`.
+        ///
+        /// Note that all the setters affecting `http_body` are
+        /// mutually exclusive.
+        pub fn set_bytes_body<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+            self.http_body = std::option::Option::Some(
+                crate::model::http_route::http_direct_response::HttpBody::BytesBody(v.into()),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for HttpDirectResponse {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkservices.v1.HttpRoute.HttpDirectResponse"
+        }
+    }
+
+    /// Defines additional types related to [HttpDirectResponse].
+    pub mod http_direct_response {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Body to return as part of HTTP Response.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub enum HttpBody {
+            /// Optional. Response body as a string. Maximum body length is 1024
+            /// characters.
+            StringBody(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+            /// Optional. Response body as bytes. Maximum body size is 4096B.
+            BytesBody(
+                #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+                ::bytes::Bytes,
+            ),
+        }
+    }
+
     /// The specifications for routing traffic and applying associated policies.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -7049,6 +7907,24 @@ pub mod http_route {
         /// The specification for allowing client side cross-origin requests.
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub cors_policy: std::option::Option<crate::model::http_route::CorsPolicy>,
+
+        /// Optional. Specifies cookie-based stateful session affinity.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub stateful_session_affinity:
+            std::option::Option<crate::model::http_route::StatefulSessionAffinityPolicy>,
+
+        /// Optional. Static HTTP Response object to be returned regardless of the
+        /// request.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub direct_response: std::option::Option<crate::model::http_route::HttpDirectResponse>,
+
+        /// Optional. Specifies the idle timeout for the selected route. The idle
+        /// timeout is defined as the period in which there are no bytes sent or
+        /// received on either the upstream or downstream connection. If not set, the
+        /// default idle timeout is 1 hour. If set to 0s, the timeout will be
+        /// disabled.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub idle_timeout: std::option::Option<wkt::Duration>,
 
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7231,6 +8107,63 @@ pub mod http_route {
             self.cors_policy = v.map(|x| x.into());
             self
         }
+
+        /// Sets the value of [stateful_session_affinity][crate::model::http_route::RouteAction::stateful_session_affinity].
+        pub fn set_stateful_session_affinity<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::StatefulSessionAffinityPolicy>,
+        {
+            self.stateful_session_affinity = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [stateful_session_affinity][crate::model::http_route::RouteAction::stateful_session_affinity].
+        pub fn set_or_clear_stateful_session_affinity<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::StatefulSessionAffinityPolicy>,
+        {
+            self.stateful_session_affinity = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [direct_response][crate::model::http_route::RouteAction::direct_response].
+        pub fn set_direct_response<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::HttpDirectResponse>,
+        {
+            self.direct_response = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [direct_response][crate::model::http_route::RouteAction::direct_response].
+        pub fn set_or_clear_direct_response<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::http_route::HttpDirectResponse>,
+        {
+            self.direct_response = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [idle_timeout][crate::model::http_route::RouteAction::idle_timeout].
+        pub fn set_idle_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.idle_timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [idle_timeout][crate::model::http_route::RouteAction::idle_timeout].
+        pub fn set_or_clear_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.idle_timeout = v.map(|x| x.into());
+            self
+        }
     }
 
     impl wkt::message::Message for RouteAction {
@@ -7333,6 +8266,13 @@ pub struct ListHttpRoutesRequest {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
+    /// Optional. If true, allow partial responses for multi-regional Aggregated
+    /// List requests. Otherwise if one of the locations is down or unreachable,
+    /// the Aggregated List request will fail.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub return_partial_success: bool,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7357,6 +8297,12 @@ impl ListHttpRoutesRequest {
     /// Sets the value of [page_token][crate::model::ListHttpRoutesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [return_partial_success][crate::model::ListHttpRoutesRequest::return_partial_success].
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
         self
     }
 }
@@ -7385,6 +8331,16 @@ pub struct ListHttpRoutesResponse {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
+    /// Unreachable resources. Populated when the request opts into
+    /// [return_partial_success][google.cloud.networkservices.v1.ListHttpRoutesRequest.return_partial_success]
+    /// and reading across collections e.g. when attempting to list all resources
+    /// across all supported locations.
+    ///
+    /// [google.cloud.networkservices.v1.ListHttpRoutesRequest.return_partial_success]: crate::model::ListHttpRoutesRequest::return_partial_success
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7408,6 +8364,17 @@ impl ListHttpRoutesResponse {
     /// Sets the value of [next_page_token][crate::model::ListHttpRoutesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListHttpRoutesResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -7645,7 +8612,7 @@ impl wkt::message::Message for DeleteHttpRouteRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Mesh {
-    /// Required. Name of the Mesh resource. It matches pattern
+    /// Identifier. Name of the Mesh resource. It matches pattern
     /// `projects/*/locations/global/meshes/<mesh_name>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
@@ -7684,6 +8651,12 @@ pub struct Mesh {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub interception_port: i32,
+
+    /// Optional. Determines if envoy will insert internal debug headers into
+    /// upstream requests. Other Envoy headers may still be injected. By default,
+    /// envoy will not insert any debug headers.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub envoy_headers: std::option::Option<crate::model::EnvoyHeaders>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -7765,6 +8738,24 @@ impl Mesh {
         self.interception_port = v.into();
         self
     }
+
+    /// Sets the value of [envoy_headers][crate::model::Mesh::envoy_headers].
+    pub fn set_envoy_headers<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::EnvoyHeaders>,
+    {
+        self.envoy_headers = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [envoy_headers][crate::model::Mesh::envoy_headers].
+    pub fn set_or_clear_envoy_headers<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::EnvoyHeaders>,
+    {
+        self.envoy_headers = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for Mesh {
@@ -7797,6 +8788,13 @@ pub struct ListMeshesRequest {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
+    /// Optional. If true, allow partial responses for multi-regional Aggregated
+    /// List requests. Otherwise if one of the locations is down or unreachable,
+    /// the Aggregated List request will fail.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub return_partial_success: bool,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7821,6 +8819,12 @@ impl ListMeshesRequest {
     /// Sets the value of [page_token][crate::model::ListMeshesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [return_partial_success][crate::model::ListMeshesRequest::return_partial_success].
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
         self
     }
 }
@@ -7849,6 +8853,13 @@ pub struct ListMeshesResponse {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
+    /// Unreachable resources. Populated when the request opts into
+    /// `return_partial_success` and reading across collections e.g. when
+    /// attempting to list all resources across all supported locations.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -7872,6 +8883,17 @@ impl ListMeshesResponse {
     /// Sets the value of [next_page_token][crate::model::ListMeshesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListMeshesResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -8101,15 +9123,531 @@ impl wkt::message::Message for DeleteMeshRequest {
     }
 }
 
-/// ServiceBinding is the resource that defines a Service Directory Service to
-/// be used in a BackendService resource.
+/// GatewayRouteView defines view-only resource for Routes to a Gateway
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GatewayRouteView {
+    /// Output only. Identifier. Full path name of the GatewayRouteView resource.
+    /// Format:
+    /// projects/{project_number}/locations/{location}/gateways/{gateway}/routeViews/{route_view}
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    /// Output only. Project number where the route exists.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
+    pub route_project_number: i64,
+
+    /// Output only. Location where the route exists.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub route_location: std::string::String,
+
+    /// Output only. Type of the route: HttpRoute,GrpcRoute,TcpRoute, or TlsRoute
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub route_type: std::string::String,
+
+    /// Output only. The resource id for the route.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub route_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GatewayRouteView {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GatewayRouteView::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [route_project_number][crate::model::GatewayRouteView::route_project_number].
+    pub fn set_route_project_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.route_project_number = v.into();
+        self
+    }
+
+    /// Sets the value of [route_location][crate::model::GatewayRouteView::route_location].
+    pub fn set_route_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.route_location = v.into();
+        self
+    }
+
+    /// Sets the value of [route_type][crate::model::GatewayRouteView::route_type].
+    pub fn set_route_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.route_type = v.into();
+        self
+    }
+
+    /// Sets the value of [route_id][crate::model::GatewayRouteView::route_id].
+    pub fn set_route_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.route_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GatewayRouteView {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.GatewayRouteView"
+    }
+}
+
+/// MeshRouteView defines view-only resource for Routes to a Mesh
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MeshRouteView {
+    /// Output only. Identifier. Full path name of the MeshRouteView resource.
+    /// Format:
+    /// projects/{project}/locations/{location}/meshes/{mesh}/routeViews/{route_view}
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    /// Output only. Project number where the route exists.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
+    pub route_project_number: i64,
+
+    /// Output only. Location where the route exists.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub route_location: std::string::String,
+
+    /// Output only. Type of the route: HttpRoute,GrpcRoute,TcpRoute, or TlsRoute
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub route_type: std::string::String,
+
+    /// Output only. The resource id for the route.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub route_id: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MeshRouteView {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::MeshRouteView::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [route_project_number][crate::model::MeshRouteView::route_project_number].
+    pub fn set_route_project_number<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.route_project_number = v.into();
+        self
+    }
+
+    /// Sets the value of [route_location][crate::model::MeshRouteView::route_location].
+    pub fn set_route_location<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.route_location = v.into();
+        self
+    }
+
+    /// Sets the value of [route_type][crate::model::MeshRouteView::route_type].
+    pub fn set_route_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.route_type = v.into();
+        self
+    }
+
+    /// Sets the value of [route_id][crate::model::MeshRouteView::route_id].
+    pub fn set_route_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.route_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MeshRouteView {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.MeshRouteView"
+    }
+}
+
+/// Request used with the GetGatewayRouteView method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetGatewayRouteViewRequest {
+    /// Required. Name of the GatewayRouteView resource.
+    /// Formats:
+    /// projects/{project}/locations/{location}/gateways/{gateway}/routeViews/{route_view}
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetGatewayRouteViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetGatewayRouteViewRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetGatewayRouteViewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.GetGatewayRouteViewRequest"
+    }
+}
+
+/// Request used with the GetMeshRouteView method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetMeshRouteViewRequest {
+    /// Required. Name of the MeshRouteView resource.
+    /// Format:
+    /// projects/{project}/locations/{location}/meshes/{mesh}/routeViews/{route_view}
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetMeshRouteViewRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetMeshRouteViewRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetMeshRouteViewRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.GetMeshRouteViewRequest"
+    }
+}
+
+/// Request used with the ListGatewayRouteViews method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListGatewayRouteViewsRequest {
+    /// Required. The Gateway to which a Route is associated.
+    /// Formats:
+    /// projects/{project}/locations/{location}/gateways/{gateway}
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub parent: std::string::String,
+
+    /// Maximum number of GatewayRouteViews to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
+    pub page_size: i32,
+
+    /// The value returned by the last `ListGatewayRouteViewsResponse`
+    /// Indicates that this is a continuation of a prior `ListGatewayRouteViews`
+    /// call, and that the system should return the next page of data.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListGatewayRouteViewsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListGatewayRouteViewsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListGatewayRouteViewsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListGatewayRouteViewsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListGatewayRouteViewsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListGatewayRouteViewsRequest"
+    }
+}
+
+/// Request used with the ListMeshRouteViews method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListMeshRouteViewsRequest {
+    /// Required. The Mesh to which a Route is associated.
+    /// Format:
+    /// projects/{project}/locations/{location}/meshes/{mesh}
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub parent: std::string::String,
+
+    /// Maximum number of MeshRouteViews to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
+    pub page_size: i32,
+
+    /// The value returned by the last `ListMeshRouteViewsResponse`
+    /// Indicates that this is a continuation of a prior `ListMeshRouteViews` call,
+    /// and that the system should return the next page of data.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMeshRouteViewsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListMeshRouteViewsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListMeshRouteViewsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListMeshRouteViewsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMeshRouteViewsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListMeshRouteViewsRequest"
+    }
+}
+
+/// Response returned by the ListGatewayRouteViews method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListGatewayRouteViewsResponse {
+    /// List of GatewayRouteView resources.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub gateway_route_views: std::vec::Vec<crate::model::GatewayRouteView>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub next_page_token: std::string::String,
+
+    /// Unreachable resources. Populated when the request attempts to list all
+    /// resources across all supported locations, while some locations are
+    /// temporarily unavailable.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListGatewayRouteViewsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [gateway_route_views][crate::model::ListGatewayRouteViewsResponse::gateway_route_views].
+    pub fn set_gateway_route_views<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::GatewayRouteView>,
+    {
+        use std::iter::Iterator;
+        self.gateway_route_views = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListGatewayRouteViewsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListGatewayRouteViewsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListGatewayRouteViewsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListGatewayRouteViewsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListGatewayRouteViewsResponse {
+    type PageItem = crate::model::GatewayRouteView;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.gateway_route_views
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Response returned by the ListMeshRouteViews method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListMeshRouteViewsResponse {
+    /// List of MeshRouteView resources.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub mesh_route_views: std::vec::Vec<crate::model::MeshRouteView>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub next_page_token: std::string::String,
+
+    /// Unreachable resources. Populated when the request attempts to list all
+    /// resources across all supported locations, while some locations are
+    /// temporarily unavailable.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListMeshRouteViewsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [mesh_route_views][crate::model::ListMeshRouteViewsResponse::mesh_route_views].
+    pub fn set_mesh_route_views<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::MeshRouteView>,
+    {
+        use std::iter::Iterator;
+        self.mesh_route_views = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListMeshRouteViewsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListMeshRouteViewsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListMeshRouteViewsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListMeshRouteViewsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListMeshRouteViewsResponse {
+    type PageItem = crate::model::MeshRouteView;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.mesh_route_views
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// ServiceBinding can be used to:
+///
+/// - Bind a Service Directory Service to be used in a BackendService resource.
+///   This feature will be deprecated soon.
+/// - Bind a Private Service Connect producer service to be used in consumer
+///   Cloud Service Mesh or Application Load Balancers.
+/// - Bind a Cloud Run service to be used in consumer Cloud Service Mesh or
+///   Application Load Balancers.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ServiceBinding {
-    /// Required. Name of the ServiceBinding resource. It matches pattern
-    /// `projects/*/locations/global/serviceBindings/service_binding_name`.
+    /// Identifier. Name of the ServiceBinding resource. It matches pattern
+    /// `projects/*/locations/*/serviceBindings/<service_binding_name>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
@@ -8128,11 +9666,24 @@ pub struct ServiceBinding {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// Required. The full service directory service name of the format
-    /// /projects/*/locations/*/namespaces/*/services/*
+    /// Optional. The full Service Directory Service name of the format
+    /// `projects/*/locations/*/namespaces/*/services/*`.
+    /// This field is for Service Directory integration which will be deprecated
+    /// soon.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    #[deprecated]
     pub service: std::string::String,
+
+    /// Output only. The unique identifier of the Service Directory Service against
+    /// which the ServiceBinding resource is validated. This is populated when the
+    /// Service Binding resource is used in another resource (like Backend
+    /// Service). This is of the UUID4 format. This field is for Service Directory
+    /// integration which will be deprecated soon.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    #[deprecated]
+    pub service_id: std::string::String,
 
     /// Optional. Set of label tags associated with the ServiceBinding resource.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
@@ -8197,8 +9748,16 @@ impl ServiceBinding {
     }
 
     /// Sets the value of [service][crate::model::ServiceBinding::service].
+    #[deprecated]
     pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.service = v.into();
+        self
+    }
+
+    /// Sets the value of [service_id][crate::model::ServiceBinding::service_id].
+    #[deprecated]
+    pub fn set_service_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service_id = v.into();
         self
     }
 
@@ -8228,7 +9787,7 @@ impl wkt::message::Message for ServiceBinding {
 #[non_exhaustive]
 pub struct ListServiceBindingsRequest {
     /// Required. The project and location from which the ServiceBindings should be
-    /// listed, specified in the format `projects/*/locations/global`.
+    /// listed, specified in the format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
@@ -8297,6 +9856,13 @@ pub struct ListServiceBindingsResponse {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
+    /// Unreachable resources. Populated when the request attempts to list all
+    /// resources across all supported locations, while some locations are
+    /// temporarily unavailable.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8320,6 +9886,17 @@ impl ListServiceBindingsResponse {
     /// Sets the value of [next_page_token][crate::model::ListServiceBindingsResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListServiceBindingsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -8351,7 +9928,7 @@ impl gax::paginator::internal::PageableResponse for ListServiceBindingsResponse 
 #[non_exhaustive]
 pub struct GetServiceBindingRequest {
     /// Required. A name of the ServiceBinding to get. Must be in the format
-    /// `projects/*/locations/global/serviceBindings/*`.
+    /// `projects/*/locations/*/serviceBindings/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
@@ -8385,7 +9962,7 @@ impl wkt::message::Message for GetServiceBindingRequest {
 #[non_exhaustive]
 pub struct CreateServiceBindingRequest {
     /// Required. The parent resource of the ServiceBinding. Must be in the
-    /// format `projects/*/locations/global`.
+    /// format `projects/*/locations/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
@@ -8448,6 +10025,76 @@ impl wkt::message::Message for CreateServiceBindingRequest {
     }
 }
 
+/// Request used by the UpdateServiceBinding method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateServiceBindingRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// ServiceBinding resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. Updated ServiceBinding resource.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub service_binding: std::option::Option<crate::model::ServiceBinding>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateServiceBindingRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateServiceBindingRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateServiceBindingRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [service_binding][crate::model::UpdateServiceBindingRequest::service_binding].
+    pub fn set_service_binding<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceBinding>,
+    {
+        self.service_binding = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_binding][crate::model::UpdateServiceBindingRequest::service_binding].
+    pub fn set_or_clear_service_binding<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceBinding>,
+    {
+        self.service_binding = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateServiceBindingRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.UpdateServiceBindingRequest"
+    }
+}
+
 /// Request used by the DeleteServiceBinding method.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -8455,7 +10102,7 @@ impl wkt::message::Message for CreateServiceBindingRequest {
 #[non_exhaustive]
 pub struct DeleteServiceBindingRequest {
     /// Required. A name of the ServiceBinding to delete. Must be in the format
-    /// `projects/*/locations/global/serviceBindings/*`.
+    /// `projects/*/locations/*/serviceBindings/*`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
@@ -8482,6 +10129,769 @@ impl wkt::message::Message for DeleteServiceBindingRequest {
     }
 }
 
+/// ServiceLbPolicy holds global load balancing and traffic distribution
+/// configuration that can be applied to a BackendService.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ServiceLbPolicy {
+    /// Identifier. Name of the ServiceLbPolicy resource. It matches pattern
+    /// `projects/{project}/locations/{location}/serviceLbPolicies/{service_lb_policy_name}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when this resource was created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when this resource was last updated.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. Set of label tags associated with the ServiceLbPolicy resource.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. A free-text description of the resource. Max length 1024
+    /// characters.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub description: std::string::String,
+
+    /// Optional. The type of load balancing algorithm to be used. The default
+    /// behavior is WATERFALL_BY_REGION.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub load_balancing_algorithm: crate::model::service_lb_policy::LoadBalancingAlgorithm,
+
+    /// Optional. Configuration to automatically move traffic away for unhealthy
+    /// IG/NEG for the associated Backend Service.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub auto_capacity_drain:
+        std::option::Option<crate::model::service_lb_policy::AutoCapacityDrain>,
+
+    /// Optional. Configuration related to health based failover.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub failover_config: std::option::Option<crate::model::service_lb_policy::FailoverConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ServiceLbPolicy {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::ServiceLbPolicy::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::ServiceLbPolicy::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::ServiceLbPolicy::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::ServiceLbPolicy::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::ServiceLbPolicy::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::ServiceLbPolicy::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [description][crate::model::ServiceLbPolicy::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [load_balancing_algorithm][crate::model::ServiceLbPolicy::load_balancing_algorithm].
+    pub fn set_load_balancing_algorithm<
+        T: std::convert::Into<crate::model::service_lb_policy::LoadBalancingAlgorithm>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.load_balancing_algorithm = v.into();
+        self
+    }
+
+    /// Sets the value of [auto_capacity_drain][crate::model::ServiceLbPolicy::auto_capacity_drain].
+    pub fn set_auto_capacity_drain<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::service_lb_policy::AutoCapacityDrain>,
+    {
+        self.auto_capacity_drain = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auto_capacity_drain][crate::model::ServiceLbPolicy::auto_capacity_drain].
+    pub fn set_or_clear_auto_capacity_drain<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::service_lb_policy::AutoCapacityDrain>,
+    {
+        self.auto_capacity_drain = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [failover_config][crate::model::ServiceLbPolicy::failover_config].
+    pub fn set_failover_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::service_lb_policy::FailoverConfig>,
+    {
+        self.failover_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [failover_config][crate::model::ServiceLbPolicy::failover_config].
+    pub fn set_or_clear_failover_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::service_lb_policy::FailoverConfig>,
+    {
+        self.failover_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ServiceLbPolicy {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ServiceLbPolicy"
+    }
+}
+
+/// Defines additional types related to [ServiceLbPolicy].
+pub mod service_lb_policy {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Option to specify if an unhealthy IG/NEG should be considered for global
+    /// load balancing and traffic routing.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct AutoCapacityDrain {
+        /// Optional. If set to 'True', an unhealthy IG/NEG will be set as drained.
+        ///
+        /// - An IG/NEG is considered unhealthy if less than 25% of the
+        ///   instances/endpoints in the IG/NEG are healthy.
+        /// - This option will never result in draining more than 50% of the
+        ///   configured IGs/NEGs for the Backend Service.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+        pub enable: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AutoCapacityDrain {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enable][crate::model::service_lb_policy::AutoCapacityDrain::enable].
+        pub fn set_enable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enable = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AutoCapacityDrain {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkservices.v1.ServiceLbPolicy.AutoCapacityDrain"
+        }
+    }
+
+    /// Option to specify health based failover behavior.
+    /// This is not related to Network load balancer FailoverPolicy.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct FailoverConfig {
+        /// Optional. The percentage threshold that a load balancer will begin to
+        /// send traffic to failover backends. If the percentage of endpoints in a
+        /// MIG/NEG is smaller than this value, traffic would be sent to failover
+        /// backends if possible. This field should be set to a value between 1
+        /// and 99. The default value is 50 for Global external HTTP(S) load balancer
+        /// (classic) and Proxyless service mesh, and 70 for others.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
+        pub failover_health_threshold: i32,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl FailoverConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [failover_health_threshold][crate::model::service_lb_policy::FailoverConfig::failover_health_threshold].
+        pub fn set_failover_health_threshold<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+            self.failover_health_threshold = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for FailoverConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkservices.v1.ServiceLbPolicy.FailoverConfig"
+        }
+    }
+
+    /// The global load balancing algorithm to be used.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum LoadBalancingAlgorithm {
+        /// The type of the loadbalancing algorithm is unspecified.
+        Unspecified,
+        /// Balance traffic across all backends across the world proportionally based
+        /// on capacity.
+        SprayToWorld,
+        /// Direct traffic to the nearest region with endpoints and capacity before
+        /// spilling over to other regions and spread the traffic from each client to
+        /// all the MIGs/NEGs in a region.
+        SprayToRegion,
+        /// Direct traffic to the nearest region with endpoints and capacity before
+        /// spilling over to other regions. All MIGs/NEGs within a region are evenly
+        /// loaded but each client might not spread the traffic to all the MIGs/NEGs
+        /// in the region.
+        WaterfallByRegion,
+        /// Attempt to keep traffic in a single zone closest to the client, before
+        /// spilling over to other zones.
+        WaterfallByZone,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [LoadBalancingAlgorithm::value] or
+        /// [LoadBalancingAlgorithm::name].
+        UnknownValue(load_balancing_algorithm::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod load_balancing_algorithm {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl LoadBalancingAlgorithm {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::SprayToWorld => std::option::Option::Some(3),
+                Self::SprayToRegion => std::option::Option::Some(4),
+                Self::WaterfallByRegion => std::option::Option::Some(5),
+                Self::WaterfallByZone => std::option::Option::Some(6),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("LOAD_BALANCING_ALGORITHM_UNSPECIFIED")
+                }
+                Self::SprayToWorld => std::option::Option::Some("SPRAY_TO_WORLD"),
+                Self::SprayToRegion => std::option::Option::Some("SPRAY_TO_REGION"),
+                Self::WaterfallByRegion => std::option::Option::Some("WATERFALL_BY_REGION"),
+                Self::WaterfallByZone => std::option::Option::Some("WATERFALL_BY_ZONE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for LoadBalancingAlgorithm {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for LoadBalancingAlgorithm {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for LoadBalancingAlgorithm {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                3 => Self::SprayToWorld,
+                4 => Self::SprayToRegion,
+                5 => Self::WaterfallByRegion,
+                6 => Self::WaterfallByZone,
+                _ => Self::UnknownValue(load_balancing_algorithm::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for LoadBalancingAlgorithm {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "LOAD_BALANCING_ALGORITHM_UNSPECIFIED" => Self::Unspecified,
+                "SPRAY_TO_WORLD" => Self::SprayToWorld,
+                "SPRAY_TO_REGION" => Self::SprayToRegion,
+                "WATERFALL_BY_REGION" => Self::WaterfallByRegion,
+                "WATERFALL_BY_ZONE" => Self::WaterfallByZone,
+                _ => Self::UnknownValue(load_balancing_algorithm::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for LoadBalancingAlgorithm {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::SprayToWorld => serializer.serialize_i32(3),
+                Self::SprayToRegion => serializer.serialize_i32(4),
+                Self::WaterfallByRegion => serializer.serialize_i32(5),
+                Self::WaterfallByZone => serializer.serialize_i32(6),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for LoadBalancingAlgorithm {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<LoadBalancingAlgorithm>::new(
+                ".google.cloud.networkservices.v1.ServiceLbPolicy.LoadBalancingAlgorithm",
+            ))
+        }
+    }
+}
+
+/// Request used with the ListServiceLbPolicies method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListServiceLbPoliciesRequest {
+    /// Required. The project and location from which the ServiceLbPolicies should
+    /// be listed, specified in the format
+    /// `projects/{project}/locations/{location}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub parent: std::string::String,
+
+    /// Maximum number of ServiceLbPolicies to return per call.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
+    pub page_size: i32,
+
+    /// The value returned by the last `ListServiceLbPoliciesResponse`
+    /// Indicates that this is a continuation of a prior `ListRouters` call,
+    /// and that the system should return the next page of data.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListServiceLbPoliciesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListServiceLbPoliciesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListServiceLbPoliciesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListServiceLbPoliciesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListServiceLbPoliciesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListServiceLbPoliciesRequest"
+    }
+}
+
+/// Response returned by the ListServiceLbPolicies method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListServiceLbPoliciesResponse {
+    /// List of ServiceLbPolicy resources.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub service_lb_policies: std::vec::Vec<crate::model::ServiceLbPolicy>,
+
+    /// If there might be more results than those appearing in this response, then
+    /// `next_page_token` is included. To get the next set of results, call this
+    /// method again using the value of `next_page_token` as `page_token`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub next_page_token: std::string::String,
+
+    /// Unreachable resources. Populated when the request attempts to list all
+    /// resources across all supported locations, while some locations are
+    /// temporarily unavailable.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListServiceLbPoliciesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [service_lb_policies][crate::model::ListServiceLbPoliciesResponse::service_lb_policies].
+    pub fn set_service_lb_policies<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::ServiceLbPolicy>,
+    {
+        use std::iter::Iterator;
+        self.service_lb_policies = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListServiceLbPoliciesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListServiceLbPoliciesResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListServiceLbPoliciesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListServiceLbPoliciesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListServiceLbPoliciesResponse {
+    type PageItem = crate::model::ServiceLbPolicy;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.service_lb_policies
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request used by the GetServiceLbPolicy method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetServiceLbPolicyRequest {
+    /// Required. A name of the ServiceLbPolicy to get. Must be in the format
+    /// `projects/{project}/locations/{location}/serviceLbPolicies/*`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetServiceLbPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetServiceLbPolicyRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetServiceLbPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.GetServiceLbPolicyRequest"
+    }
+}
+
+/// Request used by the ServiceLbPolicy method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateServiceLbPolicyRequest {
+    /// Required. The parent resource of the ServiceLbPolicy. Must be in the
+    /// format `projects/{project}/locations/{location}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub parent: std::string::String,
+
+    /// Required. Short name of the ServiceLbPolicy resource to be created.
+    /// E.g. for resource name
+    /// `projects/{project}/locations/{location}/serviceLbPolicies/{service_lb_policy_name}`.
+    /// the id is value of {service_lb_policy_name}
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub service_lb_policy_id: std::string::String,
+
+    /// Required. ServiceLbPolicy resource to be created.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub service_lb_policy: std::option::Option<crate::model::ServiceLbPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateServiceLbPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateServiceLbPolicyRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [service_lb_policy_id][crate::model::CreateServiceLbPolicyRequest::service_lb_policy_id].
+    pub fn set_service_lb_policy_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.service_lb_policy_id = v.into();
+        self
+    }
+
+    /// Sets the value of [service_lb_policy][crate::model::CreateServiceLbPolicyRequest::service_lb_policy].
+    pub fn set_service_lb_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceLbPolicy>,
+    {
+        self.service_lb_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_lb_policy][crate::model::CreateServiceLbPolicyRequest::service_lb_policy].
+    pub fn set_or_clear_service_lb_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceLbPolicy>,
+    {
+        self.service_lb_policy = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateServiceLbPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.CreateServiceLbPolicyRequest"
+    }
+}
+
+/// Request used by the UpdateServiceLbPolicy method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateServiceLbPolicyRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// ServiceLbPolicy resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. Updated ServiceLbPolicy resource.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub service_lb_policy: std::option::Option<crate::model::ServiceLbPolicy>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateServiceLbPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateServiceLbPolicyRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateServiceLbPolicyRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [service_lb_policy][crate::model::UpdateServiceLbPolicyRequest::service_lb_policy].
+    pub fn set_service_lb_policy<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceLbPolicy>,
+    {
+        self.service_lb_policy = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [service_lb_policy][crate::model::UpdateServiceLbPolicyRequest::service_lb_policy].
+    pub fn set_or_clear_service_lb_policy<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ServiceLbPolicy>,
+    {
+        self.service_lb_policy = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateServiceLbPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.UpdateServiceLbPolicyRequest"
+    }
+}
+
+/// Request used by the DeleteServiceLbPolicy method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteServiceLbPolicyRequest {
+    /// Required. A name of the ServiceLbPolicy to delete. Must be in the format
+    /// `projects/{project}/locations/{location}/serviceLbPolicies/*`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteServiceLbPolicyRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteServiceLbPolicyRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteServiceLbPolicyRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.DeleteServiceLbPolicyRequest"
+    }
+}
+
 /// TcpRoute is the resource defining how TCP traffic should be routed by a
 /// Mesh/Gateway resource.
 #[serde_with::serde_as]
@@ -8489,7 +10899,7 @@ impl wkt::message::Message for DeleteServiceBindingRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TcpRoute {
-    /// Required. Name of the TcpRoute resource. It matches pattern
+    /// Identifier. Name of the TcpRoute resource. It matches pattern
     /// `projects/*/locations/global/tcpRoutes/tcp_route_name>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
@@ -8742,12 +11152,11 @@ pub mod tcp_route {
         /// Required. Must be specified in the CIDR range format. A CIDR range
         /// consists of an IP Address and a prefix length to construct the subnet
         /// mask. By default, the prefix length is 32 (i.e. matches a single IP
-        /// address). Only IPV4 addresses are supported.
-        /// Examples:
-        /// "10.0.0.1" - matches against this exact IP address.
-        /// "10.0.0.0/8" - matches against any IP address within the 10.0.0.0 subnet
-        /// and 255.255.255.0 mask.
-        /// "0.0.0.0/0" - matches against any IP address'.
+        /// address). Only IPV4 addresses are supported. Examples: "10.0.0.1" -
+        /// matches against this exact IP address. "10.0.0.0/8" - matches against any
+        /// IP address within the 10.0.0.0 subnet and 255.255.255.0 mask. "0.0.0.0/0"
+        ///
+        /// - matches against any IP address'.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub address: std::string::String,
@@ -8805,6 +11214,14 @@ pub mod tcp_route {
         #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub original_destination: bool,
 
+        /// Optional. Specifies the idle timeout for the selected route. The idle
+        /// timeout is defined as the period in which there are no bytes sent or
+        /// received on either the upstream or downstream connection. If not set, the
+        /// default idle timeout is 30 seconds. If set to 0s, the timeout will be
+        /// disabled.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub idle_timeout: std::option::Option<wkt::Duration>,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -8828,6 +11245,24 @@ pub mod tcp_route {
         /// Sets the value of [original_destination][crate::model::tcp_route::RouteAction::original_destination].
         pub fn set_original_destination<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.original_destination = v.into();
+            self
+        }
+
+        /// Sets the value of [idle_timeout][crate::model::tcp_route::RouteAction::idle_timeout].
+        pub fn set_idle_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.idle_timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [idle_timeout][crate::model::tcp_route::RouteAction::idle_timeout].
+        pub fn set_or_clear_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.idle_timeout = v.map(|x| x.into());
             self
         }
     }
@@ -8924,6 +11359,13 @@ pub struct ListTcpRoutesRequest {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
+    /// Optional. If true, allow partial responses for multi-regional Aggregated
+    /// List requests. Otherwise if one of the locations is down or unreachable,
+    /// the Aggregated List request will fail.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub return_partial_success: bool,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8948,6 +11390,12 @@ impl ListTcpRoutesRequest {
     /// Sets the value of [page_token][crate::model::ListTcpRoutesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [return_partial_success][crate::model::ListTcpRoutesRequest::return_partial_success].
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
         self
     }
 }
@@ -8976,6 +11424,16 @@ pub struct ListTcpRoutesResponse {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
+    /// Unreachable resources. Populated when the request opts into
+    /// [return_partial_success][google.cloud.networkservices.v1.ListTcpRoutesRequest.return_partial_success]
+    /// and reading across collections e.g. when attempting to list all resources
+    /// across all supported locations.
+    ///
+    /// [google.cloud.networkservices.v1.ListTcpRoutesRequest.return_partial_success]: crate::model::ListTcpRoutesRequest::return_partial_success
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -8999,6 +11457,17 @@ impl ListTcpRoutesResponse {
     /// Sets the value of [next_page_token][crate::model::ListTcpRoutesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListTcpRoutesResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -9235,7 +11704,7 @@ impl wkt::message::Message for DeleteTcpRouteRequest {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct TlsRoute {
-    /// Required. Name of the TlsRoute resource. It matches pattern
+    /// Identifier. Name of the TlsRoute resource. It matches pattern
     /// `projects/*/locations/global/tlsRoutes/tls_route_name>`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
@@ -9286,6 +11755,11 @@ pub struct TlsRoute {
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub gateways: std::vec::Vec<std::string::String>,
+
+    /// Optional. Set of label tags associated with the TlsRoute resource.
+    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -9382,6 +11856,18 @@ impl TlsRoute {
         self.gateways = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [labels][crate::model::TlsRoute::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for TlsRoute {
@@ -9403,7 +11889,8 @@ pub mod tls_route {
     #[non_exhaustive]
     pub struct RouteRule {
         /// Required. RouteMatch defines the predicate used to match requests to a
-        /// given action. Multiple match types are "OR"ed for evaluation.
+        /// given action. Multiple match types are "OR"ed for evaluation. Atleast one
+        /// RouteMatch must be supplied.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub matches: std::vec::Vec<crate::model::tls_route::RouteMatch>,
@@ -9459,8 +11946,6 @@ pub mod tls_route {
 
     /// RouteMatch defines the predicate used to match requests to a given action.
     /// Multiple match types are "AND"ed for evaluation.
-    /// If no routeMatch field is specified, this rule will unconditionally match
-    /// traffic.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -9473,7 +11958,7 @@ pub mod tls_route {
         /// Partial wildcards are not supported, and values like *w.example.com are
         /// invalid.
         /// At least one of sni_host and alpn is required.
-        /// Up to 5 sni hosts across all matches can be set.
+        /// Up to 100 sni hosts across all matches can be set.
         #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
         #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub sni_host: std::vec::Vec<std::string::String>,
@@ -9536,6 +12021,14 @@ pub mod tls_route {
         #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub destinations: std::vec::Vec<crate::model::tls_route::RouteDestination>,
 
+        /// Optional. Specifies the idle timeout for the selected route. The idle
+        /// timeout is defined as the period in which there are no bytes sent or
+        /// received on either the upstream or downstream connection. If not set, the
+        /// default idle timeout is 1 hour. If set to 0s, the timeout will be
+        /// disabled.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub idle_timeout: std::option::Option<wkt::Duration>,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -9553,6 +12046,24 @@ pub mod tls_route {
         {
             use std::iter::Iterator;
             self.destinations = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [idle_timeout][crate::model::tls_route::RouteAction::idle_timeout].
+        pub fn set_idle_timeout<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.idle_timeout = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [idle_timeout][crate::model::tls_route::RouteAction::idle_timeout].
+        pub fn set_or_clear_idle_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.idle_timeout = v.map(|x| x.into());
             self
         }
     }
@@ -9574,7 +12085,7 @@ pub mod tls_route {
         #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub service_name: std::string::String,
 
-        /// Optional. Specifies the proportion of requests forwareded to the backend
+        /// Optional. Specifies the proportion of requests forwarded to the backend
         /// referenced by the service_name field. This is computed as:
         ///
         /// - weight/Sum(weights in destinations)
@@ -9639,6 +12150,13 @@ pub struct ListTlsRoutesRequest {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub page_token: std::string::String,
 
+    /// Optional. If true, allow partial responses for multi-regional Aggregated
+    /// List requests. Otherwise if one of the locations is down or unreachable,
+    /// the Aggregated List request will fail.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub return_partial_success: bool,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9663,6 +12181,12 @@ impl ListTlsRoutesRequest {
     /// Sets the value of [page_token][crate::model::ListTlsRoutesRequest::page_token].
     pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [return_partial_success][crate::model::ListTlsRoutesRequest::return_partial_success].
+    pub fn set_return_partial_success<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.return_partial_success = v.into();
         self
     }
 }
@@ -9691,6 +12215,16 @@ pub struct ListTlsRoutesResponse {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub next_page_token: std::string::String,
 
+    /// Unreachable resources. Populated when the request opts into
+    /// [return_partial_success][google.cloud.networkservices.v1.ListTlsRoutesRequest.return_partial_success]
+    /// and reading across collections e.g. when attempting to list all resources
+    /// across all supported locations.
+    ///
+    /// [google.cloud.networkservices.v1.ListTlsRoutesRequest.return_partial_success]: crate::model::ListTlsRoutesRequest::return_partial_success
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub unreachable: std::vec::Vec<std::string::String>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -9714,6 +12248,17 @@ impl ListTlsRoutesResponse {
     /// Sets the value of [next_page_token][crate::model::ListTlsRoutesResponse::next_page_token].
     pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListTlsRoutesResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -9940,6 +12485,143 @@ impl DeleteTlsRouteRequest {
 impl wkt::message::Message for DeleteTlsRouteRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.networkservices.v1.DeleteTlsRouteRequest"
+    }
+}
+
+/// EnvoyHeader configuration for Mesh and Gateway
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum EnvoyHeaders {
+    /// Defaults to NONE.
+    Unspecified,
+    /// Suppress envoy debug headers.
+    None,
+    /// Envoy will insert default internal debug headers into upstream requests:
+    /// x-envoy-attempt-count
+    /// x-envoy-is-timeout-retry
+    /// x-envoy-expected-rq-timeout-ms
+    /// x-envoy-original-path
+    /// x-envoy-upstream-stream-duration-ms
+    DebugHeaders,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [EnvoyHeaders::value] or
+    /// [EnvoyHeaders::name].
+    UnknownValue(envoy_headers::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod envoy_headers {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl EnvoyHeaders {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::None => std::option::Option::Some(1),
+            Self::DebugHeaders => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("ENVOY_HEADERS_UNSPECIFIED"),
+            Self::None => std::option::Option::Some("NONE"),
+            Self::DebugHeaders => std::option::Option::Some("DEBUG_HEADERS"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for EnvoyHeaders {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for EnvoyHeaders {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for EnvoyHeaders {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::None,
+            2 => Self::DebugHeaders,
+            _ => Self::UnknownValue(envoy_headers::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for EnvoyHeaders {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "ENVOY_HEADERS_UNSPECIFIED" => Self::Unspecified,
+            "NONE" => Self::None,
+            "DEBUG_HEADERS" => Self::DebugHeaders,
+            _ => Self::UnknownValue(envoy_headers::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for EnvoyHeaders {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::None => serializer.serialize_i32(1),
+            Self::DebugHeaders => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for EnvoyHeaders {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<EnvoyHeaders>::new(
+            ".google.cloud.networkservices.v1.EnvoyHeaders",
+        ))
     }
 }
 

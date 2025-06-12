@@ -1960,6 +1960,8 @@ pub mod answer {
                 JailBreakingQuery,
                 /// Non-answer-seeking query classification type, for no clear intent.
                 NonAnswerSeekingQueryV2,
+                /// User defined query classification type.
+                UserDefinedClassificationQuery,
                 /// If set, the enum was initialized with an unknown value.
                 ///
                 /// Applications can examine the value using [Type::value] or
@@ -1987,6 +1989,7 @@ pub mod answer {
                         Self::NonAnswerSeekingQuery => std::option::Option::Some(2),
                         Self::JailBreakingQuery => std::option::Option::Some(3),
                         Self::NonAnswerSeekingQueryV2 => std::option::Option::Some(4),
+                        Self::UserDefinedClassificationQuery => std::option::Option::Some(5),
                         Self::UnknownValue(u) => u.0.value(),
                     }
                 }
@@ -2005,6 +2008,9 @@ pub mod answer {
                         Self::JailBreakingQuery => std::option::Option::Some("JAIL_BREAKING_QUERY"),
                         Self::NonAnswerSeekingQueryV2 => {
                             std::option::Option::Some("NON_ANSWER_SEEKING_QUERY_V2")
+                        }
+                        Self::UserDefinedClassificationQuery => {
+                            std::option::Option::Some("USER_DEFINED_CLASSIFICATION_QUERY")
                         }
                         Self::UnknownValue(u) => u.0.name(),
                     }
@@ -2035,6 +2041,7 @@ pub mod answer {
                         2 => Self::NonAnswerSeekingQuery,
                         3 => Self::JailBreakingQuery,
                         4 => Self::NonAnswerSeekingQueryV2,
+                        5 => Self::UserDefinedClassificationQuery,
                         _ => Self::UnknownValue(r#type::UnknownValue(
                             wkt::internal::UnknownEnumValue::Integer(value),
                         )),
@@ -2051,6 +2058,7 @@ pub mod answer {
                         "NON_ANSWER_SEEKING_QUERY" => Self::NonAnswerSeekingQuery,
                         "JAIL_BREAKING_QUERY" => Self::JailBreakingQuery,
                         "NON_ANSWER_SEEKING_QUERY_V2" => Self::NonAnswerSeekingQueryV2,
+                        "USER_DEFINED_CLASSIFICATION_QUERY" => Self::UserDefinedClassificationQuery,
                         _ => Self::UnknownValue(r#type::UnknownValue(
                             wkt::internal::UnknownEnumValue::String(value.to_string()),
                         )),
@@ -2069,6 +2077,7 @@ pub mod answer {
                         Self::NonAnswerSeekingQuery => serializer.serialize_i32(2),
                         Self::JailBreakingQuery => serializer.serialize_i32(3),
                         Self::NonAnswerSeekingQueryV2 => serializer.serialize_i32(4),
+                        Self::UserDefinedClassificationQuery => serializer.serialize_i32(5),
                         Self::UnknownValue(u) => u.0.serialize(serializer),
                     }
                 }
@@ -2292,6 +2301,18 @@ pub mod answer {
         /// Google skips the answer if a well grounded answer was unable to be
         /// generated.
         LowGroundedAnswer,
+        /// The user defined query classification ignored case.
+        ///
+        /// Google skips the answer if the query is classified as a user defined
+        /// query classification.
+        UserDefinedClassificationQueryIgnored,
+        /// The unhelpful answer case.
+        ///
+        /// Google skips the answer if the answer is not helpful. This can be due to
+        /// a variety of factors, including but not limited to: the query is not
+        /// answerable, the answer is not relevant to the query, or the answer is
+        /// not well-formatted.
+        UnhelpfulAnswer,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [AnswerSkippedReason::value] or
@@ -2324,6 +2345,8 @@ pub mod answer {
                 Self::CustomerPolicyViolation => std::option::Option::Some(7),
                 Self::NonAnswerSeekingQueryIgnoredV2 => std::option::Option::Some(8),
                 Self::LowGroundedAnswer => std::option::Option::Some(9),
+                Self::UserDefinedClassificationQueryIgnored => std::option::Option::Some(10),
+                Self::UnhelpfulAnswer => std::option::Option::Some(11),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -2358,6 +2381,10 @@ pub mod answer {
                     std::option::Option::Some("NON_ANSWER_SEEKING_QUERY_IGNORED_V2")
                 }
                 Self::LowGroundedAnswer => std::option::Option::Some("LOW_GROUNDED_ANSWER"),
+                Self::UserDefinedClassificationQueryIgnored => {
+                    std::option::Option::Some("USER_DEFINED_CLASSIFICATION_QUERY_IGNORED")
+                }
+                Self::UnhelpfulAnswer => std::option::Option::Some("UNHELPFUL_ANSWER"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -2389,6 +2416,8 @@ pub mod answer {
                 7 => Self::CustomerPolicyViolation,
                 8 => Self::NonAnswerSeekingQueryIgnoredV2,
                 9 => Self::LowGroundedAnswer,
+                10 => Self::UserDefinedClassificationQueryIgnored,
+                11 => Self::UnhelpfulAnswer,
                 _ => Self::UnknownValue(answer_skipped_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -2410,6 +2439,10 @@ pub mod answer {
                 "CUSTOMER_POLICY_VIOLATION" => Self::CustomerPolicyViolation,
                 "NON_ANSWER_SEEKING_QUERY_IGNORED_V2" => Self::NonAnswerSeekingQueryIgnoredV2,
                 "LOW_GROUNDED_ANSWER" => Self::LowGroundedAnswer,
+                "USER_DEFINED_CLASSIFICATION_QUERY_IGNORED" => {
+                    Self::UserDefinedClassificationQueryIgnored
+                }
+                "UNHELPFUL_ANSWER" => Self::UnhelpfulAnswer,
                 _ => Self::UnknownValue(answer_skipped_reason::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -2433,6 +2466,8 @@ pub mod answer {
                 Self::CustomerPolicyViolation => serializer.serialize_i32(7),
                 Self::NonAnswerSeekingQueryIgnoredV2 => serializer.serialize_i32(8),
                 Self::LowGroundedAnswer => serializer.serialize_i32(9),
+                Self::UserDefinedClassificationQueryIgnored => serializer.serialize_i32(10),
+                Self::UnhelpfulAnswer => serializer.serialize_i32(11),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -2504,6 +2539,26 @@ pub struct Chunk {
     /// Output only. Metadata of the current chunk.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub chunk_metadata: std::option::Option<std::boxed::Box<crate::model::chunk::ChunkMetadata>>,
+
+    /// Output only. Image Data URLs if the current chunk contains images.
+    /// Data URLs are composed of four parts: a prefix (data:), a MIME type
+    /// indicating the type of data, an optional base64 token if non-textual,
+    /// and the data itself:
+    /// data:[\<mediatype\>][;base64],\<data\>
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub data_urls: std::vec::Vec<std::string::String>,
+
+    /// Output only. Annotation contents if the current chunk contains annotations.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub annotation_contents: std::vec::Vec<std::string::String>,
+
+    /// Output only. The annotation metadata includes structured content in the
+    /// current chunk.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub annotation_metadata: std::vec::Vec<crate::model::chunk::AnnotationMetadata>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2619,6 +2674,39 @@ impl Chunk {
         T: std::convert::Into<crate::model::chunk::ChunkMetadata>,
     {
         self.chunk_metadata = v.map(|x| std::boxed::Box::new(x.into()));
+        self
+    }
+
+    /// Sets the value of [data_urls][crate::model::Chunk::data_urls].
+    pub fn set_data_urls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.data_urls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [annotation_contents][crate::model::Chunk::annotation_contents].
+    pub fn set_annotation_contents<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.annotation_contents = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [annotation_metadata][crate::model::Chunk::annotation_metadata].
+    pub fn set_annotation_metadata<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::chunk::AnnotationMetadata>,
+    {
+        use std::iter::Iterator;
+        self.annotation_metadata = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -2820,6 +2908,1105 @@ pub mod chunk {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Chunk.ChunkMetadata"
         }
+    }
+
+    /// The structured content information.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct StructuredContent {
+        /// Output only. The structure type of the structured content.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+        pub structure_type: crate::model::chunk::StructureType,
+
+        /// Output only. The content of the structured content.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+        pub content: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl StructuredContent {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [structure_type][crate::model::chunk::StructuredContent::structure_type].
+        pub fn set_structure_type<T: std::convert::Into<crate::model::chunk::StructureType>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.structure_type = v.into();
+            self
+        }
+
+        /// Sets the value of [content][crate::model::chunk::StructuredContent::content].
+        pub fn set_content<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.content = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for StructuredContent {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.Chunk.StructuredContent"
+        }
+    }
+
+    /// The annotation metadata includes structured content in the current chunk.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct AnnotationMetadata {
+        /// Output only. The structured content information.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub structured_content: std::option::Option<crate::model::chunk::StructuredContent>,
+
+        /// Output only. Image id is provided if the structured content is based on
+        /// an image.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+        pub image_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AnnotationMetadata {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [structured_content][crate::model::chunk::AnnotationMetadata::structured_content].
+        pub fn set_structured_content<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::chunk::StructuredContent>,
+        {
+            self.structured_content = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [structured_content][crate::model::chunk::AnnotationMetadata::structured_content].
+        pub fn set_or_clear_structured_content<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::chunk::StructuredContent>,
+        {
+            self.structured_content = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [image_id][crate::model::chunk::AnnotationMetadata::image_id].
+        pub fn set_image_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.image_id = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AnnotationMetadata {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.Chunk.AnnotationMetadata"
+        }
+    }
+
+    /// Defines the types of the structured content that can be extracted.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum StructureType {
+        /// Default value.
+        Unspecified,
+        /// Shareholder structure.
+        ShareholderStructure,
+        /// Signature structure.
+        SignatureStructure,
+        /// Checkbox structure.
+        CheckboxStructure,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [StructureType::value] or
+        /// [StructureType::name].
+        UnknownValue(structure_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod structure_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl StructureType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::ShareholderStructure => std::option::Option::Some(1),
+                Self::SignatureStructure => std::option::Option::Some(2),
+                Self::CheckboxStructure => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STRUCTURE_TYPE_UNSPECIFIED"),
+                Self::ShareholderStructure => std::option::Option::Some("SHAREHOLDER_STRUCTURE"),
+                Self::SignatureStructure => std::option::Option::Some("SIGNATURE_STRUCTURE"),
+                Self::CheckboxStructure => std::option::Option::Some("CHECKBOX_STRUCTURE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for StructureType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for StructureType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for StructureType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::ShareholderStructure,
+                2 => Self::SignatureStructure,
+                3 => Self::CheckboxStructure,
+                _ => Self::UnknownValue(structure_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for StructureType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STRUCTURE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SHAREHOLDER_STRUCTURE" => Self::ShareholderStructure,
+                "SIGNATURE_STRUCTURE" => Self::SignatureStructure,
+                "CHECKBOX_STRUCTURE" => Self::CheckboxStructure,
+                _ => Self::UnknownValue(structure_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for StructureType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::ShareholderStructure => serializer.serialize_i32(1),
+                Self::SignatureStructure => serializer.serialize_i32(2),
+                Self::CheckboxStructure => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for StructureType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<StructureType>::new(
+                ".google.cloud.discoveryengine.v1.Chunk.StructureType",
+            ))
+        }
+    }
+}
+
+/// Request message for UpdateCmekConfig method.
+/// rpc.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateCmekConfigRequest {
+    /// Required. The CmekConfig resource.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub config: std::option::Option<crate::model::CmekConfig>,
+
+    /// Set the following CmekConfig as the default to be used for child
+    /// resources if one is not specified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub set_default: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateCmekConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [config][crate::model::UpdateCmekConfigRequest::config].
+    pub fn set_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CmekConfig>,
+    {
+        self.config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [config][crate::model::UpdateCmekConfigRequest::config].
+    pub fn set_or_clear_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CmekConfig>,
+    {
+        self.config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [set_default][crate::model::UpdateCmekConfigRequest::set_default].
+    pub fn set_set_default<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.set_default = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateCmekConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateCmekConfigRequest"
+    }
+}
+
+/// Request message for GetCmekConfigRequest method.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetCmekConfigRequest {
+    /// Required. Resource name of
+    /// [CmekConfig][google.cloud.discoveryengine.v1.CmekConfig], such as
+    /// `projects/*/locations/*/cmekConfig` or
+    /// `projects/*/locations/*/cmekConfigs/*`.
+    ///
+    /// If the caller does not have permission to access the
+    /// [CmekConfig][google.cloud.discoveryengine.v1.CmekConfig], regardless of
+    /// whether or not it exists, a PERMISSION_DENIED error is returned.
+    ///
+    /// [google.cloud.discoveryengine.v1.CmekConfig]: crate::model::CmekConfig
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetCmekConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetCmekConfigRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetCmekConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.GetCmekConfigRequest"
+    }
+}
+
+/// Metadata for single-regional CMEKs.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct SingleRegionKey {
+    /// Required. Single-regional kms key resource name which will be used to
+    /// encrypt resources
+    /// `projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{keyId}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub kms_key: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SingleRegionKey {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [kms_key][crate::model::SingleRegionKey::kms_key].
+    pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kms_key = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for SingleRegionKey {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.SingleRegionKey"
+    }
+}
+
+/// Configurations used to enable CMEK data encryption with Cloud KMS keys.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CmekConfig {
+    /// Required. The name of the CmekConfig of the form
+    /// `projects/{project}/locations/{location}/cmekConfig` or
+    /// `projects/{project}/locations/{location}/cmekConfigs/{cmek_config}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    /// KMS key resource name which will be used to encrypt resources
+    /// `projects/{project}/locations/{location}/keyRings/{keyRing}/cryptoKeys/{keyId}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub kms_key: std::string::String,
+
+    /// KMS key version resource name which will be used to encrypt resources
+    /// `<kms_key>/cryptoKeyVersions/{keyVersion}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub kms_key_version: std::string::String,
+
+    /// Output only. The states of the CmekConfig.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub state: crate::model::cmek_config::State,
+
+    /// Output only. The default CmekConfig for the Customer.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub is_default: bool,
+
+    /// Output only. The timestamp of the last key rotation.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
+    pub last_rotation_timestamp_micros: i64,
+
+    /// Optional. Single-regional CMEKs that are required for some VAIS features.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub single_region_keys: std::vec::Vec<crate::model::SingleRegionKey>,
+
+    /// Output only. Whether the NotebookLM Corpus is ready to be used.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub notebooklm_state: crate::model::cmek_config::NotebookLMState,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CmekConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::CmekConfig::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [kms_key][crate::model::CmekConfig::kms_key].
+    pub fn set_kms_key<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kms_key = v.into();
+        self
+    }
+
+    /// Sets the value of [kms_key_version][crate::model::CmekConfig::kms_key_version].
+    pub fn set_kms_key_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kms_key_version = v.into();
+        self
+    }
+
+    /// Sets the value of [state][crate::model::CmekConfig::state].
+    pub fn set_state<T: std::convert::Into<crate::model::cmek_config::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [is_default][crate::model::CmekConfig::is_default].
+    pub fn set_is_default<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.is_default = v.into();
+        self
+    }
+
+    /// Sets the value of [last_rotation_timestamp_micros][crate::model::CmekConfig::last_rotation_timestamp_micros].
+    pub fn set_last_rotation_timestamp_micros<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.last_rotation_timestamp_micros = v.into();
+        self
+    }
+
+    /// Sets the value of [single_region_keys][crate::model::CmekConfig::single_region_keys].
+    pub fn set_single_region_keys<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SingleRegionKey>,
+    {
+        use std::iter::Iterator;
+        self.single_region_keys = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [notebooklm_state][crate::model::CmekConfig::notebooklm_state].
+    pub fn set_notebooklm_state<
+        T: std::convert::Into<crate::model::cmek_config::NotebookLMState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.notebooklm_state = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CmekConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.CmekConfig"
+    }
+}
+
+/// Defines additional types related to [CmekConfig].
+pub mod cmek_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// States of the CmekConfig.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// The CmekConfig state is unknown.
+        Unspecified,
+        /// The CmekConfig is creating.
+        Creating,
+        /// The CmekConfig can be used with DataStores.
+        Active,
+        /// The CmekConfig is unavailable, most likely due to the KMS Key being
+        /// revoked.
+        KeyIssue,
+        /// The CmekConfig is deleting.
+        Deleting,
+        /// The CmekConfig deletion process failed.
+        DeleteFailed,
+        /// The CmekConfig is not usable, most likely due to some internal issue.
+        Unusable,
+        /// The KMS key version is being rotated.
+        ActiveRotating,
+        /// The KMS key is soft deleted. Some cleanup policy will eventually be
+        /// applied.
+        Deleted,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Creating => std::option::Option::Some(1),
+                Self::Active => std::option::Option::Some(2),
+                Self::KeyIssue => std::option::Option::Some(3),
+                Self::Deleting => std::option::Option::Some(4),
+                Self::DeleteFailed => std::option::Option::Some(7),
+                Self::Unusable => std::option::Option::Some(5),
+                Self::ActiveRotating => std::option::Option::Some(6),
+                Self::Deleted => std::option::Option::Some(8),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("STATE_UNSPECIFIED"),
+                Self::Creating => std::option::Option::Some("CREATING"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::KeyIssue => std::option::Option::Some("KEY_ISSUE"),
+                Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::DeleteFailed => std::option::Option::Some("DELETE_FAILED"),
+                Self::Unusable => std::option::Option::Some("UNUSABLE"),
+                Self::ActiveRotating => std::option::Option::Some("ACTIVE_ROTATING"),
+                Self::Deleted => std::option::Option::Some("DELETED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Creating,
+                2 => Self::Active,
+                3 => Self::KeyIssue,
+                4 => Self::Deleting,
+                5 => Self::Unusable,
+                6 => Self::ActiveRotating,
+                7 => Self::DeleteFailed,
+                8 => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "STATE_UNSPECIFIED" => Self::Unspecified,
+                "CREATING" => Self::Creating,
+                "ACTIVE" => Self::Active,
+                "KEY_ISSUE" => Self::KeyIssue,
+                "DELETING" => Self::Deleting,
+                "DELETE_FAILED" => Self::DeleteFailed,
+                "UNUSABLE" => Self::Unusable,
+                "ACTIVE_ROTATING" => Self::ActiveRotating,
+                "DELETED" => Self::Deleted,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Creating => serializer.serialize_i32(1),
+                Self::Active => serializer.serialize_i32(2),
+                Self::KeyIssue => serializer.serialize_i32(3),
+                Self::Deleting => serializer.serialize_i32(4),
+                Self::DeleteFailed => serializer.serialize_i32(7),
+                Self::Unusable => serializer.serialize_i32(5),
+                Self::ActiveRotating => serializer.serialize_i32(6),
+                Self::Deleted => serializer.serialize_i32(8),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.cloud.discoveryengine.v1.CmekConfig.State",
+            ))
+        }
+    }
+
+    /// States of NotebookLM.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum NotebookLMState {
+        /// The NotebookLM state is unknown.
+        Unspecified,
+        /// The NotebookLM is not ready.
+        NotebookLmNotReady,
+        /// The NotebookLM is ready to be used.
+        NotebookLmReady,
+        /// The NotebookLM is not enabled.
+        NotebookLmNotEnabled,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [NotebookLMState::value] or
+        /// [NotebookLMState::name].
+        UnknownValue(notebook_lm_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod notebook_lm_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl NotebookLMState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::NotebookLmNotReady => std::option::Option::Some(1),
+                Self::NotebookLmReady => std::option::Option::Some(2),
+                Self::NotebookLmNotEnabled => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("NOTEBOOK_LM_STATE_UNSPECIFIED"),
+                Self::NotebookLmNotReady => std::option::Option::Some("NOTEBOOK_LM_NOT_READY"),
+                Self::NotebookLmReady => std::option::Option::Some("NOTEBOOK_LM_READY"),
+                Self::NotebookLmNotEnabled => std::option::Option::Some("NOTEBOOK_LM_NOT_ENABLED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for NotebookLMState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for NotebookLMState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for NotebookLMState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::NotebookLmNotReady,
+                2 => Self::NotebookLmReady,
+                3 => Self::NotebookLmNotEnabled,
+                _ => Self::UnknownValue(notebook_lm_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for NotebookLMState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "NOTEBOOK_LM_STATE_UNSPECIFIED" => Self::Unspecified,
+                "NOTEBOOK_LM_NOT_READY" => Self::NotebookLmNotReady,
+                "NOTEBOOK_LM_READY" => Self::NotebookLmReady,
+                "NOTEBOOK_LM_NOT_ENABLED" => Self::NotebookLmNotEnabled,
+                _ => Self::UnknownValue(notebook_lm_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for NotebookLMState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::NotebookLmNotReady => serializer.serialize_i32(1),
+                Self::NotebookLmReady => serializer.serialize_i32(2),
+                Self::NotebookLmNotEnabled => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for NotebookLMState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<NotebookLMState>::new(
+                ".google.cloud.discoveryengine.v1.CmekConfig.NotebookLMState",
+            ))
+        }
+    }
+}
+
+/// Metadata related to the progress of the
+/// [CmekConfigService.UpdateCmekConfig][google.cloud.discoveryengine.v1.CmekConfigService.UpdateCmekConfig]
+/// operation. This will be returned by the google.longrunning.Operation.metadata
+/// field.
+///
+/// [google.cloud.discoveryengine.v1.CmekConfigService.UpdateCmekConfig]: crate::client::CmekConfigService::update_cmek_config
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpdateCmekConfigMetadata {
+    /// Operation create time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Operation last update time. If the operation is done, this is also the
+    /// finish time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateCmekConfigMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [create_time][crate::model::UpdateCmekConfigMetadata::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::UpdateCmekConfigMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::UpdateCmekConfigMetadata::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::UpdateCmekConfigMetadata::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateCmekConfigMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateCmekConfigMetadata"
+    }
+}
+
+/// Request message for
+/// [CmekConfigService.ListCmekConfigs][google.cloud.discoveryengine.v1.CmekConfigService.ListCmekConfigs]
+/// method.
+///
+/// [google.cloud.discoveryengine.v1.CmekConfigService.ListCmekConfigs]: crate::client::CmekConfigService::list_cmek_configs
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListCmekConfigsRequest {
+    /// Required. The parent location resource name, such as
+    /// `projects/{project}/locations/{location}`.
+    ///
+    /// If the caller does not have permission to list
+    /// [CmekConfig][google.cloud.discoveryengine.v1.CmekConfig]s under this
+    /// location, regardless of whether or not a CmekConfig exists, a
+    /// PERMISSION_DENIED error is returned.
+    ///
+    /// [google.cloud.discoveryengine.v1.CmekConfig]: crate::model::CmekConfig
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub parent: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListCmekConfigsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListCmekConfigsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListCmekConfigsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.ListCmekConfigsRequest"
+    }
+}
+
+/// Response message for
+/// [CmekConfigService.ListCmekConfigs][google.cloud.discoveryengine.v1.CmekConfigService.ListCmekConfigs]
+/// method.
+///
+/// [google.cloud.discoveryengine.v1.CmekConfigService.ListCmekConfigs]: crate::client::CmekConfigService::list_cmek_configs
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListCmekConfigsResponse {
+    /// All the customer's
+    /// [CmekConfig][google.cloud.discoveryengine.v1.CmekConfig]s.
+    ///
+    /// [google.cloud.discoveryengine.v1.CmekConfig]: crate::model::CmekConfig
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub cmek_configs: std::vec::Vec<crate::model::CmekConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListCmekConfigsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [cmek_configs][crate::model::ListCmekConfigsResponse::cmek_configs].
+    pub fn set_cmek_configs<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::CmekConfig>,
+    {
+        use std::iter::Iterator;
+        self.cmek_configs = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListCmekConfigsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.ListCmekConfigsResponse"
+    }
+}
+
+/// Request message for
+/// [CmekConfigService.DeleteCmekConfig][google.cloud.discoveryengine.v1.CmekConfigService.DeleteCmekConfig]
+/// method.
+///
+/// [google.cloud.discoveryengine.v1.CmekConfigService.DeleteCmekConfig]: crate::client::CmekConfigService::delete_cmek_config
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteCmekConfigRequest {
+    /// Required. The resource name of the
+    /// [CmekConfig][google.cloud.discoveryengine.v1.CmekConfig] to delete, such as
+    /// `projects/{project}/locations/{location}/cmekConfigs/{cmek_config}`.
+    ///
+    /// [google.cloud.discoveryengine.v1.CmekConfig]: crate::model::CmekConfig
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteCmekConfigRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteCmekConfigRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteCmekConfigRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteCmekConfigRequest"
+    }
+}
+
+/// Metadata related to the progress of the
+/// [CmekConfigService.DeleteCmekConfig][google.cloud.discoveryengine.v1.CmekConfigService.DeleteCmekConfig]
+/// operation. This will be returned by the google.longrunning.Operation.metadata
+/// field.
+///
+/// [google.cloud.discoveryengine.v1.CmekConfigService.DeleteCmekConfig]: crate::client::CmekConfigService::delete_cmek_config
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteCmekConfigMetadata {
+    /// Operation create time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Operation last update time. If the operation is done, this is also the
+    /// finish time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteCmekConfigMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [create_time][crate::model::DeleteCmekConfigMetadata::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DeleteCmekConfigMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::DeleteCmekConfigMetadata::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::DeleteCmekConfigMetadata::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteCmekConfigMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteCmekConfigMetadata"
     }
 }
 
@@ -3205,6 +4392,200 @@ impl wkt::message::Message for DoubleList {
     }
 }
 
+/// Principal identifier of a user or a group.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct Principal {
+    /// Union field principal. Principal can be a user or a group.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub principal: std::option::Option<crate::model::principal::Principal>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl Principal {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [principal][crate::model::Principal::principal].
+    ///
+    /// Note that all the setters affecting `principal` are mutually
+    /// exclusive.
+    pub fn set_principal<
+        T: std::convert::Into<std::option::Option<crate::model::principal::Principal>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.principal = v.into();
+        self
+    }
+
+    /// The value of [principal][crate::model::Principal::principal]
+    /// if it holds a `UserId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn user_id(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.principal.as_ref().and_then(|v| match v {
+            crate::model::principal::Principal::UserId(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [principal][crate::model::Principal::principal]
+    /// to hold a `UserId`.
+    ///
+    /// Note that all the setters affecting `principal` are
+    /// mutually exclusive.
+    pub fn set_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.principal =
+            std::option::Option::Some(crate::model::principal::Principal::UserId(v.into()));
+        self
+    }
+
+    /// The value of [principal][crate::model::Principal::principal]
+    /// if it holds a `GroupId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn group_id(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.principal.as_ref().and_then(|v| match v {
+            crate::model::principal::Principal::GroupId(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [principal][crate::model::Principal::principal]
+    /// to hold a `GroupId`.
+    ///
+    /// Note that all the setters affecting `principal` are
+    /// mutually exclusive.
+    pub fn set_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.principal =
+            std::option::Option::Some(crate::model::principal::Principal::GroupId(v.into()));
+        self
+    }
+
+    /// The value of [principal][crate::model::Principal::principal]
+    /// if it holds a `ExternalEntityId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn external_entity_id(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.principal.as_ref().and_then(|v| match v {
+            crate::model::principal::Principal::ExternalEntityId(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [principal][crate::model::Principal::principal]
+    /// to hold a `ExternalEntityId`.
+    ///
+    /// Note that all the setters affecting `principal` are
+    /// mutually exclusive.
+    pub fn set_external_entity_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.principal = std::option::Option::Some(
+            crate::model::principal::Principal::ExternalEntityId(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for Principal {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.Principal"
+    }
+}
+
+/// Defines additional types related to [Principal].
+pub mod principal {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Union field principal. Principal can be a user or a group.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Principal {
+        /// User identifier.
+        /// For Google Workspace user account, user_id should be the google workspace
+        /// user email.
+        /// For non-google identity provider user account, user_id is the mapped user
+        /// identifier configured during the workforcepool config.
+        UserId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        /// Group identifier.
+        /// For Google Workspace user account, group_id should be the google
+        /// workspace group email.
+        /// For non-google identity provider user account, group_id is the mapped
+        /// group identifier configured during the workforcepool config.
+        GroupId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        /// For 3P application identities which are not present in the customer
+        /// identity provider.
+        ExternalEntityId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+    }
+}
+
+/// Config to data store for `HEALTHCARE_FHIR` vertical.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct HealthcareFhirConfig {
+    /// Whether to enable configurable schema for `HEALTHCARE_FHIR` vertical.
+    ///
+    /// If set to `true`, the predefined healthcare fhir schema can be extended
+    /// for more customized searching and filtering.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub enable_configurable_schema: bool,
+
+    /// Whether to enable static indexing for `HEALTHCARE_FHIR` batch
+    /// ingestion.
+    ///
+    /// If set to `true`, the batch ingestion will be processed in a static
+    /// indexing mode which is slower but more capable of handling larger
+    /// volume.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub enable_static_indexing_for_batch_ingestion: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl HealthcareFhirConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enable_configurable_schema][crate::model::HealthcareFhirConfig::enable_configurable_schema].
+    pub fn set_enable_configurable_schema<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_configurable_schema = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_static_indexing_for_batch_ingestion][crate::model::HealthcareFhirConfig::enable_static_indexing_for_batch_ingestion].
+    pub fn set_enable_static_indexing_for_batch_ingestion<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.enable_static_indexing_for_batch_ingestion = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for HealthcareFhirConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.HealthcareFhirConfig"
+    }
+}
+
 /// Promotion proto includes uri and other helping information to display the
 /// promotion.
 #[serde_with::serde_as]
@@ -3223,6 +4604,15 @@ pub struct SearchLinkPromotion {
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
+
+    /// Optional. The [Document][google.cloud.discoveryengine.v1.Document] the user
+    /// wants to promote. For site search, leave unset and only populate uri. Can
+    /// be set along with uri.
+    ///
+    /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub document: std::string::String,
 
     /// Optional. The promotion thumbnail image url.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -3261,6 +4651,12 @@ impl SearchLinkPromotion {
     /// Sets the value of [uri][crate::model::SearchLinkPromotion::uri].
     pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.uri = v.into();
+        self
+    }
+
+    /// Sets the value of [document][crate::model::SearchLinkPromotion::document].
+    pub fn set_document<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.document = v.into();
         self
     }
 
@@ -3916,7 +5312,7 @@ pub struct Condition {
     /// Optional. Query regex to match the whole search query.
     /// Cannot be set when
     /// [Condition.query_terms][google.cloud.discoveryengine.v1.Condition.query_terms]
-    /// is set. This is currently supporting promotion use case.
+    /// is set. Only supported for Basic Site Search promotion serving controls.
     ///
     /// [google.cloud.discoveryengine.v1.Condition.query_terms]: crate::model::Condition::query_terms
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
@@ -5203,8 +6599,6 @@ pub mod control {
         /// Treats a group of terms as synonyms of one another.
         SynonymsAction(std::boxed::Box<crate::model::control::SynonymsAction>),
         /// Promote certain links based on predefined trigger queries.
-        ///
-        /// This now only supports basic site search.
         PromoteAction(std::boxed::Box<crate::model::control::PromoteAction>),
     }
 }
@@ -8882,6 +10276,8 @@ pub mod answer_query_request {
                 JailBreakingQuery,
                 /// Non-answer-seeking query classification type, for no clear intent.
                 NonAnswerSeekingQueryV2,
+                /// User defined query classification type.
+                UserDefinedClassificationQuery,
                 /// If set, the enum was initialized with an unknown value.
                 ///
                 /// Applications can examine the value using [Type::value] or
@@ -8909,6 +10305,7 @@ pub mod answer_query_request {
                         Self::NonAnswerSeekingQuery => std::option::Option::Some(2),
                         Self::JailBreakingQuery => std::option::Option::Some(3),
                         Self::NonAnswerSeekingQueryV2 => std::option::Option::Some(4),
+                        Self::UserDefinedClassificationQuery => std::option::Option::Some(5),
                         Self::UnknownValue(u) => u.0.value(),
                     }
                 }
@@ -8927,6 +10324,9 @@ pub mod answer_query_request {
                         Self::JailBreakingQuery => std::option::Option::Some("JAIL_BREAKING_QUERY"),
                         Self::NonAnswerSeekingQueryV2 => {
                             std::option::Option::Some("NON_ANSWER_SEEKING_QUERY_V2")
+                        }
+                        Self::UserDefinedClassificationQuery => {
+                            std::option::Option::Some("USER_DEFINED_CLASSIFICATION_QUERY")
                         }
                         Self::UnknownValue(u) => u.0.name(),
                     }
@@ -8957,6 +10357,7 @@ pub mod answer_query_request {
                         2 => Self::NonAnswerSeekingQuery,
                         3 => Self::JailBreakingQuery,
                         4 => Self::NonAnswerSeekingQueryV2,
+                        5 => Self::UserDefinedClassificationQuery,
                         _ => Self::UnknownValue(r#type::UnknownValue(
                             wkt::internal::UnknownEnumValue::Integer(value),
                         )),
@@ -8973,6 +10374,7 @@ pub mod answer_query_request {
                         "NON_ANSWER_SEEKING_QUERY" => Self::NonAnswerSeekingQuery,
                         "JAIL_BREAKING_QUERY" => Self::JailBreakingQuery,
                         "NON_ANSWER_SEEKING_QUERY_V2" => Self::NonAnswerSeekingQueryV2,
+                        "USER_DEFINED_CLASSIFICATION_QUERY" => Self::UserDefinedClassificationQuery,
                         _ => Self::UnknownValue(r#type::UnknownValue(
                             wkt::internal::UnknownEnumValue::String(value.to_string()),
                         )),
@@ -8991,6 +10393,7 @@ pub mod answer_query_request {
                         Self::NonAnswerSeekingQuery => serializer.serialize_i32(2),
                         Self::JailBreakingQuery => serializer.serialize_i32(3),
                         Self::NonAnswerSeekingQueryV2 => serializer.serialize_i32(4),
+                        Self::UserDefinedClassificationQuery => serializer.serialize_i32(5),
                         Self::UnknownValue(u) => u.0.serialize(serializer),
                     }
                 }
@@ -10324,7 +11727,7 @@ pub mod custom_tuning_model {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct DataStore {
-    /// Immutable. The full resource name of the data store.
+    /// Immutable. Identifier. The full resource name of the data store.
     /// Format:
     /// `projects/{project}/locations/{location}/collections/{collection_id}/dataStores/{data_store_id}`.
     ///
@@ -10388,9 +11791,52 @@ pub struct DataStore {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub advanced_site_search_config: std::option::Option<crate::model::AdvancedSiteSearchConfig>,
 
+    /// Input only. The KMS key to be used to protect this DataStore at creation
+    /// time.
+    ///
+    /// Must be set for requests that need to comply with CMEK Org Policy
+    /// protections.
+    ///
+    /// If this field is set and processed successfully, the DataStore will be
+    /// protected by the KMS key, as indicated in the cmek_config field.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub kms_key_name: std::string::String,
+
+    /// Output only. CMEK-related information for the DataStore.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub cmek_config: std::option::Option<crate::model::CmekConfig>,
+
     /// Output only. Data size estimation for billing.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub billing_estimation: std::option::Option<crate::model::data_store::BillingEstimation>,
+
+    /// Immutable. Whether data in the
+    /// [DataStore][google.cloud.discoveryengine.v1.DataStore] has ACL information.
+    /// If set to `true`, the source data must have ACL. ACL will be ingested when
+    /// data is ingested by
+    /// [DocumentService.ImportDocuments][google.cloud.discoveryengine.v1.DocumentService.ImportDocuments]
+    /// methods.
+    ///
+    /// When ACL is enabled for the
+    /// [DataStore][google.cloud.discoveryengine.v1.DataStore],
+    /// [Document][google.cloud.discoveryengine.v1.Document] can't be accessed by
+    /// calling
+    /// [DocumentService.GetDocument][google.cloud.discoveryengine.v1.DocumentService.GetDocument]
+    /// or
+    /// [DocumentService.ListDocuments][google.cloud.discoveryengine.v1.DocumentService.ListDocuments].
+    ///
+    /// Currently ACL is only supported in `GENERIC` industry vertical with
+    /// non-`PUBLIC_WEBSITE` content config.
+    ///
+    /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
+    /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    /// [google.cloud.discoveryengine.v1.DocumentService.GetDocument]: crate::client::DocumentService::get_document
+    /// [google.cloud.discoveryengine.v1.DocumentService.ImportDocuments]: crate::client::DocumentService::import_documents
+    /// [google.cloud.discoveryengine.v1.DocumentService.ListDocuments]: crate::client::DocumentService::list_documents
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub acl_enabled: bool,
 
     /// Config to store data store type configuration for workspace data. This
     /// must be set when
@@ -10430,6 +11876,21 @@ pub struct DataStore {
     /// [google.cloud.discoveryengine.v1.SchemaService.GetSchema]: crate::client::SchemaService::get_schema
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub starting_schema: std::option::Option<crate::model::Schema>,
+
+    /// Optional. Configuration for `HEALTHCARE_FHIR` vertical.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub healthcare_fhir_config: std::option::Option<crate::model::HealthcareFhirConfig>,
+
+    /// Immutable. The fully qualified resource name of the associated
+    /// [IdentityMappingStore][google.cloud.discoveryengine.v1.IdentityMappingStore].
+    /// This field can only be set for acl_enabled DataStores with `THIRD_PARTY` or
+    /// `GSUITE` IdP. Format:
+    /// `projects/{project}/locations/{location}/identityMappingStores/{identity_mapping_store}`.
+    ///
+    /// [google.cloud.discoveryengine.v1.IdentityMappingStore]: crate::model::IdentityMappingStore
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub identity_mapping_store: std::string::String,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10526,6 +11987,30 @@ impl DataStore {
         self
     }
 
+    /// Sets the value of [kms_key_name][crate::model::DataStore::kms_key_name].
+    pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kms_key_name = v.into();
+        self
+    }
+
+    /// Sets the value of [cmek_config][crate::model::DataStore::cmek_config].
+    pub fn set_cmek_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CmekConfig>,
+    {
+        self.cmek_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cmek_config][crate::model::DataStore::cmek_config].
+    pub fn set_or_clear_cmek_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CmekConfig>,
+    {
+        self.cmek_config = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [billing_estimation][crate::model::DataStore::billing_estimation].
     pub fn set_billing_estimation<T>(mut self, v: T) -> Self
     where
@@ -10541,6 +12026,12 @@ impl DataStore {
         T: std::convert::Into<crate::model::data_store::BillingEstimation>,
     {
         self.billing_estimation = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [acl_enabled][crate::model::DataStore::acl_enabled].
+    pub fn set_acl_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.acl_enabled = v.into();
         self
     }
 
@@ -10595,6 +12086,33 @@ impl DataStore {
         T: std::convert::Into<crate::model::Schema>,
     {
         self.starting_schema = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [healthcare_fhir_config][crate::model::DataStore::healthcare_fhir_config].
+    pub fn set_healthcare_fhir_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HealthcareFhirConfig>,
+    {
+        self.healthcare_fhir_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [healthcare_fhir_config][crate::model::DataStore::healthcare_fhir_config].
+    pub fn set_or_clear_healthcare_fhir_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::HealthcareFhirConfig>,
+    {
+        self.healthcare_fhir_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [identity_mapping_store][crate::model::DataStore::identity_mapping_store].
+    pub fn set_identity_mapping_store<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identity_mapping_store = v.into();
         self
     }
 }
@@ -11281,6 +12799,11 @@ pub struct CreateDataStoreRequest {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub skip_default_schema_creation: bool,
 
+    /// CMEK options for the DataStore. Setting this field will override the
+    /// default CmekConfig if one is set for the project.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub cmek_options: std::option::Option<crate::model::create_data_store_request::CmekOptions>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -11331,11 +12854,101 @@ impl CreateDataStoreRequest {
         self.skip_default_schema_creation = v.into();
         self
     }
+
+    /// Sets the value of [cmek_options][crate::model::CreateDataStoreRequest::cmek_options].
+    ///
+    /// Note that all the setters affecting `cmek_options` are mutually
+    /// exclusive.
+    pub fn set_cmek_options<
+        T: std::convert::Into<
+                std::option::Option<crate::model::create_data_store_request::CmekOptions>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cmek_options = v.into();
+        self
+    }
+
+    /// The value of [cmek_options][crate::model::CreateDataStoreRequest::cmek_options]
+    /// if it holds a `CmekConfigName`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cmek_config_name(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.cmek_options.as_ref().and_then(|v| match v {
+            crate::model::create_data_store_request::CmekOptions::CmekConfigName(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [cmek_options][crate::model::CreateDataStoreRequest::cmek_options]
+    /// to hold a `CmekConfigName`.
+    ///
+    /// Note that all the setters affecting `cmek_options` are
+    /// mutually exclusive.
+    pub fn set_cmek_config_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cmek_options = std::option::Option::Some(
+            crate::model::create_data_store_request::CmekOptions::CmekConfigName(v.into()),
+        );
+        self
+    }
+
+    /// The value of [cmek_options][crate::model::CreateDataStoreRequest::cmek_options]
+    /// if it holds a `DisableCmek`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn disable_cmek(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.cmek_options.as_ref().and_then(|v| match v {
+            crate::model::create_data_store_request::CmekOptions::DisableCmek(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [cmek_options][crate::model::CreateDataStoreRequest::cmek_options]
+    /// to hold a `DisableCmek`.
+    ///
+    /// Note that all the setters affecting `cmek_options` are
+    /// mutually exclusive.
+    pub fn set_disable_cmek<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.cmek_options = std::option::Option::Some(
+            crate::model::create_data_store_request::CmekOptions::DisableCmek(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for CreateDataStoreRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateDataStoreRequest"
+    }
+}
+
+/// Defines additional types related to [CreateDataStoreRequest].
+pub mod create_data_store_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// CMEK options for the DataStore. Setting this field will override the
+    /// default CmekConfig if one is set for the project.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum CmekOptions {
+        /// Resource name of the CmekConfig to use for protecting this DataStore.
+        CmekConfigName(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        /// DataStore without CMEK protections. If a default CmekConfig is set for
+        /// the project, setting this field will override the default CmekConfig as
+        /// well.
+        DisableCmek(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
     }
 }
 
@@ -11866,9 +13479,8 @@ pub struct Document {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub schema_id: std::string::String,
 
-    /// The unstructured data linked to this document. Content must be set if this
-    /// document is under a
-    /// `CONTENT_REQUIRED` data store.
+    /// The unstructured data linked to this document. Content can only be set
+    /// and must be set if this document is under a `CONTENT_REQUIRED` data store.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub content: std::option::Option<crate::model::document::Content>,
 
@@ -11885,6 +13497,10 @@ pub struct Document {
     /// It contains derived data that are not in the original input document.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub derived_struct_data: std::option::Option<wkt::Struct>,
+
+    /// Access control information for the document.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub acl_info: std::option::Option<crate::model::document::AclInfo>,
 
     /// Output only. The last time the document was indexed. If this field is set,
     /// the document could be returned in search results.
@@ -11983,6 +13599,24 @@ impl Document {
         T: std::convert::Into<wkt::Struct>,
     {
         self.derived_struct_data = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [acl_info][crate::model::Document::acl_info].
+    pub fn set_acl_info<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::document::AclInfo>,
+    {
+        self.acl_info = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [acl_info][crate::model::Document::acl_info].
+    pub fn set_or_clear_acl_info<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::document::AclInfo>,
+    {
+        self.acl_info = v.map(|x| x.into());
         self
     }
 
@@ -12101,15 +13735,30 @@ pub mod document {
         ///
         /// * `application/pdf` (PDF, only native PDFs are supported for now)
         /// * `text/html` (HTML)
+        /// * `text/plain` (TXT)
+        /// * `application/xml` or `text/xml` (XML)
+        /// * `application/json` (JSON)
         /// * `application/vnd.openxmlformats-officedocument.wordprocessingml.document` (DOCX)
         /// * `application/vnd.openxmlformats-officedocument.presentationml.presentation` (PPTX)
-        /// * `text/plain` (TXT)
+        /// * `application/vnd.openxmlformats-officedocument.spreadsheetml.sheet`
+        ///   (XLSX)
+        /// * `application/vnd.ms-excel.sheet.macroenabled.12` (XLSM)
+        ///
+        /// The following types are supported only if layout parser is enabled in the
+        /// data store:
+        ///
+        /// * `image/bmp` (BMP)
+        /// * `image/gif` (GIF)
+        /// * `image/jpeg` (JPEG)
+        /// * `image/png` (PNG)
+        /// * `image/tiff` (TIFF)
         ///
         /// See <https://www.iana.org/assignments/media-types/media-types.xhtml>.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub mime_type: std::string::String,
 
+        /// The content of the unstructured document.
         #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub content: std::option::Option<crate::model::document::content::Content>,
 
@@ -12201,6 +13850,7 @@ pub mod document {
         #[allow(unused_imports)]
         use super::*;
 
+        /// The content of the unstructured document.
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -12222,6 +13872,157 @@ pub mod document {
             /// `gs://bucket-name/path/to/file`) are supported. The maximum file size
             /// is 2.5 MB for text-based formats, 200 MB for other formats.
             Uri(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        }
+    }
+
+    /// ACL Information of the Document.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct AclInfo {
+        /// Readers of the document.
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+        pub readers: std::vec::Vec<crate::model::document::acl_info::AccessRestriction>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl AclInfo {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [readers][crate::model::document::AclInfo::readers].
+        pub fn set_readers<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::document::acl_info::AccessRestriction>,
+        {
+            use std::iter::Iterator;
+            self.readers = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for AclInfo {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.Document.AclInfo"
+        }
+    }
+
+    /// Defines additional types related to [AclInfo].
+    pub mod acl_info {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// AclRestriction to model complex inheritance restrictions.
+        ///
+        /// Example: Modeling a "Both Permit" inheritance, where to access a
+        /// child document, user needs to have access to parent document.
+        ///
+        /// Document Hierarchy - Space_S --> Page_P.
+        ///
+        /// Readers:
+        /// Space_S: group_1, user_1
+        /// Page_P: group_2, group_3, user_2
+        ///
+        /// Space_S ACL Restriction -
+        /// {
+        /// "acl_info": {
+        /// "readers": [
+        /// {
+        /// "principals": [
+        /// {
+        /// "group_id": "group_1"
+        /// },
+        /// {
+        /// "user_id": "user_1"
+        /// }
+        /// ]
+        /// }
+        /// ]
+        /// }
+        /// }
+        ///
+        /// Page_P ACL Restriction.
+        /// {
+        /// "acl_info": {
+        /// "readers": [
+        /// {
+        /// "principals": [
+        /// {
+        /// "group_id": "group_2"
+        /// },
+        /// {
+        /// "group_id": "group_3"
+        /// },
+        /// {
+        /// "user_id": "user_2"
+        /// }
+        /// ],
+        /// },
+        /// {
+        /// "principals": [
+        /// {
+        /// "group_id": "group_1"
+        /// },
+        /// {
+        /// "user_id": "user_1"
+        /// }
+        /// ],
+        /// }
+        /// ]
+        /// }
+        /// }
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct AccessRestriction {
+            /// List of principals.
+            #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+            pub principals: std::vec::Vec<crate::model::Principal>,
+
+            /// All users within the Identity Provider.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            pub idp_wide: bool,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl AccessRestriction {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [principals][crate::model::document::acl_info::AccessRestriction::principals].
+            pub fn set_principals<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<crate::model::Principal>,
+            {
+                use std::iter::Iterator;
+                self.principals = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [idp_wide][crate::model::document::acl_info::AccessRestriction::idp_wide].
+            pub fn set_idp_wide<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+                self.idp_wide = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for AccessRestriction {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.Document.AclInfo.AccessRestriction"
+            }
         }
     }
 
@@ -12826,6 +14627,41 @@ pub mod document_processing_config {
         #[serde(default, rename_all = "camelCase")]
         #[non_exhaustive]
         pub struct LayoutParsingConfig {
+            /// Optional. If true, the LLM based annotation is added to the table
+            /// during parsing.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            pub enable_table_annotation: bool,
+
+            /// Optional. If true, the LLM based annotation is added to the image
+            /// during parsing.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            pub enable_image_annotation: bool,
+
+            /// Optional. Contains the required structure types to extract from the
+            /// document. Supported values:
+            ///
+            /// * `shareholder-structure`
+            #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+            pub structured_content_types: std::vec::Vec<std::string::String>,
+
+            /// Optional. List of HTML elements to exclude from the parsed content.
+            #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+            pub exclude_html_elements: std::vec::Vec<std::string::String>,
+
+            /// Optional. List of HTML classes to exclude from the parsed content.
+            #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+            pub exclude_html_classes: std::vec::Vec<std::string::String>,
+
+            /// Optional. List of HTML ids to exclude from the parsed content.
+            #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+            pub exclude_html_ids: std::vec::Vec<std::string::String>,
+
             #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
@@ -12833,6 +14669,68 @@ pub mod document_processing_config {
         impl LayoutParsingConfig {
             pub fn new() -> Self {
                 std::default::Default::default()
+            }
+
+            /// Sets the value of [enable_table_annotation][crate::model::document_processing_config::parsing_config::LayoutParsingConfig::enable_table_annotation].
+            pub fn set_enable_table_annotation<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.enable_table_annotation = v.into();
+                self
+            }
+
+            /// Sets the value of [enable_image_annotation][crate::model::document_processing_config::parsing_config::LayoutParsingConfig::enable_image_annotation].
+            pub fn set_enable_image_annotation<T: std::convert::Into<bool>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.enable_image_annotation = v.into();
+                self
+            }
+
+            /// Sets the value of [structured_content_types][crate::model::document_processing_config::parsing_config::LayoutParsingConfig::structured_content_types].
+            pub fn set_structured_content_types<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.structured_content_types = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [exclude_html_elements][crate::model::document_processing_config::parsing_config::LayoutParsingConfig::exclude_html_elements].
+            pub fn set_exclude_html_elements<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.exclude_html_elements = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [exclude_html_classes][crate::model::document_processing_config::parsing_config::LayoutParsingConfig::exclude_html_classes].
+            pub fn set_exclude_html_classes<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.exclude_html_classes = v.into_iter().map(|i| i.into()).collect();
+                self
+            }
+
+            /// Sets the value of [exclude_html_ids][crate::model::document_processing_config::parsing_config::LayoutParsingConfig::exclude_html_ids].
+            pub fn set_exclude_html_ids<T, V>(mut self, v: T) -> Self
+            where
+                T: std::iter::IntoIterator<Item = V>,
+                V: std::convert::Into<std::string::String>,
+            {
+                use std::iter::Iterator;
+                self.exclude_html_ids = v.into_iter().map(|i| i.into()).collect();
+                self
             }
         }
 
@@ -14075,7 +15973,7 @@ pub mod batch_get_documents_metadata_response {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct Engine {
-    /// Immutable. The fully qualified resource name of the engine.
+    /// Immutable. Identifier. The fully qualified resource name of the engine.
     ///
     /// This field must be a UTF-8 encoded string with a length limit of 1024
     /// characters.
@@ -14102,7 +16000,7 @@ pub struct Engine {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    /// The data stores associated with this engine.
+    /// Optional. The data stores associated with this engine.
     ///
     /// For
     /// [SOLUTION_TYPE_SEARCH][google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH]
@@ -14136,7 +16034,7 @@ pub struct Engine {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub solution_type: crate::model::SolutionType,
 
-    /// The industry vertical that the engine registers.
+    /// Optional. The industry vertical that the engine registers.
     /// The restriction of the Engine industry vertical is based on
     /// [DataStore][google.cloud.discoveryengine.v1.DataStore]: Vertical on Engine
     /// has to match vertical of the DataStore linked to the engine.
@@ -14350,6 +16248,39 @@ impl Engine {
         self
     }
 
+    /// The value of [engine_config][crate::model::Engine::engine_config]
+    /// if it holds a `MediaRecommendationEngineConfig`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn media_recommendation_engine_config(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::engine::MediaRecommendationEngineConfig>>
+    {
+        #[allow(unreachable_patterns)]
+        self.engine_config.as_ref().and_then(|v| match v {
+            crate::model::engine::EngineConfig::MediaRecommendationEngineConfig(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [engine_config][crate::model::Engine::engine_config]
+    /// to hold a `MediaRecommendationEngineConfig`.
+    ///
+    /// Note that all the setters affecting `engine_config` are
+    /// mutually exclusive.
+    pub fn set_media_recommendation_engine_config<
+        T: std::convert::Into<std::boxed::Box<crate::model::engine::MediaRecommendationEngineConfig>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.engine_config = std::option::Option::Some(
+            crate::model::engine::EngineConfig::MediaRecommendationEngineConfig(v.into()),
+        );
+        self
+    }
+
     /// Sets the value of [engine_metadata][crate::model::Engine::engine_metadata].
     ///
     /// Note that all the setters affecting `engine_metadata` are mutually
@@ -14466,6 +16397,538 @@ pub mod engine {
     impl wkt::message::Message for SearchEngineConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.SearchEngineConfig"
+        }
+    }
+
+    /// Additional config specs for a Media Recommendation engine.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct MediaRecommendationEngineConfig {
+        /// Required. The type of engine. e.g., `recommended-for-you`.
+        ///
+        /// This field together with
+        /// [optimization_objective][google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig.optimization_objective]
+        /// describe engine metadata to use to control engine training and serving.
+        ///
+        /// Currently supported values: `recommended-for-you`, `others-you-may-like`,
+        /// `more-like-this`, `most-popular-items`.
+        ///
+        /// [google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig.optimization_objective]: crate::model::engine::MediaRecommendationEngineConfig::optimization_objective
+        #[serde(rename = "type")]
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+        pub r#type: std::string::String,
+
+        /// The optimization objective. e.g., `cvr`.
+        ///
+        /// This field together with
+        /// [optimization_objective][google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig.type]
+        /// describe engine metadata to use to control engine training and serving.
+        ///
+        /// Currently supported
+        /// values: `ctr`, `cvr`.
+        ///
+        /// If not specified, we choose default based on engine type.
+        /// Default depends on type of recommendation:
+        ///
+        /// `recommended-for-you` => `ctr`
+        ///
+        /// `others-you-may-like` => `ctr`
+        ///
+        /// [google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig.type]: crate::model::engine::MediaRecommendationEngineConfig::type
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+        pub optimization_objective: std::string::String,
+
+        /// Name and value of the custom threshold for cvr optimization_objective.
+        /// For target_field `watch-time`, target_field_value must be an integer
+        /// value indicating the media progress time in seconds between (0, 86400]
+        /// (excludes 0, includes 86400) (e.g., 90).
+        /// For target_field `watch-percentage`, the target_field_value must be a
+        /// valid float value between (0, 1.0] (excludes 0, includes 1.0) (e.g.,
+        /// 0.5).
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub optimization_objective_config: std::option::Option<
+            crate::model::engine::media_recommendation_engine_config::OptimizationObjectiveConfig,
+        >,
+
+        /// The training state that the engine is in (e.g.
+        /// `TRAINING` or `PAUSED`).
+        ///
+        /// Since part of the cost of running the service
+        /// is frequency of training - this can be used to determine when to train
+        /// engine in order to control cost. If not specified: the default value for
+        /// `CreateEngine` method is `TRAINING`. The default value for
+        /// `UpdateEngine` method is to keep the state the same as before.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+        pub training_state: crate::model::engine::media_recommendation_engine_config::TrainingState,
+
+        /// Optional. Additional engine features config.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub engine_features_config: std::option::Option<
+            crate::model::engine::media_recommendation_engine_config::EngineFeaturesConfig,
+        >,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl MediaRecommendationEngineConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [r#type][crate::model::engine::MediaRecommendationEngineConfig::type].
+        pub fn set_type<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.r#type = v.into();
+            self
+        }
+
+        /// Sets the value of [optimization_objective][crate::model::engine::MediaRecommendationEngineConfig::optimization_objective].
+        pub fn set_optimization_objective<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.optimization_objective = v.into();
+            self
+        }
+
+        /// Sets the value of [optimization_objective_config][crate::model::engine::MediaRecommendationEngineConfig::optimization_objective_config].
+        pub fn set_optimization_objective_config<T>(mut self, v: T) -> Self
+        where T: std::convert::Into<crate::model::engine::media_recommendation_engine_config::OptimizationObjectiveConfig>
+        {
+            self.optimization_objective_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [optimization_objective_config][crate::model::engine::MediaRecommendationEngineConfig::optimization_objective_config].
+        pub fn set_or_clear_optimization_objective_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where T: std::convert::Into<crate::model::engine::media_recommendation_engine_config::OptimizationObjectiveConfig>
+        {
+            self.optimization_objective_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [training_state][crate::model::engine::MediaRecommendationEngineConfig::training_state].
+        pub fn set_training_state<
+            T: std::convert::Into<
+                    crate::model::engine::media_recommendation_engine_config::TrainingState,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.training_state = v.into();
+            self
+        }
+
+        /// Sets the value of [engine_features_config][crate::model::engine::MediaRecommendationEngineConfig::engine_features_config].
+        pub fn set_engine_features_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::engine::media_recommendation_engine_config::EngineFeaturesConfig,
+                >,
+        {
+            self.engine_features_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [engine_features_config][crate::model::engine::MediaRecommendationEngineConfig::engine_features_config].
+        pub fn set_or_clear_engine_features_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::engine::media_recommendation_engine_config::EngineFeaturesConfig,
+                >,
+        {
+            self.engine_features_config = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for MediaRecommendationEngineConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig"
+        }
+    }
+
+    /// Defines additional types related to [MediaRecommendationEngineConfig].
+    pub mod media_recommendation_engine_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Custom threshold for `cvr` optimization_objective.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct OptimizationObjectiveConfig {
+            /// Required. The name of the field to target. Currently supported
+            /// values: `watch-percentage`, `watch-time`.
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            pub target_field: std::string::String,
+
+            /// Required. The threshold to be applied to the target (e.g., 0.5).
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
+            pub target_field_value_float: f32,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl OptimizationObjectiveConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [target_field][crate::model::engine::media_recommendation_engine_config::OptimizationObjectiveConfig::target_field].
+            pub fn set_target_field<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.target_field = v.into();
+                self
+            }
+
+            /// Sets the value of [target_field_value_float][crate::model::engine::media_recommendation_engine_config::OptimizationObjectiveConfig::target_field_value_float].
+            pub fn set_target_field_value_float<T: std::convert::Into<f32>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.target_field_value_float = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for OptimizationObjectiveConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig.OptimizationObjectiveConfig"
+            }
+        }
+
+        /// More feature configs of the selected engine type.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct EngineFeaturesConfig {
+
+            /// Feature related configurations applied to a specific type of meida
+            /// recommendation engines.
+            #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+            pub type_dedicated_config: std::option::Option<crate::model::engine::media_recommendation_engine_config::engine_features_config::TypeDedicatedConfig>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl EngineFeaturesConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [type_dedicated_config][crate::model::engine::media_recommendation_engine_config::EngineFeaturesConfig::type_dedicated_config].
+            ///
+            /// Note that all the setters affecting `type_dedicated_config` are mutually
+            /// exclusive.
+            pub fn set_type_dedicated_config<T: std::convert::Into<std::option::Option<crate::model::engine::media_recommendation_engine_config::engine_features_config::TypeDedicatedConfig>>>(mut self, v: T) -> Self
+            {
+                self.type_dedicated_config = v.into();
+                self
+            }
+
+            /// The value of [type_dedicated_config][crate::model::engine::media_recommendation_engine_config::EngineFeaturesConfig::type_dedicated_config]
+            /// if it holds a `RecommendedForYouConfig`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn recommended_for_you_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::engine::media_recommendation_engine_config::RecommendedForYouFeatureConfig>>{
+                #[allow(unreachable_patterns)]
+                self.type_dedicated_config.as_ref().and_then(|v| match v {
+                    crate::model::engine::media_recommendation_engine_config::engine_features_config::TypeDedicatedConfig::RecommendedForYouConfig(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [type_dedicated_config][crate::model::engine::media_recommendation_engine_config::EngineFeaturesConfig::type_dedicated_config]
+            /// to hold a `RecommendedForYouConfig`.
+            ///
+            /// Note that all the setters affecting `type_dedicated_config` are
+            /// mutually exclusive.
+            pub fn set_recommended_for_you_config<T: std::convert::Into<std::boxed::Box<crate::model::engine::media_recommendation_engine_config::RecommendedForYouFeatureConfig>>>(mut self, v: T) -> Self{
+                self.type_dedicated_config = std::option::Option::Some(
+                    crate::model::engine::media_recommendation_engine_config::engine_features_config::TypeDedicatedConfig::RecommendedForYouConfig(
+                        v.into()
+                    )
+                );
+                self
+            }
+
+            /// The value of [type_dedicated_config][crate::model::engine::media_recommendation_engine_config::EngineFeaturesConfig::type_dedicated_config]
+            /// if it holds a `MostPopularConfig`, `None` if the field is not set or
+            /// holds a different branch.
+            pub fn most_popular_config(&self) -> std::option::Option<&std::boxed::Box<crate::model::engine::media_recommendation_engine_config::MostPopularFeatureConfig>>{
+                #[allow(unreachable_patterns)]
+                self.type_dedicated_config.as_ref().and_then(|v| match v {
+                    crate::model::engine::media_recommendation_engine_config::engine_features_config::TypeDedicatedConfig::MostPopularConfig(v) => std::option::Option::Some(v),
+                    _ => std::option::Option::None,
+                })
+            }
+
+            /// Sets the value of [type_dedicated_config][crate::model::engine::media_recommendation_engine_config::EngineFeaturesConfig::type_dedicated_config]
+            /// to hold a `MostPopularConfig`.
+            ///
+            /// Note that all the setters affecting `type_dedicated_config` are
+            /// mutually exclusive.
+            pub fn set_most_popular_config<T: std::convert::Into<std::boxed::Box<crate::model::engine::media_recommendation_engine_config::MostPopularFeatureConfig>>>(mut self, v: T) -> Self{
+                self.type_dedicated_config = std::option::Option::Some(
+                    crate::model::engine::media_recommendation_engine_config::engine_features_config::TypeDedicatedConfig::MostPopularConfig(
+                        v.into()
+                    )
+                );
+                self
+            }
+        }
+
+        impl wkt::message::Message for EngineFeaturesConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig.EngineFeaturesConfig"
+            }
+        }
+
+        /// Defines additional types related to [EngineFeaturesConfig].
+        pub mod engine_features_config {
+            #[allow(unused_imports)]
+            use super::*;
+
+            /// Feature related configurations applied to a specific type of meida
+            /// recommendation engines.
+            #[serde_with::serde_as]
+            #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+            #[serde(rename_all = "camelCase")]
+            #[non_exhaustive]
+            pub enum TypeDedicatedConfig {
+                /// Recommended for you engine feature config.
+                RecommendedForYouConfig(std::boxed::Box<crate::model::engine::media_recommendation_engine_config::RecommendedForYouFeatureConfig>),
+                /// Most popular engine feature config.
+                MostPopularConfig(std::boxed::Box<crate::model::engine::media_recommendation_engine_config::MostPopularFeatureConfig>),
+            }
+        }
+
+        /// Additional feature configurations for creating a `recommended-for-you`
+        /// engine.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct RecommendedForYouFeatureConfig {
+            /// The type of event with which the engine is queried at prediction time.
+            /// If set to `generic`, only `view-item`, `media-play`,and
+            /// `media-complete` will be used as `context-event` in engine training. If
+            /// set to `view-home-page`, `view-home-page` will also be used as
+            /// `context-events` in addition to `view-item`, `media-play`, and
+            /// `media-complete`. Currently supported for the `recommended-for-you`
+            /// engine. Currently supported values: `view-home-page`, `generic`.
+            #[serde(skip_serializing_if = "std::string::String::is_empty")]
+            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+            pub context_event_type: std::string::String,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl RecommendedForYouFeatureConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [context_event_type][crate::model::engine::media_recommendation_engine_config::RecommendedForYouFeatureConfig::context_event_type].
+            pub fn set_context_event_type<T: std::convert::Into<std::string::String>>(
+                mut self,
+                v: T,
+            ) -> Self {
+                self.context_event_type = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for RecommendedForYouFeatureConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig.RecommendedForYouFeatureConfig"
+            }
+        }
+
+        /// Feature configurations that are required for creating a Most Popular
+        /// engine.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct MostPopularFeatureConfig {
+            /// The time window of which the engine is queried at training and
+            /// prediction time. Positive integers only. The value translates to the
+            /// last X days of events. Currently required for the `most-popular-items`
+            /// engine.
+            #[serde(skip_serializing_if = "wkt::internal::is_default")]
+            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
+            pub time_window_days: i64,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl MostPopularFeatureConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [time_window_days][crate::model::engine::media_recommendation_engine_config::MostPopularFeatureConfig::time_window_days].
+            pub fn set_time_window_days<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+                self.time_window_days = v.into();
+                self
+            }
+        }
+
+        impl wkt::message::Message for MostPopularFeatureConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig.MostPopularFeatureConfig"
+            }
+        }
+
+        /// The training state of the engine.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum TrainingState {
+            /// Unspecified training state.
+            Unspecified,
+            /// The engine training is paused.
+            Paused,
+            /// The engine is training.
+            Training,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [TrainingState::value] or
+            /// [TrainingState::name].
+            UnknownValue(training_state::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod training_state {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl TrainingState {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Paused => std::option::Option::Some(1),
+                    Self::Training => std::option::Option::Some(2),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("TRAINING_STATE_UNSPECIFIED"),
+                    Self::Paused => std::option::Option::Some("PAUSED"),
+                    Self::Training => std::option::Option::Some("TRAINING"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for TrainingState {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for TrainingState {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for TrainingState {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Paused,
+                    2 => Self::Training,
+                    _ => Self::UnknownValue(training_state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for TrainingState {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "TRAINING_STATE_UNSPECIFIED" => Self::Unspecified,
+                    "PAUSED" => Self::Paused,
+                    "TRAINING" => Self::Training,
+                    _ => Self::UnknownValue(training_state::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for TrainingState {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Paused => serializer.serialize_i32(1),
+                    Self::Training => serializer.serialize_i32(2),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for TrainingState {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<TrainingState>::new(
+                    ".google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig.TrainingState"))
+            }
         }
     }
 
@@ -14784,6 +17247,20 @@ pub mod engine {
         /// [google.cloud.discoveryengine.v1.Engine.solution_type]: crate::model::Engine::solution_type
         /// [google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_SEARCH]: crate::model::SolutionType::Search
         SearchEngineConfig(std::boxed::Box<crate::model::engine::SearchEngineConfig>),
+        /// Configurations for the Media Engine. Only applicable on the data
+        /// stores with
+        /// [solution_type][google.cloud.discoveryengine.v1.Engine.solution_type]
+        /// [SOLUTION_TYPE_RECOMMENDATION][google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_RECOMMENDATION]
+        /// and
+        /// [IndustryVertical.MEDIA][google.cloud.discoveryengine.v1.IndustryVertical.MEDIA]
+        /// vertical.
+        ///
+        /// [google.cloud.discoveryengine.v1.Engine.solution_type]: crate::model::Engine::solution_type
+        /// [google.cloud.discoveryengine.v1.IndustryVertical.MEDIA]: crate::model::IndustryVertical::Media
+        /// [google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_RECOMMENDATION]: crate::model::SolutionType::Recommendation
+        MediaRecommendationEngineConfig(
+            std::boxed::Box<crate::model::engine::MediaRecommendationEngineConfig>,
+        ),
     }
 
     /// Engine metadata to monitor the status of the engine.
@@ -17605,6 +20082,10 @@ pub struct CheckGroundingSpec {
     #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub citation_threshold: std::option::Option<f64>,
 
+    /// The control flag that enables claim-level grounding score in the response.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub enable_claim_level_score: std::option::Option<bool>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -17629,6 +20110,24 @@ impl CheckGroundingSpec {
         T: std::convert::Into<f64>,
     {
         self.citation_threshold = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [enable_claim_level_score][crate::model::CheckGroundingSpec::enable_claim_level_score].
+    pub fn set_enable_claim_level_score<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_claim_level_score = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [enable_claim_level_score][crate::model::CheckGroundingSpec::enable_claim_level_score].
+    pub fn set_or_clear_enable_claim_level_score<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.enable_claim_level_score = v.map(|x| x.into());
         self
     }
 }
@@ -17959,6 +20458,13 @@ pub mod check_grounding_response {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub grounding_check_required: std::option::Option<bool>,
 
+        /// Confidence score for the claim in the answer candidate, in the range of
+        /// [0, 1]. This is set only when
+        /// `CheckGroundingRequest.grounding_spec.enable_claim_level_score` is true.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
+        pub score: std::option::Option<f64>,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -18036,6 +20542,24 @@ pub mod check_grounding_response {
             T: std::convert::Into<bool>,
         {
             self.grounding_check_required = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [score][crate::model::check_grounding_response::Claim::score].
+        pub fn set_score<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.score = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [score][crate::model::check_grounding_response::Claim::score].
+        pub fn set_or_clear_score<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<f64>,
+        {
+            self.score = v.map(|x| x.into());
             self
         }
     }
@@ -18128,6 +20652,21 @@ pub struct FactChunk {
     #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub source_metadata: std::collections::HashMap<std::string::String, std::string::String>,
 
+    /// The URI of the source.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub uri: std::string::String,
+
+    /// The title of the source.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub title: std::string::String,
+
+    /// The domain of the source.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub domain: std::string::String,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -18166,11 +20705,1297 @@ impl FactChunk {
         self.source_metadata = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
         self
     }
+
+    /// Sets the value of [uri][crate::model::FactChunk::uri].
+    pub fn set_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.uri = v.into();
+        self
+    }
+
+    /// Sets the value of [title][crate::model::FactChunk::title].
+    pub fn set_title<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.title = v.into();
+        self
+    }
+
+    /// Sets the value of [domain][crate::model::FactChunk::domain].
+    pub fn set_domain<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.domain = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for FactChunk {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.FactChunk"
+    }
+}
+
+/// Identity Mapping Store which contains Identity Mapping Entries.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct IdentityMappingStore {
+    /// Immutable. The full resource name of the identity mapping store.
+    /// Format:
+    /// `projects/{project}/locations/{location}/identityMappingStores/{identity_mapping_store}`.
+    /// This field must be a UTF-8 encoded string with a length limit of 1024
+    /// characters.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    /// Input only. The KMS key to be used to protect this Identity Mapping Store
+    /// at creation time.
+    ///
+    /// Must be set for requests that need to comply with CMEK Org Policy
+    /// protections.
+    ///
+    /// If this field is set and processed successfully, the Identity Mapping Store
+    /// will be protected by the KMS key, as indicated in the cmek_config field.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub kms_key_name: std::string::String,
+
+    /// Output only. CMEK-related information for the Identity Mapping Store.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub cmek_config: std::option::Option<crate::model::CmekConfig>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IdentityMappingStore {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::IdentityMappingStore::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [kms_key_name][crate::model::IdentityMappingStore::kms_key_name].
+    pub fn set_kms_key_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.kms_key_name = v.into();
+        self
+    }
+
+    /// Sets the value of [cmek_config][crate::model::IdentityMappingStore::cmek_config].
+    pub fn set_cmek_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CmekConfig>,
+    {
+        self.cmek_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [cmek_config][crate::model::IdentityMappingStore::cmek_config].
+    pub fn set_or_clear_cmek_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CmekConfig>,
+    {
+        self.cmek_config = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for IdentityMappingStore {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.IdentityMappingStore"
+    }
+}
+
+/// Identity Mapping Entry that maps an external identity to an internal
+/// identity.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct IdentityMappingEntry {
+    /// Required. Identity outside the customer identity provider.
+    /// The length limit of external identity will be of 100 characters.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub external_identity: std::string::String,
+
+    /// Union field identity_provider_id. Identity Provider id can be a user or a
+    /// group.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub identity_provider_id:
+        std::option::Option<crate::model::identity_mapping_entry::IdentityProviderId>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IdentityMappingEntry {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [external_identity][crate::model::IdentityMappingEntry::external_identity].
+    pub fn set_external_identity<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.external_identity = v.into();
+        self
+    }
+
+    /// Sets the value of [identity_provider_id][crate::model::IdentityMappingEntry::identity_provider_id].
+    ///
+    /// Note that all the setters affecting `identity_provider_id` are mutually
+    /// exclusive.
+    pub fn set_identity_provider_id<
+        T: std::convert::Into<
+                std::option::Option<crate::model::identity_mapping_entry::IdentityProviderId>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identity_provider_id = v.into();
+        self
+    }
+
+    /// The value of [identity_provider_id][crate::model::IdentityMappingEntry::identity_provider_id]
+    /// if it holds a `UserId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn user_id(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.identity_provider_id.as_ref().and_then(|v| match v {
+            crate::model::identity_mapping_entry::IdentityProviderId::UserId(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [identity_provider_id][crate::model::IdentityMappingEntry::identity_provider_id]
+    /// to hold a `UserId`.
+    ///
+    /// Note that all the setters affecting `identity_provider_id` are
+    /// mutually exclusive.
+    pub fn set_user_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.identity_provider_id = std::option::Option::Some(
+            crate::model::identity_mapping_entry::IdentityProviderId::UserId(v.into()),
+        );
+        self
+    }
+
+    /// The value of [identity_provider_id][crate::model::IdentityMappingEntry::identity_provider_id]
+    /// if it holds a `GroupId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn group_id(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.identity_provider_id.as_ref().and_then(|v| match v {
+            crate::model::identity_mapping_entry::IdentityProviderId::GroupId(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [identity_provider_id][crate::model::IdentityMappingEntry::identity_provider_id]
+    /// to hold a `GroupId`.
+    ///
+    /// Note that all the setters affecting `identity_provider_id` are
+    /// mutually exclusive.
+    pub fn set_group_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.identity_provider_id = std::option::Option::Some(
+            crate::model::identity_mapping_entry::IdentityProviderId::GroupId(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for IdentityMappingEntry {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.IdentityMappingEntry"
+    }
+}
+
+/// Defines additional types related to [IdentityMappingEntry].
+pub mod identity_mapping_entry {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Union field identity_provider_id. Identity Provider id can be a user or a
+    /// group.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum IdentityProviderId {
+        /// User identifier.
+        /// For Google Workspace user account, user_id should be the google workspace
+        /// user email.
+        /// For non-google identity provider, user_id is the mapped user identifier
+        /// configured during the workforcepool config.
+        UserId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        /// Group identifier.
+        /// For Google Workspace user account, group_id should be the google
+        /// workspace group email.
+        /// For non-google identity provider, group_id is the mapped group identifier
+        /// configured during the workforcepool config.
+        GroupId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+    }
+}
+
+/// Request message for
+/// [IdentityMappingStoreService.CreateIdentityMappingStore][google.cloud.discoveryengine.v1.IdentityMappingStoreService.CreateIdentityMappingStore]
+///
+/// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.CreateIdentityMappingStore]: crate::client::IdentityMappingStoreService::create_identity_mapping_store
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct CreateIdentityMappingStoreRequest {
+    /// Required. The parent collection resource name, such as
+    /// `projects/{project}/locations/{location}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub parent: std::string::String,
+
+    /// Required. The ID of the Identity Mapping Store to create.
+    ///
+    /// The ID must contain only letters (a-z, A-Z), numbers (0-9), underscores
+    /// (_), and hyphens (-). The maximum length is 63 characters.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub identity_mapping_store_id: std::string::String,
+
+    /// Required. The Identity Mapping Store to create.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub identity_mapping_store: std::option::Option<crate::model::IdentityMappingStore>,
+
+    /// CMEK options for the Identity Mapping Store. Setting this field will
+    /// override the default CmekConfig if one is set for the project.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub cmek_options:
+        std::option::Option<crate::model::create_identity_mapping_store_request::CmekOptions>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateIdentityMappingStoreRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateIdentityMappingStoreRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [identity_mapping_store_id][crate::model::CreateIdentityMappingStoreRequest::identity_mapping_store_id].
+    pub fn set_identity_mapping_store_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identity_mapping_store_id = v.into();
+        self
+    }
+
+    /// Sets the value of [identity_mapping_store][crate::model::CreateIdentityMappingStoreRequest::identity_mapping_store].
+    pub fn set_identity_mapping_store<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::IdentityMappingStore>,
+    {
+        self.identity_mapping_store = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [identity_mapping_store][crate::model::CreateIdentityMappingStoreRequest::identity_mapping_store].
+    pub fn set_or_clear_identity_mapping_store<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::IdentityMappingStore>,
+    {
+        self.identity_mapping_store = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [cmek_options][crate::model::CreateIdentityMappingStoreRequest::cmek_options].
+    ///
+    /// Note that all the setters affecting `cmek_options` are mutually
+    /// exclusive.
+    pub fn set_cmek_options<
+        T: std::convert::Into<
+                std::option::Option<
+                    crate::model::create_identity_mapping_store_request::CmekOptions,
+                >,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cmek_options = v.into();
+        self
+    }
+
+    /// The value of [cmek_options][crate::model::CreateIdentityMappingStoreRequest::cmek_options]
+    /// if it holds a `CmekConfigName`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn cmek_config_name(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.cmek_options.as_ref().and_then(|v| match v {
+            crate::model::create_identity_mapping_store_request::CmekOptions::CmekConfigName(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [cmek_options][crate::model::CreateIdentityMappingStoreRequest::cmek_options]
+    /// to hold a `CmekConfigName`.
+    ///
+    /// Note that all the setters affecting `cmek_options` are
+    /// mutually exclusive.
+    pub fn set_cmek_config_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cmek_options = std::option::Option::Some(
+            crate::model::create_identity_mapping_store_request::CmekOptions::CmekConfigName(
+                v.into(),
+            ),
+        );
+        self
+    }
+
+    /// The value of [cmek_options][crate::model::CreateIdentityMappingStoreRequest::cmek_options]
+    /// if it holds a `DisableCmek`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn disable_cmek(&self) -> std::option::Option<&bool> {
+        #[allow(unreachable_patterns)]
+        self.cmek_options.as_ref().and_then(|v| match v {
+            crate::model::create_identity_mapping_store_request::CmekOptions::DisableCmek(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [cmek_options][crate::model::CreateIdentityMappingStoreRequest::cmek_options]
+    /// to hold a `DisableCmek`.
+    ///
+    /// Note that all the setters affecting `cmek_options` are
+    /// mutually exclusive.
+    pub fn set_disable_cmek<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.cmek_options = std::option::Option::Some(
+            crate::model::create_identity_mapping_store_request::CmekOptions::DisableCmek(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for CreateIdentityMappingStoreRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.CreateIdentityMappingStoreRequest"
+    }
+}
+
+/// Defines additional types related to [CreateIdentityMappingStoreRequest].
+pub mod create_identity_mapping_store_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// CMEK options for the Identity Mapping Store. Setting this field will
+    /// override the default CmekConfig if one is set for the project.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum CmekOptions {
+        /// Resource name of the CmekConfig to use for protecting this Identity
+        /// Mapping Store.
+        CmekConfigName(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        /// Identity Mapping Store without CMEK protections. If a default CmekConfig
+        /// is set for the project, setting this field will override the default
+        /// CmekConfig as well.
+        DisableCmek(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
+    }
+}
+
+/// Request message for
+/// [IdentityMappingStoreService.GetIdentityMappingStore][google.cloud.discoveryengine.v1.IdentityMappingStoreService.GetIdentityMappingStore]
+///
+/// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.GetIdentityMappingStore]: crate::client::IdentityMappingStoreService::get_identity_mapping_store
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct GetIdentityMappingStoreRequest {
+    /// Required. The name of the Identity Mapping Store to get.
+    /// Format:
+    /// `projects/{project}/locations/{location}/identityMappingStores/{identityMappingStore}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetIdentityMappingStoreRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetIdentityMappingStoreRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetIdentityMappingStoreRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.GetIdentityMappingStoreRequest"
+    }
+}
+
+/// Request message for
+/// [IdentityMappingStoreService.DeleteIdentityMappingStore][google.cloud.discoveryengine.v1.IdentityMappingStoreService.DeleteIdentityMappingStore]
+///
+/// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.DeleteIdentityMappingStore]: crate::client::IdentityMappingStoreService::delete_identity_mapping_store
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteIdentityMappingStoreRequest {
+    /// Required. The name of the Identity Mapping Store to delete.
+    /// Format:
+    /// `projects/{project}/locations/{location}/identityMappingStores/{identityMappingStore}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteIdentityMappingStoreRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteIdentityMappingStoreRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteIdentityMappingStoreRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteIdentityMappingStoreRequest"
+    }
+}
+
+/// Request message for
+/// [IdentityMappingStoreService.ImportIdentityMappings][google.cloud.discoveryengine.v1.IdentityMappingStoreService.ImportIdentityMappings]
+///
+/// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ImportIdentityMappings]: crate::client::IdentityMappingStoreService::import_identity_mappings
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ImportIdentityMappingsRequest {
+    /// Required. The name of the Identity Mapping Store to import Identity Mapping
+    /// Entries to. Format:
+    /// `projects/{project}/locations/{location}/identityMappingStores/{identityMappingStore}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub identity_mapping_store: std::string::String,
+
+    /// The source of the input.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub source: std::option::Option<crate::model::import_identity_mappings_request::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ImportIdentityMappingsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [identity_mapping_store][crate::model::ImportIdentityMappingsRequest::identity_mapping_store].
+    pub fn set_identity_mapping_store<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identity_mapping_store = v.into();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::ImportIdentityMappingsRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    pub fn set_source<
+        T: std::convert::Into<
+                std::option::Option<crate::model::import_identity_mappings_request::Source>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::ImportIdentityMappingsRequest::source]
+    /// if it holds a `InlineSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn inline_source(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::import_identity_mappings_request::InlineSource>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::import_identity_mappings_request::Source::InlineSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::ImportIdentityMappingsRequest::source]
+    /// to hold a `InlineSource`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_inline_source<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::import_identity_mappings_request::InlineSource>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::import_identity_mappings_request::Source::InlineSource(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for ImportIdentityMappingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.ImportIdentityMappingsRequest"
+    }
+}
+
+/// Defines additional types related to [ImportIdentityMappingsRequest].
+pub mod import_identity_mappings_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The inline source to import identity mapping entries from.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct InlineSource {
+        /// A maximum of 10000 entries can be imported at one time
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+        pub identity_mapping_entries: std::vec::Vec<crate::model::IdentityMappingEntry>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl InlineSource {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [identity_mapping_entries][crate::model::import_identity_mappings_request::InlineSource::identity_mapping_entries].
+        pub fn set_identity_mapping_entries<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::IdentityMappingEntry>,
+        {
+            use std::iter::Iterator;
+            self.identity_mapping_entries = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for InlineSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.ImportIdentityMappingsRequest.InlineSource"
+        }
+    }
+
+    /// The source of the input.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Source {
+        /// The inline source to import identity mapping entries from.
+        InlineSource(std::boxed::Box<crate::model::import_identity_mappings_request::InlineSource>),
+    }
+}
+
+/// Response message for
+/// [IdentityMappingStoreService.ImportIdentityMappings][google.cloud.discoveryengine.v1.IdentityMappingStoreService.ImportIdentityMappings]
+///
+/// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ImportIdentityMappings]: crate::client::IdentityMappingStoreService::import_identity_mappings
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ImportIdentityMappingsResponse {
+    /// A sample of errors encountered while processing the request.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub error_samples: std::vec::Vec<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ImportIdentityMappingsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [error_samples][crate::model::ImportIdentityMappingsResponse::error_samples].
+    pub fn set_error_samples<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<rpc::model::Status>,
+    {
+        use std::iter::Iterator;
+        self.error_samples = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ImportIdentityMappingsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.ImportIdentityMappingsResponse"
+    }
+}
+
+/// Request message for
+/// [IdentityMappingStoreService.PurgeIdentityMappings][google.cloud.discoveryengine.v1.IdentityMappingStoreService.PurgeIdentityMappings]
+///
+/// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.PurgeIdentityMappings]: crate::client::IdentityMappingStoreService::purge_identity_mappings
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PurgeIdentityMappingsRequest {
+    /// Required. The name of the Identity Mapping Store to purge Identity Mapping
+    /// Entries from. Format:
+    /// `projects/{project}/locations/{location}/identityMappingStores/{identityMappingStore}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub identity_mapping_store: std::string::String,
+
+    /// Filter matching identity mappings to purge.
+    /// The eligible field for filtering is:
+    ///
+    /// * `update_time`: in ISO 8601 "zulu" format.
+    /// * `external_id`
+    ///
+    /// Examples:
+    ///
+    /// * Deleting all identity mappings updated in a time range:
+    ///   `update_time > "2012-04-23T18:25:43.511Z" AND update_time <
+    ///   "2012-04-23T18:30:43.511Z"`
+    /// * Deleting all identity mappings for a given external_id:
+    ///   `external_id = "id1"`
+    /// * Deleting all identity mappings inside an identity mapping store:
+    ///   `*`
+    ///
+    /// The filtering fields are assumed to have an implicit AND.
+    /// Should not be used with source. An error will be thrown, if both are
+    /// provided.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub filter: std::string::String,
+
+    /// Actually performs the purge. If `force` is set to false, return the
+    /// expected purge count without deleting any identity mappings. This field is
+    /// only supported for purge with filter. For input source this field is
+    /// ignored and data will be purged regardless of the value of this field.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub force: std::option::Option<bool>,
+
+    /// The source of the input.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub source: std::option::Option<crate::model::purge_identity_mappings_request::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PurgeIdentityMappingsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [identity_mapping_store][crate::model::PurgeIdentityMappingsRequest::identity_mapping_store].
+    pub fn set_identity_mapping_store<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identity_mapping_store = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::PurgeIdentityMappingsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [force][crate::model::PurgeIdentityMappingsRequest::force].
+    pub fn set_force<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.force = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [force][crate::model::PurgeIdentityMappingsRequest::force].
+    pub fn set_or_clear_force<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.force = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [source][crate::model::PurgeIdentityMappingsRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    pub fn set_source<
+        T: std::convert::Into<
+                std::option::Option<crate::model::purge_identity_mappings_request::Source>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::PurgeIdentityMappingsRequest::source]
+    /// if it holds a `InlineSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn inline_source(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::purge_identity_mappings_request::InlineSource>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::purge_identity_mappings_request::Source::InlineSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::PurgeIdentityMappingsRequest::source]
+    /// to hold a `InlineSource`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_inline_source<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::purge_identity_mappings_request::InlineSource>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::purge_identity_mappings_request::Source::InlineSource(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for PurgeIdentityMappingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeIdentityMappingsRequest"
+    }
+}
+
+/// Defines additional types related to [PurgeIdentityMappingsRequest].
+pub mod purge_identity_mappings_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The inline source to purge identity mapping entries from.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct InlineSource {
+        /// A maximum of 10000 entries can be purged at one time
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+        pub identity_mapping_entries: std::vec::Vec<crate::model::IdentityMappingEntry>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl InlineSource {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [identity_mapping_entries][crate::model::purge_identity_mappings_request::InlineSource::identity_mapping_entries].
+        pub fn set_identity_mapping_entries<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::IdentityMappingEntry>,
+        {
+            use std::iter::Iterator;
+            self.identity_mapping_entries = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+    }
+
+    impl wkt::message::Message for InlineSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeIdentityMappingsRequest.InlineSource"
+        }
+    }
+
+    /// The source of the input.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Source {
+        /// The inline source to purge identity mapping entries from.
+        InlineSource(std::boxed::Box<crate::model::purge_identity_mappings_request::InlineSource>),
+    }
+}
+
+/// Request message for
+/// [IdentityMappingStoreService.ListIdentityMappings][google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappings]
+///
+/// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappings]: crate::client::IdentityMappingStoreService::list_identity_mappings
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListIdentityMappingsRequest {
+    /// Required. The name of the Identity Mapping Store to list Identity Mapping
+    /// Entries in. Format:
+    /// `projects/{project}/locations/{location}/identityMappingStores/{identityMappingStore}`
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub identity_mapping_store: std::string::String,
+
+    /// Maximum number of IdentityMappings to return. If unspecified, defaults
+    /// to 2000. The maximum allowed value is 10000. Values above 10000 will be
+    /// coerced to 10000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
+    pub page_size: i32,
+
+    /// A page token, received from a previous `ListIdentityMappings` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `ListIdentityMappings` must match the call that provided the page
+    /// token.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListIdentityMappingsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [identity_mapping_store][crate::model::ListIdentityMappingsRequest::identity_mapping_store].
+    pub fn set_identity_mapping_store<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.identity_mapping_store = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListIdentityMappingsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListIdentityMappingsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListIdentityMappingsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.ListIdentityMappingsRequest"
+    }
+}
+
+/// Response message for
+/// [IdentityMappingStoreService.ListIdentityMappings][google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappings]
+///
+/// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappings]: crate::client::IdentityMappingStoreService::list_identity_mappings
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListIdentityMappingsResponse {
+    /// The Identity Mapping Entries.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub identity_mapping_entries: std::vec::Vec<crate::model::IdentityMappingEntry>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page. If this
+    /// field is omitted, there are no subsequent pages.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListIdentityMappingsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [identity_mapping_entries][crate::model::ListIdentityMappingsResponse::identity_mapping_entries].
+    pub fn set_identity_mapping_entries<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::IdentityMappingEntry>,
+    {
+        use std::iter::Iterator;
+        self.identity_mapping_entries = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListIdentityMappingsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListIdentityMappingsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.ListIdentityMappingsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListIdentityMappingsResponse {
+    type PageItem = crate::model::IdentityMappingEntry;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.identity_mapping_entries
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for
+/// [IdentityMappingStoreService.ListIdentityMappingStores][google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappingStores]
+///
+/// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappingStores]: crate::client::IdentityMappingStoreService::list_identity_mapping_stores
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListIdentityMappingStoresRequest {
+    /// Required. The parent of the Identity Mapping Stores to list.
+    /// Format:
+    /// `projects/{project}/locations/{location}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub parent: std::string::String,
+
+    /// Maximum number of IdentityMappingStores to return. If unspecified, defaults
+    /// to 100. The maximum allowed value is 1000. Values above 1000 will be
+    /// coerced to 1000.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
+    pub page_size: i32,
+
+    /// A page token, received from a previous `ListIdentityMappingStores` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to
+    /// `ListIdentityMappingStores` must match the call that provided the page
+    /// token.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListIdentityMappingStoresRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListIdentityMappingStoresRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListIdentityMappingStoresRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListIdentityMappingStoresRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListIdentityMappingStoresRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.ListIdentityMappingStoresRequest"
+    }
+}
+
+/// Response message for
+/// [IdentityMappingStoreService.ListIdentityMappingStores][google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappingStores]
+///
+/// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappingStores]: crate::client::IdentityMappingStoreService::list_identity_mapping_stores
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListIdentityMappingStoresResponse {
+    /// The Identity Mapping Stores.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub identity_mapping_stores: std::vec::Vec<crate::model::IdentityMappingStore>,
+
+    /// A token that can be sent as `page_token` to retrieve the next page. If this
+    /// field is omitted, there are no subsequent pages.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListIdentityMappingStoresResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [identity_mapping_stores][crate::model::ListIdentityMappingStoresResponse::identity_mapping_stores].
+    pub fn set_identity_mapping_stores<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::IdentityMappingStore>,
+    {
+        use std::iter::Iterator;
+        self.identity_mapping_stores = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListIdentityMappingStoresResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListIdentityMappingStoresResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.ListIdentityMappingStoresResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListIdentityMappingStoresResponse {
+    type PageItem = crate::model::IdentityMappingStore;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.identity_mapping_stores
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// IdentityMappingEntry LongRunningOperation metadata for
+/// [IdentityMappingStoreService.ImportIdentityMappings][google.cloud.discoveryengine.v1.IdentityMappingStoreService.ImportIdentityMappings]
+/// and
+/// [IdentityMappingStoreService.PurgeIdentityMappings][google.cloud.discoveryengine.v1.IdentityMappingStoreService.PurgeIdentityMappings]
+///
+/// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ImportIdentityMappings]: crate::client::IdentityMappingStoreService::import_identity_mappings
+/// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.PurgeIdentityMappings]: crate::client::IdentityMappingStoreService::purge_identity_mappings
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct IdentityMappingEntryOperationMetadata {
+    /// The number of IdentityMappingEntries that were successfully processed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
+    pub success_count: i64,
+
+    /// The number of IdentityMappingEntries that failed to be processed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
+    pub failure_count: i64,
+
+    /// The total number of IdentityMappingEntries that were processed.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
+    pub total_count: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl IdentityMappingEntryOperationMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [success_count][crate::model::IdentityMappingEntryOperationMetadata::success_count].
+    pub fn set_success_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.success_count = v.into();
+        self
+    }
+
+    /// Sets the value of [failure_count][crate::model::IdentityMappingEntryOperationMetadata::failure_count].
+    pub fn set_failure_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.failure_count = v.into();
+        self
+    }
+
+    /// Sets the value of [total_count][crate::model::IdentityMappingEntryOperationMetadata::total_count].
+    pub fn set_total_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.total_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for IdentityMappingEntryOperationMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.IdentityMappingEntryOperationMetadata"
+    }
+}
+
+/// Metadata related to the progress of the
+/// [IdentityMappingStoreService.DeleteIdentityMappingStore][google.cloud.discoveryengine.v1.IdentityMappingStoreService.DeleteIdentityMappingStore]
+/// operation. This will be returned by the google.longrunning.Operation.metadata
+/// field.
+///
+/// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.DeleteIdentityMappingStore]: crate::client::IdentityMappingStoreService::delete_identity_mapping_store
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DeleteIdentityMappingStoreMetadata {
+    /// Operation create time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Operation last update time. If the operation is done, this is also the
+    /// finish time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteIdentityMappingStoreMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [create_time][crate::model::DeleteIdentityMappingStoreMetadata::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::DeleteIdentityMappingStoreMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::DeleteIdentityMappingStoreMetadata::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::DeleteIdentityMappingStoreMetadata::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteIdentityMappingStoreMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteIdentityMappingStoreMetadata"
     }
 }
 
@@ -25664,6 +29489,14 @@ pub mod search_request {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub boost_spec: std::option::Option<crate::model::search_request::BoostSpec>,
 
+        /// Optional. Custom search operators which if specified will be used to
+        /// filter results from workspace data stores. For more information on custom
+        /// search operators, see
+        /// [SearchOperators](https://support.google.com/cloudsearch/answer/6172299).
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+        pub custom_search_operators: std::string::String,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -25700,6 +29533,15 @@ pub mod search_request {
             T: std::convert::Into<crate::model::search_request::BoostSpec>,
         {
             self.boost_spec = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [custom_search_operators][crate::model::search_request::DataStoreSpec::custom_search_operators].
+        pub fn set_custom_search_operators<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.custom_search_operators = v.into();
             self
         }
     }
@@ -32280,6 +36122,10 @@ pub mod target_site {
         /// . target site deleted if unindexing is successful;
         /// . state reverts to SUCCEEDED if the unindexing fails.
         Deleting,
+        /// The target site change is pending but cancellable.
+        Cancellable,
+        /// The target site change is cancelled.
+        Cancelled,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [IndexingStatus::value] or
@@ -32307,6 +36153,8 @@ pub mod target_site {
                 Self::Failed => std::option::Option::Some(2),
                 Self::Succeeded => std::option::Option::Some(3),
                 Self::Deleting => std::option::Option::Some(4),
+                Self::Cancellable => std::option::Option::Some(5),
+                Self::Cancelled => std::option::Option::Some(6),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -32322,6 +36170,8 @@ pub mod target_site {
                 Self::Failed => std::option::Option::Some("FAILED"),
                 Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
                 Self::Deleting => std::option::Option::Some("DELETING"),
+                Self::Cancellable => std::option::Option::Some("CANCELLABLE"),
+                Self::Cancelled => std::option::Option::Some("CANCELLED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -32348,6 +36198,8 @@ pub mod target_site {
                 2 => Self::Failed,
                 3 => Self::Succeeded,
                 4 => Self::Deleting,
+                5 => Self::Cancellable,
+                6 => Self::Cancelled,
                 _ => Self::UnknownValue(indexing_status::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -32364,6 +36216,8 @@ pub mod target_site {
                 "FAILED" => Self::Failed,
                 "SUCCEEDED" => Self::Succeeded,
                 "DELETING" => Self::Deleting,
+                "CANCELLABLE" => Self::Cancellable,
+                "CANCELLED" => Self::Cancelled,
                 _ => Self::UnknownValue(indexing_status::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -32382,6 +36236,8 @@ pub mod target_site {
                 Self::Failed => serializer.serialize_i32(2),
                 Self::Succeeded => serializer.serialize_i32(3),
                 Self::Deleting => serializer.serialize_i32(4),
+                Self::Cancellable => serializer.serialize_i32(5),
+                Self::Cancelled => serializer.serialize_i32(6),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -36923,6 +40779,819 @@ impl CollectUserEventRequest {
 impl wkt::message::Message for CollectUserEventRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CollectUserEventRequest"
+    }
+}
+
+/// User License information assigned by the admin.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UserLicense {
+    /// Required. Immutable. The user principal of the User, could be email address
+    /// or other prinical identifier. This field is immutable. Admin assign
+    /// licenses based on the user principal.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub user_principal: std::string::String,
+
+    /// Optional. The user profile.
+    /// We user user full name(First name + Last name) as user profile.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub user_profile: std::string::String,
+
+    /// Output only. License assignment state of the user.
+    /// If the user is assigned with a license config, the user loggin will be
+    /// assigned with the license;
+    /// If the user's license assignment state is unassigned or unspecified, no
+    /// license config will be associated to the user;
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub license_assignment_state: crate::model::user_license::LicenseAssignmentState,
+
+    /// Optional. The full resource name of the Subscription(LicenseConfig)
+    /// assigned to the user.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub license_config: std::string::String,
+
+    /// Output only. User created timestamp.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. User update timestamp.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. User last logged in time.
+    /// If the user has not logged in yet, this field will be empty.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub last_login_time: std::option::Option<wkt::Timestamp>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UserLicense {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [user_principal][crate::model::UserLicense::user_principal].
+    pub fn set_user_principal<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.user_principal = v.into();
+        self
+    }
+
+    /// Sets the value of [user_profile][crate::model::UserLicense::user_profile].
+    pub fn set_user_profile<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.user_profile = v.into();
+        self
+    }
+
+    /// Sets the value of [license_assignment_state][crate::model::UserLicense::license_assignment_state].
+    pub fn set_license_assignment_state<
+        T: std::convert::Into<crate::model::user_license::LicenseAssignmentState>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.license_assignment_state = v.into();
+        self
+    }
+
+    /// Sets the value of [license_config][crate::model::UserLicense::license_config].
+    pub fn set_license_config<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.license_config = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::UserLicense::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::UserLicense::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::UserLicense::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::UserLicense::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [last_login_time][crate::model::UserLicense::last_login_time].
+    pub fn set_last_login_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_login_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [last_login_time][crate::model::UserLicense::last_login_time].
+    pub fn set_or_clear_last_login_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.last_login_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UserLicense {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.UserLicense"
+    }
+}
+
+/// Defines additional types related to [UserLicense].
+pub mod user_license {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// License assignment state enumeration.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum LicenseAssignmentState {
+        /// Default value.
+        Unspecified,
+        /// License assigned to the user.
+        Assigned,
+        /// No license assigned to the user.
+        /// Deprecated, translated to NO_LICENSE.
+        Unassigned,
+        /// No license assigned to the user.
+        NoLicense,
+        /// User attempted to login but no license assigned to the user.
+        /// This state is only used for no user first time login attempt but cannot
+        /// get license assigned.
+        /// Users already logged in but cannot get license assigned will be assigned
+        /// NO_LICENSE state(License could be unassigned by admin).
+        NoLicenseAttemptedLogin,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [LicenseAssignmentState::value] or
+        /// [LicenseAssignmentState::name].
+        UnknownValue(license_assignment_state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod license_assignment_state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl LicenseAssignmentState {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Assigned => std::option::Option::Some(1),
+                Self::Unassigned => std::option::Option::Some(2),
+                Self::NoLicense => std::option::Option::Some(3),
+                Self::NoLicenseAttemptedLogin => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("LICENSE_ASSIGNMENT_STATE_UNSPECIFIED")
+                }
+                Self::Assigned => std::option::Option::Some("ASSIGNED"),
+                Self::Unassigned => std::option::Option::Some("UNASSIGNED"),
+                Self::NoLicense => std::option::Option::Some("NO_LICENSE"),
+                Self::NoLicenseAttemptedLogin => {
+                    std::option::Option::Some("NO_LICENSE_ATTEMPTED_LOGIN")
+                }
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for LicenseAssignmentState {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for LicenseAssignmentState {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for LicenseAssignmentState {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Assigned,
+                2 => Self::Unassigned,
+                3 => Self::NoLicense,
+                4 => Self::NoLicenseAttemptedLogin,
+                _ => Self::UnknownValue(license_assignment_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for LicenseAssignmentState {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "LICENSE_ASSIGNMENT_STATE_UNSPECIFIED" => Self::Unspecified,
+                "ASSIGNED" => Self::Assigned,
+                "UNASSIGNED" => Self::Unassigned,
+                "NO_LICENSE" => Self::NoLicense,
+                "NO_LICENSE_ATTEMPTED_LOGIN" => Self::NoLicenseAttemptedLogin,
+                _ => Self::UnknownValue(license_assignment_state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for LicenseAssignmentState {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Assigned => serializer.serialize_i32(1),
+                Self::Unassigned => serializer.serialize_i32(2),
+                Self::NoLicense => serializer.serialize_i32(3),
+                Self::NoLicenseAttemptedLogin => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for LicenseAssignmentState {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<LicenseAssignmentState>::new(
+                ".google.cloud.discoveryengine.v1.UserLicense.LicenseAssignmentState",
+            ))
+        }
+    }
+}
+
+/// Request message for
+/// [UserLicenseService.ListUserLicenses][google.cloud.discoveryengine.v1.UserLicenseService.ListUserLicenses].
+///
+/// [google.cloud.discoveryengine.v1.UserLicenseService.ListUserLicenses]: crate::client::UserLicenseService::list_user_licenses
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListUserLicensesRequest {
+    /// Required. The parent [UserStore][] resource name, format:
+    /// `projects/{project}/locations/{location}/userStores/{user_store_id}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. Server may return fewer items than
+    /// requested. If unspecified, defaults to 10. The maximum value is 50; values
+    /// above 50 will be coerced to 50.
+    ///
+    /// If this field is negative, an INVALID_ARGUMENT error is returned.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
+    pub page_size: i32,
+
+    /// Optional. A page token, received from a previous `ListUserLicenses` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListUserLicenses`
+    /// must match the call that provided the page token.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub page_token: std::string::String,
+
+    /// Optional. Filter for the list request.
+    ///
+    /// Supported fields:
+    ///
+    /// * `license_assignment_state`
+    ///
+    /// Examples:
+    ///
+    /// * `license_assignment_state = ASSIGNED` to list assigned user licenses.
+    /// * `license_assignment_state = NO_LICENSE` to list not licensed users.
+    /// * `license_assignment_state = NO_LICENSE_ATTEMPTED_LOGIN` to list users
+    ///   who attempted login but no license assigned.
+    /// * `license_assignment_state != NO_LICENSE_ATTEMPTED_LOGIN` to filter
+    ///   out users who attempted login but no license assigned.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub filter: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListUserLicensesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListUserLicensesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListUserLicensesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListUserLicensesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListUserLicensesRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListUserLicensesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.ListUserLicensesRequest"
+    }
+}
+
+/// Response message for
+/// [UserLicenseService.ListUserLicenses][google.cloud.discoveryengine.v1.UserLicenseService.ListUserLicenses].
+///
+/// [google.cloud.discoveryengine.v1.UserLicenseService.ListUserLicenses]: crate::client::UserLicenseService::list_user_licenses
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ListUserLicensesResponse {
+    /// All the customer's
+    /// [UserLicense][google.cloud.discoveryengine.v1.UserLicense]s.
+    ///
+    /// [google.cloud.discoveryengine.v1.UserLicense]: crate::model::UserLicense
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub user_licenses: std::vec::Vec<crate::model::UserLicense>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page. If
+    /// this field is omitted, there are no subsequent pages.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub next_page_token: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListUserLicensesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [user_licenses][crate::model::ListUserLicensesResponse::user_licenses].
+    pub fn set_user_licenses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UserLicense>,
+    {
+        use std::iter::Iterator;
+        self.user_licenses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListUserLicensesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListUserLicensesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.ListUserLicensesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListUserLicensesResponse {
+    type PageItem = crate::model::UserLicense;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.user_licenses
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+/// Request message for
+/// [UserLicenseService.BatchUpdateUserLicenses][google.cloud.discoveryengine.v1.UserLicenseService.BatchUpdateUserLicenses]
+/// method.
+///
+/// [google.cloud.discoveryengine.v1.UserLicenseService.BatchUpdateUserLicenses]: crate::client::UserLicenseService::batch_update_user_licenses
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BatchUpdateUserLicensesRequest {
+    /// Required. The parent [UserStore][] resource name, format:
+    /// `projects/{project}/locations/{location}/userStores/{user_store_id}`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub parent: std::string::String,
+
+    /// Optional. If true, if user licenses removed associated license config, the
+    /// user license will be deleted. By default which is false, the user license
+    /// will be updated to unassigned state.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub delete_unassigned_user_licenses: bool,
+
+    /// Required. The source of the input.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub source: std::option::Option<crate::model::batch_update_user_licenses_request::Source>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchUpdateUserLicensesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::BatchUpdateUserLicensesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [delete_unassigned_user_licenses][crate::model::BatchUpdateUserLicensesRequest::delete_unassigned_user_licenses].
+    pub fn set_delete_unassigned_user_licenses<T: std::convert::Into<bool>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.delete_unassigned_user_licenses = v.into();
+        self
+    }
+
+    /// Sets the value of [source][crate::model::BatchUpdateUserLicensesRequest::source].
+    ///
+    /// Note that all the setters affecting `source` are mutually
+    /// exclusive.
+    pub fn set_source<
+        T: std::convert::Into<
+                std::option::Option<crate::model::batch_update_user_licenses_request::Source>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = v.into();
+        self
+    }
+
+    /// The value of [source][crate::model::BatchUpdateUserLicensesRequest::source]
+    /// if it holds a `InlineSource`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn inline_source(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::batch_update_user_licenses_request::InlineSource>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.source.as_ref().and_then(|v| match v {
+            crate::model::batch_update_user_licenses_request::Source::InlineSource(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [source][crate::model::BatchUpdateUserLicensesRequest::source]
+    /// to hold a `InlineSource`.
+    ///
+    /// Note that all the setters affecting `source` are
+    /// mutually exclusive.
+    pub fn set_inline_source<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::batch_update_user_licenses_request::InlineSource>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.source = std::option::Option::Some(
+            crate::model::batch_update_user_licenses_request::Source::InlineSource(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for BatchUpdateUserLicensesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.BatchUpdateUserLicensesRequest"
+    }
+}
+
+/// Defines additional types related to [BatchUpdateUserLicensesRequest].
+pub mod batch_update_user_licenses_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The inline source for the input config for BatchUpdateUserLicenses
+    /// method.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct InlineSource {
+        /// Required. A list of user licenses to update. Each user license
+        /// must have a valid
+        /// [UserLicense.user_principal][google.cloud.discoveryengine.v1.UserLicense.user_principal].
+        ///
+        /// [google.cloud.discoveryengine.v1.UserLicense.user_principal]: crate::model::UserLicense::user_principal
+        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+        pub user_licenses: std::vec::Vec<crate::model::UserLicense>,
+
+        /// Optional. The list of fields to update.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub update_mask: std::option::Option<wkt::FieldMask>,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl InlineSource {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [user_licenses][crate::model::batch_update_user_licenses_request::InlineSource::user_licenses].
+        pub fn set_user_licenses<T, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = V>,
+            V: std::convert::Into<crate::model::UserLicense>,
+        {
+            use std::iter::Iterator;
+            self.user_licenses = v.into_iter().map(|i| i.into()).collect();
+            self
+        }
+
+        /// Sets the value of [update_mask][crate::model::batch_update_user_licenses_request::InlineSource::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::batch_update_user_licenses_request::InlineSource::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.update_mask = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for InlineSource {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.discoveryengine.v1.BatchUpdateUserLicensesRequest.InlineSource"
+        }
+    }
+
+    /// Required. The source of the input.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Source {
+        /// The inline source for the input content for document embeddings.
+        InlineSource(
+            std::boxed::Box<crate::model::batch_update_user_licenses_request::InlineSource>,
+        ),
+    }
+}
+
+/// Metadata related to the progress of the
+/// [UserLicenseService.BatchUpdateUserLicenses][google.cloud.discoveryengine.v1.UserLicenseService.BatchUpdateUserLicenses]
+/// operation. This will be returned by the google.longrunning.Operation.metadata
+/// field.
+///
+/// [google.cloud.discoveryengine.v1.UserLicenseService.BatchUpdateUserLicenses]: crate::client::UserLicenseService::batch_update_user_licenses
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BatchUpdateUserLicensesMetadata {
+    /// Operation create time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Operation last update time. If the operation is done, this is also the
+    /// finish time.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Count of user licenses successfully updated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
+    pub success_count: i64,
+
+    /// Count of user licenses that failed to be updated.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
+    pub failure_count: i64,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchUpdateUserLicensesMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [create_time][crate::model::BatchUpdateUserLicensesMetadata::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::BatchUpdateUserLicensesMetadata::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::BatchUpdateUserLicensesMetadata::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::BatchUpdateUserLicensesMetadata::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [success_count][crate::model::BatchUpdateUserLicensesMetadata::success_count].
+    pub fn set_success_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.success_count = v.into();
+        self
+    }
+
+    /// Sets the value of [failure_count][crate::model::BatchUpdateUserLicensesMetadata::failure_count].
+    pub fn set_failure_count<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.failure_count = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchUpdateUserLicensesMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.BatchUpdateUserLicensesMetadata"
+    }
+}
+
+/// Response message for
+/// [UserLicenseService.BatchUpdateUserLicenses][google.cloud.discoveryengine.v1.UserLicenseService.BatchUpdateUserLicenses]
+/// method.
+///
+/// [google.cloud.discoveryengine.v1.UserLicenseService.BatchUpdateUserLicenses]: crate::client::UserLicenseService::batch_update_user_licenses
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct BatchUpdateUserLicensesResponse {
+    /// UserLicenses successfully updated.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub user_licenses: std::vec::Vec<crate::model::UserLicense>,
+
+    /// A sample of errors encountered while processing the request.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub error_samples: std::vec::Vec<rpc::model::Status>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl BatchUpdateUserLicensesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [user_licenses][crate::model::BatchUpdateUserLicensesResponse::user_licenses].
+    pub fn set_user_licenses<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UserLicense>,
+    {
+        use std::iter::Iterator;
+        self.user_licenses = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [error_samples][crate::model::BatchUpdateUserLicensesResponse::error_samples].
+    pub fn set_error_samples<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<rpc::model::Status>,
+    {
+        use std::iter::Iterator;
+        self.error_samples = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for BatchUpdateUserLicensesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.discoveryengine.v1.BatchUpdateUserLicensesResponse"
     }
 }
 

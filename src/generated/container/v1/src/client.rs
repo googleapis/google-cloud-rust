@@ -335,4 +335,18 @@ impl ClusterManager {
     ) -> super::builder::cluster_manager::CheckAutopilotCompatibility {
         super::builder::cluster_manager::CheckAutopilotCompatibility::new(self.inner.clone())
     }
+
+    /// Fetch upgrade information of a specific cluster.
+    pub fn fetch_cluster_upgrade_info(
+        &self,
+    ) -> super::builder::cluster_manager::FetchClusterUpgradeInfo {
+        super::builder::cluster_manager::FetchClusterUpgradeInfo::new(self.inner.clone())
+    }
+
+    /// Fetch upgrade information of a specific nodepool.
+    pub fn fetch_node_pool_upgrade_info(
+        &self,
+    ) -> super::builder::cluster_manager::FetchNodePoolUpgradeInfo {
+        super::builder::cluster_manager::FetchNodePoolUpgradeInfo::new(self.inner.clone())
+    }
 }
