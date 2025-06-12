@@ -16,6 +16,7 @@ syntax = "proto3";
 package google.rust.sdk.test;
 
 import "google/protobuf/field_mask.proto";
+import "google/protobuf/wrappers.proto";
 
 // A test message for FieldMask.
 message MessageWithFieldMask {
@@ -27,4 +28,95 @@ message MessageWithFieldMask {
     repeated google.protobuf.FieldMask repeated = 3;
     // A map field, messages cannot be keys.
     map<string, google.protobuf.FieldMask> map = 4;
+}
+
+// A test message for google.protobuf.FloatValue.
+message MessageWithFloatValue {
+    // A singular field.
+    google.protobuf.FloatValue singular = 1;
+    // A repeated field.
+    repeated google.protobuf.FloatValue repeated = 3;
+    // Test google.protobuf.FloatValue as amap values.
+    map<string, google.protobuf.FloatValue> map = 4;
+}
+
+// A test message for google.protobuf.DoubleValue.
+message MessageWithDoubleValue {
+    // A singular field.
+    google.protobuf.DoubleValue singular = 1;
+    // A repeated field.
+    repeated google.protobuf.DoubleValue repeated = 3;
+    // Test google.protobuf.DoubleValue as map values.
+    map<string, google.protobuf.DoubleValue> map = 4;
+}
+
+// A test message for google.protobuf.Int32Value.
+message MessageWithInt32Value {
+    // A singular field.
+    google.protobuf.Int32Value singular = 1;
+    // A repeated field.
+    repeated google.protobuf.Int32Value repeated = 3;
+    // Test google.protobuf.Int32Value as map values.
+    map<string, google.protobuf.Int32Value> map = 4;
+}
+
+// A test message for u32.
+message MessageWithUInt32Value {
+    // A singular field.
+    google.protobuf.UInt32Value singular = 1;
+    // A repeated field.
+    repeated google.protobuf.UInt32Value repeated = 3;
+    // Test google.protobuf.UInt32Value as map values.
+    map<string, google.protobuf.UInt32Value> map = 4;
+}
+
+// A test message for google.protobuf.Int64Value.
+message MessageWithInt64Value {
+    // A singular field.
+    google.protobuf.Int64Value singular = 1;
+    // A repeated field.
+    repeated google.protobuf.Int64Value repeated = 3;
+    // Test google.protobuf.Int64Value as values.
+    map<string, google.protobuf.Int64Value> map = 4;
+}
+
+// A test message for google.protobuf.Int64Value.
+message MessageWithUInt64Value {
+    // A singular field.
+    google.protobuf.Int64Value singular = 1;
+    // A repeated field.
+    repeated google.protobuf.Int64Value repeated = 3;
+    // Test google.protobuf.Int64Value as values.
+    map<string, google.protobuf.Int64Value> map = 4;
+}
+
+// A test message for google.protobuf.BytesValue.
+message MessageWithBytesValue {
+    // A singular field.
+    google.protobuf.BytesValue singular = 1;
+    // A repeated field.
+    repeated google.protobuf.BytesValue repeated = 3;
+    // A map field, google.protobuf.BytesValue cannot be keys, so we only need to test them as
+    // values.
+    map<string, google.protobuf.BytesValue> map = 4;
+}
+
+// A test message for google.protobuf.BoolValue.
+message MessageWithBoolValue {
+    // A singular field.
+    google.protobuf.BoolValue singular = 1;
+    // A repeated field.
+    repeated google.protobuf.BoolValue repeated = 3;
+    // Test google.protobuf.BoolValue as map values.
+    map<string, google.protobuf.BoolValue> map = 4;
+}
+
+// A test message for string.
+message MessageWithStringValue {
+    // A singular field.
+    google.protobuf.StringValue singular = 1;
+    // A repeated field.
+    repeated google.protobuf.StringValue repeated = 3;
+    // Test string as map values.
+    map<string, google.protobuf.StringValue> map = 4;
 }
