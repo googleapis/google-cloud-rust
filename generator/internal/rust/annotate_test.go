@@ -515,6 +515,7 @@ func TestOneOfAnnotations(t *testing.T) {
 		PrimitiveFieldType: "",
 		AddQueryParameter:  `let builder = req.oneof_field_boxed().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "oneofFieldBoxed") });`,
 		IsBoxed:            true,
+		SerdeAs:            "wkt::internal::F64",
 		SkipIfIsDefault:    true,
 	}, boxed_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
