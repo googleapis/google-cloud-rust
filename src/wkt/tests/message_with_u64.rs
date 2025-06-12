@@ -20,6 +20,11 @@ mod test {
     type Result = anyhow::Result<()>;
 
     #[test_case(MessageWithU64::new(), json!({}))]
+    #[test_case(MessageWithU64::new().set_singular(0_u64), json!({}))]
+    #[test_case(MessageWithU64::new().set_singular(42_u64), json!({"singular": "42"}))]
+    #[test_case(MessageWithU64::new().set_optional(0_u64), json!({"optional": "0"}))]
+    #[test_case(MessageWithU64::new().set_or_clear_optional(None::<u64>), json!({}))]
+    #[test_case(MessageWithU64::new().set_optional(42_u64), json!({"optional": "42"}))]
     fn test_ser(input: MessageWithU64, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithU64(input))?;
         assert_eq!(got, want);
@@ -27,6 +32,12 @@ mod test {
     }
 
     #[test_case(MessageWithU64::new(), json!({}))]
+    #[test_case(MessageWithU64::new().set_singular(0_u64), json!({"singular": null}))]
+    #[test_case(MessageWithU64::new().set_singular(0_u64), json!({}))]
+    #[test_case(MessageWithU64::new().set_singular(42_u64), json!({"singular": "42"}))]
+    #[test_case(MessageWithU64::new().set_optional(0_u64), json!({"optional": "0"}))]
+    #[test_case(MessageWithU64::new().set_or_clear_optional(None::<u64>), json!({}))]
+    #[test_case(MessageWithU64::new().set_optional(42_u64), json!({"optional": "42"}))]
     fn test_de(want: MessageWithU64, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithU64>(input)?;
         assert_eq!(got.0, want);

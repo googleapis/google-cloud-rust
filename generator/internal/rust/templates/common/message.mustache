@@ -286,11 +286,14 @@ impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
                         {{#Fields}}
-                        {{^Codec.RequiresSerdeAs}}
                         "{{JSONName}}" => {
+                            {{^Codec.RequiresSerdeAs}}
                             {{> /templates/common/deser_plain_message_field}}
+                            {{/Codec.RequiresSerdeAs}}
+                            {{#Codec.RequiresSerdeAs}}
+                            {{> /templates/common/deser_with_message_field}}
+                            {{/Codec.RequiresSerdeAs}}
                         },
-                        {{/Codec.RequiresSerdeAs}}
                         {{/Fields}}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -315,6 +318,9 @@ impl serde::ser::Serialize for __{{Codec.Name}} {
         {{#Fields}}
         {{^Codec.RequiresSerdeAs}}
         {{> /templates/common/ser_plain_message_field}}
+        {{/Codec.RequiresSerdeAs}}
+        {{#Codec.RequiresSerdeAs}}
+        {{> /templates/common/ser_with_message_field}}
         {{/Codec.RequiresSerdeAs}}
         {{/Fields}}
         if !self.0._unknown_fields.is_empty() {

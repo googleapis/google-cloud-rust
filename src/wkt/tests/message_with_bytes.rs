@@ -19,7 +19,15 @@ mod test {
     use test_case::test_case;
     type Result = anyhow::Result<()>;
 
+    const LAZY: &[u8] = b"the quick brown fox jumps over the lazy dog";
+    const LAZY_BASE64: &str = "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==";
+
     #[test_case(MessageWithBytes::new(), json!({}))]
+    #[test_case(MessageWithBytes::new().set_singular("".as_bytes()), json!({}))]
+    #[test_case(MessageWithBytes::new().set_singular(LAZY), json!({"singular": LAZY_BASE64}))]
+    #[test_case(MessageWithBytes::new().set_optional("".as_bytes()), json!({"optional": ""}))]
+    #[test_case(MessageWithBytes::new().set_or_clear_optional(None::<bytes::Bytes>), json!({}))]
+    #[test_case(MessageWithBytes::new().set_optional(LAZY), json!({"optional": LAZY_BASE64}))]
     fn test_ser(input: MessageWithBytes, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithBytes(input))?;
         assert_eq!(got, want);
@@ -27,6 +35,12 @@ mod test {
     }
 
     #[test_case(MessageWithBytes::new(), json!({}))]
+    #[test_case(MessageWithBytes::new().set_singular("".as_bytes()), json!({"singular": null}))]
+    #[test_case(MessageWithBytes::new().set_singular("".as_bytes()), json!({}))]
+    #[test_case(MessageWithBytes::new().set_singular(LAZY), json!({"singular": LAZY_BASE64}))]
+    #[test_case(MessageWithBytes::new().set_optional("".as_bytes()), json!({"optional": ""}))]
+    #[test_case(MessageWithBytes::new().set_or_clear_optional(None::<bytes::Bytes>), json!({}))]
+    #[test_case(MessageWithBytes::new().set_optional(LAZY), json!({"optional": LAZY_BASE64}))]
     fn test_de(want: MessageWithBytes, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithBytes>(input)?;
         assert_eq!(got.0, want);

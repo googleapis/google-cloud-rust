@@ -483,6 +483,7 @@ func TestOneOfAnnotations(t *testing.T) {
 		ValueField:         value_field,
 		IsBoxed:            true,
 		RequiresSerdeAs:    true,
+		SerdeAs:            "std::collections::HashMap<wkt::internal::I32, wkt::internal::F32>",
 	}, map_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -500,6 +501,7 @@ func TestOneOfAnnotations(t *testing.T) {
 		KeyType:            "",
 		ValueType:          "",
 		RequiresSerdeAs:    true,
+		SerdeAs:            "wkt::internal::I64",
 	}, integer_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -830,6 +832,7 @@ func TestJsonNameAnnotations(t *testing.T) {
 		KeyType:            "",
 		ValueType:          "",
 		RequiresSerdeAs:    true,
+		SerdeAs:            "wkt::internal::I32",
 	}, readTime.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -850,6 +853,7 @@ func TestJsonNameAnnotations(t *testing.T) {
 		KeyType:            "",
 		ValueType:          "",
 		RequiresSerdeAs:    true,
+		SerdeAs:            "wkt::internal::I32",
 	}, optional.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -870,6 +874,7 @@ func TestJsonNameAnnotations(t *testing.T) {
 		KeyType:            "",
 		ValueType:          "",
 		RequiresSerdeAs:    true,
+		SerdeAs:            "wkt::internal::I32",
 	}, repeated.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -1068,6 +1073,7 @@ func TestFieldAnnotations(t *testing.T) {
 		ValueType:          "i64",
 		ValueField:         value_field,
 		RequiresSerdeAs:    true,
+		SerdeAs:            "std::collections::HashMap<wkt::internal::I32, wkt::internal::I64>",
 	}
 	if diff := cmp.Diff(wantField, map_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
