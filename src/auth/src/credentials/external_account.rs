@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use super::dynamic::CredentialsProvider;
+use super::external_account_sources::executable_sourced::ExecutableSourcedCredentials;
 use super::external_account_sources::url_sourced::UrlSourcedCredentials;
 use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
@@ -42,6 +43,13 @@ pub(crate) struct CredentialSourceFormat {
     pub subject_token_field_name: String,
 }
 
+#[derive(Serialize, Deserialize, Debug, Clone, Default)]
+pub(crate) struct ExecutableConfig {
+    pub command: String,
+    pub timeout_millis: Option<u32>,
+    pub output_file: Option<String>,
+}
+
 #[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 enum CredentialSourceFile {
@@ -52,7 +60,9 @@ enum CredentialSourceFile {
     },
     File {},
     Aws {},
-    Executable {},
+    Executable {
+        executable: ExecutableConfig,
+    },
 }
 
 /// A representation of a [external account config file].
@@ -98,8 +108,8 @@ impl From<CredentialSourceFile> for CredentialSource {
                 headers,
                 format,
             } => Self::Url(UrlSourcedCredentials::new(url, headers, format)),
-            CredentialSourceFile::Executable { .. } => {
-                unimplemented!("executable sourced credential not supported yet")
+            CredentialSourceFile::Executable { executable } => {
+                Self::Executable(ExecutableSourcedCredentials::new(executable))
             }
             CredentialSourceFile::File { .. } => {
                 unimplemented!("file sourced credential not supported yet")
@@ -128,7 +138,7 @@ enum CredentialSource {
     Url(UrlSourcedCredentials),
     File {},
     Aws {},
-    Executable {},
+    Executable(ExecutableSourcedCredentials),
 }
 
 impl ExternalAccountConfig {
@@ -136,20 +146,10 @@ impl ExternalAccountConfig {
         let config = self.clone();
         match self.credential_source {
             CredentialSource::Url(source) => {
-                let token_provider = ExternalAccountTokenProvider {
-                    subject_token_provider: source,
-                    config,
-                };
-                let cache = TokenCache::new(token_provider);
-                Credentials {
-                    inner: Arc::new(ExternalAccountCredentials {
-                        token_provider: cache,
-                        quota_project_id,
-                    }),
-                }
+                Self::make_credentials_from_source(source, config, quota_project_id)
             }
-            CredentialSource::Executable { .. } => {
-                unimplemented!("executable sourced credential not supported yet")
+            CredentialSource::Executable(source) => {
+                Self::make_credentials_from_source(source, config, quota_project_id)
             }
             CredentialSource::File { .. } => {
                 unimplemented!("file sourced credential not supported yet")
@@ -157,6 +157,27 @@ impl ExternalAccountConfig {
             CredentialSource::Aws { .. } => {
                 unimplemented!("AWS sourced credential not supported yet")
             }
+        }
+    }
+
+    fn make_credentials_from_source<T>(
+        subject_token_provider: T,
+        config: ExternalAccountConfig,
+        quota_project_id: Option<String>,
+    ) -> Credentials
+    where
+        T: SubjectTokenProvider + 'static,
+    {
+        let token_provider = ExternalAccountTokenProvider {
+            subject_token_provider,
+            config,
+        };
+        let cache = TokenCache::new(token_provider);
+        Credentials {
+            inner: Arc::new(ExternalAccountCredentials {
+                token_provider: cache,
+                quota_project_id,
+            }),
         }
     }
 }
