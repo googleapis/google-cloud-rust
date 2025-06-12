@@ -357,6 +357,12 @@ pub mod storage_control {
             self.0.request.predefined_default_object_acl = v.into();
             self
         }
+
+        /// Sets the value of [enable_object_retention][crate::model::CreateBucketRequest::enable_object_retention].
+        pub fn set_enable_object_retention<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.enable_object_retention = v.into();
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -1940,6 +1946,12 @@ pub mod storage_control {
             T: std::convert::Into<crate::model::CommonObjectRequestParams>,
         {
             self.0.request.common_object_request_params = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [override_unlocked_retention][crate::model::UpdateObjectRequest::override_unlocked_retention].
+        pub fn set_override_unlocked_retention<T: Into<bool>>(mut self, v: T) -> Self {
+            self.0.request.override_unlocked_retention = v.into();
             self
         }
     }

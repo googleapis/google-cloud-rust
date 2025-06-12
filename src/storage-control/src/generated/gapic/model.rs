@@ -246,6 +246,11 @@ pub struct CreateBucketRequest {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub predefined_default_object_acl: std::string::String,
 
+    /// Optional. If true, enable object retention on the bucket.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub enable_object_retention: bool,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -297,6 +302,12 @@ impl CreateBucketRequest {
         v: T,
     ) -> Self {
         self.predefined_default_object_acl = v.into();
+        self
+    }
+
+    /// Sets the value of [enable_object_retention][crate::model::CreateBucketRequest::enable_object_retention].
+    pub fn set_enable_object_retention<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enable_object_retention = v.into();
         self
     }
 }
@@ -3394,6 +3405,11 @@ pub struct UpdateObjectRequest {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
 
+    /// Optional. Overrides the unlocked retention config on the object.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub override_unlocked_retention: bool,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -3532,6 +3548,12 @@ impl UpdateObjectRequest {
         T: std::convert::Into<crate::model::CommonObjectRequestParams>,
     {
         self.common_object_request_params = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [override_unlocked_retention][crate::model::UpdateObjectRequest::override_unlocked_retention].
+    pub fn set_override_unlocked_retention<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.override_unlocked_retention = v.into();
         self
     }
 }
@@ -4128,6 +4150,11 @@ pub struct Bucket {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub soft_delete_policy: std::option::Option<crate::model::bucket::SoftDeletePolicy>,
 
+    /// Optional. The bucket's object retention configuration. Must be enabled
+    /// before objects in the bucket may have retention configured.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub object_retention: std::option::Option<crate::model::bucket::ObjectRetention>,
+
     /// Optional. The bucket's IP filter configuration.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ip_filter: std::option::Option<crate::model::bucket::IpFilter>,
@@ -4522,6 +4549,24 @@ impl Bucket {
         self
     }
 
+    /// Sets the value of [object_retention][crate::model::Bucket::object_retention].
+    pub fn set_object_retention<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::bucket::ObjectRetention>,
+    {
+        self.object_retention = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [object_retention][crate::model::Bucket::object_retention].
+    pub fn set_or_clear_object_retention<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::bucket::ObjectRetention>,
+    {
+        self.object_retention = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [ip_filter][crate::model::Bucket::ip_filter].
     pub fn set_ip_filter<T>(mut self, v: T) -> Self
     where
@@ -4690,6 +4735,33 @@ pub mod bucket {
         #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub default_kms_key: std::string::String,
 
+        /// Optional. If omitted, then new objects with GMEK encryption-type is
+        /// allowed. If set, then new objects created in this bucket must comply with
+        /// enforcement config. Changing this has no effect on existing objects; it
+        /// applies to new objects only.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub google_managed_encryption_enforcement_config: std::option::Option<
+            crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig,
+        >,
+
+        /// Optional. If omitted, then new objects with CMEK encryption-type is
+        /// allowed. If set, then new objects created in this bucket must comply with
+        /// enforcement config. Changing this has no effect on existing objects; it
+        /// applies to new objects only.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub customer_managed_encryption_enforcement_config: std::option::Option<
+            crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig,
+        >,
+
+        /// Optional. If omitted, then new objects with CSEK encryption-type is
+        /// allowed. If set, then new objects created in this bucket must comply with
+        /// enforcement config. Changing this has no effect on existing objects; it
+        /// applies to new objects only.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub customer_supplied_encryption_enforcement_config: std::option::Option<
+            crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig,
+        >,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -4707,11 +4779,304 @@ pub mod bucket {
             self.default_kms_key = v.into();
             self
         }
+
+        /// Sets the value of [google_managed_encryption_enforcement_config][crate::model::bucket::Encryption::google_managed_encryption_enforcement_config].
+        pub fn set_google_managed_encryption_enforcement_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig,
+                >,
+        {
+            self.google_managed_encryption_enforcement_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [google_managed_encryption_enforcement_config][crate::model::bucket::Encryption::google_managed_encryption_enforcement_config].
+        pub fn set_or_clear_google_managed_encryption_enforcement_config<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig,
+                >,
+        {
+            self.google_managed_encryption_enforcement_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [customer_managed_encryption_enforcement_config][crate::model::bucket::Encryption::customer_managed_encryption_enforcement_config].
+        pub fn set_customer_managed_encryption_enforcement_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig,
+                >,
+        {
+            self.customer_managed_encryption_enforcement_config =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [customer_managed_encryption_enforcement_config][crate::model::bucket::Encryption::customer_managed_encryption_enforcement_config].
+        pub fn set_or_clear_customer_managed_encryption_enforcement_config<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig,
+                >,
+        {
+            self.customer_managed_encryption_enforcement_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [customer_supplied_encryption_enforcement_config][crate::model::bucket::Encryption::customer_supplied_encryption_enforcement_config].
+        pub fn set_customer_supplied_encryption_enforcement_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig,
+                >,
+        {
+            self.customer_supplied_encryption_enforcement_config =
+                std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [customer_supplied_encryption_enforcement_config][crate::model::bucket::Encryption::customer_supplied_encryption_enforcement_config].
+        pub fn set_or_clear_customer_supplied_encryption_enforcement_config<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<
+                    crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig,
+                >,
+        {
+            self.customer_supplied_encryption_enforcement_config = v.map(|x| x.into());
+            self
+        }
     }
 
     impl wkt::message::Message for Encryption {
         fn typename() -> &'static str {
             "type.googleapis.com/google.storage.v2.Bucket.Encryption"
+        }
+    }
+
+    /// Defines additional types related to [Encryption].
+    pub mod encryption {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Google Managed Encryption (GMEK) enforcement config of a bucket.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct GoogleManagedEncryptionEnforcementConfig {
+            /// Whether Google Managed Encryption (GMEK) is restricted for new
+            /// objects within the bucket.
+            /// If true, new objects can't be created using GMEK encryption.
+            /// If false or unset, creation of new objects with GMEK encryption is
+            /// allowed.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub restricted: std::option::Option<bool>,
+
+            /// Time from which the config was effective. This is service-provided.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub effective_time: std::option::Option<wkt::Timestamp>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl GoogleManagedEncryptionEnforcementConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [restricted][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::restricted].
+            pub fn set_restricted<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<bool>,
+            {
+                self.restricted = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [restricted][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::restricted].
+            pub fn set_or_clear_restricted<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<bool>,
+            {
+                self.restricted = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [effective_time][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::effective_time].
+            pub fn set_effective_time<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.effective_time = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [effective_time][crate::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::effective_time].
+            pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.effective_time = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for GoogleManagedEncryptionEnforcementConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.storage.v2.Bucket.Encryption.GoogleManagedEncryptionEnforcementConfig"
+            }
+        }
+
+        /// Customer Managed Encryption (CMEK) enforcement config of a bucket.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct CustomerManagedEncryptionEnforcementConfig {
+            /// Whether Customer Managed Encryption (CMEK) is restricted for new
+            /// objects within the bucket.
+            /// If true, new objects can't be created using CMEK encryption.
+            /// If false or unset, creation of new objects with CMEK encryption is
+            /// allowed.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub restricted: std::option::Option<bool>,
+
+            /// Time from which the config was effective. This is service-provided.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub effective_time: std::option::Option<wkt::Timestamp>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl CustomerManagedEncryptionEnforcementConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [restricted][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::restricted].
+            pub fn set_restricted<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<bool>,
+            {
+                self.restricted = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [restricted][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::restricted].
+            pub fn set_or_clear_restricted<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<bool>,
+            {
+                self.restricted = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [effective_time][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::effective_time].
+            pub fn set_effective_time<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.effective_time = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [effective_time][crate::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::effective_time].
+            pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.effective_time = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for CustomerManagedEncryptionEnforcementConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.storage.v2.Bucket.Encryption.CustomerManagedEncryptionEnforcementConfig"
+            }
+        }
+
+        /// Customer Supplied Encryption (CSEK) enforcement config of a bucket.
+        #[serde_with::serde_as]
+        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+        #[serde(default, rename_all = "camelCase")]
+        #[non_exhaustive]
+        pub struct CustomerSuppliedEncryptionEnforcementConfig {
+            /// Whether Customer Supplied Encryption (CSEK) is restricted for new
+            /// objects within the bucket.
+            /// If true, new objects can't be created using CSEK encryption.
+            /// If false or unset, creation of new objects with CSEK encryption is
+            /// allowed.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub restricted: std::option::Option<bool>,
+
+            /// Time from which the config was effective. This is service-provided.
+            #[serde(skip_serializing_if = "std::option::Option::is_none")]
+            pub effective_time: std::option::Option<wkt::Timestamp>,
+
+            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+            _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+        }
+
+        impl CustomerSuppliedEncryptionEnforcementConfig {
+            pub fn new() -> Self {
+                std::default::Default::default()
+            }
+
+            /// Sets the value of [restricted][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::restricted].
+            pub fn set_restricted<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<bool>,
+            {
+                self.restricted = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [restricted][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::restricted].
+            pub fn set_or_clear_restricted<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<bool>,
+            {
+                self.restricted = v.map(|x| x.into());
+                self
+            }
+
+            /// Sets the value of [effective_time][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::effective_time].
+            pub fn set_effective_time<T>(mut self, v: T) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.effective_time = std::option::Option::Some(v.into());
+                self
+            }
+
+            /// Sets or clears the value of [effective_time][crate::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::effective_time].
+            pub fn set_or_clear_effective_time<T>(mut self, v: std::option::Option<T>) -> Self
+            where
+                T: std::convert::Into<wkt::Timestamp>,
+            {
+                self.effective_time = v.map(|x| x.into());
+                self
+            }
+        }
+
+        impl wkt::message::Message for CustomerSuppliedEncryptionEnforcementConfig {
+            fn typename() -> &'static str {
+                "type.googleapis.com/google.storage.v2.Bucket.Encryption.CustomerSuppliedEncryptionEnforcementConfig"
+            }
         }
     }
 
@@ -5352,6 +5717,40 @@ pub mod bucket {
         }
     }
 
+    /// Object Retention related properties of a bucket.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct ObjectRetention {
+        /// Optional. Output only. If true, object retention is enabled for the
+        /// bucket.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+        pub enabled: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl ObjectRetention {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enabled][crate::model::bucket::ObjectRetention::enabled].
+        pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enabled = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for ObjectRetention {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storage.v2.Bucket.ObjectRetention"
+        }
+    }
+
     /// Retention policy properties of a bucket.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -5598,7 +5997,7 @@ pub mod bucket {
 
     /// Configuration for Custom Dual Regions.  It should specify precisely two
     /// eligible regions within the same Multiregion. More information on regions
-    /// may be found [<https://cloud.google.com/storage/docs/locations>][here].
+    /// may be found [here](https://cloud.google.com/storage/docs/locations).
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -5781,6 +6180,11 @@ pub mod bucket {
         #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub allow_cross_org_vpcs: bool,
 
+        /// Whether or not to allow all P4SA access to the bucket. When set to true,
+        /// IP filter config validation will not apply.
+        #[serde(skip_serializing_if = "std::option::Option::is_none")]
+        pub allow_all_service_agent_access: std::option::Option<bool>,
+
         #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -5840,6 +6244,27 @@ pub mod bucket {
         /// Sets the value of [allow_cross_org_vpcs][crate::model::bucket::IpFilter::allow_cross_org_vpcs].
         pub fn set_allow_cross_org_vpcs<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
             self.allow_cross_org_vpcs = v.into();
+            self
+        }
+
+        /// Sets the value of [allow_all_service_agent_access][crate::model::bucket::IpFilter::allow_all_service_agent_access].
+        pub fn set_allow_all_service_agent_access<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.allow_all_service_agent_access = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [allow_all_service_agent_access][crate::model::bucket::IpFilter::allow_all_service_agent_access].
+        pub fn set_or_clear_allow_all_service_agent_access<T>(
+            mut self,
+            v: std::option::Option<T>,
+        ) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.allow_all_service_agent_access = v.map(|x| x.into());
             self
         }
     }

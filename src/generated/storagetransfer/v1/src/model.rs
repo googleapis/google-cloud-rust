@@ -1109,6 +1109,13 @@ impl wkt::message::Message for AzureCredentials {
 /// the `updated` property of Cloud Storage objects, the `LastModified` field
 /// of S3 objects, and the `Last-Modified` header of Azure blobs.
 ///
+/// For S3 objects, the `LastModified` value is the time the object begins
+/// uploading. If the object meets your "last modification time" criteria,
+/// but has not finished uploading, the object is not transferred. See
+/// [Transfer from Amazon S3 to Cloud
+/// Storage](https://cloud.google.com/storage-transfer/docs/create-transfers/agentless/s3#transfer_options)
+/// for more information.
+///
 /// Transfers with a [PosixFilesystem][google.storagetransfer.v1.PosixFilesystem]
 /// source or destination don't support `ObjectConditions`.
 ///
@@ -1725,6 +1732,19 @@ pub struct AzureBlobStorageData {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub credentials_secret: std::string::String,
 
+    /// Optional. Federated identity config of a user registered Azure application.
+    ///
+    /// If `federated_identity_config` is specified, do not specify
+    /// [azure_credentials][google.storagetransfer.v1.AzureBlobStorageData.azure_credentials]
+    /// or
+    /// [credentials_secret][google.storagetransfer.v1.AzureBlobStorageData.credentials_secret].
+    ///
+    /// [google.storagetransfer.v1.AzureBlobStorageData.azure_credentials]: crate::model::AzureBlobStorageData::azure_credentials
+    /// [google.storagetransfer.v1.AzureBlobStorageData.credentials_secret]: crate::model::AzureBlobStorageData::credentials_secret
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub federated_identity_config:
+        std::option::Option<crate::model::azure_blob_storage_data::FederatedIdentityConfig>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1778,11 +1798,90 @@ impl AzureBlobStorageData {
         self.credentials_secret = v.into();
         self
     }
+
+    /// Sets the value of [federated_identity_config][crate::model::AzureBlobStorageData::federated_identity_config].
+    pub fn set_federated_identity_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::azure_blob_storage_data::FederatedIdentityConfig>,
+    {
+        self.federated_identity_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [federated_identity_config][crate::model::AzureBlobStorageData::federated_identity_config].
+    pub fn set_or_clear_federated_identity_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::azure_blob_storage_data::FederatedIdentityConfig>,
+    {
+        self.federated_identity_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for AzureBlobStorageData {
     fn typename() -> &'static str {
         "type.googleapis.com/google.storagetransfer.v1.AzureBlobStorageData"
+    }
+}
+
+/// Defines additional types related to [AzureBlobStorageData].
+pub mod azure_blob_storage_data {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The identity of an Azure application through which Storage Transfer Service
+    /// can authenticate requests using Azure workload identity federation.
+    ///
+    /// Storage Transfer Service can issue requests to Azure Storage through
+    /// registered Azure applications, eliminating the need to pass credentials to
+    /// Storage Transfer Service directly.
+    ///
+    /// To configure federated identity, see
+    /// [Configure access to Microsoft Azure
+    /// Storage](https://cloud.google.com/storage-transfer/docs/source-microsoft-azure#option_3_authenticate_using_federated_identity).
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct FederatedIdentityConfig {
+        /// Required. The client (application) ID of the application with federated
+        /// credentials.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+        pub client_id: std::string::String,
+
+        /// Required. The tenant (directory) ID of the application with federated
+        /// credentials.
+        #[serde(skip_serializing_if = "std::string::String::is_empty")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+        pub tenant_id: std::string::String,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl FederatedIdentityConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [client_id][crate::model::azure_blob_storage_data::FederatedIdentityConfig::client_id].
+        pub fn set_client_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.client_id = v.into();
+            self
+        }
+
+        /// Sets the value of [tenant_id][crate::model::azure_blob_storage_data::FederatedIdentityConfig::tenant_id].
+        pub fn set_tenant_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.tenant_id = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for FederatedIdentityConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.storagetransfer.v1.AzureBlobStorageData.FederatedIdentityConfig"
+        }
     }
 }
 
@@ -1836,8 +1935,9 @@ impl wkt::message::Message for AzureBlobStorageData {
 #[non_exhaustive]
 pub struct HttpData {
     /// Required. The URL that points to the file that stores the object list
-    /// entries. This file must allow public access.  Currently, only URLs with
-    /// HTTP and HTTPS schemes are supported.
+    /// entries. This file must allow public access. The URL is either an
+    /// HTTP/HTTPS address (e.g. `<https://example.com/urllist.tsv>`) or a Cloud
+    /// Storage path (e.g. `gs://my-bucket/urllist.tsv`).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub list_url: std::string::String,
@@ -2979,7 +3079,7 @@ pub mod agent_pool {
 #[non_exhaustive]
 pub struct TransferOptions {
     /// When to overwrite objects that already exist in the sink. The default is
-    /// that only objects that are different from the source are ovewritten. If
+    /// that only objects that are different from the source are overwritten. If
     /// true, all objects in the sink whose name matches an object in the source
     /// are overwritten with the source object.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -5506,7 +5606,7 @@ pub struct Schedule {
     /// [schedule_end_date][google.storagetransfer.v1.Schedule.schedule_end_date],
     /// `end_time_of_day` specifies the end date and time for starting new transfer
     /// operations. This field must be greater than or equal to the timestamp
-    /// corresponding to the combintation of
+    /// corresponding to the combination of
     /// [schedule_start_date][google.storagetransfer.v1.Schedule.schedule_start_date]
     /// and
     /// [start_time_of_day][google.storagetransfer.v1.Schedule.start_time_of_day],
@@ -5774,6 +5874,25 @@ pub struct TransferJob {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,
 
+    /// Optional. The user-managed service account to which to delegate service
+    /// agent permissions. You can grant Cloud Storage bucket permissions to this
+    /// service account instead of to the Transfer Service service agent.
+    ///
+    /// Format is
+    /// `projects/-/serviceAccounts/ACCOUNT_EMAIL_OR_UNIQUEID`
+    ///
+    /// Either the service account email
+    /// (`SERVICE_ACCOUNT_NAME@PROJECT_ID.iam.gserviceaccount.com`) or the unique
+    /// ID (`123456789012345678901`) are accepted in the string. The `-`
+    /// wildcard character is required; replacing it with a project ID is invalid.
+    ///
+    /// See
+    /// <https://cloud.google.com//storage-transfer/docs/delegate-service-agent-permissions>
+    /// for required permissions.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub service_account: std::string::String,
+
     /// Transfer specification.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub transfer_spec: std::option::Option<crate::model::TransferSpec>,
@@ -5860,6 +5979,12 @@ impl TransferJob {
     /// Sets the value of [project_id][crate::model::TransferJob::project_id].
     pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.project_id = v.into();
+        self
+    }
+
+    /// Sets the value of [service_account][crate::model::TransferJob::service_account].
+    pub fn set_service_account<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service_account = v.into();
         self
     }
 
@@ -7112,7 +7237,7 @@ pub mod logging_config {
         Find,
         /// Deleting objects at the source or the destination.
         Delete,
-        /// Copying objects to Google Cloud Storage.
+        /// Copying objects to the destination.
         Copy,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -7253,6 +7378,10 @@ pub mod logging_config {
         /// `LoggableAction` terminated in an error state. `FAILED` actions are
         /// logged as [ERROR][google.logging.type.LogSeverity.ERROR].
         Failed,
+        /// The `COPY` action was skipped for this file. Only supported for
+        /// agent-based transfers. `SKIPPED` actions are
+        /// logged as [INFO][google.logging.type.LogSeverity.INFO].
+        Skipped,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [LoggableActionState::value] or
@@ -7278,6 +7407,7 @@ pub mod logging_config {
                 Self::Unspecified => std::option::Option::Some(0),
                 Self::Succeeded => std::option::Option::Some(1),
                 Self::Failed => std::option::Option::Some(2),
+                Self::Skipped => std::option::Option::Some(3),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -7291,6 +7421,7 @@ pub mod logging_config {
                 Self::Unspecified => std::option::Option::Some("LOGGABLE_ACTION_STATE_UNSPECIFIED"),
                 Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
                 Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Skipped => std::option::Option::Some("SKIPPED"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -7315,6 +7446,7 @@ pub mod logging_config {
                 0 => Self::Unspecified,
                 1 => Self::Succeeded,
                 2 => Self::Failed,
+                3 => Self::Skipped,
                 _ => Self::UnknownValue(loggable_action_state::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -7329,6 +7461,7 @@ pub mod logging_config {
                 "LOGGABLE_ACTION_STATE_UNSPECIFIED" => Self::Unspecified,
                 "SUCCEEDED" => Self::Succeeded,
                 "FAILED" => Self::Failed,
+                "SKIPPED" => Self::Skipped,
                 _ => Self::UnknownValue(loggable_action_state::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -7345,6 +7478,7 @@ pub mod logging_config {
                 Self::Unspecified => serializer.serialize_i32(0),
                 Self::Succeeded => serializer.serialize_i32(1),
                 Self::Failed => serializer.serialize_i32(2),
+                Self::Skipped => serializer.serialize_i32(3),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }

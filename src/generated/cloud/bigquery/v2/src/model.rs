@@ -2034,13 +2034,13 @@ pub mod get_dataset_request {
         /// The default value.
         /// Default to the FULL view.
         Unspecified,
-        /// Updates metadata information for the dataset, such as friendlyName,
+        /// View metadata information for the dataset, such as friendlyName,
         /// description, labels, etc.
         Metadata,
-        /// Updates ACL information for the dataset, which defines dataset access
+        /// View ACL information for the dataset, which defines dataset access
         /// for one or more entities.
         Acl,
-        /// Updates both dataset metadata and ACL information.
+        /// View both dataset metadata and ACL information.
         Full,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -26785,8 +26785,8 @@ pub enum ManagedTableType {
     Unspecified,
     /// The managed table is a native BigQuery table.
     Native,
-    /// The managed table is a BigQuery table for Apache Iceberg.
-    Iceberg,
+    /// The managed table is a BigLake table for Apache Iceberg in BigQuery.
+    Biglake,
     /// If set, the enum was initialized with an unknown value.
     ///
     /// Applications can examine the value using [ManagedTableType::value] or
@@ -26811,7 +26811,7 @@ impl ManagedTableType {
         match self {
             Self::Unspecified => std::option::Option::Some(0),
             Self::Native => std::option::Option::Some(1),
-            Self::Iceberg => std::option::Option::Some(2),
+            Self::Biglake => std::option::Option::Some(2),
             Self::UnknownValue(u) => u.0.value(),
         }
     }
@@ -26824,7 +26824,7 @@ impl ManagedTableType {
         match self {
             Self::Unspecified => std::option::Option::Some("MANAGED_TABLE_TYPE_UNSPECIFIED"),
             Self::Native => std::option::Option::Some("NATIVE"),
-            Self::Iceberg => std::option::Option::Some("ICEBERG"),
+            Self::Biglake => std::option::Option::Some("BIGLAKE"),
             Self::UnknownValue(u) => u.0.name(),
         }
     }
@@ -26848,7 +26848,7 @@ impl std::convert::From<i32> for ManagedTableType {
         match value {
             0 => Self::Unspecified,
             1 => Self::Native,
-            2 => Self::Iceberg,
+            2 => Self::Biglake,
             _ => Self::UnknownValue(managed_table_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -26862,7 +26862,7 @@ impl std::convert::From<&str> for ManagedTableType {
         match value {
             "MANAGED_TABLE_TYPE_UNSPECIFIED" => Self::Unspecified,
             "NATIVE" => Self::Native,
-            "ICEBERG" => Self::Iceberg,
+            "BIGLAKE" => Self::Biglake,
             _ => Self::UnknownValue(managed_table_type::UnknownValue(
                 wkt::internal::UnknownEnumValue::String(value.to_string()),
             )),
@@ -26878,7 +26878,7 @@ impl serde::ser::Serialize for ManagedTableType {
         match self {
             Self::Unspecified => serializer.serialize_i32(0),
             Self::Native => serializer.serialize_i32(1),
-            Self::Iceberg => serializer.serialize_i32(2),
+            Self::Biglake => serializer.serialize_i32(2),
             Self::UnknownValue(u) => u.0.serialize(serializer),
         }
     }

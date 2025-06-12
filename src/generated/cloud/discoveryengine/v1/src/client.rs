@@ -21,6 +21,181 @@
 /// # Example
 /// ```
 /// # tokio_test::block_on(async {
+/// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
+/// let client = CmekConfigService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing CMEK related tasks
+///
+/// # Configuration
+///
+/// To configure `CmekConfigService` use the `with_*` methods in the type returned
+/// by [builder()][CmekConfigService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://discoveryengine.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::cmek_config_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::cmek_config_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `CmekConfigService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `CmekConfigService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct CmekConfigService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::CmekConfigService>,
+}
+
+impl CmekConfigService {
+    /// Returns a builder for [CmekConfigService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::client::CmekConfigService;
+    /// let client = CmekConfigService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::cmek_config_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::cmek_config_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::CmekConfigService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::CmekConfigService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CmekConfigService> {
+        super::transport::CmekConfigService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::CmekConfigService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::CmekConfigService::new)
+    }
+
+    /// Provisions a CMEK key for use in a location of a customer's project.
+    /// This method will also conduct location validation on the provided
+    /// cmekConfig to make sure the key is valid and can be used in the
+    /// selected location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_cmek_config(&self) -> super::builder::cmek_config_service::UpdateCmekConfig {
+        super::builder::cmek_config_service::UpdateCmekConfig::new(self.inner.clone())
+    }
+
+    /// Gets the [CmekConfig][google.cloud.discoveryengine.v1.CmekConfig].
+    ///
+    /// [google.cloud.discoveryengine.v1.CmekConfig]: crate::model::CmekConfig
+    pub fn get_cmek_config(&self) -> super::builder::cmek_config_service::GetCmekConfig {
+        super::builder::cmek_config_service::GetCmekConfig::new(self.inner.clone())
+    }
+
+    /// Lists all the [CmekConfig][google.cloud.discoveryengine.v1.CmekConfig]s
+    /// with the project.
+    ///
+    /// [google.cloud.discoveryengine.v1.CmekConfig]: crate::model::CmekConfig
+    pub fn list_cmek_configs(&self) -> super::builder::cmek_config_service::ListCmekConfigs {
+        super::builder::cmek_config_service::ListCmekConfigs::new(self.inner.clone())
+    }
+
+    /// De-provisions a CmekConfig.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_cmek_config(&self) -> super::builder::cmek_config_service::DeleteCmekConfig {
+        super::builder::cmek_config_service::DeleteCmekConfig::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::cmek_config_service::ListOperations {
+        super::builder::cmek_config_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::cmek_config_service::GetOperation {
+        super::builder::cmek_config_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::cmek_config_service::CancelOperation {
+        super::builder::cmek_config_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Discovery Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
 /// # use google_cloud_discoveryengine_v1::client::CompletionService;
 /// let client = CompletionService::builder().build().await?;
 /// // use `client` to make requests to the Discovery Engine API.
@@ -1401,6 +1576,232 @@ impl GroundedGenerationService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::grounded_generation_service::CancelOperation {
         super::builder::grounded_generation_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Discovery Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
+/// let client = IdentityMappingStoreService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing Identity Mapping Stores.
+///
+/// # Configuration
+///
+/// To configure `IdentityMappingStoreService` use the `with_*` methods in the type returned
+/// by [builder()][IdentityMappingStoreService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://discoveryengine.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::identity_mapping_store_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::identity_mapping_store_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `IdentityMappingStoreService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `IdentityMappingStoreService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct IdentityMappingStoreService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::IdentityMappingStoreService>,
+}
+
+impl IdentityMappingStoreService {
+    /// Returns a builder for [IdentityMappingStoreService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::client::IdentityMappingStoreService;
+    /// let client = IdentityMappingStoreService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::identity_mapping_store_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::identity_mapping_store_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::IdentityMappingStoreService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<
+        std::sync::Arc<dyn super::stub::dynamic::IdentityMappingStoreService>,
+    > {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::IdentityMappingStoreService> {
+        super::transport::IdentityMappingStoreService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::IdentityMappingStoreService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::IdentityMappingStoreService::new)
+    }
+
+    /// Creates a new Identity Mapping Store.
+    pub fn create_identity_mapping_store(
+        &self,
+    ) -> super::builder::identity_mapping_store_service::CreateIdentityMappingStore {
+        super::builder::identity_mapping_store_service::CreateIdentityMappingStore::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Gets the Identity Mapping Store.
+    pub fn get_identity_mapping_store(
+        &self,
+    ) -> super::builder::identity_mapping_store_service::GetIdentityMappingStore {
+        super::builder::identity_mapping_store_service::GetIdentityMappingStore::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Deletes the Identity Mapping Store.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_identity_mapping_store(
+        &self,
+    ) -> super::builder::identity_mapping_store_service::DeleteIdentityMappingStore {
+        super::builder::identity_mapping_store_service::DeleteIdentityMappingStore::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Imports a list of Identity Mapping Entries to an Identity Mapping Store.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn import_identity_mappings(
+        &self,
+    ) -> super::builder::identity_mapping_store_service::ImportIdentityMappings {
+        super::builder::identity_mapping_store_service::ImportIdentityMappings::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Purges specified or all Identity Mapping Entries from an Identity Mapping
+    /// Store.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn purge_identity_mappings(
+        &self,
+    ) -> super::builder::identity_mapping_store_service::PurgeIdentityMappings {
+        super::builder::identity_mapping_store_service::PurgeIdentityMappings::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists Identity Mappings in an Identity Mapping Store.
+    pub fn list_identity_mappings(
+        &self,
+    ) -> super::builder::identity_mapping_store_service::ListIdentityMappings {
+        super::builder::identity_mapping_store_service::ListIdentityMappings::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Lists all Identity Mapping Stores.
+    pub fn list_identity_mapping_stores(
+        &self,
+    ) -> super::builder::identity_mapping_store_service::ListIdentityMappingStores {
+        super::builder::identity_mapping_store_service::ListIdentityMappingStores::new(
+            self.inner.clone(),
+        )
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(
+        &self,
+    ) -> super::builder::identity_mapping_store_service::ListOperations {
+        super::builder::identity_mapping_store_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::identity_mapping_store_service::GetOperation {
+        super::builder::identity_mapping_store_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(
+        &self,
+    ) -> super::builder::identity_mapping_store_service::CancelOperation {
+        super::builder::identity_mapping_store_service::CancelOperation::new(self.inner.clone())
     }
 }
 
@@ -2969,5 +3370,155 @@ impl UserEventService {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::user_event_service::CancelOperation {
         super::builder::user_event_service::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Discovery Engine API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_discoveryengine_v1::client::UserLicenseService;
+/// let client = UserLicenseService::builder().build().await?;
+/// // use `client` to make requests to the Discovery Engine API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Service for managing User Licenses.
+///
+/// # Configuration
+///
+/// To configure `UserLicenseService` use the `with_*` methods in the type returned
+/// by [builder()][UserLicenseService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://discoveryengine.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::user_license_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::user_license_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `UserLicenseService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `UserLicenseService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct UserLicenseService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::UserLicenseService>,
+}
+
+impl UserLicenseService {
+    /// Returns a builder for [UserLicenseService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_discoveryengine_v1::client::UserLicenseService;
+    /// let client = UserLicenseService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::user_license_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::user_license_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::UserLicenseService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::UserLicenseService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::UserLicenseService> {
+        super::transport::UserLicenseService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::UserLicenseService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::UserLicenseService::new)
+    }
+
+    /// Lists the User Licenses.
+    pub fn list_user_licenses(&self) -> super::builder::user_license_service::ListUserLicenses {
+        super::builder::user_license_service::ListUserLicenses::new(self.inner.clone())
+    }
+
+    /// Updates the User License.
+    /// This method is used for batch assign/unassign licenses to users.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn batch_update_user_licenses(
+        &self,
+    ) -> super::builder::user_license_service::BatchUpdateUserLicenses {
+        super::builder::user_license_service::BatchUpdateUserLicenses::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::user_license_service::ListOperations {
+        super::builder::user_license_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::user_license_service::GetOperation {
+        super::builder::user_license_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::user_license_service::CancelOperation {
+        super::builder::user_license_service::CancelOperation::new(self.inner.clone())
     }
 }

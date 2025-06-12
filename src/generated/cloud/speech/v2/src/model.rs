@@ -1756,9 +1756,9 @@ pub struct ExplicitDecodingConfig {
     pub encoding: crate::model::explicit_decoding_config::AudioEncoding,
 
     /// Optional. Sample rate in Hertz of the audio data sent for recognition.
-    /// Valid values are: 8000-48000. 16000 is optimal. For best results, set the
-    /// sampling rate of the audio source to 16000 Hz. If that's not possible, use
-    /// the native sample rate of the audio source (instead of re-sampling).
+    /// Valid values are: 8000-48000, and 16000 is optimal. For best results, set
+    /// the sampling rate of the audio source to 16000 Hz. If that's not possible,
+    /// use the native sample rate of the audio source (instead of resampling).
     /// Note that this field is marked as OPTIONAL for backward compatibility
     /// reasons. It is (and has always been) effectively REQUIRED.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
@@ -2699,6 +2699,56 @@ pub mod speech_adaptation {
     }
 }
 
+/// Denoiser config. May not be supported for all models and may
+/// have no effect.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct DenoiserConfig {
+    /// Denoise audio before sending to the transcription model.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub denoise_audio: bool,
+
+    /// Signal-to-Noise Ratio (SNR) threshold for the denoiser. Here SNR means the
+    /// loudness of the speech signal. Audio with an SNR below this threshold,
+    /// meaning the speech is too quiet, will be prevented from being sent to the
+    /// transcription model.
+    ///
+    /// If snr_threshold=0, no filtering will be applied.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
+    pub snr_threshold: f32,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DenoiserConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [denoise_audio][crate::model::DenoiserConfig::denoise_audio].
+    pub fn set_denoise_audio<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.denoise_audio = v.into();
+        self
+    }
+
+    /// Sets the value of [snr_threshold][crate::model::DenoiserConfig::snr_threshold].
+    pub fn set_snr_threshold<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+        self.snr_threshold = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DenoiserConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.speech.v2.DenoiserConfig"
+    }
+}
+
 /// Provides information to the Recognizer that specifies how to process the
 /// recognition request.
 #[serde_with::serde_as]
@@ -2754,6 +2804,11 @@ pub struct RecognitionConfig {
     /// the given audio to the desired language for supported models.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub translation_config: std::option::Option<crate::model::TranslationConfig>,
+
+    /// Optional. Optional denoiser config. May not be supported for all models
+    /// and may have no effect.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub denoiser_config: std::option::Option<crate::model::DenoiserConfig>,
 
     /// Decoding parameters for audio being sent for recognition.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
@@ -2854,6 +2909,24 @@ impl RecognitionConfig {
         T: std::convert::Into<crate::model::TranslationConfig>,
     {
         self.translation_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [denoiser_config][crate::model::RecognitionConfig::denoiser_config].
+    pub fn set_denoiser_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DenoiserConfig>,
+    {
+        self.denoiser_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [denoiser_config][crate::model::RecognitionConfig::denoiser_config].
+    pub fn set_or_clear_denoiser_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DenoiserConfig>,
+    {
+        self.denoiser_config = v.map(|x| x.into());
         self
     }
 
@@ -7911,7 +7984,7 @@ impl wkt::message::Message for UndeletePhraseSetRequest {
     }
 }
 
-/// Representes a singular feature of a model. If the feature is `recognizer`,
+/// Represents a singular feature of a model. If the feature is `recognizer`,
 /// the release_state of the feature represents the release_state of the model
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
