@@ -29,20 +29,33 @@ result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?
 {{/Optional}}
 {{/IsOneOf}}
 {{#IsOneOf}}
+let value = map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()?;
+{{#Codec.IsWktValue}}
 if result.{{Group.Codec.FieldName}}.is_some() {
     return Err(A::Error::duplicate_field("multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}"))
 }
 result.{{Group.Codec.FieldName}} = std::option::Option::Some(
-    {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
-        map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()?
-            {{#Codec.IsWktValue}}
-            .unwrap_or(wkt::Value::Null),
-            {{/Codec.IsWktValue}}
-            {{^Codec.IsWktValue}}
-            .unwrap_or_default(),
-            {{/Codec.IsWktValue}}
-    ),
+    {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(value.unwrap_or_else(|| Box::new(wkt::Value::Null))),
 );
+{{/Codec.IsWktValue}}
+{{#Codec.IsWktNullValue}}
+if result.{{Group.Codec.FieldName}}.is_some() {
+    return Err(A::Error::duplicate_field("multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}"))
+}
+result.{{Group.Codec.FieldName}} = std::option::Option::Some(
+    {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(value.unwrap_or(wkt::NullValue)),
+);
+{{/Codec.IsWktNullValue}}
+{{#Codec.NotWktValue}}
+if let Some(v) = value {
+    if result.{{Group.Codec.FieldName}}.is_some() {
+        return Err(A::Error::duplicate_field("multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}"))
+    }
+    result.{{Group.Codec.FieldName}} = std::option::Option::Some(
+        {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(v),
+    );
+}
+{{/Codec.NotWktValue}}
 {{/IsOneOf}}
 {{/Singular}}
 {{! repeated and map fields are never part of a oneof }}

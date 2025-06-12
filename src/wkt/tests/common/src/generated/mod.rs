@@ -743,103 +743,107 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__string_contents => {
-                            if result.single_string.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `single_string`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents, latest field was stringContents",
-                                ));
+                            let value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                            if let Some(v) = value {
+                                if result.single_string.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `single_string`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents, latest field was stringContents",
+                                    ));
+                                }
+                                result.single_string = std::option::Option::Some(
+                                    crate::generated::message_with_one_of::SingleString::StringContents(v),
+                                );
                             }
-                            result.single_string = std::option::Option::Some(
-                                crate::generated::message_with_one_of::SingleString::StringContents(
-                                    map.next_value::<std::option::Option<std::string::String>>()?
-                                        .unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__string_contents_one => {
-                            if result.two_strings.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `two_strings`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents_one, latest field was stringContentsOne",
-                                ));
+                            let value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                            if let Some(v) = value {
+                                if result.two_strings.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `two_strings`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents_one, latest field was stringContentsOne",
+                                    ));
+                                }
+                                result.two_strings = std::option::Option::Some(
+                                    crate::generated::message_with_one_of::TwoStrings::StringContentsOne(v),
+                                );
                             }
-                            result.two_strings = std::option::Option::Some(
-                                crate::generated::message_with_one_of::TwoStrings::StringContentsOne(
-                                    map.next_value::<std::option::Option<std::string::String>>()?
-                                        .unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__string_contents_two => {
-                            if result.two_strings.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `two_strings`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents_two, latest field was stringContentsTwo",
-                                ));
+                            let value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                            if let Some(v) = value {
+                                if result.two_strings.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `two_strings`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents_two, latest field was stringContentsTwo",
+                                    ));
+                                }
+                                result.two_strings = std::option::Option::Some(
+                                    crate::generated::message_with_one_of::TwoStrings::StringContentsTwo(v),
+                                );
                             }
-                            result.two_strings = std::option::Option::Some(
-                                crate::generated::message_with_one_of::TwoStrings::StringContentsTwo(
-                                    map.next_value::<std::option::Option<std::string::String>>()?
-                                        .unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__message_value => {
-                            if result.one_message.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `one_message`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.message_value, latest field was messageValue",
-                                ));
+                            let value = map.next_value::<std::option::Option<
+                                std::boxed::Box<crate::generated::message_with_one_of::Message>,
+                            >>()?;
+                            if let Some(v) = value {
+                                if result.one_message.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `one_message`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.message_value, latest field was messageValue",
+                                    ));
+                                }
+                                result.one_message = std::option::Option::Some(
+                                    crate::generated::message_with_one_of::OneMessage::MessageValue(
+                                        v,
+                                    ),
+                                );
                             }
-                            result.one_message = std::option::Option::Some(
-                                crate::generated::message_with_one_of::OneMessage::MessageValue(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            crate::generated::message_with_one_of::Message,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__another_message => {
-                            if result.mixed.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.another_message, latest field was anotherMessage",
-                                ));
+                            let value = map.next_value::<std::option::Option<
+                                std::boxed::Box<crate::generated::message_with_one_of::Message>,
+                            >>()?;
+                            if let Some(v) = value {
+                                if result.mixed.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.another_message, latest field was anotherMessage",
+                                    ));
+                                }
+                                result.mixed = std::option::Option::Some(
+                                    crate::generated::message_with_one_of::Mixed::AnotherMessage(v),
+                                );
                             }
-                            result.mixed = std::option::Option::Some(
-                                crate::generated::message_with_one_of::Mixed::AnotherMessage(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            crate::generated::message_with_one_of::Message,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__string => {
-                            if result.mixed.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string, latest field was string",
-                                ));
+                            let value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                            if let Some(v) = value {
+                                if result.mixed.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string, latest field was string",
+                                    ));
+                                }
+                                result.mixed = std::option::Option::Some(
+                                    crate::generated::message_with_one_of::Mixed::String(v),
+                                );
                             }
-                            result.mixed = std::option::Option::Some(
-                                crate::generated::message_with_one_of::Mixed::String(
-                                    map.next_value::<std::option::Option<std::string::String>>()?
-                                        .unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__duration => {
-                            if result.mixed.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.duration, latest field was duration",
-                                ));
+                            let value = map
+                                .next_value::<std::option::Option<std::boxed::Box<wkt::Duration>>>(
+                                )?;
+                            if let Some(v) = value {
+                                if result.mixed.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.duration, latest field was duration",
+                                    ));
+                                }
+                                result.mixed = std::option::Option::Some(
+                                    crate::generated::message_with_one_of::Mixed::Duration(v),
+                                );
                             }
-                            result.mixed = std::option::Option::Some(
-                                crate::generated::message_with_one_of::Mixed::Duration(
-                                    map.next_value::<std::option::Option<std::boxed::Box<wkt::Duration>>>()?
-                                        .unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -1387,6 +1391,31 @@ impl MessageWithComplexOneOf {
         );
         self
     }
+
+    /// The value of [complex][crate::generated::MessageWithComplexOneOf::complex]
+    /// if it holds a `Value`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn value(&self) -> std::option::Option<&std::boxed::Box<wkt::Value>> {
+        #[allow(unreachable_patterns)]
+        self.complex.as_ref().and_then(|v| match v {
+            crate::generated::message_with_complex_one_of::Complex::Value(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [complex][crate::generated::MessageWithComplexOneOf::complex]
+    /// to hold a `Value`.
+    ///
+    /// Note that all the setters affecting `complex` are
+    /// mutually exclusive.
+    pub fn set_value<T: std::convert::Into<std::boxed::Box<wkt::Value>>>(mut self, v: T) -> Self {
+        self.complex = std::option::Option::Some(
+            crate::generated::message_with_complex_one_of::Complex::Value(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for MessageWithComplexOneOf {
@@ -1418,6 +1447,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
             __enum,
             __inner,
             __duration,
+            __value,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1448,6 +1478,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             "enum" => Ok(__FieldTag::__enum),
                             "inner" => Ok(__FieldTag::__inner),
                             "duration" => Ok(__FieldTag::__duration),
+                            "value" => Ok(__FieldTag::__value),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1472,6 +1503,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__null => {
+                            let value = map.next_value::<std::option::Option<wkt::NullValue>>()?;
                             if result.complex.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.null, latest field was null",
@@ -1479,23 +1511,22 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Null(
-                                    map.next_value::<std::option::Option<wkt::NullValue>>()?
-                                        .unwrap_or_default(),
+                                    value.unwrap_or(wkt::NullValue),
                                 ),
                             );
                         }
                         __FieldTag::__bool_value => {
-                            if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.bool_value, latest field was boolValue",
-                                ));
+                            let value = map.next_value::<std::option::Option<bool>>()?;
+                            if let Some(v) = value {
+                                if result.complex.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.bool_value, latest field was boolValue",
+                                    ));
+                                }
+                                result.complex = std::option::Option::Some(
+                                    crate::generated::message_with_complex_one_of::Complex::BoolValue(v),
+                                );
                             }
-                            result.complex = std::option::Option::Some(
-                                crate::generated::message_with_complex_one_of::Complex::BoolValue(
-                                    map.next_value::<std::option::Option<bool>>()?
-                                        .unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__bytes_value => {
                             struct __With(std::option::Option<::bytes::Bytes>);
@@ -1509,29 +1540,31 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                     serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.bytes_value, latest field was bytesValue",
-                                ));
+                            let value = map.next_value::<__With>()?.0;
+                            if let Some(v) = value {
+                                if result.complex.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.bytes_value, latest field was bytesValue",
+                                    ));
+                                }
+                                result.complex = std::option::Option::Some(
+                                    crate::generated::message_with_complex_one_of::Complex::BytesValue(v),
+                                );
                             }
-                            result.complex = std::option::Option::Some(
-                                crate::generated::message_with_complex_one_of::Complex::BytesValue(
-                                    map.next_value::<__With>()?.0.unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__string_value => {
-                            if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.string_value, latest field was stringValue",
-                                ));
+                            let value =
+                                map.next_value::<std::option::Option<std::string::String>>()?;
+                            if let Some(v) = value {
+                                if result.complex.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.string_value, latest field was stringValue",
+                                    ));
+                                }
+                                result.complex = std::option::Option::Some(
+                                    crate::generated::message_with_complex_one_of::Complex::StringValue(v),
+                                );
                             }
-                            result.complex = std::option::Option::Some(
-                                crate::generated::message_with_complex_one_of::Complex::StringValue(
-                                    map.next_value::<std::option::Option<std::string::String>>()?
-                                        .unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__float_value => {
                             struct __With(std::option::Option<f32>);
@@ -1545,16 +1578,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                     serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.float_value, latest field was floatValue",
-                                ));
+                            let value = map.next_value::<__With>()?.0;
+                            if let Some(v) = value {
+                                if result.complex.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.float_value, latest field was floatValue",
+                                    ));
+                                }
+                                result.complex = std::option::Option::Some(
+                                    crate::generated::message_with_complex_one_of::Complex::FloatValue(v),
+                                );
                             }
-                            result.complex = std::option::Option::Some(
-                                crate::generated::message_with_complex_one_of::Complex::FloatValue(
-                                    map.next_value::<__With>()?.0.unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__double_value => {
                             struct __With(std::option::Option<f64>);
@@ -1568,16 +1602,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                     serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.double_value, latest field was doubleValue",
-                                ));
+                            let value = map.next_value::<__With>()?.0;
+                            if let Some(v) = value {
+                                if result.complex.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.double_value, latest field was doubleValue",
+                                    ));
+                                }
+                                result.complex = std::option::Option::Some(
+                                    crate::generated::message_with_complex_one_of::Complex::DoubleValue(v),
+                                );
                             }
-                            result.complex = std::option::Option::Some(
-                                crate::generated::message_with_complex_one_of::Complex::DoubleValue(
-                                    map.next_value::<__With>()?.0.unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__int => {
                             struct __With(std::option::Option<i32>);
@@ -1591,16 +1626,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                     serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.int, latest field was int",
-                                ));
+                            let value = map.next_value::<__With>()?.0;
+                            if let Some(v) = value {
+                                if result.complex.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.int, latest field was int",
+                                    ));
+                                }
+                                result.complex = std::option::Option::Some(
+                                    crate::generated::message_with_complex_one_of::Complex::Int(v),
+                                );
                             }
-                            result.complex = std::option::Option::Some(
-                                crate::generated::message_with_complex_one_of::Complex::Int(
-                                    map.next_value::<__With>()?.0.unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__long => {
                             struct __With(std::option::Option<i64>);
@@ -1614,59 +1650,78 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                     serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
-                            if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.long, latest field was long",
-                                ));
+                            let value = map.next_value::<__With>()?.0;
+                            if let Some(v) = value {
+                                if result.complex.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.long, latest field was long",
+                                    ));
+                                }
+                                result.complex = std::option::Option::Some(
+                                    crate::generated::message_with_complex_one_of::Complex::Long(v),
+                                );
                             }
-                            result.complex = std::option::Option::Some(
-                                crate::generated::message_with_complex_one_of::Complex::Long(
-                                    map.next_value::<__With>()?.0.unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__enum => {
-                            if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.enum, latest field was enum",
-                                ));
+                            let value = map.next_value::<std::option::Option<
+                                crate::generated::message_with_complex_one_of::TestEnum,
+                            >>()?;
+                            if let Some(v) = value {
+                                if result.complex.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.enum, latest field was enum",
+                                    ));
+                                }
+                                result.complex = std::option::Option::Some(
+                                    crate::generated::message_with_complex_one_of::Complex::Enum(v),
+                                );
                             }
-                            result.complex = std::option::Option::Some(
-                                crate::generated::message_with_complex_one_of::Complex::Enum(
-                                    map.next_value::<std::option::Option<
-                                        crate::generated::message_with_complex_one_of::TestEnum,
-                                    >>()?
-                                    .unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__inner => {
-                            if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
-                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.inner, latest field was inner",
-                                ));
+                            let value = map.next_value::<std::option::Option<
+                                std::boxed::Box<
+                                    crate::generated::message_with_complex_one_of::Inner,
+                                >,
+                            >>()?;
+                            if let Some(v) = value {
+                                if result.complex.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.inner, latest field was inner",
+                                    ));
+                                }
+                                result.complex = std::option::Option::Some(
+                                    crate::generated::message_with_complex_one_of::Complex::Inner(
+                                        v,
+                                    ),
+                                );
                             }
-                            result.complex = std::option::Option::Some(
-                                crate::generated::message_with_complex_one_of::Complex::Inner(
-                                    map.next_value::<std::option::Option<
-                                        std::boxed::Box<
-                                            crate::generated::message_with_complex_one_of::Inner,
-                                        >,
-                                    >>()?
-                                    .unwrap_or_default(),
-                                ),
-                            );
                         }
                         __FieldTag::__duration => {
+                            let value = map
+                                .next_value::<std::option::Option<std::boxed::Box<wkt::Duration>>>(
+                                )?;
+                            if let Some(v) = value {
+                                if result.complex.is_some() {
+                                    return Err(A::Error::duplicate_field(
+                                        "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.duration, latest field was duration",
+                                    ));
+                                }
+                                result.complex = std::option::Option::Some(
+                                    crate::generated::message_with_complex_one_of::Complex::Duration(v),
+                                );
+                            }
+                        }
+                        __FieldTag::__value => {
+                            let value = map
+                                .next_value::<std::option::Option<std::boxed::Box<wkt::Value>>>()?;
                             if result.complex.is_some() {
                                 return Err(A::Error::duplicate_field(
-                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.duration, latest field was duration",
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.value, latest field was value",
                                 ));
                             }
                             result.complex = std::option::Option::Some(
-                                crate::generated::message_with_complex_one_of::Complex::Duration(
-                                    map.next_value::<std::option::Option<std::boxed::Box<wkt::Duration>>>()?
-                                        .unwrap_or_default(),
+                                crate::generated::message_with_complex_one_of::Complex::Value(
+                                    value.unwrap_or_else(|| Box::new(wkt::Value::Null)),
                                 ),
                             );
                         }
@@ -1769,6 +1824,9 @@ impl serde::ser::Serialize for __MessageWithComplexOneOf {
         }
         if let Some(value) = self.0.duration() {
             state.serialize_entry("duration", value)?;
+        }
+        if let Some(value) = self.0.value() {
+            state.serialize_entry("value", value)?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -2061,6 +2119,7 @@ pub mod message_with_complex_one_of {
         ),
         Inner(std::boxed::Box<crate::generated::message_with_complex_one_of::Inner>),
         Duration(std::boxed::Box<wkt::Duration>),
+        Value(std::boxed::Box<wkt::Value>),
     }
 }
 

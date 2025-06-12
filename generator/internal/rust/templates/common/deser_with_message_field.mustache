@@ -52,20 +52,25 @@ impl<'de> serde::de::Deserialize<'de> for __With {
         serde_with::As::< std::option::Option<{{{Codec.SerdeAs}}}> >::deserialize(deserializer).map(__With)
     }
 }
+let value = map.next_value::<__With>()?.0;
+{{#Codec.IsWktValue}}
 if result.{{Group.Codec.FieldName}}.is_some() {
     return Err(A::Error::duplicate_field("multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}"))
 }
 result.{{Group.Codec.FieldName}} = std::option::Option::Some(
-    {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
-        map.next_value::<__With>()?.0
-            {{#Codec.IsWktValue}}
-            .unwrap_or(wkt::Value::Null),
-            {{/Codec.IsWktValue}}
-            {{^Codec.IsWktValue}}
-            .unwrap_or_default(),
-            {{/Codec.IsWktValue}}
-    ),
+    {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(value.unwrap_or_else(|| Box::new(wkt::Value::Null))),
 );
+{{/Codec.IsWktValue}}
+{{^Codec.IsWktValue}}
+if let Some(v) = value {
+    if result.{{Group.Codec.FieldName}}.is_some() {
+        return Err(A::Error::duplicate_field("multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}"))
+    }
+    result.{{Group.Codec.FieldName}} = std::option::Option::Some(
+        {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(v),
+    );
+}
+{{/Codec.IsWktValue}}
 {{/IsOneOf}}
 {{/Singular}}
 {{! repeated and map fields are never part of a oneof }}

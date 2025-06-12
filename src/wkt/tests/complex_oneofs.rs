@@ -61,41 +61,61 @@ mod test {
     #[test_case(MessageWithComplexOneOf::new(), json!({}))]
     #[test_case(MessageWithComplexOneOf::new().set_null(wkt::NullValue), json!({"null": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_bool_value(false), json!({"boolValue": false}))]
-    #[test_case(MessageWithComplexOneOf::new().set_bool_value(false), json!({"boolValue": null}))]
+    #[test_case(MessageWithComplexOneOf::new(), json!({"boolValue": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_bytes_value(""), json!({"bytesValue": ""}))]
-    #[test_case(MessageWithComplexOneOf::new().set_bytes_value(""), json!({"bytesValue": null}))]
+    #[test_case(MessageWithComplexOneOf::new(), json!({"bytesValue": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_bytes_value(LAZY), json!({"bytesValue": LAZY_BASE64}))]
     #[test_case(MessageWithComplexOneOf::new().set_string_value(""), json!({"stringValue": ""}))]
-    #[test_case(MessageWithComplexOneOf::new().set_string_value(""), json!({"stringValue": null}))]
+    #[test_case(MessageWithComplexOneOf::new(), json!({"stringValue": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_float_value(0.0), json!({"floatValue": 0}))]
-    #[test_case(MessageWithComplexOneOf::new().set_float_value(0.0), json!({"floatValue": null}))]
+    #[test_case(MessageWithComplexOneOf::new(), json!({"floatValue": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_float_value(1.5), json!({"floatValue": "1.5"}))]
     #[test_case(MessageWithComplexOneOf::new().set_float_value(2.5), json!({"floatValue": 2.5}))]
     #[test_case(MessageWithComplexOneOf::new().set_float_value(3.0), json!({"floatValue": 3}))]
     #[test_case(MessageWithComplexOneOf::new().set_double_value(0.0), json!({"doubleValue": 0}))]
-    #[test_case(MessageWithComplexOneOf::new().set_double_value(0.0), json!({"doubleValue": null}))]
+    #[test_case(MessageWithComplexOneOf::new(), json!({"doubleValue": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_double_value(1.5), json!({"doubleValue": "1.5"}))]
     #[test_case(MessageWithComplexOneOf::new().set_double_value(2.5), json!({"doubleValue": 2.5}))]
     #[test_case(MessageWithComplexOneOf::new().set_double_value(3.0), json!({"doubleValue": 3}))]
     #[test_case(MessageWithComplexOneOf::new().set_int(0), json!({"int": 0}))]
-    #[test_case(MessageWithComplexOneOf::new().set_int(0), json!({"int": null}))]
+    #[test_case(MessageWithComplexOneOf::new(), json!({"int": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_int(1), json!({"int": "1"}))]
     #[test_case(MessageWithComplexOneOf::new().set_int(2), json!({"int": 2.0}))]
     #[test_case(MessageWithComplexOneOf::new().set_int(3), json!({"int": 3e0}))]
     #[test_case(MessageWithComplexOneOf::new().set_long(0), json!({"long": 0}))]
-    #[test_case(MessageWithComplexOneOf::new().set_long(0), json!({"long": null}))]
+    #[test_case(MessageWithComplexOneOf::new(), json!({"long": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_long(1), json!({"long": "1"}))]
     #[test_case(MessageWithComplexOneOf::new().set_long(2), json!({"long": 2.0}))]
     #[test_case(MessageWithComplexOneOf::new().set_long(3), json!({"long": 3e0}))]
     #[test_case(MessageWithComplexOneOf::new().set_enum(TestEnum::default()), json!({"enum": 0}))]
-    #[test_case(MessageWithComplexOneOf::new().set_enum(TestEnum::default()), json!({"enum": null}))]
+    #[test_case(MessageWithComplexOneOf::new(), json!({"enum": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_inner(Inner::default().set_strings(["a", "b"])), json!({"inner": {"strings": ["a", "b"]}}))]
     #[test_case(MessageWithComplexOneOf::new().set_inner(Inner::default().set_strings([""; 0])), json!({"inner": {"strings": null}}))]
     #[test_case(MessageWithComplexOneOf::new().set_duration(Duration::clamp(-1, -750_000_000)), json!({"duration": "-1.75s"}))]
-    #[test_case(MessageWithComplexOneOf::new().set_duration(Duration::default()), json!({"duration": null}))]
+    #[test_case(MessageWithComplexOneOf::new(), json!({"duration": null}))]
+    #[test_case(MessageWithComplexOneOf::new().set_value(json!(null)), json!({"value": null}))]
+    #[test_case(MessageWithComplexOneOf::new().set_value(json!({"a": 1})), json!({"value": {"a": 1}}))]
     fn test_de(want: MessageWithComplexOneOf, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithComplexOneOf>(input)?;
         assert_eq!(got.0, want);
+        Ok(())
+    }
+    #[test_case(json!({"long": 1, "enum": 0}))]
+    #[test_case(json!({"enum": 0, "long": 1}))]
+    #[test_case(json!({"value": null, "long": 1}))]
+    #[test_case(json!({"long": 1, "value": null}))]
+    fn test_dup_field_errors(input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithComplexOneOf>(input).unwrap_err();
+        assert!(got.is_data(), "{got:?}");
+        Ok(())
+    }
+
+    #[test_case(json!({"long": null, "enum": 0}))]
+    #[test_case(json!({"long": 1, "enum": null}))]
+    #[test_case(json!({"value": null, "long": null}))]
+    #[test_case(json!({"long": null, "value": null}))]
+    fn test_dup_field_null_is_not_error(input: Value) -> Result {
+        let _ = serde_json::from_value::<__MessageWithComplexOneOf>(input)?;
         Ok(())
     }
 
