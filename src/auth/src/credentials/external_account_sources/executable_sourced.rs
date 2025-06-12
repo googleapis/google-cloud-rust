@@ -32,6 +32,7 @@ pub(crate) struct ExecutableSourcedCredentials {
     timeout: Duration,
     output_file: Option<String>,
 }
+
 /// Executable command should adere to this format.
 /// Format is documented on [executable source credentials].
 ///
@@ -48,6 +49,7 @@ struct ExecutableResponse {
     code: Option<String>,
     message: Option<String>,
 }
+
 /// Represents an error when executing a command line tool to fetch subject tokens.
 #[derive(Debug)]
 pub struct ExecutionError {
@@ -88,7 +90,7 @@ impl Display for ExecutionError {
 }
 
 const MSG: &str = "failed to read subject token";
-// default timeout is defined by AIP-4117
+// default timeout is defined per AIP-4117
 const DEFAULT_TIMEOUT_SECS: Duration = Duration::from_secs(30);
 const ALLOW_EXECUTABLE_ENV: &str = "GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES";
 
@@ -198,7 +200,7 @@ impl ExecutableSourcedCredentials {
             let now = SystemTime::now()
                 .duration_since(UNIX_EPOCH)
                 .map_err(|e| CredentialsError::from_source(false, e))?
-                .as_millis() as i64;
+                .as_secs() as i64;
             if expiration_time < now {
                 return Err(CredentialsError::from_msg(
                     true,
@@ -261,7 +263,7 @@ mod test {
         let _e = ScopedEnv::set(ALLOW_EXECUTABLE_ENV, "1");
         let expiration = SystemTime::now().duration_since(UNIX_EPOCH)?;
         let expiration = expiration + Duration::from_secs(3600);
-        let expiration = expiration.as_millis();
+        let expiration = expiration.as_secs();
         let json_response = json!({
             "success": true,
             "version": 1,
@@ -322,7 +324,7 @@ mod test {
     async fn read_valid_token_from_output_file() -> TestResult {
         let expiration = SystemTime::now().duration_since(UNIX_EPOCH)?;
         let expiration = expiration + Duration::from_secs(3600);
-        let expiration = expiration.as_millis();
+        let expiration = expiration.as_secs();
         let json_response = json!({
             "success": true,
             "version": 1,
@@ -367,7 +369,7 @@ mod test {
 
         let now = SystemTime::now().duration_since(UNIX_EPOCH)?;
         let valid_expiration = now + Duration::from_secs(3600);
-        let valid_expiration = valid_expiration.as_millis();
+        let valid_expiration = valid_expiration.as_secs();
         let valid_json_response = json!({
             "success": true,
             "version": 1,
@@ -437,8 +439,8 @@ mod test {
             .get_mut("expiration_time")
             .expect("missing expiration time");
         let expiration = match expiration_value.as_i64().unwrap() {
-            VALID_TIME_SENTINEL => (now + Duration::from_secs(3600)).as_millis() as i64,
-            EXPIRED_TIME_SENTINEL => (now - Duration::from_secs(3600)).as_millis() as i64,
+            VALID_TIME_SENTINEL => (now + Duration::from_secs(3600)).as_secs() as i64,
+            EXPIRED_TIME_SENTINEL => (now - Duration::from_secs(3600)).as_secs() as i64,
             t => t,
         };
         *expiration_value = expiration.into();
