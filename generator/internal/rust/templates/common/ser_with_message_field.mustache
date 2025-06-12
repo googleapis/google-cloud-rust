@@ -52,6 +52,18 @@ if !wkt::internal::is_default(&self.0.{{Codec.FieldName}}) {
 {{/Optional}}
 {{/IsOneOf}}
 {{#IsOneOf}}
+if let Some(value) = self.0.{{Codec.FieldName}}() {
+    struct __With<'a>(&'a {{{Codec.FieldType}}});
+    impl<'a> serde::ser::Serialize for __With<'a> {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            serde_with::As::<{{Codec.SerdeAs}}>::serialize(self.0, serializer)
+        }
+    }
+    state.serialize_entry("{{JSONName}}", &__With(value))?;
+}
 {{/IsOneOf}}
 {{/Singular}}
 {{! repeated and map fields are never part of a oneof }}
