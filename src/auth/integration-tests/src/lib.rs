@@ -183,6 +183,66 @@ pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
     Ok(())
 }
 
+pub async fn workload_identity_provider_executable_sourced() -> anyhow::Result<()> {
+    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+    let audience = get_oidc_audience();
+    let service_account = get_byoid_service_account();
+    let client_email = match service_account.get("client_email") {
+        Some(serde_json::Value::String(v)) => v.clone(),
+        None | Some(_) => {
+            panic!("missing `client_email` string in service account: {service_account:?}")
+        }
+    };
+
+    let id_token = generate_id_token(audience.clone(), client_email, service_account).await?;
+
+    let source_token_output_file = serde_json::json!({
+        "success": true,
+        "version": 1,
+        "token_type": "urn:ietf:params:oauth:token-type:jwt",
+        "id_token": id_token,
+    })
+    .to_string();
+
+    let file = tempfile::NamedTempFile::new().unwrap();
+    let path = file.into_temp_path();
+    std::fs::write(&path, source_token_output_file)
+        .expect("Unable to write to temp file with id token");
+
+    let path = path.to_str().unwrap();
+    let contents = serde_json::json!({
+      "type": "external_account",
+      "audience": audience,
+      "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+      "token_url": "https://sts.googleapis.com/v1/token",
+      "credential_source": {
+        "executable": {
+            "command": format!("cat {path}"),
+            "output_file": path,
+        },
+      }
+    });
+
+    // Create external account with Url sourced creds
+    let creds = ExternalAccountCredentialsBuilder::new(contents).build()?;
+
+    // Construct a BigQuery client using the credentials.
+    // Using BigQuery as it doesn't require a billing account.
+    let client = DatasetService::builder()
+        .with_credentials(creds)
+        .build()
+        .await?;
+
+    // Make a request using the external account credentials
+    client
+        .list_datasets()
+        .set_project_id(project)
+        .send()
+        .await?;
+
+    Ok(())
+}
+
 /// Generates a Google ID token using the iamcredentials generateIdToken API.
 /// https://cloud.google.com/iam/docs/creating-short-lived-service-account-credentials#sa-credentials-oidc
 async fn generate_id_token(
