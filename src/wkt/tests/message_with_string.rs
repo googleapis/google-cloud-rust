@@ -41,6 +41,7 @@ mod test {
     #[test_case(MessageWithString::new().set_or_clear_optional(None::<String>), json!({}))]
     #[test_case(MessageWithString::new().set_repeated(["a", "b", "c"]), json!({"repeated": ["a", "b", "c"]}))]
     #[test_case(MessageWithString::new().set_map_key_value([("a", "1"), ("b", "2")]), json!({"mapKeyValue": {"a": "1", "b": "2"}}))]
+    #[test_case(MessageWithString::new().set_map_key_value([("a", "1"), ("b", "2")]), json!({"map_key_value": {"a": "1", "b": "2"}}))]
     #[test_case(MessageWithString::new(), json!({"singular": null}))]
     #[test_case(MessageWithString::new(), json!({"repeated": null}))]
     #[test_case(MessageWithString::new(), json!({"mapKey": null}))]

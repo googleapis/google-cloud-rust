@@ -24,14 +24,15 @@ mod test {
     use wkt::Duration;
     type Result = anyhow::Result<()>;
 
-    const LAZY: &[u8] = b"the quick brown fox jumps over the lazy dog";
+    const LAZY: &str = "the quick brown fox jumps over the lazy dog";
+    const LAZY_BYTES: &[u8] = b"the quick brown fox jumps over the lazy dog";
     const LAZY_BASE64: &str = "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==";
 
     #[test_case(MessageWithComplexOneOf::new(), json!({}))]
     #[test_case(MessageWithComplexOneOf::new().set_null(wkt::NullValue), json!({"null": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_bool_value(false), json!({"boolValue": false}))]
     #[test_case(MessageWithComplexOneOf::new().set_bytes_value(""), json!({"bytesValue": ""}))]
-    #[test_case(MessageWithComplexOneOf::new().set_bytes_value(LAZY), json!({"bytesValue": LAZY_BASE64}))]
+    #[test_case(MessageWithComplexOneOf::new().set_bytes_value(LAZY_BYTES), json!({"bytesValue": LAZY_BASE64}))]
     #[test_case(MessageWithComplexOneOf::new().set_string_value(""), json!({"stringValue": ""}))]
     #[test_case(MessageWithComplexOneOf::new().set_float_value(0.0), json!({"floatValue": 0.0}))]
     #[test_case(MessageWithComplexOneOf::new().set_float_value(1.5), json!({"floatValue": 1.5}))]
@@ -64,7 +65,7 @@ mod test {
     #[test_case(MessageWithComplexOneOf::new(), json!({"boolValue": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_bytes_value(""), json!({"bytesValue": ""}))]
     #[test_case(MessageWithComplexOneOf::new(), json!({"bytesValue": null}))]
-    #[test_case(MessageWithComplexOneOf::new().set_bytes_value(LAZY), json!({"bytesValue": LAZY_BASE64}))]
+    #[test_case(MessageWithComplexOneOf::new().set_bytes_value(LAZY_BYTES), json!({"bytesValue": LAZY_BASE64}))]
     #[test_case(MessageWithComplexOneOf::new().set_string_value(""), json!({"stringValue": ""}))]
     #[test_case(MessageWithComplexOneOf::new(), json!({"stringValue": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_float_value(0.0), json!({"floatValue": 0}))]
@@ -95,11 +96,17 @@ mod test {
     #[test_case(MessageWithComplexOneOf::new(), json!({"duration": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_value(json!(null)), json!({"value": null}))]
     #[test_case(MessageWithComplexOneOf::new().set_value(json!({"a": 1})), json!({"value": {"a": 1}}))]
+    #[test_case(MessageWithComplexOneOf::new().set_bool_value(false), json!({"bool_value": false}))]
+    #[test_case(MessageWithComplexOneOf::new().set_bytes_value(LAZY_BYTES), json!({"bytes_value": LAZY_BASE64}))]
+    #[test_case(MessageWithComplexOneOf::new().set_string_value(LAZY), json!({"string_value": LAZY}))]
+    #[test_case(MessageWithComplexOneOf::new().set_float_value(1.5), json!({"float_value": 1.5}))]
+    #[test_case(MessageWithComplexOneOf::new().set_double_value(2.5), json!({"double_value": 2.5}))]
     fn test_de(want: MessageWithComplexOneOf, input: Value) -> Result {
         let got = serde_json::from_value::<MessageWithComplexOneOf>(input)?;
         assert_eq!(got, want);
         Ok(())
     }
+
     #[test_case(json!({"long": 1, "enum": 0}))]
     #[test_case(json!({"enum": 0, "long": 1}))]
     #[test_case(json!({"value": null, "long": 1}))]

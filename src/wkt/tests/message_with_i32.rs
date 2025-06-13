@@ -55,6 +55,7 @@ mod test {
     #[test_case(MessageWithI32::new().set_map_key([(0_i32, "")]), json!({"mapKey": {"0": ""}}))]
     #[test_case(MessageWithI32::new().set_map_key_value([(0_i32, 0_i32);0]), json!({}))]
     #[test_case(MessageWithI32::new().set_map_key_value([(0_i32, 0_i32)]), json!({"mapKeyValue": {"0": 0}}))]
+    #[test_case(MessageWithI32::new().set_map_key_value([(0_i32, 0_i32)]), json!({"map_key_value": {"0": 0}}))]
     #[test_case(MessageWithI32::new(), json!({"singular": null}))]
     #[test_case(MessageWithI32::new(), json!({"repeated": null}))]
     #[test_case(MessageWithI32::new(), json!({"mapKey": null}))]

@@ -691,10 +691,15 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithOneOf {
                         use std::result::Result::Ok;
                         match value {
                             "stringContents" => Ok(__FieldTag::__string_contents),
+                            "string_contents" => Ok(__FieldTag::__string_contents),
                             "stringContentsOne" => Ok(__FieldTag::__string_contents_one),
+                            "string_contents_one" => Ok(__FieldTag::__string_contents_one),
                             "stringContentsTwo" => Ok(__FieldTag::__string_contents_two),
+                            "string_contents_two" => Ok(__FieldTag::__string_contents_two),
                             "messageValue" => Ok(__FieldTag::__message_value),
+                            "message_value" => Ok(__FieldTag::__message_value),
                             "anotherMessage" => Ok(__FieldTag::__another_message),
+                            "another_message" => Ok(__FieldTag::__another_message),
                             "string" => Ok(__FieldTag::__string),
                             "duration" => Ok(__FieldTag::__duration),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -1424,10 +1429,15 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                         match value {
                             "null" => Ok(__FieldTag::__null),
                             "boolValue" => Ok(__FieldTag::__bool_value),
+                            "bool_value" => Ok(__FieldTag::__bool_value),
                             "bytesValue" => Ok(__FieldTag::__bytes_value),
+                            "bytes_value" => Ok(__FieldTag::__bytes_value),
                             "stringValue" => Ok(__FieldTag::__string_value),
+                            "string_value" => Ok(__FieldTag::__string_value),
                             "floatValue" => Ok(__FieldTag::__float_value),
+                            "float_value" => Ok(__FieldTag::__float_value),
                             "doubleValue" => Ok(__FieldTag::__double_value),
+                            "double_value" => Ok(__FieldTag::__double_value),
                             "int" => Ok(__FieldTag::__int),
                             "long" => Ok(__FieldTag::__long),
                             "enum" => Ok(__FieldTag::__enum),
@@ -2789,8 +2799,11 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithI32 {
                             "optional" => Ok(__FieldTag::__optional),
                             "repeated" => Ok(__FieldTag::__repeated),
                             "mapValue" => Ok(__FieldTag::__map_value),
+                            "map_value" => Ok(__FieldTag::__map_value),
                             "mapKey" => Ok(__FieldTag::__map_key),
+                            "map_key" => Ok(__FieldTag::__map_key),
                             "mapKeyValue" => Ok(__FieldTag::__map_key_value),
+                            "map_key_value" => Ok(__FieldTag::__map_key_value),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3188,8 +3201,11 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithU32 {
                             "optional" => Ok(__FieldTag::__optional),
                             "repeated" => Ok(__FieldTag::__repeated),
                             "mapValue" => Ok(__FieldTag::__map_value),
+                            "map_value" => Ok(__FieldTag::__map_value),
                             "mapKey" => Ok(__FieldTag::__map_key),
+                            "map_key" => Ok(__FieldTag::__map_key),
                             "mapKeyValue" => Ok(__FieldTag::__map_key_value),
+                            "map_key_value" => Ok(__FieldTag::__map_key_value),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3587,8 +3603,11 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithI64 {
                             "optional" => Ok(__FieldTag::__optional),
                             "repeated" => Ok(__FieldTag::__repeated),
                             "mapValue" => Ok(__FieldTag::__map_value),
+                            "map_value" => Ok(__FieldTag::__map_value),
                             "mapKey" => Ok(__FieldTag::__map_key),
+                            "map_key" => Ok(__FieldTag::__map_key),
                             "mapKeyValue" => Ok(__FieldTag::__map_key_value),
+                            "map_key_value" => Ok(__FieldTag::__map_key_value),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -3986,8 +4005,11 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithU64 {
                             "optional" => Ok(__FieldTag::__optional),
                             "repeated" => Ok(__FieldTag::__repeated),
                             "mapValue" => Ok(__FieldTag::__map_value),
+                            "map_value" => Ok(__FieldTag::__map_value),
                             "mapKey" => Ok(__FieldTag::__map_key),
+                            "map_key" => Ok(__FieldTag::__map_key),
                             "mapKeyValue" => Ok(__FieldTag::__map_key_value),
+                            "map_key_value" => Ok(__FieldTag::__map_key_value),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4680,8 +4702,11 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithBool {
                             "optional" => Ok(__FieldTag::__optional),
                             "repeated" => Ok(__FieldTag::__repeated),
                             "mapValue" => Ok(__FieldTag::__map_value),
+                            "map_value" => Ok(__FieldTag::__map_value),
                             "mapKey" => Ok(__FieldTag::__map_key),
+                            "map_key" => Ok(__FieldTag::__map_key),
                             "mapKeyValue" => Ok(__FieldTag::__map_key_value),
+                            "map_key_value" => Ok(__FieldTag::__map_key_value),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4992,8 +5017,11 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithString {
                             "optional" => Ok(__FieldTag::__optional),
                             "repeated" => Ok(__FieldTag::__repeated),
                             "mapValue" => Ok(__FieldTag::__map_value),
+                            "map_value" => Ok(__FieldTag::__map_value),
                             "mapKey" => Ok(__FieldTag::__map_key),
+                            "map_key" => Ok(__FieldTag::__map_key),
                             "mapKeyValue" => Ok(__FieldTag::__map_key_value),
+                            "map_key_value" => Ok(__FieldTag::__map_key_value),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -5478,6 +5506,7 @@ pub mod message_with_recursion {
                             use std::result::Result::Ok;
                             match value {
                                 "level1" => Ok(__FieldTag::__level_1),
+                                "level_1" => Ok(__FieldTag::__level_1),
                                 "side" => Ok(__FieldTag::__side),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }

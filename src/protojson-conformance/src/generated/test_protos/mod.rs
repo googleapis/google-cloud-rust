@@ -2180,7 +2180,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
-        enum FieldTag {
+        enum __FieldTag {
             __optional_int32,
             __optional_int64,
             __optional_uint32,
@@ -2334,14 +2334,14 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
             __field_name_18__,
             Unknown(std::string::String),
         }
-        impl<'de> serde::de::Deserialize<'de> for FieldTag {
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
                 struct Visitor;
                 impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = FieldTag;
+                    type Value = __FieldTag;
                     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                         formatter.write_str("a field name for TestAllTypesProto3")
                     }
@@ -2351,158 +2351,315 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                     {
                         use std::result::Result::Ok;
                         match value {
-                            "optionalInt32" => Ok(FieldTag::__optional_int32),
-                            "optionalInt64" => Ok(FieldTag::__optional_int64),
-                            "optionalUint32" => Ok(FieldTag::__optional_uint32),
-                            "optionalUint64" => Ok(FieldTag::__optional_uint64),
-                            "optionalSint32" => Ok(FieldTag::__optional_sint32),
-                            "optionalSint64" => Ok(FieldTag::__optional_sint64),
-                            "optionalFixed32" => Ok(FieldTag::__optional_fixed32),
-                            "optionalFixed64" => Ok(FieldTag::__optional_fixed64),
-                            "optionalSfixed32" => Ok(FieldTag::__optional_sfixed32),
-                            "optionalSfixed64" => Ok(FieldTag::__optional_sfixed64),
-                            "optionalFloat" => Ok(FieldTag::__optional_float),
-                            "optionalDouble" => Ok(FieldTag::__optional_double),
-                            "optionalBool" => Ok(FieldTag::__optional_bool),
-                            "optionalString" => Ok(FieldTag::__optional_string),
-                            "optionalBytes" => Ok(FieldTag::__optional_bytes),
-                            "optionalNestedMessage" => Ok(FieldTag::__optional_nested_message),
-                            "optionalForeignMessage" => Ok(FieldTag::__optional_foreign_message),
-                            "optionalNestedEnum" => Ok(FieldTag::__optional_nested_enum),
-                            "optionalForeignEnum" => Ok(FieldTag::__optional_foreign_enum),
-                            "optionalAliasedEnum" => Ok(FieldTag::__optional_aliased_enum),
-                            "optionalStringPiece" => Ok(FieldTag::__optional_string_piece),
-                            "optionalCord" => Ok(FieldTag::__optional_cord),
-                            "recursiveMessage" => Ok(FieldTag::__recursive_message),
-                            "repeatedInt32" => Ok(FieldTag::__repeated_int32),
-                            "repeatedInt64" => Ok(FieldTag::__repeated_int64),
-                            "repeatedUint32" => Ok(FieldTag::__repeated_uint32),
-                            "repeatedUint64" => Ok(FieldTag::__repeated_uint64),
-                            "repeatedSint32" => Ok(FieldTag::__repeated_sint32),
-                            "repeatedSint64" => Ok(FieldTag::__repeated_sint64),
-                            "repeatedFixed32" => Ok(FieldTag::__repeated_fixed32),
-                            "repeatedFixed64" => Ok(FieldTag::__repeated_fixed64),
-                            "repeatedSfixed32" => Ok(FieldTag::__repeated_sfixed32),
-                            "repeatedSfixed64" => Ok(FieldTag::__repeated_sfixed64),
-                            "repeatedFloat" => Ok(FieldTag::__repeated_float),
-                            "repeatedDouble" => Ok(FieldTag::__repeated_double),
-                            "repeatedBool" => Ok(FieldTag::__repeated_bool),
-                            "repeatedString" => Ok(FieldTag::__repeated_string),
-                            "repeatedBytes" => Ok(FieldTag::__repeated_bytes),
-                            "repeatedNestedMessage" => Ok(FieldTag::__repeated_nested_message),
-                            "repeatedForeignMessage" => Ok(FieldTag::__repeated_foreign_message),
-                            "repeatedNestedEnum" => Ok(FieldTag::__repeated_nested_enum),
-                            "repeatedForeignEnum" => Ok(FieldTag::__repeated_foreign_enum),
-                            "repeatedStringPiece" => Ok(FieldTag::__repeated_string_piece),
-                            "repeatedCord" => Ok(FieldTag::__repeated_cord),
-                            "packedInt32" => Ok(FieldTag::__packed_int32),
-                            "packedInt64" => Ok(FieldTag::__packed_int64),
-                            "packedUint32" => Ok(FieldTag::__packed_uint32),
-                            "packedUint64" => Ok(FieldTag::__packed_uint64),
-                            "packedSint32" => Ok(FieldTag::__packed_sint32),
-                            "packedSint64" => Ok(FieldTag::__packed_sint64),
-                            "packedFixed32" => Ok(FieldTag::__packed_fixed32),
-                            "packedFixed64" => Ok(FieldTag::__packed_fixed64),
-                            "packedSfixed32" => Ok(FieldTag::__packed_sfixed32),
-                            "packedSfixed64" => Ok(FieldTag::__packed_sfixed64),
-                            "packedFloat" => Ok(FieldTag::__packed_float),
-                            "packedDouble" => Ok(FieldTag::__packed_double),
-                            "packedBool" => Ok(FieldTag::__packed_bool),
-                            "packedNestedEnum" => Ok(FieldTag::__packed_nested_enum),
-                            "unpackedInt32" => Ok(FieldTag::__unpacked_int32),
-                            "unpackedInt64" => Ok(FieldTag::__unpacked_int64),
-                            "unpackedUint32" => Ok(FieldTag::__unpacked_uint32),
-                            "unpackedUint64" => Ok(FieldTag::__unpacked_uint64),
-                            "unpackedSint32" => Ok(FieldTag::__unpacked_sint32),
-                            "unpackedSint64" => Ok(FieldTag::__unpacked_sint64),
-                            "unpackedFixed32" => Ok(FieldTag::__unpacked_fixed32),
-                            "unpackedFixed64" => Ok(FieldTag::__unpacked_fixed64),
-                            "unpackedSfixed32" => Ok(FieldTag::__unpacked_sfixed32),
-                            "unpackedSfixed64" => Ok(FieldTag::__unpacked_sfixed64),
-                            "unpackedFloat" => Ok(FieldTag::__unpacked_float),
-                            "unpackedDouble" => Ok(FieldTag::__unpacked_double),
-                            "unpackedBool" => Ok(FieldTag::__unpacked_bool),
-                            "unpackedNestedEnum" => Ok(FieldTag::__unpacked_nested_enum),
-                            "mapInt32Int32" => Ok(FieldTag::__map_int32_int32),
-                            "mapInt64Int64" => Ok(FieldTag::__map_int64_int64),
-                            "mapUint32Uint32" => Ok(FieldTag::__map_uint32_uint32),
-                            "mapUint64Uint64" => Ok(FieldTag::__map_uint64_uint64),
-                            "mapSint32Sint32" => Ok(FieldTag::__map_sint32_sint32),
-                            "mapSint64Sint64" => Ok(FieldTag::__map_sint64_sint64),
-                            "mapFixed32Fixed32" => Ok(FieldTag::__map_fixed32_fixed32),
-                            "mapFixed64Fixed64" => Ok(FieldTag::__map_fixed64_fixed64),
-                            "mapSfixed32Sfixed32" => Ok(FieldTag::__map_sfixed32_sfixed32),
-                            "mapSfixed64Sfixed64" => Ok(FieldTag::__map_sfixed64_sfixed64),
-                            "mapInt32Float" => Ok(FieldTag::__map_int32_float),
-                            "mapInt32Double" => Ok(FieldTag::__map_int32_double),
-                            "mapBoolBool" => Ok(FieldTag::__map_bool_bool),
-                            "mapStringString" => Ok(FieldTag::__map_string_string),
-                            "mapStringBytes" => Ok(FieldTag::__map_string_bytes),
-                            "mapStringNestedMessage" => Ok(FieldTag::__map_string_nested_message),
-                            "mapStringForeignMessage" => Ok(FieldTag::__map_string_foreign_message),
-                            "mapStringNestedEnum" => Ok(FieldTag::__map_string_nested_enum),
-                            "mapStringForeignEnum" => Ok(FieldTag::__map_string_foreign_enum),
-                            "oneofUint32" => Ok(FieldTag::__oneof_uint32),
-                            "oneofNestedMessage" => Ok(FieldTag::__oneof_nested_message),
-                            "oneofString" => Ok(FieldTag::__oneof_string),
-                            "oneofBytes" => Ok(FieldTag::__oneof_bytes),
-                            "oneofBool" => Ok(FieldTag::__oneof_bool),
-                            "oneofUint64" => Ok(FieldTag::__oneof_uint64),
-                            "oneofFloat" => Ok(FieldTag::__oneof_float),
-                            "oneofDouble" => Ok(FieldTag::__oneof_double),
-                            "oneofEnum" => Ok(FieldTag::__oneof_enum),
-                            "oneofNullValue" => Ok(FieldTag::__oneof_null_value),
-                            "optionalBoolWrapper" => Ok(FieldTag::__optional_bool_wrapper),
-                            "optionalInt32Wrapper" => Ok(FieldTag::__optional_int32_wrapper),
-                            "optionalInt64Wrapper" => Ok(FieldTag::__optional_int64_wrapper),
-                            "optionalUint32Wrapper" => Ok(FieldTag::__optional_uint32_wrapper),
-                            "optionalUint64Wrapper" => Ok(FieldTag::__optional_uint64_wrapper),
-                            "optionalFloatWrapper" => Ok(FieldTag::__optional_float_wrapper),
-                            "optionalDoubleWrapper" => Ok(FieldTag::__optional_double_wrapper),
-                            "optionalStringWrapper" => Ok(FieldTag::__optional_string_wrapper),
-                            "optionalBytesWrapper" => Ok(FieldTag::__optional_bytes_wrapper),
-                            "repeatedBoolWrapper" => Ok(FieldTag::__repeated_bool_wrapper),
-                            "repeatedInt32Wrapper" => Ok(FieldTag::__repeated_int32_wrapper),
-                            "repeatedInt64Wrapper" => Ok(FieldTag::__repeated_int64_wrapper),
-                            "repeatedUint32Wrapper" => Ok(FieldTag::__repeated_uint32_wrapper),
-                            "repeatedUint64Wrapper" => Ok(FieldTag::__repeated_uint64_wrapper),
-                            "repeatedFloatWrapper" => Ok(FieldTag::__repeated_float_wrapper),
-                            "repeatedDoubleWrapper" => Ok(FieldTag::__repeated_double_wrapper),
-                            "repeatedStringWrapper" => Ok(FieldTag::__repeated_string_wrapper),
-                            "repeatedBytesWrapper" => Ok(FieldTag::__repeated_bytes_wrapper),
-                            "optionalDuration" => Ok(FieldTag::__optional_duration),
-                            "optionalTimestamp" => Ok(FieldTag::__optional_timestamp),
-                            "optionalFieldMask" => Ok(FieldTag::__optional_field_mask),
-                            "optionalStruct" => Ok(FieldTag::__optional_struct),
-                            "optionalAny" => Ok(FieldTag::__optional_any),
-                            "optionalValue" => Ok(FieldTag::__optional_value),
-                            "optionalNullValue" => Ok(FieldTag::__optional_null_value),
-                            "repeatedDuration" => Ok(FieldTag::__repeated_duration),
-                            "repeatedTimestamp" => Ok(FieldTag::__repeated_timestamp),
-                            "repeatedFieldmask" => Ok(FieldTag::__repeated_fieldmask),
-                            "repeatedStruct" => Ok(FieldTag::__repeated_struct),
-                            "repeatedAny" => Ok(FieldTag::__repeated_any),
-                            "repeatedValue" => Ok(FieldTag::__repeated_value),
-                            "repeatedListValue" => Ok(FieldTag::__repeated_list_value),
-                            "fieldname1" => Ok(FieldTag::__fieldname1),
-                            "fieldName2" => Ok(FieldTag::__field_name2),
-                            "FieldName3" => Ok(FieldTag::___field_name3),
-                            "fieldName4" => Ok(FieldTag::__field__name4_),
-                            "field0name5" => Ok(FieldTag::__field0name5),
-                            "field0Name6" => Ok(FieldTag::__field_0_name6),
-                            "fieldName7" => Ok(FieldTag::__field_name_7),
-                            "FieldName8" => Ok(FieldTag::__field_name_8),
-                            "fieldName9" => Ok(FieldTag::__field_name_9),
-                            "FieldName10" => Ok(FieldTag::__field_name_10),
-                            "FIELDNAME11" => Ok(FieldTag::__field_name_11),
-                            "FIELDName12" => Ok(FieldTag::__field_name_12),
-                            "FieldName13" => Ok(FieldTag::____field_name13),
-                            "FieldName14" => Ok(FieldTag::____field_name_14),
-                            "fieldName15" => Ok(FieldTag::__field__name15),
-                            "fieldName16" => Ok(FieldTag::__field__name_16),
-                            "fieldName17" => Ok(FieldTag::__field_name17__),
-                            "FieldName18" => Ok(FieldTag::__field_name_18__),
-                            _ => Ok(FieldTag::Unknown(value.to_string())),
+                            "optionalInt32" => Ok(__FieldTag::__optional_int32),
+                            "optional_int32" => Ok(__FieldTag::__optional_int32),
+                            "optionalInt64" => Ok(__FieldTag::__optional_int64),
+                            "optional_int64" => Ok(__FieldTag::__optional_int64),
+                            "optionalUint32" => Ok(__FieldTag::__optional_uint32),
+                            "optional_uint32" => Ok(__FieldTag::__optional_uint32),
+                            "optionalUint64" => Ok(__FieldTag::__optional_uint64),
+                            "optional_uint64" => Ok(__FieldTag::__optional_uint64),
+                            "optionalSint32" => Ok(__FieldTag::__optional_sint32),
+                            "optional_sint32" => Ok(__FieldTag::__optional_sint32),
+                            "optionalSint64" => Ok(__FieldTag::__optional_sint64),
+                            "optional_sint64" => Ok(__FieldTag::__optional_sint64),
+                            "optionalFixed32" => Ok(__FieldTag::__optional_fixed32),
+                            "optional_fixed32" => Ok(__FieldTag::__optional_fixed32),
+                            "optionalFixed64" => Ok(__FieldTag::__optional_fixed64),
+                            "optional_fixed64" => Ok(__FieldTag::__optional_fixed64),
+                            "optionalSfixed32" => Ok(__FieldTag::__optional_sfixed32),
+                            "optional_sfixed32" => Ok(__FieldTag::__optional_sfixed32),
+                            "optionalSfixed64" => Ok(__FieldTag::__optional_sfixed64),
+                            "optional_sfixed64" => Ok(__FieldTag::__optional_sfixed64),
+                            "optionalFloat" => Ok(__FieldTag::__optional_float),
+                            "optional_float" => Ok(__FieldTag::__optional_float),
+                            "optionalDouble" => Ok(__FieldTag::__optional_double),
+                            "optional_double" => Ok(__FieldTag::__optional_double),
+                            "optionalBool" => Ok(__FieldTag::__optional_bool),
+                            "optional_bool" => Ok(__FieldTag::__optional_bool),
+                            "optionalString" => Ok(__FieldTag::__optional_string),
+                            "optional_string" => Ok(__FieldTag::__optional_string),
+                            "optionalBytes" => Ok(__FieldTag::__optional_bytes),
+                            "optional_bytes" => Ok(__FieldTag::__optional_bytes),
+                            "optionalNestedMessage" => Ok(__FieldTag::__optional_nested_message),
+                            "optional_nested_message" => Ok(__FieldTag::__optional_nested_message),
+                            "optionalForeignMessage" => Ok(__FieldTag::__optional_foreign_message),
+                            "optional_foreign_message" => {
+                                Ok(__FieldTag::__optional_foreign_message)
+                            }
+                            "optionalNestedEnum" => Ok(__FieldTag::__optional_nested_enum),
+                            "optional_nested_enum" => Ok(__FieldTag::__optional_nested_enum),
+                            "optionalForeignEnum" => Ok(__FieldTag::__optional_foreign_enum),
+                            "optional_foreign_enum" => Ok(__FieldTag::__optional_foreign_enum),
+                            "optionalAliasedEnum" => Ok(__FieldTag::__optional_aliased_enum),
+                            "optional_aliased_enum" => Ok(__FieldTag::__optional_aliased_enum),
+                            "optionalStringPiece" => Ok(__FieldTag::__optional_string_piece),
+                            "optional_string_piece" => Ok(__FieldTag::__optional_string_piece),
+                            "optionalCord" => Ok(__FieldTag::__optional_cord),
+                            "optional_cord" => Ok(__FieldTag::__optional_cord),
+                            "recursiveMessage" => Ok(__FieldTag::__recursive_message),
+                            "recursive_message" => Ok(__FieldTag::__recursive_message),
+                            "repeatedInt32" => Ok(__FieldTag::__repeated_int32),
+                            "repeated_int32" => Ok(__FieldTag::__repeated_int32),
+                            "repeatedInt64" => Ok(__FieldTag::__repeated_int64),
+                            "repeated_int64" => Ok(__FieldTag::__repeated_int64),
+                            "repeatedUint32" => Ok(__FieldTag::__repeated_uint32),
+                            "repeated_uint32" => Ok(__FieldTag::__repeated_uint32),
+                            "repeatedUint64" => Ok(__FieldTag::__repeated_uint64),
+                            "repeated_uint64" => Ok(__FieldTag::__repeated_uint64),
+                            "repeatedSint32" => Ok(__FieldTag::__repeated_sint32),
+                            "repeated_sint32" => Ok(__FieldTag::__repeated_sint32),
+                            "repeatedSint64" => Ok(__FieldTag::__repeated_sint64),
+                            "repeated_sint64" => Ok(__FieldTag::__repeated_sint64),
+                            "repeatedFixed32" => Ok(__FieldTag::__repeated_fixed32),
+                            "repeated_fixed32" => Ok(__FieldTag::__repeated_fixed32),
+                            "repeatedFixed64" => Ok(__FieldTag::__repeated_fixed64),
+                            "repeated_fixed64" => Ok(__FieldTag::__repeated_fixed64),
+                            "repeatedSfixed32" => Ok(__FieldTag::__repeated_sfixed32),
+                            "repeated_sfixed32" => Ok(__FieldTag::__repeated_sfixed32),
+                            "repeatedSfixed64" => Ok(__FieldTag::__repeated_sfixed64),
+                            "repeated_sfixed64" => Ok(__FieldTag::__repeated_sfixed64),
+                            "repeatedFloat" => Ok(__FieldTag::__repeated_float),
+                            "repeated_float" => Ok(__FieldTag::__repeated_float),
+                            "repeatedDouble" => Ok(__FieldTag::__repeated_double),
+                            "repeated_double" => Ok(__FieldTag::__repeated_double),
+                            "repeatedBool" => Ok(__FieldTag::__repeated_bool),
+                            "repeated_bool" => Ok(__FieldTag::__repeated_bool),
+                            "repeatedString" => Ok(__FieldTag::__repeated_string),
+                            "repeated_string" => Ok(__FieldTag::__repeated_string),
+                            "repeatedBytes" => Ok(__FieldTag::__repeated_bytes),
+                            "repeated_bytes" => Ok(__FieldTag::__repeated_bytes),
+                            "repeatedNestedMessage" => Ok(__FieldTag::__repeated_nested_message),
+                            "repeated_nested_message" => Ok(__FieldTag::__repeated_nested_message),
+                            "repeatedForeignMessage" => Ok(__FieldTag::__repeated_foreign_message),
+                            "repeated_foreign_message" => {
+                                Ok(__FieldTag::__repeated_foreign_message)
+                            }
+                            "repeatedNestedEnum" => Ok(__FieldTag::__repeated_nested_enum),
+                            "repeated_nested_enum" => Ok(__FieldTag::__repeated_nested_enum),
+                            "repeatedForeignEnum" => Ok(__FieldTag::__repeated_foreign_enum),
+                            "repeated_foreign_enum" => Ok(__FieldTag::__repeated_foreign_enum),
+                            "repeatedStringPiece" => Ok(__FieldTag::__repeated_string_piece),
+                            "repeated_string_piece" => Ok(__FieldTag::__repeated_string_piece),
+                            "repeatedCord" => Ok(__FieldTag::__repeated_cord),
+                            "repeated_cord" => Ok(__FieldTag::__repeated_cord),
+                            "packedInt32" => Ok(__FieldTag::__packed_int32),
+                            "packed_int32" => Ok(__FieldTag::__packed_int32),
+                            "packedInt64" => Ok(__FieldTag::__packed_int64),
+                            "packed_int64" => Ok(__FieldTag::__packed_int64),
+                            "packedUint32" => Ok(__FieldTag::__packed_uint32),
+                            "packed_uint32" => Ok(__FieldTag::__packed_uint32),
+                            "packedUint64" => Ok(__FieldTag::__packed_uint64),
+                            "packed_uint64" => Ok(__FieldTag::__packed_uint64),
+                            "packedSint32" => Ok(__FieldTag::__packed_sint32),
+                            "packed_sint32" => Ok(__FieldTag::__packed_sint32),
+                            "packedSint64" => Ok(__FieldTag::__packed_sint64),
+                            "packed_sint64" => Ok(__FieldTag::__packed_sint64),
+                            "packedFixed32" => Ok(__FieldTag::__packed_fixed32),
+                            "packed_fixed32" => Ok(__FieldTag::__packed_fixed32),
+                            "packedFixed64" => Ok(__FieldTag::__packed_fixed64),
+                            "packed_fixed64" => Ok(__FieldTag::__packed_fixed64),
+                            "packedSfixed32" => Ok(__FieldTag::__packed_sfixed32),
+                            "packed_sfixed32" => Ok(__FieldTag::__packed_sfixed32),
+                            "packedSfixed64" => Ok(__FieldTag::__packed_sfixed64),
+                            "packed_sfixed64" => Ok(__FieldTag::__packed_sfixed64),
+                            "packedFloat" => Ok(__FieldTag::__packed_float),
+                            "packed_float" => Ok(__FieldTag::__packed_float),
+                            "packedDouble" => Ok(__FieldTag::__packed_double),
+                            "packed_double" => Ok(__FieldTag::__packed_double),
+                            "packedBool" => Ok(__FieldTag::__packed_bool),
+                            "packed_bool" => Ok(__FieldTag::__packed_bool),
+                            "packedNestedEnum" => Ok(__FieldTag::__packed_nested_enum),
+                            "packed_nested_enum" => Ok(__FieldTag::__packed_nested_enum),
+                            "unpackedInt32" => Ok(__FieldTag::__unpacked_int32),
+                            "unpacked_int32" => Ok(__FieldTag::__unpacked_int32),
+                            "unpackedInt64" => Ok(__FieldTag::__unpacked_int64),
+                            "unpacked_int64" => Ok(__FieldTag::__unpacked_int64),
+                            "unpackedUint32" => Ok(__FieldTag::__unpacked_uint32),
+                            "unpacked_uint32" => Ok(__FieldTag::__unpacked_uint32),
+                            "unpackedUint64" => Ok(__FieldTag::__unpacked_uint64),
+                            "unpacked_uint64" => Ok(__FieldTag::__unpacked_uint64),
+                            "unpackedSint32" => Ok(__FieldTag::__unpacked_sint32),
+                            "unpacked_sint32" => Ok(__FieldTag::__unpacked_sint32),
+                            "unpackedSint64" => Ok(__FieldTag::__unpacked_sint64),
+                            "unpacked_sint64" => Ok(__FieldTag::__unpacked_sint64),
+                            "unpackedFixed32" => Ok(__FieldTag::__unpacked_fixed32),
+                            "unpacked_fixed32" => Ok(__FieldTag::__unpacked_fixed32),
+                            "unpackedFixed64" => Ok(__FieldTag::__unpacked_fixed64),
+                            "unpacked_fixed64" => Ok(__FieldTag::__unpacked_fixed64),
+                            "unpackedSfixed32" => Ok(__FieldTag::__unpacked_sfixed32),
+                            "unpacked_sfixed32" => Ok(__FieldTag::__unpacked_sfixed32),
+                            "unpackedSfixed64" => Ok(__FieldTag::__unpacked_sfixed64),
+                            "unpacked_sfixed64" => Ok(__FieldTag::__unpacked_sfixed64),
+                            "unpackedFloat" => Ok(__FieldTag::__unpacked_float),
+                            "unpacked_float" => Ok(__FieldTag::__unpacked_float),
+                            "unpackedDouble" => Ok(__FieldTag::__unpacked_double),
+                            "unpacked_double" => Ok(__FieldTag::__unpacked_double),
+                            "unpackedBool" => Ok(__FieldTag::__unpacked_bool),
+                            "unpacked_bool" => Ok(__FieldTag::__unpacked_bool),
+                            "unpackedNestedEnum" => Ok(__FieldTag::__unpacked_nested_enum),
+                            "unpacked_nested_enum" => Ok(__FieldTag::__unpacked_nested_enum),
+                            "mapInt32Int32" => Ok(__FieldTag::__map_int32_int32),
+                            "map_int32_int32" => Ok(__FieldTag::__map_int32_int32),
+                            "mapInt64Int64" => Ok(__FieldTag::__map_int64_int64),
+                            "map_int64_int64" => Ok(__FieldTag::__map_int64_int64),
+                            "mapUint32Uint32" => Ok(__FieldTag::__map_uint32_uint32),
+                            "map_uint32_uint32" => Ok(__FieldTag::__map_uint32_uint32),
+                            "mapUint64Uint64" => Ok(__FieldTag::__map_uint64_uint64),
+                            "map_uint64_uint64" => Ok(__FieldTag::__map_uint64_uint64),
+                            "mapSint32Sint32" => Ok(__FieldTag::__map_sint32_sint32),
+                            "map_sint32_sint32" => Ok(__FieldTag::__map_sint32_sint32),
+                            "mapSint64Sint64" => Ok(__FieldTag::__map_sint64_sint64),
+                            "map_sint64_sint64" => Ok(__FieldTag::__map_sint64_sint64),
+                            "mapFixed32Fixed32" => Ok(__FieldTag::__map_fixed32_fixed32),
+                            "map_fixed32_fixed32" => Ok(__FieldTag::__map_fixed32_fixed32),
+                            "mapFixed64Fixed64" => Ok(__FieldTag::__map_fixed64_fixed64),
+                            "map_fixed64_fixed64" => Ok(__FieldTag::__map_fixed64_fixed64),
+                            "mapSfixed32Sfixed32" => Ok(__FieldTag::__map_sfixed32_sfixed32),
+                            "map_sfixed32_sfixed32" => Ok(__FieldTag::__map_sfixed32_sfixed32),
+                            "mapSfixed64Sfixed64" => Ok(__FieldTag::__map_sfixed64_sfixed64),
+                            "map_sfixed64_sfixed64" => Ok(__FieldTag::__map_sfixed64_sfixed64),
+                            "mapInt32Float" => Ok(__FieldTag::__map_int32_float),
+                            "map_int32_float" => Ok(__FieldTag::__map_int32_float),
+                            "mapInt32Double" => Ok(__FieldTag::__map_int32_double),
+                            "map_int32_double" => Ok(__FieldTag::__map_int32_double),
+                            "mapBoolBool" => Ok(__FieldTag::__map_bool_bool),
+                            "map_bool_bool" => Ok(__FieldTag::__map_bool_bool),
+                            "mapStringString" => Ok(__FieldTag::__map_string_string),
+                            "map_string_string" => Ok(__FieldTag::__map_string_string),
+                            "mapStringBytes" => Ok(__FieldTag::__map_string_bytes),
+                            "map_string_bytes" => Ok(__FieldTag::__map_string_bytes),
+                            "mapStringNestedMessage" => Ok(__FieldTag::__map_string_nested_message),
+                            "map_string_nested_message" => {
+                                Ok(__FieldTag::__map_string_nested_message)
+                            }
+                            "mapStringForeignMessage" => {
+                                Ok(__FieldTag::__map_string_foreign_message)
+                            }
+                            "map_string_foreign_message" => {
+                                Ok(__FieldTag::__map_string_foreign_message)
+                            }
+                            "mapStringNestedEnum" => Ok(__FieldTag::__map_string_nested_enum),
+                            "map_string_nested_enum" => Ok(__FieldTag::__map_string_nested_enum),
+                            "mapStringForeignEnum" => Ok(__FieldTag::__map_string_foreign_enum),
+                            "map_string_foreign_enum" => Ok(__FieldTag::__map_string_foreign_enum),
+                            "oneofUint32" => Ok(__FieldTag::__oneof_uint32),
+                            "oneof_uint32" => Ok(__FieldTag::__oneof_uint32),
+                            "oneofNestedMessage" => Ok(__FieldTag::__oneof_nested_message),
+                            "oneof_nested_message" => Ok(__FieldTag::__oneof_nested_message),
+                            "oneofString" => Ok(__FieldTag::__oneof_string),
+                            "oneof_string" => Ok(__FieldTag::__oneof_string),
+                            "oneofBytes" => Ok(__FieldTag::__oneof_bytes),
+                            "oneof_bytes" => Ok(__FieldTag::__oneof_bytes),
+                            "oneofBool" => Ok(__FieldTag::__oneof_bool),
+                            "oneof_bool" => Ok(__FieldTag::__oneof_bool),
+                            "oneofUint64" => Ok(__FieldTag::__oneof_uint64),
+                            "oneof_uint64" => Ok(__FieldTag::__oneof_uint64),
+                            "oneofFloat" => Ok(__FieldTag::__oneof_float),
+                            "oneof_float" => Ok(__FieldTag::__oneof_float),
+                            "oneofDouble" => Ok(__FieldTag::__oneof_double),
+                            "oneof_double" => Ok(__FieldTag::__oneof_double),
+                            "oneofEnum" => Ok(__FieldTag::__oneof_enum),
+                            "oneof_enum" => Ok(__FieldTag::__oneof_enum),
+                            "oneofNullValue" => Ok(__FieldTag::__oneof_null_value),
+                            "oneof_null_value" => Ok(__FieldTag::__oneof_null_value),
+                            "optionalBoolWrapper" => Ok(__FieldTag::__optional_bool_wrapper),
+                            "optional_bool_wrapper" => Ok(__FieldTag::__optional_bool_wrapper),
+                            "optionalInt32Wrapper" => Ok(__FieldTag::__optional_int32_wrapper),
+                            "optional_int32_wrapper" => Ok(__FieldTag::__optional_int32_wrapper),
+                            "optionalInt64Wrapper" => Ok(__FieldTag::__optional_int64_wrapper),
+                            "optional_int64_wrapper" => Ok(__FieldTag::__optional_int64_wrapper),
+                            "optionalUint32Wrapper" => Ok(__FieldTag::__optional_uint32_wrapper),
+                            "optional_uint32_wrapper" => Ok(__FieldTag::__optional_uint32_wrapper),
+                            "optionalUint64Wrapper" => Ok(__FieldTag::__optional_uint64_wrapper),
+                            "optional_uint64_wrapper" => Ok(__FieldTag::__optional_uint64_wrapper),
+                            "optionalFloatWrapper" => Ok(__FieldTag::__optional_float_wrapper),
+                            "optional_float_wrapper" => Ok(__FieldTag::__optional_float_wrapper),
+                            "optionalDoubleWrapper" => Ok(__FieldTag::__optional_double_wrapper),
+                            "optional_double_wrapper" => Ok(__FieldTag::__optional_double_wrapper),
+                            "optionalStringWrapper" => Ok(__FieldTag::__optional_string_wrapper),
+                            "optional_string_wrapper" => Ok(__FieldTag::__optional_string_wrapper),
+                            "optionalBytesWrapper" => Ok(__FieldTag::__optional_bytes_wrapper),
+                            "optional_bytes_wrapper" => Ok(__FieldTag::__optional_bytes_wrapper),
+                            "repeatedBoolWrapper" => Ok(__FieldTag::__repeated_bool_wrapper),
+                            "repeated_bool_wrapper" => Ok(__FieldTag::__repeated_bool_wrapper),
+                            "repeatedInt32Wrapper" => Ok(__FieldTag::__repeated_int32_wrapper),
+                            "repeated_int32_wrapper" => Ok(__FieldTag::__repeated_int32_wrapper),
+                            "repeatedInt64Wrapper" => Ok(__FieldTag::__repeated_int64_wrapper),
+                            "repeated_int64_wrapper" => Ok(__FieldTag::__repeated_int64_wrapper),
+                            "repeatedUint32Wrapper" => Ok(__FieldTag::__repeated_uint32_wrapper),
+                            "repeated_uint32_wrapper" => Ok(__FieldTag::__repeated_uint32_wrapper),
+                            "repeatedUint64Wrapper" => Ok(__FieldTag::__repeated_uint64_wrapper),
+                            "repeated_uint64_wrapper" => Ok(__FieldTag::__repeated_uint64_wrapper),
+                            "repeatedFloatWrapper" => Ok(__FieldTag::__repeated_float_wrapper),
+                            "repeated_float_wrapper" => Ok(__FieldTag::__repeated_float_wrapper),
+                            "repeatedDoubleWrapper" => Ok(__FieldTag::__repeated_double_wrapper),
+                            "repeated_double_wrapper" => Ok(__FieldTag::__repeated_double_wrapper),
+                            "repeatedStringWrapper" => Ok(__FieldTag::__repeated_string_wrapper),
+                            "repeated_string_wrapper" => Ok(__FieldTag::__repeated_string_wrapper),
+                            "repeatedBytesWrapper" => Ok(__FieldTag::__repeated_bytes_wrapper),
+                            "repeated_bytes_wrapper" => Ok(__FieldTag::__repeated_bytes_wrapper),
+                            "optionalDuration" => Ok(__FieldTag::__optional_duration),
+                            "optional_duration" => Ok(__FieldTag::__optional_duration),
+                            "optionalTimestamp" => Ok(__FieldTag::__optional_timestamp),
+                            "optional_timestamp" => Ok(__FieldTag::__optional_timestamp),
+                            "optionalFieldMask" => Ok(__FieldTag::__optional_field_mask),
+                            "optional_field_mask" => Ok(__FieldTag::__optional_field_mask),
+                            "optionalStruct" => Ok(__FieldTag::__optional_struct),
+                            "optional_struct" => Ok(__FieldTag::__optional_struct),
+                            "optionalAny" => Ok(__FieldTag::__optional_any),
+                            "optional_any" => Ok(__FieldTag::__optional_any),
+                            "optionalValue" => Ok(__FieldTag::__optional_value),
+                            "optional_value" => Ok(__FieldTag::__optional_value),
+                            "optionalNullValue" => Ok(__FieldTag::__optional_null_value),
+                            "optional_null_value" => Ok(__FieldTag::__optional_null_value),
+                            "repeatedDuration" => Ok(__FieldTag::__repeated_duration),
+                            "repeated_duration" => Ok(__FieldTag::__repeated_duration),
+                            "repeatedTimestamp" => Ok(__FieldTag::__repeated_timestamp),
+                            "repeated_timestamp" => Ok(__FieldTag::__repeated_timestamp),
+                            "repeatedFieldmask" => Ok(__FieldTag::__repeated_fieldmask),
+                            "repeated_fieldmask" => Ok(__FieldTag::__repeated_fieldmask),
+                            "repeatedStruct" => Ok(__FieldTag::__repeated_struct),
+                            "repeated_struct" => Ok(__FieldTag::__repeated_struct),
+                            "repeatedAny" => Ok(__FieldTag::__repeated_any),
+                            "repeated_any" => Ok(__FieldTag::__repeated_any),
+                            "repeatedValue" => Ok(__FieldTag::__repeated_value),
+                            "repeated_value" => Ok(__FieldTag::__repeated_value),
+                            "repeatedListValue" => Ok(__FieldTag::__repeated_list_value),
+                            "repeated_list_value" => Ok(__FieldTag::__repeated_list_value),
+                            "fieldname1" => Ok(__FieldTag::__fieldname1),
+                            "fieldName2" => Ok(__FieldTag::__field_name2),
+                            "field_name2" => Ok(__FieldTag::__field_name2),
+                            "FieldName3" => Ok(__FieldTag::___field_name3),
+                            "_field_name3" => Ok(__FieldTag::___field_name3),
+                            "fieldName4" => Ok(__FieldTag::__field__name4_),
+                            "field__name4_" => Ok(__FieldTag::__field__name4_),
+                            "field0name5" => Ok(__FieldTag::__field0name5),
+                            "field0Name6" => Ok(__FieldTag::__field_0_name6),
+                            "field_0_name6" => Ok(__FieldTag::__field_0_name6),
+                            "fieldName7" => Ok(__FieldTag::__field_name_7),
+                            "FieldName8" => Ok(__FieldTag::__field_name_8),
+                            "fieldName9" => Ok(__FieldTag::__field_name_9),
+                            "field_Name9" => Ok(__FieldTag::__field_name_9),
+                            "FieldName10" => Ok(__FieldTag::__field_name_10),
+                            "Field_Name10" => Ok(__FieldTag::__field_name_10),
+                            "FIELDNAME11" => Ok(__FieldTag::__field_name_11),
+                            "FIELD_NAME11" => Ok(__FieldTag::__field_name_11),
+                            "FIELDName12" => Ok(__FieldTag::__field_name_12),
+                            "FIELD_name12" => Ok(__FieldTag::__field_name_12),
+                            "FieldName13" => Ok(__FieldTag::____field_name13),
+                            "__field_name13" => Ok(__FieldTag::____field_name13),
+                            "FieldName14" => Ok(__FieldTag::____field_name_14),
+                            "__Field_name14" => Ok(__FieldTag::____field_name_14),
+                            "fieldName15" => Ok(__FieldTag::__field__name15),
+                            "field__name15" => Ok(__FieldTag::__field__name15),
+                            "fieldName16" => Ok(__FieldTag::__field__name_16),
+                            "field__Name16" => Ok(__FieldTag::__field__name_16),
+                            "fieldName17" => Ok(__FieldTag::__field_name17__),
+                            "field_name17__" => Ok(__FieldTag::__field_name17__),
+                            "FieldName18" => Ok(__FieldTag::__field_name_18__),
+                            "Field_name18__" => Ok(__FieldTag::__field_name_18__),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
                 }
@@ -2522,10 +2679,10 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                 #[allow(unused_imports)]
                 use serde::de::Error;
                 let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<FieldTag>()? {
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
-                        FieldTag::__optional_int32 => {
+                        __FieldTag::__optional_int32 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2537,7 +2694,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_int32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_int64 => {
+                        __FieldTag::__optional_int64 => {
                             struct __With( std::option::Option<i64> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2549,7 +2706,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_int64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_uint32 => {
+                        __FieldTag::__optional_uint32 => {
                             struct __With( std::option::Option<u32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2561,7 +2718,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_uint32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_uint64 => {
+                        __FieldTag::__optional_uint64 => {
                             struct __With( std::option::Option<u64> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2573,7 +2730,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_uint64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_sint32 => {
+                        __FieldTag::__optional_sint32 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2585,7 +2742,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_sint32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_sint64 => {
+                        __FieldTag::__optional_sint64 => {
                             struct __With( std::option::Option<i64> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2597,7 +2754,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_sint64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_fixed32 => {
+                        __FieldTag::__optional_fixed32 => {
                             struct __With( std::option::Option<u32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2609,7 +2766,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_fixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_fixed64 => {
+                        __FieldTag::__optional_fixed64 => {
                             struct __With( std::option::Option<u64> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2621,7 +2778,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_fixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_sfixed32 => {
+                        __FieldTag::__optional_sfixed32 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2633,7 +2790,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_sfixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_sfixed64 => {
+                        __FieldTag::__optional_sfixed64 => {
                             struct __With( std::option::Option<i64> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2645,7 +2802,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_sfixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_float => {
+                        __FieldTag::__optional_float => {
                             struct __With( std::option::Option<f32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2657,7 +2814,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_float = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_double => {
+                        __FieldTag::__optional_double => {
                             struct __With( std::option::Option<f64> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2669,15 +2826,15 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_double = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_bool => {
+                        __FieldTag::__optional_bool => {
                             result.optional_bool = map.next_value::<std::option::Option<bool>>()?
                                 .unwrap_or_default();
                         },
-                        FieldTag::__optional_string => {
+                        __FieldTag::__optional_string => {
                             result.optional_string = map.next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         },
-                        FieldTag::__optional_bytes => {
+                        __FieldTag::__optional_bytes => {
                             struct __With( std::option::Option<::bytes::Bytes> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2689,36 +2846,36 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_bytes = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_nested_message => {
+                        __FieldTag::__optional_nested_message => {
                             result.optional_nested_message = map.next_value::<std::option::Option<std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>>>()?
                         },
-                        FieldTag::__optional_foreign_message => {
+                        __FieldTag::__optional_foreign_message => {
                             result.optional_foreign_message = map.next_value::<std::option::Option<crate::generated::test_protos::ForeignMessage>>()?
                         },
-                        FieldTag::__optional_nested_enum => {
+                        __FieldTag::__optional_nested_enum => {
                             result.optional_nested_enum = map.next_value::<std::option::Option<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>()?
                                 .unwrap_or_default();
                         },
-                        FieldTag::__optional_foreign_enum => {
+                        __FieldTag::__optional_foreign_enum => {
                             result.optional_foreign_enum = map.next_value::<std::option::Option<crate::generated::test_protos::ForeignEnum>>()?
                                 .unwrap_or_default();
                         },
-                        FieldTag::__optional_aliased_enum => {
+                        __FieldTag::__optional_aliased_enum => {
                             result.optional_aliased_enum = map.next_value::<std::option::Option<crate::generated::test_protos::test_all_types_proto_3::AliasedEnum>>()?
                                 .unwrap_or_default();
                         },
-                        FieldTag::__optional_string_piece => {
+                        __FieldTag::__optional_string_piece => {
                             result.optional_string_piece = map.next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         },
-                        FieldTag::__optional_cord => {
+                        __FieldTag::__optional_cord => {
                             result.optional_cord = map.next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         },
-                        FieldTag::__recursive_message => {
+                        __FieldTag::__recursive_message => {
                             result.recursive_message = map.next_value::<std::option::Option<std::boxed::Box<crate::generated::test_protos::TestAllTypesProto3>>>()?
                         },
-                        FieldTag::__repeated_int32 => {
+                        __FieldTag::__repeated_int32 => {
                             struct __With( std::option::Option<std::vec::Vec<i32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2730,7 +2887,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_int32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_int64 => {
+                        __FieldTag::__repeated_int64 => {
                             struct __With( std::option::Option<std::vec::Vec<i64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2742,7 +2899,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_int64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_uint32 => {
+                        __FieldTag::__repeated_uint32 => {
                             struct __With( std::option::Option<std::vec::Vec<u32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2754,7 +2911,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_uint32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_uint64 => {
+                        __FieldTag::__repeated_uint64 => {
                             struct __With( std::option::Option<std::vec::Vec<u64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2766,7 +2923,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_uint64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_sint32 => {
+                        __FieldTag::__repeated_sint32 => {
                             struct __With( std::option::Option<std::vec::Vec<i32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2778,7 +2935,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_sint32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_sint64 => {
+                        __FieldTag::__repeated_sint64 => {
                             struct __With( std::option::Option<std::vec::Vec<i64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2790,7 +2947,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_sint64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_fixed32 => {
+                        __FieldTag::__repeated_fixed32 => {
                             struct __With( std::option::Option<std::vec::Vec<u32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2802,7 +2959,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_fixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_fixed64 => {
+                        __FieldTag::__repeated_fixed64 => {
                             struct __With( std::option::Option<std::vec::Vec<u64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2814,7 +2971,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_fixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_sfixed32 => {
+                        __FieldTag::__repeated_sfixed32 => {
                             struct __With( std::option::Option<std::vec::Vec<i32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2826,7 +2983,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_sfixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_sfixed64 => {
+                        __FieldTag::__repeated_sfixed64 => {
                             struct __With( std::option::Option<std::vec::Vec<i64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2838,7 +2995,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_sfixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_float => {
+                        __FieldTag::__repeated_float => {
                             struct __With( std::option::Option<std::vec::Vec<f32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2850,7 +3007,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_float = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_double => {
+                        __FieldTag::__repeated_double => {
                             struct __With( std::option::Option<std::vec::Vec<f64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2862,13 +3019,13 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_double = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_bool => {
+                        __FieldTag::__repeated_bool => {
                             result.repeated_bool = map.next_value::<std::option::Option<std::vec::Vec<bool>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_string => {
+                        __FieldTag::__repeated_string => {
                             result.repeated_string = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_bytes => {
+                        __FieldTag::__repeated_bytes => {
                             struct __With( std::option::Option<std::vec::Vec<::bytes::Bytes>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2880,25 +3037,25 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_bytes = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_nested_message => {
+                        __FieldTag::__repeated_nested_message => {
                             result.repeated_nested_message = map.next_value::<std::option::Option<std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_foreign_message => {
+                        __FieldTag::__repeated_foreign_message => {
                             result.repeated_foreign_message = map.next_value::<std::option::Option<std::vec::Vec<crate::generated::test_protos::ForeignMessage>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_nested_enum => {
+                        __FieldTag::__repeated_nested_enum => {
                             result.repeated_nested_enum = map.next_value::<std::option::Option<std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_foreign_enum => {
+                        __FieldTag::__repeated_foreign_enum => {
                             result.repeated_foreign_enum = map.next_value::<std::option::Option<std::vec::Vec<crate::generated::test_protos::ForeignEnum>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_string_piece => {
+                        __FieldTag::__repeated_string_piece => {
                             result.repeated_string_piece = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_cord => {
+                        __FieldTag::__repeated_cord => {
                             result.repeated_cord = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__packed_int32 => {
+                        __FieldTag::__packed_int32 => {
                             struct __With( std::option::Option<std::vec::Vec<i32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2910,7 +3067,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.packed_int32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__packed_int64 => {
+                        __FieldTag::__packed_int64 => {
                             struct __With( std::option::Option<std::vec::Vec<i64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2922,7 +3079,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.packed_int64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__packed_uint32 => {
+                        __FieldTag::__packed_uint32 => {
                             struct __With( std::option::Option<std::vec::Vec<u32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2934,7 +3091,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.packed_uint32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__packed_uint64 => {
+                        __FieldTag::__packed_uint64 => {
                             struct __With( std::option::Option<std::vec::Vec<u64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2946,7 +3103,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.packed_uint64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__packed_sint32 => {
+                        __FieldTag::__packed_sint32 => {
                             struct __With( std::option::Option<std::vec::Vec<i32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2958,7 +3115,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.packed_sint32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__packed_sint64 => {
+                        __FieldTag::__packed_sint64 => {
                             struct __With( std::option::Option<std::vec::Vec<i64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2970,7 +3127,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.packed_sint64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__packed_fixed32 => {
+                        __FieldTag::__packed_fixed32 => {
                             struct __With( std::option::Option<std::vec::Vec<u32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2982,7 +3139,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.packed_fixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__packed_fixed64 => {
+                        __FieldTag::__packed_fixed64 => {
                             struct __With( std::option::Option<std::vec::Vec<u64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -2994,7 +3151,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.packed_fixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__packed_sfixed32 => {
+                        __FieldTag::__packed_sfixed32 => {
                             struct __With( std::option::Option<std::vec::Vec<i32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3006,7 +3163,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.packed_sfixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__packed_sfixed64 => {
+                        __FieldTag::__packed_sfixed64 => {
                             struct __With( std::option::Option<std::vec::Vec<i64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3018,7 +3175,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.packed_sfixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__packed_float => {
+                        __FieldTag::__packed_float => {
                             struct __With( std::option::Option<std::vec::Vec<f32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3030,7 +3187,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.packed_float = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__packed_double => {
+                        __FieldTag::__packed_double => {
                             struct __With( std::option::Option<std::vec::Vec<f64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3042,13 +3199,13 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.packed_double = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__packed_bool => {
+                        __FieldTag::__packed_bool => {
                             result.packed_bool = map.next_value::<std::option::Option<std::vec::Vec<bool>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__packed_nested_enum => {
+                        __FieldTag::__packed_nested_enum => {
                             result.packed_nested_enum = map.next_value::<std::option::Option<std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_int32 => {
+                        __FieldTag::__unpacked_int32 => {
                             struct __With( std::option::Option<std::vec::Vec<i32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3060,7 +3217,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.unpacked_int32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_int64 => {
+                        __FieldTag::__unpacked_int64 => {
                             struct __With( std::option::Option<std::vec::Vec<i64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3072,7 +3229,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.unpacked_int64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_uint32 => {
+                        __FieldTag::__unpacked_uint32 => {
                             struct __With( std::option::Option<std::vec::Vec<u32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3084,7 +3241,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.unpacked_uint32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_uint64 => {
+                        __FieldTag::__unpacked_uint64 => {
                             struct __With( std::option::Option<std::vec::Vec<u64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3096,7 +3253,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.unpacked_uint64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_sint32 => {
+                        __FieldTag::__unpacked_sint32 => {
                             struct __With( std::option::Option<std::vec::Vec<i32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3108,7 +3265,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.unpacked_sint32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_sint64 => {
+                        __FieldTag::__unpacked_sint64 => {
                             struct __With( std::option::Option<std::vec::Vec<i64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3120,7 +3277,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.unpacked_sint64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_fixed32 => {
+                        __FieldTag::__unpacked_fixed32 => {
                             struct __With( std::option::Option<std::vec::Vec<u32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3132,7 +3289,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.unpacked_fixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_fixed64 => {
+                        __FieldTag::__unpacked_fixed64 => {
                             struct __With( std::option::Option<std::vec::Vec<u64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3144,7 +3301,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.unpacked_fixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_sfixed32 => {
+                        __FieldTag::__unpacked_sfixed32 => {
                             struct __With( std::option::Option<std::vec::Vec<i32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3156,7 +3313,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.unpacked_sfixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_sfixed64 => {
+                        __FieldTag::__unpacked_sfixed64 => {
                             struct __With( std::option::Option<std::vec::Vec<i64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3168,7 +3325,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.unpacked_sfixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_float => {
+                        __FieldTag::__unpacked_float => {
                             struct __With( std::option::Option<std::vec::Vec<f32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3180,7 +3337,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.unpacked_float = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_double => {
+                        __FieldTag::__unpacked_double => {
                             struct __With( std::option::Option<std::vec::Vec<f64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3192,13 +3349,13 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.unpacked_double = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_bool => {
+                        __FieldTag::__unpacked_bool => {
                             result.unpacked_bool = map.next_value::<std::option::Option<std::vec::Vec<bool>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__unpacked_nested_enum => {
+                        __FieldTag::__unpacked_nested_enum => {
                             result.unpacked_nested_enum = map.next_value::<std::option::Option<std::vec::Vec<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__map_int32_int32 => {
+                        __FieldTag::__map_int32_int32 => {
                             struct __With( std::option::Option<std::collections::HashMap<i32,i32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3210,7 +3367,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_int32_int32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_int64_int64 => {
+                        __FieldTag::__map_int64_int64 => {
                             struct __With( std::option::Option<std::collections::HashMap<i64,i64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3222,7 +3379,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_int64_int64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_uint32_uint32 => {
+                        __FieldTag::__map_uint32_uint32 => {
                             struct __With( std::option::Option<std::collections::HashMap<u32,u32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3234,7 +3391,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_uint32_uint32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_uint64_uint64 => {
+                        __FieldTag::__map_uint64_uint64 => {
                             struct __With( std::option::Option<std::collections::HashMap<u64,u64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3246,7 +3403,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_uint64_uint64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_sint32_sint32 => {
+                        __FieldTag::__map_sint32_sint32 => {
                             struct __With( std::option::Option<std::collections::HashMap<i32,i32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3258,7 +3415,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_sint32_sint32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_sint64_sint64 => {
+                        __FieldTag::__map_sint64_sint64 => {
                             struct __With( std::option::Option<std::collections::HashMap<i64,i64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3270,7 +3427,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_sint64_sint64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_fixed32_fixed32 => {
+                        __FieldTag::__map_fixed32_fixed32 => {
                             struct __With( std::option::Option<std::collections::HashMap<u32,u32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3282,7 +3439,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_fixed32_fixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_fixed64_fixed64 => {
+                        __FieldTag::__map_fixed64_fixed64 => {
                             struct __With( std::option::Option<std::collections::HashMap<u64,u64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3294,7 +3451,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_fixed64_fixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_sfixed32_sfixed32 => {
+                        __FieldTag::__map_sfixed32_sfixed32 => {
                             struct __With( std::option::Option<std::collections::HashMap<i32,i32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3306,7 +3463,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_sfixed32_sfixed32 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_sfixed64_sfixed64 => {
+                        __FieldTag::__map_sfixed64_sfixed64 => {
                             struct __With( std::option::Option<std::collections::HashMap<i64,i64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3318,7 +3475,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_sfixed64_sfixed64 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_int32_float => {
+                        __FieldTag::__map_int32_float => {
                             struct __With( std::option::Option<std::collections::HashMap<i32,f32>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3330,7 +3487,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_int32_float = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_int32_double => {
+                        __FieldTag::__map_int32_double => {
                             struct __With( std::option::Option<std::collections::HashMap<i32,f64>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3342,7 +3499,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_int32_double = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_bool_bool => {
+                        __FieldTag::__map_bool_bool => {
                             struct __With( std::option::Option<std::collections::HashMap<bool,bool>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3354,10 +3511,10 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_bool_bool = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_string_string => {
+                        __FieldTag::__map_string_string => {
                             result.map_string_string = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,std::string::String>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__map_string_bytes => {
+                        __FieldTag::__map_string_bytes => {
                             struct __With( std::option::Option<std::collections::HashMap<std::string::String,::bytes::Bytes>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3369,19 +3526,19 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.map_string_bytes = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__map_string_nested_message => {
+                        __FieldTag::__map_string_nested_message => {
                             result.map_string_nested_message = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,crate::generated::test_protos::test_all_types_proto_3::NestedMessage>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__map_string_foreign_message => {
+                        __FieldTag::__map_string_foreign_message => {
                             result.map_string_foreign_message = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,crate::generated::test_protos::ForeignMessage>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__map_string_nested_enum => {
+                        __FieldTag::__map_string_nested_enum => {
                             result.map_string_nested_enum = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__map_string_foreign_enum => {
+                        __FieldTag::__map_string_foreign_enum => {
                             result.map_string_foreign_enum = map.next_value::<std::option::Option<std::collections::HashMap<std::string::String,crate::generated::test_protos::ForeignEnum>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__oneof_uint32 => {
+                        __FieldTag::__oneof_uint32 => {
                             struct __With( std::option::Option<u32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3401,7 +3558,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 );
                             }
                         },
-                        FieldTag::__oneof_nested_message => {
+                        __FieldTag::__oneof_nested_message => {
                             let value = map.next_value::<std::option::Option<std::boxed::Box<crate::generated::test_protos::test_all_types_proto_3::NestedMessage>>>()?;
                             if let Some(v) = value {
                                 if result.oneof_field.is_some() {
@@ -3412,7 +3569,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 );
                             }
                         },
-                        FieldTag::__oneof_string => {
+                        __FieldTag::__oneof_string => {
                             let value = map.next_value::<std::option::Option<std::string::String>>()?;
                             if let Some(v) = value {
                                 if result.oneof_field.is_some() {
@@ -3423,7 +3580,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 );
                             }
                         },
-                        FieldTag::__oneof_bytes => {
+                        __FieldTag::__oneof_bytes => {
                             struct __With( std::option::Option<::bytes::Bytes> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3443,7 +3600,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 );
                             }
                         },
-                        FieldTag::__oneof_bool => {
+                        __FieldTag::__oneof_bool => {
                             let value = map.next_value::<std::option::Option<bool>>()?;
                             if let Some(v) = value {
                                 if result.oneof_field.is_some() {
@@ -3454,7 +3611,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 );
                             }
                         },
-                        FieldTag::__oneof_uint64 => {
+                        __FieldTag::__oneof_uint64 => {
                             struct __With( std::option::Option<u64> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3474,7 +3631,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 );
                             }
                         },
-                        FieldTag::__oneof_float => {
+                        __FieldTag::__oneof_float => {
                             struct __With( std::option::Option<f32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3494,7 +3651,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 );
                             }
                         },
-                        FieldTag::__oneof_double => {
+                        __FieldTag::__oneof_double => {
                             struct __With( std::option::Option<f64> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3514,7 +3671,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 );
                             }
                         },
-                        FieldTag::__oneof_enum => {
+                        __FieldTag::__oneof_enum => {
                             let value = map.next_value::<std::option::Option<crate::generated::test_protos::test_all_types_proto_3::NestedEnum>>()?;
                             if let Some(v) = value {
                                 if result.oneof_field.is_some() {
@@ -3525,7 +3682,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 );
                             }
                         },
-                        FieldTag::__oneof_null_value => {
+                        __FieldTag::__oneof_null_value => {
                             let value = map.next_value::<std::option::Option<wkt::NullValue>>()?;
                             if result.oneof_field.is_some() {
                                 return Err(A::Error::duplicate_field("multiple values for `oneof_field`, a oneof with full ID .protobuf_test_messages.proto3.TestAllTypesProto3.oneof_null_value, latest field was oneofNullValue"))
@@ -3534,10 +3691,10 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 crate::generated::test_protos::test_all_types_proto_3::OneofField::OneofNullValue(value.unwrap_or(wkt::NullValue)),
                             );
                         },
-                        FieldTag::__optional_bool_wrapper => {
+                        __FieldTag::__optional_bool_wrapper => {
                             result.optional_bool_wrapper = map.next_value::<std::option::Option<wkt::BoolValue>>()?
                         },
-                        FieldTag::__optional_int32_wrapper => {
+                        __FieldTag::__optional_int32_wrapper => {
                             struct __With( std::option::Option<wkt::Int32Value> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3549,7 +3706,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_int32_wrapper = map.next_value::< __With >()?.0;
                         },
-                        FieldTag::__optional_int64_wrapper => {
+                        __FieldTag::__optional_int64_wrapper => {
                             struct __With( std::option::Option<wkt::Int64Value> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3561,7 +3718,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_int64_wrapper = map.next_value::< __With >()?.0;
                         },
-                        FieldTag::__optional_uint32_wrapper => {
+                        __FieldTag::__optional_uint32_wrapper => {
                             struct __With( std::option::Option<wkt::UInt32Value> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3573,7 +3730,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_uint32_wrapper = map.next_value::< __With >()?.0;
                         },
-                        FieldTag::__optional_uint64_wrapper => {
+                        __FieldTag::__optional_uint64_wrapper => {
                             struct __With( std::option::Option<wkt::UInt64Value> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3585,7 +3742,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_uint64_wrapper = map.next_value::< __With >()?.0;
                         },
-                        FieldTag::__optional_float_wrapper => {
+                        __FieldTag::__optional_float_wrapper => {
                             struct __With( std::option::Option<wkt::FloatValue> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3597,7 +3754,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_float_wrapper = map.next_value::< __With >()?.0;
                         },
-                        FieldTag::__optional_double_wrapper => {
+                        __FieldTag::__optional_double_wrapper => {
                             struct __With( std::option::Option<wkt::DoubleValue> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3609,10 +3766,10 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_double_wrapper = map.next_value::< __With >()?.0;
                         },
-                        FieldTag::__optional_string_wrapper => {
+                        __FieldTag::__optional_string_wrapper => {
                             result.optional_string_wrapper = map.next_value::<std::option::Option<wkt::StringValue>>()?
                         },
-                        FieldTag::__optional_bytes_wrapper => {
+                        __FieldTag::__optional_bytes_wrapper => {
                             struct __With( std::option::Option<wkt::BytesValue> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3624,10 +3781,10 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.optional_bytes_wrapper = map.next_value::< __With >()?.0;
                         },
-                        FieldTag::__repeated_bool_wrapper => {
+                        __FieldTag::__repeated_bool_wrapper => {
                             result.repeated_bool_wrapper = map.next_value::<std::option::Option<std::vec::Vec<wkt::BoolValue>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_int32_wrapper => {
+                        __FieldTag::__repeated_int32_wrapper => {
                             struct __With( std::option::Option<std::vec::Vec<wkt::Int32Value>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3639,7 +3796,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_int32_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_int64_wrapper => {
+                        __FieldTag::__repeated_int64_wrapper => {
                             struct __With( std::option::Option<std::vec::Vec<wkt::Int64Value>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3651,7 +3808,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_int64_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_uint32_wrapper => {
+                        __FieldTag::__repeated_uint32_wrapper => {
                             struct __With( std::option::Option<std::vec::Vec<wkt::UInt32Value>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3663,7 +3820,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_uint32_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_uint64_wrapper => {
+                        __FieldTag::__repeated_uint64_wrapper => {
                             struct __With( std::option::Option<std::vec::Vec<wkt::UInt64Value>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3675,7 +3832,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_uint64_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_float_wrapper => {
+                        __FieldTag::__repeated_float_wrapper => {
                             struct __With( std::option::Option<std::vec::Vec<wkt::FloatValue>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3687,7 +3844,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_float_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_double_wrapper => {
+                        __FieldTag::__repeated_double_wrapper => {
                             struct __With( std::option::Option<std::vec::Vec<wkt::DoubleValue>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3699,10 +3856,10 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_double_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__repeated_string_wrapper => {
+                        __FieldTag::__repeated_string_wrapper => {
                             result.repeated_string_wrapper = map.next_value::<std::option::Option<std::vec::Vec<wkt::StringValue>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_bytes_wrapper => {
+                        __FieldTag::__repeated_bytes_wrapper => {
                             struct __With( std::option::Option<std::vec::Vec<wkt::BytesValue>> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3714,51 +3871,51 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.repeated_bytes_wrapper = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__optional_duration => {
+                        __FieldTag::__optional_duration => {
                             result.optional_duration = map.next_value::<std::option::Option<wkt::Duration>>()?
                         },
-                        FieldTag::__optional_timestamp => {
+                        __FieldTag::__optional_timestamp => {
                             result.optional_timestamp = map.next_value::<std::option::Option<wkt::Timestamp>>()?
                         },
-                        FieldTag::__optional_field_mask => {
+                        __FieldTag::__optional_field_mask => {
                             result.optional_field_mask = map.next_value::<std::option::Option<wkt::FieldMask>>()?
                         },
-                        FieldTag::__optional_struct => {
+                        __FieldTag::__optional_struct => {
                             result.optional_struct = map.next_value::<std::option::Option<wkt::Struct>>()?
                         },
-                        FieldTag::__optional_any => {
+                        __FieldTag::__optional_any => {
                             result.optional_any = map.next_value::<std::option::Option<wkt::Any>>()?
                         },
-                        FieldTag::__optional_value => {
+                        __FieldTag::__optional_value => {
                             result.optional_value = map.next_value::<std::option::Option<wkt::Value>>()?
                                 .or(Some(wkt::Value::Null));
                         },
-                        FieldTag::__optional_null_value => {
+                        __FieldTag::__optional_null_value => {
                             result.optional_null_value = map.next_value::<std::option::Option<wkt::NullValue>>()?
                                 .unwrap_or_default();
                         },
-                        FieldTag::__repeated_duration => {
+                        __FieldTag::__repeated_duration => {
                             result.repeated_duration = map.next_value::<std::option::Option<std::vec::Vec<wkt::Duration>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_timestamp => {
+                        __FieldTag::__repeated_timestamp => {
                             result.repeated_timestamp = map.next_value::<std::option::Option<std::vec::Vec<wkt::Timestamp>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_fieldmask => {
+                        __FieldTag::__repeated_fieldmask => {
                             result.repeated_fieldmask = map.next_value::<std::option::Option<std::vec::Vec<wkt::FieldMask>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_struct => {
+                        __FieldTag::__repeated_struct => {
                             result.repeated_struct = map.next_value::<std::option::Option<std::vec::Vec<wkt::Struct>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_any => {
+                        __FieldTag::__repeated_any => {
                             result.repeated_any = map.next_value::<std::option::Option<std::vec::Vec<wkt::Any>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_value => {
+                        __FieldTag::__repeated_value => {
                             result.repeated_value = map.next_value::<std::option::Option<std::vec::Vec<wkt::Value>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__repeated_list_value => {
+                        __FieldTag::__repeated_list_value => {
                             result.repeated_list_value = map.next_value::<std::option::Option<std::vec::Vec<wkt::ListValue>>>()?.unwrap_or_default();
                         },
-                        FieldTag::__fieldname1 => {
+                        __FieldTag::__fieldname1 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3770,7 +3927,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.fieldname1 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field_name2 => {
+                        __FieldTag::__field_name2 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3782,7 +3939,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field_name2 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::___field_name3 => {
+                        __FieldTag::___field_name3 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3794,7 +3951,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result._field_name3 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field__name4_ => {
+                        __FieldTag::__field__name4_ => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3806,7 +3963,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field__name4_ = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field0name5 => {
+                        __FieldTag::__field0name5 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3818,7 +3975,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field0name5 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field_0_name6 => {
+                        __FieldTag::__field_0_name6 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3830,7 +3987,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field_0_name6 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field_name_7 => {
+                        __FieldTag::__field_name_7 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3842,7 +3999,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field_name_7 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field_name_8 => {
+                        __FieldTag::__field_name_8 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3854,7 +4011,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field_name_8 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field_name_9 => {
+                        __FieldTag::__field_name_9 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3866,7 +4023,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field_name_9 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field_name_10 => {
+                        __FieldTag::__field_name_10 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3878,7 +4035,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field_name_10 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field_name_11 => {
+                        __FieldTag::__field_name_11 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3890,7 +4047,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field_name_11 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field_name_12 => {
+                        __FieldTag::__field_name_12 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3902,7 +4059,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field_name_12 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::____field_name13 => {
+                        __FieldTag::____field_name13 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3914,7 +4071,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.__field_name13 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::____field_name_14 => {
+                        __FieldTag::____field_name_14 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3926,7 +4083,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.__field_name_14 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field__name15 => {
+                        __FieldTag::__field__name15 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3938,7 +4095,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field__name15 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field__name_16 => {
+                        __FieldTag::__field__name_16 => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3950,7 +4107,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field__name_16 = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field_name17__ => {
+                        __FieldTag::__field_name17__ => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3962,7 +4119,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field_name17__ = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::__field_name_18__ => {
+                        __FieldTag::__field_name_18__ => {
                             struct __With( std::option::Option<i32> );
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -3974,7 +4131,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                             }
                             result.field_name_18__ = map.next_value::< __With >()?.0.unwrap_or_default();
                         },
-                        FieldTag::Unknown(key) => {
+                        __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
                         },
@@ -5598,19 +5755,19 @@ pub mod test_all_types_proto_3 {
         {
             #[allow(non_camel_case_types)]
             #[doc(hidden)]
-            enum FieldTag {
+            enum __FieldTag {
                 __a,
                 __corecursive,
                 Unknown(std::string::String),
             }
-            impl<'de> serde::de::Deserialize<'de> for FieldTag {
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                 where
                     D: serde::Deserializer<'de>,
                 {
                     struct Visitor;
                     impl<'de> serde::de::Visitor<'de> for Visitor {
-                        type Value = FieldTag;
+                        type Value = __FieldTag;
                         fn expecting(
                             &self,
                             formatter: &mut std::fmt::Formatter,
@@ -5623,9 +5780,9 @@ pub mod test_all_types_proto_3 {
                         {
                             use std::result::Result::Ok;
                             match value {
-                                "a" => Ok(FieldTag::__a),
-                                "corecursive" => Ok(FieldTag::__corecursive),
-                                _ => Ok(FieldTag::Unknown(value.to_string())),
+                                "a" => Ok(__FieldTag::__a),
+                                "corecursive" => Ok(__FieldTag::__corecursive),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
                     }
@@ -5645,10 +5802,10 @@ pub mod test_all_types_proto_3 {
                     #[allow(unused_imports)]
                     use serde::de::Error;
                     let mut result = Self::Value::new();
-                    while let Some(tag) = map.next_key::<FieldTag>()? {
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
                         #[allow(clippy::match_single_binding)]
                         match tag {
-                            FieldTag::__a => {
+                            __FieldTag::__a => {
                                 struct __With(std::option::Option<i32>);
                                 impl<'de> serde::de::Deserialize<'de> for __With {
                                     fn deserialize<D>(
@@ -5662,14 +5819,14 @@ pub mod test_all_types_proto_3 {
                                 }
                                 result.a = map.next_value::<__With>()?.0.unwrap_or_default();
                             }
-                            FieldTag::__corecursive => {
+                            __FieldTag::__corecursive => {
                                 result.corecursive = map.next_value::<std::option::Option<
                                     std::boxed::Box<
                                         crate::generated::test_protos::TestAllTypesProto3,
                                     >,
                                 >>()?
                             }
-                            FieldTag::Unknown(key) => {
+                            __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
                             }
@@ -6039,18 +6196,18 @@ impl<'de> serde::de::Deserialize<'de> for ForeignMessage {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
-        enum FieldTag {
+        enum __FieldTag {
             __c,
             Unknown(std::string::String),
         }
-        impl<'de> serde::de::Deserialize<'de> for FieldTag {
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
                 struct Visitor;
                 impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = FieldTag;
+                    type Value = __FieldTag;
                     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                         formatter.write_str("a field name for ForeignMessage")
                     }
@@ -6060,8 +6217,8 @@ impl<'de> serde::de::Deserialize<'de> for ForeignMessage {
                     {
                         use std::result::Result::Ok;
                         match value {
-                            "c" => Ok(FieldTag::__c),
-                            _ => Ok(FieldTag::Unknown(value.to_string())),
+                            "c" => Ok(__FieldTag::__c),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
                 }
@@ -6081,10 +6238,10 @@ impl<'de> serde::de::Deserialize<'de> for ForeignMessage {
                 #[allow(unused_imports)]
                 use serde::de::Error;
                 let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<FieldTag>()? {
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
-                        FieldTag::__c => {
+                        __FieldTag::__c => {
                             struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -6098,7 +6255,7 @@ impl<'de> serde::de::Deserialize<'de> for ForeignMessage {
                             }
                             result.c = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
-                        FieldTag::Unknown(key) => {
+                        __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
                         }
@@ -6166,17 +6323,17 @@ impl<'de> serde::de::Deserialize<'de> for NullHypothesisProto3 {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
-        enum FieldTag {
+        enum __FieldTag {
             Unknown(std::string::String),
         }
-        impl<'de> serde::de::Deserialize<'de> for FieldTag {
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
                 struct Visitor;
                 impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = FieldTag;
+                    type Value = __FieldTag;
                     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                         formatter.write_str("a field name for NullHypothesisProto3")
                     }
@@ -6186,7 +6343,7 @@ impl<'de> serde::de::Deserialize<'de> for NullHypothesisProto3 {
                     {
                         use std::result::Result::Ok;
                         match value {
-                            _ => Ok(FieldTag::Unknown(value.to_string())),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
                 }
@@ -6206,10 +6363,10 @@ impl<'de> serde::de::Deserialize<'de> for NullHypothesisProto3 {
                 #[allow(unused_imports)]
                 use serde::de::Error;
                 let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<FieldTag>()? {
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
-                        FieldTag::Unknown(key) => {
+                        __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
                         }
@@ -6265,17 +6422,17 @@ impl<'de> serde::de::Deserialize<'de> for EnumOnlyProto3 {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
-        enum FieldTag {
+        enum __FieldTag {
             Unknown(std::string::String),
         }
-        impl<'de> serde::de::Deserialize<'de> for FieldTag {
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
                 D: serde::Deserializer<'de>,
             {
                 struct Visitor;
                 impl<'de> serde::de::Visitor<'de> for Visitor {
-                    type Value = FieldTag;
+                    type Value = __FieldTag;
                     fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
                         formatter.write_str("a field name for EnumOnlyProto3")
                     }
@@ -6285,7 +6442,7 @@ impl<'de> serde::de::Deserialize<'de> for EnumOnlyProto3 {
                     {
                         use std::result::Result::Ok;
                         match value {
-                            _ => Ok(FieldTag::Unknown(value.to_string())),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
                 }
@@ -6305,10 +6462,10 @@ impl<'de> serde::de::Deserialize<'de> for EnumOnlyProto3 {
                 #[allow(unused_imports)]
                 use serde::de::Error;
                 let mut result = Self::Value::new();
-                while let Some(tag) = map.next_key::<FieldTag>()? {
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
-                        FieldTag::Unknown(key) => {
+                        __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
                         }

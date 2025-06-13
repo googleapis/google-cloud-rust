@@ -44,6 +44,7 @@ mod test {
     #[test_case(MessageWithBool::new().set_map_key([(true, "trueValue")]), json!({"mapKey": {"tr\u{0075}e": "trueValue"}}))]
     #[test_case(MessageWithBool::new().set_map_value([("k0", true), ("k1", false)]), json!({"mapValue": {"k0": true, "k1": false}}))]
     #[test_case(MessageWithBool::new().set_map_key_value([(false, true), (true, false)]), json!({"mapKeyValue": {"false": true, "true": false}}))]
+    #[test_case(MessageWithBool::new().set_map_key_value([(false, true), (true, false)]), json!({"map_key_value": {"false": true, "true": false}}))]
     #[test_case(MessageWithBool::new().set_map_key_value([(true, true)]), json!({"mapKeyValue": {"tr\u{0075}e": true}}))]
     #[test_case(MessageWithBool::new(), json!({"singular": null}))]
     #[test_case(MessageWithBool::new(), json!({"repeated": null}))]
