@@ -56,6 +56,7 @@
 use crate::error::Error;
 use crate::loop_state::LoopState;
 use std::sync::Arc;
+use std::time::Duration;
 
 /// Determines how errors are handled in the retry loop.
 ///
@@ -111,7 +112,7 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
         &self,
         _loop_start: std::time::Instant,
         _attempt_count: u32,
-    ) -> Option<std::time::Duration> {
+    ) -> Option<Duration> {
         None
     }
 }
@@ -146,8 +147,8 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// [Continue][LoopState::Continue].
     ///
     /// The `remaining_time()` function returns the remaining time. This is
-    /// always [Duration::ZERO][std::time::Duration::ZERO] once or after the
-    /// policy's expiration time is reached.
+    /// always [Duration::ZERO] once or after the policy's expiration time is
+    /// reached.
     ///
     /// # Example
     /// ```
@@ -156,7 +157,7 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// let policy = Aip194Strict.with_time_limit(d);
     /// assert!(policy.remaining_time(std::time::Instant::now(), 0) <= Some(d));
     /// ```
-    fn with_time_limit(self, maximum_duration: std::time::Duration) -> LimitedElapsedTime<Self> {
+    fn with_time_limit(self, maximum_duration: Duration) -> LimitedElapsedTime<Self> {
         LimitedElapsedTime::custom(self, maximum_duration)
     }
 
@@ -320,6 +321,32 @@ impl RetryPolicy for NeverRetry {
     }
 }
 
+#[derive(thiserror::Error, Debug)]
+pub struct LimitedElapsedTimeError {
+    maximum_duration: Duration,
+}
+
+impl LimitedElapsedTimeError {
+    pub(crate) fn new(maximum_duration: Duration) -> Self {
+        Self { maximum_duration }
+    }
+
+    /// Returns the maximum number of attempts in the exhausted policy.
+    pub fn maximum_duration(&self) -> Duration {
+        self.maximum_duration
+    }
+}
+
+impl std::fmt::Display for LimitedElapsedTimeError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "retry policy is exhausted after {}s, the last retry attempt was throttled",
+            self.maximum_duration.as_secs_f64()
+        )
+    }
+}
+
 /// A retry policy decorator that limits the total time in the retry loop.
 ///
 /// This policy decorates an inner policy and limits the duration of retry
@@ -330,8 +357,7 @@ impl RetryPolicy for NeverRetry {
 /// [Continue][LoopState::Continue].
 ///
 /// The `remaining_time()` function returns the remaining time. This is always
-/// [Duration::ZERO][std::time::Duration::ZERO] once or after the policy's
-/// deadline is reached.
+/// [Duration::ZERO] once or after the policy's deadline is reached.
 ///
 /// # Parameters
 /// * `P` - the inner retry policy, defaults to [Aip194Strict].
@@ -341,7 +367,7 @@ where
     P: RetryPolicy,
 {
     inner: P,
-    maximum_duration: std::time::Duration,
+    maximum_duration: Duration,
 }
 
 impl LimitedElapsedTime {
@@ -354,7 +380,7 @@ impl LimitedElapsedTime {
     /// let policy = LimitedElapsedTime::new(d);
     /// assert!(policy.remaining_time(std::time::Instant::now(), 0) <= Some(d));
     /// ```
-    pub fn new(maximum_duration: std::time::Duration) -> Self {
+    pub fn new(maximum_duration: Duration) -> Self {
         Self {
             inner: Aip194Strict,
             maximum_duration,
@@ -382,7 +408,7 @@ where
     /// fn transient_error() -> Error { Error::service(Status::default().set_code(Code::Unavailable)) }
     /// fn permanent_error() -> Error { Error::service(Status::default().set_code(Code::PermissionDenied)) }
     /// ```
-    pub fn custom(inner: P, maximum_duration: std::time::Duration) -> Self {
+    pub fn custom(inner: P, maximum_duration: Duration) -> Self {
         Self {
             inner,
             maximum_duration,
@@ -395,9 +421,8 @@ where
         if now < deadline {
             None
         } else {
-            Some(Error::other(format!(
-                "limited time retry policy exhausted {:?} ago",
-                now.saturating_duration_since(deadline)
+            Some(Error::exhausted(LimitedElapsedTimeError::new(
+                self.maximum_duration,
             )))
         }
     }
@@ -437,13 +462,40 @@ where
         &self,
         loop_start: std::time::Instant,
         attempt_count: u32,
-    ) -> Option<std::time::Duration> {
+    ) -> Option<Duration> {
         let deadline = loop_start + self.maximum_duration;
         let remaining = deadline.saturating_duration_since(tokio::time::Instant::now().into_std());
         if let Some(inner) = self.inner.remaining_time(loop_start, attempt_count) {
             return Some(std::cmp::min(remaining, inner));
         }
         Some(remaining)
+    }
+}
+
+/// An error type created when the [LimitedAttemptCount] policy is exhausted.
+#[derive(thiserror::Error, Debug)]
+pub struct LimitedAttemptCountError {
+    maximum_attempts: u32,
+}
+
+impl LimitedAttemptCountError {
+    pub(crate) fn new(maximum_attempts: u32) -> Self {
+        Self { maximum_attempts }
+    }
+
+    /// Returns the maximum number of attempts in the exhausted policy.
+    pub fn maximum_attempts(&self) -> u32 {
+        self.maximum_attempts
+    }
+}
+
+impl std::fmt::Display for LimitedAttemptCountError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(
+            f,
+            "retry policy exhausted after {} attempts, the last retry attempt was throttled",
+            self.maximum_attempts
+        )
     }
 }
 
@@ -542,9 +594,8 @@ where
         if attempt_count < self.maximum_attempts {
             None
         } else {
-            Some(Error::other(format!(
-                "error count already reached maximum ({})",
-                self.maximum_attempts
+            Some(Error::exhausted(LimitedAttemptCountError::new(
+                self.maximum_attempts,
             )))
         }
     }
@@ -553,7 +604,7 @@ where
         &self,
         loop_start: std::time::Instant,
         attempt_count: u32,
-    ) -> Option<std::time::Duration> {
+    ) -> Option<Duration> {
         self.inner.remaining_time(loop_start, attempt_count)
     }
 }
@@ -728,11 +779,9 @@ mod tests {
         impl RetryPolicy for Policy {
             fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> LoopState;
             fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error>;
-            fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<std::time::Duration>;
+            fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Duration>;
         }
     }
-
-    use std::time::Duration;
 
     #[test]
     fn test_limited_time_forwards() {

@@ -119,6 +119,41 @@ impl Error {
         matches!(self.kind, ErrorKind::Timeout)
     }
 
+    /// Creates an error representing an exhausted policy.
+    ///
+    /// # Example
+    /// ```
+    /// use std::error::Error as _;
+    /// use google_cloud_gax::error::Error;
+    /// let error = Error::exhausted("too many retry attempts");
+    /// assert!(error.is_exhausted());
+    /// assert!(error.source().is_some());
+    /// ```
+    pub fn exhausted<T: Into<BoxError>>(source: T) -> Self {
+        Self {
+            kind: ErrorKind::Exhausted,
+            source: Some(source.into()),
+        }
+    }
+
+    /// The request could not be before the retry policy expired.
+    ///
+    /// This is always a client-side generated error, but it may be the result
+    /// of multiple errors received from the service. Sometimes the error
+    ///
+    /// # Troubleshooting
+    ///
+    /// The most common cause of this problem is setting a timeout value that is
+    /// based on the observed latency when the service is not under load.
+    /// Consider increasing the timeout value to handle temporary latency
+    /// increases too.
+    ///
+    /// It could also indicate a congestion in the network, a service outage, or
+    /// a service that is under load and will take time to scale up.
+    pub fn is_exhausted(&self) -> bool {
+        matches!(self.kind, ErrorKind::Exhausted)
+    }
+
     /// Not part of the public API, subject to change without notice.
     ///
     /// Creates an error representing a deserialization problem.
@@ -622,6 +657,9 @@ impl std::fmt::Display for Error {
             (ErrorKind::Timeout, Some(e)) => {
                 write!(f, "the request exceeded the request deadline {e}")
             }
+            (ErrorKind::Exhausted, Some(e)) => {
+                write!(f, "{e}")
+            }
             (ErrorKind::Transport(details), _) => details.display(self.source(), f),
             (ErrorKind::Service(d), _) => {
                 write!(
@@ -654,6 +692,7 @@ enum ErrorKind {
     Deserialization,
     Authentication,
     Timeout,
+    Exhausted,
     Transport(Box<TransportDetails>),
     Service(Box<ServiceDetails>),
     /// A uncategorized error.
@@ -728,6 +767,29 @@ mod test {
         let source = wkt::TimestampError::OutOfRange;
         let error = Error::timeout(source);
         assert!(error.is_timeout(), "{error:?}");
+        assert!(error.source().is_some(), "{error:?}");
+        let got = error
+            .source()
+            .and_then(|e| e.downcast_ref::<wkt::TimestampError>());
+        assert!(
+            matches!(got, Some(wkt::TimestampError::OutOfRange)),
+            "{error:?}"
+        );
+        let source = wkt::TimestampError::OutOfRange;
+        assert!(error.to_string().contains(&source.to_string()), "{error}");
+        assert!(!error.is_transient_and_before_rpc(), "{error:?}");
+
+        assert!(error.http_headers().is_none(), "{error:?}");
+        assert!(error.http_status_code().is_none(), "{error:?}");
+        assert!(error.http_payload().is_none(), "{error:?}");
+        assert!(error.status().is_none(), "{error:?}");
+    }
+
+    #[test]
+    fn exhausted() {
+        let source = wkt::TimestampError::OutOfRange;
+        let error = Error::exhausted(source);
+        assert!(error.is_exhausted(), "{error:?}");
         assert!(error.source().is_some(), "{error:?}");
         let got = error
             .source()
