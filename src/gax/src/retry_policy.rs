@@ -784,6 +784,15 @@ mod tests {
     }
 
     #[test]
+    fn limited_elapsed_time_error() {
+        let limit = Duration::from_secs(123) + Duration::from_millis(567);
+        let err = LimitedElapsedTimeError::new(limit);
+        assert_eq!(err.maximum_duration(), limit);
+        let fmt = err.to_string();
+        assert!(fmt.contains("123.567s"), "display={fmt}, debug={err:?}");
+    }
+
+    #[test]
     fn test_limited_time_forwards() {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
@@ -926,6 +935,15 @@ mod tests {
         let now = std::time::Instant::now();
         let remaining = policy.remaining_time(now - Duration::from_secs(50), 0);
         assert!(remaining <= Some(Duration::from_secs(10)), "{remaining:?}");
+    }
+
+    #[test]
+    fn limited_attempt_count_error() {
+        let limit = 1234_u32;
+        let err = LimitedAttemptCountError::new(limit);
+        assert_eq!(err.maximum_attempts(), limit);
+        let fmt = err.to_string();
+        assert!(fmt.contains("1234"), "display={fmt}, debug={err:?}");
     }
 
     #[test]
