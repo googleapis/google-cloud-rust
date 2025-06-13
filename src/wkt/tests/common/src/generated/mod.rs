@@ -6048,12 +6048,14 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithValue {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
-                            result.singular =
-                                map.next_value::<std::option::Option<wkt::Value>>()?;
+                            result.singular = map
+                                .next_value::<std::option::Option<wkt::Value>>()?
+                                .or(Some(wkt::Value::Null));
                         }
                         __FieldTag::__optional => {
-                            result.optional =
-                                map.next_value::<std::option::Option<wkt::Value>>()?;
+                            result.optional = map
+                                .next_value::<std::option::Option<wkt::Value>>()?
+                                .or(Some(wkt::Value::Null));
                         }
                         __FieldTag::__repeated => {
                             result.repeated = map.next_value::<std::vec::Vec<wkt::Value>>()?;

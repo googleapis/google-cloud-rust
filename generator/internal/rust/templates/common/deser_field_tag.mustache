@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 }}
 {{!
-    The serde guide recommends using a enumeration to avoid data copies
+    The serde guide recommends using an enumeration to avoid data copies
     and allocations related to the field names. The basic idea is to create
     an enumeration to convert the (borrowed) field names into enumeration
     variants. The latter are cheap to copy and compare. A special variant
