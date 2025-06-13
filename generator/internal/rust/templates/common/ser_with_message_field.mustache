@@ -68,6 +68,18 @@ if let Some(value) = self.0.{{Codec.FieldName}}() {
 {{/Singular}}
 {{! repeated and map fields are never part of a oneof }}
 {{#Repeated}}
+if !self.0.{{Codec.FieldName}}.is_empty() {
+    struct __With<'a>(&'a {{{Codec.FieldType}}});
+    impl<'a> serde::ser::Serialize for __With<'a> {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            serde_with::As::< std::vec::Vec<{{Codec.SerdeAs}}> >::serialize(self.0, serializer)
+        }
+    }
+    state.serialize_entry("{{JSONName}}", &__With(&self.0.{{Codec.FieldName}}))?;
+}
 {{/Repeated}}
 {{#Map}}
 {{/Map}}

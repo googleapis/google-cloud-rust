@@ -28,6 +28,8 @@ mod test {
     #[test_case(MessageWithBytes::new().set_optional("".as_bytes()), json!({"optional": ""}))]
     #[test_case(MessageWithBytes::new().set_or_clear_optional(None::<bytes::Bytes>), json!({}))]
     #[test_case(MessageWithBytes::new().set_optional(LAZY), json!({"optional": LAZY_BASE64}))]
+    #[test_case(MessageWithBytes::new().set_repeated([""; 0]), json!({}))]
+    #[test_case(MessageWithBytes::new().set_repeated([LAZY]), json!({"repeated": [LAZY_BASE64]}))]
     fn test_ser(input: MessageWithBytes, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithBytes(input))?;
         assert_eq!(got, want);
@@ -41,6 +43,8 @@ mod test {
     #[test_case(MessageWithBytes::new().set_optional("".as_bytes()), json!({"optional": ""}))]
     #[test_case(MessageWithBytes::new().set_or_clear_optional(None::<bytes::Bytes>), json!({}))]
     #[test_case(MessageWithBytes::new().set_optional(LAZY), json!({"optional": LAZY_BASE64}))]
+    #[test_case(MessageWithBytes::new().set_repeated([""; 0]), json!({}))]
+    #[test_case(MessageWithBytes::new().set_repeated([LAZY]), json!({"repeated": [LAZY_BASE64]}))]
     fn test_de(want: MessageWithBytes, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithBytes>(input)?;
         assert_eq!(got.0, want);

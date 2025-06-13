@@ -1981,7 +1981,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF32 {
                             }
                             result.optional = map.next_value::<__With>()?.0;
                         }
-                        "repeated" => {}
+                        "repeated" => {
+                            struct __With(std::option::Option<std::vec::Vec<f32>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::F32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         "map" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2028,6 +2044,20 @@ impl serde::ser::Serialize for __MessageWithF32 {
                 }
             }
             state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
+        if !self.0.repeated.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<f32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::F32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("repeated", &__With(&self.0.repeated))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -2181,7 +2211,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF64 {
                             }
                             result.optional = map.next_value::<__With>()?.0;
                         }
-                        "repeated" => {}
+                        "repeated" => {
+                            struct __With(std::option::Option<std::vec::Vec<f64>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::F64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         "map" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -2228,6 +2274,20 @@ impl serde::ser::Serialize for __MessageWithF64 {
                 }
             }
             state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
+        if !self.0.repeated.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("repeated", &__With(&self.0.repeated))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -2416,7 +2476,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
                             }
                             result.optional = map.next_value::<__With>()?.0;
                         }
-                        "repeated" => {}
+                        "repeated" => {
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         "mapValue" => {}
                         "mapKey" => {}
                         "mapKeyValue" => {}
@@ -2465,6 +2541,20 @@ impl serde::ser::Serialize for __MessageWithI32 {
                 }
             }
             state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
+        if !self.0.repeated.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("repeated", &__With(&self.0.repeated))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -2653,7 +2743,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
                             }
                             result.optional = map.next_value::<__With>()?.0;
                         }
-                        "repeated" => {}
+                        "repeated" => {
+                            struct __With(std::option::Option<std::vec::Vec<u32>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         "mapValue" => {}
                         "mapKey" => {}
                         "mapKeyValue" => {}
@@ -2702,6 +2808,20 @@ impl serde::ser::Serialize for __MessageWithU32 {
                 }
             }
             state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
+        if !self.0.repeated.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<u32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::U32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("repeated", &__With(&self.0.repeated))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -2890,7 +3010,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
                             }
                             result.optional = map.next_value::<__With>()?.0;
                         }
-                        "repeated" => {}
+                        "repeated" => {
+                            struct __With(std::option::Option<std::vec::Vec<i64>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         "mapValue" => {}
                         "mapKey" => {}
                         "mapKeyValue" => {}
@@ -2939,6 +3075,20 @@ impl serde::ser::Serialize for __MessageWithI64 {
                 }
             }
             state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
+        if !self.0.repeated.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("repeated", &__With(&self.0.repeated))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -3127,7 +3277,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
                             }
                             result.optional = map.next_value::<__With>()?.0;
                         }
-                        "repeated" => {}
+                        "repeated" => {
+                            struct __With(std::option::Option<std::vec::Vec<u64>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::U64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         "mapValue" => {}
                         "mapKey" => {}
                         "mapKeyValue" => {}
@@ -3176,6 +3342,20 @@ impl serde::ser::Serialize for __MessageWithU64 {
                 }
             }
             state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
+        if !self.0.repeated.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<u64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::U64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("repeated", &__With(&self.0.repeated))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -3331,7 +3511,25 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytes {
                             }
                             result.optional = map.next_value::<__With>()?.0;
                         }
-                        "repeated" => {}
+                        "repeated" => {
+                            struct __With(std::option::Option<std::vec::Vec<::bytes::Bytes>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::vec::Vec<serde_with::base64::Base64>,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         "map" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -3380,6 +3578,20 @@ impl serde::ser::Serialize for __MessageWithBytes {
                 }
             }
             state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
+        if !self.0.repeated.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<::bytes::Bytes>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<serde_with::base64::Base64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("repeated", &__With(&self.0.repeated))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -4502,7 +4714,23 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithValue {
                             }
                             result.optional = map.next_value::<__With>()?.0;
                         }
-                        "repeated" => {}
+                        "repeated" => {
+                            struct __With(std::option::Option<std::vec::Vec<wkt::Value>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<serde_with::Same>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         "map" => {}
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -4553,6 +4781,18 @@ impl serde::ser::Serialize for __MessageWithValue {
                 }
             }
             state.serialize_entry("optional", &__With(&self.0.optional))?;
+        }
+        if !self.0.repeated.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<wkt::Value>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<serde_with::Same>>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("repeated", &__With(&self.0.repeated))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
