@@ -55,6 +55,7 @@ mod test {
     #[test_case(MessageWithI64::new().set_map_key([(0_i64, "")]), json!({"mapKey": {"0": ""}}))]
     #[test_case(MessageWithI64::new().set_map_key_value([(0_i64, 0_i64);0]), json!({}))]
     #[test_case(MessageWithI64::new().set_map_key_value([(0_i64, 0_i64)]), json!({"mapKeyValue": {"0": "0"}}))]
+    #[test_case(MessageWithI64::new().set_map_key_value([(0_i64, 0_i64)]), json!({"map_key_value": {"0": "0"}}))]
     fn test_de(want: MessageWithI64, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithI64>(input)?;
         assert_eq!(got.0, want);

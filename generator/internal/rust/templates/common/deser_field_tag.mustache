@@ -51,6 +51,17 @@ impl<'de> serde::de::Deserialize<'de> for __FieldTag {
                 match value {
                     {{#Fields}}
                     "{{JSONName}}" => Ok(__FieldTag::__{{Codec.SetterName}}),
+                    {{^NameEqualJSONName}}
+                    {{!
+                        The [ProtoJSON spec] reads:
+
+                        Parsers accept both the lowerCamelCase name (or the one
+                        specified by the json_name option) and the original proto field name.
+
+                        [ProtoJSON spec]: https://protobuf.dev/programming-guides/json/
+                    }}
+                    "{{Name}}" => Ok(__FieldTag::__{{Codec.SetterName}}),
+                    {{/NameEqualJSONName}}
                     {{/Fields}}
                     _ => Ok(__FieldTag::Unknown(value.to_string())),
                 }
