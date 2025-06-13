@@ -58,11 +58,11 @@ enum CredentialSourceFile {
         headers: Option<HashMap<String, String>>,
         format: Option<CredentialSourceFormat>,
     },
-    File {},
-    Aws {},
     Executable {
         executable: ExecutableConfig,
     },
+    File {},
+    Aws {},
 }
 
 /// A representation of a [external account config file].
@@ -136,9 +136,9 @@ struct ExternalAccountConfig {
 #[allow(dead_code)]
 enum CredentialSource {
     Url(UrlSourcedCredentials),
+    Executable(ExecutableSourcedCredentials),
     File {},
     Aws {},
-    Executable(ExecutableSourcedCredentials),
 }
 
 impl ExternalAccountConfig {
@@ -430,6 +430,40 @@ mod test {
             }
             _ => {
                 unreachable!("expected Url Sourced credential")
+            }
+        }
+    }
+
+    #[tokio::test]
+    async fn create_external_account_detect_executable_sourced() {
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "https://sts.googleapis.com/v1beta/token",
+            "credential_source": {
+                "executable": {
+                    "command": "cat /some/file",
+                    "output_file": "/some/file",
+                    "timeout_millis": 5000
+                }
+            }
+        });
+
+        let file: ExternalAccountFile =
+            serde_json::from_value(contents).expect("failed to parse external account config");
+        let config: ExternalAccountConfig = file.into();
+        let source = config.credential_source;
+
+        match source {
+            CredentialSource::Executable(source) => {
+                assert_eq!(source.command, "cat");
+                assert_eq!(source.args, vec!["/some/file"]);
+                assert_eq!(source.output_file.as_deref(), Some("/some/file"));
+                assert_eq!(source.timeout, Duration::from_secs(5));
+            }
+            _ => {
+                unreachable!("expected Executable Sourced credential")
             }
         }
     }

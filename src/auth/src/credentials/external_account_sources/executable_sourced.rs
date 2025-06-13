@@ -27,10 +27,10 @@ use tokio::{process::Command, time::timeout as tokio_timeout};
 
 #[derive(Serialize, Deserialize, Debug, Clone)]
 pub(crate) struct ExecutableSourcedCredentials {
-    command: String,
-    args: Vec<String>,
-    timeout: Duration,
-    output_file: Option<String>,
+    pub command: String,
+    pub args: Vec<String>,
+    pub timeout: Duration,
+    pub output_file: Option<String>,
 }
 
 /// Executable command should adere to this format.
