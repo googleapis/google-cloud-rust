@@ -12,5 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+pub mod executable_sourced;
 pub mod programmatic_sourced;
 pub mod url_sourced;

@@ -117,15 +117,15 @@ impl Storage {
     ///
     /// # Example
     /// ```
+    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let response = client
-    ///         .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
-    ///         .send()
-    ///         .await?;
-    ///     println!("response details={response:?}");
-    ///     Ok(())
-    /// }
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub fn insert_object<B, O, P>(&self, bucket: B, object: O, payload: P) -> InsertObject
     where
@@ -145,15 +145,15 @@ impl Storage {
     ///
     /// # Example
     /// ```
+    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let contents = client
-    ///         .read_object("projects/_/buckets/my-bucket", "my-object")
-    ///         .send()
-    ///         .await?;
-    ///     println!("object contents={contents:?}");
-    ///     Ok(())
-    /// }
+    /// # let client = Storage::builder().build().await?;
+    /// let contents = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send()
+    ///     .await?;
+    /// println!("object contents={contents:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub fn read_object<B, O>(&self, bucket: B, object: O) -> ReadObject
     where
@@ -293,17 +293,17 @@ impl InsertObject {
     ///
     /// # Example
     /// ```
+    /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// async fn example(client: &Storage) -> gax::Result<()> {
-    ///     let response = client
-    ///         .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
-    ///         .send()
-    ///         .await?;
-    ///     println!("response details={response:?}");
-    ///     Ok(())
-    /// }
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
     /// ```
-    pub async fn send(&self) -> crate::Result<Object> {
+    pub async fn send(self) -> crate::Result<Object> {
         let builder = self.http_request_builder().await?;
 
         tracing::info!("builder={builder:?}");
@@ -317,17 +317,17 @@ impl InsertObject {
         Ok(Object::from(response))
     }
 
-    async fn http_request_builder(&self) -> Result<reqwest::RequestBuilder> {
-        let bucket: String = self.bucket.clone();
+    async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
+        let bucket: String = self.bucket;
         let bucket_id = bucket
             .as_str()
             .strip_prefix("projects/_/buckets/")
             .ok_or_else(|| {
-                Error::other(format!(
+                Error::binding(format!(
                     "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
                 ))
             })?;
-        let object: String = self.object.clone();
+        let object: String = self.object;
         let builder = self
             .inner
             .client
@@ -343,23 +343,34 @@ impl InsertObject {
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
 
-        let builder = apply_customer_supplied_encryption_headers(
-            builder,
-            self.common_object_request_params.clone(),
-        );
+        let builder =
+            apply_customer_supplied_encryption_headers(builder, self.common_object_request_params);
 
         let builder = self.inner.apply_auth_headers(builder).await?;
-        let builder = builder.body(self.payload.clone());
+        let builder = builder.body(self.payload);
         Ok(builder)
     }
 
     /// The encryption key used with the Customer-Supplied Encryption Keys
     /// feature. In raw bytes format (not base64-encoded).
-    pub fn with_key<T>(mut self, v: T) -> Self
-    where
-        T: Into<bytes::Bytes>,
-    {
-        self.common_object_request_params = Some(key_to_common_object_request_params(v.into()));
+    ///
+    /// Example:
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::client::KeyAes256;
+    /// # let client = Storage::builder().build().await?;
+    /// let key: &[u8] = &[97; 32];
+    /// let response = client
+    ///     .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
+    ///     .with_key(KeyAes256::new(key)?)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub fn with_key(mut self, v: KeyAes256) -> Self {
+        self.common_object_request_params = Some(v.into());
         self
     }
 }
@@ -448,14 +459,128 @@ impl ReadObject {
         self
     }
 
+    /// The offset for the first byte to return in the read, relative to
+    /// the start of the object.
+    ///
+    /// A negative `read_offset` value will be interpreted as the number of bytes
+    /// back from the end of the object to be returned.
+    ///
+    /// # Examples
+    ///
+    /// Read starting at 100 bytes to end of file.
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_read_offset(100)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    ///
+    /// Read last 100 bytes of file:
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_read_offset(-100)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    ///
+    /// Read bytes 1000 to 1099.
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_read_offset(1000)
+    ///     .with_read_limit(100)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub fn with_read_offset<T>(mut self, v: T) -> Self
+    where
+        T: Into<i64>,
+    {
+        self.request.read_offset = v.into();
+        self
+    }
+
+    /// The maximum number of `data` bytes the server is allowed to
+    /// return.
+    ///
+    /// A `read_limit` of zero indicates that there is no limit,
+    /// and a negative `read_limit` will cause an error.
+    ///
+    /// # Examples:
+    ///
+    /// Read first 100 bytes.
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_read_limit(100)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    ///
+    /// Read bytes 1000 to 1099.
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_read_offset(1000)
+    ///     .with_read_limit(100)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub fn with_read_limit<T>(mut self, v: T) -> Self
+    where
+        T: Into<i64>,
+    {
+        self.request.read_limit = v.into();
+        self
+    }
+
     /// The encryption key used with the Customer-Supplied Encryption Keys
     /// feature. In raw bytes format (not base64-encoded).
-    pub fn with_key<T>(mut self, v: T) -> Self
-    where
-        T: Into<bytes::Bytes>,
-    {
-        self.request.common_object_request_params =
-            Some(key_to_common_object_request_params(v.into()));
+    ///
+    /// Example:
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::client::KeyAes256;
+    /// # let client = Storage::builder().build().await?;
+    /// let key: &[u8] = &[97; 32];
+    /// let response = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .with_key(KeyAes256::new(key)?)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub fn with_key(mut self, v: KeyAes256) -> Self {
+        self.request.common_object_request_params = Some(v.into());
         self
     }
 
@@ -481,7 +606,7 @@ impl ReadObject {
             .as_str()
             .strip_prefix("projects/_/buckets/")
             .ok_or_else(|| {
-                Error::other(format!(
+                Error::binding(format!(
                     "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
                 ))
             })?;
@@ -536,8 +661,115 @@ impl ReadObject {
             self.request.common_object_request_params,
         );
 
+        // Apply "range" header for read limits and offsets.
+        let builder = match (self.request.read_offset, self.request.read_limit) {
+            // read_limit can't be negative.
+            (_, l) if l < 0 => Err(RangeError::NegativeLimit),
+            // negative offset can't also have a read_limit.
+            (o, l) if o < 0 && l > 0 => Err(RangeError::NegativeOffsetWithLimit),
+            // If both are zero, we use default implementation (no range header).
+            (0, 0) => Ok(builder),
+            // read_limit is zero, means no limit. Read from offset to end of file.
+            // This handles cases like (5, 0) -> "bytes=5-"
+            (o, 0) => Ok(builder.header("range", format!("bytes={}-", o))),
+            // General case: non-negative offset and positive limit.
+            // This covers cases like (0, 100) -> "bytes=0-99", (5, 100) -> "bytes=5-104"
+            (o, l) => Ok(builder.header("range", format!("bytes={}-{}", o, o + l - 1))),
+        }
+        .map_err(Error::other)?;
+
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
+    }
+}
+
+/// Represents an error that can occur with invalid range is specified.
+#[derive(thiserror::Error, Debug, PartialEq)]
+#[non_exhaustive]
+enum RangeError {
+    /// The provided read limit was negative.
+    #[error("read limit was negative, expected non-negative value.")]
+    NegativeLimit,
+    /// A negative offset was provided with a read limit.
+    #[error("negative read offsets cannot be used with read limits.")]
+    NegativeOffsetWithLimit,
+}
+
+#[derive(Debug)]
+/// KeyAes256 represents an AES-256 encryption key used with the
+/// Customer-Supplied Encryption Keys (CSEK) feature.
+///
+/// This key must be exactly 32 bytes in length and should be provided in its
+/// raw (unencoded) byte format.
+///
+/// # Examples
+///
+/// Creating a `KeyAes256` instance from a valid byte slice:
+/// ```
+/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+/// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
+/// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
+/// # Ok::<(), KeyAes256Error>(())
+/// ```
+///
+/// Handling an error for an invalid key length:
+/// ```
+/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+/// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
+/// let result = KeyAes256::new(invalid_key_bytes);
+///
+/// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
+/// ```
+pub struct KeyAes256 {
+    key: [u8; 32],
+}
+
+/// Represents errors that can occur when converting to [`KeyAes256`] instances.
+///
+/// # Example:
+/// ```
+/// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+/// let invalid_key_bytes: &[u8] = b"too_short_key"; // Less than 32 bytes
+/// let result = KeyAes256::new(invalid_key_bytes);
+///
+/// assert!(matches!(result, Err(KeyAes256Error::InvalidLength)));
+/// ```
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+pub enum KeyAes256Error {
+    /// The provided key's length was not exactly 32 bytes.
+    #[error("Key has an invalid length: expected 32 bytes.")]
+    InvalidLength,
+}
+
+impl KeyAes256 {
+    /// Attempts to create a new [KeyAes256].
+    ///
+    /// This conversion will succeed only if the input slice is exactly 32 bytes long.
+    ///
+    /// # Example
+    /// ```
+    /// # use google_cloud_storage::client::{KeyAes256, KeyAes256Error};
+    /// let raw_key_bytes: [u8; 32] = [0x42; 32]; // Example 32-byte key
+    /// let key_aes_256 = KeyAes256::new(&raw_key_bytes)?;
+    /// # Ok::<(), KeyAes256Error>(())
+    /// ```
+    pub fn new(key: &[u8]) -> std::result::Result<Self, KeyAes256Error> {
+        match key.len() {
+            32 => Ok(Self {
+                key: key[..32].try_into().unwrap(),
+            }),
+            _ => Err(KeyAes256Error::InvalidLength),
+        }
+    }
+}
+
+impl std::convert::From<KeyAes256> for control::model::CommonObjectRequestParams {
+    fn from(value: KeyAes256) -> Self {
+        control::model::CommonObjectRequestParams::new()
+            .set_encryption_algorithm("AES256")
+            .set_encryption_key_bytes(value.key.to_vec())
+            .set_encryption_key_sha256_bytes(Sha256::digest(value.key).as_slice().to_owned())
     }
 }
 
@@ -561,20 +793,12 @@ fn apply_customer_supplied_encryption_headers(
     })
 }
 
-fn key_to_common_object_request_params(
-    v: bytes::Bytes,
-) -> control::model::CommonObjectRequestParams {
-    control::model::CommonObjectRequestParams::new()
-        .set_encryption_algorithm("AES256")
-        .set_encryption_key_bytes(v.clone())
-        .set_encryption_key_sha256_bytes(Sha256::digest(v.clone()).as_slice().to_owned())
-}
-
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::collections::HashMap;
+    use std::{collections::HashMap, error::Error};
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+    use test_case::test_case;
 
     #[tokio::test]
     async fn test_insert_object() -> Result {
@@ -641,16 +865,12 @@ mod tests {
             .build()
             .await?;
         // Make a 32-byte key.
-        let key = vec![b'a'; 32];
-        let key_base64 = BASE64_STANDARD.encode(key.clone());
-
-        let key_sha256 = Sha256::digest(key.clone());
-        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
+        let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
         // The API takes the unencoded byte array.
         let insert_object_builder = client
             .insert_object("projects/_/buckets/bucket", "object", "hello")
-            .with_key(key)
+            .with_key(KeyAes256::new(&key)?)
             .http_request_builder()
             .await?
             .build()?;
@@ -781,17 +1001,12 @@ mod tests {
             .build()
             .await?;
         // Make a 32-byte key.
-        let key = vec![b'a'; 32];
-        assert_eq!(key.len(), 32);
-        let key_base64 = BASE64_STANDARD.encode(key.clone());
-
-        let key_sha256 = Sha256::digest(key.clone());
-        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
+        let (key, key_base64, _, key_sha256_base64) = create_key_helper();
 
         // The API takes the unencoded byte array.
         let read_object_builder = client
             .read_object("projects/_/buckets/bucket", "object")
-            .with_key(key)
+            .with_key(KeyAes256::new(&key)?)
             .http_request_builder()
             .await?
             .build()?;
@@ -814,6 +1029,110 @@ mod tests {
                 bytes::Bytes::from(value)
             );
         }
+        Ok(())
+    }
+
+    #[test]
+    // This tests converting to KeyAes256 from some different types
+    // that can get converted to &[u8].
+    fn test_key_aes_256() -> Result {
+        let v_slice: &[u8] = &[b'c'; 32];
+        KeyAes256::new(v_slice)?;
+
+        let v_vec: Vec<u8> = vec![b'a'; 32];
+        KeyAes256::new(&v_vec)?;
+
+        let v_array: [u8; 32] = [b'a'; 32];
+        KeyAes256::new(&v_array)?;
+
+        let v_bytes: bytes::Bytes = bytes::Bytes::copy_from_slice(&v_array);
+        KeyAes256::new(&v_bytes)?;
+
+        Ok(())
+    }
+
+    #[test_case(&[b'a'; 0]; "no bytes")]
+    #[test_case(&[b'a'; 1]; "not enough bytes")]
+    #[test_case(&[b'a'; 33]; "too many bytes")]
+    fn test_key_aes_256_err(input: &[u8]) {
+        KeyAes256::new(input).unwrap_err();
+    }
+
+    #[test]
+    fn test_key_aes_256_to_control_model_object() -> Result {
+        let (key, _, key_sha256, _) = create_key_helper();
+        let key_aes_256 = KeyAes256::new(&key)?;
+        let params = control::model::CommonObjectRequestParams::from(key_aes_256);
+        assert_eq!(params.encryption_algorithm, "AES256");
+        assert_eq!(params.encryption_key_bytes, key);
+        assert_eq!(params.encryption_key_sha256_bytes, key_sha256);
+        Ok(())
+    }
+
+    fn create_key_helper() -> (Vec<u8>, String, Vec<u8>, String) {
+        // Make a 32-byte key.
+        let key = vec![b'a'; 32];
+        let key_base64 = BASE64_STANDARD.encode(key.clone());
+
+        let key_sha256 = Sha256::digest(key.clone());
+        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
+        (key, key_base64, key_sha256.to_vec(), key_sha256_base64)
+    }
+
+    #[test_case(0, 0, None; "no headers needed")]
+    #[test_case(10, 0, Some(&http::HeaderValue::from_static("bytes=10-")); "offset only")]
+    #[test_case(-2000, 0, Some(&http::HeaderValue::from_static("bytes=-2000-")); "negative offset")]
+    #[test_case(0, 100, Some(&http::HeaderValue::from_static("bytes=0-99")); "limit only")]
+    #[test_case(1000, 100, Some(&http::HeaderValue::from_static("bytes=1000-1099")); "offset and limit")]
+    #[tokio::test]
+    async fn test_range_header(
+        offset: i64,
+        limit: i64,
+        want: Option<&http::HeaderValue>,
+    ) -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        let read_object_builder = client
+            .read_object("projects/_/buckets/bucket", "object")
+            .with_read_offset(offset)
+            .with_read_limit(limit)
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        assert_eq!(read_object_builder.method(), reqwest::Method::GET);
+        assert_eq!(
+            read_object_builder.url().as_str(),
+            "https://storage.googleapis.com/storage/v1/b/bucket/o/object?alt=media"
+        );
+
+        assert_eq!(read_object_builder.headers().get("range"), want);
+        Ok(())
+    }
+
+    #[test_case(0, -100, RangeError::NegativeLimit; "negative limit")]
+    #[test_case(-100, 100, RangeError::NegativeOffsetWithLimit; "negative offset with positive limit")]
+    #[tokio::test]
+    async fn test_range_header_error(offset: i64, limit: i64, want_err: RangeError) -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let err = client
+            .read_object("projects/_/buckets/bucket", "object")
+            .with_read_offset(offset)
+            .with_read_limit(limit)
+            .http_request_builder()
+            .await
+            .unwrap_err();
+
+        assert_eq!(
+            err.source().unwrap().downcast_ref::<RangeError>().unwrap(),
+            &want_err
+        );
         Ok(())
     }
 }

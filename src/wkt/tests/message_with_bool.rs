@@ -14,16 +14,49 @@
 
 #[cfg(test)]
 mod test {
+    use common::{__MessageWithBool, MessageWithBool};
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
 
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
+    #[test_case(MessageWithBool::new(), json!({}))]
+    #[test_case(MessageWithBool::new().set_singular(false), json!({}))]
+    #[test_case(MessageWithBool::new().set_singular(true), json!({"singular": true}))]
+    #[test_case(MessageWithBool::new().set_optional(false), json!({"optional": false}))]
+    #[test_case(MessageWithBool::new().set_or_clear_optional(None::<bool>), json!({}))]
+    #[test_case(MessageWithBool::new().set_repeated([true, true, false]), json!({"repeated": [true, true, false]}))]
+    #[test_case(MessageWithBool::new().set_map_key([(true, "trueValue"), (false, "falseValue")]), json!({"mapKey": {"true": "trueValue", "false": "falseValue"}}))]
+    #[test_case(MessageWithBool::new().set_map_value([("k0", true), ("k1", false)]), json!({"mapValue": {"k0": true, "k1": false}}))]
+    #[test_case(MessageWithBool::new().set_map_key_value([(false, true), (true, false)]), json!({"mapKeyValue": {"false": true, "true": false}}))]
+    fn test_ser(input: MessageWithBool, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithBool(input))?;
+        assert_eq!(got, want);
+        Ok(())
     }
-    use protos::MessageWithBool;
+
+    #[test_case(MessageWithBool::new(), json!({}))]
+    #[test_case(MessageWithBool::new().set_singular(false), json!({}))]
+    #[test_case(MessageWithBool::new().set_singular(true), json!({"singular": true}))]
+    #[test_case(MessageWithBool::new().set_optional(false), json!({"optional": false}))]
+    #[test_case(MessageWithBool::new().set_or_clear_optional(None::<bool>), json!({}))]
+    #[test_case(MessageWithBool::new().set_repeated([true, true, false]), json!({"repeated": [true, true, false]}))]
+    #[test_case(MessageWithBool::new().set_map_key([(true, "trueValue"), (false, "falseValue")]), json!({"mapKey": {"true": "trueValue", "false": "falseValue"}}))]
+    #[test_case(MessageWithBool::new().set_map_value([("k0", true), ("k1", false)]), json!({"mapValue": {"k0": true, "k1": false}}))]
+    #[test_case(MessageWithBool::new().set_map_key_value([(false, true), (true, false)]), json!({"mapKeyValue": {"false": true, "true": false}}))]
+    fn test_de(want: MessageWithBool, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithBool>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
+
+    #[test_case(json!({"unknown": "test-value"}))]
+    #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
+    fn test_unknown(input: Value) -> Result {
+        let deser = serde_json::from_value::<__MessageWithBool>(input.clone())?;
+        let got = serde_json::to_value(deser)?;
+        assert_eq!(got, input);
+        Ok(())
+    }
 
     #[test]
     fn test_singular() -> Result {

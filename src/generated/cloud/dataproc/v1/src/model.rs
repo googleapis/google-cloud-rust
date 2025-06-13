@@ -17827,6 +17827,10 @@ pub mod autotuning_config {
         BroadcastHashJoin,
         /// Memory management for workloads.
         Memory,
+        /// No autotuning.
+        None,
+        /// Automatic selection of scenarios.
+        Auto,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Scenario::value] or
@@ -17853,6 +17857,8 @@ pub mod autotuning_config {
                 Self::Scaling => std::option::Option::Some(2),
                 Self::BroadcastHashJoin => std::option::Option::Some(3),
                 Self::Memory => std::option::Option::Some(4),
+                Self::None => std::option::Option::Some(5),
+                Self::Auto => std::option::Option::Some(6),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -17867,6 +17873,8 @@ pub mod autotuning_config {
                 Self::Scaling => std::option::Option::Some("SCALING"),
                 Self::BroadcastHashJoin => std::option::Option::Some("BROADCAST_HASH_JOIN"),
                 Self::Memory => std::option::Option::Some("MEMORY"),
+                Self::None => std::option::Option::Some("NONE"),
+                Self::Auto => std::option::Option::Some("AUTO"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -17892,6 +17900,8 @@ pub mod autotuning_config {
                 2 => Self::Scaling,
                 3 => Self::BroadcastHashJoin,
                 4 => Self::Memory,
+                5 => Self::None,
+                6 => Self::Auto,
                 _ => Self::UnknownValue(scenario::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -17907,6 +17917,8 @@ pub mod autotuning_config {
                 "SCALING" => Self::Scaling,
                 "BROADCAST_HASH_JOIN" => Self::BroadcastHashJoin,
                 "MEMORY" => Self::Memory,
+                "NONE" => Self::None,
+                "AUTO" => Self::Auto,
                 _ => Self::UnknownValue(scenario::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -17924,6 +17936,8 @@ pub mod autotuning_config {
                 Self::Scaling => serializer.serialize_i32(2),
                 Self::BroadcastHashJoin => serializer.serialize_i32(3),
                 Self::Memory => serializer.serialize_i32(4),
+                Self::None => serializer.serialize_i32(5),
+                Self::Auto => serializer.serialize_i32(6),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -20718,6 +20732,8 @@ pub enum Component {
     /// It cannot be activated on clusters created with supported Dataproc on
     /// Compute Engine image versions.
     Anaconda,
+    /// Delta Lake.
+    Delta,
     /// Docker
     Docker,
     /// The Druid query engine. (alpha)
@@ -20730,8 +20746,12 @@ pub enum Component {
     HiveWebhcat,
     /// Hudi.
     Hudi,
+    /// Iceberg.
+    Iceberg,
     /// The Jupyter Notebook.
     Jupyter,
+    /// The Pig component.
+    Pig,
     /// The Presto query engine.
     Presto,
     /// The Trino query engine.
@@ -20768,13 +20788,16 @@ impl Component {
         match self {
             Self::Unspecified => std::option::Option::Some(0),
             Self::Anaconda => std::option::Option::Some(5),
+            Self::Delta => std::option::Option::Some(20),
             Self::Docker => std::option::Option::Some(13),
             Self::Druid => std::option::Option::Some(9),
             Self::Flink => std::option::Option::Some(14),
             Self::Hbase => std::option::Option::Some(11),
             Self::HiveWebhcat => std::option::Option::Some(3),
             Self::Hudi => std::option::Option::Some(18),
+            Self::Iceberg => std::option::Option::Some(19),
             Self::Jupyter => std::option::Option::Some(1),
+            Self::Pig => std::option::Option::Some(21),
             Self::Presto => std::option::Option::Some(6),
             Self::Trino => std::option::Option::Some(17),
             Self::Ranger => std::option::Option::Some(12),
@@ -20793,13 +20816,16 @@ impl Component {
         match self {
             Self::Unspecified => std::option::Option::Some("COMPONENT_UNSPECIFIED"),
             Self::Anaconda => std::option::Option::Some("ANACONDA"),
+            Self::Delta => std::option::Option::Some("DELTA"),
             Self::Docker => std::option::Option::Some("DOCKER"),
             Self::Druid => std::option::Option::Some("DRUID"),
             Self::Flink => std::option::Option::Some("FLINK"),
             Self::Hbase => std::option::Option::Some("HBASE"),
             Self::HiveWebhcat => std::option::Option::Some("HIVE_WEBHCAT"),
             Self::Hudi => std::option::Option::Some("HUDI"),
+            Self::Iceberg => std::option::Option::Some("ICEBERG"),
             Self::Jupyter => std::option::Option::Some("JUPYTER"),
+            Self::Pig => std::option::Option::Some("PIG"),
             Self::Presto => std::option::Option::Some("PRESTO"),
             Self::Trino => std::option::Option::Some("TRINO"),
             Self::Ranger => std::option::Option::Some("RANGER"),
@@ -20842,6 +20868,9 @@ impl std::convert::From<i32> for Component {
             14 => Self::Flink,
             17 => Self::Trino,
             18 => Self::Hudi,
+            19 => Self::Iceberg,
+            20 => Self::Delta,
+            21 => Self::Pig,
             _ => Self::UnknownValue(component::UnknownValue(
                 wkt::internal::UnknownEnumValue::Integer(value),
             )),
@@ -20855,13 +20884,16 @@ impl std::convert::From<&str> for Component {
         match value {
             "COMPONENT_UNSPECIFIED" => Self::Unspecified,
             "ANACONDA" => Self::Anaconda,
+            "DELTA" => Self::Delta,
             "DOCKER" => Self::Docker,
             "DRUID" => Self::Druid,
             "FLINK" => Self::Flink,
             "HBASE" => Self::Hbase,
             "HIVE_WEBHCAT" => Self::HiveWebhcat,
             "HUDI" => Self::Hudi,
+            "ICEBERG" => Self::Iceberg,
             "JUPYTER" => Self::Jupyter,
+            "PIG" => Self::Pig,
             "PRESTO" => Self::Presto,
             "TRINO" => Self::Trino,
             "RANGER" => Self::Ranger,
@@ -20883,13 +20915,16 @@ impl serde::ser::Serialize for Component {
         match self {
             Self::Unspecified => serializer.serialize_i32(0),
             Self::Anaconda => serializer.serialize_i32(5),
+            Self::Delta => serializer.serialize_i32(20),
             Self::Docker => serializer.serialize_i32(13),
             Self::Druid => serializer.serialize_i32(9),
             Self::Flink => serializer.serialize_i32(14),
             Self::Hbase => serializer.serialize_i32(11),
             Self::HiveWebhcat => serializer.serialize_i32(3),
             Self::Hudi => serializer.serialize_i32(18),
+            Self::Iceberg => serializer.serialize_i32(19),
             Self::Jupyter => serializer.serialize_i32(1),
+            Self::Pig => serializer.serialize_i32(21),
             Self::Presto => serializer.serialize_i32(6),
             Self::Trino => serializer.serialize_i32(17),
             Self::Ranger => serializer.serialize_i32(12),

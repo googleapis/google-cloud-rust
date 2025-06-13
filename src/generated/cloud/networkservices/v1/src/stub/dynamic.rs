@@ -532,6 +532,12 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
+    async fn update_service_binding(
+        &self,
+        req: crate::model::UpdateServiceBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn delete_service_binding(
         &self,
         req: crate::model::DeleteServiceBindingRequest,
@@ -567,6 +573,60 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         req: crate::model::DeleteMeshRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_service_lb_policies(
+        &self,
+        req: crate::model::ListServiceLbPoliciesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceLbPoliciesResponse>>;
+
+    async fn get_service_lb_policy(
+        &self,
+        req: crate::model::GetServiceLbPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceLbPolicy>>;
+
+    async fn create_service_lb_policy(
+        &self,
+        req: crate::model::CreateServiceLbPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_service_lb_policy(
+        &self,
+        req: crate::model::UpdateServiceLbPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_service_lb_policy(
+        &self,
+        req: crate::model::DeleteServiceLbPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn get_gateway_route_view(
+        &self,
+        req: crate::model::GetGatewayRouteViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::GatewayRouteView>>;
+
+    async fn get_mesh_route_view(
+        &self,
+        req: crate::model::GetMeshRouteViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::MeshRouteView>>;
+
+    async fn list_gateway_route_views(
+        &self,
+        req: crate::model::ListGatewayRouteViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListGatewayRouteViewsResponse>>;
+
+    async fn list_mesh_route_views(
+        &self,
+        req: crate::model::ListMeshRouteViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListMeshRouteViewsResponse>>;
 
     async fn list_locations(
         &self,
@@ -934,6 +994,15 @@ impl<T: super::NetworkServices> NetworkServices for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn update_service_binding(
+        &self,
+        req: crate::model::UpdateServiceBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_service_binding(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn delete_service_binding(
         &self,
         req: crate::model::DeleteServiceBindingRequest,
@@ -985,6 +1054,87 @@ impl<T: super::NetworkServices> NetworkServices for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_mesh(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_service_lb_policies(
+        &self,
+        req: crate::model::ListServiceLbPoliciesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListServiceLbPoliciesResponse>> {
+        T::list_service_lb_policies(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_service_lb_policy(
+        &self,
+        req: crate::model::GetServiceLbPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ServiceLbPolicy>> {
+        T::get_service_lb_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_service_lb_policy(
+        &self,
+        req: crate::model::CreateServiceLbPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_service_lb_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_service_lb_policy(
+        &self,
+        req: crate::model::UpdateServiceLbPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_service_lb_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_service_lb_policy(
+        &self,
+        req: crate::model::DeleteServiceLbPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_service_lb_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_gateway_route_view(
+        &self,
+        req: crate::model::GetGatewayRouteViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::GatewayRouteView>> {
+        T::get_gateway_route_view(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_mesh_route_view(
+        &self,
+        req: crate::model::GetMeshRouteViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::MeshRouteView>> {
+        T::get_mesh_route_view(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_gateway_route_views(
+        &self,
+        req: crate::model::ListGatewayRouteViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListGatewayRouteViewsResponse>> {
+        T::list_gateway_route_views(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_mesh_route_views(
+        &self,
+        req: crate::model::ListMeshRouteViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListMeshRouteViewsResponse>> {
+        T::list_mesh_route_views(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

@@ -69,6 +69,7 @@ impl gaxi::prost::ToProto<CreateBucketRequest> for crate::generated::gapic::mode
             bucket_id: self.bucket_id.to_proto()?,
             predefined_acl: self.predefined_acl.to_proto()?,
             predefined_default_object_acl: self.predefined_default_object_acl.to_proto()?,
+            enable_object_retention: self.enable_object_retention.to_proto()?,
         })
     }
 }
@@ -82,6 +83,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::CreateBucketRequest>
                 .set_bucket_id(self.bucket_id)
                 .set_predefined_acl(self.predefined_acl)
                 .set_predefined_default_object_acl(self.predefined_default_object_acl)
+                .set_enable_object_retention(self.enable_object_retention)
         )
     }
 }
@@ -546,6 +548,7 @@ impl gaxi::prost::ToProto<UpdateObjectRequest> for crate::generated::gapic::mode
             predefined_acl: self.predefined_acl.to_proto()?,
             update_mask: self.update_mask.map(|v| v.to_proto()).transpose()?,
             common_object_request_params: self.common_object_request_params.map(|v| v.to_proto()).transpose()?,
+            override_unlocked_retention: self.override_unlocked_retention.to_proto()?,
         })
     }
 }
@@ -562,6 +565,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::UpdateObjectRequest>
                 .set_predefined_acl(self.predefined_acl)
                 .set_or_clear_update_mask(self.update_mask.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
+                .set_override_unlocked_retention(self.override_unlocked_retention)
         )
     }
 }
@@ -665,11 +669,74 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::Cors> for bu
     }
 }
 
+impl gaxi::prost::ToProto<bucket::encryption::GoogleManagedEncryptionEnforcementConfig> for crate::generated::gapic::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig {
+    type Output = bucket::encryption::GoogleManagedEncryptionEnforcementConfig;
+    fn to_proto(self) -> std::result::Result<bucket::encryption::GoogleManagedEncryptionEnforcementConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            restricted: self.restricted.map(|v| v.to_proto()).transpose()?,
+            effective_time: self.effective_time.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig> for bucket::encryption::GoogleManagedEncryptionEnforcementConfig {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic::model::bucket::encryption::GoogleManagedEncryptionEnforcementConfig::new()
+                .set_or_clear_restricted(self.restricted.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_effective_time(self.effective_time.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<bucket::encryption::CustomerManagedEncryptionEnforcementConfig> for crate::generated::gapic::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig {
+    type Output = bucket::encryption::CustomerManagedEncryptionEnforcementConfig;
+    fn to_proto(self) -> std::result::Result<bucket::encryption::CustomerManagedEncryptionEnforcementConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            restricted: self.restricted.map(|v| v.to_proto()).transpose()?,
+            effective_time: self.effective_time.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig> for bucket::encryption::CustomerManagedEncryptionEnforcementConfig {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic::model::bucket::encryption::CustomerManagedEncryptionEnforcementConfig::new()
+                .set_or_clear_restricted(self.restricted.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_effective_time(self.effective_time.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig> for crate::generated::gapic::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig {
+    type Output = bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig;
+    fn to_proto(self) -> std::result::Result<bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            restricted: self.restricted.map(|v| v.to_proto()).transpose()?,
+            effective_time: self.effective_time.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig> for bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic::model::bucket::encryption::CustomerSuppliedEncryptionEnforcementConfig::new()
+                .set_or_clear_restricted(self.restricted.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_effective_time(self.effective_time.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<bucket::Encryption> for crate::generated::gapic::model::bucket::Encryption {
     type Output = bucket::Encryption;
     fn to_proto(self) -> std::result::Result<bucket::Encryption, gaxi::prost::ConvertError> {
         Ok(Self::Output {
             default_kms_key: self.default_kms_key.to_proto()?,
+            google_managed_encryption_enforcement_config: self.google_managed_encryption_enforcement_config.map(|v| v.to_proto()).transpose()?,
+            customer_managed_encryption_enforcement_config: self.customer_managed_encryption_enforcement_config.map(|v| v.to_proto()).transpose()?,
+            customer_supplied_encryption_enforcement_config: self.customer_supplied_encryption_enforcement_config.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -679,6 +746,9 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::Encryption> 
         Ok(
             crate::generated::gapic::model::bucket::Encryption::new()
                 .set_default_kms_key(self.default_kms_key)
+                .set_or_clear_google_managed_encryption_enforcement_config(self.google_managed_encryption_enforcement_config.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_customer_managed_encryption_enforcement_config(self.customer_managed_encryption_enforcement_config.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_customer_supplied_encryption_enforcement_config(self.customer_supplied_encryption_enforcement_config.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -851,6 +921,24 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::Logging> for
             crate::generated::gapic::model::bucket::Logging::new()
                 .set_log_bucket(self.log_bucket)
                 .set_log_object_prefix(self.log_object_prefix)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<bucket::ObjectRetention> for crate::generated::gapic::model::bucket::ObjectRetention {
+    type Output = bucket::ObjectRetention;
+    fn to_proto(self) -> std::result::Result<bucket::ObjectRetention, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            enabled: self.enabled.to_proto()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::ObjectRetention> for bucket::ObjectRetention {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::bucket::ObjectRetention, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic::model::bucket::ObjectRetention::new()
+                .set_enabled(self.enabled)
         )
     }
 }
@@ -1038,6 +1126,7 @@ impl gaxi::prost::ToProto<bucket::IpFilter> for crate::generated::gapic::model::
                 .map(|v| v.to_proto())
                 .collect::<std::result::Result<std::vec::Vec<_>, _>>()?,
             allow_cross_org_vpcs: self.allow_cross_org_vpcs.to_proto()?,
+            allow_all_service_agent_access: self.allow_all_service_agent_access.map(|v| v.to_proto()).transpose()?,
         })
     }
 }
@@ -1051,6 +1140,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::bucket::IpFilter> fo
                 .set_vpc_network_sources(self.vpc_network_sources.into_iter().map(|v| v.cnv())
                     .collect::<std::result::Result<std::vec::Vec<_>, _>>()?)
                 .set_allow_cross_org_vpcs(self.allow_cross_org_vpcs)
+                .set_or_clear_allow_all_service_agent_access(self.allow_all_service_agent_access.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -1120,6 +1210,7 @@ impl gaxi::prost::ToProto<Bucket> for crate::generated::gapic::model::Bucket {
             autoclass: self.autoclass.map(|v| v.to_proto()).transpose()?,
             hierarchical_namespace: self.hierarchical_namespace.map(|v| v.to_proto()).transpose()?,
             soft_delete_policy: self.soft_delete_policy.map(|v| v.to_proto()).transpose()?,
+            object_retention: self.object_retention.map(|v| v.to_proto()).transpose()?,
             ip_filter: self.ip_filter.map(|v| v.to_proto()).transpose()?,
         })
     }
@@ -1165,6 +1256,7 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Bucket> for Bucket {
                 .set_or_clear_autoclass(self.autoclass.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_hierarchical_namespace(self.hierarchical_namespace.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_soft_delete_policy(self.soft_delete_policy.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_object_retention(self.object_retention.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_ip_filter(self.ip_filter.map(|v| v.cnv()).transpose()?)
         )
     }

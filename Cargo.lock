@@ -310,6 +310,17 @@ dependencies = [
 ]
 
 [[package]]
+name = "common"
+version = "0.0.0"
+dependencies = [
+ "bytes",
+ "google-cloud-wkt",
+ "serde",
+ "serde_json",
+ "serde_with",
+]
+
+[[package]]
 name = "const-oid"
 version = "0.9.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -4133,6 +4144,7 @@ dependencies = [
  "serde_with",
  "sha2",
  "test-case",
+ "thiserror",
  "tokio",
  "tokio-test",
  "tracing",
@@ -4650,6 +4662,7 @@ dependencies = [
  "base64",
  "bytes",
  "chrono",
+ "common",
  "google-cloud-wkt",
  "serde",
  "serde_json",

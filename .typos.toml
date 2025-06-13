@@ -99,8 +99,10 @@ createed     = "createed"
 # src/generated/cloud/dialogflow/cx/v3 has typos, they need to be fixed
 # upstream.
 verion = "verion"
-# src/generated/cloud/discoveryengine/v1 has a borderline word.
-inputed = "inputed"
+# src/generated/cloud/discoveryengine/v1 has some typos.
+inputed = "inputed" # borderline
+loggin  = "loggin"
+meida   = "meida"
 # src/generated/cloud/eventarc/v1 has a typo, it needs to be fixed upstream.
 enpdoint = "enpdoint"
 oder     = "oder"

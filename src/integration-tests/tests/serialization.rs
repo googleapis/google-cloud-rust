@@ -16,120 +16,22 @@
 
 #[cfg(test)]
 mod serialization {
-    type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
+    use anyhow::Result;
+    use serde_json::json;
 
+    // The generator introduces synthetic fields for some OpenAPI-based
+    // services. Those are skipped during serialization, we need a test to
+    // verify this is the case.
     #[test]
-    fn protobuf() -> Result<()> {
-        let secret =
-            sm::model::Secret::default().set_name("projects/p-test-only/secrets/s-test-only");
-        let got = serde_json::to_value(&secret)?;
-        let want = serde_json::json!({
-            "name": "projects/p-test-only/secrets/s-test-only"
-        });
+    fn skip_synthetic_fields() -> Result<()> {
+        use smo::model::{CreateSecretRequest, Secret};
+        let input = CreateSecretRequest::new()
+            .set_project("a-synthetic-field")
+            .set_secret_id("another-synthetic-field")
+            .set_request_body(Secret::new().set_labels([("test-name", "test-value")]));
+        let got = serde_json::to_value(input)?;
+        let want = json!({"requestBody": {"labels": {"test-name": "test-value"}}});
         assert_eq!(got, want);
-        Ok(())
-    }
-
-    #[test]
-    fn respects_protobuf_presence() -> Result<()> {
-        let message = sm::model::SecretPayload::default().set_data_crc32c(0);
-        let got = serde_json::to_value(&message)?;
-        let want = serde_json::json!({
-            "dataCrc32c": "0"
-        });
-        assert_eq!(got, want);
-        Ok(())
-    }
-
-    #[test]
-    fn serde_with_float() -> Result<()> {
-        let generation_config =
-            aiplatform::model::GenerationConfig::default().set_temperature(9876.5);
-        let got = serde_json::to_value(&generation_config)?;
-        let want = serde_json::json!({
-            "temperature": 9876.5_f32
-        });
-        assert_eq!(got, want);
-        let rt = serde_json::from_value(got)?;
-        assert_eq!(generation_config, rt);
-        let generation_config = generation_config.set_temperature(f32::INFINITY);
-        let got = serde_json::to_value(&generation_config)?;
-        let want = serde_json::json!({
-            "temperature": "Infinity"
-        });
-        assert_eq!(got, want);
-        let rt = serde_json::from_value(got)?;
-        assert_eq!(generation_config, rt);
-        Ok(())
-    }
-
-    #[test]
-    fn serde_with_double() -> Result<()> {
-        let logging_config =
-            aiplatform::model::PredictRequestResponseLoggingConfig::default().set_sampling_rate(53);
-        let got = serde_json::to_value(&logging_config)?;
-        let want = serde_json::json!({
-            "samplingRate": 53_f64
-        });
-        assert_eq!(got, want);
-        let rt = serde_json::from_value(got)?;
-        assert_eq!(logging_config, rt);
-        let logging_config = logging_config.set_sampling_rate(f64::INFINITY);
-        let got = serde_json::to_value(&logging_config)?;
-        let want = serde_json::json!({
-            "samplingRate": "Infinity"
-        });
-        assert_eq!(got, want);
-        let rt = serde_json::from_value(got)?;
-        assert_eq!(logging_config, rt);
-        Ok(())
-    }
-
-    #[test]
-    fn serde_with_i64() -> Result<()> {
-        let completion_stats =
-            aiplatform::model::CompletionStats::default().set_successful_count(5);
-        let got = serde_json::to_value(&completion_stats)?;
-        let want = serde_json::json!({
-            "successfulCount": "5"
-        });
-        assert_eq!(got, want);
-        let rt = serde_json::from_value(got)?;
-        assert_eq!(completion_stats, rt);
-        Ok(())
-    }
-
-    #[test]
-    fn serde_with_oneof() -> Result<()> {
-        // Integer Value
-        let value = aiplatform::model::FeatureValue::default().set_int64_value(0);
-        let got = serde_json::to_value(&value)?;
-        let want = serde_json::json!({
-            "int64Value": "0"
-        });
-        assert_eq!(got, want);
-        let rt = serde_json::from_value(got)?;
-        assert_eq!(value, rt);
-        // Double Value
-        let value = value.set_double_value(f64::INFINITY);
-        let got = serde_json::to_value(&value)?;
-        let want = serde_json::json!({
-            "doubleValue": "Infinity"
-        });
-        assert_eq!(got, want);
-        let rt = serde_json::from_value(got)?;
-        assert_eq!(value, rt);
-        // Bytes Value
-        let value = value.set_bytes_value(bytes::Bytes::from(
-            "the quick brown fox jumps over the lazy dog",
-        ));
-        let got = serde_json::to_value(&value)?;
-        let want = serde_json::json!({
-            "bytesValue": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="
-        });
-        assert_eq!(got, want);
-        let rt = serde_json::from_value(got)?;
-        assert_eq!(value, rt);
         Ok(())
     }
 

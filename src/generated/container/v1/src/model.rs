@@ -46,6 +46,7 @@ pub struct LinuxNodeConfig {
     /// net.core.busy_read
     /// net.core.netdev_max_backlog
     /// net.core.rmem_max
+    /// net.core.rmem_default
     /// net.core.wmem_default
     /// net.core.wmem_max
     /// net.core.optmem_max
@@ -53,9 +54,16 @@ pub struct LinuxNodeConfig {
     /// net.ipv4.tcp_rmem
     /// net.ipv4.tcp_wmem
     /// net.ipv4.tcp_tw_reuse
+    /// net.netfilter.nf_conntrack_max
+    /// net.netfilter.nf_conntrack_buckets
+    /// net.netfilter.nf_conntrack_tcp_timeout_close_wait
+    /// net.netfilter.nf_conntrack_tcp_timeout_time_wait
+    /// net.netfilter.nf_conntrack_tcp_timeout_established
+    /// net.netfilter.nf_conntrack_acct
     /// kernel.shmmni
     /// kernel.shmmax
     /// kernel.shmall
+    /// vm.max_map_count
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub sysctls: std::collections::HashMap<std::string::String, std::string::String>,
@@ -337,13 +345,13 @@ pub mod linux_node_config {
 
 /// Parameters that can be configured on Windows nodes.
 /// Windows Node Config that define the parameters that will be used to
-/// configure the Windows node pool settings
+/// configure the Windows node pool settings.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct WindowsNodeConfig {
-    /// OSVersion specifies the Windows node config to be used on the node
+    /// OSVersion specifies the Windows node config to be used on the node.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub os_version: crate::model::windows_node_config::OSVersion,
@@ -396,11 +404,11 @@ pub mod windows_node_config {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum OSVersion {
-        /// When OSVersion is not specified
+        /// When OSVersion is not specified.
         Unspecified,
-        /// LTSC2019 specifies to use LTSC2019 as the Windows Servercore Base Image
+        /// LTSC2019 specifies to use LTSC2019 as the Windows Servercore Base Image.
         Ltsc2019,
-        /// LTSC2022 specifies to use LTSC2022 as the Windows Servercore Base Image
+        /// LTSC2022 specifies to use LTSC2022 as the Windows Servercore Base Image.
         Ltsc2022,
         /// If set, the enum was initialized with an unknown value.
         ///
@@ -531,6 +539,18 @@ pub struct NodeKubeletConfig {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cpu_manager_policy: std::string::String,
 
+    /// Optional. Controls Topology Manager configuration on the node.
+    /// For more information, see:
+    /// <https://kubernetes.io/docs/tasks/administer-cluster/topology-manager/>
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub topology_manager: std::option::Option<crate::model::TopologyManager>,
+
+    /// Optional. Controls NUMA-aware Memory Manager configuration on the
+    /// node. For more information, see:
+    /// <https://kubernetes.io/docs/tasks/administer-cluster/memory-manager/>
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub memory_manager: std::option::Option<crate::model::MemoryManager>,
+
     /// Enable CPU CFS quota enforcement for containers that specify CPU limits.
     ///
     /// This option is enabled by default which makes kubelet use CFS quota
@@ -568,6 +588,103 @@ pub struct NodeKubeletConfig {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub insecure_kubelet_readonly_port_enabled: std::option::Option<bool>,
 
+    /// Optional. Defines the percent of disk usage before which image garbage
+    /// collection is never run. Lowest disk usage to garbage collect to. The
+    /// percent is calculated as this field value out of 100.
+    ///
+    /// The value must be between 10 and 85, inclusive and smaller than
+    /// image_gc_high_threshold_percent.
+    ///
+    /// The default value is 80 if unspecified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
+    pub image_gc_low_threshold_percent: i32,
+
+    /// Optional. Defines the percent of disk usage after which image garbage
+    /// collection is always run. The percent is calculated as this field value out
+    /// of 100.
+    ///
+    /// The value must be between 10 and 85, inclusive and greater than
+    /// image_gc_low_threshold_percent.
+    ///
+    /// The default value is 85 if unspecified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
+    pub image_gc_high_threshold_percent: i32,
+
+    /// Optional. Defines the minimum age for an unused image before it is garbage
+    /// collected.
+    ///
+    /// The string must be a sequence of decimal numbers, each with optional
+    /// fraction and a unit suffix, such as "300s", "1.5h", and "2h45m". Valid time
+    /// units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
+    ///
+    /// The value must be a positive duration less than or equal to 2 minutes.
+    ///
+    /// The default value is "2m0s" if unspecified.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub image_minimum_gc_age: std::string::String,
+
+    /// Optional. Defines the maximum age an image can be unused before it is
+    /// garbage collected. The string must be a sequence of decimal numbers, each
+    /// with optional fraction and a unit suffix, such as "300s", "1.5h", and
+    /// "2h45m". Valid time units are "ns", "us" (or "µs"), "ms", "s", "m", "h".
+    ///
+    /// The value must be a positive duration greater than image_minimum_gc_age
+    /// or "0s".
+    ///
+    /// The default value is "0s" if unspecified, which disables this field,
+    /// meaning images won't be garbage collected based on being unused for too
+    /// long.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub image_maximum_gc_age: std::string::String,
+
+    /// Optional. Defines the maximum size of the container log file before it is
+    /// rotated. See
+    /// <https://kubernetes.io/docs/concepts/cluster-administration/logging/#log-rotation>
+    ///
+    /// Valid format is positive number + unit, e.g. 100Ki, 10Mi. Valid units are
+    /// Ki, Mi, Gi.
+    /// The value must be between 10Mi and 500Mi, inclusive.
+    ///
+    /// Note that the total container log size (container_log_max_size *
+    /// container_log_max_files) cannot exceed 1% of the total
+    /// storage of the node, to avoid disk pressure caused by log files.
+    ///
+    /// The default value is 10Mi if unspecified.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub container_log_max_size: std::string::String,
+
+    /// Optional. Defines the maximum number of container log files that can be
+    /// present for a container. See
+    /// <https://kubernetes.io/docs/concepts/cluster-administration/logging/#log-rotation>
+    ///
+    /// The value must be an integer between 2 and 10, inclusive.
+    /// The default value is 5 if unspecified.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
+    pub container_log_max_files: i32,
+
+    /// Optional. Defines a comma-separated allowlist of unsafe sysctls or sysctl
+    /// patterns (ending in `*`).
+    ///
+    /// The unsafe namespaced sysctl groups are `kernel.shm*`, `kernel.msg*`,
+    /// `kernel.sem`, `fs.mqueue.*`, and `net.*`. Leaving this allowlist empty
+    /// means they cannot be set on Pods.
+    ///
+    /// To allow certain sysctls or sysctl patterns to be set on Pods, list them
+    /// separated by commas.
+    /// For example: `kernel.msg*,net.ipv4.route.min_pmtu`.
+    ///
+    /// See <https://kubernetes.io/docs/tasks/administer-cluster/sysctl-cluster/>
+    /// for more details.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub allowed_unsafe_sysctls: std::vec::Vec<std::string::String>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -583,6 +700,42 @@ impl NodeKubeletConfig {
         v: T,
     ) -> Self {
         self.cpu_manager_policy = v.into();
+        self
+    }
+
+    /// Sets the value of [topology_manager][crate::model::NodeKubeletConfig::topology_manager].
+    pub fn set_topology_manager<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::TopologyManager>,
+    {
+        self.topology_manager = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [topology_manager][crate::model::NodeKubeletConfig::topology_manager].
+    pub fn set_or_clear_topology_manager<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::TopologyManager>,
+    {
+        self.topology_manager = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [memory_manager][crate::model::NodeKubeletConfig::memory_manager].
+    pub fn set_memory_manager<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::MemoryManager>,
+    {
+        self.memory_manager = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [memory_manager][crate::model::NodeKubeletConfig::memory_manager].
+    pub fn set_or_clear_memory_manager<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::MemoryManager>,
+    {
+        self.memory_manager = v.map(|x| x.into());
         self
     }
 
@@ -639,11 +792,182 @@ impl NodeKubeletConfig {
         self.insecure_kubelet_readonly_port_enabled = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [image_gc_low_threshold_percent][crate::model::NodeKubeletConfig::image_gc_low_threshold_percent].
+    pub fn set_image_gc_low_threshold_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.image_gc_low_threshold_percent = v.into();
+        self
+    }
+
+    /// Sets the value of [image_gc_high_threshold_percent][crate::model::NodeKubeletConfig::image_gc_high_threshold_percent].
+    pub fn set_image_gc_high_threshold_percent<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.image_gc_high_threshold_percent = v.into();
+        self
+    }
+
+    /// Sets the value of [image_minimum_gc_age][crate::model::NodeKubeletConfig::image_minimum_gc_age].
+    pub fn set_image_minimum_gc_age<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.image_minimum_gc_age = v.into();
+        self
+    }
+
+    /// Sets the value of [image_maximum_gc_age][crate::model::NodeKubeletConfig::image_maximum_gc_age].
+    pub fn set_image_maximum_gc_age<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.image_maximum_gc_age = v.into();
+        self
+    }
+
+    /// Sets the value of [container_log_max_size][crate::model::NodeKubeletConfig::container_log_max_size].
+    pub fn set_container_log_max_size<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.container_log_max_size = v.into();
+        self
+    }
+
+    /// Sets the value of [container_log_max_files][crate::model::NodeKubeletConfig::container_log_max_files].
+    pub fn set_container_log_max_files<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.container_log_max_files = v.into();
+        self
+    }
+
+    /// Sets the value of [allowed_unsafe_sysctls][crate::model::NodeKubeletConfig::allowed_unsafe_sysctls].
+    pub fn set_allowed_unsafe_sysctls<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.allowed_unsafe_sysctls = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for NodeKubeletConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.NodeKubeletConfig"
+    }
+}
+
+/// TopologyManager defines the configuration options for Topology Manager
+/// feature. See
+/// <https://kubernetes.io/docs/tasks/administer-cluster/topology-manager/>
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct TopologyManager {
+    /// Configures the strategy for resource alignment.
+    /// Allowed values are:
+    ///
+    /// * none: the default policy, and does not perform any topology alignment.
+    /// * restricted: the topology manager stores the preferred NUMA node affinity
+    ///   for the container, and will reject the pod if the affinity if not
+    ///   preferred.
+    /// * best-effort: the topology manager stores the preferred NUMA node affinity
+    ///   for the container. If the affinity is not preferred, the topology manager
+    ///   will admit the pod to the node anyway.
+    /// * single-numa-node: the topology manager determines if the single NUMA node
+    ///   affinity is possible. If it is, Topology Manager will store this and the
+    ///   Hint Providers can then use this information when making the resource
+    ///   allocation decision. If, however, this is not possible then the
+    ///   Topology Manager will reject the pod from the node. This will result in a
+    ///   pod in a Terminated state with a pod admission failure.
+    ///
+    /// The default policy value is 'none' if unspecified.
+    /// Details about each strategy can be found
+    /// [here](https://kubernetes.io/docs/tasks/administer-cluster/topology-manager/#topology-manager-policies).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub policy: std::string::String,
+
+    /// The Topology Manager aligns resources in following scopes:
+    ///
+    /// * container
+    /// * pod
+    ///
+    /// The default scope is 'container' if unspecified.
+    /// See
+    /// <https://kubernetes.io/docs/tasks/administer-cluster/topology-manager/#topology-manager-scopes>
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub scope: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl TopologyManager {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [policy][crate::model::TopologyManager::policy].
+    pub fn set_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.policy = v.into();
+        self
+    }
+
+    /// Sets the value of [scope][crate::model::TopologyManager::scope].
+    pub fn set_scope<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.scope = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for TopologyManager {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.TopologyManager"
+    }
+}
+
+/// The option enables the Kubernetes NUMA-aware Memory Manager feature.
+/// Detailed description about the feature can be found
+/// [here](https://kubernetes.io/docs/tasks/administer-cluster/memory-manager/).
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct MemoryManager {
+    /// Controls the memory management policy on the Node.
+    /// See
+    /// <https://kubernetes.io/docs/tasks/administer-cluster/memory-manager/#policies>
+    ///
+    /// The following values are allowed.
+    ///
+    /// * "none"
+    /// * "static"
+    ///   The default value is 'none' if unspecified.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub policy: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl MemoryManager {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [policy][crate::model::MemoryManager::policy].
+    pub fn set_policy<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.policy = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for MemoryManager {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.MemoryManager"
     }
 }
 
@@ -945,8 +1269,13 @@ pub struct NodeConfig {
     pub secondary_boot_disk_update_strategy:
         std::option::Option<crate::model::SecondaryBootDiskUpdateStrategy>,
 
+    /// The maximum duration for the nodes to exist.
+    /// If unspecified, the nodes can exist indefinitely.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub max_run_duration: std::option::Option<wkt::Duration>,
+
     /// Specifies which method should be used for encrypting the
-    /// Local SSDs attahced to the node.
+    /// Local SSDs attached to the node.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub local_ssd_encryption_mode:
         std::option::Option<crate::model::node_config::LocalSsdEncryptionMode>,
@@ -958,6 +1287,10 @@ pub struct NodeConfig {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub effective_cgroup_mode: crate::model::node_config::EffectiveCgroupMode,
+
+    /// Flex Start flag for enabling Flex Start VM.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub flex_start: std::option::Option<bool>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1496,6 +1829,24 @@ impl NodeConfig {
         self
     }
 
+    /// Sets the value of [max_run_duration][crate::model::NodeConfig::max_run_duration].
+    pub fn set_max_run_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_run_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_run_duration][crate::model::NodeConfig::max_run_duration].
+    pub fn set_or_clear_max_run_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_run_duration = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [local_ssd_encryption_mode][crate::model::NodeConfig::local_ssd_encryption_mode].
     pub fn set_local_ssd_encryption_mode<T>(mut self, v: T) -> Self
     where
@@ -1522,6 +1873,24 @@ impl NodeConfig {
         v: T,
     ) -> Self {
         self.effective_cgroup_mode = v.into();
+        self
+    }
+
+    /// Sets the value of [flex_start][crate::model::NodeConfig::flex_start].
+    pub fn set_flex_start<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.flex_start = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [flex_start][crate::model::NodeConfig::flex_start].
+    pub fn set_or_clear_flex_start<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.flex_start = v.map(|x| x.into());
         self
     }
 }
@@ -1834,6 +2203,12 @@ pub struct AdvancedMachineFeatures {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub enable_nested_virtualization: std::option::Option<bool>,
 
+    /// Type of Performance Monitoring Unit (PMU) requested on node pool instances.
+    /// If unset, PMU will not be available to the node.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub performance_monitoring_unit:
+        std::option::Option<crate::model::advanced_machine_features::PerformanceMonitoringUnit>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -1878,11 +2253,178 @@ impl AdvancedMachineFeatures {
         self.enable_nested_virtualization = v.map(|x| x.into());
         self
     }
+
+    /// Sets the value of [performance_monitoring_unit][crate::model::AdvancedMachineFeatures::performance_monitoring_unit].
+    pub fn set_performance_monitoring_unit<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::advanced_machine_features::PerformanceMonitoringUnit>,
+    {
+        self.performance_monitoring_unit = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [performance_monitoring_unit][crate::model::AdvancedMachineFeatures::performance_monitoring_unit].
+    pub fn set_or_clear_performance_monitoring_unit<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::advanced_machine_features::PerformanceMonitoringUnit>,
+    {
+        self.performance_monitoring_unit = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for AdvancedMachineFeatures {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.AdvancedMachineFeatures"
+    }
+}
+
+/// Defines additional types related to [AdvancedMachineFeatures].
+pub mod advanced_machine_features {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Level of PMU access
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PerformanceMonitoringUnit {
+        /// PMU not enabled.
+        Unspecified,
+        /// Architecturally defined non-LLC events.
+        Architectural,
+        /// Most documented core/L2 events.
+        Standard,
+        /// Most documented core/L2 and LLC events.
+        Enhanced,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [PerformanceMonitoringUnit::value] or
+        /// [PerformanceMonitoringUnit::name].
+        UnknownValue(performance_monitoring_unit::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod performance_monitoring_unit {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl PerformanceMonitoringUnit {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Architectural => std::option::Option::Some(1),
+                Self::Standard => std::option::Option::Some(2),
+                Self::Enhanced => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("PERFORMANCE_MONITORING_UNIT_UNSPECIFIED")
+                }
+                Self::Architectural => std::option::Option::Some("ARCHITECTURAL"),
+                Self::Standard => std::option::Option::Some("STANDARD"),
+                Self::Enhanced => std::option::Option::Some("ENHANCED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for PerformanceMonitoringUnit {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for PerformanceMonitoringUnit {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for PerformanceMonitoringUnit {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Architectural,
+                2 => Self::Standard,
+                3 => Self::Enhanced,
+                _ => Self::UnknownValue(performance_monitoring_unit::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for PerformanceMonitoringUnit {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "PERFORMANCE_MONITORING_UNIT_UNSPECIFIED" => Self::Unspecified,
+                "ARCHITECTURAL" => Self::Architectural,
+                "STANDARD" => Self::Standard,
+                "ENHANCED" => Self::Enhanced,
+                _ => Self::UnknownValue(performance_monitoring_unit::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for PerformanceMonitoringUnit {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Architectural => serializer.serialize_i32(1),
+                Self::Standard => serializer.serialize_i32(2),
+                Self::Enhanced => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for PerformanceMonitoringUnit {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<PerformanceMonitoringUnit>::new(
+                    ".google.container.v1.AdvancedMachineFeatures.PerformanceMonitoringUnit",
+                ),
+            )
+        }
     }
 }
 
@@ -3261,7 +3803,7 @@ pub mod containerd_config {
 
             /// List of fully qualified domain names (FQDN).
             /// Specifying port is supported.
-            /// Wilcards are NOT supported.
+            /// Wildcards are NOT supported.
             /// Examples:
             ///
             /// - my.customdomain.com
@@ -4006,6 +4548,11 @@ pub struct AddonsConfig {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub ray_operator_config: std::option::Option<crate::model::RayOperatorConfig>,
 
+    /// Configuration for the High Scale Checkpointing add-on.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub high_scale_checkpointing_config:
+        std::option::Option<crate::model::HighScaleCheckpointingConfig>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -4275,6 +4822,27 @@ impl AddonsConfig {
         T: std::convert::Into<crate::model::RayOperatorConfig>,
     {
         self.ray_operator_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [high_scale_checkpointing_config][crate::model::AddonsConfig::high_scale_checkpointing_config].
+    pub fn set_high_scale_checkpointing_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::HighScaleCheckpointingConfig>,
+    {
+        self.high_scale_checkpointing_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [high_scale_checkpointing_config][crate::model::AddonsConfig::high_scale_checkpointing_config].
+    pub fn set_or_clear_high_scale_checkpointing_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::HighScaleCheckpointingConfig>,
+    {
+        self.high_scale_checkpointing_config = v.map(|x| x.into());
         self
     }
 }
@@ -5076,6 +5644,40 @@ impl wkt::message::Message for ParallelstoreCsiDriverConfig {
     }
 }
 
+/// Configuration for the High Scale Checkpointing.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct HighScaleCheckpointingConfig {
+    /// Whether the High Scale Checkpointing is enabled for this
+    /// cluster.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub enabled: bool,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl HighScaleCheckpointingConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [enabled][crate::model::HighScaleCheckpointingConfig::enabled].
+    pub fn set_enabled<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.enabled = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for HighScaleCheckpointingConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.HighScaleCheckpointingConfig"
+    }
+}
+
 /// Configuration options for the Ray Operator add-on.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -5243,7 +5845,7 @@ pub struct MasterAuthorizedNetworksConfig {
     #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub cidr_blocks: std::vec::Vec<crate::model::master_authorized_networks_config::CidrBlock>,
 
-    /// Whether master is accessbile via Google Compute Engine Public IP addresses.
+    /// Whether master is accessible via Google Compute Engine Public IP addresses.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub gcp_public_cidrs_access_enabled: std::option::Option<bool>,
 
@@ -5965,8 +6567,12 @@ pub struct IPAllocationPolicy {
     /// notation (e.g. `10.96.0.0/14`) from the RFC-1918 private networks (e.g.
     /// `10.0.0.0/8`, `172.16.0.0/12`, `192.168.0.0/16`) to pick a specific range
     /// to use.
+    ///
+    /// This field is deprecated due to the deprecation of 2VM TPU. The end of life
+    /// date for 2VM TPU is 2025-04-25.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    #[deprecated]
     pub tpu_ipv4_cidr_block: std::string::String,
 
     /// Whether routes will be used for pod IPs in the cluster.
@@ -6127,6 +6733,7 @@ impl IPAllocationPolicy {
     }
 
     /// Sets the value of [tpu_ipv4_cidr_block][crate::model::IPAllocationPolicy::tpu_ipv4_cidr_block].
+    #[deprecated]
     pub fn set_tpu_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -6307,7 +6914,7 @@ pub struct Cluster {
     /// The monitoring service the cluster should use to write metrics.
     /// Currently available options:
     ///
-    /// * "monitoring.googleapis.com/kubernetes" - The Cloud Monitoring
+    /// * `monitoring.googleapis.com/kubernetes` - The Cloud Monitoring
     ///   service with a Kubernetes-native resource model
     /// * `monitoring.googleapis.com` - The legacy Cloud Monitoring service (no
     ///   longer available as of GKE 1.15).
@@ -6377,6 +6984,13 @@ pub struct Cluster {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_kubernetes_alpha: bool,
+
+    /// The list of user specified Kubernetes feature gates.
+    /// Each string represents the activation status of a feature gate (e.g.
+    /// "featureX=true" or "featureX=false")
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub alpha_cluster_feature_gates: std::vec::Vec<std::string::String>,
 
     /// The resource labels for the cluster to use to annotate any related
     /// Google Compute Engine resources.
@@ -6616,15 +7230,21 @@ pub struct Cluster {
     pub location: std::string::String,
 
     /// Enable the ability to use Cloud TPUs in this cluster.
+    /// This field is deprecated due to the deprecation of 2VM TPU. The end of life
+    /// date for 2VM TPU is 2025-04-25.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    #[deprecated]
     pub enable_tpu: bool,
 
     /// Output only. The IP address range of the Cloud TPUs in this cluster, in
     /// [CIDR](http://en.wikipedia.org/wiki/Classless_Inter-Domain_Routing)
     /// notation (e.g. `1.2.3.4/29`).
+    /// This field is deprecated due to the deprecation of 2VM TPU. The end of life
+    /// date for 2VM TPU is 2025-04-25.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    #[deprecated]
     pub tpu_ipv4_cidr_block: std::string::String,
 
     /// Which conditions caused the current cluster state.
@@ -6658,6 +7278,10 @@ pub struct Cluster {
     /// in autopilot clusters and node auto-provisioning enabled clusters.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub node_pool_auto_config: std::option::Option<crate::model::NodePoolAutoConfig>,
+
+    /// The config for pod autoscaling.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub pod_autoscaling: std::option::Option<crate::model::PodAutoscaling>,
 
     /// This checksum is computed by the server based on the value of cluster
     /// fields, and may be sent on update requests to ensure the client has an
@@ -6712,6 +7336,12 @@ pub struct Cluster {
     /// RoleBindings that can be created.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rbac_binding_config: std::option::Option<crate::model::RBACBindingConfig>,
+
+    /// Configuration for limiting anonymous access to all endpoints except the
+    /// health checks.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub anonymous_authentication_config:
+        std::option::Option<crate::model::AnonymousAuthenticationConfig>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -6858,6 +7488,17 @@ impl Cluster {
     /// Sets the value of [enable_kubernetes_alpha][crate::model::Cluster::enable_kubernetes_alpha].
     pub fn set_enable_kubernetes_alpha<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_kubernetes_alpha = v.into();
+        self
+    }
+
+    /// Sets the value of [alpha_cluster_feature_gates][crate::model::Cluster::alpha_cluster_feature_gates].
+    pub fn set_alpha_cluster_feature_gates<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.alpha_cluster_feature_gates = v.into_iter().map(|i| i.into()).collect();
         self
     }
 
@@ -7399,12 +8040,14 @@ impl Cluster {
     }
 
     /// Sets the value of [enable_tpu][crate::model::Cluster::enable_tpu].
+    #[deprecated]
     pub fn set_enable_tpu<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
         self.enable_tpu = v.into();
         self
     }
 
     /// Sets the value of [tpu_ipv4_cidr_block][crate::model::Cluster::tpu_ipv4_cidr_block].
+    #[deprecated]
     pub fn set_tpu_ipv4_cidr_block<T: std::convert::Into<std::string::String>>(
         mut self,
         v: T,
@@ -7517,6 +8160,24 @@ impl Cluster {
         T: std::convert::Into<crate::model::NodePoolAutoConfig>,
     {
         self.node_pool_auto_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [pod_autoscaling][crate::model::Cluster::pod_autoscaling].
+    pub fn set_pod_autoscaling<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PodAutoscaling>,
+    {
+        self.pod_autoscaling = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [pod_autoscaling][crate::model::Cluster::pod_autoscaling].
+    pub fn set_or_clear_pod_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PodAutoscaling>,
+    {
+        self.pod_autoscaling = v.map(|x| x.into());
         self
     }
 
@@ -7724,6 +8385,27 @@ impl Cluster {
         T: std::convert::Into<crate::model::RBACBindingConfig>,
     {
         self.rbac_binding_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [anonymous_authentication_config][crate::model::Cluster::anonymous_authentication_config].
+    pub fn set_anonymous_authentication_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AnonymousAuthenticationConfig>,
+    {
+        self.anonymous_authentication_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [anonymous_authentication_config][crate::model::Cluster::anonymous_authentication_config].
+    pub fn set_or_clear_anonymous_authentication_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::AnonymousAuthenticationConfig>,
+    {
+        self.anonymous_authentication_config = v.map(|x| x.into());
         self
     }
 }
@@ -8118,6 +8800,29 @@ impl UserManagedKeysConfig {
 impl wkt::message::Message for UserManagedKeysConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.UserManagedKeysConfig"
+    }
+}
+
+/// AnonymousAuthenticationConfig defines the settings needed to limit endpoints
+/// that allow anonymous authentication.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AnonymousAuthenticationConfig {
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AnonymousAuthenticationConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+}
+
+impl wkt::message::Message for AnonymousAuthenticationConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.AnonymousAuthenticationConfig"
     }
 }
 
@@ -9057,7 +9762,7 @@ pub struct ClusterUpdate {
     /// The monitoring service the cluster should use to write metrics.
     /// Currently available options:
     ///
-    /// * "monitoring.googleapis.com/kubernetes" - The Cloud Monitoring
+    /// * `monitoring.googleapis.com/kubernetes` - The Cloud Monitoring
     ///   service with a Kubernetes-native resource model
     /// * `monitoring.googleapis.com` - The legacy Cloud Monitoring service (no
     ///   longer available as of GKE 1.15).
@@ -9295,6 +10000,10 @@ pub struct ClusterUpdate {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub desired_node_pool_auto_config_network_tags: std::option::Option<crate::model::NetworkTags>,
 
+    /// The desired config for pod autoscaling.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub desired_pod_autoscaling: std::option::Option<crate::model::PodAutoscaling>,
+
     /// The desired config of Gateway API on this cluster.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub desired_gateway_api_config: std::option::Option<crate::model::GatewayAPIConfig>,
@@ -9351,7 +10060,7 @@ pub struct ClusterUpdate {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub desired_enable_fqdn_network_policy: std::option::Option<bool>,
 
-    /// The desired workload policy configuration for the autopilot cluster.
+    /// WorkloadPolicyConfig is the configuration related to GCW workload policy
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub desired_autopilot_workload_policy_config:
         std::option::Option<crate::model::WorkloadPolicyConfig>,
@@ -9416,6 +10125,10 @@ pub struct ClusterUpdate {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub desired_enterprise_config: std::option::Option<crate::model::DesiredEnterpriseConfig>,
 
+    /// Enable/Disable L4 LB VPC firewall reconciliation for the cluster.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub desired_disable_l4_lb_firewall_reconciliation: std::option::Option<bool>,
+
     /// The desired Linux node config for all auto-provisioned node pools
     /// in autopilot clusters and node auto-provisioning enabled clusters.
     ///
@@ -9423,6 +10136,12 @@ pub struct ClusterUpdate {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub desired_node_pool_auto_config_linux_node_config:
         std::option::Option<crate::model::LinuxNodeConfig>,
+
+    /// Configuration for limiting anonymous access to all endpoints except the
+    /// health checks.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub desired_anonymous_authentication_config:
+        std::option::Option<crate::model::AnonymousAuthenticationConfig>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10094,6 +10813,24 @@ impl ClusterUpdate {
         self
     }
 
+    /// Sets the value of [desired_pod_autoscaling][crate::model::ClusterUpdate::desired_pod_autoscaling].
+    pub fn set_desired_pod_autoscaling<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PodAutoscaling>,
+    {
+        self.desired_pod_autoscaling = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_pod_autoscaling][crate::model::ClusterUpdate::desired_pod_autoscaling].
+    pub fn set_or_clear_desired_pod_autoscaling<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PodAutoscaling>,
+    {
+        self.desired_pod_autoscaling = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [desired_gateway_api_config][crate::model::ClusterUpdate::desired_gateway_api_config].
     pub fn set_desired_gateway_api_config<T>(mut self, v: T) -> Self
     where
@@ -10563,6 +11300,27 @@ impl ClusterUpdate {
         self
     }
 
+    /// Sets the value of [desired_disable_l4_lb_firewall_reconciliation][crate::model::ClusterUpdate::desired_disable_l4_lb_firewall_reconciliation].
+    pub fn set_desired_disable_l4_lb_firewall_reconciliation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.desired_disable_l4_lb_firewall_reconciliation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_disable_l4_lb_firewall_reconciliation][crate::model::ClusterUpdate::desired_disable_l4_lb_firewall_reconciliation].
+    pub fn set_or_clear_desired_disable_l4_lb_firewall_reconciliation<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.desired_disable_l4_lb_firewall_reconciliation = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [desired_node_pool_auto_config_linux_node_config][crate::model::ClusterUpdate::desired_node_pool_auto_config_linux_node_config].
     pub fn set_desired_node_pool_auto_config_linux_node_config<T>(mut self, v: T) -> Self
     where
@@ -10581,6 +11339,27 @@ impl ClusterUpdate {
         T: std::convert::Into<crate::model::LinuxNodeConfig>,
     {
         self.desired_node_pool_auto_config_linux_node_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [desired_anonymous_authentication_config][crate::model::ClusterUpdate::desired_anonymous_authentication_config].
+    pub fn set_desired_anonymous_authentication_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AnonymousAuthenticationConfig>,
+    {
+        self.desired_anonymous_authentication_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [desired_anonymous_authentication_config][crate::model::ClusterUpdate::desired_anonymous_authentication_config].
+    pub fn set_or_clear_desired_anonymous_authentication_config<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<crate::model::AnonymousAuthenticationConfig>,
+    {
+        self.desired_anonymous_authentication_config = v.map(|x| x.into());
         self
     }
 }
@@ -11162,19 +11941,20 @@ pub mod operation {
         /// The cluster is being created. The cluster should be assumed to be
         /// unusable until the operation finishes.
         ///
-        /// In the event of the operation failing, the cluster will enter the [ERROR
-        /// state][Cluster.Status.ERROR] and eventually be deleted.
+        /// In the event of the operation failing, the cluster will enter the
+        /// [ERROR state][google.container.v1.Cluster.Status.ERROR] and eventually be
+        /// deleted.
         ///
-        /// [Cluster.Status.ERROR]: crate::model::cluster::Status::Error
+        /// [google.container.v1.Cluster.Status.ERROR]: crate::model::cluster::Status::Error
         CreateCluster,
         /// The cluster is being deleted. The cluster should be assumed to be
         /// unusable as soon as this operation starts.
         ///
-        /// In the event of the operation failing, the cluster will enter the [ERROR
-        /// state][Cluster.Status.ERROR] and the deletion will be automatically
-        /// retried until completed.
+        /// In the event of the operation failing, the cluster will enter the
+        /// [ERROR state][google.container.v1.Cluster.Status.ERROR] and the deletion
+        /// will be automatically retried until completed.
         ///
-        /// [Cluster.Status.ERROR]: crate::model::cluster::Status::Error
+        /// [google.container.v1.Cluster.Status.ERROR]: crate::model::cluster::Status::Error
         DeleteCluster,
         /// The [cluster
         /// version][google.container.v1.ClusterUpdate.desired_master_version] is
@@ -12191,6 +12971,15 @@ pub struct UpdateNodePoolRequest {
     #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub storage_pools: std::vec::Vec<std::string::String>,
 
+    /// The maximum duration for the nodes to exist.
+    /// If unspecified, the nodes can exist indefinitely.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub max_run_duration: std::option::Option<wkt::Duration>,
+
+    /// Flex Start flag for enabling Flex Start VM.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub flex_start: std::option::Option<bool>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -12626,6 +13415,42 @@ impl UpdateNodePoolRequest {
         self.storage_pools = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [max_run_duration][crate::model::UpdateNodePoolRequest::max_run_duration].
+    pub fn set_max_run_duration<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_run_duration = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [max_run_duration][crate::model::UpdateNodePoolRequest::max_run_duration].
+    pub fn set_or_clear_max_run_duration<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.max_run_duration = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [flex_start][crate::model::UpdateNodePoolRequest::flex_start].
+    pub fn set_flex_start<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.flex_start = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [flex_start][crate::model::UpdateNodePoolRequest::flex_start].
+    pub fn set_or_clear_flex_start<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.flex_start = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for UpdateNodePoolRequest {
@@ -12883,7 +13708,7 @@ pub struct SetMonitoringServiceRequest {
     /// Required. The monitoring service the cluster should use to write metrics.
     /// Currently available options:
     ///
-    /// * "monitoring.googleapis.com/kubernetes" - The Cloud Monitoring
+    /// * `monitoring.googleapis.com/kubernetes` - The Cloud Monitoring
     ///   service with a Kubernetes-native resource model
     /// * `monitoring.googleapis.com` - The legacy Cloud Monitoring service (no
     ///   longer available as of GKE 1.15).
@@ -17737,7 +18562,7 @@ pub struct AutoprovisioningNodePoolDefaults {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub image_type: std::string::String,
 
-    /// Enable or disable Kubelet read only port.
+    /// DEPRECATED. Use NodePoolAutoConfig.NodeKubeletConfig instead.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub insecure_kubelet_readonly_port_enabled: std::option::Option<bool>,
 
@@ -19549,6 +20374,8 @@ pub mod status_condition {
         CloudKmsKeyError,
         /// Cluster CA is expiring soon.
         CaExpiring,
+        /// Node service account is missing permissions.
+        NodeServiceAccountMissingPermissions,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Code::value] or
@@ -19578,6 +20405,7 @@ pub mod status_condition {
                 Self::SetByOperator => std::option::Option::Some(4),
                 Self::CloudKmsKeyError => std::option::Option::Some(7),
                 Self::CaExpiring => std::option::Option::Some(9),
+                Self::NodeServiceAccountMissingPermissions => std::option::Option::Some(10),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -19597,6 +20425,9 @@ pub mod status_condition {
                 Self::SetByOperator => std::option::Option::Some("SET_BY_OPERATOR"),
                 Self::CloudKmsKeyError => std::option::Option::Some("CLOUD_KMS_KEY_ERROR"),
                 Self::CaExpiring => std::option::Option::Some("CA_EXPIRING"),
+                Self::NodeServiceAccountMissingPermissions => {
+                    std::option::Option::Some("NODE_SERVICE_ACCOUNT_MISSING_PERMISSIONS")
+                }
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -19625,6 +20456,7 @@ pub mod status_condition {
                 4 => Self::SetByOperator,
                 7 => Self::CloudKmsKeyError,
                 9 => Self::CaExpiring,
+                10 => Self::NodeServiceAccountMissingPermissions,
                 _ => Self::UnknownValue(code::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -19643,6 +20475,9 @@ pub mod status_condition {
                 "SET_BY_OPERATOR" => Self::SetByOperator,
                 "CLOUD_KMS_KEY_ERROR" => Self::CloudKmsKeyError,
                 "CA_EXPIRING" => Self::CaExpiring,
+                "NODE_SERVICE_ACCOUNT_MISSING_PERMISSIONS" => {
+                    Self::NodeServiceAccountMissingPermissions
+                }
                 _ => Self::UnknownValue(code::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -19663,6 +20498,7 @@ pub mod status_condition {
                 Self::SetByOperator => serializer.serialize_i32(4),
                 Self::CloudKmsKeyError => serializer.serialize_i32(7),
                 Self::CaExpiring => serializer.serialize_i32(9),
+                Self::NodeServiceAccountMissingPermissions => serializer.serialize_i32(10),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -19780,6 +20616,10 @@ pub struct NetworkConfig {
     /// [google.container.v1.ClusterUpdate.desired_default_enable_private_nodes]: crate::model::ClusterUpdate::desired_default_enable_private_nodes
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub default_enable_private_nodes: std::option::Option<bool>,
+
+    /// Disable L4 load balancer VPC firewalls to enable firewall policies.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub disable_l4_lb_firewall_reconciliation: std::option::Option<bool>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -20002,6 +20842,27 @@ impl NetworkConfig {
         T: std::convert::Into<bool>,
     {
         self.default_enable_private_nodes = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [disable_l4_lb_firewall_reconciliation][crate::model::NetworkConfig::disable_l4_lb_firewall_reconciliation].
+    pub fn set_disable_l4_lb_firewall_reconciliation<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.disable_l4_lb_firewall_reconciliation = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [disable_l4_lb_firewall_reconciliation][crate::model::NetworkConfig::disable_l4_lb_firewall_reconciliation].
+    pub fn set_or_clear_disable_l4_lb_firewall_reconciliation<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.disable_l4_lb_firewall_reconciliation = v.map(|x| x.into());
         self
     }
 }
@@ -20470,31 +21331,37 @@ pub struct GetOpenIDConfigResponse {
     pub issuer: std::string::String,
 
     /// JSON Web Key uri.
+    #[serde(rename = "jwks_uri")]
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub jwks_uri: std::string::String,
 
     /// Supported response types.
+    #[serde(rename = "response_types_supported")]
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub response_types_supported: std::vec::Vec<std::string::String>,
 
     /// Supported subject types.
+    #[serde(rename = "subject_types_supported")]
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub subject_types_supported: std::vec::Vec<std::string::String>,
 
     /// supported ID Token signing Algorithms.
+    #[serde(rename = "id_token_signing_alg_values_supported")]
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub id_token_signing_alg_values_supported: std::vec::Vec<std::string::String>,
 
     /// Supported claims.
+    #[serde(rename = "claims_supported")]
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub claims_supported: std::vec::Vec<std::string::String>,
 
     /// Supported grant types.
+    #[serde(rename = "grant_types")]
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub grant_types: std::vec::Vec<std::string::String>,
@@ -20741,7 +21608,7 @@ impl wkt::message::Message for Jwk {
     }
 }
 
-/// GetJSONWebKeysResponse is a valid JSON Web Key Set as specififed in rfc 7517
+/// GetJSONWebKeysResponse is a valid JSON Web Key Set as specified in rfc 7517
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -20841,7 +21708,7 @@ pub struct AutopilotCompatibilityIssue {
     #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub subjects: std::vec::Vec<std::string::String>,
 
-    /// A URL to a public documnetation, which addresses resolving this issue.
+    /// A URL to a public documentation, which addresses resolving this issue.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub documentation_url: std::string::String,
@@ -23389,6 +24256,8 @@ pub mod notification_config {
         UpgradeEvent,
         /// Corresponds with SecurityBulletinEvent.
         SecurityBulletinEvent,
+        /// Corresponds with UpgradeInfoEvent.
+        UpgradeInfoEvent,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [EventType::value] or
@@ -23415,6 +24284,7 @@ pub mod notification_config {
                 Self::UpgradeAvailableEvent => std::option::Option::Some(1),
                 Self::UpgradeEvent => std::option::Option::Some(2),
                 Self::SecurityBulletinEvent => std::option::Option::Some(3),
+                Self::UpgradeInfoEvent => std::option::Option::Some(4),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -23429,6 +24299,7 @@ pub mod notification_config {
                 Self::UpgradeAvailableEvent => std::option::Option::Some("UPGRADE_AVAILABLE_EVENT"),
                 Self::UpgradeEvent => std::option::Option::Some("UPGRADE_EVENT"),
                 Self::SecurityBulletinEvent => std::option::Option::Some("SECURITY_BULLETIN_EVENT"),
+                Self::UpgradeInfoEvent => std::option::Option::Some("UPGRADE_INFO_EVENT"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -23454,6 +24325,7 @@ pub mod notification_config {
                 1 => Self::UpgradeAvailableEvent,
                 2 => Self::UpgradeEvent,
                 3 => Self::SecurityBulletinEvent,
+                4 => Self::UpgradeInfoEvent,
                 _ => Self::UnknownValue(event_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -23469,6 +24341,7 @@ pub mod notification_config {
                 "UPGRADE_AVAILABLE_EVENT" => Self::UpgradeAvailableEvent,
                 "UPGRADE_EVENT" => Self::UpgradeEvent,
                 "SECURITY_BULLETIN_EVENT" => Self::SecurityBulletinEvent,
+                "UPGRADE_INFO_EVENT" => Self::UpgradeInfoEvent,
                 _ => Self::UnknownValue(event_type::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -23486,6 +24359,7 @@ pub mod notification_config {
                 Self::UpgradeAvailableEvent => serializer.serialize_i32(1),
                 Self::UpgradeEvent => serializer.serialize_i32(2),
                 Self::SecurityBulletinEvent => serializer.serialize_i32(3),
+                Self::UpgradeInfoEvent => serializer.serialize_i32(4),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -23515,6 +24389,11 @@ pub struct ConfidentialNodes {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enabled: bool,
 
+    /// Defines the type of technology used by the confidential node.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub confidential_instance_type: crate::model::confidential_nodes::ConfidentialInstanceType,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -23529,11 +24408,171 @@ impl ConfidentialNodes {
         self.enabled = v.into();
         self
     }
+
+    /// Sets the value of [confidential_instance_type][crate::model::ConfidentialNodes::confidential_instance_type].
+    pub fn set_confidential_instance_type<
+        T: std::convert::Into<crate::model::confidential_nodes::ConfidentialInstanceType>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.confidential_instance_type = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for ConfidentialNodes {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.ConfidentialNodes"
+    }
+}
+
+/// Defines additional types related to [ConfidentialNodes].
+pub mod confidential_nodes {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of technology used by the confidential node.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ConfidentialInstanceType {
+        /// No type specified. Do not use this value.
+        Unspecified,
+        /// AMD Secure Encrypted Virtualization.
+        Sev,
+        /// AMD Secure Encrypted Virtualization - Secure Nested Paging.
+        SevSnp,
+        /// Intel Trust Domain eXtension.
+        Tdx,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ConfidentialInstanceType::value] or
+        /// [ConfidentialInstanceType::name].
+        UnknownValue(confidential_instance_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod confidential_instance_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ConfidentialInstanceType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Sev => std::option::Option::Some(1),
+                Self::SevSnp => std::option::Option::Some(2),
+                Self::Tdx => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("CONFIDENTIAL_INSTANCE_TYPE_UNSPECIFIED")
+                }
+                Self::Sev => std::option::Option::Some("SEV"),
+                Self::SevSnp => std::option::Option::Some("SEV_SNP"),
+                Self::Tdx => std::option::Option::Some("TDX"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ConfidentialInstanceType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ConfidentialInstanceType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ConfidentialInstanceType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Sev,
+                2 => Self::SevSnp,
+                3 => Self::Tdx,
+                _ => Self::UnknownValue(confidential_instance_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ConfidentialInstanceType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CONFIDENTIAL_INSTANCE_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "SEV" => Self::Sev,
+                "SEV_SNP" => Self::SevSnp,
+                "TDX" => Self::Tdx,
+                _ => Self::UnknownValue(confidential_instance_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ConfidentialInstanceType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Sev => serializer.serialize_i32(1),
+                Self::SevSnp => serializer.serialize_i32(2),
+                Self::Tdx => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ConfidentialInstanceType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<ConfidentialInstanceType>::new(
+                    ".google.container.v1.ConfidentialNodes.ConfidentialInstanceType",
+                ),
+            )
+        }
     }
 }
 
@@ -23687,10 +24726,23 @@ pub struct UpgradeInfoEvent {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::upgrade_info_event::State,
 
+    /// The end of standard support timestamp.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub standard_support_end_time: std::option::Option<wkt::Timestamp>,
+
+    /// The end of extended support timestamp.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub extended_support_end_time: std::option::Option<wkt::Timestamp>,
+
     /// A brief description of the event.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
+
+    /// The type of the event.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub event_type: crate::model::upgrade_info_event::EventType,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -23779,9 +24831,54 @@ impl UpgradeInfoEvent {
         self
     }
 
+    /// Sets the value of [standard_support_end_time][crate::model::UpgradeInfoEvent::standard_support_end_time].
+    pub fn set_standard_support_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.standard_support_end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [standard_support_end_time][crate::model::UpgradeInfoEvent::standard_support_end_time].
+    pub fn set_or_clear_standard_support_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.standard_support_end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [extended_support_end_time][crate::model::UpgradeInfoEvent::extended_support_end_time].
+    pub fn set_extended_support_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.extended_support_end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [extended_support_end_time][crate::model::UpgradeInfoEvent::extended_support_end_time].
+    pub fn set_or_clear_extended_support_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.extended_support_end_time = v.map(|x| x.into());
+        self
+    }
+
     /// Sets the value of [description][crate::model::UpgradeInfoEvent::description].
     pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [event_type][crate::model::UpgradeInfoEvent::event_type].
+    pub fn set_event_type<T: std::convert::Into<crate::model::upgrade_info_event::EventType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.event_type = v.into();
         self
     }
 }
@@ -23942,6 +25039,150 @@ pub mod upgrade_info_event {
             ))
         }
     }
+
+    /// The type of the event.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum EventType {
+        /// EVENT_TYPE_UNSPECIFIED indicates the event type is unspecified.
+        Unspecified,
+        /// END_OF_SUPPORT indicates GKE version reaches end of support, check
+        /// standard_support_end_time and extended_support_end_time for more details.
+        EndOfSupport,
+        /// COS_MILESTONE_VERSION_UPDATE indicates that the COS node image will
+        /// update COS milestone version for new patch versions starting with
+        /// the one in the description.
+        CosMilestoneVersionUpdate,
+        /// UPGRADE_LIFECYCLE indicates the event is about the upgrade lifecycle.
+        UpgradeLifecycle,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [EventType::value] or
+        /// [EventType::name].
+        UnknownValue(event_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod event_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl EventType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::EndOfSupport => std::option::Option::Some(1),
+                Self::CosMilestoneVersionUpdate => std::option::Option::Some(2),
+                Self::UpgradeLifecycle => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("EVENT_TYPE_UNSPECIFIED"),
+                Self::EndOfSupport => std::option::Option::Some("END_OF_SUPPORT"),
+                Self::CosMilestoneVersionUpdate => {
+                    std::option::Option::Some("COS_MILESTONE_VERSION_UPDATE")
+                }
+                Self::UpgradeLifecycle => std::option::Option::Some("UPGRADE_LIFECYCLE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for EventType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for EventType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for EventType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::EndOfSupport,
+                2 => Self::CosMilestoneVersionUpdate,
+                3 => Self::UpgradeLifecycle,
+                _ => Self::UnknownValue(event_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for EventType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "EVENT_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "END_OF_SUPPORT" => Self::EndOfSupport,
+                "COS_MILESTONE_VERSION_UPDATE" => Self::CosMilestoneVersionUpdate,
+                "UPGRADE_LIFECYCLE" => Self::UpgradeLifecycle,
+                _ => Self::UnknownValue(event_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for EventType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::EndOfSupport => serializer.serialize_i32(1),
+                Self::CosMilestoneVersionUpdate => serializer.serialize_i32(2),
+                Self::UpgradeLifecycle => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for EventType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<EventType>::new(
+                ".google.container.v1.UpgradeInfoEvent.EventType",
+            ))
+        }
+    }
 }
 
 /// UpgradeAvailableEvent is a notification sent to customers when a new
@@ -24092,6 +25333,11 @@ pub struct SecurityBulletinEvent {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub manual_steps_required: bool,
 
+    /// The GKE versions where this vulnerability is mitigated.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub mitigated_versions: std::vec::Vec<std::string::String>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -24184,6 +25430,17 @@ impl SecurityBulletinEvent {
         self.manual_steps_required = v.into();
         self
     }
+
+    /// Sets the value of [mitigated_versions][crate::model::SecurityBulletinEvent::mitigated_versions].
+    pub fn set_mitigated_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.mitigated_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for SecurityBulletinEvent {
@@ -24203,7 +25460,7 @@ pub struct Autopilot {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enabled: bool,
 
-    /// Workload policy configuration for Autopilot.
+    /// WorkloadPolicyConfig is the configuration related to GCW workload policy
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub workload_policy_config: std::option::Option<crate::model::WorkloadPolicyConfig>,
 
@@ -24247,8 +25504,7 @@ impl wkt::message::Message for Autopilot {
     }
 }
 
-/// WorkloadPolicyConfig is the configuration of workload policy for autopilot
-/// clusters.
+/// WorkloadPolicyConfig is the configuration related to GCW workload policy
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -24257,6 +25513,11 @@ pub struct WorkloadPolicyConfig {
     /// If true, workloads can use NET_ADMIN capability.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub allow_net_admin: std::option::Option<bool>,
+
+    /// If true, enables the GCW Auditor that audits workloads on
+    /// standard clusters.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub autopilot_compatibility_auditing_enabled: std::option::Option<bool>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -24282,6 +25543,27 @@ impl WorkloadPolicyConfig {
         T: std::convert::Into<bool>,
     {
         self.allow_net_admin = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [autopilot_compatibility_auditing_enabled][crate::model::WorkloadPolicyConfig::autopilot_compatibility_auditing_enabled].
+    pub fn set_autopilot_compatibility_auditing_enabled<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.autopilot_compatibility_auditing_enabled = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [autopilot_compatibility_auditing_enabled][crate::model::WorkloadPolicyConfig::autopilot_compatibility_auditing_enabled].
+    pub fn set_or_clear_autopilot_compatibility_auditing_enabled<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<bool>,
+    {
+        self.autopilot_compatibility_auditing_enabled = v.map(|x| x.into());
         self
     }
 }
@@ -24413,6 +25695,8 @@ pub mod logging_component_config {
         KcpSshd,
         /// kcp connection logs
         KcpConnection,
+        /// horizontal pod autoscaler decision logs
+        KcpHpa,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Component::value] or
@@ -24443,6 +25727,7 @@ pub mod logging_component_config {
                 Self::ControllerManager => std::option::Option::Some(5),
                 Self::KcpSshd => std::option::Option::Some(7),
                 Self::KcpConnection => std::option::Option::Some(8),
+                Self::KcpHpa => std::option::Option::Some(9),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -24461,6 +25746,7 @@ pub mod logging_component_config {
                 Self::ControllerManager => std::option::Option::Some("CONTROLLER_MANAGER"),
                 Self::KcpSshd => std::option::Option::Some("KCP_SSHD"),
                 Self::KcpConnection => std::option::Option::Some("KCP_CONNECTION"),
+                Self::KcpHpa => std::option::Option::Some("KCP_HPA"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -24490,6 +25776,7 @@ pub mod logging_component_config {
                 5 => Self::ControllerManager,
                 7 => Self::KcpSshd,
                 8 => Self::KcpConnection,
+                9 => Self::KcpHpa,
                 _ => Self::UnknownValue(component::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -24509,6 +25796,7 @@ pub mod logging_component_config {
                 "CONTROLLER_MANAGER" => Self::ControllerManager,
                 "KCP_SSHD" => Self::KcpSshd,
                 "KCP_CONNECTION" => Self::KcpConnection,
+                "KCP_HPA" => Self::KcpHpa,
                 _ => Self::UnknownValue(component::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -24530,6 +25818,7 @@ pub mod logging_component_config {
                 Self::ControllerManager => serializer.serialize_i32(5),
                 Self::KcpSshd => serializer.serialize_i32(7),
                 Self::KcpConnection => serializer.serialize_i32(8),
+                Self::KcpHpa => serializer.serialize_i32(9),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -25232,6 +26521,8 @@ pub mod monitoring_component_config {
         Kubelet,
         /// NVIDIA Data Center GPU Manager (DCGM)
         Dcgm,
+        /// JobSet
+        Jobset,
         /// If set, the enum was initialized with an unknown value.
         ///
         /// Applications can examine the value using [Component::value] or
@@ -25268,6 +26559,7 @@ pub mod monitoring_component_config {
                 Self::Cadvisor => std::option::Option::Some(13),
                 Self::Kubelet => std::option::Option::Some(14),
                 Self::Dcgm => std::option::Option::Some(15),
+                Self::Jobset => std::option::Option::Some(16),
                 Self::UnknownValue(u) => u.0.value(),
             }
         }
@@ -25292,6 +26584,7 @@ pub mod monitoring_component_config {
                 Self::Cadvisor => std::option::Option::Some("CADVISOR"),
                 Self::Kubelet => std::option::Option::Some("KUBELET"),
                 Self::Dcgm => std::option::Option::Some("DCGM"),
+                Self::Jobset => std::option::Option::Some("JOBSET"),
                 Self::UnknownValue(u) => u.0.name(),
             }
         }
@@ -25327,6 +26620,7 @@ pub mod monitoring_component_config {
                 13 => Self::Cadvisor,
                 14 => Self::Kubelet,
                 15 => Self::Dcgm,
+                16 => Self::Jobset,
                 _ => Self::UnknownValue(component::UnknownValue(
                     wkt::internal::UnknownEnumValue::Integer(value),
                 )),
@@ -25352,6 +26646,7 @@ pub mod monitoring_component_config {
                 "CADVISOR" => Self::Cadvisor,
                 "KUBELET" => Self::Kubelet,
                 "DCGM" => Self::Dcgm,
+                "JOBSET" => Self::Jobset,
                 _ => Self::UnknownValue(component::UnknownValue(
                     wkt::internal::UnknownEnumValue::String(value.to_string()),
                 )),
@@ -25379,6 +26674,7 @@ pub mod monitoring_component_config {
                 Self::Cadvisor => serializer.serialize_i32(13),
                 Self::Kubelet => serializer.serialize_i32(14),
                 Self::Dcgm => serializer.serialize_i32(15),
+                Self::Jobset => serializer.serialize_i32(16),
                 Self::UnknownValue(u) => u.0.serialize(serializer),
             }
         }
@@ -25408,6 +26704,10 @@ pub struct ManagedPrometheusConfig {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enabled: bool,
 
+    /// GKE Workload Auto-Monitoring Configuration.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub auto_monitoring_config: std::option::Option<crate::model::AutoMonitoringConfig>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -25422,11 +26722,389 @@ impl ManagedPrometheusConfig {
         self.enabled = v.into();
         self
     }
+
+    /// Sets the value of [auto_monitoring_config][crate::model::ManagedPrometheusConfig::auto_monitoring_config].
+    pub fn set_auto_monitoring_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoMonitoringConfig>,
+    {
+        self.auto_monitoring_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [auto_monitoring_config][crate::model::ManagedPrometheusConfig::auto_monitoring_config].
+    pub fn set_or_clear_auto_monitoring_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AutoMonitoringConfig>,
+    {
+        self.auto_monitoring_config = v.map(|x| x.into());
+        self
+    }
 }
 
 impl wkt::message::Message for ManagedPrometheusConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.ManagedPrometheusConfig"
+    }
+}
+
+/// AutoMonitoringConfig defines the configuration for GKE Workload
+/// Auto-Monitoring.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct AutoMonitoringConfig {
+    /// Scope for GKE Workload Auto-Monitoring.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub scope: crate::model::auto_monitoring_config::Scope,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AutoMonitoringConfig {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [scope][crate::model::AutoMonitoringConfig::scope].
+    pub fn set_scope<T: std::convert::Into<crate::model::auto_monitoring_config::Scope>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.scope = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AutoMonitoringConfig {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.AutoMonitoringConfig"
+    }
+}
+
+/// Defines additional types related to [AutoMonitoringConfig].
+pub mod auto_monitoring_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Scope for applications monitored by Auto-Monitoring
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Scope {
+        /// Not set.
+        Unspecified,
+        /// Auto-Monitoring is enabled for all supported applications.
+        All,
+        /// Disable Auto-Monitoring.
+        None,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [Scope::value] or
+        /// [Scope::name].
+        UnknownValue(scope::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod scope {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl Scope {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::All => std::option::Option::Some(1),
+                Self::None => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("SCOPE_UNSPECIFIED"),
+                Self::All => std::option::Option::Some("ALL"),
+                Self::None => std::option::Option::Some("NONE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for Scope {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for Scope {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for Scope {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::All,
+                2 => Self::None,
+                _ => Self::UnknownValue(scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for Scope {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "SCOPE_UNSPECIFIED" => Self::Unspecified,
+                "ALL" => Self::All,
+                "NONE" => Self::None,
+                _ => Self::UnknownValue(scope::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for Scope {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::All => serializer.serialize_i32(1),
+                Self::None => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for Scope {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<Scope>::new(
+                ".google.container.v1.AutoMonitoringConfig.Scope",
+            ))
+        }
+    }
+}
+
+/// PodAutoscaling is used for configuration of parameters
+/// for workload autoscaling.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PodAutoscaling {
+    /// Selected Horizontal Pod Autoscaling profile.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub hpa_profile: std::option::Option<crate::model::pod_autoscaling::HPAProfile>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PodAutoscaling {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [hpa_profile][crate::model::PodAutoscaling::hpa_profile].
+    pub fn set_hpa_profile<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::pod_autoscaling::HPAProfile>,
+    {
+        self.hpa_profile = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [hpa_profile][crate::model::PodAutoscaling::hpa_profile].
+    pub fn set_or_clear_hpa_profile<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::pod_autoscaling::HPAProfile>,
+    {
+        self.hpa_profile = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for PodAutoscaling {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.PodAutoscaling"
+    }
+}
+
+/// Defines additional types related to [PodAutoscaling].
+pub mod pod_autoscaling {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Possible types of Horizontal Pod Autoscaling profile.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum HPAProfile {
+        /// HPA_PROFILE_UNSPECIFIED is used when no custom HPA profile is set.
+        Unspecified,
+        /// Customers explicitly opt-out of HPA profiles.
+        None,
+        /// PERFORMANCE is used when customers opt-in to the performance HPA profile.
+        /// In this profile we support a higher number of HPAs per cluster and faster
+        /// metrics collection for workload autoscaling.
+        Performance,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [HPAProfile::value] or
+        /// [HPAProfile::name].
+        UnknownValue(hpa_profile::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod hpa_profile {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl HPAProfile {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::None => std::option::Option::Some(1),
+                Self::Performance => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("HPA_PROFILE_UNSPECIFIED"),
+                Self::None => std::option::Option::Some("NONE"),
+                Self::Performance => std::option::Option::Some("PERFORMANCE"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for HPAProfile {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for HPAProfile {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for HPAProfile {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::None,
+                2 => Self::Performance,
+                _ => Self::UnknownValue(hpa_profile::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for HPAProfile {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "HPA_PROFILE_UNSPECIFIED" => Self::Unspecified,
+                "NONE" => Self::None,
+                "PERFORMANCE" => Self::Performance,
+                _ => Self::UnknownValue(hpa_profile::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for HPAProfile {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::None => serializer.serialize_i32(1),
+                Self::Performance => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for HPAProfile {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<HPAProfile>::new(
+                ".google.container.v1.PodAutoscaling.HPAProfile",
+            ))
+        }
     }
 }
 
@@ -25881,6 +27559,11 @@ pub struct EphemeralStorageLocalSsdConfig {
     #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub local_ssd_count: i32,
 
+    /// Number of local SSDs to use for GKE Data Cache.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
+    pub data_cache_count: i32,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -25893,6 +27576,12 @@ impl EphemeralStorageLocalSsdConfig {
     /// Sets the value of [local_ssd_count][crate::model::EphemeralStorageLocalSsdConfig::local_ssd_count].
     pub fn set_local_ssd_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
         self.local_ssd_count = v.into();
+        self
+    }
+
+    /// Sets the value of [data_cache_count][crate::model::EphemeralStorageLocalSsdConfig::data_cache_count].
+    pub fn set_data_cache_count<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.data_cache_count = v.into();
         self
     }
 }
@@ -26384,6 +28073,1463 @@ impl SecondaryBootDiskUpdateStrategy {
 impl wkt::message::Message for SecondaryBootDiskUpdateStrategy {
     fn typename() -> &'static str {
         "type.googleapis.com/google.container.v1.SecondaryBootDiskUpdateStrategy"
+    }
+}
+
+/// FetchClusterUpgradeInfoRequest fetches the upgrade information of a cluster.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FetchClusterUpgradeInfoRequest {
+    /// Required. The name (project, location, cluster) of the cluster to get.
+    /// Specified in the format `projects/*/locations/*/clusters/*` or
+    /// `projects/*/zones/*/clusters/*`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    /// API request version that initiates this operation.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchClusterUpgradeInfoRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FetchClusterUpgradeInfoRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::FetchClusterUpgradeInfoRequest::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchClusterUpgradeInfoRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.FetchClusterUpgradeInfoRequest"
+    }
+}
+
+/// ClusterUpgradeInfo contains the upgrade information of a cluster.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ClusterUpgradeInfo {
+    /// minor_target_version indicates the target version for minor upgrade.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub minor_target_version: std::option::Option<std::string::String>,
+
+    /// patch_target_version indicates the target version for patch upgrade.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub patch_target_version: std::option::Option<std::string::String>,
+
+    /// The auto upgrade status.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub auto_upgrade_status: std::vec::Vec<crate::model::cluster_upgrade_info::AutoUpgradeStatus>,
+
+    /// The auto upgrade paused reason.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub paused_reason: std::vec::Vec<crate::model::cluster_upgrade_info::AutoUpgradePausedReason>,
+
+    /// The list of past auto upgrades.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub upgrade_details: std::vec::Vec<crate::model::UpgradeDetails>,
+
+    /// The cluster's current minor version's end of standard support timestamp.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_of_standard_support_timestamp: std::option::Option<std::string::String>,
+
+    /// The cluster's current minor version's end of extended support timestamp.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_of_extended_support_timestamp: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ClusterUpgradeInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [minor_target_version][crate::model::ClusterUpgradeInfo::minor_target_version].
+    pub fn set_minor_target_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.minor_target_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [minor_target_version][crate::model::ClusterUpgradeInfo::minor_target_version].
+    pub fn set_or_clear_minor_target_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.minor_target_version = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [patch_target_version][crate::model::ClusterUpgradeInfo::patch_target_version].
+    pub fn set_patch_target_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.patch_target_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [patch_target_version][crate::model::ClusterUpgradeInfo::patch_target_version].
+    pub fn set_or_clear_patch_target_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.patch_target_version = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [auto_upgrade_status][crate::model::ClusterUpgradeInfo::auto_upgrade_status].
+    pub fn set_auto_upgrade_status<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::cluster_upgrade_info::AutoUpgradeStatus>,
+    {
+        use std::iter::Iterator;
+        self.auto_upgrade_status = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [paused_reason][crate::model::ClusterUpgradeInfo::paused_reason].
+    pub fn set_paused_reason<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::cluster_upgrade_info::AutoUpgradePausedReason>,
+    {
+        use std::iter::Iterator;
+        self.paused_reason = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [upgrade_details][crate::model::ClusterUpgradeInfo::upgrade_details].
+    pub fn set_upgrade_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UpgradeDetails>,
+    {
+        use std::iter::Iterator;
+        self.upgrade_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [end_of_standard_support_timestamp][crate::model::ClusterUpgradeInfo::end_of_standard_support_timestamp].
+    pub fn set_end_of_standard_support_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.end_of_standard_support_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_of_standard_support_timestamp][crate::model::ClusterUpgradeInfo::end_of_standard_support_timestamp].
+    pub fn set_or_clear_end_of_standard_support_timestamp<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.end_of_standard_support_timestamp = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_of_extended_support_timestamp][crate::model::ClusterUpgradeInfo::end_of_extended_support_timestamp].
+    pub fn set_end_of_extended_support_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.end_of_extended_support_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_of_extended_support_timestamp][crate::model::ClusterUpgradeInfo::end_of_extended_support_timestamp].
+    pub fn set_or_clear_end_of_extended_support_timestamp<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.end_of_extended_support_timestamp = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ClusterUpgradeInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.ClusterUpgradeInfo"
+    }
+}
+
+/// Defines additional types related to [ClusterUpgradeInfo].
+pub mod cluster_upgrade_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// AutoUpgradeStatus indicates the status of auto upgrade.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AutoUpgradeStatus {
+        /// UNKNOWN indicates an unknown status.
+        Unknown,
+        /// ACTIVE indicates an active status.
+        Active,
+        /// MINOR_UPGRADE_PAUSED indicates the minor version upgrade is
+        /// paused.
+        MinorUpgradePaused,
+        /// UPGRADE_PAUSED indicates the upgrade is paused.
+        UpgradePaused,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AutoUpgradeStatus::value] or
+        /// [AutoUpgradeStatus::name].
+        UnknownValue(auto_upgrade_status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod auto_upgrade_status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl AutoUpgradeStatus {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unknown => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::MinorUpgradePaused => std::option::Option::Some(4),
+                Self::UpgradePaused => std::option::Option::Some(5),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unknown => std::option::Option::Some("UNKNOWN"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::MinorUpgradePaused => std::option::Option::Some("MINOR_UPGRADE_PAUSED"),
+                Self::UpgradePaused => std::option::Option::Some("UPGRADE_PAUSED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for AutoUpgradeStatus {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AutoUpgradeStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AutoUpgradeStatus {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unknown,
+                1 => Self::Active,
+                4 => Self::MinorUpgradePaused,
+                5 => Self::UpgradePaused,
+                _ => Self::UnknownValue(auto_upgrade_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AutoUpgradeStatus {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "UNKNOWN" => Self::Unknown,
+                "ACTIVE" => Self::Active,
+                "MINOR_UPGRADE_PAUSED" => Self::MinorUpgradePaused,
+                "UPGRADE_PAUSED" => Self::UpgradePaused,
+                _ => Self::UnknownValue(auto_upgrade_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AutoUpgradeStatus {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unknown => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::MinorUpgradePaused => serializer.serialize_i32(4),
+                Self::UpgradePaused => serializer.serialize_i32(5),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AutoUpgradeStatus {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AutoUpgradeStatus>::new(
+                ".google.container.v1.ClusterUpgradeInfo.AutoUpgradeStatus",
+            ))
+        }
+    }
+
+    /// AutoUpgradePausedReason indicates the reason for auto upgrade paused
+    /// status.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AutoUpgradePausedReason {
+        /// AUTO_UPGRADE_PAUSED_REASON_UNSPECIFIED indicates an unspecified reason.
+        Unspecified,
+        /// MAINTENANCE_WINDOW indicates the cluster is outside customer maintenance
+        /// window.
+        MaintenanceWindow,
+        /// MAINTENANCE_EXCLUSION_NO_UPGRADES indicates the cluster is in a
+        /// maintenance exclusion with scope NO_UPGRADES.
+        MaintenanceExclusionNoUpgrades,
+        /// MAINTENANCE_EXCLUSION_NO_MINOR_UPGRADES indicates the cluster is in a
+        /// maintenance exclusion with scope NO_MINOR_UPGRADES.
+        MaintenanceExclusionNoMinorUpgrades,
+        /// CLUSTER_DISRUPTION_BUDGET indicates the cluster is outside the cluster
+        /// disruption budget.
+        ClusterDisruptionBudget,
+        /// CLUSTER_DISRUPTION_BUDGET_MINOR_UPGRADE indicates the cluster is outside
+        /// the cluster disruption budget for minor version upgrade.
+        ClusterDisruptionBudgetMinorUpgrade,
+        /// SYSTEM_CONFIG indicates the cluster upgrade is paused  by system config.
+        SystemConfig,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AutoUpgradePausedReason::value] or
+        /// [AutoUpgradePausedReason::name].
+        UnknownValue(auto_upgrade_paused_reason::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod auto_upgrade_paused_reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl AutoUpgradePausedReason {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::MaintenanceWindow => std::option::Option::Some(1),
+                Self::MaintenanceExclusionNoUpgrades => std::option::Option::Some(5),
+                Self::MaintenanceExclusionNoMinorUpgrades => std::option::Option::Some(6),
+                Self::ClusterDisruptionBudget => std::option::Option::Some(4),
+                Self::ClusterDisruptionBudgetMinorUpgrade => std::option::Option::Some(7),
+                Self::SystemConfig => std::option::Option::Some(8),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("AUTO_UPGRADE_PAUSED_REASON_UNSPECIFIED")
+                }
+                Self::MaintenanceWindow => std::option::Option::Some("MAINTENANCE_WINDOW"),
+                Self::MaintenanceExclusionNoUpgrades => {
+                    std::option::Option::Some("MAINTENANCE_EXCLUSION_NO_UPGRADES")
+                }
+                Self::MaintenanceExclusionNoMinorUpgrades => {
+                    std::option::Option::Some("MAINTENANCE_EXCLUSION_NO_MINOR_UPGRADES")
+                }
+                Self::ClusterDisruptionBudget => {
+                    std::option::Option::Some("CLUSTER_DISRUPTION_BUDGET")
+                }
+                Self::ClusterDisruptionBudgetMinorUpgrade => {
+                    std::option::Option::Some("CLUSTER_DISRUPTION_BUDGET_MINOR_UPGRADE")
+                }
+                Self::SystemConfig => std::option::Option::Some("SYSTEM_CONFIG"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for AutoUpgradePausedReason {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AutoUpgradePausedReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AutoUpgradePausedReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::MaintenanceWindow,
+                4 => Self::ClusterDisruptionBudget,
+                5 => Self::MaintenanceExclusionNoUpgrades,
+                6 => Self::MaintenanceExclusionNoMinorUpgrades,
+                7 => Self::ClusterDisruptionBudgetMinorUpgrade,
+                8 => Self::SystemConfig,
+                _ => Self::UnknownValue(auto_upgrade_paused_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AutoUpgradePausedReason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AUTO_UPGRADE_PAUSED_REASON_UNSPECIFIED" => Self::Unspecified,
+                "MAINTENANCE_WINDOW" => Self::MaintenanceWindow,
+                "MAINTENANCE_EXCLUSION_NO_UPGRADES" => Self::MaintenanceExclusionNoUpgrades,
+                "MAINTENANCE_EXCLUSION_NO_MINOR_UPGRADES" => {
+                    Self::MaintenanceExclusionNoMinorUpgrades
+                }
+                "CLUSTER_DISRUPTION_BUDGET" => Self::ClusterDisruptionBudget,
+                "CLUSTER_DISRUPTION_BUDGET_MINOR_UPGRADE" => {
+                    Self::ClusterDisruptionBudgetMinorUpgrade
+                }
+                "SYSTEM_CONFIG" => Self::SystemConfig,
+                _ => Self::UnknownValue(auto_upgrade_paused_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AutoUpgradePausedReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::MaintenanceWindow => serializer.serialize_i32(1),
+                Self::MaintenanceExclusionNoUpgrades => serializer.serialize_i32(5),
+                Self::MaintenanceExclusionNoMinorUpgrades => serializer.serialize_i32(6),
+                Self::ClusterDisruptionBudget => serializer.serialize_i32(4),
+                Self::ClusterDisruptionBudgetMinorUpgrade => serializer.serialize_i32(7),
+                Self::SystemConfig => serializer.serialize_i32(8),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AutoUpgradePausedReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<AutoUpgradePausedReason>::new(
+                    ".google.container.v1.ClusterUpgradeInfo.AutoUpgradePausedReason",
+                ),
+            )
+        }
+    }
+}
+
+/// UpgradeDetails contains detailed information of each individual upgrade
+/// operation.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct UpgradeDetails {
+    /// Output only. The state of the upgrade.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub state: crate::model::upgrade_details::State,
+
+    /// The start timestamp of the upgrade.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// The end timestamp of the upgrade.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    /// The version before the upgrade.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub initial_version: std::string::String,
+
+    /// The version after the upgrade.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub target_version: std::string::String,
+
+    /// The start type of the upgrade.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub start_type: crate::model::upgrade_details::StartType,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpgradeDetails {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [state][crate::model::UpgradeDetails::state].
+    pub fn set_state<T: std::convert::Into<crate::model::upgrade_details::State>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.state = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::UpgradeDetails::start_time].
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::UpgradeDetails::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::UpgradeDetails::end_time].
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::UpgradeDetails::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [initial_version][crate::model::UpgradeDetails::initial_version].
+    pub fn set_initial_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.initial_version = v.into();
+        self
+    }
+
+    /// Sets the value of [target_version][crate::model::UpgradeDetails::target_version].
+    pub fn set_target_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.target_version = v.into();
+        self
+    }
+
+    /// Sets the value of [start_type][crate::model::UpgradeDetails::start_type].
+    pub fn set_start_type<T: std::convert::Into<crate::model::upgrade_details::StartType>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.start_type = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpgradeDetails {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.UpgradeDetails"
+    }
+}
+
+/// Defines additional types related to [UpgradeDetails].
+pub mod upgrade_details {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// State indicates the state of the upgrade.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum State {
+        /// Upgrade state is unknown.
+        Unknown,
+        /// Upgrade has failed with an error.
+        Failed,
+        /// Upgrade has succeeded.
+        Succeeded,
+        /// Upgrade has been canceled.
+        Canceled,
+        /// Upgrade is running.
+        Running,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [State::value] or
+        /// [State::name].
+        UnknownValue(state::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod state {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl State {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unknown => std::option::Option::Some(0),
+                Self::Failed => std::option::Option::Some(1),
+                Self::Succeeded => std::option::Option::Some(2),
+                Self::Canceled => std::option::Option::Some(3),
+                Self::Running => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unknown => std::option::Option::Some("UNKNOWN"),
+                Self::Failed => std::option::Option::Some("FAILED"),
+                Self::Succeeded => std::option::Option::Some("SUCCEEDED"),
+                Self::Canceled => std::option::Option::Some("CANCELED"),
+                Self::Running => std::option::Option::Some("RUNNING"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for State {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for State {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for State {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unknown,
+                1 => Self::Failed,
+                2 => Self::Succeeded,
+                3 => Self::Canceled,
+                4 => Self::Running,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for State {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "UNKNOWN" => Self::Unknown,
+                "FAILED" => Self::Failed,
+                "SUCCEEDED" => Self::Succeeded,
+                "CANCELED" => Self::Canceled,
+                "RUNNING" => Self::Running,
+                _ => Self::UnknownValue(state::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for State {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unknown => serializer.serialize_i32(0),
+                Self::Failed => serializer.serialize_i32(1),
+                Self::Succeeded => serializer.serialize_i32(2),
+                Self::Canceled => serializer.serialize_i32(3),
+                Self::Running => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for State {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<State>::new(
+                ".google.container.v1.UpgradeDetails.State",
+            ))
+        }
+    }
+
+    /// StartType indicates the type of starting the upgrade.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum StartType {
+        /// Upgrade start type is unspecified.
+        Unspecified,
+        /// Upgrade started automatically.
+        Automatic,
+        /// Upgrade started manually.
+        Manual,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [StartType::value] or
+        /// [StartType::name].
+        UnknownValue(start_type::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod start_type {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl StartType {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Automatic => std::option::Option::Some(1),
+                Self::Manual => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("START_TYPE_UNSPECIFIED"),
+                Self::Automatic => std::option::Option::Some("AUTOMATIC"),
+                Self::Manual => std::option::Option::Some("MANUAL"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for StartType {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for StartType {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for StartType {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Automatic,
+                2 => Self::Manual,
+                _ => Self::UnknownValue(start_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for StartType {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "START_TYPE_UNSPECIFIED" => Self::Unspecified,
+                "AUTOMATIC" => Self::Automatic,
+                "MANUAL" => Self::Manual,
+                _ => Self::UnknownValue(start_type::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for StartType {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Automatic => serializer.serialize_i32(1),
+                Self::Manual => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for StartType {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<StartType>::new(
+                ".google.container.v1.UpgradeDetails.StartType",
+            ))
+        }
+    }
+}
+
+/// FetchNodePoolUpgradeInfoRequest fetches the upgrade information of a
+/// nodepool.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct FetchNodePoolUpgradeInfoRequest {
+    /// Required. The name (project, location, cluster, nodepool) of the nodepool
+    /// to get. Specified in the format
+    /// `projects/*/locations/*/clusters/*/nodePools/*` or
+    /// `projects/*/zones/*/clusters/*/nodePools/*`.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub name: std::string::String,
+
+    /// API request version that initiates this operation.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl FetchNodePoolUpgradeInfoRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::FetchNodePoolUpgradeInfoRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [version][crate::model::FetchNodePoolUpgradeInfoRequest::version].
+    pub fn set_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.version = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for FetchNodePoolUpgradeInfoRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.FetchNodePoolUpgradeInfoRequest"
+    }
+}
+
+/// NodePoolUpgradeInfo contains the upgrade information of a nodepool.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct NodePoolUpgradeInfo {
+    /// minor_target_version indicates the target version for minor upgrade.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub minor_target_version: std::option::Option<std::string::String>,
+
+    /// patch_target_version indicates the target version for patch upgrade.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub patch_target_version: std::option::Option<std::string::String>,
+
+    /// The auto upgrade status.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub auto_upgrade_status: std::vec::Vec<crate::model::node_pool_upgrade_info::AutoUpgradeStatus>,
+
+    /// The auto upgrade paused reason.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub paused_reason: std::vec::Vec<crate::model::node_pool_upgrade_info::AutoUpgradePausedReason>,
+
+    /// The list of past auto upgrades.
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub upgrade_details: std::vec::Vec<crate::model::UpgradeDetails>,
+
+    /// The nodepool's current minor version's end of standard support timestamp.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_of_standard_support_timestamp: std::option::Option<std::string::String>,
+
+    /// The nodepool's current minor version's end of extended support timestamp.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub end_of_extended_support_timestamp: std::option::Option<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl NodePoolUpgradeInfo {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [minor_target_version][crate::model::NodePoolUpgradeInfo::minor_target_version].
+    pub fn set_minor_target_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.minor_target_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [minor_target_version][crate::model::NodePoolUpgradeInfo::minor_target_version].
+    pub fn set_or_clear_minor_target_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.minor_target_version = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [patch_target_version][crate::model::NodePoolUpgradeInfo::patch_target_version].
+    pub fn set_patch_target_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.patch_target_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [patch_target_version][crate::model::NodePoolUpgradeInfo::patch_target_version].
+    pub fn set_or_clear_patch_target_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.patch_target_version = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [auto_upgrade_status][crate::model::NodePoolUpgradeInfo::auto_upgrade_status].
+    pub fn set_auto_upgrade_status<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::node_pool_upgrade_info::AutoUpgradeStatus>,
+    {
+        use std::iter::Iterator;
+        self.auto_upgrade_status = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [paused_reason][crate::model::NodePoolUpgradeInfo::paused_reason].
+    pub fn set_paused_reason<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::node_pool_upgrade_info::AutoUpgradePausedReason>,
+    {
+        use std::iter::Iterator;
+        self.paused_reason = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [upgrade_details][crate::model::NodePoolUpgradeInfo::upgrade_details].
+    pub fn set_upgrade_details<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::UpgradeDetails>,
+    {
+        use std::iter::Iterator;
+        self.upgrade_details = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [end_of_standard_support_timestamp][crate::model::NodePoolUpgradeInfo::end_of_standard_support_timestamp].
+    pub fn set_end_of_standard_support_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.end_of_standard_support_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_of_standard_support_timestamp][crate::model::NodePoolUpgradeInfo::end_of_standard_support_timestamp].
+    pub fn set_or_clear_end_of_standard_support_timestamp<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.end_of_standard_support_timestamp = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_of_extended_support_timestamp][crate::model::NodePoolUpgradeInfo::end_of_extended_support_timestamp].
+    pub fn set_end_of_extended_support_timestamp<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.end_of_extended_support_timestamp = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_of_extended_support_timestamp][crate::model::NodePoolUpgradeInfo::end_of_extended_support_timestamp].
+    pub fn set_or_clear_end_of_extended_support_timestamp<T>(
+        mut self,
+        v: std::option::Option<T>,
+    ) -> Self
+    where
+        T: std::convert::Into<std::string::String>,
+    {
+        self.end_of_extended_support_timestamp = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for NodePoolUpgradeInfo {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.container.v1.NodePoolUpgradeInfo"
+    }
+}
+
+/// Defines additional types related to [NodePoolUpgradeInfo].
+pub mod node_pool_upgrade_info {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// AutoUpgradeStatus indicates the status of auto upgrade.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AutoUpgradeStatus {
+        /// UNKNOWN indicates an unknown status.
+        Unknown,
+        /// ACTIVE indicates an active status.
+        Active,
+        /// MINOR_UPGRADE_PAUSED indicates the minor version upgrade is
+        /// paused.
+        MinorUpgradePaused,
+        /// UPGRADE_PAUSED indicates the upgrade is paused.
+        UpgradePaused,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AutoUpgradeStatus::value] or
+        /// [AutoUpgradeStatus::name].
+        UnknownValue(auto_upgrade_status::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod auto_upgrade_status {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl AutoUpgradeStatus {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unknown => std::option::Option::Some(0),
+                Self::Active => std::option::Option::Some(1),
+                Self::MinorUpgradePaused => std::option::Option::Some(2),
+                Self::UpgradePaused => std::option::Option::Some(3),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unknown => std::option::Option::Some("UNKNOWN"),
+                Self::Active => std::option::Option::Some("ACTIVE"),
+                Self::MinorUpgradePaused => std::option::Option::Some("MINOR_UPGRADE_PAUSED"),
+                Self::UpgradePaused => std::option::Option::Some("UPGRADE_PAUSED"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for AutoUpgradeStatus {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AutoUpgradeStatus {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AutoUpgradeStatus {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unknown,
+                1 => Self::Active,
+                2 => Self::MinorUpgradePaused,
+                3 => Self::UpgradePaused,
+                _ => Self::UnknownValue(auto_upgrade_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AutoUpgradeStatus {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "UNKNOWN" => Self::Unknown,
+                "ACTIVE" => Self::Active,
+                "MINOR_UPGRADE_PAUSED" => Self::MinorUpgradePaused,
+                "UPGRADE_PAUSED" => Self::UpgradePaused,
+                _ => Self::UnknownValue(auto_upgrade_status::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AutoUpgradeStatus {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unknown => serializer.serialize_i32(0),
+                Self::Active => serializer.serialize_i32(1),
+                Self::MinorUpgradePaused => serializer.serialize_i32(2),
+                Self::UpgradePaused => serializer.serialize_i32(3),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AutoUpgradeStatus {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<AutoUpgradeStatus>::new(
+                ".google.container.v1.NodePoolUpgradeInfo.AutoUpgradeStatus",
+            ))
+        }
+    }
+
+    /// AutoUpgradePausedReason indicates the reason for auto upgrade paused
+    /// status.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum AutoUpgradePausedReason {
+        /// AUTO_UPGRADE_PAUSED_REASON_UNSPECIFIED indicates an unspecified reason.
+        Unspecified,
+        /// MAINTENANCE_WINDOW indicates the cluster is outside customer maintenance
+        /// window.
+        MaintenanceWindow,
+        /// MAINTENANCE_EXCLUSION_NO_UPGRADES indicates the cluster is in a
+        /// maintenance exclusion with scope NO_UPGRADES.
+        MaintenanceExclusionNoUpgrades,
+        /// MAINTENANCE_EXCLUSION_NO_MINOR_UPGRADES indicates the cluster is in a
+        /// maintenance exclusion with scope NO_MINOR_UPGRADES.
+        MaintenanceExclusionNoMinorUpgrades,
+        /// SYSTEM_CONFIG indicates the cluster upgrade is paused by system config.
+        SystemConfig,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [AutoUpgradePausedReason::value] or
+        /// [AutoUpgradePausedReason::name].
+        UnknownValue(auto_upgrade_paused_reason::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod auto_upgrade_paused_reason {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl AutoUpgradePausedReason {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::MaintenanceWindow => std::option::Option::Some(1),
+                Self::MaintenanceExclusionNoUpgrades => std::option::Option::Some(2),
+                Self::MaintenanceExclusionNoMinorUpgrades => std::option::Option::Some(3),
+                Self::SystemConfig => std::option::Option::Some(4),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => {
+                    std::option::Option::Some("AUTO_UPGRADE_PAUSED_REASON_UNSPECIFIED")
+                }
+                Self::MaintenanceWindow => std::option::Option::Some("MAINTENANCE_WINDOW"),
+                Self::MaintenanceExclusionNoUpgrades => {
+                    std::option::Option::Some("MAINTENANCE_EXCLUSION_NO_UPGRADES")
+                }
+                Self::MaintenanceExclusionNoMinorUpgrades => {
+                    std::option::Option::Some("MAINTENANCE_EXCLUSION_NO_MINOR_UPGRADES")
+                }
+                Self::SystemConfig => std::option::Option::Some("SYSTEM_CONFIG"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for AutoUpgradePausedReason {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for AutoUpgradePausedReason {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for AutoUpgradePausedReason {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::MaintenanceWindow,
+                2 => Self::MaintenanceExclusionNoUpgrades,
+                3 => Self::MaintenanceExclusionNoMinorUpgrades,
+                4 => Self::SystemConfig,
+                _ => Self::UnknownValue(auto_upgrade_paused_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for AutoUpgradePausedReason {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "AUTO_UPGRADE_PAUSED_REASON_UNSPECIFIED" => Self::Unspecified,
+                "MAINTENANCE_WINDOW" => Self::MaintenanceWindow,
+                "MAINTENANCE_EXCLUSION_NO_UPGRADES" => Self::MaintenanceExclusionNoUpgrades,
+                "MAINTENANCE_EXCLUSION_NO_MINOR_UPGRADES" => {
+                    Self::MaintenanceExclusionNoMinorUpgrades
+                }
+                "SYSTEM_CONFIG" => Self::SystemConfig,
+                _ => Self::UnknownValue(auto_upgrade_paused_reason::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for AutoUpgradePausedReason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::MaintenanceWindow => serializer.serialize_i32(1),
+                Self::MaintenanceExclusionNoUpgrades => serializer.serialize_i32(2),
+                Self::MaintenanceExclusionNoMinorUpgrades => serializer.serialize_i32(3),
+                Self::SystemConfig => serializer.serialize_i32(4),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for AutoUpgradePausedReason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(
+                wkt::internal::EnumVisitor::<AutoUpgradePausedReason>::new(
+                    ".google.container.v1.NodePoolUpgradeInfo.AutoUpgradePausedReason",
+                ),
+            )
+        }
     }
 }
 

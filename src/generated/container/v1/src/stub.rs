@@ -411,4 +411,26 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
+
+    /// Implements [super::client::ClusterManager::fetch_cluster_upgrade_info].
+    fn fetch_cluster_upgrade_info(
+        &self,
+        _req: crate::model::FetchClusterUpgradeInfoRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ClusterUpgradeInfo>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::ClusterManager::fetch_node_pool_upgrade_info].
+    fn fetch_node_pool_upgrade_info(
+        &self,
+        _req: crate::model::FetchNodePoolUpgradeInfoRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::NodePoolUpgradeInfo>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
 }

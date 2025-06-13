@@ -14,16 +14,47 @@
 
 #[cfg(test)]
 mod test {
+    use common::{__MessageWithString, MessageWithString};
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
 
-    #[allow(dead_code)]
-    mod protos {
-        use google_cloud_wkt as wkt;
-        include!("generated/mod.rs");
+    #[test_case(MessageWithString::new(), json!({}))]
+    #[test_case(MessageWithString::new().set_singular(""), json!({}))]
+    #[test_case(MessageWithString::new().set_singular("abc"), json!({"singular": "abc"}))]
+    #[test_case(MessageWithString::new().set_optional(""), json!({"optional": ""}))]
+    #[test_case(MessageWithString::new().set_optional("abc"), json!({"optional": "abc"}))]
+    #[test_case(MessageWithString::new().set_or_clear_optional(None::<String>), json!({}))]
+    #[test_case(MessageWithString::new().set_repeated(["a", "b", "c"]), json!({"repeated": ["a", "b", "c"]}))]
+    #[test_case(MessageWithString::new().set_map_key_value([("a", "1"), ("b", "2")]), json!({"mapKeyValue": {"a": "1", "b": "2"}}))]
+    fn test_ser(input: MessageWithString, want: Value) -> Result {
+        let got = serde_json::to_value(__MessageWithString(input))?;
+        assert_eq!(got, want);
+        Ok(())
     }
-    use protos::MessageWithString;
+
+    #[test_case(MessageWithString::new(), json!({}))]
+    #[test_case(MessageWithString::new().set_singular(""), json!({}))]
+    #[test_case(MessageWithString::new().set_singular("abc"), json!({"singular": "abc"}))]
+    #[test_case(MessageWithString::new().set_optional(""), json!({"optional": ""}))]
+    #[test_case(MessageWithString::new().set_optional("abc"), json!({"optional": "abc"}))]
+    #[test_case(MessageWithString::new().set_or_clear_optional(None::<String>), json!({}))]
+    #[test_case(MessageWithString::new().set_repeated(["a", "b", "c"]), json!({"repeated": ["a", "b", "c"]}))]
+    #[test_case(MessageWithString::new().set_map_key_value([("a", "1"), ("b", "2")]), json!({"mapKeyValue": {"a": "1", "b": "2"}}))]
+    fn test_de(want: MessageWithString, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithString>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
+
+    #[test_case(json!({"unknown": "test-value"}))]
+    #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
+    fn test_unknown(input: Value) -> Result {
+        let deser = serde_json::from_value::<__MessageWithString>(input.clone())?;
+        let got = serde_json::to_value(deser)?;
+        assert_eq!(got, input);
+        Ok(())
+    }
 
     #[test_case("the quick brown fox jumps over the lazy dog")]
     #[test_case(concat!("Benjamín pidió una bebida de kiwi y fresa. ",

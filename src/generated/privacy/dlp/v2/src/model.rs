@@ -16086,20 +16086,12 @@ pub mod action {
         }
     }
 
-    /// Create a de-identified copy of the requested table or files.
+    /// Create a de-identified copy of a storage bucket. Only compatible
+    /// with Cloud Storage buckets.
     ///
     /// A TransformationDetail will be created for each transformation.
     ///
-    /// If any rows in BigQuery are skipped during de-identification
-    /// (transformation errors or row size exceeds BigQuery insert API limits) they
-    /// are placed in the failure output table. If the original row exceeds
-    /// the BigQuery insert API limit it will be truncated when written to the
-    /// failure output table. The failure output table can be set in the
-    /// action.deidentify.output.big_query_output.deidentified_failure_output_table
-    /// field, if no table is set, a table will be automatically created in the
-    /// same project and dataset as the original table.
-    ///
-    /// Compatible with: Inspect
+    /// Compatible with: Inspection of Cloud Storage
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -16110,13 +16102,66 @@ pub mod action {
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub transformation_config: std::option::Option<crate::model::TransformationConfig>,
 
-        /// Config for storing transformation details. This is separate from the
-        /// de-identified content, and contains metadata about the successful
-        /// transformations and/or failures that occurred while de-identifying. This
-        /// needs to be set in order for users to access information about the status
-        /// of each transformation (see
+        /// Config for storing transformation details.
+        ///
+        /// This field specifies the configuration for storing detailed metadata
+        /// about each transformation performed during a de-identification process.
+        /// The metadata is stored separately from the de-identified content itself
+        /// and provides a granular record of both successful transformations and any
+        /// failures that occurred.
+        ///
+        /// Enabling this configuration is essential for users who need to access
+        /// comprehensive information about the status, outcome, and specifics of
+        /// each transformation. The details are captured in the
         /// [TransformationDetails][google.privacy.dlp.v2.TransformationDetails]
-        /// message for more information about what is noted).
+        /// message for each operation.
+        ///
+        /// Key use cases:
+        ///
+        /// * **Auditing and compliance**
+        ///
+        ///   * Provides a verifiable audit trail of de-identification activities,
+        ///     which is crucial for meeting regulatory requirements and internal
+        ///     data governance policies.
+        ///   * Logs what data was transformed, what transformations were applied,
+        ///     when they occurred, and their success status. This helps
+        ///     demonstrate accountability and due diligence in protecting
+        ///     sensitive data.
+        /// * **Troubleshooting and debugging**
+        ///
+        ///   * Offers detailed error messages and context if a transformation
+        ///     fails. This information is useful for diagnosing and resolving
+        ///     issues in the de-identification pipeline.
+        ///   * Helps pinpoint the exact location and nature of failures, speeding
+        ///     up the debugging process.
+        /// * **Process verification and quality assurance**
+        ///
+        ///   * Allows users to confirm that de-identification rules and
+        ///     transformations were applied correctly and consistently across
+        ///     the dataset as intended.
+        ///   * Helps in verifying the effectiveness of the chosen
+        ///     de-identification strategies.
+        /// * **Data lineage and impact analysis**
+        ///
+        ///   * Creates a record of how data elements were modified, contributing
+        ///     to data lineage. This is useful for understanding the provenance
+        ///     of de-identified data.
+        ///   * Aids in assessing the potential impact of de-identification choices
+        ///     on downstream analytical processes or data usability.
+        /// * **Reporting and operational insights**
+        ///
+        ///   * You can analyze the metadata stored in a queryable BigQuery table
+        ///     to generate reports on transformation success rates, common
+        ///     error types, processing volumes (e.g., transformedBytes), and the
+        ///     types of transformations applied.
+        ///   * These insights can inform optimization of de-identification
+        ///     configurations and resource planning.
+        ///
+        /// To take advantage of these benefits, set this configuration. The stored
+        /// details include a description of the transformation, success or
+        /// error codes, error messages, the number of bytes transformed, the
+        /// location of the transformed content, and identifiers for the job and
+        /// source data.
         ///
         /// [google.privacy.dlp.v2.TransformationDetails]: crate::model::TransformationDetails
         #[serde(skip_serializing_if = "std::option::Option::is_none")]
@@ -18206,6 +18251,42 @@ impl DataProfileAction {
         );
         self
     }
+
+    /// The value of [action][crate::model::DataProfileAction::action]
+    /// if it holds a `PublishToDataplexCatalog`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn publish_to_dataplex_catalog(
+        &self,
+    ) -> std::option::Option<
+        &std::boxed::Box<crate::model::data_profile_action::PublishToDataplexCatalog>,
+    > {
+        #[allow(unreachable_patterns)]
+        self.action.as_ref().and_then(|v| match v {
+            crate::model::data_profile_action::Action::PublishToDataplexCatalog(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [action][crate::model::DataProfileAction::action]
+    /// to hold a `PublishToDataplexCatalog`.
+    ///
+    /// Note that all the setters affecting `action` are
+    /// mutually exclusive.
+    pub fn set_publish_to_dataplex_catalog<
+        T: std::convert::Into<
+                std::boxed::Box<crate::model::data_profile_action::PublishToDataplexCatalog>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.action = std::option::Option::Some(
+            crate::model::data_profile_action::Action::PublishToDataplexCatalog(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for DataProfileAction {
@@ -18603,6 +18684,45 @@ pub mod data_profile_action {
     impl wkt::message::Message for PublishToSecurityCommandCenter {
         fn typename() -> &'static str {
             "type.googleapis.com/google.privacy.dlp.v2.DataProfileAction.PublishToSecurityCommandCenter"
+        }
+    }
+
+    /// Create Dataplex Catalog aspects for profiled resources with the aspect type
+    /// Sensitive Data Protection Profile. To learn more about aspects, see
+    /// <https://cloud.google.com/sensitive-data-protection/docs/add-aspects>.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(default, rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub struct PublishToDataplexCatalog {
+        /// Whether creating a Dataplex Catalog aspect for a profiled resource should
+        /// lower the risk of the profile for that resource. This also lowers the
+        /// data risk of resources at the lower levels of the resource hierarchy. For
+        /// example, reducing the data risk of a table data profile also reduces the
+        /// data risk of the constituent column data profiles.
+        #[serde(skip_serializing_if = "wkt::internal::is_default")]
+        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+        pub lower_data_risk_to_low: bool,
+
+        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl PublishToDataplexCatalog {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [lower_data_risk_to_low][crate::model::data_profile_action::PublishToDataplexCatalog::lower_data_risk_to_low].
+        pub fn set_lower_data_risk_to_low<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.lower_data_risk_to_low = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for PublishToDataplexCatalog {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.privacy.dlp.v2.DataProfileAction.PublishToDataplexCatalog"
         }
     }
 
@@ -19077,6 +19197,11 @@ pub mod data_profile_action {
         ),
         /// Tags the profiled resources with the specified tag values.
         TagResources(std::boxed::Box<crate::model::data_profile_action::TagResources>),
+        /// Publishes a portion of each profile to Dataplex Catalog with the aspect
+        /// type Sensitive Data Protection Profile.
+        PublishToDataplexCatalog(
+            std::boxed::Box<crate::model::data_profile_action::PublishToDataplexCatalog>,
+        ),
     }
 }
 
@@ -19127,6 +19252,17 @@ pub struct DataProfileFinding {
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub resource_visibility: crate::model::ResourceVisibility,
+
+    /// The [full resource
+    /// name](https://cloud.google.com/apis/design/resource_names#full_resource_name)
+    /// of the resource profiled for this finding.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub full_resource_name: std::string::String,
+
+    /// The type of the resource that was profiled.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub data_source_type: std::option::Option<crate::model::DataSourceType>,
 
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -19236,6 +19372,33 @@ impl DataProfileFinding {
         v: T,
     ) -> Self {
         self.resource_visibility = v.into();
+        self
+    }
+
+    /// Sets the value of [full_resource_name][crate::model::DataProfileFinding::full_resource_name].
+    pub fn set_full_resource_name<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.full_resource_name = v.into();
+        self
+    }
+
+    /// Sets the value of [data_source_type][crate::model::DataProfileFinding::data_source_type].
+    pub fn set_data_source_type<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceType>,
+    {
+        self.data_source_type = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [data_source_type][crate::model::DataProfileFinding::data_source_type].
+    pub fn set_or_clear_data_source_type<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::DataSourceType>,
+    {
+        self.data_source_type = v.map(|x| x.into());
         self
     }
 }
@@ -32065,7 +32228,8 @@ pub struct FileStoreDataProfile {
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub sample_findings_table: std::option::Option<crate::model::BigQueryTable>,
 
-    /// The file store does not have any files.
+    /// The file store does not have any files. If the profiling operation failed,
+    /// this is false.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file_store_is_empty: bool,
@@ -38718,6 +38882,13 @@ pub struct TableReference {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub table_id: std::string::String,
 
+    /// The Google Cloud project ID of the project containing the table.
+    /// If omitted, the project ID is inferred from the parent project. This field
+    /// is required if the parent resource is an organization.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub project_id: std::string::String,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -38736,6 +38907,12 @@ impl TableReference {
     /// Sets the value of [table_id][crate::model::TableReference::table_id].
     pub fn set_table_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
         self.table_id = v.into();
+        self
+    }
+
+    /// Sets the value of [project_id][crate::model::TableReference::project_id].
+    pub fn set_project_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.project_id = v.into();
         self
     }
 }

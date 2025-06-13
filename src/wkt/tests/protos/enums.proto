@@ -15,16 +15,26 @@
 syntax = "proto3";
 package google.rust.sdk.test;
 
-import "google/protobuf/field_mask.proto";
-
-// A test message for FieldMask.
-message MessageWithFieldMask {
+// A test message for `enum` fields.
+message MessageWithEnum {
     // A singular field.
-    google.protobuf.FieldMask singular = 1;
+    TestEnum singular = 1;
     // An optional field.
-    optional google.protobuf.FieldMask optional = 2;
+    optional TestEnum optional = 2;
     // A repeated field.
-    repeated google.protobuf.FieldMask repeated = 3;
-    // A map field, messages cannot be keys.
-    map<string, google.protobuf.FieldMask> map = 4;
+    repeated TestEnum repeated = 3;
+    // A map field, enums cannot be keys. We only need to test them as values.
+    map<string, TestEnum> map = 4;
+
+    // The enum type
+    enum TestEnum {
+        // Open enums require a default value of `0`.
+        TEST_ENUM_UNSPECIFIED = 0;
+        // A test value.
+        RED = 1;
+        // A test value.
+        GREEN = 2;
+        // A test value.
+        BLUE = 3;
+    }
 }

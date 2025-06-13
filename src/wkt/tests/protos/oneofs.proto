@@ -16,6 +16,7 @@ syntax = "proto3";
 package google.rust.sdk.test;
 
 import "google/protobuf/duration.proto";
+import "google/protobuf/struct.proto";
 
 // A message with several interesting `oneof` fields.
 message MessageWithOneOf {
@@ -37,5 +38,33 @@ message MessageWithOneOf {
 
     message Message {
         string parent = 1;
+    }
+}
+
+// A message with a more complex `oneof` field.
+message MessageWithComplexOneOf {
+    oneof complex {
+        google.protobuf.NullValue null = 1;
+        bool bool_value = 2;
+        bytes bytes_value = 3;
+        string string_value = 4;
+        float float_value = 5;
+        double double_value = 6;
+        // TODO(#2382) - the natural name does not work.
+        int32 int = 7;
+        // TODO(#2382) - the natural name does not work.
+        int64 long = 8;
+        TestEnum enum = 9;
+        Inner inner = 10;
+        google.protobuf.Duration duration = 11;
+    }
+
+    enum TestEnum {
+        TEST_ENUM_UNSPECIFIED = 0;
+        BLACK = 1;
+    }
+
+    message Inner {
+        repeated string strings = 1;
     }
 }

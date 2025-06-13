@@ -906,6 +906,42 @@ pub mod cluster_manager {
             self.0.request.storage_pools = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [max_run_duration][crate::model::UpdateNodePoolRequest::max_run_duration].
+        pub fn set_max_run_duration<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.max_run_duration = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [max_run_duration][crate::model::UpdateNodePoolRequest::max_run_duration].
+        pub fn set_or_clear_max_run_duration<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Duration>,
+        {
+            self.0.request.max_run_duration = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [flex_start][crate::model::UpdateNodePoolRequest::flex_start].
+        pub fn set_flex_start<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.flex_start = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [flex_start][crate::model::UpdateNodePoolRequest::flex_start].
+        pub fn set_or_clear_flex_start<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<bool>,
+        {
+            self.0.request.flex_start = v.map(|x| x.into());
+            self
+        }
     }
 
     #[doc(hidden)]
@@ -3574,6 +3610,154 @@ pub mod cluster_manager {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for CheckAutopilotCompatibility {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ClusterManager::fetch_cluster_upgrade_info][crate::client::ClusterManager::fetch_cluster_upgrade_info] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::FetchClusterUpgradeInfo;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchClusterUpgradeInfo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchClusterUpgradeInfo(
+        RequestBuilder<crate::model::FetchClusterUpgradeInfoRequest>,
+    );
+
+    impl FetchClusterUpgradeInfo {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchClusterUpgradeInfoRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ClusterUpgradeInfo> {
+            (*self.0.stub)
+                .fetch_cluster_upgrade_info(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::FetchClusterUpgradeInfoRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::FetchClusterUpgradeInfoRequest::version].
+        pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.version = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchClusterUpgradeInfo {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [ClusterManager::fetch_node_pool_upgrade_info][crate::client::ClusterManager::fetch_node_pool_upgrade_info] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_container_v1::builder;
+    /// use builder::cluster_manager::FetchNodePoolUpgradeInfo;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> FetchNodePoolUpgradeInfo {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct FetchNodePoolUpgradeInfo(
+        RequestBuilder<crate::model::FetchNodePoolUpgradeInfoRequest>,
+    );
+
+    impl FetchNodePoolUpgradeInfo {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ClusterManager>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::FetchNodePoolUpgradeInfoRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::NodePoolUpgradeInfo> {
+            (*self.0.stub)
+                .fetch_node_pool_upgrade_info(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::FetchNodePoolUpgradeInfoRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [version][crate::model::FetchNodePoolUpgradeInfoRequest::version].
+        pub fn set_version<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.version = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for FetchNodePoolUpgradeInfo {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

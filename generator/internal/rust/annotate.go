@@ -146,6 +146,8 @@ type messageAnnotation struct {
 	// If set, this message is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
+	// If true, enable test types for generated serde serialization
+	WithGeneratedSerde bool
 }
 
 type methodAnnotation struct {
@@ -261,6 +263,18 @@ type fieldAnnotations struct {
 	ValueField *api.Field
 	// The templates need to generate different code for boxed fields.
 	IsBoxed bool
+	// If true, it requires a serde_with::serde_as() transformation.
+	SerdeAs string
+	// If true, use `wkt::internal::is_default()` to skip the field
+	SkipIfIsDefault bool
+}
+
+func (a *fieldAnnotations) SkipIfIsEmpty() bool {
+	return !a.SkipIfIsDefault
+}
+
+func (a *fieldAnnotations) RequiresSerdeAs() bool {
+	return a.SerdeAs != ""
 }
 
 type enumAnnotation struct {
@@ -534,6 +548,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
 		HasSyntheticFields: hasSyntheticFields,
+		WithGeneratedSerde: c.withGeneratedSerde,
 	}
 }
 
@@ -677,6 +692,27 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 	}
 }
 
+func (c *codec) primitiveSerdeAs(field *api.Field) string {
+	switch field.Typez {
+	case api.INT32_TYPE, api.SFIXED32_TYPE, api.SINT32_TYPE:
+		return "wkt::internal::I32"
+	case api.INT64_TYPE, api.SFIXED64_TYPE, api.SINT64_TYPE:
+		return "wkt::internal::I64"
+	case api.UINT32_TYPE, api.FIXED32_TYPE:
+		return "wkt::internal::U32"
+	case api.UINT64_TYPE, api.FIXED64_TYPE:
+		return "wkt::internal::U64"
+	case api.FLOAT_TYPE:
+		return "wkt::internal::F32"
+	case api.DOUBLE_TYPE:
+		return "wkt::internal::F64"
+	case api.BYTES_TYPE:
+		return "serde_with::base64::Base64"
+	default:
+		return ""
+	}
+}
+
 func (c *codec) annotateField(field *api.Field, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
 	ann := &fieldAnnotations{
 		FieldName:          toSnake(field.Name),
@@ -688,22 +724,35 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		FieldType:          fieldType(field, state, false, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		PrimitiveFieldType: fieldType(field, state, true, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		AddQueryParameter:  addQueryParameter(field),
+		SerdeAs:            c.primitiveSerdeAs(field),
+		SkipIfIsDefault:    field.Typez != api.STRING_TYPE && field.Typez != api.BYTES_TYPE,
 	}
 	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
 		ann.IsBoxed = true
 	}
 	field.Codec = ann
-	if field.Typez != api.MESSAGE_TYPE {
-		return
+	if field.Typez == api.MESSAGE_TYPE {
+		if msg, ok := state.MessageByID[field.TypezID]; ok && msg.IsMap {
+			if len(msg.Fields) != 2 {
+				slog.Error("expected exactly two fields for map message", "field ID", field.ID, "map ID", field.TypezID)
+			}
+			ann.KeyField = msg.Fields[0]
+			ann.KeyType = mapType(msg.Fields[0], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+			ann.ValueField = msg.Fields[1]
+			ann.ValueType = mapType(msg.Fields[1], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
+			key := c.primitiveSerdeAs(msg.Fields[0])
+			value := c.primitiveSerdeAs(msg.Fields[1])
+			if key != "" || value != "" {
+				if key == "" {
+					key = "serde_with::Same"
+				}
+				if value == "" {
+					value = "serde_with::Same"
+				}
+				ann.SerdeAs = fmt.Sprintf("std::collections::HashMap<%s, %s>", key, value)
+			}
+		}
 	}
-	mapMessage, ok := state.MessageByID[field.TypezID]
-	if !ok || !mapMessage.IsMap {
-		return
-	}
-	ann.KeyField = mapMessage.Fields[0]
-	ann.KeyType = mapType(mapMessage.Fields[0], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
-	ann.ValueField = mapMessage.Fields[1]
-	ann.ValueType = mapType(mapMessage.Fields[1], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 }
 
 func (c *codec) annotateEnum(e *api.Enum, state *api.APIState, sourceSpecificationPackageName string) {
