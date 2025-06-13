@@ -178,6 +178,8 @@ pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
 }
 
 pub async fn workload_identity_provider_executable_sourced() -> anyhow::Result<()> {
+    // allow command execution
+    let _e = ScopedEnv::set("GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES", "1");
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
     let audience = get_oidc_audience();
     let (service_account, client_email) = get_byoid_service_account_and_email();
@@ -206,7 +208,6 @@ pub async fn workload_identity_provider_executable_sourced() -> anyhow::Result<(
       "credential_source": {
         "executable": {
             "command": format!("cat {path}"),
-            "output_file": path,
         },
       }
     });
