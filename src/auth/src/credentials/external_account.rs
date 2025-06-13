@@ -80,9 +80,9 @@ enum CredentialSourceFile {
     Executable {
         executable: ExecutableConfig,
     },
+    Programmatic {},
     File {},
     Aws {},
-    Programmatic {},
 }
 
 /// A representation of a [external account config file].
@@ -131,9 +131,7 @@ impl From<CredentialSourceFile> for CredentialSource {
             CredentialSourceFile::Executable { executable } => {
                 Self::Executable(ExecutableSourcedCredentials::new(executable))
             }
-            CredentialSourceFile::Programmatic {} => {
-                unimplemented!("programmatic sourced credential not supported yet")
-            }
+            CredentialSourceFile::Programmatic {} => Self::Programmatic {},
             CredentialSourceFile::File { .. } => {
                 unimplemented!("file sourced credential not supported yet")
             }
@@ -162,6 +160,7 @@ enum CredentialSource {
     Executable(ExecutableSourcedCredentials),
     File {},
     Aws {},
+    Programmatic {},
 }
 
 impl ExternalAccountConfig {
@@ -173,6 +172,11 @@ impl ExternalAccountConfig {
             }
             CredentialSource::Executable(source) => {
                 Self::make_credentials_from_source(source, config, quota_project_id)
+            }
+            CredentialSource::Programmatic {} => {
+                panic!(
+                    "programmatic sourced credential should set a subject token provider implementation via external_account::Builder::with_subject_token_provider method"
+                )
             }
             CredentialSource::File { .. } => {
                 unimplemented!("file sourced credential not supported yet")
