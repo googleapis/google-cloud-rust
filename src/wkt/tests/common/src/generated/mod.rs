@@ -1998,7 +1998,32 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF32 {
                             }
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
-                        "map" => {}
+                        "map" => {
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<std::string::String, f32>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                serde_with::Same,
+                                                wkt::internal::F32,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2058,6 +2083,18 @@ impl serde::ser::Serialize for __MessageWithF32 {
                 }
             }
             state.serialize_entry("repeated", &__With(&self.0.repeated))?;
+        }
+        if !self.0.map.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, f32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<serde_with::Same, wkt::internal::F32> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("map", &__With(&self.0.map))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -2228,7 +2265,32 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF64 {
                             }
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
-                        "map" => {}
+                        "map" => {
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<std::string::String, f64>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                serde_with::Same,
+                                                wkt::internal::F64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2288,6 +2350,18 @@ impl serde::ser::Serialize for __MessageWithF64 {
                 }
             }
             state.serialize_entry("repeated", &__With(&self.0.repeated))?;
+        }
+        if !self.0.map.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<serde_with::Same, wkt::internal::F64> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("map", &__With(&self.0.map))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -2493,9 +2567,81 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
                             }
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
-                        "mapValue" => {}
-                        "mapKey" => {}
-                        "mapKeyValue" => {}
+                        "mapValue" => {
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<std::string::String, i32>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                serde_with::Same,
+                                                wkt::internal::I32,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_value = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "mapKey" => {
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<i32, std::string::String>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::I32,
+                                                serde_with::Same,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_key = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "mapKeyValue" => {
+                            struct __With(std::option::Option<std::collections::HashMap<i32, i32>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::I32,
+                                                wkt::internal::I32,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_key_value =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2555,6 +2701,44 @@ impl serde::ser::Serialize for __MessageWithI32 {
                 }
             }
             state.serialize_entry("repeated", &__With(&self.0.repeated))?;
+        }
+        if !self.0.map_value.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<serde_with::Same, wkt::internal::I32> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapValue", &__With(&self.0.map_value))?;
+        }
+        if !self.0.map_key.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<i32, std::string::String>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<wkt::internal::I32, serde_with::Same> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapKey", &__With(&self.0.map_key))?;
+        }
+        if !self.0.map_key_value.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<i32, i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::I32, wkt::internal::I32>,
+                    >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapKeyValue", &__With(&self.0.map_key_value))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -2760,9 +2944,81 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
                             }
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
-                        "mapValue" => {}
-                        "mapKey" => {}
-                        "mapKeyValue" => {}
+                        "mapValue" => {
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<std::string::String, u32>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                serde_with::Same,
+                                                wkt::internal::U32,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_value = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "mapKey" => {
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<u32, std::string::String>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::U32,
+                                                serde_with::Same,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_key = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "mapKeyValue" => {
+                            struct __With(std::option::Option<std::collections::HashMap<u32, u32>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::U32,
+                                                wkt::internal::U32,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_key_value =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -2822,6 +3078,44 @@ impl serde::ser::Serialize for __MessageWithU32 {
                 }
             }
             state.serialize_entry("repeated", &__With(&self.0.repeated))?;
+        }
+        if !self.0.map_value.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, u32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<serde_with::Same, wkt::internal::U32> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapValue", &__With(&self.0.map_value))?;
+        }
+        if !self.0.map_key.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<u32, std::string::String>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<wkt::internal::U32, serde_with::Same> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapKey", &__With(&self.0.map_key))?;
+        }
+        if !self.0.map_key_value.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<u32, u32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::U32, wkt::internal::U32>,
+                    >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapKeyValue", &__With(&self.0.map_key_value))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -3027,9 +3321,81 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
                             }
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
-                        "mapValue" => {}
-                        "mapKey" => {}
-                        "mapKeyValue" => {}
+                        "mapValue" => {
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<std::string::String, i64>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                serde_with::Same,
+                                                wkt::internal::I64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_value = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "mapKey" => {
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<i64, std::string::String>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::I64,
+                                                serde_with::Same,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_key = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "mapKeyValue" => {
+                            struct __With(std::option::Option<std::collections::HashMap<i64, i64>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::I64,
+                                                wkt::internal::I64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_key_value =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3089,6 +3455,44 @@ impl serde::ser::Serialize for __MessageWithI64 {
                 }
             }
             state.serialize_entry("repeated", &__With(&self.0.repeated))?;
+        }
+        if !self.0.map_value.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<serde_with::Same, wkt::internal::I64> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapValue", &__With(&self.0.map_value))?;
+        }
+        if !self.0.map_key.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<i64, std::string::String>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<wkt::internal::I64, serde_with::Same> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapKey", &__With(&self.0.map_key))?;
+        }
+        if !self.0.map_key_value.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<i64, i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::I64, wkt::internal::I64>,
+                    >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapKeyValue", &__With(&self.0.map_key_value))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -3294,9 +3698,81 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
                             }
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
-                        "mapValue" => {}
-                        "mapKey" => {}
-                        "mapKeyValue" => {}
+                        "mapValue" => {
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<std::string::String, u64>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                serde_with::Same,
+                                                wkt::internal::U64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_value = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "mapKey" => {
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<u64, std::string::String>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::U64,
+                                                serde_with::Same,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_key = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "mapKeyValue" => {
+                            struct __With(std::option::Option<std::collections::HashMap<u64, u64>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::U64,
+                                                wkt::internal::U64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_key_value =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3356,6 +3832,44 @@ impl serde::ser::Serialize for __MessageWithU64 {
                 }
             }
             state.serialize_entry("repeated", &__With(&self.0.repeated))?;
+        }
+        if !self.0.map_value.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, u64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<serde_with::Same, wkt::internal::U64> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapValue", &__With(&self.0.map_value))?;
+        }
+        if !self.0.map_key.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<u64, std::string::String>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<wkt::internal::U64, serde_with::Same> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapKey", &__With(&self.0.map_key))?;
+        }
+        if !self.0.map_key_value.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<u64, u64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<
+                        std::collections::HashMap<wkt::internal::U64, wkt::internal::U64>,
+                    >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapKeyValue", &__With(&self.0.map_key_value))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -3530,7 +4044,32 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytes {
                             }
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
-                        "map" => {}
+                        "map" => {
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<std::string::String, ::bytes::Bytes>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                serde_with::Same,
+                                                serde_with::base64::Base64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -3592,6 +4131,20 @@ impl serde::ser::Serialize for __MessageWithBytes {
                 }
             }
             state.serialize_entry("repeated", &__With(&self.0.repeated))?;
+        }
+        if !self.0.map.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, ::bytes::Bytes>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<
+                        std::collections::HashMap<serde_with::Same, serde_with::base64::Base64>,
+                    >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("map", &__With(&self.0.map))?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -3981,8 +4534,58 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
                             result.repeated =
                                 map.next_value::<std::vec::Vec<std::string::String>>()?;
                         }
-                        "mapValue" => {}
-                        "mapKey" => {}
+                        "mapValue" => {
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<i32, std::string::String>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                wkt::internal::I32,
+                                                serde_with::Same,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_value = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        "mapKey" => {
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<std::string::String, i32>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                serde_with::Same,
+                                                wkt::internal::I32,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.map_key = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
                         "mapKeyValue" => {
                             result.map_key_value = map.next_value::<std::collections::HashMap<
                                 std::string::String,
@@ -4019,6 +4622,30 @@ impl serde::ser::Serialize for __MessageWithString {
         }
         if !self.0.repeated.is_empty() {
             state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map_value.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<i32, std::string::String>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<wkt::internal::I32, serde_with::Same> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapValue", &__With(&self.0.map_value))?;
+        }
+        if !self.0.map_key.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<serde_with::Same, wkt::internal::I32> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("mapKey", &__With(&self.0.map_key))?;
         }
         if !self.0.map_key_value.is_empty() {
             state.serialize_entry("mapKeyValue", &self.0.map_key_value)?;
@@ -4687,51 +5314,19 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithValue {
                     #[allow(clippy::match_single_binding)]
                     match key.as_str() {
                         "singular" => {
-                            struct __With(std::option::Option<wkt::Value>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<serde_with::Same> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.singular = map.next_value::<__With>()?.0;
+                            result.singular =
+                                map.next_value::<std::option::Option<wkt::Value>>()?;
                         }
                         "optional" => {
-                            struct __With(std::option::Option<wkt::Value>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::< std::option::Option<serde_with::Same> >::deserialize(deserializer).map(__With)
-                                }
-                            }
-                            result.optional = map.next_value::<__With>()?.0;
+                            result.optional =
+                                map.next_value::<std::option::Option<wkt::Value>>()?;
                         }
                         "repeated" => {
-                            struct __With(std::option::Option<std::vec::Vec<wkt::Value>>);
-                            impl<'de> serde::de::Deserialize<'de> for __With {
-                                fn deserialize<D>(
-                                    deserializer: D,
-                                ) -> std::result::Result<Self, D::Error>
-                                where
-                                    D: serde::de::Deserializer<'de>,
-                                {
-                                    serde_with::As::<
-                                        std::option::Option<std::vec::Vec<serde_with::Same>>,
-                                    >::deserialize(deserializer)
-                                    .map(__With)
-                                }
-                            }
-                            result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
+                            result.repeated = map.next_value::<std::vec::Vec<wkt::Value>>()?;
                         }
-                        "map" => {}
+                        "map" => {
+                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Value>>()?;
+                        }
                         _ => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4755,44 +5350,16 @@ impl serde::ser::Serialize for __MessageWithValue {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(None)?;
         if self.0.singular.is_some() {
-            struct __With<'a>(&'a std::option::Option<wkt::Value>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<serde_with::Same>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("singular", &__With(&self.0.singular))?;
+            state.serialize_entry("singular", &self.0.singular)?;
         }
         if self.0.optional.is_some() {
-            struct __With<'a>(&'a std::option::Option<wkt::Value>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::option::Option<serde_with::Same>>::serialize(
-                        self.0, serializer,
-                    )
-                }
-            }
-            state.serialize_entry("optional", &__With(&self.0.optional))?;
+            state.serialize_entry("optional", &self.0.optional)?;
         }
         if !self.0.repeated.is_empty() {
-            struct __With<'a>(&'a std::vec::Vec<wkt::Value>);
-            impl<'a> serde::ser::Serialize for __With<'a> {
-                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
-                where
-                    S: serde::ser::Serializer,
-                {
-                    serde_with::As::<std::vec::Vec<serde_with::Same>>::serialize(self.0, serializer)
-                }
-            }
-            state.serialize_entry("repeated", &__With(&self.0.repeated))?;
+            state.serialize_entry("repeated", &self.0.repeated)?;
+        }
+        if !self.0.map.is_empty() {
+            state.serialize_entry("map", &self.0.map)?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
