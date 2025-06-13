@@ -459,7 +459,7 @@ mod test {
             CredentialSource::Executable(source) => {
                 assert_eq!(source.command, "cat");
                 assert_eq!(source.args, vec!["/some/file"]);
-                assert_eq!(source.output_file, Some("/some/file".to_string()));
+                assert_eq!(source.output_file.as_deref(), Some("/some/file"));
                 assert_eq!(source.timeout, Duration::from_secs(5));
             }
             _ => {
