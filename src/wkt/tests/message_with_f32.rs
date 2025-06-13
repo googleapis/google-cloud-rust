@@ -31,6 +31,12 @@ mod test {
     #[test_case(MessageWithF32::new().set_optional(f32::INFINITY), json!({"optional": "Infinity"}))]
     #[test_case(MessageWithF32::new().set_optional(-f32::INFINITY), json!({"optional": "-Infinity"}); "optional minus inf")]
     #[test_case(MessageWithF32::new().set_optional(f32::NAN), json!({"optional": "NaN"}))]
+    #[test_case(MessageWithF32::new().set_repeated([0_f32;0]), json!({}))]
+    #[test_case(MessageWithF32::new().set_repeated([0.0, 1.5, 2.5]), json!({"repeated": [0.0, 1.5, 2.5]}))]
+    #[test_case(MessageWithF32::new().set_repeated([0.0, f32::NAN, f32::INFINITY]), json!({"repeated": [0.0, "NaN", "Infinity"]}))]
+    #[test_case(MessageWithF32::new().set_map([("", 0_f32);0]), json!({}))]
+    #[test_case(MessageWithF32::new().set_map([("a", 0_f32), ("b", 1_f32)]), json!({"map": {"a": 0.0, "b": 1.0}}))]
+    #[test_case(MessageWithF32::new().set_map([("a", f32::NAN), ("b", f32::INFINITY)]), json!({"map": {"a": "NaN", "b": "Infinity"}}))]
     fn test_ser(input: MessageWithF32, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithF32(input))?;
         assert_eq!(got, want);
@@ -44,6 +50,11 @@ mod test {
     #[test_case(MessageWithF32::new().set_optional(0.0), json!({"optional": 0.0}))]
     #[test_case(MessageWithF32::new().set_or_clear_optional(None::<f32>), json!({}))]
     #[test_case(MessageWithF32::new().set_optional(1.5), json!({"optional": 1.5}))]
+    #[test_case(MessageWithF32::new().set_repeated([0_f32;0]), json!({}))]
+    #[test_case(MessageWithF32::new().set_repeated([0.0, 1.5, 2.5]), json!({"repeated": [0.0, 1.5, 2.5]}))]
+    #[test_case(MessageWithF32::new().set_repeated([0.0, 1.5, 2.5]), json!({"repeated": [0, 1.5, "2.5"]}))]
+    #[test_case(MessageWithF32::new().set_map([("", 0_f32);0]), json!({}))]
+    #[test_case(MessageWithF32::new().set_map([("a", 0_f32), ("b", 1_f32)]), json!({"map": {"a": 0.0, "b": 1.0}}))]
     fn test_de(want: MessageWithF32, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithF32>(input)?;
         assert_eq!(got.0, want);
