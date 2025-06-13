@@ -483,6 +483,7 @@ func TestOneOfAnnotations(t *testing.T) {
 		ValueField:         value_field,
 		IsBoxed:            true,
 		SerdeAs:            "std::collections::HashMap<wkt::internal::I32, wkt::internal::F32>",
+		SkipIfIsDefault:    true,
 	}, map_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -497,9 +498,8 @@ func TestOneOfAnnotations(t *testing.T) {
 		FieldType:          "i64",
 		PrimitiveFieldType: "i64",
 		AddQueryParameter:  `let builder = req.oneof_field_integer().iter().fold(builder, |builder, p| builder.query(&[("oneofFieldInteger", p)]));`,
-		KeyType:            "",
-		ValueType:          "",
 		SerdeAs:            "wkt::internal::I64",
+		SkipIfIsDefault:    true,
 	}, integer_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -514,9 +514,8 @@ func TestOneOfAnnotations(t *testing.T) {
 		FieldType:          "std::boxed::Box<>",
 		PrimitiveFieldType: "",
 		AddQueryParameter:  `let builder = req.oneof_field_boxed().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, p| { use gaxi::query_parameter::QueryParameter; p.add(builder, "oneofFieldBoxed") });`,
-		KeyType:            "",
-		ValueType:          "",
 		IsBoxed:            true,
+		SkipIfIsDefault:    true,
 	}, boxed_field.Codec, ignore); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -827,9 +826,8 @@ func TestJsonNameAnnotations(t *testing.T) {
 		FieldType:          "i32",
 		PrimitiveFieldType: "i32",
 		AddQueryParameter:  `let builder = builder.query(&[("readTime", &req.read_time)]);`,
-		KeyType:            "",
-		ValueType:          "",
 		SerdeAs:            "wkt::internal::I32",
+		SkipIfIsDefault:    true,
 	}, readTime.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -847,9 +845,8 @@ func TestJsonNameAnnotations(t *testing.T) {
 		FieldType:          "std::option::Option<i32>",
 		PrimitiveFieldType: "i32",
 		AddQueryParameter:  `let builder = req.optional.iter().fold(builder, |builder, p| builder.query(&[("optional", p)]));`,
-		KeyType:            "",
-		ValueType:          "",
 		SerdeAs:            "wkt::internal::I32",
+		SkipIfIsDefault:    true,
 	}, optional.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -867,9 +864,8 @@ func TestJsonNameAnnotations(t *testing.T) {
 		FieldType:          "std::vec::Vec<i32>",
 		PrimitiveFieldType: "i32",
 		AddQueryParameter:  `let builder = req.repeated.iter().fold(builder, |builder, p| builder.query(&[("repeated", p)]));`,
-		KeyType:            "",
-		ValueType:          "",
 		SerdeAs:            "wkt::internal::I32",
+		SkipIfIsDefault:    true,
 	}, repeated.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
 	}
@@ -1068,6 +1064,7 @@ func TestFieldAnnotations(t *testing.T) {
 		ValueType:          "i64",
 		ValueField:         value_field,
 		SerdeAs:            "std::collections::HashMap<wkt::internal::I32, wkt::internal::I64>",
+		SkipIfIsDefault:    true,
 	}
 	if diff := cmp.Diff(wantField, map_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -1085,6 +1082,7 @@ func TestFieldAnnotations(t *testing.T) {
 		PrimitiveFieldType: "crate::model::TestMessage",
 		AddQueryParameter:  `let builder = req.boxed_field.as_ref().map(|p| serde_json::to_value(p).map_err(Error::ser) ).transpose()?.into_iter().fold(builder, |builder, v| { use gaxi::query_parameter::QueryParameter; v.add(builder, "boxedField") });`,
 		IsBoxed:            true,
+		SkipIfIsDefault:    true,
 	}
 	if diff := cmp.Diff(wantField, boxed_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -1202,6 +1200,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		FieldType:          "crate::model::TestEnum",
 		PrimitiveFieldType: "crate::model::TestEnum",
 		AddQueryParameter:  `let builder = builder.query(&[("singularField", &req.singular_field)]);`,
+		SkipIfIsDefault:    true,
 	}
 	if diff := cmp.Diff(wantField, singular_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -1219,6 +1218,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		FieldType:          "std::vec::Vec<crate::model::TestEnum>",
 		PrimitiveFieldType: "crate::model::TestEnum",
 		AddQueryParameter:  `let builder = req.repeated_field.iter().fold(builder, |builder, p| builder.query(&[("repeatedField", p)]));`,
+		SkipIfIsDefault:    true,
 	}
 	if diff := cmp.Diff(wantField, repeated_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -1235,6 +1235,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		FieldType:          "std::option::Option<crate::model::TestEnum>",
 		PrimitiveFieldType: "crate::model::TestEnum",
 		AddQueryParameter:  `let builder = req.optional_field.iter().fold(builder, |builder, p| builder.query(&[("optionalField", p)]));`,
+		SkipIfIsDefault:    true,
 	}
 	if diff := cmp.Diff(wantField, optional_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -1251,6 +1252,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		FieldType:          "wkt::NullValue",
 		PrimitiveFieldType: "wkt::NullValue",
 		AddQueryParameter:  `let builder = builder.query(&[("nullValueField", &req.null_value_field)]);`,
+		SkipIfIsDefault:    true,
 	}
 	if diff := cmp.Diff(wantField, null_value_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
@@ -1272,6 +1274,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		KeyField:           key_field,
 		ValueType:          "crate::model::TestEnum",
 		ValueField:         value_field,
+		SkipIfIsDefault:    true,
 	}
 	if diff := cmp.Diff(wantField, map_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
