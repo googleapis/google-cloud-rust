@@ -123,13 +123,7 @@ pub async fn api_key() -> anyhow::Result<()> {
 pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
     let audience = get_oidc_audience();
-    let service_account = get_byoid_service_account();
-    let client_email = match service_account.get("client_email") {
-        Some(serde_json::Value::String(v)) => v.clone(),
-        None | Some(_) => {
-            panic!("missing `client_email` string in service account: {service_account:?}")
-        }
-    };
+    let (service_account, client_email) = get_byoid_service_account_and_email();
 
     let id_token = generate_id_token(audience.clone(), client_email, service_account).await?;
 
@@ -186,13 +180,7 @@ pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
 pub async fn workload_identity_provider_executable_sourced() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
     let audience = get_oidc_audience();
-    let service_account = get_byoid_service_account();
-    let client_email = match service_account.get("client_email") {
-        Some(serde_json::Value::String(v)) => v.clone(),
-        None | Some(_) => {
-            panic!("missing `client_email` string in service account: {service_account:?}")
-        }
-    };
+    let (service_account, client_email) = get_byoid_service_account_and_email();
 
     let id_token = generate_id_token(audience.clone(), client_email, service_account).await?;
 
@@ -274,6 +262,18 @@ async fn generate_id_token(
 fn get_oidc_audience() -> String {
     std::env::var("GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE")
         .expect("GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE not set")
+}
+
+fn get_byoid_service_account_and_email() -> (serde_json::Value, String) {
+    let service_account = get_byoid_service_account();
+    let client_email = match service_account.get("client_email") {
+        Some(serde_json::Value::String(v)) => v.clone(),
+        None | Some(_) => {
+            panic!("missing `client_email` string in service account: {service_account:?}")
+        }
+    };
+
+    (service_account, client_email)
 }
 
 fn get_byoid_service_account() -> serde_json::Value {
