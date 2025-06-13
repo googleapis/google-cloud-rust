@@ -326,7 +326,7 @@ where
         if now < start + self.maximum_duration {
             return None;
         }
-        Some(Error::other(Exhausted::new(
+        Some(Error::exhausted(Exhausted::new(
             operation_name,
             "elapsed time",
             format!("{:?}", now.checked_duration_since(start).unwrap()),
@@ -439,7 +439,7 @@ where
         if count < self.maximum_attempts {
             return None;
         }
-        Some(Error::other(Exhausted::new(
+        Some(Error::exhausted(Exhausted::new(
             operation_name,
             "attempt count",
             count.to_string(),
