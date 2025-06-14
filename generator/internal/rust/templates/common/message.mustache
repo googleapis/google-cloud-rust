@@ -282,12 +282,16 @@ impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         {{#Fields}}
                         __FieldTag::__{{Codec.SetterName}} => {
+                            if !fields.insert(__FieldTag::__{{Codec.SetterName}}) {
+                                return std::result::Result::Err(A::Error::duplicate_field("multiple values for {{Codec.SetterName}}"));
+                            }
                             {{^Codec.RequiresSerdeAs}}
                             {{> /templates/common/deser_plain_message_field}}
                             {{/Codec.RequiresSerdeAs}}

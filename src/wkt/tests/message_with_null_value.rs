@@ -41,4 +41,14 @@ mod test {
         assert_eq!(got.0, want);
         Ok(())
     }
+
+    #[test_case(r#"{"singular": null, "singular": null}"#)]
+    #[test_case(r#"{"optional": null, "optional": null}"#)]
+    #[test_case(r#"{"repeated": [],   "repeated": []}"#)]
+    #[test_case(r#"{"map": {},        "map": {}}"#)]
+    fn reject_duplicate_fields(input: &str) -> Result {
+        let err = serde_json::from_str::<__MessageWithNullValue>(input).unwrap_err();
+        assert!(err.is_data(), "{err:?}");
+        Ok(())
+    }
 }

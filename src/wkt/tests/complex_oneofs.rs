@@ -99,19 +99,30 @@ mod test {
         Ok(())
     }
 
-    #[test_case(r#"{"null": null, "null": null}"#)]
-    #[test_case(r#"{"null": null, "boolValue": true}"#)]
-    #[test_case(r#"{"null": null, "bytesValue": ""}"#)]
-    #[test_case(r#"{"null": null, "stringValue": ""}"#)]
-    #[test_case(r#"{"null": null, "floatValue": 0}"#)]
-    #[test_case(r#"{"null": null, "doubleValue": 0}"#)]
-    #[test_case(r#"{"null": null, "int": 0}"#)]
-    #[test_case(r#"{"null": null, "long": 0}"#)]
-    #[test_case(r#"{"null": null, "enum": "BLACK"}"#)]
-    #[test_case(r#"{"null": null, "inner": {}}"#)]
-    #[test_case(r#"{"null": null, "duration": "2.0s"}"#)]
-    #[test_case(r#"{"null": null, "value": "abc"}"#)]
-    fn dup_fields_are_errors(input: &str) -> Result {
+    #[test_case(r#"{"null": null,         "null": null}"#)]
+    #[test_case(r#"{"null": null,         "boolValue": true}"#)]
+    #[test_case(r#"{"boolValue": true,    "boolValue": true}"#)]
+    #[test_case(r#"{"null": null,         "bytesValue": ""}"#)]
+    #[test_case(r#"{"bytesValue": "",     "bytesValue": ""}"#)]
+    #[test_case(r#"{"null": null,         "stringValue": ""}"#)]
+    #[test_case(r#"{"stringValue": "",    "stringValue": ""}"#)]
+    #[test_case(r#"{"null": null,         "floatValue": 0}"#)]
+    #[test_case(r#"{"floatValue": 0,      "floatValue": 0}"#)]
+    #[test_case(r#"{"null": null,         "doubleValue": 0}"#)]
+    #[test_case(r#"{"doubleValue": 0,     "doubleValue": 0}"#)]
+    #[test_case(r#"{"null": null,         "int": 0}"#)]
+    #[test_case(r#"{"int": 0,             "int": 0}"#)]
+    #[test_case(r#"{"null": null,         "long": 0}"#)]
+    #[test_case(r#"{"long": 0,            "long": 0}"#)]
+    #[test_case(r#"{"null": null,         "enum": "BLACK"}"#)]
+    #[test_case(r#"{"enum": "BLACK",      "enum": "BLACK"}"#)]
+    #[test_case(r#"{"null": null,         "inner": {}}"#)]
+    #[test_case(r#"{"inner": {},          "inner": {}}"#)]
+    #[test_case(r#"{"null": null,         "duration": "2.0s"}"#)]
+    #[test_case(r#"{"duration": "2.0s",   "duration": "2.0s"}"#)]
+    #[test_case(r#"{"null": null,         "value": "abc"}"#)]
+    #[test_case(r#"{"value": "abc",       "value": "abc"}"#)]
+    fn reject_duplicate_fields(input: &str) -> Result {
         let got = serde_json::from_str::<__MessageWithComplexOneOf>(input).unwrap_err();
         assert!(got.is_data(), "{got:?}");
         Ok(())
