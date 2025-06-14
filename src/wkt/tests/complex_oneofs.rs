@@ -53,6 +53,8 @@ mod test {
     #[test_case(MessageWithComplexOneOf::new().set_enum(TestEnum::default()), json!({"enum": 0}))]
     #[test_case(MessageWithComplexOneOf::new().set_inner(Inner::default().set_strings(["a", "b"])), json!({"inner": {"strings": ["a", "b"]}}))]
     #[test_case(MessageWithComplexOneOf::new().set_duration(Duration::clamp(-1, -750_000_000)), json!({"duration": "-1.75s"}))]
+    #[test_case(MessageWithComplexOneOf::new().set_value(json!({"a": 1})), json!({"value": {"a": 1}}))]
+    #[test_case(MessageWithComplexOneOf::new().set_value(wkt::Value::Null), json!({"value": null}))]
     fn test_ser(input: MessageWithComplexOneOf, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithComplexOneOf(input))?;
         assert_eq!(got, want);
@@ -89,9 +91,29 @@ mod test {
     #[test_case(MessageWithComplexOneOf::new().set_string_value(LAZY), json!({"string_value": LAZY}))]
     #[test_case(MessageWithComplexOneOf::new().set_float_value(1.5), json!({"float_value": 1.5}))]
     #[test_case(MessageWithComplexOneOf::new().set_double_value(2.5), json!({"double_value": 2.5}))]
+    #[test_case(MessageWithComplexOneOf::new().set_value(json!({"a": 1})), json!({"value": {"a": 1}}))]
+    #[test_case(MessageWithComplexOneOf::new().set_value(wkt::Value::Null), json!({"value": null}))]
     fn test_de(want: MessageWithComplexOneOf, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithComplexOneOf>(input)?;
         assert_eq!(got.0, want);
+        Ok(())
+    }
+
+    #[test_case(r#"{"null": null, "null": null}"#)]
+    #[test_case(r#"{"null": null, "boolValue": true}"#)]
+    #[test_case(r#"{"null": null, "bytesValue": ""}"#)]
+    #[test_case(r#"{"null": null, "stringValue": ""}"#)]
+    #[test_case(r#"{"null": null, "floatValue": 0}"#)]
+    #[test_case(r#"{"null": null, "doubleValue": 0}"#)]
+    #[test_case(r#"{"null": null, "int": 0}"#)]
+    #[test_case(r#"{"null": null, "long": 0}"#)]
+    #[test_case(r#"{"null": null, "enum": "BLACK"}"#)]
+    #[test_case(r#"{"null": null, "inner": {}}"#)]
+    #[test_case(r#"{"null": null, "duration": "2.0s"}"#)]
+    #[test_case(r#"{"null": null, "value": "abc"}"#)]
+    fn dup_fields_are_errors(input: &str) -> Result {
+        let got = serde_json::from_str::<__MessageWithComplexOneOf>(input).unwrap_err();
+        assert!(got.is_data(), "{got:?}");
         Ok(())
     }
 

@@ -270,6 +270,9 @@ type fieldAnnotations struct {
 	// If true, this is a `wkt::Value` field, and requires super-extra custom
 	// deserialization.
 	IsWktValue bool
+	// If true, this is a `wkt::NullValue` field, and also requires super-extra
+	// custom deserialization.
+	IsWktNullValue bool
 }
 
 func (a *fieldAnnotations) SkipIfIsEmpty() bool {
@@ -772,6 +775,7 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		SerdeAs:            c.primitiveSerdeAs(field),
 		SkipIfIsDefault:    field.Typez != api.STRING_TYPE && field.Typez != api.BYTES_TYPE,
 		IsWktValue:         field.Typez == api.MESSAGE_TYPE && field.TypezID == ".google.protobuf.Value",
+		IsWktNullValue:     field.Typez == api.ENUM_TYPE && field.TypezID == ".google.protobuf.NullValue",
 	}
 	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
 		ann.IsBoxed = true

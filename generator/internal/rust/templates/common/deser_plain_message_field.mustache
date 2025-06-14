@@ -17,7 +17,26 @@ limitations under the License.
 {{#Singular}}
 {{! First deal with all the fields that are not part of a oneof }}
 {{^IsOneOf}}
-result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()? {{#Codec.IsWktValue}}.or(Some(wkt::Value::Null)){{/Codec.IsWktValue}} ;
+{{^Codec.IsWktNullValue}}
+result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?
+    {{#Codec.IsWktValue}}
+    {{! If Codec.IsWktValue, then the field is always optional, as it is a message }}
+    .or(Some(wkt::Value::Null))
+    {{/Codec.IsWktValue}}
+    ;
+{{/Codec.IsWktNullValue}}
+{{#Codec.IsWktNullValue}}
+{{#Optional}}
+result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?.or(Some(wkt::NullValue));
+{{/Optional}}
+{{^Optional}}
+result.{{Codec.FieldName}} =
+    map.next_value::<std::option::Option<
+        {{{Codec.PrimitiveFieldType}}}
+    >>()?
+    .unwrap_or_default();
+{{/Optional}}
+{{/Codec.IsWktNullValue}}
 {{/IsOneOf}}
 {{#IsOneOf}}
 if result.{{Group.Codec.FieldName}}.is_some() {
