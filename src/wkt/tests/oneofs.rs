@@ -69,6 +69,16 @@ mod test {
         Ok(())
     }
 
+    #[test_case(json!({"stringContentsOne": "abc", "stringContentsTwo": null}))]
+    #[test_case(json!({"stringContentsTwo": "abc", "stringContentsOne": null}))]
+    #[test_case(json!({"anotherMessage": {}, "string": null}))]
+    #[test_case(json!({"anotherMessage": {}, "duration": null}))]
+    #[test_case(json!({"string": null, "duration": "1.5s"}))]
+    fn null_values_have_no_effect(input: Value) -> Result {
+        let _ = serde_json::from_value::<__MessageWithOneOf>(input)?;
+        Ok(())
+    }
+
     #[test_case(json!({"unknown": "test-value"}))]
     #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
     fn test_unknown(input: Value) -> Result {

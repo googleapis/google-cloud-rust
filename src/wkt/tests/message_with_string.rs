@@ -48,6 +48,30 @@ mod test {
         Ok(())
     }
 
+    #[test_case(MessageWithString::new(), r#"{"singular": null}"#)]
+    #[test_case(MessageWithString::new(), r#"{"optional": null}"#)]
+    #[test_case(MessageWithString::new(), r#"{"repeated": null}"#)]
+    #[test_case(MessageWithString::new(), r#"{"mapKey": null}"#)]
+    #[test_case(MessageWithString::new(), r#"{"mapValue": null}"#)]
+    #[test_case(MessageWithString::new(), r#"{"mapKeyValue": null}"#)]
+    #[test_case(MessageWithString::new().set_singular("abc"),             r#"{"singular": null, "singular": "abc"}"#)]
+    #[test_case(MessageWithString::new().set_optional(""),                r#"{"optional": null, "optional": ""}"#)]
+    #[test_case(MessageWithString::new().set_repeated([""]),              r#"{"repeated": null, "repeated": [""]}"#)]
+    #[test_case(MessageWithString::new().set_map_key([("a", 1)]),         r#"{"mapKey": null, "mapKey": {"a": 1}}"#)]
+    #[test_case(MessageWithString::new().set_map_value([(1, "a")]),       r#"{"mapValue": null, "mapValue": {"1": "a"}}"#)]
+    #[test_case(MessageWithString::new().set_map_key_value([("a", "b")]), r#"{"mapKeyValue": null, "mapKeyValue": {"a": "b"}}"#)]
+    #[test_case(MessageWithString::new().set_singular("abc"),             r#"{"singular": null, "singular": "abc", "singular": null}"#)]
+    #[test_case(MessageWithString::new().set_optional(""),                r#"{"optional": null, "optional": "", "optional": null}"#)]
+    #[test_case(MessageWithString::new().set_repeated([""]),              r#"{"repeated": null, "repeated": [""], "repeated": null}"#)]
+    #[test_case(MessageWithString::new().set_map_key([("a", 1)]),         r#"{"mapKey": null, "mapKey": {"a": 1}, "mapKey": null}"#)]
+    #[test_case(MessageWithString::new().set_map_value([(1, "a")]),       r#"{"mapValue": null, "mapValue": {"1": "a"}, "mapValue": null}"#)]
+    #[test_case(MessageWithString::new().set_map_key_value([("a", "b")]), r#"{"mapKeyValue": null, "mapKeyValue": {"a": "b"}, "mapKeyValue": null}"#)]
+    fn null_values_have_no_effect(want: MessageWithString, input: &str) -> Result {
+        let got = serde_json::from_str::<__MessageWithString>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
+
     #[test_case(json!({"unknown": "test-value"}))]
     #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
     fn test_unknown(input: Value) -> Result {

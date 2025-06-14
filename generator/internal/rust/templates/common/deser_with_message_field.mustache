@@ -17,19 +17,6 @@ limitations under the License.
 {{#Singular}}
 {{! First deal with all the fields that are not part of a oneof }}
 {{^IsOneOf}}
-{{#Optional}}
-struct __With( {{{Codec.FieldType}}} );
-impl<'de> serde::de::Deserialize<'de> for __With {
-    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
-    where
-        D: serde::de::Deserializer<'de>,
-    {
-        serde_with::As::< std::option::Option<{{{Codec.SerdeAs}}}> >::deserialize(deserializer).map(__With)
-    }
-}
-result.{{Codec.FieldName}} = map.next_value::< __With >()?.0;
-{{/Optional}}
-{{^Optional}}
 struct __With( std::option::Option<{{{Codec.PrimitiveFieldType}}}> );
 impl<'de> serde::de::Deserialize<'de> for __With {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
@@ -39,8 +26,14 @@ impl<'de> serde::de::Deserialize<'de> for __With {
         serde_with::As::< std::option::Option<{{{Codec.SerdeAs}}}> >::deserialize(deserializer).map(__With)
     }
 }
-result.{{Codec.FieldName}} = map.next_value::< __With >()?.0.unwrap_or_default();
-{{/Optional}}
+if let Some(value) = map.next_value::< __With >()?.0 {
+    {{#Optional}}
+    result.{{Codec.FieldName}} = Some(value);
+    {{/Optional}}
+    {{^Optional}}
+    result.{{Codec.FieldName}} = value;
+    {{/Optional}}
+}
 {{/IsOneOf}}
 {{#IsOneOf}}
 struct __With( {{{Codec.FieldType}}} );
@@ -52,14 +45,16 @@ impl<'de> serde::de::Deserialize<'de> for __With {
         serde_with::As::< {{{Codec.SerdeAs}}} >::deserialize(deserializer).map(__With)
     }
 }
-if result.{{Group.Codec.FieldName}}.is_some() {
-    return Err(A::Error::duplicate_field("multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}"))
+if let Some(value) = map.next_value::< std::option::Option<__With> >()? {
+    if result.{{Group.Codec.FieldName}}.is_some() {
+        return std::result::Result::Err(A::Error::duplicate_field(
+            "multiple values for {{Group.ID}}, latest field was {{JSONName}}"
+        ))
+    }
+    result.{{Group.Codec.FieldName}} = Some(
+        {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(value.0),
+    );
 }
-result.{{Group.Codec.FieldName}} = std::option::Option::Some(
-    {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
-        map.next_value::<__With>()?.0,
-    ),
-);
 {{/IsOneOf}}
 {{/Singular}}
 {{! repeated and map fields are never part of a oneof }}
@@ -73,7 +68,9 @@ impl<'de> serde::de::Deserialize<'de> for __With {
         serde_with::As::< std::option::Option<std::vec::Vec<{{{Codec.SerdeAs}}}>> >::deserialize(deserializer).map(__With)
     }
 }
-result.{{Codec.FieldName}} = map.next_value::< __With >()?.0.unwrap_or_default();
+if let Some(value) = map.next_value::< __With >()?.0 {
+    result.{{Codec.FieldName}} = value;
+}
 {{/Repeated}}
 {{#Map}}
 struct __With( std::option::Option<{{{Codec.FieldType}}}> );
@@ -85,5 +82,7 @@ impl<'de> serde::de::Deserialize<'de> for __With {
         serde_with::As::< std::option::Option<{{{Codec.SerdeAs}}}> >::deserialize(deserializer).map(__With)
     }
 }
-result.{{Codec.FieldName}} = map.next_value::< __With >()?.0.unwrap_or_default();
+if let Some(value) = map.next_value::< __With >()?.0 {
+    result.{{Codec.FieldName}} = value;
+}
 {{/Map}}

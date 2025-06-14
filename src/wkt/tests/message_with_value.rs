@@ -48,6 +48,8 @@ mod test {
     #[test_case(MessageWithValue::new().set_repeated([Value::Null]), json!({"repeated": [null]}))]
     #[test_case(MessageWithValue::new().set_map([("", Value::Null); 0]), json!({}))]
     #[test_case(MessageWithValue::new().set_map([("null", Value::Null), ("1", json!(1))]), json!({"map": {"null": null, "1": 1}}))]
+    #[test_case(MessageWithValue::new(), json!({"repeated": null}))]
+    #[test_case(MessageWithValue::new(), json!({"map": null}))]
     fn test_de(want: MessageWithValue, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithValue>(input)?;
         assert_eq!(got.0, want);
