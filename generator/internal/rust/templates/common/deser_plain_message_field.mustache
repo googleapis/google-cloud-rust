@@ -17,23 +17,47 @@ limitations under the License.
 {{#Singular}}
 {{! First deal with all the fields that are not part of a oneof }}
 {{^IsOneOf}}
-result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()? {{#Codec.IsWktValue}}.or(Some(wkt::Value::Null)){{/Codec.IsWktValue}} ;
+{{^Optional}}
+if let Some(value) = map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()?
+    {{#Codec.IsWktValue}}.or(Some(wkt::Value::Null)){{/Codec.IsWktValue}}
+    {{#Codec.IsWktNullValue}}.or(Some(wkt::NullValue)){{/Codec.IsWktNullValue}}
+{
+    result.{{Codec.FieldName}} = value;
+}
+{{/Optional}}
+{{#Optional}}
+if let Some(value) = map.next_value::<{{{Codec.FieldType}}}>()?
+    {{#Codec.IsWktValue}}.or(Some(wkt::Value::Null)){{/Codec.IsWktValue}}
+    {{#Codec.IsWktNullValue}}.or(Some(wkt::NullValue)){{/Codec.IsWktNullValue}}
+{
+    result.{{Codec.FieldName}} = Some(value);
+}
+{{/Optional}}
 {{/IsOneOf}}
 {{#IsOneOf}}
-if result.{{Group.Codec.FieldName}}.is_some() {
-    return Err(A::Error::duplicate_field("multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}"))
+if let Some(value) = map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()? 
+    {{#Codec.IsWktValue}}.or(Some(std::boxed::Box::new(wkt::Value::Null))){{/Codec.IsWktValue}}
+    {{#Codec.IsWktNullValue}}.or(Some(wkt::NullValue)){{/Codec.IsWktNullValue}}
+{
+    if result.{{Group.Codec.FieldName}}.is_some() {
+        return std::result::Result::Err(A::Error::duplicate_field(
+            "multiple values for {{Group.ID}}, a oneof with full ID {{ID}}, latest field was {{JSONName}}"
+        ))
+    }
+    result.{{Group.Codec.FieldName}} = Some(
+        {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(value),
+    );
 }
-result.{{Group.Codec.FieldName}} = std::option::Option::Some(
-    {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
-        map.next_value::<{{{Codec.FieldType}}}>()?
-    ),
-);
 {{/IsOneOf}}
 {{/Singular}}
 {{! repeated and map fields are never part of a oneof }}
 {{#Repeated}}
-result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?;
+if let Some(value) = map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()? {
+    result.{{Codec.FieldName}} = value;
+}
 {{/Repeated}}
 {{#Map}}
-result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?;
+if let Some(value) = map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()? {
+    result.{{Codec.FieldName}} = value;
+}
 {{/Map}}

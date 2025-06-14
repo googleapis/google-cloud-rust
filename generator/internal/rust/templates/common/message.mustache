@@ -282,6 +282,8 @@ impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                #[allow(unused_imports)]
+                use std::option::Option::Some;
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
