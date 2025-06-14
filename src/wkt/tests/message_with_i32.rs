@@ -55,8 +55,37 @@ mod test {
     #[test_case(MessageWithI32::new().set_map_key([(0_i32, "")]), json!({"mapKey": {"0": ""}}))]
     #[test_case(MessageWithI32::new().set_map_key_value([(0_i32, 0_i32);0]), json!({}))]
     #[test_case(MessageWithI32::new().set_map_key_value([(0_i32, 0_i32)]), json!({"mapKeyValue": {"0": 0}}))]
+    #[test_case(MessageWithI32::new(), json!({"singular": null}))]
+    #[test_case(MessageWithI32::new(), json!({"repeated": null}))]
+    #[test_case(MessageWithI32::new(), json!({"mapKey": null}))]
+    #[test_case(MessageWithI32::new(), json!({"mapValue": null}))]
+    #[test_case(MessageWithI32::new(), json!({"mapKeyValue": null}))]
     fn test_de(want: MessageWithI32, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithI32>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithI32::new(), r#"{"singular": null}"#)]
+    #[test_case(MessageWithI32::new(), r#"{"optional": null}"#)]
+    #[test_case(MessageWithI32::new(), r#"{"repeated": null}"#)]
+    #[test_case(MessageWithI32::new(), r#"{"mapKey": null}"#)]
+    #[test_case(MessageWithI32::new(), r#"{"mapValue": null}"#)]
+    #[test_case(MessageWithI32::new(), r#"{"mapKeyValue": null}"#)]
+    #[test_case(MessageWithI32::new().set_singular(1_i32),                 r#"{"singular": null, "singular": 1}"#)]
+    #[test_case(MessageWithI32::new().set_optional(0_i32),                 r#"{"optional": null, "optional": 0}"#)]
+    #[test_case(MessageWithI32::new().set_repeated([0_i32]),               r#"{"repeated": null, "repeated": [0]}"#)]
+    #[test_case(MessageWithI32::new().set_map_key([(1_i32, "")]),          r#"{"mapKey": null, "mapKey": {"1": ""}}"#)]
+    #[test_case(MessageWithI32::new().set_map_value([("a", 1_i32)]),       r#"{"mapValue": null, "mapValue": {"a": 1}}"#)]
+    #[test_case(MessageWithI32::new().set_map_key_value([(1_i32, 0_i32)]), r#"{"mapKeyValue": null, "mapKeyValue": {"1": 0}}"#)]
+    #[test_case(MessageWithI32::new().set_singular(1_i32),                 r#"{"singular": null, "singular": 1, "singular": null}"#)]
+    #[test_case(MessageWithI32::new().set_optional(0_i32),                 r#"{"optional": null, "optional": 0, "optional": null}"#)]
+    #[test_case(MessageWithI32::new().set_repeated([0_i32]),               r#"{"repeated": null, "repeated": [0], "repeated": null}"#)]
+    #[test_case(MessageWithI32::new().set_map_key([(1_i32, "")]),          r#"{"mapKey": null, "mapKey": {"1": ""}, "mapKey": null}"#)]
+    #[test_case(MessageWithI32::new().set_map_value([("a", 1_i32)]),       r#"{"mapValue": null, "mapValue": {"a": 1}, "mapValue": null}"#)]
+    #[test_case(MessageWithI32::new().set_map_key_value([(1_i32, 0_i32)]), r#"{"mapKeyValue": null, "mapKeyValue": {"1": 0}, "mapKeyValue": null}"#)]
+    fn null_values_have_no_effect(want: MessageWithI32, input: &str) -> Result {
+        let got = serde_json::from_str::<__MessageWithI32>(input)?;
         assert_eq!(got.0, want);
         Ok(())
     }

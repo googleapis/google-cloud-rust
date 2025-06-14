@@ -55,6 +55,9 @@ mod test {
     #[test_case(MessageWithF32::new().set_repeated([0.0, 1.5, 2.5]), json!({"repeated": [0, 1.5, "2.5"]}))]
     #[test_case(MessageWithF32::new().set_map([("", 0_f32);0]), json!({}))]
     #[test_case(MessageWithF32::new().set_map([("a", 0_f32), ("b", 1_f32)]), json!({"map": {"a": 0.0, "b": 1.0}}))]
+    #[test_case(MessageWithF32::new(), json!({"singular": null}))]
+    #[test_case(MessageWithF32::new(), json!({"repeated": null}))]
+    #[test_case(MessageWithF32::new(), json!({"map": null}))]
     fn test_de(want: MessageWithF32, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithF32>(input)?;
         assert_eq!(got.0, want);
@@ -85,6 +88,24 @@ mod test {
             }
             (None, Some(_)) | (Some(_), None) => panic!("mismatched optional {got:?} != {want:?}"),
         }
+        Ok(())
+    }
+
+    #[test_case(MessageWithF32::new(), r#"{"singular": null}"#)]
+    #[test_case(MessageWithF32::new(), r#"{"optional": null}"#)]
+    #[test_case(MessageWithF32::new(), r#"{"repeated": null}"#)]
+    #[test_case(MessageWithF32::new(), r#"{"map": null}"#)]
+    #[test_case(MessageWithF32::new().set_singular(1_f32),     r#"{"singular": null, "singular": 1}"#)]
+    #[test_case(MessageWithF32::new().set_optional(0_f32),     r#"{"optional": null, "optional": 0}"#)]
+    #[test_case(MessageWithF32::new().set_repeated([0_f32]),   r#"{"repeated": null, "repeated": [0]}"#)]
+    #[test_case(MessageWithF32::new().set_map([("a", 0_f32)]), r#"{"map": null, "map": {"a": 0}}"#)]
+    #[test_case(MessageWithF32::new().set_singular(1_f32),     r#"{"singular": null, "singular": 1, "singular": null}"#)]
+    #[test_case(MessageWithF32::new().set_optional(0_f32),     r#"{"optional": null, "optional": 0, "optional": null}"#)]
+    #[test_case(MessageWithF32::new().set_repeated([0_f32]),   r#"{"repeated": null, "repeated": [0], "repeated": null}"#)]
+    #[test_case(MessageWithF32::new().set_map([("a", 0_f32)]), r#"{"map": null, "map": {"a": 0}, "map": null}"#)]
+    fn null_values_have_no_effect(want: MessageWithF32, input: &str) -> Result {
+        let got = serde_json::from_str::<__MessageWithF32>(input)?;
+        assert_eq!(got.0, want);
         Ok(())
     }
 
