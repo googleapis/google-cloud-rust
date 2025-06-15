@@ -49,8 +49,29 @@ mod test {
     #[test_case(MessageWithBytes::new().set_repeated([LAZY]), json!({"repeated": [LAZY_BASE64]}))]
     #[test_case(MessageWithBytes::new().set_map([("", ""); 0]), json!({}))]
     #[test_case(MessageWithBytes::new().set_map([("a", LAZY)]), json!({"map": {"a": LAZY_BASE64}}))]
+    #[test_case(MessageWithBytes::new(), json!({"singular": null}))]
+    #[test_case(MessageWithBytes::new(), json!({"repeated": null}))]
+    #[test_case(MessageWithBytes::new(), json!({"map": null}))]
     fn test_de(want: MessageWithBytes, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithBytes>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
+
+    #[test_case(MessageWithBytes::new(), r#"{"singular": null}"#)]
+    #[test_case(MessageWithBytes::new(), r#"{"optional": null}"#)]
+    #[test_case(MessageWithBytes::new(), r#"{"repeated": null}"#)]
+    #[test_case(MessageWithBytes::new(), r#"{"map": null}"#)]
+    #[test_case(MessageWithBytes::new().set_singular(LAZY),   r#"{"singular": null, "singular": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw=="}"#)]
+    #[test_case(MessageWithBytes::new().set_optional(""),     r#"{"optional": null, "optional": ""}"#)]
+    #[test_case(MessageWithBytes::new().set_repeated([""]),   r#"{"repeated": null, "repeated": [""]}"#)]
+    #[test_case(MessageWithBytes::new().set_map([("a", "")]), r#"{"map": null, "map": {"a": ""}}"#)]
+    #[test_case(MessageWithBytes::new().set_singular(LAZY),   r#"{"singular": null, "singular": "dGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZw==", "singular": null}"#)]
+    #[test_case(MessageWithBytes::new().set_optional(""),     r#"{"optional": null, "optional": "", "optional": null}"#)]
+    #[test_case(MessageWithBytes::new().set_repeated([""]),   r#"{"repeated": null, "repeated": [""], "repeated": null}"#)]
+    #[test_case(MessageWithBytes::new().set_map([("a", "")]), r#"{"map": null, "map": {"a": ""}, "map": null}"#)]
+    fn null_values_have_no_effect(want: MessageWithBytes, input: &str) -> Result {
+        let got = serde_json::from_str::<__MessageWithBytes>(input)?;
         assert_eq!(got.0, want);
         Ok(())
     }
