@@ -541,6 +541,10 @@ func (f *Field) Singular() bool {
 	return !f.Map && !f.Repeated
 }
 
+func (f *Field) NameEqualJSONName() bool {
+	return f.JSONName == f.Name
+}
+
 // Pair is a key-value pair.
 type Pair struct {
 	// Key of the pair.
