@@ -136,20 +136,23 @@ impl Error {
         }
     }
 
-    /// The request could not be before the retry policy expired.
+    /// The request could not complete be before the retry policy expired.
     ///
     /// This is always a client-side generated error, but it may be the result
-    /// of multiple errors received from the service. Sometimes the error
+    /// of multiple errors received from the service.
     ///
     /// # Troubleshooting
     ///
-    /// The most common cause of this problem is setting a timeout value that is
-    /// based on the observed latency when the service is not under load.
-    /// Consider increasing the timeout value to handle temporary latency
-    /// increases too.
+    /// The most common cause of this problem is a transient problem that lasts
+    /// longer than your retry policy. For example, your retry policy may
+    /// effectively be exhausted after a few seconds, but some services may take
+    /// minutes to recover.
     ///
-    /// It could also indicate a congestion in the network, a service outage, or
-    /// a service that is under load and will take time to scale up.
+    /// If your application can tolerate longer recovery times then extend the
+    /// retry policy. Otherwise consider recovery at a higher level, such as
+    /// seeking human intervention, switching the workload to a different
+    /// location, failing the batch job and starting from a previous checkpoint,
+    /// or even presenting an error to the application user.
     pub fn is_exhausted(&self) -> bool {
         matches!(self.kind, ErrorKind::Exhausted)
     }
