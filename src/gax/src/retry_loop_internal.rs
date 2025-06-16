@@ -65,7 +65,7 @@ where
 
         if let RetryLoopAttempt::Retry(attempt_count, delay, prev_error) = attempt {
             if remaining_time.is_some_and(|remaining| remaining < delay) {
-                return Err(Error::timeout(prev_error));
+                return Err(Error::exhausted(prev_error));
             }
             sleep(delay).await;
 
@@ -719,7 +719,7 @@ mod test {
         )
         .await;
         let err = response.expect_err("retry loop should terminate");
-        assert!(err.is_timeout(), "{err:?}");
+        assert!(err.is_exhausted(), "{err:?}");
         // Confirm that we expose the last seen status from the operation
         let got = err
             .source()
@@ -839,7 +839,7 @@ mod test {
         )
         .await;
         let err = response.expect_err("retry loop should terminate");
-        assert!(err.is_timeout(), "{err:?}");
+        assert!(err.is_exhausted(), "{err:?}");
         // Confirm that we expose the last seen status from the operation
         let got = err
             .source()
