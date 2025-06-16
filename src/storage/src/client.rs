@@ -269,10 +269,7 @@ pub(crate) mod info {
 
 pub struct InsertObject {
     inner: std::sync::Arc<StorageInner>,
-    bucket: String,
-    object: String,
-    payload: bytes::Bytes,
-    common_object_request_params: Option<control::model::CommonObjectRequestParams>,
+    request: control::model::WriteObjectRequest,
 }
 
 impl InsertObject {
@@ -284,10 +281,15 @@ impl InsertObject {
     {
         InsertObject {
             inner,
-            bucket: bucket.into(),
-            object: object.into(),
-            payload: payload.into(),
-            common_object_request_params: None,
+            request: control::model::WriteObjectRequest::new()
+                .set_write_object_spec(
+                    control::model::WriteObjectSpec::new().set_resource(
+                        control::model::Object::new()
+                            .set_bucket(bucket)
+                            .set_name(object),
+                    ),
+                )
+                .set_checksummed_data(control::model::ChecksummedData::new().set_content(payload)),
         }
     }
 
@@ -320,16 +322,19 @@ impl InsertObject {
     }
 
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
-        let bucket: String = self.bucket;
-        let bucket_id = bucket
-            .as_str()
-            .strip_prefix("projects/_/buckets/")
-            .ok_or_else(|| {
-                Error::binding(format!(
-                    "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
-                ))
-            })?;
-        let object: String = self.object;
+        use control::model::write_object_request::*;
+
+        let resource = match self.request.first_message {
+            Some(FirstMessage::WriteObjectSpec(spec)) => spec.resource.unwrap(),
+            _ => unreachable!("write object spec set in constructor"),
+        };
+        let bucket = &resource.bucket;
+        let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
+            Error::binding(format!(
+                "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
+            ))
+        })?;
+        let object = &resource.name;
         let builder = self
             .inner
             .client
@@ -338,18 +343,24 @@ impl InsertObject {
                 format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
             )
             .query(&[("uploadType", "media")])
-            .query(&[("name", &object)])
+            .query(&[("name", object)])
             .header("content-type", "application/octet-stream")
             .header(
                 "x-goog-api-client",
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
 
-        let builder =
-            apply_customer_supplied_encryption_headers(builder, self.common_object_request_params);
+        let builder = apply_customer_supplied_encryption_headers(
+            builder,
+            self.request.common_object_request_params,
+        );
 
         let builder = self.inner.apply_auth_headers(builder).await?;
-        let builder = builder.body(self.payload);
+        let content = match self.request.data {
+            Some(Data::ChecksummedData(data)) => data.content,
+            _ => unreachable!("content for the checksummed data is set in the constructor"),
+        };
+        let builder = builder.body(content);
         Ok(builder)
     }
 
@@ -372,7 +383,7 @@ impl InsertObject {
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub fn with_key(mut self, v: KeyAes256) -> Self {
-        self.common_object_request_params = Some(v.into());
+        self.request.common_object_request_params = Some(v.into());
         self
     }
 }

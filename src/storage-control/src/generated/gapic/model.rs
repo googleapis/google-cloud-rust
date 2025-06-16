@@ -2116,6 +2116,293 @@ impl wkt::message::Message for WriteObjectSpec {
     }
 }
 
+/// Request message for WriteObject.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct WriteObjectRequest {
+    /// Required. The offset from the beginning of the object at which the data
+    /// should be written.
+    ///
+    /// In the first `WriteObjectRequest` of a `WriteObject()` action, it
+    /// indicates the initial offset for the `Write()` call. The value **must** be
+    /// equal to the `persisted_size` that a call to `QueryWriteStatus()` would
+    /// return (0 if this is the first write to the object).
+    ///
+    /// On subsequent calls, this value **must** be no larger than the sum of the
+    /// first `write_offset` and the sizes of all `data` chunks sent previously on
+    /// this stream.
+    ///
+    /// An incorrect value will cause an error.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
+    pub write_offset: i64,
+
+    /// Optional. Checksums for the complete object. If the checksums computed by
+    /// the service don't match the specified checksums the call will fail. May
+    /// only be provided in the first or last request (either with first_message,
+    /// or finish_write set).
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub object_checksums: std::option::Option<crate::model::ObjectChecksums>,
+
+    /// Optional. If `true`, this indicates that the write is complete. Sending any
+    /// `WriteObjectRequest`s subsequent to one in which `finish_write` is `true`
+    /// will cause an error.
+    /// For a non-resumable write (where the upload_id was not set in the first
+    /// message), it is an error not to set this field in the final message of the
+    /// stream.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub finish_write: bool,
+
+    /// Optional. A set of parameters common to Storage API requests concerning an
+    /// object.
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub common_object_request_params: std::option::Option<crate::model::CommonObjectRequestParams>,
+
+    /// The first message of each stream should set one of the following.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub first_message: std::option::Option<crate::model::write_object_request::FirstMessage>,
+
+    /// A portion of the data for the object.
+    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
+    pub data: std::option::Option<crate::model::write_object_request::Data>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WriteObjectRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [write_offset][crate::model::WriteObjectRequest::write_offset].
+    pub fn set_write_offset<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.write_offset = v.into();
+        self
+    }
+
+    /// Sets the value of [object_checksums][crate::model::WriteObjectRequest::object_checksums].
+    pub fn set_object_checksums<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ObjectChecksums>,
+    {
+        self.object_checksums = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [object_checksums][crate::model::WriteObjectRequest::object_checksums].
+    pub fn set_or_clear_object_checksums<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ObjectChecksums>,
+    {
+        self.object_checksums = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [finish_write][crate::model::WriteObjectRequest::finish_write].
+    pub fn set_finish_write<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.finish_write = v.into();
+        self
+    }
+
+    /// Sets the value of [common_object_request_params][crate::model::WriteObjectRequest::common_object_request_params].
+    pub fn set_common_object_request_params<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    {
+        self.common_object_request_params = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [common_object_request_params][crate::model::WriteObjectRequest::common_object_request_params].
+    pub fn set_or_clear_common_object_request_params<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::CommonObjectRequestParams>,
+    {
+        self.common_object_request_params = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [first_message][crate::model::WriteObjectRequest::first_message].
+    ///
+    /// Note that all the setters affecting `first_message` are mutually
+    /// exclusive.
+    pub fn set_first_message<
+        T: std::convert::Into<std::option::Option<crate::model::write_object_request::FirstMessage>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.first_message = v.into();
+        self
+    }
+
+    /// The value of [first_message][crate::model::WriteObjectRequest::first_message]
+    /// if it holds a `UploadId`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn upload_id(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.first_message.as_ref().and_then(|v| match v {
+            crate::model::write_object_request::FirstMessage::UploadId(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [first_message][crate::model::WriteObjectRequest::first_message]
+    /// to hold a `UploadId`.
+    ///
+    /// Note that all the setters affecting `first_message` are
+    /// mutually exclusive.
+    pub fn set_upload_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.first_message = std::option::Option::Some(
+            crate::model::write_object_request::FirstMessage::UploadId(v.into()),
+        );
+        self
+    }
+
+    /// The value of [first_message][crate::model::WriteObjectRequest::first_message]
+    /// if it holds a `WriteObjectSpec`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn write_object_spec(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::WriteObjectSpec>> {
+        #[allow(unreachable_patterns)]
+        self.first_message.as_ref().and_then(|v| match v {
+            crate::model::write_object_request::FirstMessage::WriteObjectSpec(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [first_message][crate::model::WriteObjectRequest::first_message]
+    /// to hold a `WriteObjectSpec`.
+    ///
+    /// Note that all the setters affecting `first_message` are
+    /// mutually exclusive.
+    pub fn set_write_object_spec<
+        T: std::convert::Into<std::boxed::Box<crate::model::WriteObjectSpec>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.first_message = std::option::Option::Some(
+            crate::model::write_object_request::FirstMessage::WriteObjectSpec(v.into()),
+        );
+        self
+    }
+
+    /// Sets the value of [data][crate::model::WriteObjectRequest::data].
+    ///
+    /// Note that all the setters affecting `data` are mutually
+    /// exclusive.
+    pub fn set_data<
+        T: std::convert::Into<std::option::Option<crate::model::write_object_request::Data>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data = v.into();
+        self
+    }
+
+    /// The value of [data][crate::model::WriteObjectRequest::data]
+    /// if it holds a `ChecksummedData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn checksummed_data(
+        &self,
+    ) -> std::option::Option<&std::boxed::Box<crate::model::ChecksummedData>> {
+        #[allow(unreachable_patterns)]
+        self.data.as_ref().and_then(|v| match v {
+            crate::model::write_object_request::Data::ChecksummedData(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [data][crate::model::WriteObjectRequest::data]
+    /// to hold a `ChecksummedData`.
+    ///
+    /// Note that all the setters affecting `data` are
+    /// mutually exclusive.
+    pub fn set_checksummed_data<
+        T: std::convert::Into<std::boxed::Box<crate::model::ChecksummedData>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.data = std::option::Option::Some(
+            crate::model::write_object_request::Data::ChecksummedData(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for WriteObjectRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.v2.WriteObjectRequest"
+    }
+}
+
+/// Defines additional types related to [WriteObjectRequest].
+pub mod write_object_request {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The first message of each stream should set one of the following.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum FirstMessage {
+        /// For resumable uploads. This should be the `upload_id` returned from a
+        /// call to `StartResumableWriteResponse`.
+        UploadId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        /// For non-resumable uploads. Describes the overall upload, including the
+        /// destination bucket and object name, preconditions, etc.
+        WriteObjectSpec(std::boxed::Box<crate::model::WriteObjectSpec>),
+    }
+
+    impl FirstMessage {
+        /// Initializes the enum to the [UploadId](Self::UploadId) branch.
+        pub fn from_upload_id(value: impl std::convert::Into<std::string::String>) -> Self {
+            Self::UploadId(value.into())
+        }
+        /// Initializes the enum to the [WriteObjectSpec](Self::WriteObjectSpec) branch.
+        pub fn from_write_object_spec(
+            value: impl std::convert::Into<std::boxed::Box<crate::model::WriteObjectSpec>>,
+        ) -> Self {
+            Self::WriteObjectSpec(value.into())
+        }
+    }
+
+    /// A portion of the data for the object.
+    #[serde_with::serde_as]
+    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
+    #[serde(rename_all = "camelCase")]
+    #[non_exhaustive]
+    pub enum Data {
+        /// The data to insert. If a crc32c checksum is provided that doesn't match
+        /// the checksum computed by the service, the request will fail.
+        ChecksummedData(std::boxed::Box<crate::model::ChecksummedData>),
+    }
+
+    impl Data {
+        /// Initializes the enum to the [ChecksummedData](Self::ChecksummedData) branch.
+        pub fn from_checksummed_data(
+            value: impl std::convert::Into<std::boxed::Box<crate::model::ChecksummedData>>,
+        ) -> Self {
+            Self::ChecksummedData(value.into())
+        }
+    }
+}
+
 /// Request message for ListObjects.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
@@ -6573,6 +6860,64 @@ impl BucketAccessControl {
 impl wkt::message::Message for BucketAccessControl {
     fn typename() -> &'static str {
         "type.googleapis.com/google.storage.v2.BucketAccessControl"
+    }
+}
+
+/// Message used to convey content being read or written, along with an optional
+/// checksum.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ChecksummedData {
+    /// Optional. The data.
+    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
+    pub content: ::bytes::Bytes,
+
+    /// If set, the CRC32C digest of the content field.
+    #[serde(rename = "crc32c")]
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    #[serde_as(as = "std::option::Option<wkt::internal::U32>")]
+    pub crc32c: std::option::Option<u32>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ChecksummedData {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [content][crate::model::ChecksummedData::content].
+    pub fn set_content<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.content = v.into();
+        self
+    }
+
+    /// Sets the value of [crc32c][crate::model::ChecksummedData::crc32c].
+    pub fn set_crc32c<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<u32>,
+    {
+        self.crc32c = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [crc32c][crate::model::ChecksummedData::crc32c].
+    pub fn set_or_clear_crc32c<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<u32>,
+    {
+        self.crc32c = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for ChecksummedData {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.storage.v2.ChecksummedData"
     }
 }
 

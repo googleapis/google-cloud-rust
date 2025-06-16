@@ -31,7 +31,6 @@ skipped-ids = """\
     .google.storage.v2.BidiWriteObjectRequest.FirstMessage,\
     .google.storage.v2.BidiWriteObjectResponse,\
     .google.storage.v2.CancelResumableWriteResponse,\
-    .google.storage.v2.ChecksummedData,\
     .google.storage.v2.ObjectRangeData,\
     .google.storage.v2.QueryWriteStatusResponse,\
     .google.storage.v2.ReadObjectResponse,\
@@ -41,7 +40,6 @@ skipped-ids = """\
     .google.storage.v2.Storage.CancelResumableWrite,\
     .google.storage.v2.Storage.QueryWriteStatus,\
     .google.storage.v2.Storage.StartResumableWrite,\
-    .google.storage.v2.WriteObjectRequest,\
     .google.storage.v2.WriteObjectResponse,\
     .google.storage.v2.AppendObjectSpec\
     """
