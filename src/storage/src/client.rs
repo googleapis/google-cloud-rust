@@ -320,10 +320,10 @@ impl InsertObject {
     }
 
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
+        use control::model::write_object_request::*;
+
         let resource = match self.request.first_message {
-            Some(control::model::write_object_request::FirstMessage::WriteObjectSpec(spec)) => {
-                spec.resource.unwrap()
-            }
+            Some(FirstMessage::WriteObjectSpec(spec)) => spec.resource.unwrap(),
             _ => unreachable!("write object spec set in constructor"),
         };
         let bucket = &resource.bucket;
@@ -355,7 +355,7 @@ impl InsertObject {
 
         let builder = self.inner.apply_auth_headers(builder).await?;
         let content = match self.request.data {
-            Some(control::model::write_object_request::Data::ChecksummedData(data)) => data.content,
+            Some(Data::ChecksummedData(data)) => data.content,
             _ => unreachable!("content for the checksummed data is set in the constructor"),
         };
         let builder = builder.body(content);
