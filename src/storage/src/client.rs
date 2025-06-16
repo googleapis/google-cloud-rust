@@ -678,7 +678,7 @@ impl ReadObject {
             // This covers cases like (0, 100) -> "bytes=0-99", (5, 100) -> "bytes=5-104"
             (o, l) => Ok(builder.header("range", format!("bytes={}-{}", o, o + l - 1))),
         }
-        .map_err(Error::other)?;
+        .map_err(Error::ser)?;
 
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
