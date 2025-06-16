@@ -54,6 +54,7 @@ mod test {
     #[test_case(MessageWithU32::new().set_map_key([(0_u32, "")]), json!({"mapKey": {"0": ""}}))]
     #[test_case(MessageWithU32::new().set_map_key_value([(0_u32, 0_u32);0]), json!({}))]
     #[test_case(MessageWithU32::new().set_map_key_value([(0_u32, 0_u32)]), json!({"mapKeyValue": {"0": 0}}))]
+    #[test_case(MessageWithU32::new().set_map_key_value([(0_u32, 0_u32)]), json!({"map_key_value": {"0": 0}}))]
     fn test_de(want: MessageWithU32, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithU32>(input)?;
         assert_eq!(got.0, want);
