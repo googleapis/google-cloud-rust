@@ -622,15 +622,6 @@ impl Error {
         matches!(&self.kind, ErrorKind::Transport { .. })
     }
 
-    // TODO(#2221) - remove once the migration is completed.
-    #[doc(hidden)]
-    pub fn other<T: Into<BoxError>>(source: T) -> Self {
-        Self {
-            kind: ErrorKind::Other,
-            source: Some(source.into()),
-        }
-    }
-
     /// The error was generated before the RPC started and is transient.
     pub(crate) fn is_transient_and_before_rpc(&self) -> bool {
         if !matches!(&self.kind, ErrorKind::Authentication) {
@@ -671,9 +662,6 @@ impl std::fmt::Display for Error {
                     d.status.code, d.status.message
                 )
             }
-            (ErrorKind::Other, Some(e)) => {
-                write!(f, "an unclassified problem making a request: {e}")
-            }
             (_, None) => unreachable!("no constructor allows this"),
         }
     }
@@ -698,8 +686,6 @@ enum ErrorKind {
     Exhausted,
     Transport(Box<TransportDetails>),
     Service(Box<ServiceDetails>),
-    /// A uncategorized error.
-    Other,
 }
 
 #[derive(Debug)]
