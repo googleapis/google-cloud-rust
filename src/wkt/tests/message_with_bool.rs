@@ -41,14 +41,21 @@ mod test {
     #[test_case(MessageWithBool::new().set_or_clear_optional(None::<bool>), json!({}))]
     #[test_case(MessageWithBool::new().set_repeated([true, true, false]), json!({"repeated": [true, true, false]}))]
     #[test_case(MessageWithBool::new().set_map_key([(true, "trueValue"), (false, "falseValue")]), json!({"mapKey": {"true": "trueValue", "false": "falseValue"}}))]
-    #[test_case(MessageWithBool::new().set_map_key([(true, "trueValue")]), json!({"mapKey": {"tr\u{0075}e": "trueValue"}}))]
     #[test_case(MessageWithBool::new().set_map_value([("k0", true), ("k1", false)]), json!({"mapValue": {"k0": true, "k1": false}}))]
     #[test_case(MessageWithBool::new().set_map_key_value([(false, true), (true, false)]), json!({"mapKeyValue": {"false": true, "true": false}}))]
     #[test_case(MessageWithBool::new().set_map_key_value([(false, true), (true, false)]), json!({"map_key_value": {"false": true, "true": false}}))]
-    #[test_case(MessageWithBool::new().set_map_key_value([(true, true)]), json!({"mapKeyValue": {"tr\u{0075}e": true}}))]
     fn test_de(want: MessageWithBool, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithBool>(input)?;
         assert_eq!(got.0, want);
+        Ok(())
+    }
+
+    #[test_case(r#"{"mapKey": {"tr\u0075e": "trueValue"}}"#, json!({"mapKey": {"true": "trueValue"}}))]
+    #[test_case(r#"{"mapKeyValue": {"tr\u0075e": true}}"#, json!({"mapKeyValue": {"true": true}}))]
+    fn test_unicode_in_keys(input: &str, want: Value) -> Result {
+        let object = serde_json::from_str::<__MessageWithBool>(input)?;
+        let got = serde_json::to_value(object)?;
+        assert_eq!(got, want);
         Ok(())
     }
 
