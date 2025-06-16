@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Google Cloud Client Libraries for Rust - Storage Control
+//! Google Cloud Client Libraries for Rust - Storage
 //!
 //! **WARNING:** this crate is under active development. We expect multiple
 //! breaking changes in the upcoming releases. Testing is also incomplete, we do
@@ -20,7 +20,7 @@
 //! about the APIs, documentation, missing features, bugs, etc.
 //!
 //! This crate contains traits, types, and functions to interact with the
-//! [Storage] control APIs.
+//! [Storage] APIs.
 //!
 //! [storage]: https://cloud.google.com/storage
 
