@@ -342,4 +342,22 @@ where
     ) -> Result<gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>> {
         self.inner.check_autopilot_compatibility(req, options).await
     }
+
+    #[tracing::instrument(ret)]
+    async fn fetch_cluster_upgrade_info(
+        &self,
+        req: crate::model::FetchClusterUpgradeInfoRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ClusterUpgradeInfo>> {
+        self.inner.fetch_cluster_upgrade_info(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn fetch_node_pool_upgrade_info(
+        &self,
+        req: crate::model::FetchNodePoolUpgradeInfoRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::NodePoolUpgradeInfo>> {
+        self.inner.fetch_node_pool_upgrade_info(req, options).await
+    }
 }

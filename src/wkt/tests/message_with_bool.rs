@@ -43,6 +43,8 @@ mod test {
     #[test_case(MessageWithBool::new().set_map_key([(true, "trueValue"), (false, "falseValue")]), json!({"mapKey": {"true": "trueValue", "false": "falseValue"}}))]
     #[test_case(MessageWithBool::new().set_map_value([("k0", true), ("k1", false)]), json!({"mapValue": {"k0": true, "k1": false}}))]
     #[test_case(MessageWithBool::new().set_map_key_value([(false, true), (true, false)]), json!({"mapKeyValue": {"false": true, "true": false}}))]
+    #[test_case(MessageWithBool::new().set_map_key_value([(false, true), (true, false)]), json!({"map_key_value": {"false": true, "true": false}}))]
+    #[test_case(MessageWithBool::new().set_map_key_value([(true, true)]), json!({"mapKeyValue": {"tr\u{0075}e": true}}))]
     fn test_de(want: MessageWithBool, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithBool>(input)?;
         assert_eq!(got.0, want);

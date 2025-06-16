@@ -53,7 +53,7 @@ pub struct Instance {
     pub filesystem: std::string::String,
 
     /// Required. The storage capacity of the instance in gibibytes (GiB). Allowed
-    /// values are from `18000` to `936000`, in increments of 9000.
+    /// values are from `18000` to `954000`, in increments of 9000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub capacity_gib: i64,
@@ -94,9 +94,8 @@ pub struct Instance {
     #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Optional. The throughput of the instance in MB/s/TiB.
-    /// Valid values are 250, 500, 1000.
-    /// Default value is 1000.
+    /// Required. The throughput of the instance in MB/s/TiB.
+    /// Valid values are 125, 250, 500, 1000.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub per_unit_storage_throughput: i64,
@@ -970,7 +969,8 @@ impl wkt::message::Message for OperationMetadata {
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ImportDataRequest {
-    /// Required. Name of the resource.
+    /// Required. The name of the Managed Lustre instance in the format
+    /// `projects/{project}/locations/{location}/instances/{instance}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
@@ -981,13 +981,13 @@ pub struct ImportDataRequest {
     pub request_id: std::string::String,
 
     /// Optional. User-specified service account used to perform the transfer.
-    /// If unspecified, the default Lustre P4 service account will be used.
+    /// If unspecified, the default Managed Lustre service agent will be used.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub service_account: std::string::String,
 
     /// A Cloud Storage URI of a folder to import file data from, in the
-    /// form of `gs://<bucket_name>/<path_inside_bucket>`
+    /// form of `gs://<bucket_name>/<path_inside_bucket>/`.
     #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::import_data_request::Source>,
 
@@ -1116,13 +1116,15 @@ pub mod import_data_request {
     use super::*;
 
     /// A Cloud Storage URI of a folder to import file data from, in the
-    /// form of `gs://<bucket_name>/<path_inside_bucket>`
+    /// form of `gs://<bucket_name>/<path_inside_bucket>/`.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Source {
         /// The Cloud Storage source bucket and, optionally, path inside the bucket.
+        /// If a path inside the bucket is specified, it must end with a forward
+        /// slash (`/`).
         GcsPath(std::boxed::Box<crate::model::GcsPath>),
     }
 
@@ -1137,13 +1139,14 @@ pub mod import_data_request {
     }
 }
 
-/// Message for exporting data from Lustre.
+/// Export data from Managed Lustre to a Cloud Storage bucket.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct ExportDataRequest {
-    /// Required. Name of the resource.
+    /// Required. The name of the Managed Lustre instance in the format
+    /// `projects/{project}/locations/{location}/instances/{instance}`.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
@@ -1296,7 +1299,8 @@ pub mod export_data_request {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Source {
-        /// Lustre path source.
+        /// The root directory path to the Managed Lustre file system. Must start
+        /// with `/`. Default is `/`.
         LustrePath(std::boxed::Box<crate::model::LustrePath>),
     }
 
@@ -1306,7 +1310,10 @@ pub mod export_data_request {
     #[serde(rename_all = "camelCase")]
     #[non_exhaustive]
     pub enum Destination {
-        /// Cloud Storage destination.
+        /// The URI to a Cloud Storage bucket, or a path within a bucket, using
+        /// the format `gs://<bucket_name>/<optional_path_inside_bucket>/`. If a
+        /// path inside the bucket is specified, it must end with a forward slash
+        /// (`/`).
         GcsPath(std::boxed::Box<crate::model::GcsPath>),
     }
 }
@@ -1646,14 +1653,16 @@ impl wkt::message::Message for ImportDataMetadata {
     }
 }
 
-/// Cloud Storage as the source of a data transfer.
+/// Specifies a Cloud Storage bucket and, optionally, a path inside the bucket.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct GcsPath {
-    /// Required. URI to a Cloud Storage path in the format:
-    /// `gs://<bucket_name>`.
+    /// Required. The URI to a Cloud Storage bucket, or a path within a bucket,
+    /// using the format `gs://<bucket_name>/<optional_path_inside_bucket>/`. If a
+    /// path inside the bucket is specified, it must end with a forward slash
+    /// (`/`).
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
@@ -1680,14 +1689,16 @@ impl wkt::message::Message for GcsPath {
     }
 }
 
-/// LustrePath represents a path in the Lustre file system.
+/// The root directory path to the Lustre file system.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
 #[non_exhaustive]
 pub struct LustrePath {
-    /// Optional. Root directory path to the Managed Lustre file system, starting
-    /// with `/`. Defaults to `/` if unset.
+    /// Optional. The root directory path to the Managed Lustre file system. Must
+    /// start with
+    /// `/`. Default is `/`. If you're importing data into Managed Lustre, any
+    /// path other than the default must already exist on the file system.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub path: std::string::String,

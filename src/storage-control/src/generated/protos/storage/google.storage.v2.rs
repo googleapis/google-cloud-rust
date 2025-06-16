@@ -51,6 +51,8 @@ pub struct CreateBucketRequest {
     pub predefined_acl: ::prost::alloc::string::String,
     #[prost(string, tag = "7")]
     pub predefined_default_object_acl: ::prost::alloc::string::String,
+    #[prost(bool, tag = "9")]
+    pub enable_object_retention: bool,
 }
 impl ::prost::Name for CreateBucketRequest {
     const NAME: &'static str = "CreateBucketRequest";
@@ -1050,6 +1052,8 @@ pub struct UpdateObjectRequest {
     pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
     #[prost(message, optional, tag = "8")]
     pub common_object_request_params: ::core::option::Option<CommonObjectRequestParams>,
+    #[prost(bool, tag = "11")]
+    pub override_unlocked_retention: bool,
 }
 impl ::prost::Name for UpdateObjectRequest {
     const NAME: &'static str = "UpdateObjectRequest";
@@ -1267,6 +1271,8 @@ pub struct Bucket {
     pub hierarchical_namespace: ::core::option::Option<bucket::HierarchicalNamespace>,
     #[prost(message, optional, tag = "31")]
     pub soft_delete_policy: ::core::option::Option<bucket::SoftDeletePolicy>,
+    #[prost(message, optional, tag = "33")]
+    pub object_retention: ::core::option::Option<bucket::ObjectRetention>,
     #[prost(message, optional, tag = "38")]
     pub ip_filter: ::core::option::Option<bucket::IpFilter>,
 }
@@ -1312,6 +1318,78 @@ pub mod bucket {
     pub struct Encryption {
         #[prost(string, tag = "1")]
         pub default_kms_key: ::prost::alloc::string::String,
+        #[prost(message, optional, tag = "2")]
+        pub google_managed_encryption_enforcement_config: ::core::option::Option<
+            encryption::GoogleManagedEncryptionEnforcementConfig,
+        >,
+        #[prost(message, optional, tag = "3")]
+        pub customer_managed_encryption_enforcement_config: ::core::option::Option<
+            encryption::CustomerManagedEncryptionEnforcementConfig,
+        >,
+        #[prost(message, optional, tag = "4")]
+        pub customer_supplied_encryption_enforcement_config: ::core::option::Option<
+            encryption::CustomerSuppliedEncryptionEnforcementConfig,
+        >,
+    }
+    /// Nested message and enum types in `Encryption`.
+    pub mod encryption {
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+        pub struct GoogleManagedEncryptionEnforcementConfig {
+            #[prost(bool, optional, tag = "1")]
+            pub restricted: ::core::option::Option<bool>,
+            #[prost(message, optional, tag = "2")]
+            pub effective_time: ::core::option::Option<::prost_types::Timestamp>,
+        }
+        impl ::prost::Name for GoogleManagedEncryptionEnforcementConfig {
+            const NAME: &'static str = "GoogleManagedEncryptionEnforcementConfig";
+            const PACKAGE: &'static str = "google.storage.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.storage.v2.Bucket.Encryption.GoogleManagedEncryptionEnforcementConfig"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.storage.v2.Bucket.Encryption.GoogleManagedEncryptionEnforcementConfig"
+                    .into()
+            }
+        }
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+        pub struct CustomerManagedEncryptionEnforcementConfig {
+            #[prost(bool, optional, tag = "1")]
+            pub restricted: ::core::option::Option<bool>,
+            #[prost(message, optional, tag = "2")]
+            pub effective_time: ::core::option::Option<::prost_types::Timestamp>,
+        }
+        impl ::prost::Name for CustomerManagedEncryptionEnforcementConfig {
+            const NAME: &'static str = "CustomerManagedEncryptionEnforcementConfig";
+            const PACKAGE: &'static str = "google.storage.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.storage.v2.Bucket.Encryption.CustomerManagedEncryptionEnforcementConfig"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.storage.v2.Bucket.Encryption.CustomerManagedEncryptionEnforcementConfig"
+                    .into()
+            }
+        }
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+        pub struct CustomerSuppliedEncryptionEnforcementConfig {
+            #[prost(bool, optional, tag = "1")]
+            pub restricted: ::core::option::Option<bool>,
+            #[prost(message, optional, tag = "2")]
+            pub effective_time: ::core::option::Option<::prost_types::Timestamp>,
+        }
+        impl ::prost::Name for CustomerSuppliedEncryptionEnforcementConfig {
+            const NAME: &'static str = "CustomerSuppliedEncryptionEnforcementConfig";
+            const PACKAGE: &'static str = "google.storage.v2";
+            fn full_name() -> ::prost::alloc::string::String {
+                "google.storage.v2.Bucket.Encryption.CustomerSuppliedEncryptionEnforcementConfig"
+                    .into()
+            }
+            fn type_url() -> ::prost::alloc::string::String {
+                "type.googleapis.com/google.storage.v2.Bucket.Encryption.CustomerSuppliedEncryptionEnforcementConfig"
+                    .into()
+            }
+        }
     }
     impl ::prost::Name for Encryption {
         const NAME: &'static str = "Encryption";
@@ -1485,6 +1563,21 @@ pub mod bucket {
         }
     }
     #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct ObjectRetention {
+        #[prost(bool, tag = "1")]
+        pub enabled: bool,
+    }
+    impl ::prost::Name for ObjectRetention {
+        const NAME: &'static str = "ObjectRetention";
+        const PACKAGE: &'static str = "google.storage.v2";
+        fn full_name() -> ::prost::alloc::string::String {
+            "google.storage.v2.Bucket.ObjectRetention".into()
+        }
+        fn type_url() -> ::prost::alloc::string::String {
+            "type.googleapis.com/google.storage.v2.Bucket.ObjectRetention".into()
+        }
+    }
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
     pub struct RetentionPolicy {
         #[prost(message, optional, tag = "1")]
         pub effective_time: ::core::option::Option<::prost_types::Timestamp>,
@@ -1604,6 +1697,8 @@ pub mod bucket {
         pub vpc_network_sources: ::prost::alloc::vec::Vec<ip_filter::VpcNetworkSource>,
         #[prost(bool, tag = "4")]
         pub allow_cross_org_vpcs: bool,
+        #[prost(bool, optional, tag = "5")]
+        pub allow_all_service_agent_access: ::core::option::Option<bool>,
     }
     /// Nested message and enum types in `IpFilter`.
     pub mod ip_filter {

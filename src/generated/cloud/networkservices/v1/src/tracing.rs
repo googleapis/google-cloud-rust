@@ -543,6 +543,15 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn update_service_binding(
+        &self,
+        req: crate::model::UpdateServiceBindingRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_service_binding(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn delete_service_binding(
         &self,
         req: crate::model::DeleteServiceBindingRequest,
@@ -594,6 +603,87 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_mesh(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_service_lb_policies(
+        &self,
+        req: crate::model::ListServiceLbPoliciesRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListServiceLbPoliciesResponse>> {
+        self.inner.list_service_lb_policies(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_service_lb_policy(
+        &self,
+        req: crate::model::GetServiceLbPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ServiceLbPolicy>> {
+        self.inner.get_service_lb_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_service_lb_policy(
+        &self,
+        req: crate::model::CreateServiceLbPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_service_lb_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_service_lb_policy(
+        &self,
+        req: crate::model::UpdateServiceLbPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_service_lb_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_service_lb_policy(
+        &self,
+        req: crate::model::DeleteServiceLbPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_service_lb_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_gateway_route_view(
+        &self,
+        req: crate::model::GetGatewayRouteViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::GatewayRouteView>> {
+        self.inner.get_gateway_route_view(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_mesh_route_view(
+        &self,
+        req: crate::model::GetMeshRouteViewRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::MeshRouteView>> {
+        self.inner.get_mesh_route_view(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_gateway_route_views(
+        &self,
+        req: crate::model::ListGatewayRouteViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListGatewayRouteViewsResponse>> {
+        self.inner.list_gateway_route_views(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_mesh_route_views(
+        &self,
+        req: crate::model::ListMeshRouteViewsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListMeshRouteViewsResponse>> {
+        self.inner.list_mesh_route_views(req, options).await
     }
 
     #[tracing::instrument(ret)]

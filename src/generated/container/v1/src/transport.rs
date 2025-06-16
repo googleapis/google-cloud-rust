@@ -918,4 +918,58 @@ impl super::stub::ClusterManager for ClusterManager {
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
     }
+
+    async fn fetch_cluster_upgrade_info(
+        &self,
+        req: crate::model::FetchClusterUpgradeInfoRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ClusterUpgradeInfo>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:fetchClusterUpgradeInfo", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, path)
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("version", &req.version)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
+    async fn fetch_node_pool_upgrade_info(
+        &self,
+        req: crate::model::FetchNodePoolUpgradeInfoRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::NodePoolUpgradeInfo>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}:fetchNodePoolUpgradeInfo", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, path)
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        let builder = builder.query(&[("version", &req.version)]);
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
 }

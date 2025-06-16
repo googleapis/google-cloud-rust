@@ -20,8 +20,6 @@ pub(crate) const TOKEN_EXCHANGE_GRANT_TYPE: &str =
 /// Access Token Oauth Token Type
 pub(crate) const ACCESS_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:access_token";
 /// JWT OAuth Token Type
-#[allow(dead_code)]
 pub(crate) const JWT_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:jwt";
 /// SAML2 Token OAuth Token Type
-#[allow(dead_code)]
 pub(crate) const SAML2_TOKEN_TYPE: &str = "urn:ietf:params:oauth:token-type:saml2";

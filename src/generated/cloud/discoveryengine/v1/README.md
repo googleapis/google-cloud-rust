@@ -13,6 +13,7 @@ Discovery Engine API.
 
 The main types to work with this crate are the clients:
 
+- [CmekConfigService]
 - [CompletionService]
 - [ControlService]
 - [ConversationalSearchService]
@@ -20,6 +21,7 @@ The main types to work with this crate are the clients:
 - [DocumentService]
 - [EngineService]
 - [GroundedGenerationService]
+- [IdentityMappingStoreService]
 - [ProjectService]
 - [RankService]
 - [RecommendationService]
@@ -29,11 +31,13 @@ The main types to work with this crate are the clients:
 - [ServingConfigService]
 - [SiteSearchEngineService]
 - [UserEventService]
+- [UserLicenseService]
 
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-discoveryengine-v1/latest/google-cloud-discoveryengine-v1)
 
+[CmekConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.CmekConfigService.html
 [CompletionService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.CompletionService.html
 [ControlService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ControlService.html
 [ConversationalSearchService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ConversationalSearchService.html
@@ -41,6 +45,7 @@ The main types to work with this crate are the clients:
 [DocumentService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.DocumentService.html
 [EngineService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.EngineService.html
 [GroundedGenerationService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.GroundedGenerationService.html
+[IdentityMappingStoreService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.IdentityMappingStoreService.html
 [ProjectService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ProjectService.html
 [RankService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.RankService.html
 [RecommendationService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.RecommendationService.html
@@ -50,3 +55,4 @@ The main types to work with this crate are the clients:
 [ServingConfigService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.ServingConfigService.html
 [SiteSearchEngineService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.SiteSearchEngineService.html
 [UserEventService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.UserEventService.html
+[UserLicenseService]: https://docs.rs/google-cloud-discoveryengine-v1/latest/google_cloud_discoveryengine_v1/client/struct.UserLicenseService.html

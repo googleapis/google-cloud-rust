@@ -220,6 +220,18 @@ pub trait ClusterManager: std::fmt::Debug + Send + Sync {
         req: crate::model::CheckAutopilotCompatibilityRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>>;
+
+    async fn fetch_cluster_upgrade_info(
+        &self,
+        req: crate::model::FetchClusterUpgradeInfoRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ClusterUpgradeInfo>>;
+
+    async fn fetch_node_pool_upgrade_info(
+        &self,
+        req: crate::model::FetchNodePoolUpgradeInfoRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::NodePoolUpgradeInfo>>;
 }
 
 /// All implementations of [super::ClusterManager] also implement [ClusterManager].
@@ -530,5 +542,23 @@ impl<T: super::ClusterManager> ClusterManager for T {
     ) -> crate::Result<gax::response::Response<crate::model::CheckAutopilotCompatibilityResponse>>
     {
         T::check_autopilot_compatibility(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn fetch_cluster_upgrade_info(
+        &self,
+        req: crate::model::FetchClusterUpgradeInfoRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ClusterUpgradeInfo>> {
+        T::fetch_cluster_upgrade_info(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn fetch_node_pool_upgrade_info(
+        &self,
+        req: crate::model::FetchNodePoolUpgradeInfoRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::NodePoolUpgradeInfo>> {
+        T::fetch_node_pool_upgrade_info(self, req, options).await
     }
 }

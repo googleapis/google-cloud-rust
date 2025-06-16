@@ -21,6 +21,16 @@ mod test {
     type Result = anyhow::Result<()>;
 
     #[test_case(MessageWithValue::new(), json!({}))]
+    #[test_case(MessageWithValue::new().set_singular(Value::Null), json!({"singular": null}))]
+    #[test_case(MessageWithValue::new().set_singular("abc"), json!({"singular": "abc"}))]
+    #[test_case(MessageWithValue::new().set_singular(1), json!({"singular": 1}))]
+    #[test_case(MessageWithValue::new().set_optional(Value::Null), json!({"optional": null}))]
+    #[test_case(MessageWithValue::new().set_optional("abc"), json!({"optional": "abc"}))]
+    #[test_case(MessageWithValue::new().set_optional(1), json!({"optional": 1}))]
+    #[test_case(MessageWithValue::new().set_repeated([Value::Null; 0]), json!({}))]
+    #[test_case(MessageWithValue::new().set_repeated([Value::Null]), json!({"repeated": [null]}))]
+    #[test_case(MessageWithValue::new().set_map([("", Value::Null); 0]), json!({}))]
+    #[test_case(MessageWithValue::new().set_map([("null", Value::Null), ("1", json!(1))]), json!({"map": {"null": null, "1": 1}}))]
     fn test_ser(input: MessageWithValue, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithValue(input))?;
         assert_eq!(got, want);
@@ -28,6 +38,16 @@ mod test {
     }
 
     #[test_case(MessageWithValue::new(), json!({}))]
+    #[test_case(MessageWithValue::new().set_singular(Value::Null), json!({"singular": null}))]
+    #[test_case(MessageWithValue::new().set_singular("abc"), json!({"singular": "abc"}))]
+    #[test_case(MessageWithValue::new().set_singular(1), json!({"singular": 1}))]
+    #[test_case(MessageWithValue::new().set_optional(Value::Null), json!({"optional": null}))]
+    #[test_case(MessageWithValue::new().set_optional("abc"), json!({"optional": "abc"}))]
+    #[test_case(MessageWithValue::new().set_optional(1), json!({"optional": 1}))]
+    #[test_case(MessageWithValue::new().set_repeated([Value::Null; 0]), json!({}))]
+    #[test_case(MessageWithValue::new().set_repeated([Value::Null]), json!({"repeated": [null]}))]
+    #[test_case(MessageWithValue::new().set_map([("", Value::Null); 0]), json!({}))]
+    #[test_case(MessageWithValue::new().set_map([("null", Value::Null), ("1", json!(1))]), json!({"map": {"null": null, "1": 1}}))]
     fn test_de(want: MessageWithValue, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithValue>(input)?;
         assert_eq!(got.0, want);

@@ -20,6 +20,19 @@ mod test {
     type Result = anyhow::Result<()>;
 
     #[test_case(MessageWithI64::new(), json!({}))]
+    #[test_case(MessageWithI64::new().set_singular(0), json!({}))]
+    #[test_case(MessageWithI64::new().set_singular(42), json!({"singular": "42"}))]
+    #[test_case(MessageWithI64::new().set_optional(0), json!({"optional": "0"}))]
+    #[test_case(MessageWithI64::new().set_or_clear_optional(None::<i64>), json!({}))]
+    #[test_case(MessageWithI64::new().set_optional(42), json!({"optional": "42"}))]
+    #[test_case(MessageWithI64::new().set_repeated([0_i64;0]), json!({}))]
+    #[test_case(MessageWithI64::new().set_repeated([0, -1, 1]), json!({"repeated": ["0", "-1", "1"]}))]
+    #[test_case(MessageWithI64::new().set_map_value([("", 0_i64);0]), json!({}))]
+    #[test_case(MessageWithI64::new().set_map_value([("", 0_i64)]), json!({"mapValue": {"": "0"}}))]
+    #[test_case(MessageWithI64::new().set_map_key([(0_i64, "");0]), json!({}))]
+    #[test_case(MessageWithI64::new().set_map_key([(0_i64, "")]), json!({"mapKey": {"0": ""}}))]
+    #[test_case(MessageWithI64::new().set_map_key_value([(0_i64, 0_i64);0]), json!({}))]
+    #[test_case(MessageWithI64::new().set_map_key_value([(0_i64, 0_i64)]), json!({"mapKeyValue": {"0": "0"}}))]
     fn test_ser(input: MessageWithI64, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithI64(input))?;
         assert_eq!(got, want);
@@ -27,6 +40,22 @@ mod test {
     }
 
     #[test_case(MessageWithI64::new(), json!({}))]
+    #[test_case(MessageWithI64::new().set_singular(0), json!({"singular": null}))]
+    #[test_case(MessageWithI64::new().set_singular(0), json!({}))]
+    #[test_case(MessageWithI64::new().set_singular(42), json!({"singular": "42"}))]
+    #[test_case(MessageWithI64::new().set_optional(0), json!({"optional": "0"}))]
+    #[test_case(MessageWithI64::new().set_or_clear_optional(None::<i64>), json!({}))]
+    #[test_case(MessageWithI64::new().set_optional(42), json!({"optional": "42"}))]
+    #[test_case(MessageWithI64::new().set_repeated([0_i64;0]), json!({}))]
+    #[test_case(MessageWithI64::new().set_repeated([0, -1, 1]), json!({"repeated": ["0", "-1", "1"]}))]
+    #[test_case(MessageWithI64::new().set_repeated([0, -1, 20]), json!({"repeated": [0.0, "-1.0", 2e1]}))]
+    #[test_case(MessageWithI64::new().set_map_value([("", 0_i64);0]), json!({}))]
+    #[test_case(MessageWithI64::new().set_map_value([("", 0_i64)]), json!({"mapValue": {"": "0"}}))]
+    #[test_case(MessageWithI64::new().set_map_key([(0_i64, "");0]), json!({}))]
+    #[test_case(MessageWithI64::new().set_map_key([(0_i64, "")]), json!({"mapKey": {"0": ""}}))]
+    #[test_case(MessageWithI64::new().set_map_key_value([(0_i64, 0_i64);0]), json!({}))]
+    #[test_case(MessageWithI64::new().set_map_key_value([(0_i64, 0_i64)]), json!({"mapKeyValue": {"0": "0"}}))]
+    #[test_case(MessageWithI64::new().set_map_key_value([(0_i64, 0_i64)]), json!({"map_key_value": {"0": "0"}}))]
     fn test_de(want: MessageWithI64, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithI64>(input)?;
         assert_eq!(got.0, want);

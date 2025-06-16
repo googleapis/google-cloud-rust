@@ -762,6 +762,21 @@ impl NetworkServices {
         super::builder::network_services::CreateServiceBinding::new(self.inner.clone())
     }
 
+    /// Updates the parameters of a single ServiceBinding.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_service_binding(&self) -> super::builder::network_services::UpdateServiceBinding {
+        super::builder::network_services::UpdateServiceBinding::new(self.inner.clone())
+    }
+
     /// Deletes a single ServiceBinding.
     ///
     /// # Long running operations
@@ -830,6 +845,91 @@ impl NetworkServices {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_mesh(&self) -> super::builder::network_services::DeleteMesh {
         super::builder::network_services::DeleteMesh::new(self.inner.clone())
+    }
+
+    /// Lists ServiceLbPolicies in a given project and location.
+    pub fn list_service_lb_policies(
+        &self,
+    ) -> super::builder::network_services::ListServiceLbPolicies {
+        super::builder::network_services::ListServiceLbPolicies::new(self.inner.clone())
+    }
+
+    /// Gets details of a single ServiceLbPolicy.
+    pub fn get_service_lb_policy(&self) -> super::builder::network_services::GetServiceLbPolicy {
+        super::builder::network_services::GetServiceLbPolicy::new(self.inner.clone())
+    }
+
+    /// Creates a new ServiceLbPolicy in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_service_lb_policy(
+        &self,
+    ) -> super::builder::network_services::CreateServiceLbPolicy {
+        super::builder::network_services::CreateServiceLbPolicy::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single ServiceLbPolicy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_service_lb_policy(
+        &self,
+    ) -> super::builder::network_services::UpdateServiceLbPolicy {
+        super::builder::network_services::UpdateServiceLbPolicy::new(self.inner.clone())
+    }
+
+    /// Deletes a single ServiceLbPolicy.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_service_lb_policy(
+        &self,
+    ) -> super::builder::network_services::DeleteServiceLbPolicy {
+        super::builder::network_services::DeleteServiceLbPolicy::new(self.inner.clone())
+    }
+
+    /// Get a single RouteView of a Gateway.
+    pub fn get_gateway_route_view(&self) -> super::builder::network_services::GetGatewayRouteView {
+        super::builder::network_services::GetGatewayRouteView::new(self.inner.clone())
+    }
+
+    /// Get a single RouteView of a Mesh.
+    pub fn get_mesh_route_view(&self) -> super::builder::network_services::GetMeshRouteView {
+        super::builder::network_services::GetMeshRouteView::new(self.inner.clone())
+    }
+
+    /// Lists RouteViews
+    pub fn list_gateway_route_views(
+        &self,
+    ) -> super::builder::network_services::ListGatewayRouteViews {
+        super::builder::network_services::ListGatewayRouteViews::new(self.inner.clone())
+    }
+
+    /// Lists RouteViews
+    pub fn list_mesh_route_views(&self) -> super::builder::network_services::ListMeshRouteViews {
+        super::builder::network_services::ListMeshRouteViews::new(self.inner.clone())
     }
 
     /// Lists information about the supported locations for this service.

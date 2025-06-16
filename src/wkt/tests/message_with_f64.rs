@@ -20,6 +20,23 @@ mod test {
     type Result = anyhow::Result<()>;
 
     #[test_case(MessageWithF64::new(), json!({}))]
+    #[test_case(MessageWithF64::new().set_singular(0.0), json!({}))]
+    #[test_case(MessageWithF64::new().set_singular(1.5), json!({"singular": 1.5}))]
+    #[test_case(MessageWithF64::new().set_singular(f64::INFINITY), json!({"singular": "Infinity"}))]
+    #[test_case(MessageWithF64::new().set_singular(-f64::INFINITY), json!({"singular": "-Infinity"}); "singular minus inf")]
+    #[test_case(MessageWithF64::new().set_singular(f64::NAN), json!({"singular": "NaN"}))]
+    #[test_case(MessageWithF64::new().set_optional(0.0), json!({"optional": 0.0}))]
+    #[test_case(MessageWithF64::new().set_or_clear_optional(None::<f64>), json!({}))]
+    #[test_case(MessageWithF64::new().set_optional(1.5), json!({"optional": 1.5}))]
+    #[test_case(MessageWithF64::new().set_optional(f64::INFINITY), json!({"optional": "Infinity"}))]
+    #[test_case(MessageWithF64::new().set_optional(-f64::INFINITY), json!({"optional": "-Infinity"}); "optional minus inf")]
+    #[test_case(MessageWithF64::new().set_optional(f64::NAN), json!({"optional": "NaN"}))]
+    #[test_case(MessageWithF64::new().set_repeated([0_f64;0]), json!({}))]
+    #[test_case(MessageWithF64::new().set_repeated([0.0, 1.5, 2.5]), json!({"repeated": [0.0, 1.5, 2.5]}))]
+    #[test_case(MessageWithF64::new().set_repeated([0.0, f64::NAN, f64::INFINITY]), json!({"repeated": [0.0, "NaN", "Infinity"]}))]
+    #[test_case(MessageWithF64::new().set_map([("", 0_f64);0]), json!({}))]
+    #[test_case(MessageWithF64::new().set_map([("a", 0_f64), ("b", 1_f64)]), json!({"map": {"a": 0.0, "b": 1.0}}))]
+    #[test_case(MessageWithF64::new().set_map([("a", f64::NAN), ("b", f64::INFINITY)]), json!({"map": {"a": "NaN", "b": "Infinity"}}))]
     fn test_ser(input: MessageWithF64, want: Value) -> Result {
         let got = serde_json::to_value(__MessageWithF64(input))?;
         assert_eq!(got, want);
@@ -27,11 +44,50 @@ mod test {
     }
 
     #[test_case(MessageWithF64::new(), json!({}))]
+    #[test_case(MessageWithF64::new().set_singular(0.0), json!({"singular": null}))]
+    #[test_case(MessageWithF64::new().set_singular(0.0), json!({}))]
+    #[test_case(MessageWithF64::new().set_singular(1.5), json!({"singular": 1.5}))]
+    #[test_case(MessageWithF64::new().set_optional(0.0), json!({"optional": 0.0}))]
+    #[test_case(MessageWithF64::new().set_or_clear_optional(None::<f64>), json!({}))]
+    #[test_case(MessageWithF64::new().set_optional(1.5), json!({"optional": 1.5}))]
+    #[test_case(MessageWithF64::new().set_repeated([0_f64;0]), json!({}))]
+    #[test_case(MessageWithF64::new().set_repeated([0.0, 1.5, 2.5]), json!({"repeated": [0.0, 1.5, 2.5]}))]
+    #[test_case(MessageWithF64::new().set_repeated([0.0, 1.5, 2.5]), json!({"repeated": [0, 1.5, "2.5"]}))]
+    #[test_case(MessageWithF64::new().set_map([("", 0_f64);0]), json!({}))]
+    #[test_case(MessageWithF64::new().set_map([("a", 0_f64), ("b", 1_f64)]), json!({"map": {"a": 0.0, "b": 1.0}}))]
     fn test_de(want: MessageWithF64, input: Value) -> Result {
         let got = serde_json::from_value::<__MessageWithF64>(input)?;
         assert_eq!(got.0, want);
         Ok(())
     }
+
+    #[test_case(MessageWithF64::new().set_singular(f64::INFINITY), json!({"singular": "Infinity"}))]
+    #[test_case(MessageWithF64::new().set_singular(-f64::INFINITY), json!({"singular": "-Infinity"}); "singular minus inf")]
+    #[test_case(MessageWithF64::new().set_singular(f64::NAN), json!({"singular": "NaN"}))]
+    #[test_case(MessageWithF64::new().set_optional(f64::INFINITY), json!({"optional": "Infinity"}))]
+    #[test_case(MessageWithF64::new().set_optional(-f64::INFINITY), json!({"optional": "-Infinity"}); "optional minus inf")]
+    #[test_case(MessageWithF64::new().set_optional(f64::NAN), json!({"optional": "NaN"}))]
+    fn test_de_exceptional(want: MessageWithF64, input: Value) -> Result {
+        let got = serde_json::from_value::<__MessageWithF64>(input)?;
+        assert_eq!(
+            want.singular.total_cmp(&got.0.singular),
+            std::cmp::Ordering::Equal,
+            "{got:?} != {want:?})"
+        );
+        match (&want.optional, &got.0.optional) {
+            (None, None) => {}
+            (Some(l), Some(r)) => {
+                assert_eq!(
+                    l.total_cmp(r),
+                    std::cmp::Ordering::Equal,
+                    "{got:?} != {want:?})"
+                );
+            }
+            (None, Some(_)) | (Some(_), None) => panic!("mismatched optional {got:?} != {want:?}"),
+        }
+        Ok(())
+    }
+
     #[test_case(json!({"unknown": "test-value"}))]
     #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
     fn test_unknown(input: Value) -> Result {

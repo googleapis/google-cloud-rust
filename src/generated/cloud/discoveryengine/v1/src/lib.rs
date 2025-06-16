@@ -25,6 +25,7 @@
 //! Most applications will use the structs defined in the [client] module.
 //! More specifically:
 //!
+//! * [CmekConfigService](client/struct.CmekConfigService.html)
 //! * [CompletionService](client/struct.CompletionService.html)
 //! * [ControlService](client/struct.ControlService.html)
 //! * [ConversationalSearchService](client/struct.ConversationalSearchService.html)
@@ -32,6 +33,7 @@
 //! * [DocumentService](client/struct.DocumentService.html)
 //! * [EngineService](client/struct.EngineService.html)
 //! * [GroundedGenerationService](client/struct.GroundedGenerationService.html)
+//! * [IdentityMappingStoreService](client/struct.IdentityMappingStoreService.html)
 //! * [ProjectService](client/struct.ProjectService.html)
 //! * [RankService](client/struct.RankService.html)
 //! * [RecommendationService](client/struct.RecommendationService.html)
@@ -41,6 +43,7 @@
 //! * [ServingConfigService](client/struct.ServingConfigService.html)
 //! * [SiteSearchEngineService](client/struct.SiteSearchEngineService.html)
 //! * [UserEventService](client/struct.UserEventService.html)
+//! * [UserLicenseService](client/struct.UserLicenseService.html)
 
 #![allow(deprecated)]
 

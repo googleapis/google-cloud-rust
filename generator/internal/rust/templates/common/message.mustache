@@ -268,6 +268,7 @@ impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
     where
         D: serde::Deserializer<'de>,
     {
+        {{> /templates/common/deser_field_tag}}
         {{! This is the visitor for the message }}
         struct Visitor;
         impl<'de> serde::de::Visitor<'de> for Visitor {
@@ -282,17 +283,20 @@ impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
                 #[allow(unused_imports)]
                 use serde::de::Error;
                 let mut result = Self::Value::new();
-                while let Some(key) = map.next_key::<String>()? {
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
-                    match key.as_str() {
+                    match tag {
                         {{#Fields}}
-                        {{^Codec.RequiresSerdeAs}}
-                        "{{JSONName}}" => {
+                        __FieldTag::__{{Codec.SetterName}} => {
+                            {{^Codec.RequiresSerdeAs}}
                             {{> /templates/common/deser_plain_message_field}}
+                            {{/Codec.RequiresSerdeAs}}
+                            {{#Codec.RequiresSerdeAs}}
+                            {{> /templates/common/deser_with_message_field}}
+                            {{/Codec.RequiresSerdeAs}}
                         },
-                        {{/Codec.RequiresSerdeAs}}
                         {{/Fields}}
-                        _ => {
+                        __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
                         },
@@ -315,6 +319,9 @@ impl serde::ser::Serialize for __{{Codec.Name}} {
         {{#Fields}}
         {{^Codec.RequiresSerdeAs}}
         {{> /templates/common/ser_plain_message_field}}
+        {{/Codec.RequiresSerdeAs}}
+        {{#Codec.RequiresSerdeAs}}
+        {{> /templates/common/ser_with_message_field}}
         {{/Codec.RequiresSerdeAs}}
         {{/Fields}}
         if !self.0._unknown_fields.is_empty() {

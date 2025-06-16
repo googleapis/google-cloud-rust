@@ -645,6 +645,17 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::NetworkServices::update_service_binding].
+    fn update_service_binding(
+        &self,
+        _req: crate::model::UpdateServiceBindingRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::NetworkServices::delete_service_binding].
     fn delete_service_binding(
         &self,
@@ -707,6 +718,109 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::list_service_lb_policies].
+    fn list_service_lb_policies(
+        &self,
+        _req: crate::model::ListServiceLbPoliciesRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListServiceLbPoliciesResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::get_service_lb_policy].
+    fn get_service_lb_policy(
+        &self,
+        _req: crate::model::GetServiceLbPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ServiceLbPolicy>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::create_service_lb_policy].
+    fn create_service_lb_policy(
+        &self,
+        _req: crate::model::CreateServiceLbPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::update_service_lb_policy].
+    fn update_service_lb_policy(
+        &self,
+        _req: crate::model::UpdateServiceLbPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::delete_service_lb_policy].
+    fn delete_service_lb_policy(
+        &self,
+        _req: crate::model::DeleteServiceLbPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::get_gateway_route_view].
+    fn get_gateway_route_view(
+        &self,
+        _req: crate::model::GetGatewayRouteViewRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::GatewayRouteView>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::get_mesh_route_view].
+    fn get_mesh_route_view(
+        &self,
+        _req: crate::model::GetMeshRouteViewRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::MeshRouteView>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::list_gateway_route_views].
+    fn list_gateway_route_views(
+        &self,
+        _req: crate::model::ListGatewayRouteViewsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListGatewayRouteViewsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::list_mesh_route_views].
+    fn list_mesh_route_views(
+        &self,
+        _req: crate::model::ListMeshRouteViewsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListMeshRouteViewsResponse>>,
     > + Send {
         gaxi::unimplemented::unimplemented_stub()
     }
