@@ -112,7 +112,7 @@ impl ReqwestClient {
         let inner = async move |d| {
             let builder = builder
                 .try_clone()
-                .ok_or_else(|| Error::other("cannot clone builder in retry loop"))?;
+                .expect("client libraries only create builders where `try_clone()` succeeds");
             this.request_attempt(builder, &options, d).await
         };
         let sleep = async |d| tokio::time::sleep(d).await;
