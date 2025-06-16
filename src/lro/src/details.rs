@@ -148,13 +148,15 @@ fn as_result<R, M>(op: Operation<R, M>) -> Result<R>
 where
     R: wkt::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
 {
-    if let Some(any) = op.response() {
-        return any.to_msg::<R>().map_err(Error::deser);
+    // The result must set either the response *or* the error. Setting neither
+    // is a deserialization error, as the incoming data does not satisfy the
+    // invariants required by the receiving type.
+    match (op.response(), op.error()) {
+        (Some(any), None) => any.to_msg::<R>().map_err(Error::deser),
+        (None, Some(e)) => Err(Error::service(gax::error::rpc::Status::from(e.clone()))),
+        (None, None) => Err(Error::deser("neither result nor error set in LRO result")),
+        (Some(_), Some(_)) => unreachable!("result and error held in a oneof"),
     }
-    if let Some(e) = op.error() {
-        return Err(Error::service(gax::error::rpc::Status::from(e.clone())));
-    }
-    Err(Error::other("missing result in completed operation"))
 }
 
 fn as_metadata<R, M>(op: Operation<R, M>) -> Option<M>
@@ -529,9 +531,7 @@ mod test {
         let op = longrunning::model::Operation::default();
         let op = O::new(op);
         let err = as_result(op).err().unwrap();
-        // TODO(#2312) - use a real `is_*()` predicate.
-        assert!(format!("{err:?}").contains("Other"), "{err:?}");
-        assert!(format!("{err}").contains("missing result"), "{err}");
+        assert!(err.is_deserialization(), "{err:?}");
 
         Ok(())
     }
