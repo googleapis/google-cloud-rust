@@ -1367,6 +1367,31 @@ impl MessageWithComplexOneOf {
         );
         self
     }
+
+    /// The value of [complex][crate::generated::MessageWithComplexOneOf::complex]
+    /// if it holds a `Value`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn value(&self) -> std::option::Option<&std::boxed::Box<wkt::Value>> {
+        #[allow(unreachable_patterns)]
+        self.complex.as_ref().and_then(|v| match v {
+            crate::generated::message_with_complex_one_of::Complex::Value(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [complex][crate::generated::MessageWithComplexOneOf::complex]
+    /// to hold a `Value`.
+    ///
+    /// Note that all the setters affecting `complex` are
+    /// mutually exclusive.
+    pub fn set_value<T: std::convert::Into<std::boxed::Box<wkt::Value>>>(mut self, v: T) -> Self {
+        self.complex = std::option::Option::Some(
+            crate::generated::message_with_complex_one_of::Complex::Value(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for MessageWithComplexOneOf {
@@ -1398,6 +1423,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
             __enum,
             __inner,
             __duration,
+            __value,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1433,6 +1459,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             "enum" => Ok(__FieldTag::__enum),
                             "inner" => Ok(__FieldTag::__inner),
                             "duration" => Ok(__FieldTag::__duration),
+                            "value" => Ok(__FieldTag::__value),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1652,6 +1679,18 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 ),
                             );
                         }
+                        __FieldTag::__value => {
+                            if result.complex.is_some() {
+                                return Err(A::Error::duplicate_field(
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.value, latest field was value",
+                                ));
+                            }
+                            result.complex = std::option::Option::Some(
+                                crate::generated::message_with_complex_one_of::Complex::Value(
+                                    map.next_value::<std::boxed::Box<wkt::Value>>()?,
+                                ),
+                            );
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1751,6 +1790,9 @@ impl serde::ser::Serialize for __MessageWithComplexOneOf {
         }
         if let Some(value) = self.0.duration() {
             state.serialize_entry("duration", value)?;
+        }
+        if let Some(value) = self.0.value() {
+            state.serialize_entry("value", value)?;
         }
         if !self.0._unknown_fields.is_empty() {
             for (key, value) in self.0._unknown_fields.iter() {
@@ -2044,6 +2086,7 @@ pub mod message_with_complex_one_of {
         ),
         Inner(std::boxed::Box<crate::generated::message_with_complex_one_of::Inner>),
         Duration(std::boxed::Box<wkt::Duration>),
+        Value(std::boxed::Box<wkt::Value>),
     }
 }
 
@@ -6786,11 +6829,14 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithNullValue {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
-                            result.singular = map.next_value::<wkt::NullValue>()?;
+                            result.singular = map
+                                .next_value::<std::option::Option<wkt::NullValue>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__optional => {
-                            result.optional =
-                                map.next_value::<std::option::Option<wkt::NullValue>>()?;
+                            result.optional = map
+                                .next_value::<std::option::Option<wkt::NullValue>>()?
+                                .or(Some(wkt::NullValue));
                         }
                         __FieldTag::__repeated => {
                             result.repeated = map.next_value::<std::vec::Vec<wkt::NullValue>>()?;

@@ -57,6 +57,7 @@ message MessageWithComplexOneOf {
         TestEnum enum = 9;
         Inner inner = 10;
         google.protobuf.Duration duration = 11;
+        google.protobuf.Value value = 12;
     }
 
     enum TestEnum {

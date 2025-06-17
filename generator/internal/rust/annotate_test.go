@@ -1254,6 +1254,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		PrimitiveFieldType: "wkt::NullValue",
 		AddQueryParameter:  `let builder = builder.query(&[("nullValueField", &req.null_value_field)]);`,
 		SkipIfIsDefault:    true,
+		IsWktNullValue:     true,
 	}
 	if diff := cmp.Diff(wantField, null_value_field.Codec); diff != "" {
 		t.Errorf("mismatch in field annotations (-want, +got)\n:%s", diff)
