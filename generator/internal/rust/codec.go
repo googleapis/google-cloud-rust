@@ -940,11 +940,6 @@ func derefFieldSingle(name string, message *api.Message, state *api.APIState) (s
 				return derefFieldExpr(name, field.Optional, nextMessage)
 			}
 			slog.Error("cannot find next message for field", "currentMessage", message, "fieldName", name)
-			return derefFieldExpr(name, field.Optional, nil)
-		}
-		if field.Typez == api.ENUM_TYPE {
-			expr, nextMessage := derefFieldExpr(name, field.Optional, nil)
-			return expr, nextMessage
 		}
 		return derefFieldExpr(name, field.Optional, nil)
 	}
