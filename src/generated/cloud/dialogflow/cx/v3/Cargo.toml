@@ -26,6 +26,61 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+[features]
+default = [
+    "agents",
+    "changelogs",
+    "deployments",
+    "entity-types",
+    "environments",
+    "experiments",
+    "flows",
+    "generators",
+    "intents",
+    "pages",
+    "security-settings-service",
+    "sessions",
+    "session-entity-types",
+    "test-cases",
+    "transition-route-groups",
+    "versions",
+    "webhooks",
+]
+# Enables `client::Agents` and all the types it depends on.
+agents = []
+# Enables `client::Changelogs` and all the types it depends on.
+changelogs = []
+# Enables `client::Deployments` and all the types it depends on.
+deployments = []
+# Enables `client::EntityTypes` and all the types it depends on.
+entity-types = []
+# Enables `client::Environments` and all the types it depends on.
+environments = []
+# Enables `client::Experiments` and all the types it depends on.
+experiments = []
+# Enables `client::Flows` and all the types it depends on.
+flows = []
+# Enables `client::Generators` and all the types it depends on.
+generators = []
+# Enables `client::Intents` and all the types it depends on.
+intents = []
+# Enables `client::Pages` and all the types it depends on.
+pages = []
+# Enables `client::SecuritySettingsService` and all the types it depends on.
+security-settings-service = []
+# Enables `client::Sessions` and all the types it depends on.
+sessions = []
+# Enables `client::SessionEntityTypes` and all the types it depends on.
+session-entity-types = []
+# Enables `client::TestCases` and all the types it depends on.
+test-cases = []
+# Enables `client::TransitionRouteGroups` and all the types it depends on.
+transition-route-groups = []
+# Enables `client::Versions` and all the types it depends on.
+versions = []
+# Enables `client::Webhooks` and all the types it depends on.
+webhooks = []
+
 [dependencies]
 async-trait.workspace = true
 bytes.workspace      = true

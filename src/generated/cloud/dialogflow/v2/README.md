@@ -14,25 +14,25 @@ apps and devices).
 
 The main types to work with this crate are the clients:
 
-- [Agents]
-- [AnswerRecords]
-- [Contexts]
-- [Conversations]
-- [ConversationDatasets]
-- [ConversationModels]
-- [ConversationProfiles]
-- [Documents]
-- [EncryptionSpecService]
-- [EntityTypes]
-- [Environments]
-- [Fulfillments]
-- [Generators]
-- [Intents]
-- [KnowledgeBases]
-- [Participants]
-- [Sessions]
-- [SessionEntityTypes]
-- [Versions]
+- [Agents]: enabled by the `agents` feature.
+- [AnswerRecords]: enabled by the `answer-records` feature.
+- [Contexts]: enabled by the `contexts` feature.
+- [Conversations]: enabled by the `conversations` feature.
+- [ConversationDatasets]: enabled by the `conversation-datasets` feature.
+- [ConversationModels]: enabled by the `conversation-models` feature.
+- [ConversationProfiles]: enabled by the `conversation-profiles` feature.
+- [Documents]: enabled by the `documents` feature.
+- [EncryptionSpecService]: enabled by the `encryption-spec-service` feature.
+- [EntityTypes]: enabled by the `entity-types` feature.
+- [Environments]: enabled by the `environments` feature.
+- [Fulfillments]: enabled by the `fulfillments` feature.
+- [Generators]: enabled by the `generators` feature.
+- [Intents]: enabled by the `intents` feature.
+- [KnowledgeBases]: enabled by the `knowledge-bases` feature.
+- [Participants]: enabled by the `participants` feature.
+- [Sessions]: enabled by the `sessions` feature.
+- [SessionEntityTypes]: enabled by the `session-entity-types` feature.
+- [Versions]: enabled by the `versions` feature.
 
 ## More Information
 

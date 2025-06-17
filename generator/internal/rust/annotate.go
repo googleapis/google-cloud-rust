@@ -352,6 +352,11 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 		}
 		return false
 	})
+	// The maximum (15) was chosen more or less arbitrarily circa 2025-06. At
+	// the time, only a handful of services exceeded this number of services.
+	if len(servicesSubset) > 15 && !codec.perServiceFeatures {
+		slog.Warn("package has more than 15 services, consider enabling per-service features", "package", packageName, "count", len(servicesSubset))
+	}
 
 	// Delay this until the Codec had a chance to compute what packages are
 	// used.

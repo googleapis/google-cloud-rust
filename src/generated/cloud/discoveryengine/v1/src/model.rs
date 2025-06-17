@@ -36,6 +36,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Defines an answer.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -115,6 +116,7 @@ pub struct Answer {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl Answer {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -288,6 +290,7 @@ impl Answer {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for Answer {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Answer"
@@ -295,11 +298,13 @@ impl wkt::message::Message for Answer {
 }
 
 /// Defines additional types related to [Answer].
+#[cfg(feature = "conversational-search-service")]
 pub mod answer {
     #[allow(unused_imports)]
     use super::*;
 
     /// Citation info for a segment.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -328,6 +333,7 @@ pub mod answer {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl Citation {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -357,6 +363,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for Citation {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Citation"
@@ -364,6 +371,7 @@ pub mod answer {
     }
 
     /// Citation source.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -378,6 +386,7 @@ pub mod answer {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl CitationSource {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -393,6 +402,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for CitationSource {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.CitationSource"
@@ -400,6 +410,7 @@ pub mod answer {
     }
 
     /// Grounding support for a claim in `answer_text`.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -441,6 +452,7 @@ pub mod answer {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl GroundingSupport {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -506,6 +518,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for GroundingSupport {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.GroundingSupport"
@@ -513,6 +526,7 @@ pub mod answer {
     }
 
     /// Reference.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -526,6 +540,7 @@ pub mod answer {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl Reference {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -651,6 +666,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for Reference {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Reference"
@@ -658,11 +674,13 @@ pub mod answer {
     }
 
     /// Defines additional types related to [Reference].
+    #[cfg(feature = "conversational-search-service")]
     pub mod reference {
         #[allow(unused_imports)]
         use super::*;
 
         /// Unstructured document information.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -699,6 +717,7 @@ pub mod answer {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl UnstructuredDocumentInfo {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -757,6 +776,7 @@ pub mod answer {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl wkt::message::Message for UnstructuredDocumentInfo {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Reference.UnstructuredDocumentInfo"
@@ -764,11 +784,13 @@ pub mod answer {
         }
 
         /// Defines additional types related to [UnstructuredDocumentInfo].
+        #[cfg(feature = "conversational-search-service")]
         pub mod unstructured_document_info {
             #[allow(unused_imports)]
             use super::*;
 
             /// Chunk content.
+            #[cfg(feature = "conversational-search-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -797,6 +819,7 @@ pub mod answer {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl ChunkContent {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -839,6 +862,7 @@ pub mod answer {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl wkt::message::Message for ChunkContent {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Reference.UnstructuredDocumentInfo.ChunkContent"
@@ -847,6 +871,7 @@ pub mod answer {
         }
 
         /// Chunk information.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -880,6 +905,7 @@ pub mod answer {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl ChunkInfo {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -938,6 +964,7 @@ pub mod answer {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl wkt::message::Message for ChunkInfo {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Reference.ChunkInfo"
@@ -945,11 +972,13 @@ pub mod answer {
         }
 
         /// Defines additional types related to [ChunkInfo].
+        #[cfg(feature = "conversational-search-service")]
         pub mod chunk_info {
             #[allow(unused_imports)]
             use super::*;
 
             /// Document metadata.
+            #[cfg(feature = "conversational-search-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -984,6 +1013,7 @@ pub mod answer {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl DocumentMetadata {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -1041,6 +1071,7 @@ pub mod answer {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl wkt::message::Message for DocumentMetadata {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Reference.ChunkInfo.DocumentMetadata"
@@ -1049,6 +1080,7 @@ pub mod answer {
         }
 
         /// Structured search information.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -1077,6 +1109,7 @@ pub mod answer {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl StructuredDocumentInfo {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -1122,6 +1155,7 @@ pub mod answer {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl wkt::message::Message for StructuredDocumentInfo {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Reference.StructuredDocumentInfo"
@@ -1129,6 +1163,7 @@ pub mod answer {
         }
 
         /// Search result content.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -1148,6 +1183,7 @@ pub mod answer {
     }
 
     /// Step information.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -1177,6 +1213,7 @@ pub mod answer {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl Step {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -1215,6 +1252,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for Step {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Step"
@@ -1222,11 +1260,13 @@ pub mod answer {
     }
 
     /// Defines additional types related to [Step].
+    #[cfg(feature = "conversational-search-service")]
     pub mod step {
         #[allow(unused_imports)]
         use super::*;
 
         /// Action.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -1244,6 +1284,7 @@ pub mod answer {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl Action {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -1318,6 +1359,7 @@ pub mod answer {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl wkt::message::Message for Action {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Step.Action"
@@ -1325,11 +1367,13 @@ pub mod answer {
         }
 
         /// Defines additional types related to [Action].
+        #[cfg(feature = "conversational-search-service")]
         pub mod action {
             #[allow(unused_imports)]
             use super::*;
 
             /// Search action.
+            #[cfg(feature = "conversational-search-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -1344,6 +1388,7 @@ pub mod answer {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl SearchAction {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -1359,6 +1404,7 @@ pub mod answer {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl wkt::message::Message for SearchAction {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Step.Action.SearchAction"
@@ -1366,6 +1412,7 @@ pub mod answer {
             }
 
             /// Observation.
+            #[cfg(feature = "conversational-search-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -1382,6 +1429,7 @@ pub mod answer {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl Observation {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -1401,6 +1449,7 @@ pub mod answer {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl wkt::message::Message for Observation {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Step.Action.Observation"
@@ -1408,10 +1457,12 @@ pub mod answer {
             }
 
             /// Defines additional types related to [Observation].
+            #[cfg(feature = "conversational-search-service")]
             pub mod observation {
                 #[allow(unused_imports)]
                 use super::*;
 
+                #[cfg(feature = "conversational-search-service")]
                 #[serde_with::serde_as]
                 #[derive(
                     Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
@@ -1461,6 +1512,7 @@ pub mod answer {
                     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl SearchResult {
                     pub fn new() -> Self {
                         std::default::Default::default()
@@ -1534,6 +1586,7 @@ pub mod answer {
                     }
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl wkt::message::Message for SearchResult {
                     fn typename() -> &'static str {
                         "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Step.Action.Observation.SearchResult"
@@ -1541,11 +1594,13 @@ pub mod answer {
                 }
 
                 /// Defines additional types related to [SearchResult].
+                #[cfg(feature = "conversational-search-service")]
                 pub mod search_result {
                     #[allow(unused_imports)]
                     use super::*;
 
                     /// Snippet information.
+                    #[cfg(feature = "conversational-search-service")]
                     #[serde_with::serde_as]
                     #[derive(
                         Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
@@ -1567,6 +1622,7 @@ pub mod answer {
                         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                     }
 
+                    #[cfg(feature = "conversational-search-service")]
                     impl SnippetInfo {
                         pub fn new() -> Self {
                             std::default::Default::default()
@@ -1591,6 +1647,7 @@ pub mod answer {
                         }
                     }
 
+                    #[cfg(feature = "conversational-search-service")]
                     impl wkt::message::Message for SnippetInfo {
                         fn typename() -> &'static str {
                             "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Step.Action.Observation.SearchResult.SnippetInfo"
@@ -1598,6 +1655,7 @@ pub mod answer {
                     }
 
                     /// Chunk information.
+                    #[cfg(feature = "conversational-search-service")]
                     #[serde_with::serde_as]
                     #[derive(
                         Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
@@ -1628,6 +1686,7 @@ pub mod answer {
                         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                     }
 
+                    #[cfg(feature = "conversational-search-service")]
                     impl ChunkInfo {
                         pub fn new() -> Self {
                             std::default::Default::default()
@@ -1673,6 +1732,7 @@ pub mod answer {
                         }
                     }
 
+                    #[cfg(feature = "conversational-search-service")]
                     impl wkt::message::Message for ChunkInfo {
                         fn typename() -> &'static str {
                             "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.Step.Action.Observation.SearchResult.ChunkInfo"
@@ -1682,6 +1742,7 @@ pub mod answer {
             }
 
             /// The action.
+            #[cfg(feature = "conversational-search-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
@@ -1707,6 +1768,7 @@ pub mod answer {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "conversational-search-service")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum State {
@@ -1726,6 +1788,7 @@ pub mod answer {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "conversational-search-service")]
         pub mod state {
             #[allow(unused_imports)]
             use super::*;
@@ -1733,6 +1796,7 @@ pub mod answer {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl State {
             /// Gets the enum value.
             ///
@@ -1763,6 +1827,7 @@ pub mod answer {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl std::default::Default for State {
             fn default() -> Self {
                 use std::convert::From;
@@ -1770,6 +1835,7 @@ pub mod answer {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl std::fmt::Display for State {
             fn fmt(
                 &self,
@@ -1779,6 +1845,7 @@ pub mod answer {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl std::convert::From<i32> for State {
             fn from(value: i32) -> Self {
                 match value {
@@ -1793,6 +1860,7 @@ pub mod answer {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl std::convert::From<&str> for State {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -1808,6 +1876,7 @@ pub mod answer {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl serde::ser::Serialize for State {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -1823,6 +1892,7 @@ pub mod answer {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl<'de> serde::de::Deserialize<'de> for State {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -1836,6 +1906,7 @@ pub mod answer {
     }
 
     /// Query understanding information.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -1851,6 +1922,7 @@ pub mod answer {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl QueryUnderstandingInfo {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -1870,6 +1942,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for QueryUnderstandingInfo {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.QueryUnderstandingInfo"
@@ -1877,11 +1950,13 @@ pub mod answer {
     }
 
     /// Defines additional types related to [QueryUnderstandingInfo].
+    #[cfg(feature = "conversational-search-service")]
     pub mod query_understanding_info {
         #[allow(unused_imports)]
         use super::*;
 
         /// Query classification information.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -1903,6 +1978,7 @@ pub mod answer {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl QueryClassificationInfo {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -1921,6 +1997,7 @@ pub mod answer {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl wkt::message::Message for QueryClassificationInfo {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.Answer.QueryUnderstandingInfo.QueryClassificationInfo"
@@ -1928,6 +2005,7 @@ pub mod answer {
         }
 
         /// Defines additional types related to [QueryClassificationInfo].
+        #[cfg(feature = "conversational-search-service")]
         pub mod query_classification_info {
             #[allow(unused_imports)]
             use super::*;
@@ -1947,6 +2025,7 @@ pub mod answer {
             /// guidelines.
             ///
             /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(feature = "conversational-search-service")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum Type {
@@ -1970,6 +2049,7 @@ pub mod answer {
             }
 
             #[doc(hidden)]
+            #[cfg(feature = "conversational-search-service")]
             pub mod r#type {
                 #[allow(unused_imports)]
                 use super::*;
@@ -1977,6 +2057,7 @@ pub mod answer {
                 pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl Type {
                 /// Gets the enum value.
                 ///
@@ -2017,6 +2098,7 @@ pub mod answer {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl std::default::Default for Type {
                 fn default() -> Self {
                     use std::convert::From;
@@ -2024,6 +2106,7 @@ pub mod answer {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl std::fmt::Display for Type {
                 fn fmt(
                     &self,
@@ -2033,6 +2116,7 @@ pub mod answer {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl std::convert::From<i32> for Type {
                 fn from(value: i32) -> Self {
                     match value {
@@ -2049,6 +2133,7 @@ pub mod answer {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl std::convert::From<&str> for Type {
                 fn from(value: &str) -> Self {
                     use std::string::ToString;
@@ -2066,6 +2151,7 @@ pub mod answer {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl serde::ser::Serialize for Type {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -2083,6 +2169,7 @@ pub mod answer {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl<'de> serde::de::Deserialize<'de> for Type {
                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                 where
@@ -2110,6 +2197,7 @@ pub mod answer {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "conversational-search-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -2131,6 +2219,7 @@ pub mod answer {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "conversational-search-service")]
     pub mod state {
         #[allow(unused_imports)]
         use super::*;
@@ -2138,6 +2227,7 @@ pub mod answer {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl State {
         /// Gets the enum value.
         ///
@@ -2170,6 +2260,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::default::Default for State {
         fn default() -> Self {
             use std::convert::From;
@@ -2177,12 +2268,14 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::fmt::Display for State {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::convert::From<i32> for State {
         fn from(value: i32) -> Self {
             match value {
@@ -2198,6 +2291,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::convert::From<&str> for State {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -2214,6 +2308,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl serde::ser::Serialize for State {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -2230,6 +2325,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl<'de> serde::de::Deserialize<'de> for State {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -2256,6 +2352,7 @@ pub mod answer {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "conversational-search-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AnswerSkippedReason {
@@ -2321,6 +2418,7 @@ pub mod answer {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "conversational-search-service")]
     pub mod answer_skipped_reason {
         #[allow(unused_imports)]
         use super::*;
@@ -2328,6 +2426,7 @@ pub mod answer {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl AnswerSkippedReason {
         /// Gets the enum value.
         ///
@@ -2390,6 +2489,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::default::Default for AnswerSkippedReason {
         fn default() -> Self {
             use std::convert::From;
@@ -2397,12 +2497,14 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::fmt::Display for AnswerSkippedReason {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::convert::From<i32> for AnswerSkippedReason {
         fn from(value: i32) -> Self {
             match value {
@@ -2425,6 +2527,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::convert::From<&str> for AnswerSkippedReason {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -2450,6 +2553,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl serde::ser::Serialize for AnswerSkippedReason {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -2473,6 +2577,7 @@ pub mod answer {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl<'de> serde::de::Deserialize<'de> for AnswerSkippedReason {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -2487,6 +2592,7 @@ pub mod answer {
 
 /// Chunk captures all raw metadata information of items to be recommended or
 /// searched in the chunk mode.
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2564,6 +2670,7 @@ pub struct Chunk {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 impl Chunk {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -2711,6 +2818,7 @@ impl Chunk {
     }
 }
 
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 impl wkt::message::Message for Chunk {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Chunk"
@@ -2718,12 +2826,14 @@ impl wkt::message::Message for Chunk {
 }
 
 /// Defines additional types related to [Chunk].
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 pub mod chunk {
     #[allow(unused_imports)]
     use super::*;
 
     /// Document metadata contains the information of the document of the current
     /// chunk.
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -2752,6 +2862,7 @@ pub mod chunk {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl DocumentMetadata {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -2788,6 +2899,7 @@ pub mod chunk {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl wkt::message::Message for DocumentMetadata {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Chunk.DocumentMetadata"
@@ -2795,6 +2907,7 @@ pub mod chunk {
     }
 
     /// Page span of the chunk.
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -2814,6 +2927,7 @@ pub mod chunk {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl PageSpan {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -2832,6 +2946,7 @@ pub mod chunk {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl wkt::message::Message for PageSpan {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Chunk.PageSpan"
@@ -2843,6 +2958,7 @@ pub mod chunk {
     /// API.
     ///
     /// [google.cloud.discoveryengine.v1.SearchService.Search]: crate::client::SearchService::search
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -2876,6 +2992,7 @@ pub mod chunk {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl ChunkMetadata {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -2904,6 +3021,7 @@ pub mod chunk {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl wkt::message::Message for ChunkMetadata {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Chunk.ChunkMetadata"
@@ -2911,6 +3029,7 @@ pub mod chunk {
     }
 
     /// The structured content information.
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -2930,6 +3049,7 @@ pub mod chunk {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl StructuredContent {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -2951,6 +3071,7 @@ pub mod chunk {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl wkt::message::Message for StructuredContent {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Chunk.StructuredContent"
@@ -2958,6 +3079,7 @@ pub mod chunk {
     }
 
     /// The annotation metadata includes structured content in the current chunk.
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -2977,6 +3099,7 @@ pub mod chunk {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl AnnotationMetadata {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -3007,6 +3130,7 @@ pub mod chunk {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl wkt::message::Message for AnnotationMetadata {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Chunk.AnnotationMetadata"
@@ -3028,6 +3152,7 @@ pub mod chunk {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum StructureType {
@@ -3047,6 +3172,7 @@ pub mod chunk {
     }
 
     #[doc(hidden)]
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     pub mod structure_type {
         #[allow(unused_imports)]
         use super::*;
@@ -3054,6 +3180,7 @@ pub mod chunk {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl StructureType {
         /// Gets the enum value.
         ///
@@ -3084,6 +3211,7 @@ pub mod chunk {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl std::default::Default for StructureType {
         fn default() -> Self {
             use std::convert::From;
@@ -3091,12 +3219,14 @@ pub mod chunk {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl std::fmt::Display for StructureType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl std::convert::From<i32> for StructureType {
         fn from(value: i32) -> Self {
             match value {
@@ -3111,6 +3241,7 @@ pub mod chunk {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl std::convert::From<&str> for StructureType {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -3126,6 +3257,7 @@ pub mod chunk {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl serde::ser::Serialize for StructureType {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -3141,6 +3273,7 @@ pub mod chunk {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl<'de> serde::de::Deserialize<'de> for StructureType {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -3155,6 +3288,7 @@ pub mod chunk {
 
 /// Request message for UpdateCmekConfig method.
 /// rpc.
+#[cfg(feature = "cmek-config-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3174,6 +3308,7 @@ pub struct UpdateCmekConfigRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl UpdateCmekConfigRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3204,6 +3339,7 @@ impl UpdateCmekConfigRequest {
     }
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl wkt::message::Message for UpdateCmekConfigRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateCmekConfigRequest"
@@ -3211,6 +3347,7 @@ impl wkt::message::Message for UpdateCmekConfigRequest {
 }
 
 /// Request message for GetCmekConfigRequest method.
+#[cfg(feature = "cmek-config-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3234,6 +3371,7 @@ pub struct GetCmekConfigRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl GetCmekConfigRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3246,6 +3384,7 @@ impl GetCmekConfigRequest {
     }
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl wkt::message::Message for GetCmekConfigRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GetCmekConfigRequest"
@@ -3253,6 +3392,11 @@ impl wkt::message::Message for GetCmekConfigRequest {
 }
 
 /// Metadata for single-regional CMEKs.
+#[cfg(any(
+    feature = "cmek-config-service",
+    feature = "data-store-service",
+    feature = "identity-mapping-store-service",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3269,6 +3413,11 @@ pub struct SingleRegionKey {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "cmek-config-service",
+    feature = "data-store-service",
+    feature = "identity-mapping-store-service",
+))]
 impl SingleRegionKey {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3281,6 +3430,11 @@ impl SingleRegionKey {
     }
 }
 
+#[cfg(any(
+    feature = "cmek-config-service",
+    feature = "data-store-service",
+    feature = "identity-mapping-store-service",
+))]
 impl wkt::message::Message for SingleRegionKey {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.SingleRegionKey"
@@ -3288,6 +3442,11 @@ impl wkt::message::Message for SingleRegionKey {
 }
 
 /// Configurations used to enable CMEK data encryption with Cloud KMS keys.
+#[cfg(any(
+    feature = "cmek-config-service",
+    feature = "data-store-service",
+    feature = "identity-mapping-store-service",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3341,6 +3500,11 @@ pub struct CmekConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "cmek-config-service",
+    feature = "data-store-service",
+    feature = "identity-mapping-store-service",
+))]
 impl CmekConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3408,6 +3572,11 @@ impl CmekConfig {
     }
 }
 
+#[cfg(any(
+    feature = "cmek-config-service",
+    feature = "data-store-service",
+    feature = "identity-mapping-store-service",
+))]
 impl wkt::message::Message for CmekConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CmekConfig"
@@ -3415,6 +3584,11 @@ impl wkt::message::Message for CmekConfig {
 }
 
 /// Defines additional types related to [CmekConfig].
+#[cfg(any(
+    feature = "cmek-config-service",
+    feature = "data-store-service",
+    feature = "identity-mapping-store-service",
+))]
 pub mod cmek_config {
     #[allow(unused_imports)]
     use super::*;
@@ -3434,6 +3608,11 @@ pub mod cmek_config {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -3465,6 +3644,11 @@ pub mod cmek_config {
     }
 
     #[doc(hidden)]
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     pub mod state {
         #[allow(unused_imports)]
         use super::*;
@@ -3472,6 +3656,11 @@ pub mod cmek_config {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl State {
         /// Gets the enum value.
         ///
@@ -3512,6 +3701,11 @@ pub mod cmek_config {
         }
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl std::default::Default for State {
         fn default() -> Self {
             use std::convert::From;
@@ -3519,12 +3713,22 @@ pub mod cmek_config {
         }
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl std::fmt::Display for State {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl std::convert::From<i32> for State {
         fn from(value: i32) -> Self {
             match value {
@@ -3544,6 +3748,11 @@ pub mod cmek_config {
         }
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl std::convert::From<&str> for State {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -3564,6 +3773,11 @@ pub mod cmek_config {
         }
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl serde::ser::Serialize for State {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -3584,6 +3798,11 @@ pub mod cmek_config {
         }
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl<'de> serde::de::Deserialize<'de> for State {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -3610,6 +3829,11 @@ pub mod cmek_config {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum NotebookLMState {
@@ -3629,6 +3853,11 @@ pub mod cmek_config {
     }
 
     #[doc(hidden)]
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     pub mod notebook_lm_state {
         #[allow(unused_imports)]
         use super::*;
@@ -3636,6 +3865,11 @@ pub mod cmek_config {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl NotebookLMState {
         /// Gets the enum value.
         ///
@@ -3666,6 +3900,11 @@ pub mod cmek_config {
         }
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl std::default::Default for NotebookLMState {
         fn default() -> Self {
             use std::convert::From;
@@ -3673,12 +3912,22 @@ pub mod cmek_config {
         }
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl std::fmt::Display for NotebookLMState {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl std::convert::From<i32> for NotebookLMState {
         fn from(value: i32) -> Self {
             match value {
@@ -3693,6 +3942,11 @@ pub mod cmek_config {
         }
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl std::convert::From<&str> for NotebookLMState {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -3708,6 +3962,11 @@ pub mod cmek_config {
         }
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl serde::ser::Serialize for NotebookLMState {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -3723,6 +3982,11 @@ pub mod cmek_config {
         }
     }
 
+    #[cfg(any(
+        feature = "cmek-config-service",
+        feature = "data-store-service",
+        feature = "identity-mapping-store-service",
+    ))]
     impl<'de> serde::de::Deserialize<'de> for NotebookLMState {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -3741,6 +4005,7 @@ pub mod cmek_config {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.CmekConfigService.UpdateCmekConfig]: crate::client::CmekConfigService::update_cmek_config
+#[cfg(feature = "cmek-config-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3759,6 +4024,7 @@ pub struct UpdateCmekConfigMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl UpdateCmekConfigMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3801,6 +4067,7 @@ impl UpdateCmekConfigMetadata {
     }
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl wkt::message::Message for UpdateCmekConfigMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateCmekConfigMetadata"
@@ -3812,6 +4079,7 @@ impl wkt::message::Message for UpdateCmekConfigMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.CmekConfigService.ListCmekConfigs]: crate::client::CmekConfigService::list_cmek_configs
+#[cfg(feature = "cmek-config-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3834,6 +4102,7 @@ pub struct ListCmekConfigsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl ListCmekConfigsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3846,6 +4115,7 @@ impl ListCmekConfigsRequest {
     }
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl wkt::message::Message for ListCmekConfigsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListCmekConfigsRequest"
@@ -3857,6 +4127,7 @@ impl wkt::message::Message for ListCmekConfigsRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.CmekConfigService.ListCmekConfigs]: crate::client::CmekConfigService::list_cmek_configs
+#[cfg(feature = "cmek-config-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3874,6 +4145,7 @@ pub struct ListCmekConfigsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl ListCmekConfigsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3891,6 +4163,7 @@ impl ListCmekConfigsResponse {
     }
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl wkt::message::Message for ListCmekConfigsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListCmekConfigsResponse"
@@ -3902,6 +4175,7 @@ impl wkt::message::Message for ListCmekConfigsResponse {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.CmekConfigService.DeleteCmekConfig]: crate::client::CmekConfigService::delete_cmek_config
+#[cfg(feature = "cmek-config-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3920,6 +4194,7 @@ pub struct DeleteCmekConfigRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl DeleteCmekConfigRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3932,6 +4207,7 @@ impl DeleteCmekConfigRequest {
     }
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl wkt::message::Message for DeleteCmekConfigRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteCmekConfigRequest"
@@ -3944,6 +4220,7 @@ impl wkt::message::Message for DeleteCmekConfigRequest {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.CmekConfigService.DeleteCmekConfig]: crate::client::CmekConfigService::delete_cmek_config
+#[cfg(feature = "cmek-config-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3962,6 +4239,7 @@ pub struct DeleteCmekConfigMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl DeleteCmekConfigMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -4004,6 +4282,7 @@ impl DeleteCmekConfigMetadata {
     }
 }
 
+#[cfg(feature = "cmek-config-service")]
 impl wkt::message::Message for DeleteCmekConfigMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteCmekConfigMetadata"
@@ -4011,6 +4290,11 @@ impl wkt::message::Message for DeleteCmekConfigMetadata {
 }
 
 /// A floating point interval.
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4036,6 +4320,11 @@ pub struct Interval {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
 impl Interval {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -4152,6 +4441,11 @@ impl Interval {
     }
 }
 
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
 impl wkt::message::Message for Interval {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Interval"
@@ -4159,6 +4453,11 @@ impl wkt::message::Message for Interval {
 }
 
 /// Defines additional types related to [Interval].
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
 pub mod interval {
     #[allow(unused_imports)]
     use super::*;
@@ -4168,6 +4467,11 @@ pub mod interval {
     ///
     /// This field must be not larger than max.
     /// Otherwise, an `INVALID_ARGUMENT` error is returned.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -4184,6 +4488,11 @@ pub mod interval {
     ///
     /// This field must be not smaller than min.
     /// Otherwise, an `INVALID_ARGUMENT` error is returned.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -4200,6 +4509,7 @@ pub mod interval {
 /// [UserEvent][google.cloud.discoveryengine.v1.UserEvent].
 ///
 /// [google.cloud.discoveryengine.v1.UserEvent]: crate::model::UserEvent
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4242,6 +4552,7 @@ pub struct CustomAttribute {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl CustomAttribute {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -4270,6 +4581,7 @@ impl CustomAttribute {
     }
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl wkt::message::Message for CustomAttribute {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CustomAttribute"
@@ -4277,6 +4589,13 @@ impl wkt::message::Message for CustomAttribute {
 }
 
 /// Information of an end user.
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "recommendation-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+    feature = "user-event-service",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4324,6 +4643,13 @@ pub struct UserInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "recommendation-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+    feature = "user-event-service",
+))]
 impl UserInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -4348,6 +4674,13 @@ impl UserInfo {
     }
 }
 
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "recommendation-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+    feature = "user-event-service",
+))]
 impl wkt::message::Message for UserInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UserInfo"
@@ -4355,6 +4688,7 @@ impl wkt::message::Message for UserInfo {
 }
 
 /// Double list.
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4369,6 +4703,7 @@ pub struct DoubleList {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 impl DoubleList {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -4386,6 +4721,7 @@ impl DoubleList {
     }
 }
 
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 impl wkt::message::Message for DoubleList {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DoubleList"
@@ -4393,6 +4729,12 @@ impl wkt::message::Message for DoubleList {
 }
 
 /// Principal identifier of a user or a group.
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "document-service",
+    feature = "recommendation-service",
+    feature = "search-service",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4406,6 +4748,12 @@ pub struct Principal {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "document-service",
+    feature = "recommendation-service",
+    feature = "search-service",
+))]
 impl Principal {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -4496,6 +4844,12 @@ impl Principal {
     }
 }
 
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "document-service",
+    feature = "recommendation-service",
+    feature = "search-service",
+))]
 impl wkt::message::Message for Principal {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Principal"
@@ -4503,11 +4857,23 @@ impl wkt::message::Message for Principal {
 }
 
 /// Defines additional types related to [Principal].
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "document-service",
+    feature = "recommendation-service",
+    feature = "search-service",
+))]
 pub mod principal {
     #[allow(unused_imports)]
     use super::*;
 
     /// Union field principal. Principal can be a user or a group.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "document-service",
+        feature = "recommendation-service",
+        feature = "search-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -4532,6 +4898,7 @@ pub mod principal {
 }
 
 /// Config to data store for `HEALTHCARE_FHIR` vertical.
+#[cfg(feature = "data-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4559,6 +4926,7 @@ pub struct HealthcareFhirConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "data-store-service")]
 impl HealthcareFhirConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -4580,6 +4948,7 @@ impl HealthcareFhirConfig {
     }
 }
 
+#[cfg(feature = "data-store-service")]
 impl wkt::message::Message for HealthcareFhirConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.HealthcareFhirConfig"
@@ -4588,6 +4957,11 @@ impl wkt::message::Message for HealthcareFhirConfig {
 
 /// Promotion proto includes uri and other helping information to display the
 /// promotion.
+#[cfg(any(
+    feature = "control-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4637,6 +5011,11 @@ pub struct SearchLinkPromotion {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "control-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+))]
 impl SearchLinkPromotion {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -4679,6 +5058,11 @@ impl SearchLinkPromotion {
     }
 }
 
+#[cfg(any(
+    feature = "control-service",
+    feature = "conversational-search-service",
+    feature = "search-service",
+))]
 impl wkt::message::Message for SearchLinkPromotion {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.SearchLinkPromotion"
@@ -4687,6 +5071,7 @@ impl wkt::message::Message for SearchLinkPromotion {
 
 /// Suggestion deny list entry identifying the phrase to block from suggestions
 /// and the applied operation for the phrase.
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4708,6 +5093,7 @@ pub struct SuggestionDenyListEntry {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl SuggestionDenyListEntry {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -4731,6 +5117,7 @@ impl SuggestionDenyListEntry {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for SuggestionDenyListEntry {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.SuggestionDenyListEntry"
@@ -4738,6 +5125,7 @@ impl wkt::message::Message for SuggestionDenyListEntry {
 }
 
 /// Defines additional types related to [SuggestionDenyListEntry].
+#[cfg(feature = "completion-service")]
 pub mod suggestion_deny_list_entry {
     #[allow(unused_imports)]
     use super::*;
@@ -4757,6 +5145,7 @@ pub mod suggestion_deny_list_entry {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "completion-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MatchOperator {
@@ -4774,6 +5163,7 @@ pub mod suggestion_deny_list_entry {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "completion-service")]
     pub mod match_operator {
         #[allow(unused_imports)]
         use super::*;
@@ -4781,6 +5171,7 @@ pub mod suggestion_deny_list_entry {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "completion-service")]
     impl MatchOperator {
         /// Gets the enum value.
         ///
@@ -4809,6 +5200,7 @@ pub mod suggestion_deny_list_entry {
         }
     }
 
+    #[cfg(feature = "completion-service")]
     impl std::default::Default for MatchOperator {
         fn default() -> Self {
             use std::convert::From;
@@ -4816,12 +5208,14 @@ pub mod suggestion_deny_list_entry {
         }
     }
 
+    #[cfg(feature = "completion-service")]
     impl std::fmt::Display for MatchOperator {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "completion-service")]
     impl std::convert::From<i32> for MatchOperator {
         fn from(value: i32) -> Self {
             match value {
@@ -4835,6 +5229,7 @@ pub mod suggestion_deny_list_entry {
         }
     }
 
+    #[cfg(feature = "completion-service")]
     impl std::convert::From<&str> for MatchOperator {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -4849,6 +5244,7 @@ pub mod suggestion_deny_list_entry {
         }
     }
 
+    #[cfg(feature = "completion-service")]
     impl serde::ser::Serialize for MatchOperator {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -4863,6 +5259,7 @@ pub mod suggestion_deny_list_entry {
         }
     }
 
+    #[cfg(feature = "completion-service")]
     impl<'de> serde::de::Deserialize<'de> for MatchOperator {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -4876,6 +5273,7 @@ pub mod suggestion_deny_list_entry {
 }
 
 /// Autocomplete suggestions that are imported from Customer.
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -4916,6 +5314,7 @@ pub struct CompletionSuggestion {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl CompletionSuggestion {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -5021,6 +5420,7 @@ impl CompletionSuggestion {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for CompletionSuggestion {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CompletionSuggestion"
@@ -5028,11 +5428,13 @@ impl wkt::message::Message for CompletionSuggestion {
 }
 
 /// Defines additional types related to [CompletionSuggestion].
+#[cfg(feature = "completion-service")]
 pub mod completion_suggestion {
     #[allow(unused_imports)]
     use super::*;
 
     /// Ranking metrics of this suggestion.
+    #[cfg(feature = "completion-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -5052,6 +5454,7 @@ pub mod completion_suggestion {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.CompletionService.CompleteQuery]: crate::client::CompletionService::complete_query
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5126,6 +5529,7 @@ pub struct CompleteQueryRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl CompleteQueryRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -5162,6 +5566,7 @@ impl CompleteQueryRequest {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for CompleteQueryRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CompleteQueryRequest"
@@ -5173,6 +5578,7 @@ impl wkt::message::Message for CompleteQueryRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.CompletionService.CompleteQuery]: crate::client::CompletionService::complete_query
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5196,6 +5602,7 @@ pub struct CompleteQueryResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl CompleteQueryResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -5219,6 +5626,7 @@ impl CompleteQueryResponse {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for CompleteQueryResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CompleteQueryResponse"
@@ -5226,11 +5634,13 @@ impl wkt::message::Message for CompleteQueryResponse {
 }
 
 /// Defines additional types related to [CompleteQueryResponse].
+#[cfg(feature = "completion-service")]
 pub mod complete_query_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Suggestions as search queries.
+    #[cfg(feature = "completion-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -5253,6 +5663,7 @@ pub mod complete_query_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "completion-service")]
     impl QuerySuggestion {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -5276,6 +5687,7 @@ pub mod complete_query_response {
         }
     }
 
+    #[cfg(feature = "completion-service")]
     impl wkt::message::Message for QuerySuggestion {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.CompleteQueryResponse.QuerySuggestion"
@@ -5284,6 +5696,7 @@ pub mod complete_query_response {
 }
 
 /// Defines circumstances to be checked before allowing a behavior
+#[cfg(feature = "control-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5323,6 +5736,7 @@ pub struct Condition {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "control-service")]
 impl Condition {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -5357,6 +5771,7 @@ impl Condition {
     }
 }
 
+#[cfg(feature = "control-service")]
 impl wkt::message::Message for Condition {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Condition"
@@ -5364,11 +5779,13 @@ impl wkt::message::Message for Condition {
 }
 
 /// Defines additional types related to [Condition].
+#[cfg(feature = "control-service")]
 pub mod condition {
     #[allow(unused_imports)]
     use super::*;
 
     /// Matcher for search request query
+    #[cfg(feature = "control-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -5393,6 +5810,7 @@ pub mod condition {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "control-service")]
     impl QueryTerm {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -5411,6 +5829,7 @@ pub mod condition {
         }
     }
 
+    #[cfg(feature = "control-service")]
     impl wkt::message::Message for QueryTerm {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Condition.QueryTerm"
@@ -5418,6 +5837,7 @@ pub mod condition {
     }
 
     /// Used for time-dependent conditions.
+    #[cfg(feature = "control-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -5440,6 +5860,7 @@ pub mod condition {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "control-service")]
     impl TimeRange {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -5482,6 +5903,7 @@ pub mod condition {
         }
     }
 
+    #[cfg(feature = "control-service")]
     impl wkt::message::Message for TimeRange {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Condition.TimeRange"
@@ -5495,6 +5917,7 @@ pub mod condition {
 /// considered at serving time. Permitted actions dependent on `SolutionType`.
 ///
 /// [google.cloud.discoveryengine.v1.ServingConfig]: crate::model::ServingConfig
+#[cfg(feature = "control-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5563,6 +5986,7 @@ pub struct Control {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "control-service")]
 impl Control {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -5780,6 +6204,7 @@ impl Control {
     }
 }
 
+#[cfg(feature = "control-service")]
 impl wkt::message::Message for Control {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Control"
@@ -5787,11 +6212,13 @@ impl wkt::message::Message for Control {
 }
 
 /// Defines additional types related to [Control].
+#[cfg(feature = "control-service")]
 pub mod control {
     #[allow(unused_imports)]
     use super::*;
 
     /// Adjusts order of products in returned list.
+    #[cfg(feature = "control-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -5830,6 +6257,7 @@ pub mod control {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "control-service")]
     impl BoostAction {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -5930,6 +6358,7 @@ pub mod control {
         }
     }
 
+    #[cfg(feature = "control-service")]
     impl wkt::message::Message for BoostAction {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Control.BoostAction"
@@ -5937,6 +6366,7 @@ pub mod control {
     }
 
     /// Defines additional types related to [BoostAction].
+    #[cfg(feature = "control-service")]
     pub mod boost_action {
         #[allow(unused_imports)]
         use super::*;
@@ -5944,6 +6374,7 @@ pub mod control {
         /// Specification for custom ranking based on customer specified attribute
         /// value. It provides more controls for customized ranking than the simple
         /// (condition, boost) combination above.
+        #[cfg(feature = "control-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -5985,6 +6416,7 @@ pub mod control {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "control-service")]
         impl InterpolationBoostSpec {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -6025,6 +6457,7 @@ pub mod control {
             }
         }
 
+        #[cfg(feature = "control-service")]
         impl wkt::message::Message for InterpolationBoostSpec {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.Control.BoostAction.InterpolationBoostSpec"
@@ -6032,6 +6465,7 @@ pub mod control {
         }
 
         /// Defines additional types related to [InterpolationBoostSpec].
+        #[cfg(feature = "control-service")]
         pub mod interpolation_boost_spec {
             #[allow(unused_imports)]
             use super::*;
@@ -6039,6 +6473,7 @@ pub mod control {
             /// The control points used to define the curve. The curve defined
             /// through these control points can only be monotonically increasing
             /// or decreasing(constant values are acceptable).
+            #[cfg(feature = "control-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -6065,6 +6500,7 @@ pub mod control {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "control-service")]
             impl ControlPoint {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -6086,6 +6522,7 @@ pub mod control {
                 }
             }
 
+            #[cfg(feature = "control-service")]
             impl wkt::message::Message for ControlPoint {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.Control.BoostAction.InterpolationBoostSpec.ControlPoint"
@@ -6108,6 +6545,7 @@ pub mod control {
             /// guidelines.
             ///
             /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(feature = "control-service")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum AttributeType {
@@ -6133,6 +6571,7 @@ pub mod control {
             }
 
             #[doc(hidden)]
+            #[cfg(feature = "control-service")]
             pub mod attribute_type {
                 #[allow(unused_imports)]
                 use super::*;
@@ -6140,6 +6579,7 @@ pub mod control {
                 pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
             }
 
+            #[cfg(feature = "control-service")]
             impl AttributeType {
                 /// Gets the enum value.
                 ///
@@ -6170,6 +6610,7 @@ pub mod control {
                 }
             }
 
+            #[cfg(feature = "control-service")]
             impl std::default::Default for AttributeType {
                 fn default() -> Self {
                     use std::convert::From;
@@ -6177,6 +6618,7 @@ pub mod control {
                 }
             }
 
+            #[cfg(feature = "control-service")]
             impl std::fmt::Display for AttributeType {
                 fn fmt(
                     &self,
@@ -6186,6 +6628,7 @@ pub mod control {
                 }
             }
 
+            #[cfg(feature = "control-service")]
             impl std::convert::From<i32> for AttributeType {
                 fn from(value: i32) -> Self {
                     match value {
@@ -6199,6 +6642,7 @@ pub mod control {
                 }
             }
 
+            #[cfg(feature = "control-service")]
             impl std::convert::From<&str> for AttributeType {
                 fn from(value: &str) -> Self {
                     use std::string::ToString;
@@ -6213,6 +6657,7 @@ pub mod control {
                 }
             }
 
+            #[cfg(feature = "control-service")]
             impl serde::ser::Serialize for AttributeType {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -6227,6 +6672,7 @@ pub mod control {
                 }
             }
 
+            #[cfg(feature = "control-service")]
             impl<'de> serde::de::Deserialize<'de> for AttributeType {
                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                 where
@@ -6253,6 +6699,7 @@ pub mod control {
             /// guidelines.
             ///
             /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(feature = "control-service")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum InterpolationType {
@@ -6269,6 +6716,7 @@ pub mod control {
             }
 
             #[doc(hidden)]
+            #[cfg(feature = "control-service")]
             pub mod interpolation_type {
                 #[allow(unused_imports)]
                 use super::*;
@@ -6276,6 +6724,7 @@ pub mod control {
                 pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
             }
 
+            #[cfg(feature = "control-service")]
             impl InterpolationType {
                 /// Gets the enum value.
                 ///
@@ -6304,6 +6753,7 @@ pub mod control {
                 }
             }
 
+            #[cfg(feature = "control-service")]
             impl std::default::Default for InterpolationType {
                 fn default() -> Self {
                     use std::convert::From;
@@ -6311,6 +6761,7 @@ pub mod control {
                 }
             }
 
+            #[cfg(feature = "control-service")]
             impl std::fmt::Display for InterpolationType {
                 fn fmt(
                     &self,
@@ -6320,6 +6771,7 @@ pub mod control {
                 }
             }
 
+            #[cfg(feature = "control-service")]
             impl std::convert::From<i32> for InterpolationType {
                 fn from(value: i32) -> Self {
                     match value {
@@ -6332,6 +6784,7 @@ pub mod control {
                 }
             }
 
+            #[cfg(feature = "control-service")]
             impl std::convert::From<&str> for InterpolationType {
                 fn from(value: &str) -> Self {
                     use std::string::ToString;
@@ -6345,6 +6798,7 @@ pub mod control {
                 }
             }
 
+            #[cfg(feature = "control-service")]
             impl serde::ser::Serialize for InterpolationType {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -6358,6 +6812,7 @@ pub mod control {
                 }
             }
 
+            #[cfg(feature = "control-service")]
             impl<'de> serde::de::Deserialize<'de> for InterpolationType {
                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                 where
@@ -6370,6 +6825,7 @@ pub mod control {
         }
 
         /// Constant value boost or custom ranking based boost specifications.
+        #[cfg(feature = "control-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -6388,6 +6844,7 @@ pub mod control {
 
     /// Specified which products may be included in results.
     /// Uses same filter as boost.
+    #[cfg(feature = "control-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -6415,6 +6872,7 @@ pub mod control {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "control-service")]
     impl FilterAction {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -6433,6 +6891,7 @@ pub mod control {
         }
     }
 
+    #[cfg(feature = "control-service")]
     impl wkt::message::Message for FilterAction {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Control.FilterAction"
@@ -6440,6 +6899,7 @@ pub mod control {
     }
 
     /// Redirects a shopper to the provided URI.
+    #[cfg(feature = "control-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -6458,6 +6918,7 @@ pub mod control {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "control-service")]
     impl RedirectAction {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -6473,6 +6934,7 @@ pub mod control {
         }
     }
 
+    #[cfg(feature = "control-service")]
     impl wkt::message::Message for RedirectAction {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Control.RedirectAction"
@@ -6483,6 +6945,7 @@ pub mod control {
     ///
     /// Example: "happy" will also be considered as "glad", "glad" will also be
     /// considered as "happy".
+    #[cfg(feature = "control-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -6500,6 +6963,7 @@ pub mod control {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "control-service")]
     impl SynonymsAction {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -6517,6 +6981,7 @@ pub mod control {
         }
     }
 
+    #[cfg(feature = "control-service")]
     impl wkt::message::Message for SynonymsAction {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Control.SynonymsAction"
@@ -6527,6 +6992,7 @@ pub mod control {
     ///
     /// Example: Promote shoe store link when searching for `shoe` keyword.
     /// The link can be outside of associated data store.
+    #[cfg(feature = "control-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -6545,6 +7011,7 @@ pub mod control {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "control-service")]
     impl PromoteAction {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -6575,6 +7042,7 @@ pub mod control {
         }
     }
 
+    #[cfg(feature = "control-service")]
     impl wkt::message::Message for PromoteAction {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Control.PromoteAction"
@@ -6584,6 +7052,7 @@ pub mod control {
     /// Actions are restricted by Vertical and Solution
     ///
     /// Required.
+    #[cfg(feature = "control-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -6604,6 +7073,7 @@ pub mod control {
 }
 
 /// Request for CreateControl method.
+#[cfg(feature = "control-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6634,6 +7104,7 @@ pub struct CreateControlRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "control-service")]
 impl CreateControlRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -6670,6 +7141,7 @@ impl CreateControlRequest {
     }
 }
 
+#[cfg(feature = "control-service")]
 impl wkt::message::Message for CreateControlRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateControlRequest"
@@ -6677,6 +7149,7 @@ impl wkt::message::Message for CreateControlRequest {
 }
 
 /// Request for UpdateControl method.
+#[cfg(feature = "control-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6705,6 +7178,7 @@ pub struct UpdateControlRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "control-service")]
 impl UpdateControlRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -6747,6 +7221,7 @@ impl UpdateControlRequest {
     }
 }
 
+#[cfg(feature = "control-service")]
 impl wkt::message::Message for UpdateControlRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateControlRequest"
@@ -6754,6 +7229,7 @@ impl wkt::message::Message for UpdateControlRequest {
 }
 
 /// Request for DeleteControl method.
+#[cfg(feature = "control-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6769,6 +7245,7 @@ pub struct DeleteControlRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "control-service")]
 impl DeleteControlRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -6781,6 +7258,7 @@ impl DeleteControlRequest {
     }
 }
 
+#[cfg(feature = "control-service")]
 impl wkt::message::Message for DeleteControlRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteControlRequest"
@@ -6788,6 +7266,7 @@ impl wkt::message::Message for DeleteControlRequest {
 }
 
 /// Request for GetControl method.
+#[cfg(feature = "control-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6803,6 +7282,7 @@ pub struct GetControlRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "control-service")]
 impl GetControlRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -6815,6 +7295,7 @@ impl GetControlRequest {
     }
 }
 
+#[cfg(feature = "control-service")]
 impl wkt::message::Message for GetControlRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GetControlRequest"
@@ -6822,6 +7303,7 @@ impl wkt::message::Message for GetControlRequest {
 }
 
 /// Request for ListControls method.
+#[cfg(feature = "control-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6862,6 +7344,7 @@ pub struct ListControlsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "control-service")]
 impl ListControlsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -6892,6 +7375,7 @@ impl ListControlsRequest {
     }
 }
 
+#[cfg(feature = "control-service")]
 impl wkt::message::Message for ListControlsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListControlsRequest"
@@ -6899,6 +7383,7 @@ impl wkt::message::Message for ListControlsRequest {
 }
 
 /// Response for ListControls method.
+#[cfg(feature = "control-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6918,6 +7403,7 @@ pub struct ListControlsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "control-service")]
 impl ListControlsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -6941,12 +7427,14 @@ impl ListControlsResponse {
     }
 }
 
+#[cfg(feature = "control-service")]
 impl wkt::message::Message for ListControlsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListControlsResponse"
     }
 }
 
+#[cfg(feature = "control-service")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListControlsResponse {
     type PageItem = crate::model::Control;
@@ -6962,6 +7450,7 @@ impl gax::paginator::internal::PageableResponse for ListControlsResponse {
 }
 
 /// External conversation proto definition.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7002,6 +7491,7 @@ pub struct Conversation {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl Conversation {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7076,6 +7566,7 @@ impl Conversation {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for Conversation {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Conversation"
@@ -7083,6 +7574,7 @@ impl wkt::message::Message for Conversation {
 }
 
 /// Defines additional types related to [Conversation].
+#[cfg(feature = "conversational-search-service")]
 pub mod conversation {
     #[allow(unused_imports)]
     use super::*;
@@ -7102,6 +7594,7 @@ pub mod conversation {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "conversational-search-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -7119,6 +7612,7 @@ pub mod conversation {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "conversational-search-service")]
     pub mod state {
         #[allow(unused_imports)]
         use super::*;
@@ -7126,6 +7620,7 @@ pub mod conversation {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl State {
         /// Gets the enum value.
         ///
@@ -7154,6 +7649,7 @@ pub mod conversation {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::default::Default for State {
         fn default() -> Self {
             use std::convert::From;
@@ -7161,12 +7657,14 @@ pub mod conversation {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::fmt::Display for State {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::convert::From<i32> for State {
         fn from(value: i32) -> Self {
             match value {
@@ -7180,6 +7678,7 @@ pub mod conversation {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::convert::From<&str> for State {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -7194,6 +7693,7 @@ pub mod conversation {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl serde::ser::Serialize for State {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -7208,6 +7708,7 @@ pub mod conversation {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl<'de> serde::de::Deserialize<'de> for State {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -7221,6 +7722,7 @@ pub mod conversation {
 }
 
 /// Defines a reply message to user.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7234,6 +7736,7 @@ pub struct Reply {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl Reply {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7258,6 +7761,7 @@ impl Reply {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for Reply {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Reply"
@@ -7265,6 +7769,7 @@ impl wkt::message::Message for Reply {
 }
 
 /// Defines context of the conversation
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7286,6 +7791,7 @@ pub struct ConversationContext {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl ConversationContext {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7309,6 +7815,7 @@ impl ConversationContext {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for ConversationContext {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ConversationContext"
@@ -7316,6 +7823,7 @@ impl wkt::message::Message for ConversationContext {
 }
 
 /// Defines text input.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7334,6 +7842,7 @@ pub struct TextInput {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl TextInput {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7364,6 +7873,7 @@ impl TextInput {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for TextInput {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.TextInput"
@@ -7371,6 +7881,7 @@ impl wkt::message::Message for TextInput {
 }
 
 /// Defines a conversation message.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7387,6 +7898,7 @@ pub struct ConversationMessage {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl ConversationMessage {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7478,6 +7990,7 @@ impl ConversationMessage {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for ConversationMessage {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ConversationMessage"
@@ -7485,10 +7998,12 @@ impl wkt::message::Message for ConversationMessage {
 }
 
 /// Defines additional types related to [ConversationMessage].
+#[cfg(feature = "conversational-search-service")]
 pub mod conversation_message {
     #[allow(unused_imports)]
     use super::*;
 
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -7506,6 +8021,7 @@ pub mod conversation_message {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.ConversationalSearchService.ConverseConversation]: crate::client::ConversationalSearchService::converse_conversation
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7599,6 +8115,7 @@ pub struct ConverseConversationRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl ConverseConversationRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7713,6 +8230,7 @@ impl ConverseConversationRequest {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for ConverseConversationRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ConverseConversationRequest"
@@ -7724,6 +8242,7 @@ impl wkt::message::Message for ConverseConversationRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.ConversationalSearchService.ConverseConversation]: crate::client::ConversationalSearchService::converse_conversation
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7746,6 +8265,7 @@ pub struct ConverseConversationResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl ConverseConversationResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7799,6 +8319,7 @@ impl ConverseConversationResponse {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for ConverseConversationResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ConverseConversationResponse"
@@ -7806,6 +8327,7 @@ impl wkt::message::Message for ConverseConversationResponse {
 }
 
 /// Request for CreateConversation method.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7825,6 +8347,7 @@ pub struct CreateConversationRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl CreateConversationRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7855,6 +8378,7 @@ impl CreateConversationRequest {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for CreateConversationRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateConversationRequest"
@@ -7862,6 +8386,7 @@ impl wkt::message::Message for CreateConversationRequest {
 }
 
 /// Request for UpdateConversation method.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7888,6 +8413,7 @@ pub struct UpdateConversationRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl UpdateConversationRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7930,6 +8456,7 @@ impl UpdateConversationRequest {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for UpdateConversationRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateConversationRequest"
@@ -7937,6 +8464,7 @@ impl wkt::message::Message for UpdateConversationRequest {
 }
 
 /// Request for DeleteConversation method.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7952,6 +8480,7 @@ pub struct DeleteConversationRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl DeleteConversationRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7964,6 +8493,7 @@ impl DeleteConversationRequest {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for DeleteConversationRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteConversationRequest"
@@ -7971,6 +8501,7 @@ impl wkt::message::Message for DeleteConversationRequest {
 }
 
 /// Request for GetConversation method.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7986,6 +8517,7 @@ pub struct GetConversationRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl GetConversationRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7998,6 +8530,7 @@ impl GetConversationRequest {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for GetConversationRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GetConversationRequest"
@@ -8005,6 +8538,7 @@ impl wkt::message::Message for GetConversationRequest {
 }
 
 /// Request for ListConversations method.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8056,6 +8590,7 @@ pub struct ListConversationsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl ListConversationsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8092,6 +8627,7 @@ impl ListConversationsRequest {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for ListConversationsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListConversationsRequest"
@@ -8099,6 +8635,7 @@ impl wkt::message::Message for ListConversationsRequest {
 }
 
 /// Response for ListConversations method.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8118,6 +8655,7 @@ pub struct ListConversationsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl ListConversationsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8141,12 +8679,14 @@ impl ListConversationsResponse {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for ListConversationsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListConversationsResponse"
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListConversationsResponse {
     type PageItem = crate::model::Conversation;
@@ -8166,6 +8706,7 @@ impl gax::paginator::internal::PageableResponse for ListConversationsResponse {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.ConversationalSearchService.AnswerQuery]: crate::client::ConversationalSearchService::answer_query
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8284,6 +8825,7 @@ pub struct AnswerQueryRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl AnswerQueryRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8471,6 +9013,7 @@ impl AnswerQueryRequest {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for AnswerQueryRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest"
@@ -8478,6 +9021,7 @@ impl wkt::message::Message for AnswerQueryRequest {
 }
 
 /// Defines additional types related to [AnswerQueryRequest].
+#[cfg(feature = "conversational-search-service")]
 pub mod answer_query_request {
     #[allow(unused_imports)]
     use super::*;
@@ -8489,6 +9033,7 @@ pub mod answer_query_request {
     ///   will be applied for all categories.
     /// . when safety_spec.enable is set and some safety_settings are set, only
     ///   specified safety_settings are applied.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -8511,6 +9056,7 @@ pub mod answer_query_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl SafetySpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -8534,6 +9080,7 @@ pub mod answer_query_request {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for SafetySpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SafetySpec"
@@ -8541,11 +9088,13 @@ pub mod answer_query_request {
     }
 
     /// Defines additional types related to [SafetySpec].
+    #[cfg(feature = "conversational-search-service")]
     pub mod safety_spec {
         #[allow(unused_imports)]
         use super::*;
 
         /// Safety settings.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -8566,6 +9115,7 @@ pub mod answer_query_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl SafetySetting {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -8587,6 +9137,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl wkt::message::Message for SafetySetting {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SafetySpec.SafetySetting"
@@ -8594,6 +9145,7 @@ pub mod answer_query_request {
         }
 
         /// Defines additional types related to [SafetySetting].
+        #[cfg(feature = "conversational-search-service")]
         pub mod safety_setting {
             #[allow(unused_imports)]
             use super::*;
@@ -8613,6 +9165,7 @@ pub mod answer_query_request {
             /// guidelines.
             ///
             /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(feature = "conversational-search-service")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum HarmBlockThreshold {
@@ -8636,6 +9189,7 @@ pub mod answer_query_request {
             }
 
             #[doc(hidden)]
+            #[cfg(feature = "conversational-search-service")]
             pub mod harm_block_threshold {
                 #[allow(unused_imports)]
                 use super::*;
@@ -8643,6 +9197,7 @@ pub mod answer_query_request {
                 pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl HarmBlockThreshold {
                 /// Gets the enum value.
                 ///
@@ -8681,6 +9236,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl std::default::Default for HarmBlockThreshold {
                 fn default() -> Self {
                     use std::convert::From;
@@ -8688,6 +9244,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl std::fmt::Display for HarmBlockThreshold {
                 fn fmt(
                     &self,
@@ -8697,6 +9254,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl std::convert::From<i32> for HarmBlockThreshold {
                 fn from(value: i32) -> Self {
                     match value {
@@ -8713,6 +9271,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl std::convert::From<&str> for HarmBlockThreshold {
                 fn from(value: &str) -> Self {
                     use std::string::ToString;
@@ -8730,6 +9289,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl serde::ser::Serialize for HarmBlockThreshold {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -8747,6 +9307,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl<'de> serde::de::Deserialize<'de> for HarmBlockThreshold {
                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                 where
@@ -8760,6 +9321,7 @@ pub mod answer_query_request {
     }
 
     /// Related questions specification.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -8774,6 +9336,7 @@ pub mod answer_query_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl RelatedQuestionsSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -8786,6 +9349,7 @@ pub mod answer_query_request {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for RelatedQuestionsSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.RelatedQuestionsSpec"
@@ -8793,6 +9357,7 @@ pub mod answer_query_request {
     }
 
     /// Grounding specification.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -8817,6 +9382,7 @@ pub mod answer_query_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl GroundingSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -8840,6 +9406,7 @@ pub mod answer_query_request {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for GroundingSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.GroundingSpec"
@@ -8847,6 +9414,7 @@ pub mod answer_query_request {
     }
 
     /// Defines additional types related to [GroundingSpec].
+    #[cfg(feature = "conversational-search-service")]
     pub mod grounding_spec {
         #[allow(unused_imports)]
         use super::*;
@@ -8866,6 +9434,7 @@ pub mod answer_query_request {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "conversational-search-service")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum FilteringLevel {
@@ -8883,6 +9452,7 @@ pub mod answer_query_request {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "conversational-search-service")]
         pub mod filtering_level {
             #[allow(unused_imports)]
             use super::*;
@@ -8890,6 +9460,7 @@ pub mod answer_query_request {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl FilteringLevel {
             /// Gets the enum value.
             ///
@@ -8918,6 +9489,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl std::default::Default for FilteringLevel {
             fn default() -> Self {
                 use std::convert::From;
@@ -8925,6 +9497,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl std::fmt::Display for FilteringLevel {
             fn fmt(
                 &self,
@@ -8934,6 +9507,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl std::convert::From<i32> for FilteringLevel {
             fn from(value: i32) -> Self {
                 match value {
@@ -8947,6 +9521,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl std::convert::From<&str> for FilteringLevel {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -8961,6 +9536,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl serde::ser::Serialize for FilteringLevel {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -8975,6 +9551,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl<'de> serde::de::Deserialize<'de> for FilteringLevel {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -8987,6 +9564,7 @@ pub mod answer_query_request {
     }
 
     /// Answer generation specification.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -9070,6 +9648,7 @@ pub mod answer_query_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl AnswerGenerationSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -9177,6 +9756,7 @@ pub mod answer_query_request {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for AnswerGenerationSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.AnswerGenerationSpec"
@@ -9184,11 +9764,13 @@ pub mod answer_query_request {
     }
 
     /// Defines additional types related to [AnswerGenerationSpec].
+    #[cfg(feature = "conversational-search-service")]
     pub mod answer_generation_spec {
         #[allow(unused_imports)]
         use super::*;
 
         /// Answer Generation Model specification.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -9204,6 +9786,7 @@ pub mod answer_query_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl ModelSpec {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -9219,6 +9802,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl wkt::message::Message for ModelSpec {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.AnswerGenerationSpec.ModelSpec"
@@ -9226,6 +9810,7 @@ pub mod answer_query_request {
         }
 
         /// Answer generation prompt specification.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -9240,6 +9825,7 @@ pub mod answer_query_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl PromptSpec {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -9255,6 +9841,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl wkt::message::Message for PromptSpec {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.AnswerGenerationSpec.PromptSpec"
@@ -9263,6 +9850,7 @@ pub mod answer_query_request {
     }
 
     /// Search specification.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -9277,6 +9865,7 @@ pub mod answer_query_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl SearchSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -9373,6 +9962,7 @@ pub mod answer_query_request {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for SearchSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SearchSpec"
@@ -9380,11 +9970,13 @@ pub mod answer_query_request {
     }
 
     /// Defines additional types related to [SearchSpec].
+    #[cfg(feature = "conversational-search-service")]
     pub mod search_spec {
         #[allow(unused_imports)]
         use super::*;
 
         /// Search parameters.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -9457,6 +10049,7 @@ pub mod answer_query_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl SearchParams {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -9526,6 +10119,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl wkt::message::Message for SearchParams {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SearchSpec.SearchParams"
@@ -9533,6 +10127,7 @@ pub mod answer_query_request {
         }
 
         /// Search result list.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -9549,6 +10144,7 @@ pub mod answer_query_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl SearchResultList {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -9566,6 +10162,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl wkt::message::Message for SearchResultList {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SearchSpec.SearchResultList"
@@ -9573,11 +10170,13 @@ pub mod answer_query_request {
         }
 
         /// Defines additional types related to [SearchResultList].
+        #[cfg(feature = "conversational-search-service")]
         pub mod search_result_list {
             #[allow(unused_imports)]
             use super::*;
 
             /// Search result.
+            #[cfg(feature = "conversational-search-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -9592,6 +10191,7 @@ pub mod answer_query_request {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl SearchResult {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -9658,6 +10258,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl wkt::message::Message for SearchResult {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SearchSpec.SearchResultList.SearchResult"
@@ -9665,11 +10266,13 @@ pub mod answer_query_request {
             }
 
             /// Defines additional types related to [SearchResult].
+            #[cfg(feature = "conversational-search-service")]
             pub mod search_result {
                 #[allow(unused_imports)]
                 use super::*;
 
                 /// Unstructured document information.
+                #[cfg(feature = "conversational-search-service")]
                 #[serde_with::serde_as]
                 #[derive(
                     Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
@@ -9718,6 +10321,7 @@ pub mod answer_query_request {
                     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl UnstructuredDocumentInfo {
                     pub fn new() -> Self {
                         std::default::Default::default()
@@ -9785,6 +10389,7 @@ pub mod answer_query_request {
                     }
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl wkt::message::Message for UnstructuredDocumentInfo {
                     fn typename() -> &'static str {
                         "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SearchSpec.SearchResultList.SearchResult.UnstructuredDocumentInfo"
@@ -9792,11 +10397,13 @@ pub mod answer_query_request {
                 }
 
                 /// Defines additional types related to [UnstructuredDocumentInfo].
+                #[cfg(feature = "conversational-search-service")]
                 pub mod unstructured_document_info {
                     #[allow(unused_imports)]
                     use super::*;
 
                     /// Document context.
+                    #[cfg(feature = "conversational-search-service")]
                     #[serde_with::serde_as]
                     #[derive(
                         Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
@@ -9818,6 +10425,7 @@ pub mod answer_query_request {
                         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                     }
 
+                    #[cfg(feature = "conversational-search-service")]
                     impl DocumentContext {
                         pub fn new() -> Self {
                             std::default::Default::default()
@@ -9842,6 +10450,7 @@ pub mod answer_query_request {
                         }
                     }
 
+                    #[cfg(feature = "conversational-search-service")]
                     impl wkt::message::Message for DocumentContext {
                         fn typename() -> &'static str {
                             "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SearchSpec.SearchResultList.SearchResult.UnstructuredDocumentInfo.DocumentContext"
@@ -9852,6 +10461,7 @@ pub mod answer_query_request {
                     /// [Guide](https://cloud.google.com/generative-ai-app-builder/docs/snippets#extractive-segments)
                     /// Answer generation will only use it if document_contexts is empty.
                     /// This is supposed to be shorter snippets.
+                    #[cfg(feature = "conversational-search-service")]
                     #[serde_with::serde_as]
                     #[derive(
                         Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
@@ -9873,6 +10483,7 @@ pub mod answer_query_request {
                         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                     }
 
+                    #[cfg(feature = "conversational-search-service")]
                     impl ExtractiveSegment {
                         pub fn new() -> Self {
                             std::default::Default::default()
@@ -9897,6 +10508,7 @@ pub mod answer_query_request {
                         }
                     }
 
+                    #[cfg(feature = "conversational-search-service")]
                     impl wkt::message::Message for ExtractiveSegment {
                         fn typename() -> &'static str {
                             "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SearchSpec.SearchResultList.SearchResult.UnstructuredDocumentInfo.ExtractiveSegment"
@@ -9905,6 +10517,7 @@ pub mod answer_query_request {
 
                     /// Extractive answer.
                     /// [Guide](https://cloud.google.com/generative-ai-app-builder/docs/snippets#get-answers)
+                    #[cfg(feature = "conversational-search-service")]
                     #[serde_with::serde_as]
                     #[derive(
                         Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
@@ -9926,6 +10539,7 @@ pub mod answer_query_request {
                         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                     }
 
+                    #[cfg(feature = "conversational-search-service")]
                     impl ExtractiveAnswer {
                         pub fn new() -> Self {
                             std::default::Default::default()
@@ -9950,6 +10564,7 @@ pub mod answer_query_request {
                         }
                     }
 
+                    #[cfg(feature = "conversational-search-service")]
                     impl wkt::message::Message for ExtractiveAnswer {
                         fn typename() -> &'static str {
                             "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SearchSpec.SearchResultList.SearchResult.UnstructuredDocumentInfo.ExtractiveAnswer"
@@ -9958,6 +10573,7 @@ pub mod answer_query_request {
                 }
 
                 /// Chunk information.
+                #[cfg(feature = "conversational-search-service")]
                 #[serde_with::serde_as]
                 #[derive(
                     Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
@@ -9984,6 +10600,7 @@ pub mod answer_query_request {
                     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl ChunkInfo {
                     pub fn new() -> Self {
                         std::default::Default::default()
@@ -10024,6 +10641,7 @@ pub mod answer_query_request {
                     }
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl wkt::message::Message for ChunkInfo {
                     fn typename() -> &'static str {
                         "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SearchSpec.SearchResultList.SearchResult.ChunkInfo"
@@ -10031,12 +10649,14 @@ pub mod answer_query_request {
                 }
 
                 /// Defines additional types related to [ChunkInfo].
+                #[cfg(feature = "conversational-search-service")]
                 pub mod chunk_info {
                     #[allow(unused_imports)]
                     use super::*;
 
                     /// Document metadata contains the information of the document of the
                     /// current chunk.
+                    #[cfg(feature = "conversational-search-service")]
                     #[serde_with::serde_as]
                     #[derive(
                         Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
@@ -10058,6 +10678,7 @@ pub mod answer_query_request {
                         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                     }
 
+                    #[cfg(feature = "conversational-search-service")]
                     impl DocumentMetadata {
                         pub fn new() -> Self {
                             std::default::Default::default()
@@ -10082,6 +10703,7 @@ pub mod answer_query_request {
                         }
                     }
 
+                    #[cfg(feature = "conversational-search-service")]
                     impl wkt::message::Message for DocumentMetadata {
                         fn typename() -> &'static str {
                             "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.SearchSpec.SearchResultList.SearchResult.ChunkInfo.DocumentMetadata"
@@ -10090,6 +10712,7 @@ pub mod answer_query_request {
                 }
 
                 /// Search result content.
+                #[cfg(feature = "conversational-search-service")]
                 #[serde_with::serde_as]
                 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
                 #[serde(rename_all = "camelCase")]
@@ -10105,6 +10728,7 @@ pub mod answer_query_request {
 
         /// Search parameters to control the search behavior.
         /// Or provide search result list to generate answer.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -10122,6 +10746,7 @@ pub mod answer_query_request {
     }
 
     /// Query understanding specification.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -10149,6 +10774,7 @@ pub mod answer_query_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl QueryUnderstandingSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -10193,6 +10819,7 @@ pub mod answer_query_request {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for QueryUnderstandingSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.QueryUnderstandingSpec"
@@ -10200,11 +10827,13 @@ pub mod answer_query_request {
     }
 
     /// Defines additional types related to [QueryUnderstandingSpec].
+    #[cfg(feature = "conversational-search-service")]
     pub mod query_understanding_spec {
         #[allow(unused_imports)]
         use super::*;
 
         /// Query classification specification.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -10220,6 +10849,7 @@ pub mod answer_query_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl QueryClassificationSpec {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -10237,6 +10867,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl wkt::message::Message for QueryClassificationSpec {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.QueryUnderstandingSpec.QueryClassificationSpec"
@@ -10244,6 +10875,7 @@ pub mod answer_query_request {
         }
 
         /// Defines additional types related to [QueryClassificationSpec].
+        #[cfg(feature = "conversational-search-service")]
         pub mod query_classification_spec {
             #[allow(unused_imports)]
             use super::*;
@@ -10263,6 +10895,7 @@ pub mod answer_query_request {
             /// guidelines.
             ///
             /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(feature = "conversational-search-service")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum Type {
@@ -10286,6 +10919,7 @@ pub mod answer_query_request {
             }
 
             #[doc(hidden)]
+            #[cfg(feature = "conversational-search-service")]
             pub mod r#type {
                 #[allow(unused_imports)]
                 use super::*;
@@ -10293,6 +10927,7 @@ pub mod answer_query_request {
                 pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl Type {
                 /// Gets the enum value.
                 ///
@@ -10333,6 +10968,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl std::default::Default for Type {
                 fn default() -> Self {
                     use std::convert::From;
@@ -10340,6 +10976,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl std::fmt::Display for Type {
                 fn fmt(
                     &self,
@@ -10349,6 +10986,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl std::convert::From<i32> for Type {
                 fn from(value: i32) -> Self {
                     match value {
@@ -10365,6 +11003,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl std::convert::From<&str> for Type {
                 fn from(value: &str) -> Self {
                     use std::string::ToString;
@@ -10382,6 +11021,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl serde::ser::Serialize for Type {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -10399,6 +11039,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl<'de> serde::de::Deserialize<'de> for Type {
                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                 where
@@ -10411,6 +11052,7 @@ pub mod answer_query_request {
         }
 
         /// Query rephraser specification.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -10437,6 +11079,7 @@ pub mod answer_query_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl QueryRephraserSpec {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -10471,6 +11114,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl wkt::message::Message for QueryRephraserSpec {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.QueryUnderstandingSpec.QueryRephraserSpec"
@@ -10478,11 +11122,13 @@ pub mod answer_query_request {
         }
 
         /// Defines additional types related to [QueryRephraserSpec].
+        #[cfg(feature = "conversational-search-service")]
         pub mod query_rephraser_spec {
             #[allow(unused_imports)]
             use super::*;
 
             /// Query Rephraser Model specification.
+            #[cfg(feature = "conversational-search-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -10499,6 +11145,7 @@ pub mod answer_query_request {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl ModelSpec {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -10511,6 +11158,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl wkt::message::Message for ModelSpec {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.QueryUnderstandingSpec.QueryRephraserSpec.ModelSpec"
@@ -10518,6 +11166,7 @@ pub mod answer_query_request {
             }
 
             /// Defines additional types related to [ModelSpec].
+            #[cfg(feature = "conversational-search-service")]
             pub mod model_spec {
                 #[allow(unused_imports)]
                 use super::*;
@@ -10539,6 +11188,7 @@ pub mod answer_query_request {
                 /// guidelines.
                 ///
                 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                #[cfg(feature = "conversational-search-service")]
                 #[derive(Clone, Debug, PartialEq)]
                 #[non_exhaustive]
                 pub enum ModelType {
@@ -10556,6 +11206,7 @@ pub mod answer_query_request {
                 }
 
                 #[doc(hidden)]
+                #[cfg(feature = "conversational-search-service")]
                 pub mod model_type {
                     #[allow(unused_imports)]
                     use super::*;
@@ -10563,6 +11214,7 @@ pub mod answer_query_request {
                     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl ModelType {
                     /// Gets the enum value.
                     ///
@@ -10593,6 +11245,7 @@ pub mod answer_query_request {
                     }
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl std::default::Default for ModelType {
                     fn default() -> Self {
                         use std::convert::From;
@@ -10600,6 +11253,7 @@ pub mod answer_query_request {
                     }
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl std::fmt::Display for ModelType {
                     fn fmt(
                         &self,
@@ -10609,6 +11263,7 @@ pub mod answer_query_request {
                     }
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl std::convert::From<i32> for ModelType {
                     fn from(value: i32) -> Self {
                         match value {
@@ -10622,6 +11277,7 @@ pub mod answer_query_request {
                     }
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl std::convert::From<&str> for ModelType {
                     fn from(value: &str) -> Self {
                         use std::string::ToString;
@@ -10636,6 +11292,7 @@ pub mod answer_query_request {
                     }
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl serde::ser::Serialize for ModelType {
                     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                     where
@@ -10650,6 +11307,7 @@ pub mod answer_query_request {
                     }
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl<'de> serde::de::Deserialize<'de> for ModelType {
                     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                     where
@@ -10664,6 +11322,7 @@ pub mod answer_query_request {
     }
 
     /// End user specification.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -10679,6 +11338,7 @@ pub mod answer_query_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl EndUserSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -10698,6 +11358,7 @@ pub mod answer_query_request {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for EndUserSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.EndUserSpec"
@@ -10705,11 +11366,13 @@ pub mod answer_query_request {
     }
 
     /// Defines additional types related to [EndUserSpec].
+    #[cfg(feature = "conversational-search-service")]
     pub mod end_user_spec {
         #[allow(unused_imports)]
         use super::*;
 
         /// End user metadata.
+        #[cfg(feature = "conversational-search-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -10725,6 +11388,7 @@ pub mod answer_query_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl EndUserMetaData {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -10766,6 +11430,7 @@ pub mod answer_query_request {
             }
         }
 
+        #[cfg(feature = "conversational-search-service")]
         impl wkt::message::Message for EndUserMetaData {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.EndUserSpec.EndUserMetaData"
@@ -10773,11 +11438,13 @@ pub mod answer_query_request {
         }
 
         /// Defines additional types related to [EndUserMetaData].
+        #[cfg(feature = "conversational-search-service")]
         pub mod end_user_meta_data {
             #[allow(unused_imports)]
             use super::*;
 
             /// Chunk information.
+            #[cfg(feature = "conversational-search-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -10797,6 +11464,7 @@ pub mod answer_query_request {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl ChunkInfo {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -10828,6 +11496,7 @@ pub mod answer_query_request {
                 }
             }
 
+            #[cfg(feature = "conversational-search-service")]
             impl wkt::message::Message for ChunkInfo {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.EndUserSpec.EndUserMetaData.ChunkInfo"
@@ -10835,12 +11504,14 @@ pub mod answer_query_request {
             }
 
             /// Defines additional types related to [ChunkInfo].
+            #[cfg(feature = "conversational-search-service")]
             pub mod chunk_info {
                 #[allow(unused_imports)]
                 use super::*;
 
                 /// Document metadata contains the information of the document of
                 /// the current chunk.
+                #[cfg(feature = "conversational-search-service")]
                 #[serde_with::serde_as]
                 #[derive(
                     Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
@@ -10857,6 +11528,7 @@ pub mod answer_query_request {
                     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl DocumentMetadata {
                     pub fn new() -> Self {
                         std::default::Default::default()
@@ -10872,6 +11544,7 @@ pub mod answer_query_request {
                     }
                 }
 
+                #[cfg(feature = "conversational-search-service")]
                 impl wkt::message::Message for DocumentMetadata {
                     fn typename() -> &'static str {
                         "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryRequest.EndUserSpec.EndUserMetaData.ChunkInfo.DocumentMetadata"
@@ -10880,6 +11553,7 @@ pub mod answer_query_request {
             }
 
             /// Search result content.
+            #[cfg(feature = "conversational-search-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
@@ -10897,6 +11571,7 @@ pub mod answer_query_request {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.ConversationalSearchService.AnswerQuery]: crate::client::ConversationalSearchService::answer_query
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -10935,6 +11610,7 @@ pub struct AnswerQueryResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl AnswerQueryResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -10986,6 +11662,7 @@ impl AnswerQueryResponse {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for AnswerQueryResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.AnswerQueryResponse"
@@ -10993,6 +11670,7 @@ impl wkt::message::Message for AnswerQueryResponse {
 }
 
 /// Request for GetAnswer method.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11008,6 +11686,7 @@ pub struct GetAnswerRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl GetAnswerRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11020,6 +11699,7 @@ impl GetAnswerRequest {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for GetAnswerRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GetAnswerRequest"
@@ -11027,6 +11707,7 @@ impl wkt::message::Message for GetAnswerRequest {
 }
 
 /// Request for CreateSession method.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11046,6 +11727,7 @@ pub struct CreateSessionRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl CreateSessionRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11076,6 +11758,7 @@ impl CreateSessionRequest {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for CreateSessionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateSessionRequest"
@@ -11083,6 +11766,7 @@ impl wkt::message::Message for CreateSessionRequest {
 }
 
 /// Request for UpdateSession method.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11109,6 +11793,7 @@ pub struct UpdateSessionRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl UpdateSessionRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11151,6 +11836,7 @@ impl UpdateSessionRequest {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for UpdateSessionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateSessionRequest"
@@ -11158,6 +11844,7 @@ impl wkt::message::Message for UpdateSessionRequest {
 }
 
 /// Request for DeleteSession method.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11173,6 +11860,7 @@ pub struct DeleteSessionRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl DeleteSessionRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11185,6 +11873,7 @@ impl DeleteSessionRequest {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for DeleteSessionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteSessionRequest"
@@ -11192,6 +11881,7 @@ impl wkt::message::Message for DeleteSessionRequest {
 }
 
 /// Request for GetSession method.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11213,6 +11903,7 @@ pub struct GetSessionRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl GetSessionRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11231,6 +11922,7 @@ impl GetSessionRequest {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for GetSessionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GetSessionRequest"
@@ -11238,6 +11930,7 @@ impl wkt::message::Message for GetSessionRequest {
 }
 
 /// Request for ListSessions method.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11293,6 +11986,7 @@ pub struct ListSessionsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl ListSessionsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11329,6 +12023,7 @@ impl ListSessionsRequest {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for ListSessionsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListSessionsRequest"
@@ -11336,6 +12031,7 @@ impl wkt::message::Message for ListSessionsRequest {
 }
 
 /// Response for ListSessions method.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11355,6 +12051,7 @@ pub struct ListSessionsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl ListSessionsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11378,12 +12075,14 @@ impl ListSessionsResponse {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for ListSessionsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListSessionsResponse"
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListSessionsResponse {
     type PageItem = crate::model::Session;
@@ -11399,6 +12098,7 @@ impl gax::paginator::internal::PageableResponse for ListSessionsResponse {
 }
 
 /// Metadata that describes a custom tuned model.
+#[cfg(feature = "search-tuning-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11453,6 +12153,7 @@ pub struct CustomTuningModel {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "search-tuning-service")]
 impl CustomTuningModel {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11542,6 +12243,7 @@ impl CustomTuningModel {
     }
 }
 
+#[cfg(feature = "search-tuning-service")]
 impl wkt::message::Message for CustomTuningModel {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CustomTuningModel"
@@ -11549,6 +12251,7 @@ impl wkt::message::Message for CustomTuningModel {
 }
 
 /// Defines additional types related to [CustomTuningModel].
+#[cfg(feature = "search-tuning-service")]
 pub mod custom_tuning_model {
     #[allow(unused_imports)]
     use super::*;
@@ -11568,6 +12271,7 @@ pub mod custom_tuning_model {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "search-tuning-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ModelState {
@@ -11595,6 +12299,7 @@ pub mod custom_tuning_model {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "search-tuning-service")]
     pub mod model_state {
         #[allow(unused_imports)]
         use super::*;
@@ -11602,6 +12307,7 @@ pub mod custom_tuning_model {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "search-tuning-service")]
     impl ModelState {
         /// Gets the enum value.
         ///
@@ -11640,6 +12346,7 @@ pub mod custom_tuning_model {
         }
     }
 
+    #[cfg(feature = "search-tuning-service")]
     impl std::default::Default for ModelState {
         fn default() -> Self {
             use std::convert::From;
@@ -11647,12 +12354,14 @@ pub mod custom_tuning_model {
         }
     }
 
+    #[cfg(feature = "search-tuning-service")]
     impl std::fmt::Display for ModelState {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "search-tuning-service")]
     impl std::convert::From<i32> for ModelState {
         fn from(value: i32) -> Self {
             match value {
@@ -11671,6 +12380,7 @@ pub mod custom_tuning_model {
         }
     }
 
+    #[cfg(feature = "search-tuning-service")]
     impl std::convert::From<&str> for ModelState {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -11690,6 +12400,7 @@ pub mod custom_tuning_model {
         }
     }
 
+    #[cfg(feature = "search-tuning-service")]
     impl serde::ser::Serialize for ModelState {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -11709,6 +12420,7 @@ pub mod custom_tuning_model {
         }
     }
 
+    #[cfg(feature = "search-tuning-service")]
     impl<'de> serde::de::Deserialize<'de> for ModelState {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -11722,6 +12434,7 @@ pub mod custom_tuning_model {
 }
 
 /// DataStore captures global settings and configs at the DataStore level.
+#[cfg(feature = "data-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11896,6 +12609,7 @@ pub struct DataStore {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "data-store-service")]
 impl DataStore {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12117,6 +12831,7 @@ impl DataStore {
     }
 }
 
+#[cfg(feature = "data-store-service")]
 impl wkt::message::Message for DataStore {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DataStore"
@@ -12124,11 +12839,13 @@ impl wkt::message::Message for DataStore {
 }
 
 /// Defines additional types related to [DataStore].
+#[cfg(feature = "data-store-service")]
 pub mod data_store {
     #[allow(unused_imports)]
     use super::*;
 
     /// Estimation of data size per data store.
+    #[cfg(feature = "data-store-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -12165,6 +12882,7 @@ pub mod data_store {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "data-store-service")]
     impl BillingEstimation {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -12249,6 +12967,7 @@ pub mod data_store {
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl wkt::message::Message for BillingEstimation {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.DataStore.BillingEstimation"
@@ -12270,6 +12989,7 @@ pub mod data_store {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "data-store-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ContentConfig {
@@ -12301,6 +13021,7 @@ pub mod data_store {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "data-store-service")]
     pub mod content_config {
         #[allow(unused_imports)]
         use super::*;
@@ -12308,6 +13029,7 @@ pub mod data_store {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "data-store-service")]
     impl ContentConfig {
         /// Gets the enum value.
         ///
@@ -12340,6 +13062,7 @@ pub mod data_store {
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl std::default::Default for ContentConfig {
         fn default() -> Self {
             use std::convert::From;
@@ -12347,12 +13070,14 @@ pub mod data_store {
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl std::fmt::Display for ContentConfig {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl std::convert::From<i32> for ContentConfig {
         fn from(value: i32) -> Self {
             match value {
@@ -12368,6 +13093,7 @@ pub mod data_store {
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl std::convert::From<&str> for ContentConfig {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -12384,6 +13110,7 @@ pub mod data_store {
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl serde::ser::Serialize for ContentConfig {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -12400,6 +13127,7 @@ pub mod data_store {
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl<'de> serde::de::Deserialize<'de> for ContentConfig {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -12413,6 +13141,7 @@ pub mod data_store {
 }
 
 /// Configuration data for advance site search.
+#[cfg(feature = "data-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12430,6 +13159,7 @@ pub struct AdvancedSiteSearchConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "data-store-service")]
 impl AdvancedSiteSearchConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12472,6 +13202,7 @@ impl AdvancedSiteSearchConfig {
     }
 }
 
+#[cfg(feature = "data-store-service")]
 impl wkt::message::Message for AdvancedSiteSearchConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.AdvancedSiteSearchConfig"
@@ -12479,6 +13210,7 @@ impl wkt::message::Message for AdvancedSiteSearchConfig {
 }
 
 /// Config to store data store type configuration for workspace data
+#[cfg(feature = "data-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12513,6 +13245,7 @@ pub struct WorkspaceConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "data-store-service")]
 impl WorkspaceConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12555,6 +13288,7 @@ impl WorkspaceConfig {
     }
 }
 
+#[cfg(feature = "data-store-service")]
 impl wkt::message::Message for WorkspaceConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.WorkspaceConfig"
@@ -12562,6 +13296,7 @@ impl wkt::message::Message for WorkspaceConfig {
 }
 
 /// Defines additional types related to [WorkspaceConfig].
+#[cfg(feature = "data-store-service")]
 pub mod workspace_config {
     #[allow(unused_imports)]
     use super::*;
@@ -12581,6 +13316,7 @@ pub mod workspace_config {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "data-store-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
@@ -12610,6 +13346,7 @@ pub mod workspace_config {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "data-store-service")]
     pub mod r#type {
         #[allow(unused_imports)]
         use super::*;
@@ -12617,6 +13354,7 @@ pub mod workspace_config {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "data-store-service")]
     impl Type {
         /// Gets the enum value.
         ///
@@ -12657,6 +13395,7 @@ pub mod workspace_config {
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl std::default::Default for Type {
         fn default() -> Self {
             use std::convert::From;
@@ -12664,12 +13403,14 @@ pub mod workspace_config {
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl std::fmt::Display for Type {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl std::convert::From<i32> for Type {
         fn from(value: i32) -> Self {
             match value {
@@ -12689,6 +13430,7 @@ pub mod workspace_config {
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl std::convert::From<&str> for Type {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -12709,6 +13451,7 @@ pub mod workspace_config {
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl serde::ser::Serialize for Type {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -12729,6 +13472,7 @@ pub mod workspace_config {
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl<'de> serde::de::Deserialize<'de> for Type {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -12746,6 +13490,7 @@ pub mod workspace_config {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DataStoreService.CreateDataStore]: crate::client::DataStoreService::create_data_store
+#[cfg(feature = "data-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12808,6 +13553,7 @@ pub struct CreateDataStoreRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "data-store-service")]
 impl CreateDataStoreRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12925,6 +13671,7 @@ impl CreateDataStoreRequest {
     }
 }
 
+#[cfg(feature = "data-store-service")]
 impl wkt::message::Message for CreateDataStoreRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateDataStoreRequest"
@@ -12932,12 +13679,14 @@ impl wkt::message::Message for CreateDataStoreRequest {
 }
 
 /// Defines additional types related to [CreateDataStoreRequest].
+#[cfg(feature = "data-store-service")]
 pub mod create_data_store_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// CMEK options for the DataStore. Setting this field will override the
     /// default CmekConfig if one is set for the project.
+    #[cfg(feature = "data-store-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -12957,6 +13706,7 @@ pub mod create_data_store_request {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DataStoreService.GetDataStore]: crate::client::DataStoreService::get_data_store
+#[cfg(feature = "data-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12982,6 +13732,7 @@ pub struct GetDataStoreRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "data-store-service")]
 impl GetDataStoreRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12994,6 +13745,7 @@ impl GetDataStoreRequest {
     }
 }
 
+#[cfg(feature = "data-store-service")]
 impl wkt::message::Message for GetDataStoreRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GetDataStoreRequest"
@@ -13006,6 +13758,7 @@ impl wkt::message::Message for GetDataStoreRequest {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.DataStoreService.CreateDataStore]: crate::client::DataStoreService::create_data_store
+#[cfg(feature = "data-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -13024,6 +13777,7 @@ pub struct CreateDataStoreMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "data-store-service")]
 impl CreateDataStoreMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -13066,6 +13820,7 @@ impl CreateDataStoreMetadata {
     }
 }
 
+#[cfg(feature = "data-store-service")]
 impl wkt::message::Message for CreateDataStoreMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateDataStoreMetadata"
@@ -13077,6 +13832,7 @@ impl wkt::message::Message for CreateDataStoreMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DataStoreService.ListDataStores]: crate::client::DataStoreService::list_data_stores
+#[cfg(feature = "data-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -13133,6 +13889,7 @@ pub struct ListDataStoresRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "data-store-service")]
 impl ListDataStoresRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -13163,6 +13920,7 @@ impl ListDataStoresRequest {
     }
 }
 
+#[cfg(feature = "data-store-service")]
 impl wkt::message::Message for ListDataStoresRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListDataStoresRequest"
@@ -13174,6 +13932,7 @@ impl wkt::message::Message for ListDataStoresRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DataStoreService.ListDataStores]: crate::client::DataStoreService::list_data_stores
+#[cfg(feature = "data-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -13200,6 +13959,7 @@ pub struct ListDataStoresResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "data-store-service")]
 impl ListDataStoresResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -13223,12 +13983,14 @@ impl ListDataStoresResponse {
     }
 }
 
+#[cfg(feature = "data-store-service")]
 impl wkt::message::Message for ListDataStoresResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListDataStoresResponse"
     }
 }
 
+#[cfg(feature = "data-store-service")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListDataStoresResponse {
     type PageItem = crate::model::DataStore;
@@ -13248,6 +14010,7 @@ impl gax::paginator::internal::PageableResponse for ListDataStoresResponse {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DataStoreService.DeleteDataStore]: crate::client::DataStoreService::delete_data_store
+#[cfg(feature = "data-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -13273,6 +14036,7 @@ pub struct DeleteDataStoreRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "data-store-service")]
 impl DeleteDataStoreRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -13285,6 +14049,7 @@ impl DeleteDataStoreRequest {
     }
 }
 
+#[cfg(feature = "data-store-service")]
 impl wkt::message::Message for DeleteDataStoreRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteDataStoreRequest"
@@ -13296,6 +14061,7 @@ impl wkt::message::Message for DeleteDataStoreRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DataStoreService.UpdateDataStore]: crate::client::DataStoreService::update_data_store
+#[cfg(feature = "data-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -13329,6 +14095,7 @@ pub struct UpdateDataStoreRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "data-store-service")]
 impl UpdateDataStoreRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -13371,6 +14138,7 @@ impl UpdateDataStoreRequest {
     }
 }
 
+#[cfg(feature = "data-store-service")]
 impl wkt::message::Message for UpdateDataStoreRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateDataStoreRequest"
@@ -13383,6 +14151,7 @@ impl wkt::message::Message for UpdateDataStoreRequest {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.DataStoreService.DeleteDataStore]: crate::client::DataStoreService::delete_data_store
+#[cfg(feature = "data-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -13401,6 +14170,7 @@ pub struct DeleteDataStoreMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "data-store-service")]
 impl DeleteDataStoreMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -13443,6 +14213,7 @@ impl DeleteDataStoreMetadata {
     }
 }
 
+#[cfg(feature = "data-store-service")]
 impl wkt::message::Message for DeleteDataStoreMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteDataStoreMetadata"
@@ -13451,6 +14222,12 @@ impl wkt::message::Message for DeleteDataStoreMetadata {
 
 /// Document captures all raw metadata information of items to be recommended or
 /// searched.
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "document-service",
+    feature = "recommendation-service",
+    feature = "search-service",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -13534,6 +14311,12 @@ pub struct Document {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "document-service",
+    feature = "recommendation-service",
+    feature = "search-service",
+))]
 impl Document {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -13714,6 +14497,12 @@ impl Document {
     }
 }
 
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "document-service",
+    feature = "recommendation-service",
+    feature = "search-service",
+))]
 impl wkt::message::Message for Document {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Document"
@@ -13721,11 +14510,23 @@ impl wkt::message::Message for Document {
 }
 
 /// Defines additional types related to [Document].
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "document-service",
+    feature = "recommendation-service",
+    feature = "search-service",
+))]
 pub mod document {
     #[allow(unused_imports)]
     use super::*;
 
     /// Unstructured data linked to this document.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "document-service",
+        feature = "recommendation-service",
+        feature = "search-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -13766,6 +14567,12 @@ pub mod document {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "document-service",
+        feature = "recommendation-service",
+        feature = "search-service",
+    ))]
     impl Content {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -13839,6 +14646,12 @@ pub mod document {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "document-service",
+        feature = "recommendation-service",
+        feature = "search-service",
+    ))]
     impl wkt::message::Message for Content {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Document.Content"
@@ -13846,11 +14659,23 @@ pub mod document {
     }
 
     /// Defines additional types related to [Content].
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "document-service",
+        feature = "recommendation-service",
+        feature = "search-service",
+    ))]
     pub mod content {
         #[allow(unused_imports)]
         use super::*;
 
         /// The content of the unstructured document.
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "document-service",
+            feature = "recommendation-service",
+            feature = "search-service",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -13876,6 +14701,12 @@ pub mod document {
     }
 
     /// ACL Information of the Document.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "document-service",
+        feature = "recommendation-service",
+        feature = "search-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -13890,6 +14721,12 @@ pub mod document {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "document-service",
+        feature = "recommendation-service",
+        feature = "search-service",
+    ))]
     impl AclInfo {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -13907,6 +14744,12 @@ pub mod document {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "document-service",
+        feature = "recommendation-service",
+        feature = "search-service",
+    ))]
     impl wkt::message::Message for AclInfo {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Document.AclInfo"
@@ -13914,6 +14757,12 @@ pub mod document {
     }
 
     /// Defines additional types related to [AclInfo].
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "document-service",
+        feature = "recommendation-service",
+        feature = "search-service",
+    ))]
     pub mod acl_info {
         #[allow(unused_imports)]
         use super::*;
@@ -13977,6 +14826,12 @@ pub mod document {
         /// ]
         /// }
         /// }
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "document-service",
+            feature = "recommendation-service",
+            feature = "search-service",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -13996,6 +14851,12 @@ pub mod document {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "document-service",
+            feature = "recommendation-service",
+            feature = "search-service",
+        ))]
         impl AccessRestriction {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -14019,6 +14880,12 @@ pub mod document {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "document-service",
+            feature = "recommendation-service",
+            feature = "search-service",
+        ))]
         impl wkt::message::Message for AccessRestriction {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.Document.AclInfo.AccessRestriction"
@@ -14027,6 +14894,12 @@ pub mod document {
     }
 
     /// Index status of the document.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "document-service",
+        feature = "recommendation-service",
+        feature = "search-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -14053,6 +14926,12 @@ pub mod document {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "document-service",
+        feature = "recommendation-service",
+        feature = "search-service",
+    ))]
     impl IndexStatus {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -14097,6 +14976,12 @@ pub mod document {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "document-service",
+        feature = "recommendation-service",
+        feature = "search-service",
+    ))]
     impl wkt::message::Message for IndexStatus {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Document.IndexStatus"
@@ -14110,6 +14995,12 @@ pub mod document {
     ///
     /// [google.cloud.discoveryengine.v1.Document.json_data]: crate::model::Document::data
     /// [google.cloud.discoveryengine.v1.Document.struct_data]: crate::model::Document::data
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "document-service",
+        feature = "recommendation-service",
+        feature = "search-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -14139,6 +15030,7 @@ pub mod document {
 ///
 /// [google.cloud.discoveryengine.v1.DataStore]: crate::model::DataStore
 /// [google.cloud.discoveryengine.v1.DataStore.ContentConfig.CONTENT_REQUIRED]: crate::model::data_store::ContentConfig::ContentRequired
+#[cfg(feature = "data-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14190,6 +15082,7 @@ pub struct DocumentProcessingConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "data-store-service")]
 impl DocumentProcessingConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14250,6 +15143,7 @@ impl DocumentProcessingConfig {
     }
 }
 
+#[cfg(feature = "data-store-service")]
 impl wkt::message::Message for DocumentProcessingConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DocumentProcessingConfig"
@@ -14257,11 +15151,13 @@ impl wkt::message::Message for DocumentProcessingConfig {
 }
 
 /// Defines additional types related to [DocumentProcessingConfig].
+#[cfg(feature = "data-store-service")]
 pub mod document_processing_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration for chunking config.
+    #[cfg(feature = "data-store-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -14277,6 +15173,7 @@ pub mod document_processing_config {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "data-store-service")]
     impl ChunkingConfig {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -14326,6 +15223,7 @@ pub mod document_processing_config {
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl wkt::message::Message for ChunkingConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.DocumentProcessingConfig.ChunkingConfig"
@@ -14333,11 +15231,13 @@ pub mod document_processing_config {
     }
 
     /// Defines additional types related to [ChunkingConfig].
+    #[cfg(feature = "data-store-service")]
     pub mod chunking_config {
         #[allow(unused_imports)]
         use super::*;
 
         /// Configuration for the layout based chunking.
+        #[cfg(feature = "data-store-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -14363,6 +15263,7 @@ pub mod document_processing_config {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "data-store-service")]
         impl LayoutBasedChunkingConfig {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -14384,6 +15285,7 @@ pub mod document_processing_config {
             }
         }
 
+        #[cfg(feature = "data-store-service")]
         impl wkt::message::Message for LayoutBasedChunkingConfig {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.DocumentProcessingConfig.ChunkingConfig.LayoutBasedChunkingConfig"
@@ -14391,6 +15293,7 @@ pub mod document_processing_config {
         }
 
         /// Additional configs that defines the behavior of the chunking.
+        #[cfg(feature = "data-store-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -14402,6 +15305,7 @@ pub mod document_processing_config {
     }
 
     /// Related configurations applied to a specific type of document parser.
+    #[cfg(feature = "data-store-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -14417,6 +15321,7 @@ pub mod document_processing_config {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "data-store-service")]
     impl ParsingConfig {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -14535,6 +15440,7 @@ pub mod document_processing_config {
         }
     }
 
+    #[cfg(feature = "data-store-service")]
     impl wkt::message::Message for ParsingConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.DocumentProcessingConfig.ParsingConfig"
@@ -14542,11 +15448,13 @@ pub mod document_processing_config {
     }
 
     /// Defines additional types related to [ParsingConfig].
+    #[cfg(feature = "data-store-service")]
     pub mod parsing_config {
         #[allow(unused_imports)]
         use super::*;
 
         /// The digital parsing configurations for documents.
+        #[cfg(feature = "data-store-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -14556,12 +15464,14 @@ pub mod document_processing_config {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "data-store-service")]
         impl DigitalParsingConfig {
             pub fn new() -> Self {
                 std::default::Default::default()
             }
         }
 
+        #[cfg(feature = "data-store-service")]
         impl wkt::message::Message for DigitalParsingConfig {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.DocumentProcessingConfig.ParsingConfig.DigitalParsingConfig"
@@ -14569,6 +15479,7 @@ pub mod document_processing_config {
         }
 
         /// The OCR parsing configurations for documents.
+        #[cfg(feature = "data-store-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -14591,6 +15502,7 @@ pub mod document_processing_config {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "data-store-service")]
         impl OcrParsingConfig {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -14615,6 +15527,7 @@ pub mod document_processing_config {
             }
         }
 
+        #[cfg(feature = "data-store-service")]
         impl wkt::message::Message for OcrParsingConfig {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.DocumentProcessingConfig.ParsingConfig.OcrParsingConfig"
@@ -14622,6 +15535,7 @@ pub mod document_processing_config {
         }
 
         /// The layout parsing configurations for documents.
+        #[cfg(feature = "data-store-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -14666,6 +15580,7 @@ pub mod document_processing_config {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "data-store-service")]
         impl LayoutParsingConfig {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -14734,6 +15649,7 @@ pub mod document_processing_config {
             }
         }
 
+        #[cfg(feature = "data-store-service")]
         impl wkt::message::Message for LayoutParsingConfig {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.DocumentProcessingConfig.ParsingConfig.LayoutParsingConfig"
@@ -14741,6 +15657,7 @@ pub mod document_processing_config {
         }
 
         /// Configs for document processing types.
+        #[cfg(feature = "data-store-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -14774,6 +15691,7 @@ pub mod document_processing_config {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DocumentService.GetDocument]: crate::client::DocumentService::get_document
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14799,6 +15717,7 @@ pub struct GetDocumentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl GetDocumentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14811,6 +15730,7 @@ impl GetDocumentRequest {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for GetDocumentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GetDocumentRequest"
@@ -14822,6 +15742,7 @@ impl wkt::message::Message for GetDocumentRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DocumentService.ListDocuments]: crate::client::DocumentService::list_documents
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14874,6 +15795,7 @@ pub struct ListDocumentsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl ListDocumentsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14898,6 +15820,7 @@ impl ListDocumentsRequest {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for ListDocumentsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListDocumentsRequest"
@@ -14909,6 +15832,7 @@ impl wkt::message::Message for ListDocumentsRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DocumentService.ListDocuments]: crate::client::DocumentService::list_documents
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14935,6 +15859,7 @@ pub struct ListDocumentsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl ListDocumentsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14958,12 +15883,14 @@ impl ListDocumentsResponse {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for ListDocumentsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListDocumentsResponse"
     }
 }
 
+#[cfg(feature = "document-service")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListDocumentsResponse {
     type PageItem = crate::model::Document;
@@ -14983,6 +15910,7 @@ impl gax::paginator::internal::PageableResponse for ListDocumentsResponse {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DocumentService.CreateDocument]: crate::client::DocumentService::create_document
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15030,6 +15958,7 @@ pub struct CreateDocumentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl CreateDocumentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -15066,6 +15995,7 @@ impl CreateDocumentRequest {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for CreateDocumentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateDocumentRequest"
@@ -15077,6 +16007,7 @@ impl wkt::message::Message for CreateDocumentRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DocumentService.UpdateDocument]: crate::client::DocumentService::update_document
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15116,6 +16047,7 @@ pub struct UpdateDocumentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl UpdateDocumentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -15164,6 +16096,7 @@ impl UpdateDocumentRequest {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for UpdateDocumentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateDocumentRequest"
@@ -15175,6 +16108,7 @@ impl wkt::message::Message for UpdateDocumentRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DocumentService.DeleteDocument]: crate::client::DocumentService::delete_document
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15200,6 +16134,7 @@ pub struct DeleteDocumentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl DeleteDocumentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -15212,6 +16147,7 @@ impl DeleteDocumentRequest {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for DeleteDocumentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteDocumentRequest"
@@ -15223,6 +16159,7 @@ impl wkt::message::Message for DeleteDocumentRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DocumentService.BatchGetDocumentsMetadata]: crate::client::DocumentService::batch_get_documents_metadata
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15245,6 +16182,7 @@ pub struct BatchGetDocumentsMetadataRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl BatchGetDocumentsMetadataRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -15275,6 +16213,7 @@ impl BatchGetDocumentsMetadataRequest {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for BatchGetDocumentsMetadataRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BatchGetDocumentsMetadataRequest"
@@ -15282,6 +16221,7 @@ impl wkt::message::Message for BatchGetDocumentsMetadataRequest {
 }
 
 /// Defines additional types related to [BatchGetDocumentsMetadataRequest].
+#[cfg(feature = "document-service")]
 pub mod batch_get_documents_metadata_request {
     #[allow(unused_imports)]
     use super::*;
@@ -15290,6 +16230,7 @@ pub mod batch_get_documents_metadata_request {
     /// exact uris.
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    #[cfg(feature = "document-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -15304,6 +16245,7 @@ pub mod batch_get_documents_metadata_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "document-service")]
     impl UrisMatcher {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -15321,6 +16263,7 @@ pub mod batch_get_documents_metadata_request {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl wkt::message::Message for UrisMatcher {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.BatchGetDocumentsMetadataRequest.UrisMatcher"
@@ -15331,6 +16274,7 @@ pub mod batch_get_documents_metadata_request {
     /// FHIR resource names.
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    #[cfg(feature = "document-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -15347,6 +16291,7 @@ pub mod batch_get_documents_metadata_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "document-service")]
     impl FhirMatcher {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -15364,6 +16309,7 @@ pub mod batch_get_documents_metadata_request {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl wkt::message::Message for FhirMatcher {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.BatchGetDocumentsMetadataRequest.FhirMatcher"
@@ -15374,6 +16320,7 @@ pub mod batch_get_documents_metadata_request {
     /// Currently supports matching by exact URIs.
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    #[cfg(feature = "document-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -15391,6 +16338,7 @@ pub mod batch_get_documents_metadata_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "document-service")]
     impl Matcher {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -15491,6 +16439,7 @@ pub mod batch_get_documents_metadata_request {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl wkt::message::Message for Matcher {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.BatchGetDocumentsMetadataRequest.Matcher"
@@ -15498,6 +16447,7 @@ pub mod batch_get_documents_metadata_request {
     }
 
     /// Defines additional types related to [Matcher].
+    #[cfg(feature = "document-service")]
     pub mod matcher {
         #[allow(unused_imports)]
         use super::*;
@@ -15505,6 +16455,7 @@ pub mod batch_get_documents_metadata_request {
         /// Matcher for the [Document][google.cloud.discoveryengine.v1.Document]s.
         ///
         /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+        #[cfg(feature = "document-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -15527,6 +16478,7 @@ pub mod batch_get_documents_metadata_request {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DocumentService.BatchGetDocumentsMetadata]: crate::client::DocumentService::batch_get_documents_metadata
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15544,6 +16496,7 @@ pub struct BatchGetDocumentsMetadataResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl BatchGetDocumentsMetadataResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -15563,6 +16516,7 @@ impl BatchGetDocumentsMetadataResponse {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for BatchGetDocumentsMetadataResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BatchGetDocumentsMetadataResponse"
@@ -15570,6 +16524,7 @@ impl wkt::message::Message for BatchGetDocumentsMetadataResponse {
 }
 
 /// Defines additional types related to [BatchGetDocumentsMetadataResponse].
+#[cfg(feature = "document-service")]
 pub mod batch_get_documents_metadata_response {
     #[allow(unused_imports)]
     use super::*;
@@ -15577,6 +16532,7 @@ pub mod batch_get_documents_metadata_response {
     /// The metadata of a [Document][google.cloud.discoveryengine.v1.Document].
     ///
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+    #[cfg(feature = "document-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -15620,6 +16576,7 @@ pub mod batch_get_documents_metadata_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "document-service")]
     impl DocumentMetadata {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -15680,6 +16637,7 @@ pub mod batch_get_documents_metadata_response {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl wkt::message::Message for DocumentMetadata {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.BatchGetDocumentsMetadataResponse.DocumentMetadata"
@@ -15687,6 +16645,7 @@ pub mod batch_get_documents_metadata_response {
     }
 
     /// Defines additional types related to [DocumentMetadata].
+    #[cfg(feature = "document-service")]
     pub mod document_metadata {
         #[allow(unused_imports)]
         use super::*;
@@ -15695,6 +16654,7 @@ pub mod batch_get_documents_metadata_response {
         /// [Document][google.cloud.discoveryengine.v1.Document].
         ///
         /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+        #[cfg(feature = "document-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -15712,6 +16672,7 @@ pub mod batch_get_documents_metadata_response {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "document-service")]
         impl MatcherValue {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -15781,6 +16742,7 @@ pub mod batch_get_documents_metadata_response {
             }
         }
 
+        #[cfg(feature = "document-service")]
         impl wkt::message::Message for MatcherValue {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.BatchGetDocumentsMetadataResponse.DocumentMetadata.MatcherValue"
@@ -15788,6 +16750,7 @@ pub mod batch_get_documents_metadata_response {
         }
 
         /// Defines additional types related to [MatcherValue].
+        #[cfg(feature = "document-service")]
         pub mod matcher_value {
             #[allow(unused_imports)]
             use super::*;
@@ -15796,6 +16759,7 @@ pub mod batch_get_documents_metadata_response {
             /// [Document][google.cloud.discoveryengine.v1.Document].
             ///
             /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
+            #[cfg(feature = "document-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
@@ -15830,6 +16794,7 @@ pub mod batch_get_documents_metadata_response {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "document-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -15858,6 +16823,7 @@ pub mod batch_get_documents_metadata_response {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "document-service")]
     pub mod state {
         #[allow(unused_imports)]
         use super::*;
@@ -15865,6 +16831,7 @@ pub mod batch_get_documents_metadata_response {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "document-service")]
     impl State {
         /// Gets the enum value.
         ///
@@ -15895,6 +16862,7 @@ pub mod batch_get_documents_metadata_response {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::default::Default for State {
         fn default() -> Self {
             use std::convert::From;
@@ -15902,12 +16870,14 @@ pub mod batch_get_documents_metadata_response {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::fmt::Display for State {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::convert::From<i32> for State {
         fn from(value: i32) -> Self {
             match value {
@@ -15922,6 +16892,7 @@ pub mod batch_get_documents_metadata_response {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::convert::From<&str> for State {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -15937,6 +16908,7 @@ pub mod batch_get_documents_metadata_response {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl serde::ser::Serialize for State {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -15952,6 +16924,7 @@ pub mod batch_get_documents_metadata_response {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl<'de> serde::de::Deserialize<'de> for State {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -15968,6 +16941,7 @@ pub mod batch_get_documents_metadata_response {
 /// [Engine][google.cloud.discoveryengine.v1.Engine].
 ///
 /// [google.cloud.discoveryengine.v1.Engine]: crate::model::Engine
+#[cfg(feature = "engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -16066,6 +17040,7 @@ pub struct Engine {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "engine-service")]
 impl Engine {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -16328,6 +17303,7 @@ impl Engine {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl wkt::message::Message for Engine {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Engine"
@@ -16335,11 +17311,13 @@ impl wkt::message::Message for Engine {
 }
 
 /// Defines additional types related to [Engine].
+#[cfg(feature = "engine-service")]
 pub mod engine {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configurations for a Search Engine.
+    #[cfg(feature = "engine-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -16368,6 +17346,7 @@ pub mod engine {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "engine-service")]
     impl SearchEngineConfig {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -16394,6 +17373,7 @@ pub mod engine {
         }
     }
 
+    #[cfg(feature = "engine-service")]
     impl wkt::message::Message for SearchEngineConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.SearchEngineConfig"
@@ -16401,6 +17381,7 @@ pub mod engine {
     }
 
     /// Additional config specs for a Media Recommendation engine.
+    #[cfg(feature = "engine-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -16476,6 +17457,7 @@ pub mod engine {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "engine-service")]
     impl MediaRecommendationEngineConfig {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -16548,6 +17530,7 @@ pub mod engine {
         }
     }
 
+    #[cfg(feature = "engine-service")]
     impl wkt::message::Message for MediaRecommendationEngineConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig"
@@ -16555,11 +17538,13 @@ pub mod engine {
     }
 
     /// Defines additional types related to [MediaRecommendationEngineConfig].
+    #[cfg(feature = "engine-service")]
     pub mod media_recommendation_engine_config {
         #[allow(unused_imports)]
         use super::*;
 
         /// Custom threshold for `cvr` optimization_objective.
+        #[cfg(feature = "engine-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -16580,6 +17565,7 @@ pub mod engine {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "engine-service")]
         impl OptimizationObjectiveConfig {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -16604,6 +17590,7 @@ pub mod engine {
             }
         }
 
+        #[cfg(feature = "engine-service")]
         impl wkt::message::Message for OptimizationObjectiveConfig {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig.OptimizationObjectiveConfig"
@@ -16611,6 +17598,7 @@ pub mod engine {
         }
 
         /// More feature configs of the selected engine type.
+        #[cfg(feature = "engine-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -16626,6 +17614,7 @@ pub mod engine {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "engine-service")]
         impl EngineFeaturesConfig {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -16692,6 +17681,7 @@ pub mod engine {
             }
         }
 
+        #[cfg(feature = "engine-service")]
         impl wkt::message::Message for EngineFeaturesConfig {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig.EngineFeaturesConfig"
@@ -16699,12 +17689,14 @@ pub mod engine {
         }
 
         /// Defines additional types related to [EngineFeaturesConfig].
+        #[cfg(feature = "engine-service")]
         pub mod engine_features_config {
             #[allow(unused_imports)]
             use super::*;
 
             /// Feature related configurations applied to a specific type of meida
             /// recommendation engines.
+            #[cfg(feature = "engine-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
@@ -16719,6 +17711,7 @@ pub mod engine {
 
         /// Additional feature configurations for creating a `recommended-for-you`
         /// engine.
+        #[cfg(feature = "engine-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -16739,6 +17732,7 @@ pub mod engine {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "engine-service")]
         impl RecommendedForYouFeatureConfig {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -16754,6 +17748,7 @@ pub mod engine {
             }
         }
 
+        #[cfg(feature = "engine-service")]
         impl wkt::message::Message for RecommendedForYouFeatureConfig {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig.RecommendedForYouFeatureConfig"
@@ -16762,6 +17757,7 @@ pub mod engine {
 
         /// Feature configurations that are required for creating a Most Popular
         /// engine.
+        #[cfg(feature = "engine-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -16779,6 +17775,7 @@ pub mod engine {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "engine-service")]
         impl MostPopularFeatureConfig {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -16791,6 +17788,7 @@ pub mod engine {
             }
         }
 
+        #[cfg(feature = "engine-service")]
         impl wkt::message::Message for MostPopularFeatureConfig {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.MediaRecommendationEngineConfig.MostPopularFeatureConfig"
@@ -16812,6 +17810,7 @@ pub mod engine {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "engine-service")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum TrainingState {
@@ -16829,6 +17828,7 @@ pub mod engine {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "engine-service")]
         pub mod training_state {
             #[allow(unused_imports)]
             use super::*;
@@ -16836,6 +17836,7 @@ pub mod engine {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "engine-service")]
         impl TrainingState {
             /// Gets the enum value.
             ///
@@ -16864,6 +17865,7 @@ pub mod engine {
             }
         }
 
+        #[cfg(feature = "engine-service")]
         impl std::default::Default for TrainingState {
             fn default() -> Self {
                 use std::convert::From;
@@ -16871,6 +17873,7 @@ pub mod engine {
             }
         }
 
+        #[cfg(feature = "engine-service")]
         impl std::fmt::Display for TrainingState {
             fn fmt(
                 &self,
@@ -16880,6 +17883,7 @@ pub mod engine {
             }
         }
 
+        #[cfg(feature = "engine-service")]
         impl std::convert::From<i32> for TrainingState {
             fn from(value: i32) -> Self {
                 match value {
@@ -16893,6 +17897,7 @@ pub mod engine {
             }
         }
 
+        #[cfg(feature = "engine-service")]
         impl std::convert::From<&str> for TrainingState {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -16907,6 +17912,7 @@ pub mod engine {
             }
         }
 
+        #[cfg(feature = "engine-service")]
         impl serde::ser::Serialize for TrainingState {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -16921,6 +17927,7 @@ pub mod engine {
             }
         }
 
+        #[cfg(feature = "engine-service")]
         impl<'de> serde::de::Deserialize<'de> for TrainingState {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -16933,6 +17940,7 @@ pub mod engine {
     }
 
     /// Configurations for a Chat Engine.
+    #[cfg(feature = "engine-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -17001,6 +18009,7 @@ pub mod engine {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "engine-service")]
     impl ChatEngineConfig {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -17040,6 +18049,7 @@ pub mod engine {
         }
     }
 
+    #[cfg(feature = "engine-service")]
     impl wkt::message::Message for ChatEngineConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.ChatEngineConfig"
@@ -17047,6 +18057,7 @@ pub mod engine {
     }
 
     /// Defines additional types related to [ChatEngineConfig].
+    #[cfg(feature = "engine-service")]
     pub mod chat_engine_config {
         #[allow(unused_imports)]
         use super::*;
@@ -17062,6 +18073,7 @@ pub mod engine {
         ///
         /// [google.cloud.discoveryengine.v1.EngineService.GetEngine]: crate::client::EngineService::get_engine
         /// [google.cloud.discoveryengine.v1.EngineService.ListEngines]: crate::client::EngineService::list_engines
+        #[cfg(feature = "engine-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -17100,6 +18112,7 @@ pub mod engine {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "engine-service")]
         impl AgentCreationConfig {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -17142,6 +18155,7 @@ pub mod engine {
             }
         }
 
+        #[cfg(feature = "engine-service")]
         impl wkt::message::Message for AgentCreationConfig {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.ChatEngineConfig.AgentCreationConfig"
@@ -17150,6 +18164,7 @@ pub mod engine {
     }
 
     /// Common configurations for an Engine.
+    #[cfg(feature = "engine-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -17165,6 +18180,7 @@ pub mod engine {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "engine-service")]
     impl CommonConfig {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -17180,6 +18196,7 @@ pub mod engine {
         }
     }
 
+    #[cfg(feature = "engine-service")]
     impl wkt::message::Message for CommonConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.CommonConfig"
@@ -17188,6 +18205,7 @@ pub mod engine {
 
     /// Additional information of a Chat Engine.
     /// Fields in this message are output only.
+    #[cfg(feature = "engine-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -17206,6 +18224,7 @@ pub mod engine {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "engine-service")]
     impl ChatEngineMetadata {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -17221,6 +18240,7 @@ pub mod engine {
         }
     }
 
+    #[cfg(feature = "engine-service")]
     impl wkt::message::Message for ChatEngineMetadata {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Engine.ChatEngineMetadata"
@@ -17228,6 +18248,7 @@ pub mod engine {
     }
 
     /// Additional config specs that defines the behavior of the engine.
+    #[cfg(feature = "engine-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -17264,6 +18285,7 @@ pub mod engine {
     }
 
     /// Engine metadata to monitor the status of the engine.
+    #[cfg(feature = "engine-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -17285,6 +18307,7 @@ pub mod engine {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.EngineService.CreateEngine]: crate::client::EngineService::create_engine
+#[cfg(feature = "engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17320,6 +18343,7 @@ pub struct CreateEngineRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "engine-service")]
 impl CreateEngineRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17356,6 +18380,7 @@ impl CreateEngineRequest {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl wkt::message::Message for CreateEngineRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateEngineRequest"
@@ -17368,6 +18393,7 @@ impl wkt::message::Message for CreateEngineRequest {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.EngineService.CreateEngine]: crate::client::EngineService::create_engine
+#[cfg(feature = "engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17386,6 +18412,7 @@ pub struct CreateEngineMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "engine-service")]
 impl CreateEngineMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17428,6 +18455,7 @@ impl CreateEngineMetadata {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl wkt::message::Message for CreateEngineMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateEngineMetadata"
@@ -17439,6 +18467,7 @@ impl wkt::message::Message for CreateEngineMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.EngineService.DeleteEngine]: crate::client::EngineService::delete_engine
+#[cfg(feature = "engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17464,6 +18493,7 @@ pub struct DeleteEngineRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "engine-service")]
 impl DeleteEngineRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17476,6 +18506,7 @@ impl DeleteEngineRequest {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl wkt::message::Message for DeleteEngineRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteEngineRequest"
@@ -17488,6 +18519,7 @@ impl wkt::message::Message for DeleteEngineRequest {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.EngineService.DeleteEngine]: crate::client::EngineService::delete_engine
+#[cfg(feature = "engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17506,6 +18538,7 @@ pub struct DeleteEngineMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "engine-service")]
 impl DeleteEngineMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17548,6 +18581,7 @@ impl DeleteEngineMetadata {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl wkt::message::Message for DeleteEngineMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteEngineMetadata"
@@ -17559,6 +18593,7 @@ impl wkt::message::Message for DeleteEngineMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.EngineService.GetEngine]: crate::client::EngineService::get_engine
+#[cfg(feature = "engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17577,6 +18612,7 @@ pub struct GetEngineRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "engine-service")]
 impl GetEngineRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17589,6 +18625,7 @@ impl GetEngineRequest {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl wkt::message::Message for GetEngineRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GetEngineRequest"
@@ -17600,6 +18637,7 @@ impl wkt::message::Message for GetEngineRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.EngineService.ListEngines]: crate::client::EngineService::list_engines
+#[cfg(feature = "engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17631,6 +18669,7 @@ pub struct ListEnginesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "engine-service")]
 impl ListEnginesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17661,6 +18700,7 @@ impl ListEnginesRequest {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl wkt::message::Message for ListEnginesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListEnginesRequest"
@@ -17672,6 +18712,7 @@ impl wkt::message::Message for ListEnginesRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.EngineService.ListEngines]: crate::client::EngineService::list_engines
+#[cfg(feature = "engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17693,6 +18734,7 @@ pub struct ListEnginesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "engine-service")]
 impl ListEnginesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17716,12 +18758,14 @@ impl ListEnginesResponse {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl wkt::message::Message for ListEnginesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListEnginesResponse"
     }
 }
 
+#[cfg(feature = "engine-service")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListEnginesResponse {
     type PageItem = crate::model::Engine;
@@ -17741,6 +18785,7 @@ impl gax::paginator::internal::PageableResponse for ListEnginesResponse {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.EngineService.UpdateEngine]: crate::client::EngineService::update_engine
+#[cfg(feature = "engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17773,6 +18818,7 @@ pub struct UpdateEngineRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "engine-service")]
 impl UpdateEngineRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17815,6 +18861,7 @@ impl UpdateEngineRequest {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl wkt::message::Message for UpdateEngineRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateEngineRequest"
@@ -17822,6 +18869,7 @@ impl wkt::message::Message for UpdateEngineRequest {
 }
 
 /// Base structured datatype containing multi-part content of a message.
+#[cfg(feature = "grounded-generation-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17844,6 +18892,7 @@ pub struct GroundedGenerationContent {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl GroundedGenerationContent {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17867,6 +18916,7 @@ impl GroundedGenerationContent {
     }
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl wkt::message::Message for GroundedGenerationContent {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GroundedGenerationContent"
@@ -17874,11 +18924,13 @@ impl wkt::message::Message for GroundedGenerationContent {
 }
 
 /// Defines additional types related to [GroundedGenerationContent].
+#[cfg(feature = "grounded-generation-service")]
 pub mod grounded_generation_content {
     #[allow(unused_imports)]
     use super::*;
 
     /// Single part of content.
+    #[cfg(feature = "grounded-generation-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -17892,6 +18944,7 @@ pub mod grounded_generation_content {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl Part {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -17939,6 +18992,7 @@ pub mod grounded_generation_content {
         }
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl wkt::message::Message for Part {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.GroundedGenerationContent.Part"
@@ -17946,11 +19000,13 @@ pub mod grounded_generation_content {
     }
 
     /// Defines additional types related to [Part].
+    #[cfg(feature = "grounded-generation-service")]
     pub mod part {
         #[allow(unused_imports)]
         use super::*;
 
         /// Holder of data. It only supports text for now.
+        #[cfg(feature = "grounded-generation-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -17964,6 +19020,7 @@ pub mod grounded_generation_content {
 
 /// Top-level message sent by the client for the `GenerateGroundedContent`
 /// method.
+#[cfg(feature = "grounded-generation-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -18027,6 +19084,7 @@ pub struct GenerateGroundedContentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl GenerateGroundedContentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -18116,6 +19174,7 @@ impl GenerateGroundedContentRequest {
     }
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl wkt::message::Message for GenerateGroundedContentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentRequest"
@@ -18123,11 +19182,13 @@ impl wkt::message::Message for GenerateGroundedContentRequest {
 }
 
 /// Defines additional types related to [GenerateGroundedContentRequest].
+#[cfg(feature = "grounded-generation-service")]
 pub mod generate_grounded_content_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Content generation specification.
+    #[cfg(feature = "grounded-generation-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -18183,6 +19244,7 @@ pub mod generate_grounded_content_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl GenerationSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -18330,6 +19392,7 @@ pub mod generate_grounded_content_request {
         }
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl wkt::message::Message for GenerationSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentRequest.GenerationSpec"
@@ -18337,6 +19400,7 @@ pub mod generate_grounded_content_request {
     }
 
     /// Describes the options to customize dynamic retrieval.
+    #[cfg(feature = "grounded-generation-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -18351,6 +19415,7 @@ pub mod generate_grounded_content_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl DynamicRetrievalConfiguration {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -18373,6 +19438,7 @@ pub mod generate_grounded_content_request {
         }
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl wkt::message::Message for DynamicRetrievalConfiguration {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentRequest.DynamicRetrievalConfiguration"
@@ -18380,11 +19446,13 @@ pub mod generate_grounded_content_request {
     }
 
     /// Defines additional types related to [DynamicRetrievalConfiguration].
+    #[cfg(feature = "grounded-generation-service")]
     pub mod dynamic_retrieval_configuration {
         #[allow(unused_imports)]
         use super::*;
 
         /// Describes the predictor settings for dynamic retrieval.
+        #[cfg(feature = "grounded-generation-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -18406,6 +19474,7 @@ pub mod generate_grounded_content_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "grounded-generation-service")]
         impl DynamicRetrievalPredictor {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -18436,6 +19505,7 @@ pub mod generate_grounded_content_request {
             }
         }
 
+        #[cfg(feature = "grounded-generation-service")]
         impl wkt::message::Message for DynamicRetrievalPredictor {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentRequest.DynamicRetrievalConfiguration.DynamicRetrievalPredictor"
@@ -18443,6 +19513,7 @@ pub mod generate_grounded_content_request {
         }
 
         /// Defines additional types related to [DynamicRetrievalPredictor].
+        #[cfg(feature = "grounded-generation-service")]
         pub mod dynamic_retrieval_predictor {
             #[allow(unused_imports)]
             use super::*;
@@ -18462,6 +19533,7 @@ pub mod generate_grounded_content_request {
             /// guidelines.
             ///
             /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(feature = "grounded-generation-service")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum Version {
@@ -18477,6 +19549,7 @@ pub mod generate_grounded_content_request {
             }
 
             #[doc(hidden)]
+            #[cfg(feature = "grounded-generation-service")]
             pub mod version {
                 #[allow(unused_imports)]
                 use super::*;
@@ -18484,6 +19557,7 @@ pub mod generate_grounded_content_request {
                 pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl Version {
                 /// Gets the enum value.
                 ///
@@ -18510,6 +19584,7 @@ pub mod generate_grounded_content_request {
                 }
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl std::default::Default for Version {
                 fn default() -> Self {
                     use std::convert::From;
@@ -18517,6 +19592,7 @@ pub mod generate_grounded_content_request {
                 }
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl std::fmt::Display for Version {
                 fn fmt(
                     &self,
@@ -18526,6 +19602,7 @@ pub mod generate_grounded_content_request {
                 }
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl std::convert::From<i32> for Version {
                 fn from(value: i32) -> Self {
                     match value {
@@ -18538,6 +19615,7 @@ pub mod generate_grounded_content_request {
                 }
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl std::convert::From<&str> for Version {
                 fn from(value: &str) -> Self {
                     use std::string::ToString;
@@ -18551,6 +19629,7 @@ pub mod generate_grounded_content_request {
                 }
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl serde::ser::Serialize for Version {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -18564,6 +19643,7 @@ pub mod generate_grounded_content_request {
                 }
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl<'de> serde::de::Deserialize<'de> for Version {
                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                 where
@@ -18577,6 +19657,7 @@ pub mod generate_grounded_content_request {
     }
 
     /// Grounding source.
+    #[cfg(feature = "grounded-generation-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -18592,6 +19673,7 @@ pub mod generate_grounded_content_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl GroundingSource {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -18728,6 +19810,7 @@ pub mod generate_grounded_content_request {
         }
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl wkt::message::Message for GroundingSource {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentRequest.GroundingSource"
@@ -18735,11 +19818,13 @@ pub mod generate_grounded_content_request {
     }
 
     /// Defines additional types related to [GroundingSource].
+    #[cfg(feature = "grounded-generation-service")]
     pub mod grounding_source {
         #[allow(unused_imports)]
         use super::*;
 
         /// Message to be used for grounding based on inline content.
+        #[cfg(feature = "grounded-generation-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -18762,6 +19847,7 @@ pub mod generate_grounded_content_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "grounded-generation-service")]
         impl InlineSource {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -18791,6 +19877,7 @@ pub mod generate_grounded_content_request {
             }
         }
 
+        #[cfg(feature = "grounded-generation-service")]
         impl wkt::message::Message for InlineSource {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentRequest.GroundingSource.InlineSource"
@@ -18798,6 +19885,7 @@ pub mod generate_grounded_content_request {
         }
 
         /// Message to be used for grounding with Vertex AI Search.
+        #[cfg(feature = "grounded-generation-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -18837,6 +19925,7 @@ pub mod generate_grounded_content_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "grounded-generation-service")]
         impl SearchSource {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -18870,6 +19959,7 @@ pub mod generate_grounded_content_request {
             }
         }
 
+        #[cfg(feature = "grounded-generation-service")]
         impl wkt::message::Message for SearchSource {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentRequest.GroundingSource.SearchSource"
@@ -18877,6 +19967,7 @@ pub mod generate_grounded_content_request {
         }
 
         /// Google Search config parameters.
+        #[cfg(feature = "grounded-generation-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -18893,6 +19984,7 @@ pub mod generate_grounded_content_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "grounded-generation-service")]
         impl GoogleSearchSource {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -18915,6 +20007,7 @@ pub mod generate_grounded_content_request {
             }
         }
 
+        #[cfg(feature = "grounded-generation-service")]
         impl wkt::message::Message for GoogleSearchSource {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentRequest.GroundingSource.GoogleSearchSource"
@@ -18922,6 +20015,7 @@ pub mod generate_grounded_content_request {
         }
 
         /// Params for using enterprise web retrieval as grounding source.
+        #[cfg(feature = "grounded-generation-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -18931,12 +20025,14 @@ pub mod generate_grounded_content_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "grounded-generation-service")]
         impl EnterpriseWebRetrievalSource {
             pub fn new() -> Self {
                 std::default::Default::default()
             }
         }
 
+        #[cfg(feature = "grounded-generation-service")]
         impl wkt::message::Message for EnterpriseWebRetrievalSource {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentRequest.GroundingSource.EnterpriseWebRetrievalSource"
@@ -18944,6 +20040,7 @@ pub mod generate_grounded_content_request {
         }
 
         /// Sources.
+        #[cfg(feature = "grounded-generation-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -18961,6 +20058,7 @@ pub mod generate_grounded_content_request {
     }
 
     /// Grounding specification.
+    #[cfg(feature = "grounded-generation-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -18976,6 +20074,7 @@ pub mod generate_grounded_content_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl GroundingSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -18993,6 +20092,7 @@ pub mod generate_grounded_content_request {
         }
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl wkt::message::Message for GroundingSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentRequest.GroundingSpec"
@@ -19001,6 +20101,7 @@ pub mod generate_grounded_content_request {
 }
 
 /// Response for the `GenerateGroundedContent` method.
+#[cfg(feature = "grounded-generation-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -19015,6 +20116,7 @@ pub struct GenerateGroundedContentResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl GenerateGroundedContentResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -19032,6 +20134,7 @@ impl GenerateGroundedContentResponse {
     }
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl wkt::message::Message for GenerateGroundedContentResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse"
@@ -19039,11 +20142,13 @@ impl wkt::message::Message for GenerateGroundedContentResponse {
 }
 
 /// Defines additional types related to [GenerateGroundedContentResponse].
+#[cfg(feature = "grounded-generation-service")]
 pub mod generate_grounded_content_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// A response candidate generated from the model.
+    #[cfg(feature = "grounded-generation-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -19073,6 +20178,7 @@ pub mod generate_grounded_content_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl Candidate {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -19143,6 +20249,7 @@ pub mod generate_grounded_content_response {
         }
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl wkt::message::Message for Candidate {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate"
@@ -19150,11 +20257,13 @@ pub mod generate_grounded_content_response {
     }
 
     /// Defines additional types related to [Candidate].
+    #[cfg(feature = "grounded-generation-service")]
     pub mod candidate {
         #[allow(unused_imports)]
         use super::*;
 
         /// Citation for the generated content.
+        #[cfg(feature = "grounded-generation-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -19200,6 +20309,7 @@ pub mod generate_grounded_content_response {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "grounded-generation-service")]
         impl GroundingMetadata {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -19277,6 +20387,7 @@ pub mod generate_grounded_content_response {
             }
         }
 
+        #[cfg(feature = "grounded-generation-service")]
         impl wkt::message::Message for GroundingMetadata {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate.GroundingMetadata"
@@ -19284,11 +20395,13 @@ pub mod generate_grounded_content_response {
         }
 
         /// Defines additional types related to [GroundingMetadata].
+        #[cfg(feature = "grounded-generation-service")]
         pub mod grounding_metadata {
             #[allow(unused_imports)]
             use super::*;
 
             /// Describes the metadata associated with a retrieval step.
+            #[cfg(feature = "grounded-generation-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -19308,6 +20421,7 @@ pub mod generate_grounded_content_response {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl RetrievalMetadata {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -19336,6 +20450,7 @@ pub mod generate_grounded_content_response {
                 }
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl wkt::message::Message for RetrievalMetadata {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate.GroundingMetadata.RetrievalMetadata"
@@ -19343,6 +20458,7 @@ pub mod generate_grounded_content_response {
             }
 
             /// Defines additional types related to [RetrievalMetadata].
+            #[cfg(feature = "grounded-generation-service")]
             pub mod retrieval_metadata {
                 #[allow(unused_imports)]
                 use super::*;
@@ -19362,6 +20478,7 @@ pub mod generate_grounded_content_response {
                 /// guidelines.
                 ///
                 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                #[cfg(feature = "grounded-generation-service")]
                 #[derive(Clone, Debug, PartialEq)]
                 #[non_exhaustive]
                 pub enum Source {
@@ -19383,6 +20500,7 @@ pub mod generate_grounded_content_response {
                 }
 
                 #[doc(hidden)]
+                #[cfg(feature = "grounded-generation-service")]
                 pub mod source {
                     #[allow(unused_imports)]
                     use super::*;
@@ -19390,6 +20508,7 @@ pub mod generate_grounded_content_response {
                     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl Source {
                     /// Gets the enum value.
                     ///
@@ -19422,6 +20541,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl std::default::Default for Source {
                     fn default() -> Self {
                         use std::convert::From;
@@ -19429,6 +20549,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl std::fmt::Display for Source {
                     fn fmt(
                         &self,
@@ -19438,6 +20559,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl std::convert::From<i32> for Source {
                     fn from(value: i32) -> Self {
                         match value {
@@ -19453,6 +20575,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl std::convert::From<&str> for Source {
                     fn from(value: &str) -> Self {
                         use std::string::ToString;
@@ -19469,6 +20592,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl serde::ser::Serialize for Source {
                     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                     where
@@ -19485,6 +20609,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl<'de> serde::de::Deserialize<'de> for Source {
                     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                     where
@@ -19497,6 +20622,7 @@ pub mod generate_grounded_content_response {
             }
 
             /// Describes the metadata about dynamic retrieval.
+            #[cfg(feature = "grounded-generation-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -19511,6 +20637,7 @@ pub mod generate_grounded_content_response {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl DynamicRetrievalMetadata {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -19533,6 +20660,7 @@ pub mod generate_grounded_content_response {
                 }
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl wkt::message::Message for DynamicRetrievalMetadata {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate.GroundingMetadata.DynamicRetrievalMetadata"
@@ -19540,6 +20668,7 @@ pub mod generate_grounded_content_response {
             }
 
             /// Describes the metadata about the dynamic retrieval predictor.
+            #[cfg(feature = "grounded-generation-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -19564,6 +20693,7 @@ pub mod generate_grounded_content_response {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl DynamicRetrievalPredictorMetadata {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -19594,6 +20724,7 @@ pub mod generate_grounded_content_response {
                 }
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl wkt::message::Message for DynamicRetrievalPredictorMetadata {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate.GroundingMetadata.DynamicRetrievalPredictorMetadata"
@@ -19601,6 +20732,7 @@ pub mod generate_grounded_content_response {
             }
 
             /// Defines additional types related to [DynamicRetrievalPredictorMetadata].
+            #[cfg(feature = "grounded-generation-service")]
             pub mod dynamic_retrieval_predictor_metadata {
                 #[allow(unused_imports)]
                 use super::*;
@@ -19620,6 +20752,7 @@ pub mod generate_grounded_content_response {
                 /// guidelines.
                 ///
                 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                #[cfg(feature = "grounded-generation-service")]
                 #[derive(Clone, Debug, PartialEq)]
                 #[non_exhaustive]
                 pub enum Version {
@@ -19635,6 +20768,7 @@ pub mod generate_grounded_content_response {
                 }
 
                 #[doc(hidden)]
+                #[cfg(feature = "grounded-generation-service")]
                 pub mod version {
                     #[allow(unused_imports)]
                     use super::*;
@@ -19642,6 +20776,7 @@ pub mod generate_grounded_content_response {
                     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl Version {
                     /// Gets the enum value.
                     ///
@@ -19668,6 +20803,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl std::default::Default for Version {
                     fn default() -> Self {
                         use std::convert::From;
@@ -19675,6 +20811,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl std::fmt::Display for Version {
                     fn fmt(
                         &self,
@@ -19684,6 +20821,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl std::convert::From<i32> for Version {
                     fn from(value: i32) -> Self {
                         match value {
@@ -19696,6 +20834,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl std::convert::From<&str> for Version {
                     fn from(value: &str) -> Self {
                         use std::string::ToString;
@@ -19709,6 +20848,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl serde::ser::Serialize for Version {
                     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                     where
@@ -19722,6 +20862,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl<'de> serde::de::Deserialize<'de> for Version {
                     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                     where
@@ -19734,6 +20875,7 @@ pub mod generate_grounded_content_response {
             }
 
             /// Google search entry point.
+            #[cfg(feature = "grounded-generation-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -19755,6 +20897,7 @@ pub mod generate_grounded_content_response {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl SearchEntryPoint {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -19776,6 +20919,7 @@ pub mod generate_grounded_content_response {
                 }
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl wkt::message::Message for SearchEntryPoint {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate.GroundingMetadata.SearchEntryPoint"
@@ -19783,6 +20927,7 @@ pub mod generate_grounded_content_response {
             }
 
             /// Grounding info for a claim in the candidate and its support.
+            #[cfg(feature = "grounded-generation-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -19813,6 +20958,7 @@ pub mod generate_grounded_content_response {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl GroundingSupport {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -19857,6 +21003,7 @@ pub mod generate_grounded_content_response {
                 }
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl wkt::message::Message for GroundingSupport {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate.GroundingMetadata.GroundingSupport"
@@ -19864,6 +21011,7 @@ pub mod generate_grounded_content_response {
             }
 
             /// Metadata about an image from the web search.
+            #[cfg(feature = "grounded-generation-service")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -19886,6 +21034,7 @@ pub mod generate_grounded_content_response {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl ImageMetadata {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -19940,6 +21089,7 @@ pub mod generate_grounded_content_response {
                 }
             }
 
+            #[cfg(feature = "grounded-generation-service")]
             impl wkt::message::Message for ImageMetadata {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate.GroundingMetadata.ImageMetadata"
@@ -19947,11 +21097,13 @@ pub mod generate_grounded_content_response {
             }
 
             /// Defines additional types related to [ImageMetadata].
+            #[cfg(feature = "grounded-generation-service")]
             pub mod image_metadata {
                 #[allow(unused_imports)]
                 use super::*;
 
                 /// Metadata about the website that the image is from.
+                #[cfg(feature = "grounded-generation-service")]
                 #[serde_with::serde_as]
                 #[derive(
                     Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
@@ -19973,6 +21125,7 @@ pub mod generate_grounded_content_response {
                     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl WebsiteInfo {
                     pub fn new() -> Self {
                         std::default::Default::default()
@@ -19997,6 +21150,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl wkt::message::Message for WebsiteInfo {
                     fn typename() -> &'static str {
                         "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate.GroundingMetadata.ImageMetadata.WebsiteInfo"
@@ -20004,6 +21158,7 @@ pub mod generate_grounded_content_response {
                 }
 
                 /// Metadata about the image.
+                #[cfg(feature = "grounded-generation-service")]
                 #[serde_with::serde_as]
                 #[derive(
                     Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
@@ -20030,6 +21185,7 @@ pub mod generate_grounded_content_response {
                     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl Image {
                     pub fn new() -> Self {
                         std::default::Default::default()
@@ -20057,6 +21213,7 @@ pub mod generate_grounded_content_response {
                     }
                 }
 
+                #[cfg(feature = "grounded-generation-service")]
                 impl wkt::message::Message for Image {
                     fn typename() -> &'static str {
                         "type.googleapis.com/google.cloud.discoveryengine.v1.GenerateGroundedContentResponse.Candidate.GroundingMetadata.ImageMetadata.Image"
@@ -20068,6 +21225,7 @@ pub mod generate_grounded_content_response {
 }
 
 /// Specification for the grounding check.
+#[cfg(feature = "grounded-generation-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -20090,6 +21248,7 @@ pub struct CheckGroundingSpec {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl CheckGroundingSpec {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -20132,6 +21291,7 @@ impl CheckGroundingSpec {
     }
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl wkt::message::Message for CheckGroundingSpec {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CheckGroundingSpec"
@@ -20143,6 +21303,7 @@ impl wkt::message::Message for CheckGroundingSpec {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.GroundedGenerationService.CheckGrounding]: crate::client::GroundedGenerationService::check_grounding
+#[cfg(feature = "grounded-generation-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -20194,6 +21355,7 @@ pub struct CheckGroundingRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl CheckGroundingRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -20259,6 +21421,7 @@ impl CheckGroundingRequest {
     }
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl wkt::message::Message for CheckGroundingRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CheckGroundingRequest"
@@ -20270,6 +21433,7 @@ impl wkt::message::Message for CheckGroundingRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.GroundedGenerationService.CheckGrounding]: crate::client::GroundedGenerationService::check_grounding
+#[cfg(feature = "grounded-generation-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -20303,6 +21467,7 @@ pub struct CheckGroundingResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl CheckGroundingResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -20360,6 +21525,7 @@ impl CheckGroundingResponse {
     }
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl wkt::message::Message for CheckGroundingResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CheckGroundingResponse"
@@ -20367,11 +21533,13 @@ impl wkt::message::Message for CheckGroundingResponse {
 }
 
 /// Defines additional types related to [CheckGroundingResponse].
+#[cfg(feature = "grounded-generation-service")]
 pub mod check_grounding_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Fact chunk for grounding check.
+    #[cfg(feature = "grounded-generation-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -20386,6 +21554,7 @@ pub mod check_grounding_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl CheckGroundingFactChunk {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -20398,6 +21567,7 @@ pub mod check_grounding_response {
         }
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl wkt::message::Message for CheckGroundingFactChunk {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.CheckGroundingResponse.CheckGroundingFactChunk"
@@ -20405,6 +21575,7 @@ pub mod check_grounding_response {
     }
 
     /// Text and citation info for a claim in the answer candidate.
+    #[cfg(feature = "grounded-generation-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -20469,6 +21640,7 @@ pub mod check_grounding_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl Claim {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -20564,6 +21736,7 @@ pub mod check_grounding_response {
         }
     }
 
+    #[cfg(feature = "grounded-generation-service")]
     impl wkt::message::Message for Claim {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.CheckGroundingResponse.Claim"
@@ -20572,6 +21745,7 @@ pub mod check_grounding_response {
 }
 
 /// Grounding Fact.
+#[cfg(feature = "grounded-generation-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -20593,6 +21767,7 @@ pub struct GroundingFact {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl GroundingFact {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -20617,6 +21792,7 @@ impl GroundingFact {
     }
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl wkt::message::Message for GroundingFact {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GroundingFact"
@@ -20624,6 +21800,7 @@ impl wkt::message::Message for GroundingFact {
 }
 
 /// Fact Chunk.
+#[cfg(feature = "grounded-generation-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -20671,6 +21848,7 @@ pub struct FactChunk {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl FactChunk {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -20725,6 +21903,7 @@ impl FactChunk {
     }
 }
 
+#[cfg(feature = "grounded-generation-service")]
 impl wkt::message::Message for FactChunk {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.FactChunk"
@@ -20732,6 +21911,7 @@ impl wkt::message::Message for FactChunk {
 }
 
 /// Identity Mapping Store which contains Identity Mapping Entries.
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -20766,6 +21946,7 @@ pub struct IdentityMappingStore {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl IdentityMappingStore {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -20802,6 +21983,7 @@ impl IdentityMappingStore {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for IdentityMappingStore {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.IdentityMappingStore"
@@ -20810,6 +21992,7 @@ impl wkt::message::Message for IdentityMappingStore {
 
 /// Identity Mapping Entry that maps an external identity to an internal
 /// identity.
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -20831,6 +22014,7 @@ pub struct IdentityMappingEntry {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl IdentityMappingEntry {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -20912,6 +22096,7 @@ impl IdentityMappingEntry {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for IdentityMappingEntry {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.IdentityMappingEntry"
@@ -20919,12 +22104,14 @@ impl wkt::message::Message for IdentityMappingEntry {
 }
 
 /// Defines additional types related to [IdentityMappingEntry].
+#[cfg(feature = "identity-mapping-store-service")]
 pub mod identity_mapping_entry {
     #[allow(unused_imports)]
     use super::*;
 
     /// Union field identity_provider_id. Identity Provider id can be a user or a
     /// group.
+    #[cfg(feature = "identity-mapping-store-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -20949,6 +22136,7 @@ pub mod identity_mapping_entry {
 /// [IdentityMappingStoreService.CreateIdentityMappingStore][google.cloud.discoveryengine.v1.IdentityMappingStoreService.CreateIdentityMappingStore]
 ///
 /// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.CreateIdentityMappingStore]: crate::client::IdentityMappingStoreService::create_identity_mapping_store
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -20982,6 +22170,7 @@ pub struct CreateIdentityMappingStoreRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl CreateIdentityMappingStoreRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21094,6 +22283,7 @@ impl CreateIdentityMappingStoreRequest {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for CreateIdentityMappingStoreRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateIdentityMappingStoreRequest"
@@ -21101,12 +22291,14 @@ impl wkt::message::Message for CreateIdentityMappingStoreRequest {
 }
 
 /// Defines additional types related to [CreateIdentityMappingStoreRequest].
+#[cfg(feature = "identity-mapping-store-service")]
 pub mod create_identity_mapping_store_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// CMEK options for the Identity Mapping Store. Setting this field will
     /// override the default CmekConfig if one is set for the project.
+    #[cfg(feature = "identity-mapping-store-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -21126,6 +22318,7 @@ pub mod create_identity_mapping_store_request {
 /// [IdentityMappingStoreService.GetIdentityMappingStore][google.cloud.discoveryengine.v1.IdentityMappingStoreService.GetIdentityMappingStore]
 ///
 /// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.GetIdentityMappingStore]: crate::client::IdentityMappingStoreService::get_identity_mapping_store
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21142,6 +22335,7 @@ pub struct GetIdentityMappingStoreRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl GetIdentityMappingStoreRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21154,6 +22348,7 @@ impl GetIdentityMappingStoreRequest {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for GetIdentityMappingStoreRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GetIdentityMappingStoreRequest"
@@ -21164,6 +22359,7 @@ impl wkt::message::Message for GetIdentityMappingStoreRequest {
 /// [IdentityMappingStoreService.DeleteIdentityMappingStore][google.cloud.discoveryengine.v1.IdentityMappingStoreService.DeleteIdentityMappingStore]
 ///
 /// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.DeleteIdentityMappingStore]: crate::client::IdentityMappingStoreService::delete_identity_mapping_store
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21180,6 +22376,7 @@ pub struct DeleteIdentityMappingStoreRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl DeleteIdentityMappingStoreRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21192,6 +22389,7 @@ impl DeleteIdentityMappingStoreRequest {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for DeleteIdentityMappingStoreRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteIdentityMappingStoreRequest"
@@ -21202,6 +22400,7 @@ impl wkt::message::Message for DeleteIdentityMappingStoreRequest {
 /// [IdentityMappingStoreService.ImportIdentityMappings][google.cloud.discoveryengine.v1.IdentityMappingStoreService.ImportIdentityMappings]
 ///
 /// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ImportIdentityMappings]: crate::client::IdentityMappingStoreService::import_identity_mappings
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21222,6 +22421,7 @@ pub struct ImportIdentityMappingsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl ImportIdentityMappingsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21289,6 +22489,7 @@ impl ImportIdentityMappingsRequest {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for ImportIdentityMappingsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportIdentityMappingsRequest"
@@ -21296,11 +22497,13 @@ impl wkt::message::Message for ImportIdentityMappingsRequest {
 }
 
 /// Defines additional types related to [ImportIdentityMappingsRequest].
+#[cfg(feature = "identity-mapping-store-service")]
 pub mod import_identity_mappings_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// The inline source to import identity mapping entries from.
+    #[cfg(feature = "identity-mapping-store-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -21315,6 +22518,7 @@ pub mod import_identity_mappings_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "identity-mapping-store-service")]
     impl InlineSource {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -21332,6 +22536,7 @@ pub mod import_identity_mappings_request {
         }
     }
 
+    #[cfg(feature = "identity-mapping-store-service")]
     impl wkt::message::Message for InlineSource {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.ImportIdentityMappingsRequest.InlineSource"
@@ -21339,6 +22544,7 @@ pub mod import_identity_mappings_request {
     }
 
     /// The source of the input.
+    #[cfg(feature = "identity-mapping-store-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -21353,6 +22559,7 @@ pub mod import_identity_mappings_request {
 /// [IdentityMappingStoreService.ImportIdentityMappings][google.cloud.discoveryengine.v1.IdentityMappingStoreService.ImportIdentityMappings]
 ///
 /// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ImportIdentityMappings]: crate::client::IdentityMappingStoreService::import_identity_mappings
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21367,6 +22574,7 @@ pub struct ImportIdentityMappingsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl ImportIdentityMappingsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21384,6 +22592,7 @@ impl ImportIdentityMappingsResponse {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for ImportIdentityMappingsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportIdentityMappingsResponse"
@@ -21394,6 +22603,7 @@ impl wkt::message::Message for ImportIdentityMappingsResponse {
 /// [IdentityMappingStoreService.PurgeIdentityMappings][google.cloud.discoveryengine.v1.IdentityMappingStoreService.PurgeIdentityMappings]
 ///
 /// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.PurgeIdentityMappings]: crate::client::IdentityMappingStoreService::purge_identity_mappings
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21444,6 +22654,7 @@ pub struct PurgeIdentityMappingsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl PurgeIdentityMappingsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21535,6 +22746,7 @@ impl PurgeIdentityMappingsRequest {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for PurgeIdentityMappingsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeIdentityMappingsRequest"
@@ -21542,11 +22754,13 @@ impl wkt::message::Message for PurgeIdentityMappingsRequest {
 }
 
 /// Defines additional types related to [PurgeIdentityMappingsRequest].
+#[cfg(feature = "identity-mapping-store-service")]
 pub mod purge_identity_mappings_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// The inline source to purge identity mapping entries from.
+    #[cfg(feature = "identity-mapping-store-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -21561,6 +22775,7 @@ pub mod purge_identity_mappings_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "identity-mapping-store-service")]
     impl InlineSource {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -21578,6 +22793,7 @@ pub mod purge_identity_mappings_request {
         }
     }
 
+    #[cfg(feature = "identity-mapping-store-service")]
     impl wkt::message::Message for InlineSource {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeIdentityMappingsRequest.InlineSource"
@@ -21585,6 +22801,7 @@ pub mod purge_identity_mappings_request {
     }
 
     /// The source of the input.
+    #[cfg(feature = "identity-mapping-store-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -21599,6 +22816,7 @@ pub mod purge_identity_mappings_request {
 /// [IdentityMappingStoreService.ListIdentityMappings][google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappings]
 ///
 /// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappings]: crate::client::IdentityMappingStoreService::list_identity_mappings
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21632,6 +22850,7 @@ pub struct ListIdentityMappingsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl ListIdentityMappingsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21659,6 +22878,7 @@ impl ListIdentityMappingsRequest {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for ListIdentityMappingsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListIdentityMappingsRequest"
@@ -21669,6 +22889,7 @@ impl wkt::message::Message for ListIdentityMappingsRequest {
 /// [IdentityMappingStoreService.ListIdentityMappings][google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappings]
 ///
 /// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappings]: crate::client::IdentityMappingStoreService::list_identity_mappings
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21689,6 +22910,7 @@ pub struct ListIdentityMappingsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl ListIdentityMappingsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21712,12 +22934,14 @@ impl ListIdentityMappingsResponse {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for ListIdentityMappingsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListIdentityMappingsResponse"
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListIdentityMappingsResponse {
     type PageItem = crate::model::IdentityMappingEntry;
@@ -21736,6 +22960,7 @@ impl gax::paginator::internal::PageableResponse for ListIdentityMappingsResponse
 /// [IdentityMappingStoreService.ListIdentityMappingStores][google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappingStores]
 ///
 /// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappingStores]: crate::client::IdentityMappingStoreService::list_identity_mapping_stores
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21769,6 +22994,7 @@ pub struct ListIdentityMappingStoresRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl ListIdentityMappingStoresRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21793,6 +23019,7 @@ impl ListIdentityMappingStoresRequest {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for ListIdentityMappingStoresRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListIdentityMappingStoresRequest"
@@ -21803,6 +23030,7 @@ impl wkt::message::Message for ListIdentityMappingStoresRequest {
 /// [IdentityMappingStoreService.ListIdentityMappingStores][google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappingStores]
 ///
 /// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ListIdentityMappingStores]: crate::client::IdentityMappingStoreService::list_identity_mapping_stores
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21823,6 +23051,7 @@ pub struct ListIdentityMappingStoresResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl ListIdentityMappingStoresResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21846,12 +23075,14 @@ impl ListIdentityMappingStoresResponse {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for ListIdentityMappingStoresResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListIdentityMappingStoresResponse"
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListIdentityMappingStoresResponse {
     type PageItem = crate::model::IdentityMappingStore;
@@ -21873,6 +23104,7 @@ impl gax::paginator::internal::PageableResponse for ListIdentityMappingStoresRes
 ///
 /// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.ImportIdentityMappings]: crate::client::IdentityMappingStoreService::import_identity_mappings
 /// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.PurgeIdentityMappings]: crate::client::IdentityMappingStoreService::purge_identity_mappings
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21897,6 +23129,7 @@ pub struct IdentityMappingEntryOperationMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl IdentityMappingEntryOperationMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21921,6 +23154,7 @@ impl IdentityMappingEntryOperationMetadata {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for IdentityMappingEntryOperationMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.IdentityMappingEntryOperationMetadata"
@@ -21933,6 +23167,7 @@ impl wkt::message::Message for IdentityMappingEntryOperationMetadata {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.IdentityMappingStoreService.DeleteIdentityMappingStore]: crate::client::IdentityMappingStoreService::delete_identity_mapping_store
+#[cfg(feature = "identity-mapping-store-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21951,6 +23186,7 @@ pub struct DeleteIdentityMappingStoreMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl DeleteIdentityMappingStoreMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21993,6 +23229,7 @@ impl DeleteIdentityMappingStoreMetadata {
     }
 }
 
+#[cfg(feature = "identity-mapping-store-service")]
 impl wkt::message::Message for DeleteIdentityMappingStoreMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteIdentityMappingStoreMetadata"
@@ -22000,6 +23237,11 @@ impl wkt::message::Message for DeleteIdentityMappingStoreMetadata {
 }
 
 /// Cloud Storage location for input content.
+#[cfg(any(
+    feature = "completion-service",
+    feature = "document-service",
+    feature = "user-event-service",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -22053,6 +23295,11 @@ pub struct GcsSource {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "completion-service",
+    feature = "document-service",
+    feature = "user-event-service",
+))]
 impl GcsSource {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -22076,6 +23323,11 @@ impl GcsSource {
     }
 }
 
+#[cfg(any(
+    feature = "completion-service",
+    feature = "document-service",
+    feature = "user-event-service",
+))]
 impl wkt::message::Message for GcsSource {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GcsSource"
@@ -22083,6 +23335,11 @@ impl wkt::message::Message for GcsSource {
 }
 
 /// BigQuery source import data from.
+#[cfg(any(
+    feature = "completion-service",
+    feature = "document-service",
+    feature = "user-event-service",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -22153,6 +23410,11 @@ pub struct BigQuerySource {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "completion-service",
+    feature = "document-service",
+    feature = "user-event-service",
+))]
 impl BigQuerySource {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -22231,6 +23493,11 @@ impl BigQuerySource {
     }
 }
 
+#[cfg(any(
+    feature = "completion-service",
+    feature = "document-service",
+    feature = "user-event-service",
+))]
 impl wkt::message::Message for BigQuerySource {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BigQuerySource"
@@ -22238,12 +23505,22 @@ impl wkt::message::Message for BigQuerySource {
 }
 
 /// Defines additional types related to [BigQuerySource].
+#[cfg(any(
+    feature = "completion-service",
+    feature = "document-service",
+    feature = "user-event-service",
+))]
 pub mod big_query_source {
     #[allow(unused_imports)]
     use super::*;
 
     /// BigQuery table partition info. Leave this empty if the BigQuery table
     /// is not partitioned.
+    #[cfg(any(
+        feature = "completion-service",
+        feature = "document-service",
+        feature = "user-event-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -22255,6 +23532,7 @@ pub mod big_query_source {
 }
 
 /// The Spanner source for importing data
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -22293,6 +23571,7 @@ pub struct SpannerSource {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl SpannerSource {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -22329,6 +23608,7 @@ impl SpannerSource {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for SpannerSource {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.SpannerSource"
@@ -22337,6 +23617,7 @@ impl wkt::message::Message for SpannerSource {
 
 /// The Bigtable Options object that contains information to support
 /// the import.
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -22362,6 +23643,7 @@ pub struct BigtableOptions {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl BigtableOptions {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -22386,6 +23668,7 @@ impl BigtableOptions {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for BigtableOptions {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BigtableOptions"
@@ -22393,11 +23676,13 @@ impl wkt::message::Message for BigtableOptions {
 }
 
 /// Defines additional types related to [BigtableOptions].
+#[cfg(feature = "document-service")]
 pub mod bigtable_options {
     #[allow(unused_imports)]
     use super::*;
 
     /// The column family of the Bigtable.
+    #[cfg(feature = "document-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -22441,6 +23726,7 @@ pub mod bigtable_options {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "document-service")]
     impl BigtableColumnFamily {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -22482,6 +23768,7 @@ pub mod bigtable_options {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl wkt::message::Message for BigtableColumnFamily {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.BigtableOptions.BigtableColumnFamily"
@@ -22489,6 +23776,7 @@ pub mod bigtable_options {
     }
 
     /// The column of the Bigtable.
+    #[cfg(feature = "document-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -22532,6 +23820,7 @@ pub mod bigtable_options {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "document-service")]
     impl BigtableColumn {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -22568,6 +23857,7 @@ pub mod bigtable_options {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl wkt::message::Message for BigtableColumn {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.BigtableOptions.BigtableColumn"
@@ -22593,6 +23883,7 @@ pub mod bigtable_options {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "document-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
@@ -22620,6 +23911,7 @@ pub mod bigtable_options {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "document-service")]
     pub mod r#type {
         #[allow(unused_imports)]
         use super::*;
@@ -22627,6 +23919,7 @@ pub mod bigtable_options {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "document-service")]
     impl Type {
         /// Gets the enum value.
         ///
@@ -22665,6 +23958,7 @@ pub mod bigtable_options {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::default::Default for Type {
         fn default() -> Self {
             use std::convert::From;
@@ -22672,12 +23966,14 @@ pub mod bigtable_options {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::fmt::Display for Type {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::convert::From<i32> for Type {
         fn from(value: i32) -> Self {
             match value {
@@ -22696,6 +23992,7 @@ pub mod bigtable_options {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::convert::From<&str> for Type {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -22715,6 +24012,7 @@ pub mod bigtable_options {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl serde::ser::Serialize for Type {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -22734,6 +24032,7 @@ pub mod bigtable_options {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl<'de> serde::de::Deserialize<'de> for Type {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -22760,6 +24059,7 @@ pub mod bigtable_options {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "document-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Encoding {
@@ -22777,6 +24077,7 @@ pub mod bigtable_options {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "document-service")]
     pub mod encoding {
         #[allow(unused_imports)]
         use super::*;
@@ -22784,6 +24085,7 @@ pub mod bigtable_options {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "document-service")]
     impl Encoding {
         /// Gets the enum value.
         ///
@@ -22812,6 +24114,7 @@ pub mod bigtable_options {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::default::Default for Encoding {
         fn default() -> Self {
             use std::convert::From;
@@ -22819,12 +24122,14 @@ pub mod bigtable_options {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::fmt::Display for Encoding {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::convert::From<i32> for Encoding {
         fn from(value: i32) -> Self {
             match value {
@@ -22838,6 +24143,7 @@ pub mod bigtable_options {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::convert::From<&str> for Encoding {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -22852,6 +24158,7 @@ pub mod bigtable_options {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl serde::ser::Serialize for Encoding {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -22866,6 +24173,7 @@ pub mod bigtable_options {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl<'de> serde::de::Deserialize<'de> for Encoding {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -22879,6 +24187,7 @@ pub mod bigtable_options {
 }
 
 /// The Cloud Bigtable source for importing data.
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -22910,6 +24219,7 @@ pub struct BigtableSource {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl BigtableSource {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -22952,6 +24262,7 @@ impl BigtableSource {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for BigtableSource {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BigtableSource"
@@ -22959,6 +24270,7 @@ impl wkt::message::Message for BigtableSource {
 }
 
 /// Cloud FhirStore source import data from.
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23003,6 +24315,7 @@ pub struct FhirStoreSource {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl FhirStoreSource {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23041,6 +24354,7 @@ impl FhirStoreSource {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for FhirStoreSource {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.FhirStoreSource"
@@ -23048,6 +24362,7 @@ impl wkt::message::Message for FhirStoreSource {
 }
 
 /// Cloud SQL source import data from.
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23099,6 +24414,7 @@ pub struct CloudSqlSource {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl CloudSqlSource {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23141,6 +24457,7 @@ impl CloudSqlSource {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for CloudSqlSource {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CloudSqlSource"
@@ -23148,6 +24465,7 @@ impl wkt::message::Message for CloudSqlSource {
 }
 
 /// AlloyDB source import data from.
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23198,6 +24516,7 @@ pub struct AlloyDbSource {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl AlloyDbSource {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23240,6 +24559,7 @@ impl AlloyDbSource {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for AlloyDbSource {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.AlloyDbSource"
@@ -23247,6 +24567,7 @@ impl wkt::message::Message for AlloyDbSource {
 }
 
 /// Firestore source import data from.
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23285,6 +24606,7 @@ pub struct FirestoreSource {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl FirestoreSource {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23315,6 +24637,7 @@ impl FirestoreSource {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for FirestoreSource {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.FirestoreSource"
@@ -23322,6 +24645,12 @@ impl wkt::message::Message for FirestoreSource {
 }
 
 /// Configuration of destination for Import related errors.
+#[cfg(any(
+    feature = "completion-service",
+    feature = "document-service",
+    feature = "search-tuning-service",
+    feature = "user-event-service",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23335,6 +24664,12 @@ pub struct ImportErrorConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "completion-service",
+    feature = "document-service",
+    feature = "search-tuning-service",
+    feature = "user-event-service",
+))]
 impl ImportErrorConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23380,6 +24715,12 @@ impl ImportErrorConfig {
     }
 }
 
+#[cfg(any(
+    feature = "completion-service",
+    feature = "document-service",
+    feature = "search-tuning-service",
+    feature = "user-event-service",
+))]
 impl wkt::message::Message for ImportErrorConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportErrorConfig"
@@ -23387,11 +24728,23 @@ impl wkt::message::Message for ImportErrorConfig {
 }
 
 /// Defines additional types related to [ImportErrorConfig].
+#[cfg(any(
+    feature = "completion-service",
+    feature = "document-service",
+    feature = "search-tuning-service",
+    feature = "user-event-service",
+))]
 pub mod import_error_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Required. Errors destination.
+    #[cfg(any(
+        feature = "completion-service",
+        feature = "document-service",
+        feature = "search-tuning-service",
+        feature = "user-event-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -23406,6 +24759,7 @@ pub mod import_error_config {
 }
 
 /// Request message for the ImportUserEvents request.
+#[cfg(feature = "user-event-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23430,6 +24784,7 @@ pub struct ImportUserEventsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-event-service")]
 impl ImportUserEventsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23567,6 +24922,7 @@ impl ImportUserEventsRequest {
     }
 }
 
+#[cfg(feature = "user-event-service")]
 impl wkt::message::Message for ImportUserEventsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportUserEventsRequest"
@@ -23574,11 +24930,13 @@ impl wkt::message::Message for ImportUserEventsRequest {
 }
 
 /// Defines additional types related to [ImportUserEventsRequest].
+#[cfg(feature = "user-event-service")]
 pub mod import_user_events_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// The inline source for the input config for ImportUserEvents method.
+    #[cfg(feature = "user-event-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -23593,6 +24951,7 @@ pub mod import_user_events_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "user-event-service")]
     impl InlineSource {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -23610,6 +24969,7 @@ pub mod import_user_events_request {
         }
     }
 
+    #[cfg(feature = "user-event-service")]
     impl wkt::message::Message for InlineSource {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.ImportUserEventsRequest.InlineSource"
@@ -23617,6 +24977,7 @@ pub mod import_user_events_request {
     }
 
     /// Required - The desired input source of the user event data.
+    #[cfg(feature = "user-event-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -23634,6 +24995,7 @@ pub mod import_user_events_request {
 /// Response of the ImportUserEventsRequest. If the long running
 /// operation was successful, then this message is returned by the
 /// google.longrunning.Operations.response field if the operation was successful.
+#[cfg(feature = "user-event-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23664,6 +25026,7 @@ pub struct ImportUserEventsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-event-service")]
 impl ImportUserEventsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23711,6 +25074,7 @@ impl ImportUserEventsResponse {
     }
 }
 
+#[cfg(feature = "user-event-service")]
 impl wkt::message::Message for ImportUserEventsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportUserEventsResponse"
@@ -23719,6 +25083,7 @@ impl wkt::message::Message for ImportUserEventsResponse {
 
 /// Metadata related to the progress of the Import operation. This is
 /// returned by the google.longrunning.Operation.metadata field.
+#[cfg(feature = "user-event-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23747,6 +25112,7 @@ pub struct ImportUserEventsMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-event-service")]
 impl ImportUserEventsMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23801,6 +25167,7 @@ impl ImportUserEventsMetadata {
     }
 }
 
+#[cfg(feature = "user-event-service")]
 impl wkt::message::Message for ImportUserEventsMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportUserEventsMetadata"
@@ -23809,6 +25176,7 @@ impl wkt::message::Message for ImportUserEventsMetadata {
 
 /// Metadata related to the progress of the ImportDocuments operation. This is
 /// returned by the google.longrunning.Operation.metadata field.
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23842,6 +25210,7 @@ pub struct ImportDocumentsMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl ImportDocumentsMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23902,6 +25271,7 @@ impl ImportDocumentsMetadata {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for ImportDocumentsMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportDocumentsMetadata"
@@ -23909,6 +25279,7 @@ impl wkt::message::Message for ImportDocumentsMetadata {
 }
 
 /// Request message for Import methods.
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -24046,6 +25417,7 @@ pub struct ImportDocumentsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl ImportDocumentsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -24422,6 +25794,7 @@ impl ImportDocumentsRequest {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for ImportDocumentsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportDocumentsRequest"
@@ -24429,11 +25802,13 @@ impl wkt::message::Message for ImportDocumentsRequest {
 }
 
 /// Defines additional types related to [ImportDocumentsRequest].
+#[cfg(feature = "document-service")]
 pub mod import_documents_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// The inline source for the input config for ImportDocuments method.
+    #[cfg(feature = "document-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -24452,6 +25827,7 @@ pub mod import_documents_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "document-service")]
     impl InlineSource {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -24469,6 +25845,7 @@ pub mod import_documents_request {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl wkt::message::Message for InlineSource {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.ImportDocumentsRequest.InlineSource"
@@ -24491,6 +25868,7 @@ pub mod import_documents_request {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "document-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ReconciliationMode {
@@ -24509,6 +25887,7 @@ pub mod import_documents_request {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "document-service")]
     pub mod reconciliation_mode {
         #[allow(unused_imports)]
         use super::*;
@@ -24516,6 +25895,7 @@ pub mod import_documents_request {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "document-service")]
     impl ReconciliationMode {
         /// Gets the enum value.
         ///
@@ -24544,6 +25924,7 @@ pub mod import_documents_request {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::default::Default for ReconciliationMode {
         fn default() -> Self {
             use std::convert::From;
@@ -24551,12 +25932,14 @@ pub mod import_documents_request {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::fmt::Display for ReconciliationMode {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::convert::From<i32> for ReconciliationMode {
         fn from(value: i32) -> Self {
             match value {
@@ -24570,6 +25953,7 @@ pub mod import_documents_request {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl std::convert::From<&str> for ReconciliationMode {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -24584,6 +25968,7 @@ pub mod import_documents_request {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl serde::ser::Serialize for ReconciliationMode {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -24598,6 +25983,7 @@ pub mod import_documents_request {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl<'de> serde::de::Deserialize<'de> for ReconciliationMode {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -24610,6 +25996,7 @@ pub mod import_documents_request {
     }
 
     /// Required. The source of the input.
+    #[cfg(feature = "document-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -24642,6 +26029,7 @@ pub mod import_documents_request {
 /// google.longrunning.Operations.response field if the operation was successful.
 ///
 /// [google.cloud.discoveryengine.v1.ImportDocumentsRequest]: crate::model::ImportDocumentsRequest
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -24660,6 +26048,7 @@ pub struct ImportDocumentsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl ImportDocumentsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -24695,6 +26084,7 @@ impl ImportDocumentsResponse {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for ImportDocumentsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportDocumentsResponse"
@@ -24706,6 +26096,7 @@ impl wkt::message::Message for ImportDocumentsResponse {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.CompletionService.ImportSuggestionDenyListEntries]: crate::client::CompletionService::import_suggestion_deny_list_entries
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -24726,6 +26117,7 @@ pub struct ImportSuggestionDenyListEntriesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl ImportSuggestionDenyListEntriesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -24824,6 +26216,7 @@ impl ImportSuggestionDenyListEntriesRequest {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for ImportSuggestionDenyListEntriesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportSuggestionDenyListEntriesRequest"
@@ -24831,11 +26224,13 @@ impl wkt::message::Message for ImportSuggestionDenyListEntriesRequest {
 }
 
 /// Defines additional types related to [ImportSuggestionDenyListEntriesRequest].
+#[cfg(feature = "completion-service")]
 pub mod import_suggestion_deny_list_entries_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// The inline source for SuggestionDenyListEntry.
+    #[cfg(feature = "completion-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -24850,6 +26245,7 @@ pub mod import_suggestion_deny_list_entries_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "completion-service")]
     impl InlineSource {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -24867,6 +26263,7 @@ pub mod import_suggestion_deny_list_entries_request {
         }
     }
 
+    #[cfg(feature = "completion-service")]
     impl wkt::message::Message for InlineSource {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.ImportSuggestionDenyListEntriesRequest.InlineSource"
@@ -24874,6 +26271,7 @@ pub mod import_suggestion_deny_list_entries_request {
     }
 
     /// The source of the updated SuggestionDenyList.
+    #[cfg(feature = "completion-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -24902,6 +26300,7 @@ pub mod import_suggestion_deny_list_entries_request {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.CompletionService.ImportSuggestionDenyListEntries]: crate::client::CompletionService::import_suggestion_deny_list_entries
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -24926,6 +26325,7 @@ pub struct ImportSuggestionDenyListEntriesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl ImportSuggestionDenyListEntriesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -24955,6 +26355,7 @@ impl ImportSuggestionDenyListEntriesResponse {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for ImportSuggestionDenyListEntriesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportSuggestionDenyListEntriesResponse"
@@ -24964,6 +26365,7 @@ impl wkt::message::Message for ImportSuggestionDenyListEntriesResponse {
 /// Metadata related to the progress of the ImportSuggestionDenyListEntries
 /// operation. This is returned by the google.longrunning.Operation.metadata
 /// field.
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -24982,6 +26384,7 @@ pub struct ImportSuggestionDenyListEntriesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl ImportSuggestionDenyListEntriesMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25024,6 +26427,7 @@ impl ImportSuggestionDenyListEntriesMetadata {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for ImportSuggestionDenyListEntriesMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportSuggestionDenyListEntriesMetadata"
@@ -25035,6 +26439,7 @@ impl wkt::message::Message for ImportSuggestionDenyListEntriesMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.CompletionService.ImportCompletionSuggestions]: crate::client::CompletionService::import_completion_suggestions
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25060,6 +26465,7 @@ pub struct ImportCompletionSuggestionsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl ImportCompletionSuggestionsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25202,6 +26608,7 @@ impl ImportCompletionSuggestionsRequest {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for ImportCompletionSuggestionsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportCompletionSuggestionsRequest"
@@ -25209,11 +26616,13 @@ impl wkt::message::Message for ImportCompletionSuggestionsRequest {
 }
 
 /// Defines additional types related to [ImportCompletionSuggestionsRequest].
+#[cfg(feature = "completion-service")]
 pub mod import_completion_suggestions_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// The inline source for CompletionSuggestions.
+    #[cfg(feature = "completion-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -25228,6 +26637,7 @@ pub mod import_completion_suggestions_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "completion-service")]
     impl InlineSource {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -25245,6 +26655,7 @@ pub mod import_completion_suggestions_request {
         }
     }
 
+    #[cfg(feature = "completion-service")]
     impl wkt::message::Message for InlineSource {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.ImportCompletionSuggestionsRequest.InlineSource"
@@ -25252,6 +26663,7 @@ pub mod import_completion_suggestions_request {
     }
 
     /// The source of the autocomplete suggestions.
+    #[cfg(feature = "completion-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -25275,6 +26687,7 @@ pub mod import_completion_suggestions_request {
 /// successful.
 ///
 /// [google.cloud.discoveryengine.v1.CompletionService.ImportCompletionSuggestions]: crate::client::CompletionService::import_completion_suggestions
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25293,6 +26706,7 @@ pub struct ImportCompletionSuggestionsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl ImportCompletionSuggestionsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25328,6 +26742,7 @@ impl ImportCompletionSuggestionsResponse {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for ImportCompletionSuggestionsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportCompletionSuggestionsResponse"
@@ -25337,6 +26752,7 @@ impl wkt::message::Message for ImportCompletionSuggestionsResponse {
 /// Metadata related to the progress of the ImportCompletionSuggestions
 /// operation. This will be returned by the google.longrunning.Operation.metadata
 /// field.
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25373,6 +26789,7 @@ pub struct ImportCompletionSuggestionsMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl ImportCompletionSuggestionsMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25427,6 +26844,7 @@ impl ImportCompletionSuggestionsMetadata {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for ImportCompletionSuggestionsMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ImportCompletionSuggestionsMetadata"
@@ -25434,6 +26852,7 @@ impl wkt::message::Message for ImportCompletionSuggestionsMetadata {
 }
 
 /// Metadata and configurations for a Google Cloud project in the service.
+#[cfg(feature = "project-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25470,6 +26889,7 @@ pub struct Project {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "project-service")]
 impl Project {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25530,6 +26950,7 @@ impl Project {
     }
 }
 
+#[cfg(feature = "project-service")]
 impl wkt::message::Message for Project {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Project"
@@ -25537,11 +26958,13 @@ impl wkt::message::Message for Project {
 }
 
 /// Defines additional types related to [Project].
+#[cfg(feature = "project-service")]
 pub mod project {
     #[allow(unused_imports)]
     use super::*;
 
     /// Metadata about the terms of service.
+    #[cfg(feature = "project-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -25589,6 +27012,7 @@ pub mod project {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "project-service")]
     impl ServiceTerms {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -25652,6 +27076,7 @@ pub mod project {
         }
     }
 
+    #[cfg(feature = "project-service")]
     impl wkt::message::Message for ServiceTerms {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Project.ServiceTerms"
@@ -25659,6 +27084,7 @@ pub mod project {
     }
 
     /// Defines additional types related to [ServiceTerms].
+    #[cfg(feature = "project-service")]
     pub mod service_terms {
         #[allow(unused_imports)]
         use super::*;
@@ -25678,6 +27104,7 @@ pub mod project {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "project-service")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum State {
@@ -25697,6 +27124,7 @@ pub mod project {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "project-service")]
         pub mod state {
             #[allow(unused_imports)]
             use super::*;
@@ -25704,6 +27132,7 @@ pub mod project {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "project-service")]
         impl State {
             /// Gets the enum value.
             ///
@@ -25734,6 +27163,7 @@ pub mod project {
             }
         }
 
+        #[cfg(feature = "project-service")]
         impl std::default::Default for State {
             fn default() -> Self {
                 use std::convert::From;
@@ -25741,6 +27171,7 @@ pub mod project {
             }
         }
 
+        #[cfg(feature = "project-service")]
         impl std::fmt::Display for State {
             fn fmt(
                 &self,
@@ -25750,6 +27181,7 @@ pub mod project {
             }
         }
 
+        #[cfg(feature = "project-service")]
         impl std::convert::From<i32> for State {
             fn from(value: i32) -> Self {
                 match value {
@@ -25764,6 +27196,7 @@ pub mod project {
             }
         }
 
+        #[cfg(feature = "project-service")]
         impl std::convert::From<&str> for State {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -25779,6 +27212,7 @@ pub mod project {
             }
         }
 
+        #[cfg(feature = "project-service")]
         impl serde::ser::Serialize for State {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -25794,6 +27228,7 @@ pub mod project {
             }
         }
 
+        #[cfg(feature = "project-service")]
         impl<'de> serde::de::Deserialize<'de> for State {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -25812,6 +27247,7 @@ pub mod project {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.ProjectService.ProvisionProject]: crate::client::ProjectService::provision_project
+#[cfg(feature = "project-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25846,6 +27282,7 @@ pub struct ProvisionProjectRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "project-service")]
 impl ProvisionProjectRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25873,6 +27310,7 @@ impl ProvisionProjectRequest {
     }
 }
 
+#[cfg(feature = "project-service")]
 impl wkt::message::Message for ProvisionProjectRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ProvisionProjectRequest"
@@ -25880,6 +27318,7 @@ impl wkt::message::Message for ProvisionProjectRequest {
 }
 
 /// Metadata associated with a project provision operation.
+#[cfg(feature = "project-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25889,12 +27328,14 @@ pub struct ProvisionProjectMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "project-service")]
 impl ProvisionProjectMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
     }
 }
 
+#[cfg(feature = "project-service")]
 impl wkt::message::Message for ProvisionProjectMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ProvisionProjectMetadata"
@@ -25902,6 +27343,7 @@ impl wkt::message::Message for ProvisionProjectMetadata {
 }
 
 /// Request message for PurgeUserEvents method.
+#[cfg(feature = "user-event-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25963,6 +27405,7 @@ pub struct PurgeUserEventsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-event-service")]
 impl PurgeUserEventsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25987,6 +27430,7 @@ impl PurgeUserEventsRequest {
     }
 }
 
+#[cfg(feature = "user-event-service")]
 impl wkt::message::Message for PurgeUserEventsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeUserEventsRequest"
@@ -25996,6 +27440,7 @@ impl wkt::message::Message for PurgeUserEventsRequest {
 /// Response of the PurgeUserEventsRequest. If the long running operation is
 /// successfully done, then this message is returned by the
 /// google.longrunning.Operations.response field.
+#[cfg(feature = "user-event-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26010,6 +27455,7 @@ pub struct PurgeUserEventsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-event-service")]
 impl PurgeUserEventsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26022,6 +27468,7 @@ impl PurgeUserEventsResponse {
     }
 }
 
+#[cfg(feature = "user-event-service")]
 impl wkt::message::Message for PurgeUserEventsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeUserEventsResponse"
@@ -26030,6 +27477,7 @@ impl wkt::message::Message for PurgeUserEventsResponse {
 
 /// Metadata related to the progress of the PurgeUserEvents operation.
 /// This will be returned by the google.longrunning.Operation.metadata field.
+#[cfg(feature = "user-event-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26058,6 +27506,7 @@ pub struct PurgeUserEventsMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-event-service")]
 impl PurgeUserEventsMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26112,6 +27561,7 @@ impl PurgeUserEventsMetadata {
     }
 }
 
+#[cfg(feature = "user-event-service")]
 impl wkt::message::Message for PurgeUserEventsMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeUserEventsMetadata"
@@ -26119,6 +27569,7 @@ impl wkt::message::Message for PurgeUserEventsMetadata {
 }
 
 /// Configuration of destination for Purge related errors.
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26132,6 +27583,7 @@ pub struct PurgeErrorConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl PurgeErrorConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26177,6 +27629,7 @@ impl PurgeErrorConfig {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for PurgeErrorConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeErrorConfig"
@@ -26184,11 +27637,13 @@ impl wkt::message::Message for PurgeErrorConfig {
 }
 
 /// Defines additional types related to [PurgeErrorConfig].
+#[cfg(feature = "document-service")]
 pub mod purge_error_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// Required. Errors destination.
+    #[cfg(feature = "document-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -26207,6 +27662,7 @@ pub mod purge_error_config {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.DocumentService.PurgeDocuments]: crate::client::DocumentService::purge_documents
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26243,6 +27699,7 @@ pub struct PurgeDocumentsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl PurgeDocumentsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26360,6 +27817,7 @@ impl PurgeDocumentsRequest {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for PurgeDocumentsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeDocumentsRequest"
@@ -26367,6 +27825,7 @@ impl wkt::message::Message for PurgeDocumentsRequest {
 }
 
 /// Defines additional types related to [PurgeDocumentsRequest].
+#[cfg(feature = "document-service")]
 pub mod purge_documents_request {
     #[allow(unused_imports)]
     use super::*;
@@ -26376,6 +27835,7 @@ pub mod purge_documents_request {
     /// method.
     ///
     /// [google.cloud.discoveryengine.v1.DocumentService.PurgeDocuments]: crate::client::DocumentService::purge_documents
+    #[cfg(feature = "document-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -26393,6 +27853,7 @@ pub mod purge_documents_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "document-service")]
     impl InlineSource {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -26410,6 +27871,7 @@ pub mod purge_documents_request {
         }
     }
 
+    #[cfg(feature = "document-service")]
     impl wkt::message::Message for InlineSource {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeDocumentsRequest.InlineSource"
@@ -26417,6 +27879,7 @@ pub mod purge_documents_request {
     }
 
     /// The desired input source for the purging documents based on document IDs.
+    #[cfg(feature = "document-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -26441,6 +27904,7 @@ pub mod purge_documents_request {
 /// is returned by the google.longrunning.Operations.response field.
 ///
 /// [google.cloud.discoveryengine.v1.DocumentService.PurgeDocuments]: crate::client::DocumentService::purge_documents
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26462,6 +27926,7 @@ pub struct PurgeDocumentsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl PurgeDocumentsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26485,6 +27950,7 @@ impl PurgeDocumentsResponse {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for PurgeDocumentsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeDocumentsResponse"
@@ -26493,6 +27959,7 @@ impl wkt::message::Message for PurgeDocumentsResponse {
 
 /// Metadata related to the progress of the PurgeDocuments operation.
 /// This will be returned by the google.longrunning.Operation.metadata field.
+#[cfg(feature = "document-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26526,6 +27993,7 @@ pub struct PurgeDocumentsMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "document-service")]
 impl PurgeDocumentsMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26586,6 +28054,7 @@ impl PurgeDocumentsMetadata {
     }
 }
 
+#[cfg(feature = "document-service")]
 impl wkt::message::Message for PurgeDocumentsMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeDocumentsMetadata"
@@ -26597,6 +28066,7 @@ impl wkt::message::Message for PurgeDocumentsMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.CompletionService.PurgeSuggestionDenyListEntries]: crate::client::CompletionService::purge_suggestion_deny_list_entries
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26612,6 +28082,7 @@ pub struct PurgeSuggestionDenyListEntriesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl PurgeSuggestionDenyListEntriesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26624,6 +28095,7 @@ impl PurgeSuggestionDenyListEntriesRequest {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for PurgeSuggestionDenyListEntriesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeSuggestionDenyListEntriesRequest"
@@ -26635,6 +28107,7 @@ impl wkt::message::Message for PurgeSuggestionDenyListEntriesRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.CompletionService.PurgeSuggestionDenyListEntries]: crate::client::CompletionService::purge_suggestion_deny_list_entries
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26654,6 +28127,7 @@ pub struct PurgeSuggestionDenyListEntriesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl PurgeSuggestionDenyListEntriesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26677,6 +28151,7 @@ impl PurgeSuggestionDenyListEntriesResponse {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for PurgeSuggestionDenyListEntriesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeSuggestionDenyListEntriesResponse"
@@ -26686,6 +28161,7 @@ impl wkt::message::Message for PurgeSuggestionDenyListEntriesResponse {
 /// Metadata related to the progress of the PurgeSuggestionDenyListEntries
 /// operation. This is returned by the google.longrunning.Operation.metadata
 /// field.
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26704,6 +28180,7 @@ pub struct PurgeSuggestionDenyListEntriesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl PurgeSuggestionDenyListEntriesMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26746,6 +28223,7 @@ impl PurgeSuggestionDenyListEntriesMetadata {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for PurgeSuggestionDenyListEntriesMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeSuggestionDenyListEntriesMetadata"
@@ -26757,6 +28235,7 @@ impl wkt::message::Message for PurgeSuggestionDenyListEntriesMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.CompletionService.PurgeCompletionSuggestions]: crate::client::CompletionService::purge_completion_suggestions
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26773,6 +28252,7 @@ pub struct PurgeCompletionSuggestionsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl PurgeCompletionSuggestionsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26785,6 +28265,7 @@ impl PurgeCompletionSuggestionsRequest {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for PurgeCompletionSuggestionsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeCompletionSuggestionsRequest"
@@ -26796,6 +28277,7 @@ impl wkt::message::Message for PurgeCompletionSuggestionsRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.CompletionService.PurgeCompletionSuggestions]: crate::client::CompletionService::purge_completion_suggestions
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26815,6 +28297,7 @@ pub struct PurgeCompletionSuggestionsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl PurgeCompletionSuggestionsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26838,6 +28321,7 @@ impl PurgeCompletionSuggestionsResponse {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for PurgeCompletionSuggestionsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeCompletionSuggestionsResponse"
@@ -26847,6 +28331,7 @@ impl wkt::message::Message for PurgeCompletionSuggestionsResponse {
 /// Metadata related to the progress of the PurgeCompletionSuggestions
 /// operation. This is returned by the google.longrunning.Operation.metadata
 /// field.
+#[cfg(feature = "completion-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26865,6 +28350,7 @@ pub struct PurgeCompletionSuggestionsMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "completion-service")]
 impl PurgeCompletionSuggestionsMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26907,6 +28393,7 @@ impl PurgeCompletionSuggestionsMetadata {
     }
 }
 
+#[cfg(feature = "completion-service")]
 impl wkt::message::Message for PurgeCompletionSuggestionsMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PurgeCompletionSuggestionsMetadata"
@@ -26917,6 +28404,7 @@ impl wkt::message::Message for PurgeCompletionSuggestionsMetadata {
 /// [RankService.Rank][google.cloud.discoveryengine.v1.RankService.Rank] method.
 ///
 /// [google.cloud.discoveryengine.v1.RankService.Rank]: crate::client::RankService::rank
+#[cfg(feature = "rank-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26962,6 +28450,7 @@ pub struct RankingRecord {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "rank-service")]
 impl RankingRecord {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26992,6 +28481,7 @@ impl RankingRecord {
     }
 }
 
+#[cfg(feature = "rank-service")]
 impl wkt::message::Message for RankingRecord {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.RankingRecord"
@@ -27002,6 +28492,7 @@ impl wkt::message::Message for RankingRecord {
 /// [RankService.Rank][google.cloud.discoveryengine.v1.RankService.Rank] method.
 ///
 /// [google.cloud.discoveryengine.v1.RankService.Rank]: crate::client::RankService::rank
+#[cfg(feature = "rank-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -27070,6 +28561,7 @@ pub struct RankRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "rank-service")]
 impl RankRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -27132,6 +28624,7 @@ impl RankRequest {
     }
 }
 
+#[cfg(feature = "rank-service")]
 impl wkt::message::Message for RankRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.RankRequest"
@@ -27142,6 +28635,7 @@ impl wkt::message::Message for RankRequest {
 /// [RankService.Rank][google.cloud.discoveryengine.v1.RankService.Rank] method.
 ///
 /// [google.cloud.discoveryengine.v1.RankService.Rank]: crate::client::RankService::rank
+#[cfg(feature = "rank-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -27156,6 +28650,7 @@ pub struct RankResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "rank-service")]
 impl RankResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -27173,6 +28668,7 @@ impl RankResponse {
     }
 }
 
+#[cfg(feature = "rank-service")]
 impl wkt::message::Message for RankResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.RankResponse"
@@ -27180,6 +28676,7 @@ impl wkt::message::Message for RankResponse {
 }
 
 /// Request message for Recommend method.
+#[cfg(feature = "recommendation-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -27336,6 +28833,7 @@ pub struct RecommendRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "recommendation-service")]
 impl RecommendRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -27408,6 +28906,7 @@ impl RecommendRequest {
     }
 }
 
+#[cfg(feature = "recommendation-service")]
 impl wkt::message::Message for RecommendRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.RecommendRequest"
@@ -27415,6 +28914,7 @@ impl wkt::message::Message for RecommendRequest {
 }
 
 /// Response message for Recommend method.
+#[cfg(feature = "recommendation-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -27455,6 +28955,7 @@ pub struct RecommendResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "recommendation-service")]
 impl RecommendResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -27498,6 +28999,7 @@ impl RecommendResponse {
     }
 }
 
+#[cfg(feature = "recommendation-service")]
 impl wkt::message::Message for RecommendResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.RecommendResponse"
@@ -27505,12 +29007,14 @@ impl wkt::message::Message for RecommendResponse {
 }
 
 /// Defines additional types related to [RecommendResponse].
+#[cfg(feature = "recommendation-service")]
 pub mod recommend_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// RecommendationResult represents a generic recommendation result with
     /// associated metadata.
+    #[cfg(feature = "recommendation-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -27545,6 +29049,7 @@ pub mod recommend_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "recommendation-service")]
     impl RecommendationResult {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -27587,6 +29092,7 @@ pub mod recommend_response {
         }
     }
 
+    #[cfg(feature = "recommendation-service")]
     impl wkt::message::Message for RecommendationResult {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.RecommendResponse.RecommendationResult"
@@ -27595,6 +29101,7 @@ pub mod recommend_response {
 }
 
 /// Safety rating corresponding to the generated content.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -27635,6 +29142,7 @@ pub struct SafetyRating {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl SafetyRating {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -27683,6 +29191,7 @@ impl SafetyRating {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for SafetyRating {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.SafetyRating"
@@ -27690,6 +29199,7 @@ impl wkt::message::Message for SafetyRating {
 }
 
 /// Defines additional types related to [SafetyRating].
+#[cfg(feature = "conversational-search-service")]
 pub mod safety_rating {
     #[allow(unused_imports)]
     use super::*;
@@ -27709,6 +29219,7 @@ pub mod safety_rating {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "conversational-search-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum HarmProbability {
@@ -27730,6 +29241,7 @@ pub mod safety_rating {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "conversational-search-service")]
     pub mod harm_probability {
         #[allow(unused_imports)]
         use super::*;
@@ -27737,6 +29249,7 @@ pub mod safety_rating {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl HarmProbability {
         /// Gets the enum value.
         ///
@@ -27769,6 +29282,7 @@ pub mod safety_rating {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::default::Default for HarmProbability {
         fn default() -> Self {
             use std::convert::From;
@@ -27776,12 +29290,14 @@ pub mod safety_rating {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::fmt::Display for HarmProbability {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::convert::From<i32> for HarmProbability {
         fn from(value: i32) -> Self {
             match value {
@@ -27797,6 +29313,7 @@ pub mod safety_rating {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::convert::From<&str> for HarmProbability {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -27813,6 +29330,7 @@ pub mod safety_rating {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl serde::ser::Serialize for HarmProbability {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -27829,6 +29347,7 @@ pub mod safety_rating {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl<'de> serde::de::Deserialize<'de> for HarmProbability {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -27855,6 +29374,7 @@ pub mod safety_rating {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "conversational-search-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum HarmSeverity {
@@ -27876,6 +29396,7 @@ pub mod safety_rating {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "conversational-search-service")]
     pub mod harm_severity {
         #[allow(unused_imports)]
         use super::*;
@@ -27883,6 +29404,7 @@ pub mod safety_rating {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl HarmSeverity {
         /// Gets the enum value.
         ///
@@ -27915,6 +29437,7 @@ pub mod safety_rating {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::default::Default for HarmSeverity {
         fn default() -> Self {
             use std::convert::From;
@@ -27922,12 +29445,14 @@ pub mod safety_rating {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::fmt::Display for HarmSeverity {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::convert::From<i32> for HarmSeverity {
         fn from(value: i32) -> Self {
             match value {
@@ -27943,6 +29468,7 @@ pub mod safety_rating {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::convert::From<&str> for HarmSeverity {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -27959,6 +29485,7 @@ pub mod safety_rating {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl serde::ser::Serialize for HarmSeverity {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -27975,6 +29502,7 @@ pub mod safety_rating {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl<'de> serde::de::Deserialize<'de> for HarmSeverity {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -27988,6 +29516,7 @@ pub mod safety_rating {
 }
 
 /// Defines the structure and layout of a type of document data.
+#[cfg(any(feature = "data-store-service", feature = "schema-service",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28016,6 +29545,7 @@ pub struct Schema {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "data-store-service", feature = "schema-service",))]
 impl Schema {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28086,6 +29616,7 @@ impl Schema {
     }
 }
 
+#[cfg(any(feature = "data-store-service", feature = "schema-service",))]
 impl wkt::message::Message for Schema {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Schema"
@@ -28093,6 +29624,7 @@ impl wkt::message::Message for Schema {
 }
 
 /// Defines additional types related to [Schema].
+#[cfg(any(feature = "data-store-service", feature = "schema-service",))]
 pub mod schema {
     #[allow(unused_imports)]
     use super::*;
@@ -28104,6 +29636,7 @@ pub mod schema {
     ///
     /// [google.cloud.discoveryengine.v1.Schema.json_schema]: crate::model::Schema::schema
     /// [google.cloud.discoveryengine.v1.Schema.struct_schema]: crate::model::Schema::schema
+    #[cfg(any(feature = "data-store-service", feature = "schema-service",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -28121,6 +29654,7 @@ pub mod schema {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SchemaService.GetSchema]: crate::client::SchemaService::get_schema
+#[cfg(feature = "schema-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28136,6 +29670,7 @@ pub struct GetSchemaRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "schema-service")]
 impl GetSchemaRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28148,6 +29683,7 @@ impl GetSchemaRequest {
     }
 }
 
+#[cfg(feature = "schema-service")]
 impl wkt::message::Message for GetSchemaRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GetSchemaRequest"
@@ -28159,6 +29695,7 @@ impl wkt::message::Message for GetSchemaRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SchemaService.ListSchemas]: crate::client::SchemaService::list_schemas
+#[cfg(feature = "schema-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28200,6 +29737,7 @@ pub struct ListSchemasRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "schema-service")]
 impl ListSchemasRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28224,6 +29762,7 @@ impl ListSchemasRequest {
     }
 }
 
+#[cfg(feature = "schema-service")]
 impl wkt::message::Message for ListSchemasRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListSchemasRequest"
@@ -28235,6 +29774,7 @@ impl wkt::message::Message for ListSchemasRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SchemaService.ListSchemas]: crate::client::SchemaService::list_schemas
+#[cfg(feature = "schema-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28261,6 +29801,7 @@ pub struct ListSchemasResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "schema-service")]
 impl ListSchemasResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28284,12 +29825,14 @@ impl ListSchemasResponse {
     }
 }
 
+#[cfg(feature = "schema-service")]
 impl wkt::message::Message for ListSchemasResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListSchemasResponse"
     }
 }
 
+#[cfg(feature = "schema-service")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListSchemasResponse {
     type PageItem = crate::model::Schema;
@@ -28309,6 +29852,7 @@ impl gax::paginator::internal::PageableResponse for ListSchemasResponse {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SchemaService.CreateSchema]: crate::client::SchemaService::create_schema
+#[cfg(feature = "schema-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28345,6 +29889,7 @@ pub struct CreateSchemaRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "schema-service")]
 impl CreateSchemaRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28381,6 +29926,7 @@ impl CreateSchemaRequest {
     }
 }
 
+#[cfg(feature = "schema-service")]
 impl wkt::message::Message for CreateSchemaRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateSchemaRequest"
@@ -28392,6 +29938,7 @@ impl wkt::message::Message for CreateSchemaRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SchemaService.UpdateSchema]: crate::client::SchemaService::update_schema
+#[cfg(feature = "schema-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28416,6 +29963,7 @@ pub struct UpdateSchemaRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "schema-service")]
 impl UpdateSchemaRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28446,6 +29994,7 @@ impl UpdateSchemaRequest {
     }
 }
 
+#[cfg(feature = "schema-service")]
 impl wkt::message::Message for UpdateSchemaRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateSchemaRequest"
@@ -28457,6 +30006,7 @@ impl wkt::message::Message for UpdateSchemaRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SchemaService.DeleteSchema]: crate::client::SchemaService::delete_schema
+#[cfg(feature = "schema-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28472,6 +30022,7 @@ pub struct DeleteSchemaRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "schema-service")]
 impl DeleteSchemaRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28484,6 +30035,7 @@ impl DeleteSchemaRequest {
     }
 }
 
+#[cfg(feature = "schema-service")]
 impl wkt::message::Message for DeleteSchemaRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteSchemaRequest"
@@ -28491,6 +30043,7 @@ impl wkt::message::Message for DeleteSchemaRequest {
 }
 
 /// Metadata for Create Schema LRO.
+#[cfg(feature = "schema-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28509,6 +30062,7 @@ pub struct CreateSchemaMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "schema-service")]
 impl CreateSchemaMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28551,6 +30105,7 @@ impl CreateSchemaMetadata {
     }
 }
 
+#[cfg(feature = "schema-service")]
 impl wkt::message::Message for CreateSchemaMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateSchemaMetadata"
@@ -28558,6 +30113,7 @@ impl wkt::message::Message for CreateSchemaMetadata {
 }
 
 /// Metadata for UpdateSchema LRO.
+#[cfg(feature = "schema-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28576,6 +30132,7 @@ pub struct UpdateSchemaMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "schema-service")]
 impl UpdateSchemaMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28618,6 +30175,7 @@ impl UpdateSchemaMetadata {
     }
 }
 
+#[cfg(feature = "schema-service")]
 impl wkt::message::Message for UpdateSchemaMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateSchemaMetadata"
@@ -28625,6 +30183,7 @@ impl wkt::message::Message for UpdateSchemaMetadata {
 }
 
 /// Metadata for DeleteSchema LRO.
+#[cfg(feature = "schema-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28643,6 +30202,7 @@ pub struct DeleteSchemaMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "schema-service")]
 impl DeleteSchemaMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28685,6 +30245,7 @@ impl DeleteSchemaMetadata {
     }
 }
 
+#[cfg(feature = "schema-service")]
 impl wkt::message::Message for DeleteSchemaMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteSchemaMetadata"
@@ -28696,6 +30257,11 @@ impl wkt::message::Message for DeleteSchemaMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SearchService.Search]: crate::client::SearchService::search
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -29036,6 +30602,11 @@ pub struct SearchRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
 impl SearchRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -29366,6 +30937,11 @@ impl SearchRequest {
     }
 }
 
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
 impl wkt::message::Message for SearchRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest"
@@ -29373,11 +30949,21 @@ impl wkt::message::Message for SearchRequest {
 }
 
 /// Defines additional types related to [SearchRequest].
+#[cfg(any(
+    feature = "conversational-search-service",
+    feature = "search-service",
+    feature = "serving-config-service",
+))]
 pub mod search_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Specifies the image query input.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -29390,6 +30976,11 @@ pub mod search_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl ImageQuery {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -29437,6 +31028,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl wkt::message::Message for ImageQuery {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.ImageQuery"
@@ -29444,10 +31040,20 @@ pub mod search_request {
     }
 
     /// Defines additional types related to [ImageQuery].
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     pub mod image_query {
         #[allow(unused_imports)]
         use super::*;
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -29462,6 +31068,11 @@ pub mod search_request {
     /// A struct to define data stores to filter on in a search call and
     /// configurations for those data stores. Otherwise, an `INVALID_ARGUMENT`
     /// error is returned.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -29501,6 +31112,11 @@ pub mod search_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl DataStoreSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -29546,6 +31162,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl wkt::message::Message for DataStoreSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.DataStoreSpec"
@@ -29553,6 +31174,11 @@ pub mod search_request {
     }
 
     /// A facet specification to perform faceted search.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -29644,6 +31270,11 @@ pub mod search_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl FacetSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -29691,6 +31322,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl wkt::message::Message for FacetSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.FacetSpec"
@@ -29698,11 +31334,21 @@ pub mod search_request {
     }
 
     /// Defines additional types related to [FacetSpec].
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     pub mod facet_spec {
         #[allow(unused_imports)]
         use super::*;
 
         /// Specifies how a facet is computed.
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -29788,6 +31434,11 @@ pub mod search_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl FacetKey {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -29859,6 +31510,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl wkt::message::Message for FacetKey {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.FacetSpec.FacetKey"
@@ -29867,6 +31523,11 @@ pub mod search_request {
     }
 
     /// Boost specification to boost certain documents.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -29885,6 +31546,11 @@ pub mod search_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl BoostSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -29902,6 +31568,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl wkt::message::Message for BoostSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.BoostSpec"
@@ -29909,11 +31580,21 @@ pub mod search_request {
     }
 
     /// Defines additional types related to [BoostSpec].
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     pub mod boost_spec {
         #[allow(unused_imports)]
         use super::*;
 
         /// Boost applies to documents which match a condition.
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -29969,6 +31650,11 @@ pub mod search_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl ConditionBoostSpec {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -30006,6 +31692,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl wkt::message::Message for ConditionBoostSpec {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.BoostSpec.ConditionBoostSpec"
@@ -30013,6 +31704,11 @@ pub mod search_request {
         }
 
         /// Defines additional types related to [ConditionBoostSpec].
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         pub mod condition_boost_spec {
             #[allow(unused_imports)]
             use super::*;
@@ -30020,6 +31716,11 @@ pub mod search_request {
             /// Specification for custom ranking based on customer specified attribute
             /// value. It provides more controls for customized ranking than the simple
             /// (condition, boost) combination above.
+            #[cfg(any(
+                feature = "conversational-search-service",
+                feature = "search-service",
+                feature = "serving-config-service",
+            ))]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -30058,6 +31759,11 @@ pub mod search_request {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(any(
+                feature = "conversational-search-service",
+                feature = "search-service",
+                feature = "serving-config-service",
+            ))]
             impl BoostControlSpec {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -30096,6 +31802,11 @@ pub mod search_request {
                 }
             }
 
+            #[cfg(any(
+                feature = "conversational-search-service",
+                feature = "search-service",
+                feature = "serving-config-service",
+            ))]
             impl wkt::message::Message for BoostControlSpec {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.BoostSpec.ConditionBoostSpec.BoostControlSpec"
@@ -30103,6 +31814,11 @@ pub mod search_request {
             }
 
             /// Defines additional types related to [BoostControlSpec].
+            #[cfg(any(
+                feature = "conversational-search-service",
+                feature = "search-service",
+                feature = "serving-config-service",
+            ))]
             pub mod boost_control_spec {
                 #[allow(unused_imports)]
                 use super::*;
@@ -30110,6 +31826,11 @@ pub mod search_request {
                 /// The control points used to define the curve. The curve defined
                 /// through these control points can only be monotonically increasing
                 /// or decreasing(constant values are acceptable).
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 #[serde_with::serde_as]
                 #[derive(
                     Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize,
@@ -30138,6 +31859,11 @@ pub mod search_request {
                     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl ControlPoint {
                     pub fn new() -> Self {
                         std::default::Default::default()
@@ -30159,6 +31885,11 @@ pub mod search_request {
                     }
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl wkt::message::Message for ControlPoint {
                     fn typename() -> &'static str {
                         "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.BoostSpec.ConditionBoostSpec.BoostControlSpec.ControlPoint"
@@ -30181,6 +31912,11 @@ pub mod search_request {
                 /// guidelines.
                 ///
                 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 #[derive(Clone, Debug, PartialEq)]
                 #[non_exhaustive]
                 pub enum AttributeType {
@@ -30206,6 +31942,11 @@ pub mod search_request {
                 }
 
                 #[doc(hidden)]
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 pub mod attribute_type {
                     #[allow(unused_imports)]
                     use super::*;
@@ -30213,6 +31954,11 @@ pub mod search_request {
                     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl AttributeType {
                     /// Gets the enum value.
                     ///
@@ -30243,6 +31989,11 @@ pub mod search_request {
                     }
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl std::default::Default for AttributeType {
                     fn default() -> Self {
                         use std::convert::From;
@@ -30250,6 +32001,11 @@ pub mod search_request {
                     }
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl std::fmt::Display for AttributeType {
                     fn fmt(
                         &self,
@@ -30259,6 +32015,11 @@ pub mod search_request {
                     }
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl std::convert::From<i32> for AttributeType {
                     fn from(value: i32) -> Self {
                         match value {
@@ -30272,6 +32033,11 @@ pub mod search_request {
                     }
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl std::convert::From<&str> for AttributeType {
                     fn from(value: &str) -> Self {
                         use std::string::ToString;
@@ -30286,6 +32052,11 @@ pub mod search_request {
                     }
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl serde::ser::Serialize for AttributeType {
                     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                     where
@@ -30300,6 +32071,11 @@ pub mod search_request {
                     }
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl<'de> serde::de::Deserialize<'de> for AttributeType {
                     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                     where
@@ -30326,6 +32102,11 @@ pub mod search_request {
                 /// guidelines.
                 ///
                 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 #[derive(Clone, Debug, PartialEq)]
                 #[non_exhaustive]
                 pub enum InterpolationType {
@@ -30342,6 +32123,11 @@ pub mod search_request {
                 }
 
                 #[doc(hidden)]
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 pub mod interpolation_type {
                     #[allow(unused_imports)]
                     use super::*;
@@ -30349,6 +32135,11 @@ pub mod search_request {
                     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl InterpolationType {
                     /// Gets the enum value.
                     ///
@@ -30377,6 +32168,11 @@ pub mod search_request {
                     }
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl std::default::Default for InterpolationType {
                     fn default() -> Self {
                         use std::convert::From;
@@ -30384,6 +32180,11 @@ pub mod search_request {
                     }
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl std::fmt::Display for InterpolationType {
                     fn fmt(
                         &self,
@@ -30393,6 +32194,11 @@ pub mod search_request {
                     }
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl std::convert::From<i32> for InterpolationType {
                     fn from(value: i32) -> Self {
                         match value {
@@ -30405,6 +32211,11 @@ pub mod search_request {
                     }
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl std::convert::From<&str> for InterpolationType {
                     fn from(value: &str) -> Self {
                         use std::string::ToString;
@@ -30418,6 +32229,11 @@ pub mod search_request {
                     }
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl serde::ser::Serialize for InterpolationType {
                     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                     where
@@ -30431,6 +32247,11 @@ pub mod search_request {
                     }
                 }
 
+                #[cfg(any(
+                    feature = "conversational-search-service",
+                    feature = "search-service",
+                    feature = "serving-config-service",
+                ))]
                 impl<'de> serde::de::Deserialize<'de> for InterpolationType {
                     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                     where
@@ -30446,6 +32267,11 @@ pub mod search_request {
 
     /// Specification to determine under which conditions query expansion should
     /// occur.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -30470,6 +32296,11 @@ pub mod search_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl QueryExpansionSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -30493,6 +32324,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl wkt::message::Message for QueryExpansionSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.QueryExpansionSpec"
@@ -30500,6 +32336,11 @@ pub mod search_request {
     }
 
     /// Defines additional types related to [QueryExpansionSpec].
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     pub mod query_expansion_spec {
         #[allow(unused_imports)]
         use super::*;
@@ -30519,6 +32360,11 @@ pub mod search_request {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Condition {
@@ -30544,6 +32390,11 @@ pub mod search_request {
         }
 
         #[doc(hidden)]
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         pub mod condition {
             #[allow(unused_imports)]
             use super::*;
@@ -30551,6 +32402,11 @@ pub mod search_request {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl Condition {
             /// Gets the enum value.
             ///
@@ -30579,6 +32435,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::default::Default for Condition {
             fn default() -> Self {
                 use std::convert::From;
@@ -30586,6 +32447,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::fmt::Display for Condition {
             fn fmt(
                 &self,
@@ -30595,6 +32461,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::convert::From<i32> for Condition {
             fn from(value: i32) -> Self {
                 match value {
@@ -30608,6 +32479,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::convert::From<&str> for Condition {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -30622,6 +32498,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl serde::ser::Serialize for Condition {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -30636,6 +32517,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl<'de> serde::de::Deserialize<'de> for Condition {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -30649,6 +32535,11 @@ pub mod search_request {
     }
 
     /// The specification for query spell correction.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -30667,6 +32558,11 @@ pub mod search_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl SpellCorrectionSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -30684,6 +32580,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl wkt::message::Message for SpellCorrectionSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.SpellCorrectionSpec"
@@ -30691,6 +32592,11 @@ pub mod search_request {
     }
 
     /// Defines additional types related to [SpellCorrectionSpec].
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     pub mod spell_correction_spec {
         #[allow(unused_imports)]
         use super::*;
@@ -30710,6 +32616,11 @@ pub mod search_request {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Mode {
@@ -30737,6 +32648,11 @@ pub mod search_request {
         }
 
         #[doc(hidden)]
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         pub mod mode {
             #[allow(unused_imports)]
             use super::*;
@@ -30744,6 +32660,11 @@ pub mod search_request {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl Mode {
             /// Gets the enum value.
             ///
@@ -30772,6 +32693,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::default::Default for Mode {
             fn default() -> Self {
                 use std::convert::From;
@@ -30779,6 +32705,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::fmt::Display for Mode {
             fn fmt(
                 &self,
@@ -30788,6 +32719,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::convert::From<i32> for Mode {
             fn from(value: i32) -> Self {
                 match value {
@@ -30801,6 +32737,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::convert::From<&str> for Mode {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -30815,6 +32756,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl serde::ser::Serialize for Mode {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -30829,6 +32775,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl<'de> serde::de::Deserialize<'de> for Mode {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -30842,6 +32793,11 @@ pub mod search_request {
     }
 
     /// A specification for configuring the behavior of content search.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -30888,6 +32844,11 @@ pub mod search_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl ContentSearchSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -30981,6 +32942,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl wkt::message::Message for ContentSearchSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec"
@@ -30988,11 +32954,21 @@ pub mod search_request {
     }
 
     /// Defines additional types related to [ContentSearchSpec].
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     pub mod content_search_spec {
         #[allow(unused_imports)]
         use super::*;
 
         /// A specification for configuring snippets in a search response.
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -31024,6 +33000,11 @@ pub mod search_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl SnippetSpec {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -31050,6 +33031,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl wkt::message::Message for SnippetSpec {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.SnippetSpec"
@@ -31058,6 +33044,11 @@ pub mod search_request {
 
         /// A specification for configuring a summary returned in a search
         /// response.
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -31189,6 +33180,11 @@ pub mod search_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl SummarySpec {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -31296,6 +33292,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl wkt::message::Message for SummarySpec {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.SummarySpec"
@@ -31303,11 +33304,21 @@ pub mod search_request {
         }
 
         /// Defines additional types related to [SummarySpec].
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         pub mod summary_spec {
             #[allow(unused_imports)]
             use super::*;
 
             /// Specification of the prompt to use with the model.
+            #[cfg(any(
+                feature = "conversational-search-service",
+                feature = "search-service",
+                feature = "serving-config-service",
+            ))]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -31323,6 +33334,11 @@ pub mod search_request {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(any(
+                feature = "conversational-search-service",
+                feature = "search-service",
+                feature = "serving-config-service",
+            ))]
             impl ModelPromptSpec {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -31338,6 +33354,11 @@ pub mod search_request {
                 }
             }
 
+            #[cfg(any(
+                feature = "conversational-search-service",
+                feature = "search-service",
+                feature = "serving-config-service",
+            ))]
             impl wkt::message::Message for ModelPromptSpec {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.SummarySpec.ModelPromptSpec"
@@ -31345,6 +33366,11 @@ pub mod search_request {
             }
 
             /// Specification of the model.
+            #[cfg(any(
+                feature = "conversational-search-service",
+                feature = "search-service",
+                feature = "serving-config-service",
+            ))]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -31370,6 +33396,11 @@ pub mod search_request {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(any(
+                feature = "conversational-search-service",
+                feature = "search-service",
+                feature = "serving-config-service",
+            ))]
             impl ModelSpec {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -31385,6 +33416,11 @@ pub mod search_request {
                 }
             }
 
+            #[cfg(any(
+                feature = "conversational-search-service",
+                feature = "search-service",
+                feature = "serving-config-service",
+            ))]
             impl wkt::message::Message for ModelSpec {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.SummarySpec.ModelSpec"
@@ -31394,6 +33430,11 @@ pub mod search_request {
 
         /// A specification for configuring the extractive content in a search
         /// response.
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -31470,6 +33511,11 @@ pub mod search_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl ExtractiveContentSpec {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -31515,6 +33561,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl wkt::message::Message for ExtractiveContentSpec {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.ExtractiveContentSpec"
@@ -31529,6 +33580,11 @@ pub mod search_request {
         ///
         /// [google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.SearchResultMode.CHUNKS]: crate::model::search_request::content_search_spec::SearchResultMode::Chunks
         /// [google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.search_result_mode]: crate::model::search_request::ContentSearchSpec::search_result_mode
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -31552,6 +33608,11 @@ pub mod search_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl ChunkSpec {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -31570,6 +33631,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl wkt::message::Message for ChunkSpec {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.ContentSearchSpec.ChunkSpec"
@@ -31592,6 +33658,11 @@ pub mod search_request {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum SearchResultMode {
@@ -31613,6 +33684,11 @@ pub mod search_request {
         }
 
         #[doc(hidden)]
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         pub mod search_result_mode {
             #[allow(unused_imports)]
             use super::*;
@@ -31620,6 +33696,11 @@ pub mod search_request {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl SearchResultMode {
             /// Gets the enum value.
             ///
@@ -31650,6 +33731,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::default::Default for SearchResultMode {
             fn default() -> Self {
                 use std::convert::From;
@@ -31657,6 +33743,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::fmt::Display for SearchResultMode {
             fn fmt(
                 &self,
@@ -31666,6 +33757,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::convert::From<i32> for SearchResultMode {
             fn from(value: i32) -> Self {
                 match value {
@@ -31679,6 +33775,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::convert::From<&str> for SearchResultMode {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -31693,6 +33794,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl serde::ser::Serialize for SearchResultMode {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -31707,6 +33813,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl<'de> serde::de::Deserialize<'de> for SearchResultMode {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -31719,6 +33830,11 @@ pub mod search_request {
     }
 
     /// Specification for search as you type in search requests.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -31737,6 +33853,11 @@ pub mod search_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl SearchAsYouTypeSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -31754,6 +33875,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl wkt::message::Message for SearchAsYouTypeSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.SearchAsYouTypeSpec"
@@ -31761,6 +33887,11 @@ pub mod search_request {
     }
 
     /// Defines additional types related to [SearchAsYouTypeSpec].
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     pub mod search_as_you_type_spec {
         #[allow(unused_imports)]
         use super::*;
@@ -31780,6 +33911,11 @@ pub mod search_request {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Condition {
@@ -31803,6 +33939,11 @@ pub mod search_request {
         }
 
         #[doc(hidden)]
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         pub mod condition {
             #[allow(unused_imports)]
             use super::*;
@@ -31810,6 +33951,11 @@ pub mod search_request {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl Condition {
             /// Gets the enum value.
             ///
@@ -31840,6 +33986,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::default::Default for Condition {
             fn default() -> Self {
                 use std::convert::From;
@@ -31847,6 +33998,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::fmt::Display for Condition {
             fn fmt(
                 &self,
@@ -31856,6 +34012,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::convert::From<i32> for Condition {
             fn from(value: i32) -> Self {
                 match value {
@@ -31870,6 +34031,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::convert::From<&str> for Condition {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -31885,6 +34051,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl serde::ser::Serialize for Condition {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -31900,6 +34071,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl<'de> serde::de::Deserialize<'de> for Condition {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -31913,6 +34089,11 @@ pub mod search_request {
     }
 
     /// Specifies features for display, like match highlighting.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -31928,6 +34109,11 @@ pub mod search_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl DisplaySpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -31947,6 +34133,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl wkt::message::Message for DisplaySpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.DisplaySpec"
@@ -31954,6 +34145,11 @@ pub mod search_request {
     }
 
     /// Defines additional types related to [DisplaySpec].
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     pub mod display_spec {
         #[allow(unused_imports)]
         use super::*;
@@ -31973,6 +34169,11 @@ pub mod search_request {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum MatchHighlightingCondition {
@@ -31990,6 +34191,11 @@ pub mod search_request {
         }
 
         #[doc(hidden)]
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         pub mod match_highlighting_condition {
             #[allow(unused_imports)]
             use super::*;
@@ -31997,6 +34203,11 @@ pub mod search_request {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl MatchHighlightingCondition {
             /// Gets the enum value.
             ///
@@ -32031,6 +34242,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::default::Default for MatchHighlightingCondition {
             fn default() -> Self {
                 use std::convert::From;
@@ -32038,6 +34254,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::fmt::Display for MatchHighlightingCondition {
             fn fmt(
                 &self,
@@ -32047,6 +34268,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::convert::From<i32> for MatchHighlightingCondition {
             fn from(value: i32) -> Self {
                 match value {
@@ -32060,6 +34286,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl std::convert::From<&str> for MatchHighlightingCondition {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -32074,6 +34305,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl serde::ser::Serialize for MatchHighlightingCondition {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -32088,6 +34324,11 @@ pub mod search_request {
             }
         }
 
+        #[cfg(any(
+            feature = "conversational-search-service",
+            feature = "search-service",
+            feature = "serving-config-service",
+        ))]
         impl<'de> serde::de::Deserialize<'de> for MatchHighlightingCondition {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -32104,6 +34345,11 @@ pub mod search_request {
     /// Multi-turn Search feature is currently at private GA stage. Please use
     /// v1alpha or v1beta version instead before we launch this feature to public
     /// GA. Or ask for allowlisting through Google Support team.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -32155,6 +34401,11 @@ pub mod search_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl SessionSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -32188,6 +34439,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl wkt::message::Message for SessionSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.SessionSpec"
@@ -32195,6 +34451,11 @@ pub mod search_request {
     }
 
     /// The specification for returning the document relevance score.
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -32210,6 +34471,11 @@ pub mod search_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl RelevanceScoreSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -32222,6 +34488,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl wkt::message::Message for RelevanceScoreSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchRequest.RelevanceScoreSpec"
@@ -32245,6 +34516,11 @@ pub mod search_request {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum RelevanceThreshold {
@@ -32267,6 +34543,11 @@ pub mod search_request {
     }
 
     #[doc(hidden)]
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     pub mod relevance_threshold {
         #[allow(unused_imports)]
         use super::*;
@@ -32274,6 +34555,11 @@ pub mod search_request {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl RelevanceThreshold {
         /// Gets the enum value.
         ///
@@ -32306,6 +34592,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl std::default::Default for RelevanceThreshold {
         fn default() -> Self {
             use std::convert::From;
@@ -32313,12 +34604,22 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl std::fmt::Display for RelevanceThreshold {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl std::convert::From<i32> for RelevanceThreshold {
         fn from(value: i32) -> Self {
             match value {
@@ -32334,6 +34635,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl std::convert::From<&str> for RelevanceThreshold {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -32350,6 +34656,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl serde::ser::Serialize for RelevanceThreshold {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -32366,6 +34677,11 @@ pub mod search_request {
         }
     }
 
+    #[cfg(any(
+        feature = "conversational-search-service",
+        feature = "search-service",
+        feature = "serving-config-service",
+    ))]
     impl<'de> serde::de::Deserialize<'de> for RelevanceThreshold {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -32383,6 +34699,7 @@ pub mod search_request {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SearchService.Search]: crate::client::SearchService::search
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -32484,6 +34801,7 @@ pub struct SearchResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 impl SearchResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -32610,12 +34928,14 @@ impl SearchResponse {
     }
 }
 
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 impl wkt::message::Message for SearchResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse"
     }
 }
 
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for SearchResponse {
     type PageItem = crate::model::search_response::Facet;
@@ -32631,11 +34951,13 @@ impl gax::paginator::internal::PageableResponse for SearchResponse {
 }
 
 /// Defines additional types related to [SearchResponse].
+#[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
 pub mod search_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents the search results.
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -32674,6 +34996,7 @@ pub mod search_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl SearchResult {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -32734,6 +35057,7 @@ pub mod search_response {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl wkt::message::Message for SearchResult {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.SearchResult"
@@ -32741,6 +35065,7 @@ pub mod search_response {
     }
 
     /// A facet result.
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -32768,6 +35093,7 @@ pub mod search_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl Facet {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -32797,6 +35123,7 @@ pub mod search_response {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl wkt::message::Message for Facet {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.Facet"
@@ -32804,11 +35131,13 @@ pub mod search_response {
     }
 
     /// Defines additional types related to [Facet].
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     pub mod facet {
         #[allow(unused_imports)]
         use super::*;
 
         /// A facet value which contains value names and their count.
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -32828,6 +35157,7 @@ pub mod search_response {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl FacetValue {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -32915,6 +35245,7 @@ pub mod search_response {
             }
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl wkt::message::Message for FacetValue {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.Facet.FacetValue"
@@ -32922,11 +35253,13 @@ pub mod search_response {
         }
 
         /// Defines additional types related to [FacetValue].
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         pub mod facet_value {
             #[allow(unused_imports)]
             use super::*;
 
             /// A facet value which contains values.
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
@@ -32945,6 +35278,7 @@ pub mod search_response {
     }
 
     /// Summary of the top N search results specified by the summary spec.
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -32977,6 +35311,7 @@ pub mod search_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl Summary {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -33039,6 +35374,7 @@ pub mod search_response {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl wkt::message::Message for Summary {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.Summary"
@@ -33046,11 +35382,13 @@ pub mod search_response {
     }
 
     /// Defines additional types related to [Summary].
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     pub mod summary {
         #[allow(unused_imports)]
         use super::*;
 
         /// Safety Attribute categories and their associated confidence scores.
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -33072,6 +35410,7 @@ pub mod search_response {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl SafetyAttributes {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -33100,6 +35439,7 @@ pub mod search_response {
             }
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl wkt::message::Message for SafetyAttributes {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.Summary.SafetyAttributes"
@@ -33107,6 +35447,7 @@ pub mod search_response {
         }
 
         /// Citation metadata.
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -33121,6 +35462,7 @@ pub mod search_response {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl CitationMetadata {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -33138,6 +35480,7 @@ pub mod search_response {
             }
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl wkt::message::Message for CitationMetadata {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.Summary.CitationMetadata"
@@ -33145,6 +35488,7 @@ pub mod search_response {
         }
 
         /// Citation info for a segment.
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -33169,6 +35513,7 @@ pub mod search_response {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl Citation {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -33198,6 +35543,7 @@ pub mod search_response {
             }
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl wkt::message::Message for Citation {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.Summary.Citation"
@@ -33205,6 +35551,7 @@ pub mod search_response {
         }
 
         /// Citation source.
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -33221,6 +35568,7 @@ pub mod search_response {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl CitationSource {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -33233,6 +35581,7 @@ pub mod search_response {
             }
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl wkt::message::Message for CitationSource {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.Summary.CitationSource"
@@ -33240,6 +35589,7 @@ pub mod search_response {
         }
 
         /// Document reference.
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -33275,6 +35625,7 @@ pub mod search_response {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl Reference {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -33315,6 +35666,7 @@ pub mod search_response {
             }
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl wkt::message::Message for Reference {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.Summary.Reference"
@@ -33322,11 +35674,13 @@ pub mod search_response {
         }
 
         /// Defines additional types related to [Reference].
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         pub mod reference {
             #[allow(unused_imports)]
             use super::*;
 
             /// Chunk content.
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -33346,6 +35700,7 @@ pub mod search_response {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
             impl ChunkContent {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -33370,6 +35725,7 @@ pub mod search_response {
                 }
             }
 
+            #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
             impl wkt::message::Message for ChunkContent {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.Summary.Reference.ChunkContent"
@@ -33378,6 +35734,7 @@ pub mod search_response {
         }
 
         /// Summary with metadata information.
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -33402,6 +35759,7 @@ pub mod search_response {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl SummaryWithMetadata {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -33443,6 +35801,7 @@ pub mod search_response {
             }
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl wkt::message::Message for SummaryWithMetadata {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.Summary.SummaryWithMetadata"
@@ -33464,6 +35823,7 @@ pub mod search_response {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum SummarySkippedReason {
@@ -33537,6 +35897,7 @@ pub mod search_response {
         }
 
         #[doc(hidden)]
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         pub mod summary_skipped_reason {
             #[allow(unused_imports)]
             use super::*;
@@ -33544,6 +35905,7 @@ pub mod search_response {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl SummarySkippedReason {
             /// Gets the enum value.
             ///
@@ -33604,6 +35966,7 @@ pub mod search_response {
             }
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl std::default::Default for SummarySkippedReason {
             fn default() -> Self {
                 use std::convert::From;
@@ -33611,6 +35974,7 @@ pub mod search_response {
             }
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl std::fmt::Display for SummarySkippedReason {
             fn fmt(
                 &self,
@@ -33620,6 +35984,7 @@ pub mod search_response {
             }
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl std::convert::From<i32> for SummarySkippedReason {
             fn from(value: i32) -> Self {
                 match value {
@@ -33641,6 +36006,7 @@ pub mod search_response {
             }
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl std::convert::From<&str> for SummarySkippedReason {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -33663,6 +36029,7 @@ pub mod search_response {
             }
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl serde::ser::Serialize for SummarySkippedReason {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -33685,6 +36052,7 @@ pub mod search_response {
             }
         }
 
+        #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
         impl<'de> serde::de::Deserialize<'de> for SummarySkippedReason {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -33698,6 +36066,7 @@ pub mod search_response {
 
     /// Information describing query expansion including whether expansion has
     /// occurred.
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -33722,6 +36091,7 @@ pub mod search_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl QueryExpansionInfo {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -33740,6 +36110,7 @@ pub mod search_response {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl wkt::message::Message for QueryExpansionInfo {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.QueryExpansionInfo"
@@ -33747,6 +36118,7 @@ pub mod search_response {
     }
 
     /// Information about the session.
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -33776,6 +36148,7 @@ pub mod search_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl SessionInfo {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -33794,6 +36167,7 @@ pub mod search_response {
         }
     }
 
+    #[cfg(any(feature = "conversational-search-service", feature = "search-service",))]
     impl wkt::message::Message for SessionInfo {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.SearchResponse.SessionInfo"
@@ -33806,6 +36180,7 @@ pub mod search_response {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SearchTuningService.ListCustomModels]: crate::client::SearchTuningService::list_custom_models
+#[cfg(feature = "search-tuning-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -33823,6 +36198,7 @@ pub struct ListCustomModelsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "search-tuning-service")]
 impl ListCustomModelsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -33835,6 +36211,7 @@ impl ListCustomModelsRequest {
     }
 }
 
+#[cfg(feature = "search-tuning-service")]
 impl wkt::message::Message for ListCustomModelsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListCustomModelsRequest"
@@ -33846,6 +36223,7 @@ impl wkt::message::Message for ListCustomModelsRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SearchTuningService.ListCustomModels]: crate::client::SearchTuningService::list_custom_models
+#[cfg(feature = "search-tuning-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -33860,6 +36238,7 @@ pub struct ListCustomModelsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "search-tuning-service")]
 impl ListCustomModelsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -33877,6 +36256,7 @@ impl ListCustomModelsResponse {
     }
 }
 
+#[cfg(feature = "search-tuning-service")]
 impl wkt::message::Message for ListCustomModelsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListCustomModelsResponse"
@@ -33888,6 +36268,7 @@ impl wkt::message::Message for ListCustomModelsResponse {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SearchTuningService.TrainCustomModel]: crate::client::SearchTuningService::train_custom_model
+#[cfg(feature = "search-tuning-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -33926,6 +36307,7 @@ pub struct TrainCustomModelRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "search-tuning-service")]
 impl TrainCustomModelRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -34020,6 +36402,7 @@ impl TrainCustomModelRequest {
     }
 }
 
+#[cfg(feature = "search-tuning-service")]
 impl wkt::message::Message for TrainCustomModelRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.TrainCustomModelRequest"
@@ -34027,11 +36410,13 @@ impl wkt::message::Message for TrainCustomModelRequest {
 }
 
 /// Defines additional types related to [TrainCustomModelRequest].
+#[cfg(feature = "search-tuning-service")]
 pub mod train_custom_model_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Cloud Storage training data input.
+    #[cfg(feature = "search-tuning-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -34082,6 +36467,7 @@ pub mod train_custom_model_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "search-tuning-service")]
     impl GcsTrainingInput {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -34124,6 +36510,7 @@ pub mod train_custom_model_request {
         }
     }
 
+    #[cfg(feature = "search-tuning-service")]
     impl wkt::message::Message for GcsTrainingInput {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.TrainCustomModelRequest.GcsTrainingInput"
@@ -34131,6 +36518,7 @@ pub mod train_custom_model_request {
     }
 
     /// Model training input.
+    #[cfg(feature = "search-tuning-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -34148,6 +36536,7 @@ pub mod train_custom_model_request {
 /// This message is returned by the google.longrunning.Operations.response field.
 ///
 /// [google.cloud.discoveryengine.v1.TrainCustomModelRequest]: crate::model::TrainCustomModelRequest
+#[cfg(feature = "search-tuning-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -34189,6 +36578,7 @@ pub struct TrainCustomModelResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "search-tuning-service")]
 impl TrainCustomModelResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -34248,6 +36638,7 @@ impl TrainCustomModelResponse {
     }
 }
 
+#[cfg(feature = "search-tuning-service")]
 impl wkt::message::Message for TrainCustomModelResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.TrainCustomModelResponse"
@@ -34256,6 +36647,7 @@ impl wkt::message::Message for TrainCustomModelResponse {
 
 /// Metadata related to the progress of the TrainCustomModel operation. This is
 /// returned by the google.longrunning.Operation.metadata field.
+#[cfg(feature = "search-tuning-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -34274,6 +36666,7 @@ pub struct TrainCustomModelMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "search-tuning-service")]
 impl TrainCustomModelMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -34316,6 +36709,7 @@ impl TrainCustomModelMetadata {
     }
 }
 
+#[cfg(feature = "search-tuning-service")]
 impl wkt::message::Message for TrainCustomModelMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.TrainCustomModelMetadata"
@@ -34326,6 +36720,7 @@ impl wkt::message::Message for TrainCustomModelMetadata {
 /// search results or recommendation predictions).
 /// The ServingConfig is passed in the search and predict request and generates
 /// results.
+#[cfg(feature = "serving-config-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -34543,6 +36938,7 @@ pub struct ServingConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "serving-config-service")]
 impl ServingConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -34804,6 +37200,7 @@ impl ServingConfig {
     }
 }
 
+#[cfg(feature = "serving-config-service")]
 impl wkt::message::Message for ServingConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ServingConfig"
@@ -34811,6 +37208,7 @@ impl wkt::message::Message for ServingConfig {
 }
 
 /// Defines additional types related to [ServingConfig].
+#[cfg(feature = "serving-config-service")]
 pub mod serving_config {
     #[allow(unused_imports)]
     use super::*;
@@ -34833,6 +37231,7 @@ pub mod serving_config {
     ///
     /// [google.cloud.discoveryengine.v1.SolutionType]: crate::model::SolutionType
     /// [google.cloud.discoveryengine.v1.SolutionType.SOLUTION_TYPE_RECOMMENDATION]: crate::model::SolutionType::Recommendation
+    #[cfg(feature = "serving-config-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -34876,6 +37275,7 @@ pub mod serving_config {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "serving-config-service")]
     impl MediaConfig {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -34983,6 +37383,7 @@ pub mod serving_config {
         }
     }
 
+    #[cfg(feature = "serving-config-service")]
     impl wkt::message::Message for MediaConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.ServingConfig.MediaConfig"
@@ -34990,6 +37391,7 @@ pub mod serving_config {
     }
 
     /// Defines additional types related to [MediaConfig].
+    #[cfg(feature = "serving-config-service")]
     pub mod media_config {
         #[allow(unused_imports)]
         use super::*;
@@ -34997,6 +37399,7 @@ pub mod serving_config {
         /// Specify the threshold for demoting watched content, the threshold can be
         /// either percentage or minutes value.
         /// This must be set for `media-complete` event type.
+        #[cfg(feature = "serving-config-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -35018,6 +37421,7 @@ pub mod serving_config {
     /// support:
     ///
     /// * `content_search_spec`: configuration for generic content search.
+    #[cfg(feature = "serving-config-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -35033,6 +37437,7 @@ pub mod serving_config {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "serving-config-service")]
     impl GenericConfig {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -35057,6 +37462,7 @@ pub mod serving_config {
         }
     }
 
+    #[cfg(feature = "serving-config-service")]
     impl wkt::message::Message for GenericConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.ServingConfig.GenericConfig"
@@ -35064,6 +37470,7 @@ pub mod serving_config {
     }
 
     /// Industry vertical specific config.
+    #[cfg(feature = "serving-config-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -35077,6 +37484,7 @@ pub mod serving_config {
 }
 
 /// Request for UpdateServingConfig method.
+#[cfg(feature = "serving-config-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -35103,6 +37511,7 @@ pub struct UpdateServingConfigRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "serving-config-service")]
 impl UpdateServingConfigRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -35145,6 +37554,7 @@ impl UpdateServingConfigRequest {
     }
 }
 
+#[cfg(feature = "serving-config-service")]
 impl wkt::message::Message for UpdateServingConfigRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateServingConfigRequest"
@@ -35152,6 +37562,7 @@ impl wkt::message::Message for UpdateServingConfigRequest {
 }
 
 /// External session proto definition.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -35204,6 +37615,7 @@ pub struct Session {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl Session {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -35287,6 +37699,7 @@ impl Session {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for Session {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Session"
@@ -35294,12 +37707,14 @@ impl wkt::message::Message for Session {
 }
 
 /// Defines additional types related to [Session].
+#[cfg(feature = "conversational-search-service")]
 pub mod session {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents a turn, including a query from the user and a
     /// answer from service.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -35333,6 +37748,7 @@ pub mod session {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl Turn {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -35381,6 +37797,7 @@ pub mod session {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl wkt::message::Message for Turn {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.Session.Turn"
@@ -35402,6 +37819,7 @@ pub mod session {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "conversational-search-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -35417,6 +37835,7 @@ pub mod session {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "conversational-search-service")]
     pub mod state {
         #[allow(unused_imports)]
         use super::*;
@@ -35424,6 +37843,7 @@ pub mod session {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl State {
         /// Gets the enum value.
         ///
@@ -35450,6 +37870,7 @@ pub mod session {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::default::Default for State {
         fn default() -> Self {
             use std::convert::From;
@@ -35457,12 +37878,14 @@ pub mod session {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::fmt::Display for State {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::convert::From<i32> for State {
         fn from(value: i32) -> Self {
             match value {
@@ -35475,6 +37898,7 @@ pub mod session {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl std::convert::From<&str> for State {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -35488,6 +37912,7 @@ pub mod session {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl serde::ser::Serialize for State {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -35501,6 +37926,7 @@ pub mod session {
         }
     }
 
+    #[cfg(feature = "conversational-search-service")]
     impl<'de> serde::de::Deserialize<'de> for State {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -35514,6 +37940,7 @@ pub mod session {
 }
 
 /// Defines a user inputed query.
+#[cfg(feature = "conversational-search-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -35532,6 +37959,7 @@ pub struct Query {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl Query {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -35577,6 +38005,7 @@ impl Query {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl wkt::message::Message for Query {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Query"
@@ -35584,11 +38013,13 @@ impl wkt::message::Message for Query {
 }
 
 /// Defines additional types related to [Query].
+#[cfg(feature = "conversational-search-service")]
 pub mod query {
     #[allow(unused_imports)]
     use super::*;
 
     /// Query content.
+    #[cfg(feature = "conversational-search-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -35601,6 +38032,7 @@ pub mod query {
 
 /// SiteSearchEngine captures DataStore level site search persisting
 /// configurations. It is a singleton value per data store.
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -35616,6 +38048,7 @@ pub struct SiteSearchEngine {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl SiteSearchEngine {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -35628,6 +38061,7 @@ impl SiteSearchEngine {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for SiteSearchEngine {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.SiteSearchEngine"
@@ -35635,6 +38069,7 @@ impl wkt::message::Message for SiteSearchEngine {
 }
 
 /// A target site for the SiteSearchEngine.
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -35701,6 +38136,7 @@ pub struct TargetSite {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl TargetSite {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -35815,6 +38251,7 @@ impl TargetSite {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for TargetSite {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.TargetSite"
@@ -35822,11 +38259,13 @@ impl wkt::message::Message for TargetSite {
 }
 
 /// Defines additional types related to [TargetSite].
+#[cfg(feature = "site-search-engine-service")]
 pub mod target_site {
     #[allow(unused_imports)]
     use super::*;
 
     /// Site search indexing failure reasons.
+    #[cfg(feature = "site-search-engine-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -35840,6 +38279,7 @@ pub mod target_site {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl FailureReason {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -35898,6 +38338,7 @@ pub mod target_site {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl wkt::message::Message for FailureReason {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.TargetSite.FailureReason"
@@ -35905,11 +38346,13 @@ pub mod target_site {
     }
 
     /// Defines additional types related to [FailureReason].
+    #[cfg(feature = "site-search-engine-service")]
     pub mod failure_reason {
         #[allow(unused_imports)]
         use super::*;
 
         /// Failed due to insufficient quota.
+        #[cfg(feature = "site-search-engine-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -35925,6 +38368,7 @@ pub mod target_site {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "site-search-engine-service")]
         impl QuotaFailure {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -35937,6 +38381,7 @@ pub mod target_site {
             }
         }
 
+        #[cfg(feature = "site-search-engine-service")]
         impl wkt::message::Message for QuotaFailure {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.TargetSite.FailureReason.QuotaFailure"
@@ -35944,6 +38389,7 @@ pub mod target_site {
         }
 
         /// Failure reason.
+        #[cfg(feature = "site-search-engine-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -35969,6 +38415,7 @@ pub mod target_site {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "site-search-engine-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Type {
@@ -35989,6 +38436,7 @@ pub mod target_site {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "site-search-engine-service")]
     pub mod r#type {
         #[allow(unused_imports)]
         use super::*;
@@ -35996,6 +38444,7 @@ pub mod target_site {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl Type {
         /// Gets the enum value.
         ///
@@ -36024,6 +38473,7 @@ pub mod target_site {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl std::default::Default for Type {
         fn default() -> Self {
             use std::convert::From;
@@ -36031,12 +38481,14 @@ pub mod target_site {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl std::fmt::Display for Type {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl std::convert::From<i32> for Type {
         fn from(value: i32) -> Self {
             match value {
@@ -36050,6 +38502,7 @@ pub mod target_site {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl std::convert::From<&str> for Type {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -36064,6 +38517,7 @@ pub mod target_site {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl serde::ser::Serialize for Type {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -36078,6 +38532,7 @@ pub mod target_site {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl<'de> serde::de::Deserialize<'de> for Type {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -36104,6 +38559,7 @@ pub mod target_site {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "site-search-engine-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum IndexingStatus {
@@ -36134,6 +38590,7 @@ pub mod target_site {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "site-search-engine-service")]
     pub mod indexing_status {
         #[allow(unused_imports)]
         use super::*;
@@ -36141,6 +38598,7 @@ pub mod target_site {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl IndexingStatus {
         /// Gets the enum value.
         ///
@@ -36177,6 +38635,7 @@ pub mod target_site {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl std::default::Default for IndexingStatus {
         fn default() -> Self {
             use std::convert::From;
@@ -36184,12 +38643,14 @@ pub mod target_site {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl std::fmt::Display for IndexingStatus {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl std::convert::From<i32> for IndexingStatus {
         fn from(value: i32) -> Self {
             match value {
@@ -36207,6 +38668,7 @@ pub mod target_site {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl std::convert::From<&str> for IndexingStatus {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -36225,6 +38687,7 @@ pub mod target_site {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl serde::ser::Serialize for IndexingStatus {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -36243,6 +38706,7 @@ pub mod target_site {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl<'de> serde::de::Deserialize<'de> for IndexingStatus {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -36256,6 +38720,7 @@ pub mod target_site {
 }
 
 /// Verification information for target sites in advanced site search.
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -36274,6 +38739,7 @@ pub struct SiteVerificationInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl SiteVerificationInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -36309,6 +38775,7 @@ impl SiteVerificationInfo {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for SiteVerificationInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.SiteVerificationInfo"
@@ -36316,6 +38783,7 @@ impl wkt::message::Message for SiteVerificationInfo {
 }
 
 /// Defines additional types related to [SiteVerificationInfo].
+#[cfg(feature = "site-search-engine-service")]
 pub mod site_verification_info {
     #[allow(unused_imports)]
     use super::*;
@@ -36335,6 +38803,7 @@ pub mod site_verification_info {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "site-search-engine-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum SiteVerificationState {
@@ -36354,6 +38823,7 @@ pub mod site_verification_info {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "site-search-engine-service")]
     pub mod site_verification_state {
         #[allow(unused_imports)]
         use super::*;
@@ -36361,6 +38831,7 @@ pub mod site_verification_info {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl SiteVerificationState {
         /// Gets the enum value.
         ///
@@ -36393,6 +38864,7 @@ pub mod site_verification_info {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl std::default::Default for SiteVerificationState {
         fn default() -> Self {
             use std::convert::From;
@@ -36400,12 +38872,14 @@ pub mod site_verification_info {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl std::fmt::Display for SiteVerificationState {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl std::convert::From<i32> for SiteVerificationState {
         fn from(value: i32) -> Self {
             match value {
@@ -36420,6 +38894,7 @@ pub mod site_verification_info {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl std::convert::From<&str> for SiteVerificationState {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -36435,6 +38910,7 @@ pub mod site_verification_info {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl serde::ser::Serialize for SiteVerificationState {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -36450,6 +38926,7 @@ pub mod site_verification_info {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl<'de> serde::de::Deserialize<'de> for SiteVerificationState {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -36463,6 +38940,7 @@ pub mod site_verification_info {
 }
 
 /// A sitemap for the SiteSearchEngine.
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -36487,6 +38965,7 @@ pub struct Sitemap {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl Sitemap {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -36550,6 +39029,7 @@ impl Sitemap {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for Sitemap {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.Sitemap"
@@ -36557,11 +39037,13 @@ impl wkt::message::Message for Sitemap {
 }
 
 /// Defines additional types related to [Sitemap].
+#[cfg(feature = "site-search-engine-service")]
 pub mod sitemap {
     #[allow(unused_imports)]
     use super::*;
 
     /// Supported feed sources.
+    #[cfg(feature = "site-search-engine-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -36577,6 +39059,7 @@ pub mod sitemap {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.GetSiteSearchEngine]: crate::client::SiteSearchEngineService::get_site_search_engine
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -36600,6 +39083,7 @@ pub struct GetSiteSearchEngineRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl GetSiteSearchEngineRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -36612,6 +39096,7 @@ impl GetSiteSearchEngineRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for GetSiteSearchEngineRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GetSiteSearchEngineRequest"
@@ -36623,6 +39108,7 @@ impl wkt::message::Message for GetSiteSearchEngineRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.CreateTargetSite]: crate::client::SiteSearchEngineService::create_target_site
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -36648,6 +39134,7 @@ pub struct CreateTargetSiteRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl CreateTargetSiteRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -36678,6 +39165,7 @@ impl CreateTargetSiteRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for CreateTargetSiteRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateTargetSiteRequest"
@@ -36690,6 +39178,7 @@ impl wkt::message::Message for CreateTargetSiteRequest {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.CreateTargetSite]: crate::client::SiteSearchEngineService::create_target_site
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -36708,6 +39197,7 @@ pub struct CreateTargetSiteMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl CreateTargetSiteMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -36750,6 +39240,7 @@ impl CreateTargetSiteMetadata {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for CreateTargetSiteMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateTargetSiteMetadata"
@@ -36761,6 +39252,7 @@ impl wkt::message::Message for CreateTargetSiteMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.BatchCreateTargetSites]: crate::client::SiteSearchEngineService::batch_create_target_sites
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -36784,6 +39276,7 @@ pub struct BatchCreateTargetSitesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl BatchCreateTargetSitesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -36807,6 +39300,7 @@ impl BatchCreateTargetSitesRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for BatchCreateTargetSitesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BatchCreateTargetSitesRequest"
@@ -36818,6 +39312,7 @@ impl wkt::message::Message for BatchCreateTargetSitesRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.GetTargetSite]: crate::client::SiteSearchEngineService::get_target_site
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -36843,6 +39338,7 @@ pub struct GetTargetSiteRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl GetTargetSiteRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -36855,6 +39351,7 @@ impl GetTargetSiteRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for GetTargetSiteRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.GetTargetSiteRequest"
@@ -36866,6 +39363,7 @@ impl wkt::message::Message for GetTargetSiteRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.UpdateTargetSite]: crate::client::SiteSearchEngineService::update_target_site
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -36887,6 +39385,7 @@ pub struct UpdateTargetSiteRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl UpdateTargetSiteRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -36911,6 +39410,7 @@ impl UpdateTargetSiteRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for UpdateTargetSiteRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateTargetSiteRequest"
@@ -36923,6 +39423,7 @@ impl wkt::message::Message for UpdateTargetSiteRequest {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.UpdateTargetSite]: crate::client::SiteSearchEngineService::update_target_site
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -36941,6 +39442,7 @@ pub struct UpdateTargetSiteMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl UpdateTargetSiteMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -36983,6 +39485,7 @@ impl UpdateTargetSiteMetadata {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for UpdateTargetSiteMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UpdateTargetSiteMetadata"
@@ -36994,6 +39497,7 @@ impl wkt::message::Message for UpdateTargetSiteMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.DeleteTargetSite]: crate::client::SiteSearchEngineService::delete_target_site
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -37019,6 +39523,7 @@ pub struct DeleteTargetSiteRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl DeleteTargetSiteRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -37031,6 +39536,7 @@ impl DeleteTargetSiteRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for DeleteTargetSiteRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteTargetSiteRequest"
@@ -37043,6 +39549,7 @@ impl wkt::message::Message for DeleteTargetSiteRequest {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.DeleteTargetSite]: crate::client::SiteSearchEngineService::delete_target_site
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -37061,6 +39568,7 @@ pub struct DeleteTargetSiteMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl DeleteTargetSiteMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -37103,6 +39611,7 @@ impl DeleteTargetSiteMetadata {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for DeleteTargetSiteMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteTargetSiteMetadata"
@@ -37114,6 +39623,7 @@ impl wkt::message::Message for DeleteTargetSiteMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.ListTargetSites]: crate::client::SiteSearchEngineService::list_target_sites
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -37154,6 +39664,7 @@ pub struct ListTargetSitesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl ListTargetSitesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -37178,6 +39689,7 @@ impl ListTargetSitesRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for ListTargetSitesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListTargetSitesRequest"
@@ -37189,6 +39701,7 @@ impl wkt::message::Message for ListTargetSitesRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.ListTargetSites]: crate::client::SiteSearchEngineService::list_target_sites
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -37215,6 +39728,7 @@ pub struct ListTargetSitesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl ListTargetSitesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -37244,12 +39758,14 @@ impl ListTargetSitesResponse {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for ListTargetSitesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListTargetSitesResponse"
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListTargetSitesResponse {
     type PageItem = crate::model::TargetSite;
@@ -37270,6 +39786,7 @@ impl gax::paginator::internal::PageableResponse for ListTargetSitesResponse {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.BatchCreateTargetSites]: crate::client::SiteSearchEngineService::batch_create_target_sites
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -37288,6 +39805,7 @@ pub struct BatchCreateTargetSiteMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl BatchCreateTargetSiteMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -37330,6 +39848,7 @@ impl BatchCreateTargetSiteMetadata {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for BatchCreateTargetSiteMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BatchCreateTargetSiteMetadata"
@@ -37341,6 +39860,7 @@ impl wkt::message::Message for BatchCreateTargetSiteMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.BatchCreateTargetSites]: crate::client::SiteSearchEngineService::batch_create_target_sites
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -37355,6 +39875,7 @@ pub struct BatchCreateTargetSitesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl BatchCreateTargetSitesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -37372,6 +39893,7 @@ impl BatchCreateTargetSitesResponse {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for BatchCreateTargetSitesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BatchCreateTargetSitesResponse"
@@ -37383,6 +39905,7 @@ impl wkt::message::Message for BatchCreateTargetSitesResponse {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.CreateSitemap]: crate::client::SiteSearchEngineService::create_sitemap
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -37407,6 +39930,7 @@ pub struct CreateSitemapRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl CreateSitemapRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -37437,6 +39961,7 @@ impl CreateSitemapRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for CreateSitemapRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateSitemapRequest"
@@ -37448,6 +39973,7 @@ impl wkt::message::Message for CreateSitemapRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.DeleteSitemap]: crate::client::SiteSearchEngineService::delete_sitemap
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -37473,6 +39999,7 @@ pub struct DeleteSitemapRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl DeleteSitemapRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -37485,6 +40012,7 @@ impl DeleteSitemapRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for DeleteSitemapRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteSitemapRequest"
@@ -37496,6 +40024,7 @@ impl wkt::message::Message for DeleteSitemapRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.FetchSitemaps]: crate::client::SiteSearchEngineService::fetch_sitemaps
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -37524,6 +40053,7 @@ pub struct FetchSitemapsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl FetchSitemapsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -37554,6 +40084,7 @@ impl FetchSitemapsRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for FetchSitemapsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.FetchSitemapsRequest"
@@ -37561,6 +40092,7 @@ impl wkt::message::Message for FetchSitemapsRequest {
 }
 
 /// Defines additional types related to [FetchSitemapsRequest].
+#[cfg(feature = "site-search-engine-service")]
 pub mod fetch_sitemaps_request {
     #[allow(unused_imports)]
     use super::*;
@@ -37569,6 +40101,7 @@ pub mod fetch_sitemaps_request {
     /// their uris.
     ///
     /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+    #[cfg(feature = "site-search-engine-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -37585,6 +40118,7 @@ pub mod fetch_sitemaps_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl UrisMatcher {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -37602,6 +40136,7 @@ pub mod fetch_sitemaps_request {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl wkt::message::Message for UrisMatcher {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.FetchSitemapsRequest.UrisMatcher"
@@ -37612,6 +40147,7 @@ pub mod fetch_sitemaps_request {
     /// Currently only supports uris matcher.
     ///
     /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+    #[cfg(feature = "site-search-engine-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -37627,6 +40163,7 @@ pub mod fetch_sitemaps_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl Matcher {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -37682,6 +40219,7 @@ pub mod fetch_sitemaps_request {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl wkt::message::Message for Matcher {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.FetchSitemapsRequest.Matcher"
@@ -37689,6 +40227,7 @@ pub mod fetch_sitemaps_request {
     }
 
     /// Defines additional types related to [Matcher].
+    #[cfg(feature = "site-search-engine-service")]
     pub mod matcher {
         #[allow(unused_imports)]
         use super::*;
@@ -37696,6 +40235,7 @@ pub mod fetch_sitemaps_request {
         /// Matcher for the [Sitemap][google.cloud.discoveryengine.v1.Sitemap]s.
         ///
         /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+        #[cfg(feature = "site-search-engine-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -37713,6 +40253,7 @@ pub mod fetch_sitemaps_request {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.CreateSitemap]: crate::client::SiteSearchEngineService::create_sitemap
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -37731,6 +40272,7 @@ pub struct CreateSitemapMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl CreateSitemapMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -37773,6 +40315,7 @@ impl CreateSitemapMetadata {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for CreateSitemapMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CreateSitemapMetadata"
@@ -37785,6 +40328,7 @@ impl wkt::message::Message for CreateSitemapMetadata {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.DeleteSitemap]: crate::client::SiteSearchEngineService::delete_sitemap
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -37803,6 +40347,7 @@ pub struct DeleteSitemapMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl DeleteSitemapMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -37845,6 +40390,7 @@ impl DeleteSitemapMetadata {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for DeleteSitemapMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DeleteSitemapMetadata"
@@ -37856,6 +40402,7 @@ impl wkt::message::Message for DeleteSitemapMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.FetchSitemaps]: crate::client::SiteSearchEngineService::fetch_sitemaps
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -37872,6 +40419,7 @@ pub struct FetchSitemapsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl FetchSitemapsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -37889,6 +40437,7 @@ impl FetchSitemapsResponse {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for FetchSitemapsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.FetchSitemapsResponse"
@@ -37896,6 +40445,7 @@ impl wkt::message::Message for FetchSitemapsResponse {
 }
 
 /// Defines additional types related to [FetchSitemapsResponse].
+#[cfg(feature = "site-search-engine-service")]
 pub mod fetch_sitemaps_response {
     #[allow(unused_imports)]
     use super::*;
@@ -37904,6 +40454,7 @@ pub mod fetch_sitemaps_response {
     /// metadata.
     ///
     /// [google.cloud.discoveryengine.v1.Sitemap]: crate::model::Sitemap
+    #[cfg(feature = "site-search-engine-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -37919,6 +40470,7 @@ pub mod fetch_sitemaps_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl SitemapMetadata {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -37943,6 +40495,7 @@ pub mod fetch_sitemaps_response {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl wkt::message::Message for SitemapMetadata {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.FetchSitemapsResponse.SitemapMetadata"
@@ -37955,6 +40508,7 @@ pub mod fetch_sitemaps_response {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.EnableAdvancedSiteSearch]: crate::client::SiteSearchEngineService::enable_advanced_site_search
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -37974,6 +40528,7 @@ pub struct EnableAdvancedSiteSearchRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl EnableAdvancedSiteSearchRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -37989,6 +40544,7 @@ impl EnableAdvancedSiteSearchRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for EnableAdvancedSiteSearchRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.EnableAdvancedSiteSearchRequest"
@@ -38000,6 +40556,7 @@ impl wkt::message::Message for EnableAdvancedSiteSearchRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.EnableAdvancedSiteSearch]: crate::client::SiteSearchEngineService::enable_advanced_site_search
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -38009,12 +40566,14 @@ pub struct EnableAdvancedSiteSearchResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl EnableAdvancedSiteSearchResponse {
     pub fn new() -> Self {
         std::default::Default::default()
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for EnableAdvancedSiteSearchResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.EnableAdvancedSiteSearchResponse"
@@ -38027,6 +40586,7 @@ impl wkt::message::Message for EnableAdvancedSiteSearchResponse {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.EnableAdvancedSiteSearch]: crate::client::SiteSearchEngineService::enable_advanced_site_search
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -38045,6 +40605,7 @@ pub struct EnableAdvancedSiteSearchMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl EnableAdvancedSiteSearchMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -38087,6 +40648,7 @@ impl EnableAdvancedSiteSearchMetadata {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for EnableAdvancedSiteSearchMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.EnableAdvancedSiteSearchMetadata"
@@ -38098,6 +40660,7 @@ impl wkt::message::Message for EnableAdvancedSiteSearchMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.DisableAdvancedSiteSearch]: crate::client::SiteSearchEngineService::disable_advanced_site_search
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -38117,6 +40680,7 @@ pub struct DisableAdvancedSiteSearchRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl DisableAdvancedSiteSearchRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -38132,6 +40696,7 @@ impl DisableAdvancedSiteSearchRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for DisableAdvancedSiteSearchRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DisableAdvancedSiteSearchRequest"
@@ -38143,6 +40708,7 @@ impl wkt::message::Message for DisableAdvancedSiteSearchRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.DisableAdvancedSiteSearch]: crate::client::SiteSearchEngineService::disable_advanced_site_search
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -38152,12 +40718,14 @@ pub struct DisableAdvancedSiteSearchResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl DisableAdvancedSiteSearchResponse {
     pub fn new() -> Self {
         std::default::Default::default()
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for DisableAdvancedSiteSearchResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DisableAdvancedSiteSearchResponse"
@@ -38170,6 +40738,7 @@ impl wkt::message::Message for DisableAdvancedSiteSearchResponse {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.DisableAdvancedSiteSearch]: crate::client::SiteSearchEngineService::disable_advanced_site_search
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -38188,6 +40757,7 @@ pub struct DisableAdvancedSiteSearchMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl DisableAdvancedSiteSearchMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -38230,6 +40800,7 @@ impl DisableAdvancedSiteSearchMetadata {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for DisableAdvancedSiteSearchMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DisableAdvancedSiteSearchMetadata"
@@ -38241,6 +40812,7 @@ impl wkt::message::Message for DisableAdvancedSiteSearchMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.RecrawlUris]: crate::client::SiteSearchEngineService::recrawl_uris
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -38274,6 +40846,7 @@ pub struct RecrawlUrisRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl RecrawlUrisRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -38306,6 +40879,7 @@ impl RecrawlUrisRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for RecrawlUrisRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.RecrawlUrisRequest"
@@ -38317,6 +40891,7 @@ impl wkt::message::Message for RecrawlUrisRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.RecrawlUris]: crate::client::SiteSearchEngineService::recrawl_uris
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -38336,6 +40911,7 @@ pub struct RecrawlUrisResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl RecrawlUrisResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -38364,6 +40940,7 @@ impl RecrawlUrisResponse {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for RecrawlUrisResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.RecrawlUrisResponse"
@@ -38371,12 +40948,14 @@ impl wkt::message::Message for RecrawlUrisResponse {
 }
 
 /// Defines additional types related to [RecrawlUrisResponse].
+#[cfg(feature = "site-search-engine-service")]
 pub mod recrawl_uris_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Details about why a particular URI failed to be crawled. Each FailureInfo
     /// contains one FailureReason per CorpusType.
+    #[cfg(feature = "site-search-engine-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -38397,6 +40976,7 @@ pub mod recrawl_uris_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl FailureInfo {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -38420,6 +41000,7 @@ pub mod recrawl_uris_response {
         }
     }
 
+    #[cfg(feature = "site-search-engine-service")]
     impl wkt::message::Message for FailureInfo {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.RecrawlUrisResponse.FailureInfo"
@@ -38427,12 +41008,14 @@ pub mod recrawl_uris_response {
     }
 
     /// Defines additional types related to [FailureInfo].
+    #[cfg(feature = "site-search-engine-service")]
     pub mod failure_info {
         #[allow(unused_imports)]
         use super::*;
 
         /// Details about why crawling failed for a particular CorpusType, e.g.,
         /// DESKTOP and MOBILE crawling may fail for different reasons.
+        #[cfg(feature = "site-search-engine-service")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -38453,6 +41036,7 @@ pub mod recrawl_uris_response {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "site-search-engine-service")]
         impl FailureReason {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -38474,6 +41058,7 @@ pub mod recrawl_uris_response {
             }
         }
 
+        #[cfg(feature = "site-search-engine-service")]
         impl wkt::message::Message for FailureReason {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.discoveryengine.v1.RecrawlUrisResponse.FailureInfo.FailureReason"
@@ -38481,6 +41066,7 @@ pub mod recrawl_uris_response {
         }
 
         /// Defines additional types related to [FailureReason].
+        #[cfg(feature = "site-search-engine-service")]
         pub mod failure_reason {
             #[allow(unused_imports)]
             use super::*;
@@ -38500,6 +41086,7 @@ pub mod recrawl_uris_response {
             /// guidelines.
             ///
             /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(feature = "site-search-engine-service")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum CorpusType {
@@ -38517,6 +41104,7 @@ pub mod recrawl_uris_response {
             }
 
             #[doc(hidden)]
+            #[cfg(feature = "site-search-engine-service")]
             pub mod corpus_type {
                 #[allow(unused_imports)]
                 use super::*;
@@ -38524,6 +41112,7 @@ pub mod recrawl_uris_response {
                 pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
             }
 
+            #[cfg(feature = "site-search-engine-service")]
             impl CorpusType {
                 /// Gets the enum value.
                 ///
@@ -38552,6 +41141,7 @@ pub mod recrawl_uris_response {
                 }
             }
 
+            #[cfg(feature = "site-search-engine-service")]
             impl std::default::Default for CorpusType {
                 fn default() -> Self {
                     use std::convert::From;
@@ -38559,6 +41149,7 @@ pub mod recrawl_uris_response {
                 }
             }
 
+            #[cfg(feature = "site-search-engine-service")]
             impl std::fmt::Display for CorpusType {
                 fn fmt(
                     &self,
@@ -38568,6 +41159,7 @@ pub mod recrawl_uris_response {
                 }
             }
 
+            #[cfg(feature = "site-search-engine-service")]
             impl std::convert::From<i32> for CorpusType {
                 fn from(value: i32) -> Self {
                     match value {
@@ -38581,6 +41173,7 @@ pub mod recrawl_uris_response {
                 }
             }
 
+            #[cfg(feature = "site-search-engine-service")]
             impl std::convert::From<&str> for CorpusType {
                 fn from(value: &str) -> Self {
                     use std::string::ToString;
@@ -38595,6 +41188,7 @@ pub mod recrawl_uris_response {
                 }
             }
 
+            #[cfg(feature = "site-search-engine-service")]
             impl serde::ser::Serialize for CorpusType {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -38609,6 +41203,7 @@ pub mod recrawl_uris_response {
                 }
             }
 
+            #[cfg(feature = "site-search-engine-service")]
             impl<'de> serde::de::Deserialize<'de> for CorpusType {
                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                 where
@@ -38628,6 +41223,7 @@ pub mod recrawl_uris_response {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.RecrawlUris]: crate::client::SiteSearchEngineService::recrawl_uris
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -38700,6 +41296,7 @@ pub struct RecrawlUrisMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl RecrawlUrisMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -38820,6 +41417,7 @@ impl RecrawlUrisMetadata {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for RecrawlUrisMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.RecrawlUrisMetadata"
@@ -38831,6 +41429,7 @@ impl wkt::message::Message for RecrawlUrisMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.BatchVerifyTargetSites]: crate::client::SiteSearchEngineService::batch_verify_target_sites
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -38846,6 +41445,7 @@ pub struct BatchVerifyTargetSitesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl BatchVerifyTargetSitesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -38858,6 +41458,7 @@ impl BatchVerifyTargetSitesRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for BatchVerifyTargetSitesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BatchVerifyTargetSitesRequest"
@@ -38869,6 +41470,7 @@ impl wkt::message::Message for BatchVerifyTargetSitesRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.BatchVerifyTargetSites]: crate::client::SiteSearchEngineService::batch_verify_target_sites
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -38878,12 +41480,14 @@ pub struct BatchVerifyTargetSitesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl BatchVerifyTargetSitesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for BatchVerifyTargetSitesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BatchVerifyTargetSitesResponse"
@@ -38896,6 +41500,7 @@ impl wkt::message::Message for BatchVerifyTargetSitesResponse {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.BatchVerifyTargetSites]: crate::client::SiteSearchEngineService::batch_verify_target_sites
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -38914,6 +41519,7 @@ pub struct BatchVerifyTargetSitesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl BatchVerifyTargetSitesMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -38956,6 +41562,7 @@ impl BatchVerifyTargetSitesMetadata {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for BatchVerifyTargetSitesMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BatchVerifyTargetSitesMetadata"
@@ -38967,6 +41574,7 @@ impl wkt::message::Message for BatchVerifyTargetSitesMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.FetchDomainVerificationStatus]: crate::client::SiteSearchEngineService::fetch_domain_verification_status
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -39002,6 +41610,7 @@ pub struct FetchDomainVerificationStatusRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl FetchDomainVerificationStatusRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -39029,6 +41638,7 @@ impl FetchDomainVerificationStatusRequest {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for FetchDomainVerificationStatusRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.FetchDomainVerificationStatusRequest"
@@ -39040,6 +41650,7 @@ impl wkt::message::Message for FetchDomainVerificationStatusRequest {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.SiteSearchEngineService.FetchDomainVerificationStatus]: crate::client::SiteSearchEngineService::fetch_domain_verification_status
+#[cfg(feature = "site-search-engine-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -39066,6 +41677,7 @@ pub struct FetchDomainVerificationStatusResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl FetchDomainVerificationStatusResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -39095,12 +41707,14 @@ impl FetchDomainVerificationStatusResponse {
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 impl wkt::message::Message for FetchDomainVerificationStatusResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.FetchDomainVerificationStatusResponse"
     }
 }
 
+#[cfg(feature = "site-search-engine-service")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for FetchDomainVerificationStatusResponse {
     type PageItem = crate::model::TargetSite;
@@ -39117,6 +41731,7 @@ impl gax::paginator::internal::PageableResponse for FetchDomainVerificationStatu
 
 /// UserEvent captures all metadata information Discovery Engine API needs to
 /// know about how end users interact with your website.
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -39437,6 +42052,7 @@ pub struct UserEvent {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl UserEvent {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -39700,6 +42316,7 @@ impl UserEvent {
     }
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl wkt::message::Message for UserEvent {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UserEvent"
@@ -39707,6 +42324,7 @@ impl wkt::message::Message for UserEvent {
 }
 
 /// Detailed page information.
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -39764,6 +42382,7 @@ pub struct PageInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl PageInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -39794,6 +42413,7 @@ impl PageInfo {
     }
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl wkt::message::Message for PageInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PageInfo"
@@ -39801,6 +42421,7 @@ impl wkt::message::Message for PageInfo {
 }
 
 /// Detailed search information.
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -39866,6 +42487,7 @@ pub struct SearchInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl SearchInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -39902,6 +42524,7 @@ impl SearchInfo {
     }
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl wkt::message::Message for SearchInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.SearchInfo"
@@ -39910,6 +42533,7 @@ impl wkt::message::Message for SearchInfo {
 
 /// Detailed completion information including completion attribution token and
 /// clicked completion info.
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -39936,6 +42560,7 @@ pub struct CompletionInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl CompletionInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -39957,6 +42582,7 @@ impl CompletionInfo {
     }
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl wkt::message::Message for CompletionInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CompletionInfo"
@@ -39964,6 +42590,7 @@ impl wkt::message::Message for CompletionInfo {
 }
 
 /// A transaction represents the entire purchase transaction.
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -40039,6 +42666,7 @@ pub struct TransactionInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl TransactionInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -40129,6 +42757,7 @@ impl TransactionInfo {
     }
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl wkt::message::Message for TransactionInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.TransactionInfo"
@@ -40136,6 +42765,7 @@ impl wkt::message::Message for TransactionInfo {
 }
 
 /// Detailed document information associated with a user event.
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -40203,6 +42833,7 @@ pub struct DocumentInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl DocumentInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -40347,6 +42978,7 @@ impl DocumentInfo {
     }
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl wkt::message::Message for DocumentInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.DocumentInfo"
@@ -40354,6 +42986,7 @@ impl wkt::message::Message for DocumentInfo {
 }
 
 /// Defines additional types related to [DocumentInfo].
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 pub mod document_info {
     #[allow(unused_imports)]
     use super::*;
@@ -40375,6 +43008,7 @@ pub mod document_info {
     /// [google.cloud.discoveryengine.v1.Document]: crate::model::Document
     /// [google.cloud.discoveryengine.v1.DocumentInfo.id]: crate::model::DocumentInfo::document_descriptor
     /// [google.cloud.discoveryengine.v1.DocumentInfo.name]: crate::model::DocumentInfo::document_descriptor
+    #[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -40399,6 +43033,7 @@ pub mod document_info {
 }
 
 /// Detailed panel information associated with a user event.
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -40443,6 +43078,7 @@ pub struct PanelInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl PanelInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -40508,6 +43144,7 @@ impl PanelInfo {
     }
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl wkt::message::Message for PanelInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.PanelInfo"
@@ -40515,6 +43152,7 @@ impl wkt::message::Message for PanelInfo {
 }
 
 /// Media-specific user event information.
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -40546,6 +43184,7 @@ pub struct MediaInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl MediaInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -40588,6 +43227,7 @@ impl MediaInfo {
     }
 }
 
+#[cfg(any(feature = "recommendation-service", feature = "user-event-service",))]
 impl wkt::message::Message for MediaInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.MediaInfo"
@@ -40595,6 +43235,7 @@ impl wkt::message::Message for MediaInfo {
 }
 
 /// Request message for WriteUserEvent method.
+#[cfg(feature = "user-event-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -40632,6 +43273,7 @@ pub struct WriteUserEventRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-event-service")]
 impl WriteUserEventRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -40668,6 +43310,7 @@ impl WriteUserEventRequest {
     }
 }
 
+#[cfg(feature = "user-event-service")]
 impl wkt::message::Message for WriteUserEventRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.WriteUserEventRequest"
@@ -40675,6 +43318,7 @@ impl wkt::message::Message for WriteUserEventRequest {
 }
 
 /// Request message for CollectUserEvent method.
+#[cfg(feature = "user-event-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -40722,6 +43366,7 @@ pub struct CollectUserEventRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-event-service")]
 impl CollectUserEventRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -40776,6 +43421,7 @@ impl CollectUserEventRequest {
     }
 }
 
+#[cfg(feature = "user-event-service")]
 impl wkt::message::Message for CollectUserEventRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.CollectUserEventRequest"
@@ -40783,6 +43429,7 @@ impl wkt::message::Message for CollectUserEventRequest {
 }
 
 /// User License information assigned by the admin.
+#[cfg(feature = "user-license-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -40833,6 +43480,7 @@ pub struct UserLicense {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-license-service")]
 impl UserLicense {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -40922,6 +43570,7 @@ impl UserLicense {
     }
 }
 
+#[cfg(feature = "user-license-service")]
 impl wkt::message::Message for UserLicense {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.UserLicense"
@@ -40929,6 +43578,7 @@ impl wkt::message::Message for UserLicense {
 }
 
 /// Defines additional types related to [UserLicense].
+#[cfg(feature = "user-license-service")]
 pub mod user_license {
     #[allow(unused_imports)]
     use super::*;
@@ -40948,6 +43598,7 @@ pub mod user_license {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "user-license-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum LicenseAssignmentState {
@@ -40974,6 +43625,7 @@ pub mod user_license {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "user-license-service")]
     pub mod license_assignment_state {
         #[allow(unused_imports)]
         use super::*;
@@ -40981,6 +43633,7 @@ pub mod user_license {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "user-license-service")]
     impl LicenseAssignmentState {
         /// Gets the enum value.
         ///
@@ -41017,6 +43670,7 @@ pub mod user_license {
         }
     }
 
+    #[cfg(feature = "user-license-service")]
     impl std::default::Default for LicenseAssignmentState {
         fn default() -> Self {
             use std::convert::From;
@@ -41024,12 +43678,14 @@ pub mod user_license {
         }
     }
 
+    #[cfg(feature = "user-license-service")]
     impl std::fmt::Display for LicenseAssignmentState {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "user-license-service")]
     impl std::convert::From<i32> for LicenseAssignmentState {
         fn from(value: i32) -> Self {
             match value {
@@ -41045,6 +43701,7 @@ pub mod user_license {
         }
     }
 
+    #[cfg(feature = "user-license-service")]
     impl std::convert::From<&str> for LicenseAssignmentState {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -41061,6 +43718,7 @@ pub mod user_license {
         }
     }
 
+    #[cfg(feature = "user-license-service")]
     impl serde::ser::Serialize for LicenseAssignmentState {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -41077,6 +43735,7 @@ pub mod user_license {
         }
     }
 
+    #[cfg(feature = "user-license-service")]
     impl<'de> serde::de::Deserialize<'de> for LicenseAssignmentState {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -41093,6 +43752,7 @@ pub mod user_license {
 /// [UserLicenseService.ListUserLicenses][google.cloud.discoveryengine.v1.UserLicenseService.ListUserLicenses].
 ///
 /// [google.cloud.discoveryengine.v1.UserLicenseService.ListUserLicenses]: crate::client::UserLicenseService::list_user_licenses
+#[cfg(feature = "user-license-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -41144,6 +43804,7 @@ pub struct ListUserLicensesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-license-service")]
 impl ListUserLicensesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -41174,6 +43835,7 @@ impl ListUserLicensesRequest {
     }
 }
 
+#[cfg(feature = "user-license-service")]
 impl wkt::message::Message for ListUserLicensesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListUserLicensesRequest"
@@ -41184,6 +43846,7 @@ impl wkt::message::Message for ListUserLicensesRequest {
 /// [UserLicenseService.ListUserLicenses][google.cloud.discoveryengine.v1.UserLicenseService.ListUserLicenses].
 ///
 /// [google.cloud.discoveryengine.v1.UserLicenseService.ListUserLicenses]: crate::client::UserLicenseService::list_user_licenses
+#[cfg(feature = "user-license-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -41207,6 +43870,7 @@ pub struct ListUserLicensesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-license-service")]
 impl ListUserLicensesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -41230,12 +43894,14 @@ impl ListUserLicensesResponse {
     }
 }
 
+#[cfg(feature = "user-license-service")]
 impl wkt::message::Message for ListUserLicensesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.ListUserLicensesResponse"
     }
 }
 
+#[cfg(feature = "user-license-service")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListUserLicensesResponse {
     type PageItem = crate::model::UserLicense;
@@ -41255,6 +43921,7 @@ impl gax::paginator::internal::PageableResponse for ListUserLicensesResponse {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.UserLicenseService.BatchUpdateUserLicenses]: crate::client::UserLicenseService::batch_update_user_licenses
+#[cfg(feature = "user-license-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -41281,6 +43948,7 @@ pub struct BatchUpdateUserLicensesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-license-service")]
 impl BatchUpdateUserLicensesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -41354,6 +44022,7 @@ impl BatchUpdateUserLicensesRequest {
     }
 }
 
+#[cfg(feature = "user-license-service")]
 impl wkt::message::Message for BatchUpdateUserLicensesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BatchUpdateUserLicensesRequest"
@@ -41361,12 +44030,14 @@ impl wkt::message::Message for BatchUpdateUserLicensesRequest {
 }
 
 /// Defines additional types related to [BatchUpdateUserLicensesRequest].
+#[cfg(feature = "user-license-service")]
 pub mod batch_update_user_licenses_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// The inline source for the input config for BatchUpdateUserLicenses
     /// method.
+    #[cfg(feature = "user-license-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -41389,6 +44060,7 @@ pub mod batch_update_user_licenses_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "user-license-service")]
     impl InlineSource {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -41424,6 +44096,7 @@ pub mod batch_update_user_licenses_request {
         }
     }
 
+    #[cfg(feature = "user-license-service")]
     impl wkt::message::Message for InlineSource {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.discoveryengine.v1.BatchUpdateUserLicensesRequest.InlineSource"
@@ -41431,6 +44104,7 @@ pub mod batch_update_user_licenses_request {
     }
 
     /// Required. The source of the input.
+    #[cfg(feature = "user-license-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -41449,6 +44123,7 @@ pub mod batch_update_user_licenses_request {
 /// field.
 ///
 /// [google.cloud.discoveryengine.v1.UserLicenseService.BatchUpdateUserLicenses]: crate::client::UserLicenseService::batch_update_user_licenses
+#[cfg(feature = "user-license-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -41477,6 +44152,7 @@ pub struct BatchUpdateUserLicensesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-license-service")]
 impl BatchUpdateUserLicensesMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -41531,6 +44207,7 @@ impl BatchUpdateUserLicensesMetadata {
     }
 }
 
+#[cfg(feature = "user-license-service")]
 impl wkt::message::Message for BatchUpdateUserLicensesMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BatchUpdateUserLicensesMetadata"
@@ -41542,6 +44219,7 @@ impl wkt::message::Message for BatchUpdateUserLicensesMetadata {
 /// method.
 ///
 /// [google.cloud.discoveryengine.v1.UserLicenseService.BatchUpdateUserLicenses]: crate::client::UserLicenseService::batch_update_user_licenses
+#[cfg(feature = "user-license-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -41561,6 +44239,7 @@ pub struct BatchUpdateUserLicensesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "user-license-service")]
 impl BatchUpdateUserLicensesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -41589,6 +44268,7 @@ impl BatchUpdateUserLicensesResponse {
     }
 }
 
+#[cfg(feature = "user-license-service")]
 impl wkt::message::Message for BatchUpdateUserLicensesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.discoveryengine.v1.BatchUpdateUserLicensesResponse"
@@ -41613,6 +44293,7 @@ impl wkt::message::Message for BatchUpdateUserLicensesResponse {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(any(feature = "data-store-service", feature = "engine-service",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum IndustryVertical {
@@ -41633,6 +44314,7 @@ pub enum IndustryVertical {
 }
 
 #[doc(hidden)]
+#[cfg(any(feature = "data-store-service", feature = "engine-service",))]
 pub mod industry_vertical {
     #[allow(unused_imports)]
     use super::*;
@@ -41640,6 +44322,7 @@ pub mod industry_vertical {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(any(feature = "data-store-service", feature = "engine-service",))]
 impl IndustryVertical {
     /// Gets the enum value.
     ///
@@ -41670,6 +44353,7 @@ impl IndustryVertical {
     }
 }
 
+#[cfg(any(feature = "data-store-service", feature = "engine-service",))]
 impl std::default::Default for IndustryVertical {
     fn default() -> Self {
         use std::convert::From;
@@ -41677,12 +44361,14 @@ impl std::default::Default for IndustryVertical {
     }
 }
 
+#[cfg(any(feature = "data-store-service", feature = "engine-service",))]
 impl std::fmt::Display for IndustryVertical {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(any(feature = "data-store-service", feature = "engine-service",))]
 impl std::convert::From<i32> for IndustryVertical {
     fn from(value: i32) -> Self {
         match value {
@@ -41697,6 +44383,7 @@ impl std::convert::From<i32> for IndustryVertical {
     }
 }
 
+#[cfg(any(feature = "data-store-service", feature = "engine-service",))]
 impl std::convert::From<&str> for IndustryVertical {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -41712,6 +44399,7 @@ impl std::convert::From<&str> for IndustryVertical {
     }
 }
 
+#[cfg(any(feature = "data-store-service", feature = "engine-service",))]
 impl serde::ser::Serialize for IndustryVertical {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -41727,6 +44415,7 @@ impl serde::ser::Serialize for IndustryVertical {
     }
 }
 
+#[cfg(any(feature = "data-store-service", feature = "engine-service",))]
 impl<'de> serde::de::Deserialize<'de> for IndustryVertical {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -41753,6 +44442,12 @@ impl<'de> serde::de::Deserialize<'de> for IndustryVertical {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(any(
+    feature = "control-service",
+    feature = "data-store-service",
+    feature = "engine-service",
+    feature = "serving-config-service",
+))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum SolutionType {
@@ -41776,6 +44471,12 @@ pub enum SolutionType {
 }
 
 #[doc(hidden)]
+#[cfg(any(
+    feature = "control-service",
+    feature = "data-store-service",
+    feature = "engine-service",
+    feature = "serving-config-service",
+))]
 pub mod solution_type {
     #[allow(unused_imports)]
     use super::*;
@@ -41783,6 +44484,12 @@ pub mod solution_type {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(any(
+    feature = "control-service",
+    feature = "data-store-service",
+    feature = "engine-service",
+    feature = "serving-config-service",
+))]
 impl SolutionType {
     /// Gets the enum value.
     ///
@@ -41815,6 +44522,12 @@ impl SolutionType {
     }
 }
 
+#[cfg(any(
+    feature = "control-service",
+    feature = "data-store-service",
+    feature = "engine-service",
+    feature = "serving-config-service",
+))]
 impl std::default::Default for SolutionType {
     fn default() -> Self {
         use std::convert::From;
@@ -41822,12 +44535,24 @@ impl std::default::Default for SolutionType {
     }
 }
 
+#[cfg(any(
+    feature = "control-service",
+    feature = "data-store-service",
+    feature = "engine-service",
+    feature = "serving-config-service",
+))]
 impl std::fmt::Display for SolutionType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(any(
+    feature = "control-service",
+    feature = "data-store-service",
+    feature = "engine-service",
+    feature = "serving-config-service",
+))]
 impl std::convert::From<i32> for SolutionType {
     fn from(value: i32) -> Self {
         match value {
@@ -41843,6 +44568,12 @@ impl std::convert::From<i32> for SolutionType {
     }
 }
 
+#[cfg(any(
+    feature = "control-service",
+    feature = "data-store-service",
+    feature = "engine-service",
+    feature = "serving-config-service",
+))]
 impl std::convert::From<&str> for SolutionType {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -41859,6 +44590,12 @@ impl std::convert::From<&str> for SolutionType {
     }
 }
 
+#[cfg(any(
+    feature = "control-service",
+    feature = "data-store-service",
+    feature = "engine-service",
+    feature = "serving-config-service",
+))]
 impl serde::ser::Serialize for SolutionType {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -41875,6 +44612,12 @@ impl serde::ser::Serialize for SolutionType {
     }
 }
 
+#[cfg(any(
+    feature = "control-service",
+    feature = "data-store-service",
+    feature = "engine-service",
+    feature = "serving-config-service",
+))]
 impl<'de> serde::de::Deserialize<'de> for SolutionType {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -41905,6 +44648,7 @@ impl<'de> serde::de::Deserialize<'de> for SolutionType {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(feature = "control-service")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum SearchUseCase {
@@ -41928,6 +44672,7 @@ pub enum SearchUseCase {
 }
 
 #[doc(hidden)]
+#[cfg(feature = "control-service")]
 pub mod search_use_case {
     #[allow(unused_imports)]
     use super::*;
@@ -41935,6 +44680,7 @@ pub mod search_use_case {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(feature = "control-service")]
 impl SearchUseCase {
     /// Gets the enum value.
     ///
@@ -41963,6 +44709,7 @@ impl SearchUseCase {
     }
 }
 
+#[cfg(feature = "control-service")]
 impl std::default::Default for SearchUseCase {
     fn default() -> Self {
         use std::convert::From;
@@ -41970,12 +44717,14 @@ impl std::default::Default for SearchUseCase {
     }
 }
 
+#[cfg(feature = "control-service")]
 impl std::fmt::Display for SearchUseCase {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(feature = "control-service")]
 impl std::convert::From<i32> for SearchUseCase {
     fn from(value: i32) -> Self {
         match value {
@@ -41989,6 +44738,7 @@ impl std::convert::From<i32> for SearchUseCase {
     }
 }
 
+#[cfg(feature = "control-service")]
 impl std::convert::From<&str> for SearchUseCase {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -42003,6 +44753,7 @@ impl std::convert::From<&str> for SearchUseCase {
     }
 }
 
+#[cfg(feature = "control-service")]
 impl serde::ser::Serialize for SearchUseCase {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -42017,6 +44768,7 @@ impl serde::ser::Serialize for SearchUseCase {
     }
 }
 
+#[cfg(feature = "control-service")]
 impl<'de> serde::de::Deserialize<'de> for SearchUseCase {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -42044,6 +44796,7 @@ impl<'de> serde::de::Deserialize<'de> for SearchUseCase {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(feature = "engine-service")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum SearchTier {
@@ -42061,6 +44814,7 @@ pub enum SearchTier {
 }
 
 #[doc(hidden)]
+#[cfg(feature = "engine-service")]
 pub mod search_tier {
     #[allow(unused_imports)]
     use super::*;
@@ -42068,6 +44822,7 @@ pub mod search_tier {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(feature = "engine-service")]
 impl SearchTier {
     /// Gets the enum value.
     ///
@@ -42096,6 +44851,7 @@ impl SearchTier {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl std::default::Default for SearchTier {
     fn default() -> Self {
         use std::convert::From;
@@ -42103,12 +44859,14 @@ impl std::default::Default for SearchTier {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl std::fmt::Display for SearchTier {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl std::convert::From<i32> for SearchTier {
     fn from(value: i32) -> Self {
         match value {
@@ -42122,6 +44880,7 @@ impl std::convert::From<i32> for SearchTier {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl std::convert::From<&str> for SearchTier {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -42136,6 +44895,7 @@ impl std::convert::From<&str> for SearchTier {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl serde::ser::Serialize for SearchTier {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -42150,6 +44910,7 @@ impl serde::ser::Serialize for SearchTier {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl<'de> serde::de::Deserialize<'de> for SearchTier {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -42176,6 +44937,7 @@ impl<'de> serde::de::Deserialize<'de> for SearchTier {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(feature = "engine-service")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum SearchAddOn {
@@ -42191,6 +44953,7 @@ pub enum SearchAddOn {
 }
 
 #[doc(hidden)]
+#[cfg(feature = "engine-service")]
 pub mod search_add_on {
     #[allow(unused_imports)]
     use super::*;
@@ -42198,6 +44961,7 @@ pub mod search_add_on {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(feature = "engine-service")]
 impl SearchAddOn {
     /// Gets the enum value.
     ///
@@ -42224,6 +44988,7 @@ impl SearchAddOn {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl std::default::Default for SearchAddOn {
     fn default() -> Self {
         use std::convert::From;
@@ -42231,12 +44996,14 @@ impl std::default::Default for SearchAddOn {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl std::fmt::Display for SearchAddOn {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl std::convert::From<i32> for SearchAddOn {
     fn from(value: i32) -> Self {
         match value {
@@ -42249,6 +45016,7 @@ impl std::convert::From<i32> for SearchAddOn {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl std::convert::From<&str> for SearchAddOn {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -42262,6 +45030,7 @@ impl std::convert::From<&str> for SearchAddOn {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl serde::ser::Serialize for SearchAddOn {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -42275,6 +45044,7 @@ impl serde::ser::Serialize for SearchAddOn {
     }
 }
 
+#[cfg(feature = "engine-service")]
 impl<'de> serde::de::Deserialize<'de> for SearchAddOn {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -42301,6 +45071,7 @@ impl<'de> serde::de::Deserialize<'de> for SearchAddOn {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(feature = "conversational-search-service")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum HarmCategory {
@@ -42324,6 +45095,7 @@ pub enum HarmCategory {
 }
 
 #[doc(hidden)]
+#[cfg(feature = "conversational-search-service")]
 pub mod harm_category {
     #[allow(unused_imports)]
     use super::*;
@@ -42331,6 +45103,7 @@ pub mod harm_category {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl HarmCategory {
     /// Gets the enum value.
     ///
@@ -42365,6 +45138,7 @@ impl HarmCategory {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl std::default::Default for HarmCategory {
     fn default() -> Self {
         use std::convert::From;
@@ -42372,12 +45146,14 @@ impl std::default::Default for HarmCategory {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl std::fmt::Display for HarmCategory {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl std::convert::From<i32> for HarmCategory {
     fn from(value: i32) -> Self {
         match value {
@@ -42394,6 +45170,7 @@ impl std::convert::From<i32> for HarmCategory {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl std::convert::From<&str> for HarmCategory {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -42411,6 +45188,7 @@ impl std::convert::From<&str> for HarmCategory {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl serde::ser::Serialize for HarmCategory {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -42428,6 +45206,7 @@ impl serde::ser::Serialize for HarmCategory {
     }
 }
 
+#[cfg(feature = "conversational-search-service")]
 impl<'de> serde::de::Deserialize<'de> for HarmCategory {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where

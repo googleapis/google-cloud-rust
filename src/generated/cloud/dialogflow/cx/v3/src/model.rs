@@ -46,6 +46,14 @@ extern crate wkt;
 /// levels define DTMF detections running in parallel.
 ///
 /// Hierarchy: Agent->Flow->Page->Fulfillment/Parameter.
+#[cfg(any(
+    feature = "agents",
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -93,6 +101,14 @@ pub struct AdvancedSettings {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "agents",
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 impl AdvancedSettings {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -171,6 +187,14 @@ impl AdvancedSettings {
     }
 }
 
+#[cfg(any(
+    feature = "agents",
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 impl wkt::message::Message for AdvancedSettings {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.AdvancedSettings"
@@ -178,11 +202,27 @@ impl wkt::message::Message for AdvancedSettings {
 }
 
 /// Defines additional types related to [AdvancedSettings].
+#[cfg(any(
+    feature = "agents",
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 pub mod advanced_settings {
     #[allow(unused_imports)]
     use super::*;
 
     /// Define behaviors of speech to text detection.
+    #[cfg(any(
+        feature = "agents",
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -217,6 +257,14 @@ pub mod advanced_settings {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "agents",
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl SpeechSettings {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -268,6 +316,14 @@ pub mod advanced_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "agents",
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for SpeechSettings {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.AdvancedSettings.SpeechSettings"
@@ -275,6 +331,14 @@ pub mod advanced_settings {
     }
 
     /// Define behaviors for DTMF (dual tone multi frequency).
+    #[cfg(any(
+        feature = "agents",
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -312,6 +376,14 @@ pub mod advanced_settings {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "agents",
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl DtmfSettings {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -381,6 +453,14 @@ pub mod advanced_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "agents",
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for DtmfSettings {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.AdvancedSettings.DtmfSettings"
@@ -388,6 +468,14 @@ pub mod advanced_settings {
     }
 
     /// Define behaviors on logging.
+    #[cfg(any(
+        feature = "agents",
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -414,6 +502,14 @@ pub mod advanced_settings {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "agents",
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl LoggingSettings {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -441,6 +537,14 @@ pub mod advanced_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "agents",
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for LoggingSettings {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.AdvancedSettings.LoggingSettings"
@@ -449,6 +553,7 @@ pub mod advanced_settings {
 }
 
 /// Settings related to speech recognition.
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -463,6 +568,7 @@ pub struct SpeechToTextSettings {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl SpeechToTextSettings {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -475,6 +581,7 @@ impl SpeechToTextSettings {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for SpeechToTextSettings {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.SpeechToTextSettings"
@@ -501,6 +608,7 @@ impl wkt::message::Message for SpeechToTextSettings {
 /// [google.cloud.dialogflow.cx.v3.Intent]: crate::model::Intent
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroup]: crate::model::TransitionRouteGroup
 /// [google.cloud.dialogflow.cx.v3.Webhook]: crate::model::Webhook
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -661,6 +769,7 @@ pub struct Agent {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl Agent {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -937,6 +1046,7 @@ impl Agent {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for Agent {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Agent"
@@ -944,11 +1054,13 @@ impl wkt::message::Message for Agent {
 }
 
 /// Defines additional types related to [Agent].
+#[cfg(feature = "agents")]
 pub mod agent {
     #[allow(unused_imports)]
     use super::*;
 
     /// Settings for connecting to Git repository for an agent.
+    #[cfg(feature = "agents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -963,6 +1075,7 @@ pub mod agent {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "agents")]
     impl GitIntegrationSettings {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -1023,6 +1136,7 @@ pub mod agent {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl wkt::message::Message for GitIntegrationSettings {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Agent.GitIntegrationSettings"
@@ -1030,11 +1144,13 @@ pub mod agent {
     }
 
     /// Defines additional types related to [GitIntegrationSettings].
+    #[cfg(feature = "agents")]
     pub mod git_integration_settings {
         #[allow(unused_imports)]
         use super::*;
 
         /// Settings of integration with GitHub.
+        #[cfg(feature = "agents")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -1070,6 +1186,7 @@ pub mod agent {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "agents")]
         impl GithubSettings {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -1123,6 +1240,7 @@ pub mod agent {
             }
         }
 
+        #[cfg(feature = "agents")]
         impl wkt::message::Message for GithubSettings {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.Agent.GitIntegrationSettings.GithubSettings"
@@ -1130,6 +1248,7 @@ pub mod agent {
         }
 
         /// The git settings to specific systems.
+        #[cfg(feature = "agents")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -1143,6 +1262,7 @@ pub mod agent {
     }
 
     /// Settings for Gen App Builder.
+    #[cfg(feature = "agents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -1159,6 +1279,7 @@ pub mod agent {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "agents")]
     impl GenAppBuilderSettings {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -1171,6 +1292,7 @@ pub mod agent {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl wkt::message::Message for GenAppBuilderSettings {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Agent.GenAppBuilderSettings"
@@ -1178,6 +1300,7 @@ pub mod agent {
     }
 
     /// Settings for answer feedback collection.
+    #[cfg(feature = "agents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -1197,6 +1320,7 @@ pub mod agent {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "agents")]
     impl AnswerFeedbackSettings {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -1209,6 +1333,7 @@ pub mod agent {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl wkt::message::Message for AnswerFeedbackSettings {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Agent.AnswerFeedbackSettings"
@@ -1216,6 +1341,7 @@ pub mod agent {
     }
 
     /// Settings for end user personalization.
+    #[cfg(feature = "agents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -1239,6 +1365,7 @@ pub mod agent {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "agents")]
     impl PersonalizationSettings {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -1266,6 +1393,7 @@ pub mod agent {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl wkt::message::Message for PersonalizationSettings {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Agent.PersonalizationSettings"
@@ -1273,6 +1401,7 @@ pub mod agent {
     }
 
     /// Settings for custom client certificates.
+    #[cfg(feature = "agents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -1303,6 +1432,7 @@ pub mod agent {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "agents")]
     impl ClientCertificateSettings {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -1330,6 +1460,7 @@ pub mod agent {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl wkt::message::Message for ClientCertificateSettings {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Agent.ClientCertificateSettings"
@@ -1341,6 +1472,7 @@ pub mod agent {
 /// [Agents.ListAgents][google.cloud.dialogflow.cx.v3.Agents.ListAgents].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.ListAgents]: crate::client::Agents::list_agents
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1367,6 +1499,7 @@ pub struct ListAgentsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl ListAgentsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -1391,6 +1524,7 @@ impl ListAgentsRequest {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for ListAgentsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListAgentsRequest"
@@ -1401,6 +1535,7 @@ impl wkt::message::Message for ListAgentsRequest {
 /// [Agents.ListAgents][google.cloud.dialogflow.cx.v3.Agents.ListAgents].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.ListAgents]: crate::client::Agents::list_agents
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1422,6 +1557,7 @@ pub struct ListAgentsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl ListAgentsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -1445,12 +1581,14 @@ impl ListAgentsResponse {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for ListAgentsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListAgentsResponse"
     }
 }
 
+#[cfg(feature = "agents")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListAgentsResponse {
     type PageItem = crate::model::Agent;
@@ -1469,6 +1607,7 @@ impl gax::paginator::internal::PageableResponse for ListAgentsResponse {
 /// [Agents.GetAgent][google.cloud.dialogflow.cx.v3.Agents.GetAgent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.GetAgent]: crate::client::Agents::get_agent
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1484,6 +1623,7 @@ pub struct GetAgentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl GetAgentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -1496,6 +1636,7 @@ impl GetAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for GetAgentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetAgentRequest"
@@ -1506,6 +1647,7 @@ impl wkt::message::Message for GetAgentRequest {
 /// [Agents.CreateAgent][google.cloud.dialogflow.cx.v3.Agents.CreateAgent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.CreateAgent]: crate::client::Agents::create_agent
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1525,6 +1667,7 @@ pub struct CreateAgentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl CreateAgentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -1555,6 +1698,7 @@ impl CreateAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for CreateAgentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateAgentRequest"
@@ -1565,6 +1709,7 @@ impl wkt::message::Message for CreateAgentRequest {
 /// [Agents.UpdateAgent][google.cloud.dialogflow.cx.v3.Agents.UpdateAgent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.UpdateAgent]: crate::client::Agents::update_agent
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1583,6 +1728,7 @@ pub struct UpdateAgentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl UpdateAgentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -1625,6 +1771,7 @@ impl UpdateAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for UpdateAgentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateAgentRequest"
@@ -1635,6 +1782,7 @@ impl wkt::message::Message for UpdateAgentRequest {
 /// [Agents.DeleteAgent][google.cloud.dialogflow.cx.v3.Agents.DeleteAgent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.DeleteAgent]: crate::client::Agents::delete_agent
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1650,6 +1798,7 @@ pub struct DeleteAgentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl DeleteAgentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -1662,6 +1811,7 @@ impl DeleteAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for DeleteAgentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteAgentRequest"
@@ -1672,6 +1822,7 @@ impl wkt::message::Message for DeleteAgentRequest {
 /// [Agents.ExportAgent][google.cloud.dialogflow.cx.v3.Agents.ExportAgent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.ExportAgent]: crate::client::Agents::export_agent
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1723,6 +1874,7 @@ pub struct ExportAgentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl ExportAgentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -1785,6 +1937,7 @@ impl ExportAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for ExportAgentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportAgentRequest"
@@ -1792,11 +1945,13 @@ impl wkt::message::Message for ExportAgentRequest {
 }
 
 /// Defines additional types related to [ExportAgentRequest].
+#[cfg(feature = "agents")]
 pub mod export_agent_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Settings for exporting to a git branch.
+    #[cfg(feature = "agents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -1816,6 +1971,7 @@ pub mod export_agent_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "agents")]
     impl GitDestination {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -1840,6 +1996,7 @@ pub mod export_agent_request {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl wkt::message::Message for GitDestination {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportAgentRequest.GitDestination"
@@ -1861,6 +2018,7 @@ pub mod export_agent_request {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "agents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DataFormat {
@@ -1878,6 +2036,7 @@ pub mod export_agent_request {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "agents")]
     pub mod data_format {
         #[allow(unused_imports)]
         use super::*;
@@ -1885,6 +2044,7 @@ pub mod export_agent_request {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "agents")]
     impl DataFormat {
         /// Gets the enum value.
         ///
@@ -1913,6 +2073,7 @@ pub mod export_agent_request {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl std::default::Default for DataFormat {
         fn default() -> Self {
             use std::convert::From;
@@ -1920,12 +2081,14 @@ pub mod export_agent_request {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl std::fmt::Display for DataFormat {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "agents")]
     impl std::convert::From<i32> for DataFormat {
         fn from(value: i32) -> Self {
             match value {
@@ -1939,6 +2102,7 @@ pub mod export_agent_request {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl std::convert::From<&str> for DataFormat {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -1953,6 +2117,7 @@ pub mod export_agent_request {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl serde::ser::Serialize for DataFormat {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -1967,6 +2132,7 @@ pub mod export_agent_request {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl<'de> serde::de::Deserialize<'de> for DataFormat {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -1983,6 +2149,7 @@ pub mod export_agent_request {
 /// [Agents.ExportAgent][google.cloud.dialogflow.cx.v3.Agents.ExportAgent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.ExportAgent]: crate::client::Agents::export_agent
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -1996,6 +2163,7 @@ pub struct ExportAgentResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl ExportAgentResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -2089,6 +2257,7 @@ impl ExportAgentResponse {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for ExportAgentResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportAgentResponse"
@@ -2096,11 +2265,13 @@ impl wkt::message::Message for ExportAgentResponse {
 }
 
 /// Defines additional types related to [ExportAgentResponse].
+#[cfg(feature = "agents")]
 pub mod export_agent_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// The exported agent.
+    #[cfg(feature = "agents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -2134,6 +2305,7 @@ pub mod export_agent_response {
 /// [Agents.RestoreAgent][google.cloud.dialogflow.cx.v3.Agents.RestoreAgent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.RestoreAgent]: crate::client::Agents::restore_agent
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2158,6 +2330,7 @@ pub struct RestoreAgentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl RestoreAgentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -2275,6 +2448,7 @@ impl RestoreAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for RestoreAgentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.RestoreAgentRequest"
@@ -2282,11 +2456,13 @@ impl wkt::message::Message for RestoreAgentRequest {
 }
 
 /// Defines additional types related to [RestoreAgentRequest].
+#[cfg(feature = "agents")]
 pub mod restore_agent_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Settings for restoring from a git branch
+    #[cfg(feature = "agents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -2301,6 +2477,7 @@ pub mod restore_agent_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "agents")]
     impl GitSource {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -2316,6 +2493,7 @@ pub mod restore_agent_request {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl wkt::message::Message for GitSource {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.RestoreAgentRequest.GitSource"
@@ -2337,6 +2515,7 @@ pub mod restore_agent_request {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "agents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum RestoreOption {
@@ -2357,6 +2536,7 @@ pub mod restore_agent_request {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "agents")]
     pub mod restore_option {
         #[allow(unused_imports)]
         use super::*;
@@ -2364,6 +2544,7 @@ pub mod restore_agent_request {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "agents")]
     impl RestoreOption {
         /// Gets the enum value.
         ///
@@ -2392,6 +2573,7 @@ pub mod restore_agent_request {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl std::default::Default for RestoreOption {
         fn default() -> Self {
             use std::convert::From;
@@ -2399,12 +2581,14 @@ pub mod restore_agent_request {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl std::fmt::Display for RestoreOption {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "agents")]
     impl std::convert::From<i32> for RestoreOption {
         fn from(value: i32) -> Self {
             match value {
@@ -2418,6 +2602,7 @@ pub mod restore_agent_request {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl std::convert::From<&str> for RestoreOption {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -2432,6 +2617,7 @@ pub mod restore_agent_request {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl serde::ser::Serialize for RestoreOption {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -2446,6 +2632,7 @@ pub mod restore_agent_request {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl<'de> serde::de::Deserialize<'de> for RestoreOption {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -2458,6 +2645,7 @@ pub mod restore_agent_request {
     }
 
     /// Required. The agent to restore.
+    #[cfg(feature = "agents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -2487,6 +2675,7 @@ pub mod restore_agent_request {
 /// [Agents.ValidateAgent][google.cloud.dialogflow.cx.v3.Agents.ValidateAgent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.ValidateAgent]: crate::client::Agents::validate_agent
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2507,6 +2696,7 @@ pub struct ValidateAgentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl ValidateAgentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -2525,6 +2715,7 @@ impl ValidateAgentRequest {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for ValidateAgentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ValidateAgentRequest"
@@ -2535,6 +2726,7 @@ impl wkt::message::Message for ValidateAgentRequest {
 /// [Agents.GetAgentValidationResult][google.cloud.dialogflow.cx.v3.Agents.GetAgentValidationResult].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.GetAgentValidationResult]: crate::client::Agents::get_agent_validation_result
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2556,6 +2748,7 @@ pub struct GetAgentValidationResultRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl GetAgentValidationResultRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -2574,6 +2767,7 @@ impl GetAgentValidationResultRequest {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for GetAgentValidationResultRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetAgentValidationResultRequest"
@@ -2584,6 +2778,7 @@ impl wkt::message::Message for GetAgentValidationResultRequest {
 /// [Agents.GetAgentValidationResult][google.cloud.dialogflow.cx.v3.Agents.GetAgentValidationResult].
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.GetAgentValidationResult]: crate::client::Agents::get_agent_validation_result
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2605,6 +2800,7 @@ pub struct AgentValidationResult {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl AgentValidationResult {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -2628,6 +2824,7 @@ impl AgentValidationResult {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for AgentValidationResult {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.AgentValidationResult"
@@ -2639,6 +2836,7 @@ impl wkt::message::Message for AgentValidationResult {
 /// RPC.
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.GetGenerativeSettings]: crate::client::Agents::get_generative_settings
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2659,6 +2857,7 @@ pub struct GetGenerativeSettingsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl GetGenerativeSettingsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -2677,6 +2876,7 @@ impl GetGenerativeSettingsRequest {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for GetGenerativeSettingsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetGenerativeSettingsRequest"
@@ -2688,6 +2888,7 @@ impl wkt::message::Message for GetGenerativeSettingsRequest {
 /// RPC.
 ///
 /// [google.cloud.dialogflow.cx.v3.Agents.UpdateGenerativeSettings]: crate::client::Agents::update_generative_settings
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2706,6 +2907,7 @@ pub struct UpdateGenerativeSettingsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl UpdateGenerativeSettingsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -2748,6 +2950,7 @@ impl UpdateGenerativeSettingsRequest {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for UpdateGenerativeSettingsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateGenerativeSettingsRequest"
@@ -2755,6 +2958,7 @@ impl wkt::message::Message for UpdateGenerativeSettingsRequest {
 }
 
 /// Information for a word recognized by the speech recognizer.
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2792,6 +2996,7 @@ pub struct SpeechWordInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl SpeechWordInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -2846,6 +3051,7 @@ impl SpeechWordInfo {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for SpeechWordInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.SpeechWordInfo"
@@ -2877,6 +3083,7 @@ impl wkt::message::Message for SpeechWordInfo {
 ///
 /// No-speech event is a response with END_OF_UTTERANCE without any transcript
 /// following up.
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -2895,6 +3102,7 @@ pub struct BargeInConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl BargeInConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -2937,6 +3145,7 @@ impl BargeInConfig {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl wkt::message::Message for BargeInConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.BargeInConfig"
@@ -2944,6 +3153,7 @@ impl wkt::message::Message for BargeInConfig {
 }
 
 /// Instructs the speech recognizer on how to process the audio content.
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3030,6 +3240,7 @@ pub struct InputAudioConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl InputAudioConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3116,6 +3327,7 @@ impl InputAudioConfig {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl wkt::message::Message for InputAudioConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.InputAudioConfig"
@@ -3123,6 +3335,7 @@ impl wkt::message::Message for InputAudioConfig {
 }
 
 /// Description of which voice to use for speech synthesis.
+#[cfg(any(feature = "agents", feature = "sessions",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3156,6 +3369,7 @@ pub struct VoiceSelectionParams {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "agents", feature = "sessions",))]
 impl VoiceSelectionParams {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3177,6 +3391,7 @@ impl VoiceSelectionParams {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "sessions",))]
 impl wkt::message::Message for VoiceSelectionParams {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.VoiceSelectionParams"
@@ -3184,6 +3399,7 @@ impl wkt::message::Message for VoiceSelectionParams {
 }
 
 /// Configuration of how speech should be synthesized.
+#[cfg(any(feature = "agents", feature = "sessions",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3231,6 +3447,7 @@ pub struct SynthesizeSpeechConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "agents", feature = "sessions",))]
 impl SynthesizeSpeechConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3284,6 +3501,7 @@ impl SynthesizeSpeechConfig {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "sessions",))]
 impl wkt::message::Message for SynthesizeSpeechConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.SynthesizeSpeechConfig"
@@ -3291,6 +3509,7 @@ impl wkt::message::Message for SynthesizeSpeechConfig {
 }
 
 /// Instructs the speech synthesizer how to generate the output audio content.
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3323,6 +3542,7 @@ pub struct OutputAudioConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl OutputAudioConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3362,6 +3582,7 @@ impl OutputAudioConfig {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for OutputAudioConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.OutputAudioConfig"
@@ -3369,6 +3590,7 @@ impl wkt::message::Message for OutputAudioConfig {
 }
 
 /// Settings related to speech synthesizing.
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3405,6 +3627,7 @@ pub struct TextToSpeechSettings {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl TextToSpeechSettings {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3423,6 +3646,7 @@ impl TextToSpeechSettings {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for TextToSpeechSettings {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.TextToSpeechSettings"
@@ -3433,6 +3657,7 @@ impl wkt::message::Message for TextToSpeechSettings {
 /// [Changelogs.ListChangelogs][google.cloud.dialogflow.cx.v3.Changelogs.ListChangelogs].
 ///
 /// [google.cloud.dialogflow.cx.v3.Changelogs.ListChangelogs]: crate::client::Changelogs::list_changelogs
+#[cfg(feature = "changelogs")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3484,6 +3709,7 @@ pub struct ListChangelogsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "changelogs")]
 impl ListChangelogsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3514,6 +3740,7 @@ impl ListChangelogsRequest {
     }
 }
 
+#[cfg(feature = "changelogs")]
 impl wkt::message::Message for ListChangelogsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListChangelogsRequest"
@@ -3524,6 +3751,7 @@ impl wkt::message::Message for ListChangelogsRequest {
 /// [Changelogs.ListChangelogs][google.cloud.dialogflow.cx.v3.Changelogs.ListChangelogs].
 ///
 /// [google.cloud.dialogflow.cx.v3.Changelogs.ListChangelogs]: crate::client::Changelogs::list_changelogs
+#[cfg(feature = "changelogs")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3546,6 +3774,7 @@ pub struct ListChangelogsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "changelogs")]
 impl ListChangelogsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3569,12 +3798,14 @@ impl ListChangelogsResponse {
     }
 }
 
+#[cfg(feature = "changelogs")]
 impl wkt::message::Message for ListChangelogsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListChangelogsResponse"
     }
 }
 
+#[cfg(feature = "changelogs")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListChangelogsResponse {
     type PageItem = crate::model::Changelog;
@@ -3593,6 +3824,7 @@ impl gax::paginator::internal::PageableResponse for ListChangelogsResponse {
 /// [Changelogs.GetChangelog][google.cloud.dialogflow.cx.v3.Changelogs.GetChangelog].
 ///
 /// [google.cloud.dialogflow.cx.v3.Changelogs.GetChangelog]: crate::client::Changelogs::get_changelog
+#[cfg(feature = "changelogs")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3609,6 +3841,7 @@ pub struct GetChangelogRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "changelogs")]
 impl GetChangelogRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3621,6 +3854,7 @@ impl GetChangelogRequest {
     }
 }
 
+#[cfg(feature = "changelogs")]
 impl wkt::message::Message for GetChangelogRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetChangelogRequest"
@@ -3628,6 +3862,7 @@ impl wkt::message::Message for GetChangelogRequest {
 }
 
 /// Changelogs represents a change made to a given agent.
+#[cfg(feature = "changelogs")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3679,6 +3914,7 @@ pub struct Changelog {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "changelogs")]
 impl Changelog {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3745,6 +3981,7 @@ impl Changelog {
     }
 }
 
+#[cfg(feature = "changelogs")]
 impl wkt::message::Message for Changelog {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Changelog"
@@ -3753,6 +3990,12 @@ impl wkt::message::Message for Changelog {
 
 /// A data store connection. It represents a data store in Discovery Engine and
 /// the type of the contents it contains.
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3782,6 +4025,12 @@ pub struct DataStoreConnection {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl DataStoreConnection {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -3814,6 +4063,12 @@ impl DataStoreConnection {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl wkt::message::Message for DataStoreConnection {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DataStoreConnection"
@@ -3824,6 +4079,7 @@ impl wkt::message::Message for DataStoreConnection {
 /// Might be only partially field if processing stop before the final answer.
 /// Reasons for this can be, but are not limited to: empty UCS search results,
 /// positive RAI check outcome, grounding failure, ...
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -3882,6 +4138,7 @@ pub struct DataStoreConnectionSignals {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl DataStoreConnectionSignals {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -4016,6 +4273,7 @@ impl DataStoreConnectionSignals {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for DataStoreConnectionSignals {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DataStoreConnectionSignals"
@@ -4023,11 +4281,13 @@ impl wkt::message::Message for DataStoreConnectionSignals {
 }
 
 /// Defines additional types related to [DataStoreConnectionSignals].
+#[cfg(feature = "sessions")]
 pub mod data_store_connection_signals {
     #[allow(unused_imports)]
     use super::*;
 
     /// Diagnostic info related to the rewriter model call.
+    #[cfg(feature = "sessions")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -4053,6 +4313,7 @@ pub mod data_store_connection_signals {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "sessions")]
     impl RewriterModelCallSignals {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -4083,6 +4344,7 @@ pub mod data_store_connection_signals {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl wkt::message::Message for RewriterModelCallSignals {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.DataStoreConnectionSignals.RewriterModelCallSignals"
@@ -4090,6 +4352,7 @@ pub mod data_store_connection_signals {
     }
 
     /// Search snippet details.
+    #[cfg(feature = "sessions")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -4114,6 +4377,7 @@ pub mod data_store_connection_signals {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "sessions")]
     impl SearchSnippet {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -4144,6 +4408,7 @@ pub mod data_store_connection_signals {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl wkt::message::Message for SearchSnippet {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.DataStoreConnectionSignals.SearchSnippet"
@@ -4151,6 +4416,7 @@ pub mod data_store_connection_signals {
     }
 
     /// Diagnostic info related to the answer generation model call.
+    #[cfg(feature = "sessions")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -4176,6 +4442,7 @@ pub mod data_store_connection_signals {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "sessions")]
     impl AnswerGenerationModelCallSignals {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -4206,6 +4473,7 @@ pub mod data_store_connection_signals {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl wkt::message::Message for AnswerGenerationModelCallSignals {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.DataStoreConnectionSignals.AnswerGenerationModelCallSignals"
@@ -4213,6 +4481,7 @@ pub mod data_store_connection_signals {
     }
 
     /// Answer part with citation.
+    #[cfg(feature = "sessions")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -4232,6 +4501,7 @@ pub mod data_store_connection_signals {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "sessions")]
     impl AnswerPart {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -4255,6 +4525,7 @@ pub mod data_store_connection_signals {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl wkt::message::Message for AnswerPart {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.DataStoreConnectionSignals.AnswerPart"
@@ -4262,6 +4533,7 @@ pub mod data_store_connection_signals {
     }
 
     /// Snippet cited by the answer generation model.
+    #[cfg(feature = "sessions")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -4281,6 +4553,7 @@ pub mod data_store_connection_signals {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "sessions")]
     impl CitedSnippet {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -4311,6 +4584,7 @@ pub mod data_store_connection_signals {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl wkt::message::Message for CitedSnippet {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.DataStoreConnectionSignals.CitedSnippet"
@@ -4318,6 +4592,7 @@ pub mod data_store_connection_signals {
     }
 
     /// Grounding signals.
+    #[cfg(feature = "sessions")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -4339,6 +4614,7 @@ pub mod data_store_connection_signals {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "sessions")]
     impl GroundingSignals {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -4357,6 +4633,7 @@ pub mod data_store_connection_signals {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl wkt::message::Message for GroundingSignals {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.DataStoreConnectionSignals.GroundingSignals"
@@ -4364,6 +4641,7 @@ pub mod data_store_connection_signals {
     }
 
     /// Defines additional types related to [GroundingSignals].
+    #[cfg(feature = "sessions")]
     pub mod grounding_signals {
         #[allow(unused_imports)]
         use super::*;
@@ -4383,6 +4661,7 @@ pub mod data_store_connection_signals {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "sessions")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum GroundingDecision {
@@ -4400,6 +4679,7 @@ pub mod data_store_connection_signals {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "sessions")]
         pub mod grounding_decision {
             #[allow(unused_imports)]
             use super::*;
@@ -4407,6 +4687,7 @@ pub mod data_store_connection_signals {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "sessions")]
         impl GroundingDecision {
             /// Gets the enum value.
             ///
@@ -4437,6 +4718,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::default::Default for GroundingDecision {
             fn default() -> Self {
                 use std::convert::From;
@@ -4444,6 +4726,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::fmt::Display for GroundingDecision {
             fn fmt(
                 &self,
@@ -4453,6 +4736,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::convert::From<i32> for GroundingDecision {
             fn from(value: i32) -> Self {
                 match value {
@@ -4466,6 +4750,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::convert::From<&str> for GroundingDecision {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -4480,6 +4765,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl serde::ser::Serialize for GroundingDecision {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -4494,6 +4780,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl<'de> serde::de::Deserialize<'de> for GroundingDecision {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -4519,6 +4806,7 @@ pub mod data_store_connection_signals {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "sessions")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum GroundingScoreBucket {
@@ -4542,6 +4830,7 @@ pub mod data_store_connection_signals {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "sessions")]
         pub mod grounding_score_bucket {
             #[allow(unused_imports)]
             use super::*;
@@ -4549,6 +4838,7 @@ pub mod data_store_connection_signals {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "sessions")]
         impl GroundingScoreBucket {
             /// Gets the enum value.
             ///
@@ -4585,6 +4875,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::default::Default for GroundingScoreBucket {
             fn default() -> Self {
                 use std::convert::From;
@@ -4592,6 +4883,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::fmt::Display for GroundingScoreBucket {
             fn fmt(
                 &self,
@@ -4601,6 +4893,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::convert::From<i32> for GroundingScoreBucket {
             fn from(value: i32) -> Self {
                 match value {
@@ -4617,6 +4910,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::convert::From<&str> for GroundingScoreBucket {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -4634,6 +4928,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl serde::ser::Serialize for GroundingScoreBucket {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -4651,6 +4946,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl<'de> serde::de::Deserialize<'de> for GroundingScoreBucket {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -4663,6 +4959,7 @@ pub mod data_store_connection_signals {
     }
 
     /// Safety check results.
+    #[cfg(feature = "sessions")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -4688,6 +4985,7 @@ pub mod data_store_connection_signals {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "sessions")]
     impl SafetySignals {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -4729,6 +5027,7 @@ pub mod data_store_connection_signals {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl wkt::message::Message for SafetySignals {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.DataStoreConnectionSignals.SafetySignals"
@@ -4736,6 +5035,7 @@ pub mod data_store_connection_signals {
     }
 
     /// Defines additional types related to [SafetySignals].
+    #[cfg(feature = "sessions")]
     pub mod safety_signals {
         #[allow(unused_imports)]
         use super::*;
@@ -4757,6 +5057,7 @@ pub mod data_store_connection_signals {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "sessions")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum SafetyDecision {
@@ -4774,6 +5075,7 @@ pub mod data_store_connection_signals {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "sessions")]
         pub mod safety_decision {
             #[allow(unused_imports)]
             use super::*;
@@ -4781,6 +5083,7 @@ pub mod data_store_connection_signals {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "sessions")]
         impl SafetyDecision {
             /// Gets the enum value.
             ///
@@ -4813,6 +5116,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::default::Default for SafetyDecision {
             fn default() -> Self {
                 use std::convert::From;
@@ -4820,6 +5124,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::fmt::Display for SafetyDecision {
             fn fmt(
                 &self,
@@ -4829,6 +5134,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::convert::From<i32> for SafetyDecision {
             fn from(value: i32) -> Self {
                 match value {
@@ -4842,6 +5148,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::convert::From<&str> for SafetyDecision {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -4856,6 +5163,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl serde::ser::Serialize for SafetyDecision {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -4870,6 +5178,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl<'de> serde::de::Deserialize<'de> for SafetyDecision {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -4895,6 +5204,7 @@ pub mod data_store_connection_signals {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "sessions")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum BannedPhraseMatch {
@@ -4914,6 +5224,7 @@ pub mod data_store_connection_signals {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "sessions")]
         pub mod banned_phrase_match {
             #[allow(unused_imports)]
             use super::*;
@@ -4921,6 +5232,7 @@ pub mod data_store_connection_signals {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "sessions")]
         impl BannedPhraseMatch {
             /// Gets the enum value.
             ///
@@ -4953,6 +5265,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::default::Default for BannedPhraseMatch {
             fn default() -> Self {
                 use std::convert::From;
@@ -4960,6 +5273,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::fmt::Display for BannedPhraseMatch {
             fn fmt(
                 &self,
@@ -4969,6 +5283,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::convert::From<i32> for BannedPhraseMatch {
             fn from(value: i32) -> Self {
                 match value {
@@ -4983,6 +5298,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl std::convert::From<&str> for BannedPhraseMatch {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -4998,6 +5314,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl serde::ser::Serialize for BannedPhraseMatch {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -5013,6 +5330,7 @@ pub mod data_store_connection_signals {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl<'de> serde::de::Deserialize<'de> for BannedPhraseMatch {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -5029,6 +5347,7 @@ pub mod data_store_connection_signals {
 /// version configured to be active in the environment. You can configure running
 /// pre-deployment steps, e.g. running validation test cases, experiment
 /// auto-rollout, etc.
+#[cfg(feature = "deployments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5069,6 +5388,7 @@ pub struct Deployment {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "deployments")]
 impl Deployment {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -5150,6 +5470,7 @@ impl Deployment {
     }
 }
 
+#[cfg(feature = "deployments")]
 impl wkt::message::Message for Deployment {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Deployment"
@@ -5157,11 +5478,13 @@ impl wkt::message::Message for Deployment {
 }
 
 /// Defines additional types related to [Deployment].
+#[cfg(feature = "deployments")]
 pub mod deployment {
     #[allow(unused_imports)]
     use super::*;
 
     /// Result of the deployment.
+    #[cfg(feature = "deployments")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -5185,6 +5508,7 @@ pub mod deployment {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "deployments")]
     impl Result {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -5208,6 +5532,7 @@ pub mod deployment {
         }
     }
 
+    #[cfg(feature = "deployments")]
     impl wkt::message::Message for Result {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Deployment.Result"
@@ -5229,6 +5554,7 @@ pub mod deployment {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "deployments")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -5248,6 +5574,7 @@ pub mod deployment {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "deployments")]
     pub mod state {
         #[allow(unused_imports)]
         use super::*;
@@ -5255,6 +5582,7 @@ pub mod deployment {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "deployments")]
     impl State {
         /// Gets the enum value.
         ///
@@ -5285,6 +5613,7 @@ pub mod deployment {
         }
     }
 
+    #[cfg(feature = "deployments")]
     impl std::default::Default for State {
         fn default() -> Self {
             use std::convert::From;
@@ -5292,12 +5621,14 @@ pub mod deployment {
         }
     }
 
+    #[cfg(feature = "deployments")]
     impl std::fmt::Display for State {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "deployments")]
     impl std::convert::From<i32> for State {
         fn from(value: i32) -> Self {
             match value {
@@ -5312,6 +5643,7 @@ pub mod deployment {
         }
     }
 
+    #[cfg(feature = "deployments")]
     impl std::convert::From<&str> for State {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -5327,6 +5659,7 @@ pub mod deployment {
         }
     }
 
+    #[cfg(feature = "deployments")]
     impl serde::ser::Serialize for State {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -5342,6 +5675,7 @@ pub mod deployment {
         }
     }
 
+    #[cfg(feature = "deployments")]
     impl<'de> serde::de::Deserialize<'de> for State {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -5358,6 +5692,7 @@ pub mod deployment {
 /// [Deployments.ListDeployments][google.cloud.dialogflow.cx.v3.Deployments.ListDeployments].
 ///
 /// [google.cloud.dialogflow.cx.v3.Deployments.ListDeployments]: crate::client::Deployments::list_deployments
+#[cfg(feature = "deployments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5387,6 +5722,7 @@ pub struct ListDeploymentsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "deployments")]
 impl ListDeploymentsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -5411,6 +5747,7 @@ impl ListDeploymentsRequest {
     }
 }
 
+#[cfg(feature = "deployments")]
 impl wkt::message::Message for ListDeploymentsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListDeploymentsRequest"
@@ -5421,6 +5758,7 @@ impl wkt::message::Message for ListDeploymentsRequest {
 /// [Deployments.ListDeployments][google.cloud.dialogflow.cx.v3.Deployments.ListDeployments].
 ///
 /// [google.cloud.dialogflow.cx.v3.Deployments.ListDeployments]: crate::client::Deployments::list_deployments
+#[cfg(feature = "deployments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5444,6 +5782,7 @@ pub struct ListDeploymentsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "deployments")]
 impl ListDeploymentsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -5467,12 +5806,14 @@ impl ListDeploymentsResponse {
     }
 }
 
+#[cfg(feature = "deployments")]
 impl wkt::message::Message for ListDeploymentsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListDeploymentsResponse"
     }
 }
 
+#[cfg(feature = "deployments")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListDeploymentsResponse {
     type PageItem = crate::model::Deployment;
@@ -5491,6 +5832,7 @@ impl gax::paginator::internal::PageableResponse for ListDeploymentsResponse {
 /// [Deployments.GetDeployment][google.cloud.dialogflow.cx.v3.Deployments.GetDeployment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Deployments.GetDeployment]: crate::client::Deployments::get_deployment
+#[cfg(feature = "deployments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5509,6 +5851,7 @@ pub struct GetDeploymentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "deployments")]
 impl GetDeploymentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -5521,6 +5864,7 @@ impl GetDeploymentRequest {
     }
 }
 
+#[cfg(feature = "deployments")]
 impl wkt::message::Message for GetDeploymentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetDeploymentRequest"
@@ -5559,6 +5903,11 @@ impl wkt::message::Message for GetDeploymentRequest {
 /// documentation](https://cloud.google.com/dialogflow/docs/entities-overview).
 ///
 /// [google.cloud.dialogflow.cx.v3.SessionEntityType]: crate::model::SessionEntityType
+#[cfg(any(
+    feature = "entity-types",
+    feature = "session-entity-types",
+    feature = "sessions",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -5621,6 +5970,11 @@ pub struct EntityType {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "entity-types",
+    feature = "session-entity-types",
+    feature = "sessions",
+))]
 impl EntityType {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -5693,6 +6047,11 @@ impl EntityType {
     }
 }
 
+#[cfg(any(
+    feature = "entity-types",
+    feature = "session-entity-types",
+    feature = "sessions",
+))]
 impl wkt::message::Message for EntityType {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.EntityType"
@@ -5700,11 +6059,21 @@ impl wkt::message::Message for EntityType {
 }
 
 /// Defines additional types related to [EntityType].
+#[cfg(any(
+    feature = "entity-types",
+    feature = "session-entity-types",
+    feature = "sessions",
+))]
 pub mod entity_type {
     #[allow(unused_imports)]
     use super::*;
 
     /// An **entity entry** for an associated entity type.
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -5741,6 +6110,11 @@ pub mod entity_type {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl Entity {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -5764,6 +6138,11 @@ pub mod entity_type {
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl wkt::message::Message for Entity {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.EntityType.Entity"
@@ -5771,6 +6150,11 @@ pub mod entity_type {
     }
 
     /// An excluded entity phrase that should not be matched.
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -5785,6 +6169,11 @@ pub mod entity_type {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl ExcludedPhrase {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -5797,6 +6186,11 @@ pub mod entity_type {
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl wkt::message::Message for ExcludedPhrase {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.EntityType.ExcludedPhrase"
@@ -5818,6 +6212,11 @@ pub mod entity_type {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Kind {
@@ -5841,6 +6240,11 @@ pub mod entity_type {
     }
 
     #[doc(hidden)]
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     pub mod kind {
         #[allow(unused_imports)]
         use super::*;
@@ -5848,6 +6252,11 @@ pub mod entity_type {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl Kind {
         /// Gets the enum value.
         ///
@@ -5878,6 +6287,11 @@ pub mod entity_type {
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl std::default::Default for Kind {
         fn default() -> Self {
             use std::convert::From;
@@ -5885,12 +6299,22 @@ pub mod entity_type {
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl std::fmt::Display for Kind {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl std::convert::From<i32> for Kind {
         fn from(value: i32) -> Self {
             match value {
@@ -5905,6 +6329,11 @@ pub mod entity_type {
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl std::convert::From<&str> for Kind {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -5920,6 +6349,11 @@ pub mod entity_type {
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl serde::ser::Serialize for Kind {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -5935,6 +6369,11 @@ pub mod entity_type {
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl<'de> serde::de::Deserialize<'de> for Kind {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -5963,6 +6402,11 @@ pub mod entity_type {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AutoExpansionMode {
@@ -5979,6 +6423,11 @@ pub mod entity_type {
     }
 
     #[doc(hidden)]
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     pub mod auto_expansion_mode {
         #[allow(unused_imports)]
         use super::*;
@@ -5986,6 +6435,11 @@ pub mod entity_type {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl AutoExpansionMode {
         /// Gets the enum value.
         ///
@@ -6012,6 +6466,11 @@ pub mod entity_type {
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl std::default::Default for AutoExpansionMode {
         fn default() -> Self {
             use std::convert::From;
@@ -6019,12 +6478,22 @@ pub mod entity_type {
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl std::fmt::Display for AutoExpansionMode {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl std::convert::From<i32> for AutoExpansionMode {
         fn from(value: i32) -> Self {
             match value {
@@ -6037,6 +6506,11 @@ pub mod entity_type {
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl std::convert::From<&str> for AutoExpansionMode {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -6050,6 +6524,11 @@ pub mod entity_type {
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl serde::ser::Serialize for AutoExpansionMode {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -6063,6 +6542,11 @@ pub mod entity_type {
         }
     }
 
+    #[cfg(any(
+        feature = "entity-types",
+        feature = "session-entity-types",
+        feature = "sessions",
+    ))]
     impl<'de> serde::de::Deserialize<'de> for AutoExpansionMode {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -6079,6 +6563,7 @@ pub mod entity_type {
 /// [EntityTypes.ExportEntityTypes][google.cloud.dialogflow.cx.v3.EntityTypes.ExportEntityTypes].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ExportEntityTypes]: crate::client::EntityTypes::export_entity_types
+#[cfg(feature = "entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6127,6 +6612,7 @@ pub struct ExportEntityTypesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "entity-types")]
 impl ExportEntityTypesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -6238,6 +6724,7 @@ impl ExportEntityTypesRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
 impl wkt::message::Message for ExportEntityTypesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportEntityTypesRequest"
@@ -6245,6 +6732,7 @@ impl wkt::message::Message for ExportEntityTypesRequest {
 }
 
 /// Defines additional types related to [ExportEntityTypesRequest].
+#[cfg(feature = "entity-types")]
 pub mod export_entity_types_request {
     #[allow(unused_imports)]
     use super::*;
@@ -6264,6 +6752,7 @@ pub mod export_entity_types_request {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "entity-types")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DataFormat {
@@ -6281,6 +6770,7 @@ pub mod export_entity_types_request {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "entity-types")]
     pub mod data_format {
         #[allow(unused_imports)]
         use super::*;
@@ -6288,6 +6778,7 @@ pub mod export_entity_types_request {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "entity-types")]
     impl DataFormat {
         /// Gets the enum value.
         ///
@@ -6316,6 +6807,7 @@ pub mod export_entity_types_request {
         }
     }
 
+    #[cfg(feature = "entity-types")]
     impl std::default::Default for DataFormat {
         fn default() -> Self {
             use std::convert::From;
@@ -6323,12 +6815,14 @@ pub mod export_entity_types_request {
         }
     }
 
+    #[cfg(feature = "entity-types")]
     impl std::fmt::Display for DataFormat {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "entity-types")]
     impl std::convert::From<i32> for DataFormat {
         fn from(value: i32) -> Self {
             match value {
@@ -6342,6 +6836,7 @@ pub mod export_entity_types_request {
         }
     }
 
+    #[cfg(feature = "entity-types")]
     impl std::convert::From<&str> for DataFormat {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -6356,6 +6851,7 @@ pub mod export_entity_types_request {
         }
     }
 
+    #[cfg(feature = "entity-types")]
     impl serde::ser::Serialize for DataFormat {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -6370,6 +6866,7 @@ pub mod export_entity_types_request {
         }
     }
 
+    #[cfg(feature = "entity-types")]
     impl<'de> serde::de::Deserialize<'de> for DataFormat {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -6382,6 +6879,7 @@ pub mod export_entity_types_request {
     }
 
     /// The destination to export.
+    #[cfg(feature = "entity-types")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -6407,6 +6905,7 @@ pub mod export_entity_types_request {
 /// [EntityTypes.ExportEntityTypes][google.cloud.dialogflow.cx.v3.EntityTypes.ExportEntityTypes].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ExportEntityTypes]: crate::client::EntityTypes::export_entity_types
+#[cfg(feature = "entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6421,6 +6920,7 @@ pub struct ExportEntityTypesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "entity-types")]
 impl ExportEntityTypesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -6509,6 +7009,7 @@ impl ExportEntityTypesResponse {
     }
 }
 
+#[cfg(feature = "entity-types")]
 impl wkt::message::Message for ExportEntityTypesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportEntityTypesResponse"
@@ -6516,11 +7017,13 @@ impl wkt::message::Message for ExportEntityTypesResponse {
 }
 
 /// Defines additional types related to [ExportEntityTypesResponse].
+#[cfg(feature = "entity-types")]
 pub mod export_entity_types_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Exported entity types can be either in cloud storage or local download.
+    #[cfg(feature = "entity-types")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -6546,6 +7049,7 @@ pub mod export_entity_types_response {
 /// long running operation.
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ExportEntityTypes]: crate::client::EntityTypes::export_entity_types
+#[cfg(feature = "entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6555,12 +7059,14 @@ pub struct ExportEntityTypesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "entity-types")]
 impl ExportEntityTypesMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
     }
 }
 
+#[cfg(feature = "entity-types")]
 impl wkt::message::Message for ExportEntityTypesMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportEntityTypesMetadata"
@@ -6571,6 +7077,7 @@ impl wkt::message::Message for ExportEntityTypesMetadata {
 /// [EntityTypes.ImportEntityTypes][google.cloud.dialogflow.cx.v3.EntityTypes.ImportEntityTypes].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ImportEntityTypes]: crate::client::EntityTypes::import_entity_types
+#[cfg(feature = "entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6610,6 +7117,7 @@ pub struct ImportEntityTypesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "entity-types")]
 impl ImportEntityTypesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -6718,6 +7226,7 @@ impl ImportEntityTypesRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
 impl wkt::message::Message for ImportEntityTypesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportEntityTypesRequest"
@@ -6725,6 +7234,7 @@ impl wkt::message::Message for ImportEntityTypesRequest {
 }
 
 /// Defines additional types related to [ImportEntityTypesRequest].
+#[cfg(feature = "entity-types")]
 pub mod import_entity_types_request {
     #[allow(unused_imports)]
     use super::*;
@@ -6744,6 +7254,7 @@ pub mod import_entity_types_request {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "entity-types")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MergeOption {
@@ -6772,6 +7283,7 @@ pub mod import_entity_types_request {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "entity-types")]
     pub mod merge_option {
         #[allow(unused_imports)]
         use super::*;
@@ -6779,6 +7291,7 @@ pub mod import_entity_types_request {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "entity-types")]
     impl MergeOption {
         /// Gets the enum value.
         ///
@@ -6813,6 +7326,7 @@ pub mod import_entity_types_request {
         }
     }
 
+    #[cfg(feature = "entity-types")]
     impl std::default::Default for MergeOption {
         fn default() -> Self {
             use std::convert::From;
@@ -6820,12 +7334,14 @@ pub mod import_entity_types_request {
         }
     }
 
+    #[cfg(feature = "entity-types")]
     impl std::fmt::Display for MergeOption {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "entity-types")]
     impl std::convert::From<i32> for MergeOption {
         fn from(value: i32) -> Self {
             match value {
@@ -6842,6 +7358,7 @@ pub mod import_entity_types_request {
         }
     }
 
+    #[cfg(feature = "entity-types")]
     impl std::convert::From<&str> for MergeOption {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -6859,6 +7376,7 @@ pub mod import_entity_types_request {
         }
     }
 
+    #[cfg(feature = "entity-types")]
     impl serde::ser::Serialize for MergeOption {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -6876,6 +7394,7 @@ pub mod import_entity_types_request {
         }
     }
 
+    #[cfg(feature = "entity-types")]
     impl<'de> serde::de::Deserialize<'de> for MergeOption {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -6888,6 +7407,7 @@ pub mod import_entity_types_request {
     }
 
     /// Required. The entity types to import.
+    #[cfg(feature = "entity-types")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -6912,6 +7432,7 @@ pub mod import_entity_types_request {
 /// [EntityTypes.ImportEntityTypes][google.cloud.dialogflow.cx.v3.EntityTypes.ImportEntityTypes].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ImportEntityTypes]: crate::client::EntityTypes::import_entity_types
+#[cfg(feature = "entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -6935,6 +7456,7 @@ pub struct ImportEntityTypesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "entity-types")]
 impl ImportEntityTypesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -6970,6 +7492,7 @@ impl ImportEntityTypesResponse {
     }
 }
 
+#[cfg(feature = "entity-types")]
 impl wkt::message::Message for ImportEntityTypesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportEntityTypesResponse"
@@ -6977,6 +7500,7 @@ impl wkt::message::Message for ImportEntityTypesResponse {
 }
 
 /// Defines additional types related to [ImportEntityTypesResponse].
+#[cfg(feature = "entity-types")]
 pub mod import_entity_types_response {
     #[allow(unused_imports)]
     use super::*;
@@ -6984,6 +7508,7 @@ pub mod import_entity_types_response {
     /// Conflicting resources detected during the import process. Only filled when
     /// [REPORT_CONFLICT][ImportEntityTypesResponse.REPORT_CONFLICT] is set in the
     /// request and there are conflicts in the display names.
+    #[cfg(feature = "entity-types")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -7003,6 +7528,7 @@ pub mod import_entity_types_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "entity-types")]
     impl ConflictingResources {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -7031,6 +7557,7 @@ pub mod import_entity_types_response {
         }
     }
 
+    #[cfg(feature = "entity-types")]
     impl wkt::message::Message for ConflictingResources {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportEntityTypesResponse.ConflictingResources"
@@ -7043,6 +7570,7 @@ pub mod import_entity_types_response {
 /// long running operation.
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ImportEntityTypes]: crate::client::EntityTypes::import_entity_types
+#[cfg(feature = "entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7052,12 +7580,14 @@ pub struct ImportEntityTypesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "entity-types")]
 impl ImportEntityTypesMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
     }
 }
 
+#[cfg(feature = "entity-types")]
 impl wkt::message::Message for ImportEntityTypesMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportEntityTypesMetadata"
@@ -7068,6 +7598,7 @@ impl wkt::message::Message for ImportEntityTypesMetadata {
 /// [EntityTypes.ListEntityTypes][google.cloud.dialogflow.cx.v3.EntityTypes.ListEntityTypes].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ListEntityTypes]: crate::client::EntityTypes::list_entity_types
+#[cfg(feature = "entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7110,6 +7641,7 @@ pub struct ListEntityTypesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "entity-types")]
 impl ListEntityTypesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7140,6 +7672,7 @@ impl ListEntityTypesRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
 impl wkt::message::Message for ListEntityTypesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListEntityTypesRequest"
@@ -7150,6 +7683,7 @@ impl wkt::message::Message for ListEntityTypesRequest {
 /// [EntityTypes.ListEntityTypes][google.cloud.dialogflow.cx.v3.EntityTypes.ListEntityTypes].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.ListEntityTypes]: crate::client::EntityTypes::list_entity_types
+#[cfg(feature = "entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7171,6 +7705,7 @@ pub struct ListEntityTypesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "entity-types")]
 impl ListEntityTypesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7194,12 +7729,14 @@ impl ListEntityTypesResponse {
     }
 }
 
+#[cfg(feature = "entity-types")]
 impl wkt::message::Message for ListEntityTypesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListEntityTypesResponse"
     }
 }
 
+#[cfg(feature = "entity-types")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListEntityTypesResponse {
     type PageItem = crate::model::EntityType;
@@ -7218,6 +7755,7 @@ impl gax::paginator::internal::PageableResponse for ListEntityTypesResponse {
 /// [EntityTypes.GetEntityType][google.cloud.dialogflow.cx.v3.EntityTypes.GetEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.GetEntityType]: crate::client::EntityTypes::get_entity_type
+#[cfg(feature = "entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7250,6 +7788,7 @@ pub struct GetEntityTypeRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "entity-types")]
 impl GetEntityTypeRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7268,6 +7807,7 @@ impl GetEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
 impl wkt::message::Message for GetEntityTypeRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetEntityTypeRequest"
@@ -7278,6 +7818,7 @@ impl wkt::message::Message for GetEntityTypeRequest {
 /// [EntityTypes.CreateEntityType][google.cloud.dialogflow.cx.v3.EntityTypes.CreateEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.CreateEntityType]: crate::client::EntityTypes::create_entity_type
+#[cfg(feature = "entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7312,6 +7853,7 @@ pub struct CreateEntityTypeRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "entity-types")]
 impl CreateEntityTypeRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7348,6 +7890,7 @@ impl CreateEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
 impl wkt::message::Message for CreateEntityTypeRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateEntityTypeRequest"
@@ -7358,6 +7901,7 @@ impl wkt::message::Message for CreateEntityTypeRequest {
 /// [EntityTypes.UpdateEntityType][google.cloud.dialogflow.cx.v3.EntityTypes.UpdateEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.UpdateEntityType]: crate::client::EntityTypes::update_entity_type
+#[cfg(feature = "entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7390,6 +7934,7 @@ pub struct UpdateEntityTypeRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "entity-types")]
 impl UpdateEntityTypeRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7438,6 +7983,7 @@ impl UpdateEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
 impl wkt::message::Message for UpdateEntityTypeRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateEntityTypeRequest"
@@ -7448,6 +7994,7 @@ impl wkt::message::Message for UpdateEntityTypeRequest {
 /// [EntityTypes.DeleteEntityType][google.cloud.dialogflow.cx.v3.EntityTypes.DeleteEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityTypes.DeleteEntityType]: crate::client::EntityTypes::delete_entity_type
+#[cfg(feature = "entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7483,6 +8030,7 @@ pub struct DeleteEntityTypeRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "entity-types")]
 impl DeleteEntityTypeRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7501,6 +8049,7 @@ impl DeleteEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "entity-types")]
 impl wkt::message::Message for DeleteEntityTypeRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteEntityTypeRequest"
@@ -7515,6 +8064,7 @@ impl wkt::message::Message for DeleteEntityTypeRequest {
 /// you create agent versions, you can publish them to custom environments. You
 /// can create a variety of custom environments for testing, development,
 /// production, etc.
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7565,6 +8115,7 @@ pub struct Environment {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl Environment {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7654,6 +8205,7 @@ impl Environment {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for Environment {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Environment"
@@ -7661,11 +8213,13 @@ impl wkt::message::Message for Environment {
 }
 
 /// Defines additional types related to [Environment].
+#[cfg(feature = "environments")]
 pub mod environment {
     #[allow(unused_imports)]
     use super::*;
 
     /// Configuration for the version.
+    #[cfg(feature = "environments")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -7684,6 +8238,7 @@ pub mod environment {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "environments")]
     impl VersionConfig {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -7696,6 +8251,7 @@ pub mod environment {
         }
     }
 
+    #[cfg(feature = "environments")]
     impl wkt::message::Message for VersionConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Environment.VersionConfig"
@@ -7703,6 +8259,7 @@ pub mod environment {
     }
 
     /// The configuration for continuous tests.
+    #[cfg(feature = "environments")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -7737,6 +8294,7 @@ pub mod environment {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "environments")]
     impl TestCasesConfig {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -7766,6 +8324,7 @@ pub mod environment {
         }
     }
 
+    #[cfg(feature = "environments")]
     impl wkt::message::Message for TestCasesConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Environment.TestCasesConfig"
@@ -7773,6 +8332,7 @@ pub mod environment {
     }
 
     /// Configuration for webhooks.
+    #[cfg(feature = "environments")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -7794,6 +8354,7 @@ pub mod environment {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "environments")]
     impl WebhookConfig {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -7811,6 +8372,7 @@ pub mod environment {
         }
     }
 
+    #[cfg(feature = "environments")]
     impl wkt::message::Message for WebhookConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Environment.WebhookConfig"
@@ -7822,6 +8384,7 @@ pub mod environment {
 /// [Environments.ListEnvironments][google.cloud.dialogflow.cx.v3.Environments.ListEnvironments].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.ListEnvironments]: crate::client::Environments::list_environments
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7851,6 +8414,7 @@ pub struct ListEnvironmentsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl ListEnvironmentsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7875,6 +8439,7 @@ impl ListEnvironmentsRequest {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for ListEnvironmentsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListEnvironmentsRequest"
@@ -7885,6 +8450,7 @@ impl wkt::message::Message for ListEnvironmentsRequest {
 /// [Environments.ListEnvironments][google.cloud.dialogflow.cx.v3.Environments.ListEnvironments].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.ListEnvironments]: crate::client::Environments::list_environments
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7908,6 +8474,7 @@ pub struct ListEnvironmentsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl ListEnvironmentsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7931,12 +8498,14 @@ impl ListEnvironmentsResponse {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for ListEnvironmentsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListEnvironmentsResponse"
     }
 }
 
+#[cfg(feature = "environments")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListEnvironmentsResponse {
     type PageItem = crate::model::Environment;
@@ -7955,6 +8524,7 @@ impl gax::paginator::internal::PageableResponse for ListEnvironmentsResponse {
 /// [Environments.GetEnvironment][google.cloud.dialogflow.cx.v3.Environments.GetEnvironment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.GetEnvironment]: crate::client::Environments::get_environment
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -7973,6 +8543,7 @@ pub struct GetEnvironmentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl GetEnvironmentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -7985,6 +8556,7 @@ impl GetEnvironmentRequest {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for GetEnvironmentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetEnvironmentRequest"
@@ -7995,6 +8567,7 @@ impl wkt::message::Message for GetEnvironmentRequest {
 /// [Environments.CreateEnvironment][google.cloud.dialogflow.cx.v3.Environments.CreateEnvironment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.CreateEnvironment]: crate::client::Environments::create_environment
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8018,6 +8591,7 @@ pub struct CreateEnvironmentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl CreateEnvironmentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8048,6 +8622,7 @@ impl CreateEnvironmentRequest {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for CreateEnvironmentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateEnvironmentRequest"
@@ -8058,6 +8633,7 @@ impl wkt::message::Message for CreateEnvironmentRequest {
 /// [Environments.UpdateEnvironment][google.cloud.dialogflow.cx.v3.Environments.UpdateEnvironment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.UpdateEnvironment]: crate::client::Environments::update_environment
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8075,6 +8651,7 @@ pub struct UpdateEnvironmentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl UpdateEnvironmentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8117,6 +8694,7 @@ impl UpdateEnvironmentRequest {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for UpdateEnvironmentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateEnvironmentRequest"
@@ -8127,6 +8705,7 @@ impl wkt::message::Message for UpdateEnvironmentRequest {
 /// [Environments.DeleteEnvironment][google.cloud.dialogflow.cx.v3.Environments.DeleteEnvironment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.DeleteEnvironment]: crate::client::Environments::delete_environment
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8145,6 +8724,7 @@ pub struct DeleteEnvironmentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl DeleteEnvironmentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8157,6 +8737,7 @@ impl DeleteEnvironmentRequest {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for DeleteEnvironmentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteEnvironmentRequest"
@@ -8167,6 +8748,7 @@ impl wkt::message::Message for DeleteEnvironmentRequest {
 /// [Environments.LookupEnvironmentHistory][google.cloud.dialogflow.cx.v3.Environments.LookupEnvironmentHistory].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.LookupEnvironmentHistory]: crate::client::Environments::lookup_environment_history
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8194,6 +8776,7 @@ pub struct LookupEnvironmentHistoryRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl LookupEnvironmentHistoryRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8218,6 +8801,7 @@ impl LookupEnvironmentHistoryRequest {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for LookupEnvironmentHistoryRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.LookupEnvironmentHistoryRequest"
@@ -8228,6 +8812,7 @@ impl wkt::message::Message for LookupEnvironmentHistoryRequest {
 /// [Environments.LookupEnvironmentHistory][google.cloud.dialogflow.cx.v3.Environments.LookupEnvironmentHistory].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.LookupEnvironmentHistory]: crate::client::Environments::lookup_environment_history
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8252,6 +8837,7 @@ pub struct LookupEnvironmentHistoryResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl LookupEnvironmentHistoryResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8275,12 +8861,14 @@ impl LookupEnvironmentHistoryResponse {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for LookupEnvironmentHistoryResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.LookupEnvironmentHistoryResponse"
     }
 }
 
+#[cfg(feature = "environments")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for LookupEnvironmentHistoryResponse {
     type PageItem = crate::model::Environment;
@@ -8296,6 +8884,7 @@ impl gax::paginator::internal::PageableResponse for LookupEnvironmentHistoryResp
 }
 
 /// Represents a result from running a test case in an agent environment.
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8326,6 +8915,7 @@ pub struct ContinuousTestResult {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl ContinuousTestResult {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8378,6 +8968,7 @@ impl ContinuousTestResult {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for ContinuousTestResult {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ContinuousTestResult"
@@ -8385,6 +8976,7 @@ impl wkt::message::Message for ContinuousTestResult {
 }
 
 /// Defines additional types related to [ContinuousTestResult].
+#[cfg(feature = "environments")]
 pub mod continuous_test_result {
     #[allow(unused_imports)]
     use super::*;
@@ -8404,6 +8996,7 @@ pub mod continuous_test_result {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "environments")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum AggregatedTestResult {
@@ -8421,6 +9014,7 @@ pub mod continuous_test_result {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "environments")]
     pub mod aggregated_test_result {
         #[allow(unused_imports)]
         use super::*;
@@ -8428,6 +9022,7 @@ pub mod continuous_test_result {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "environments")]
     impl AggregatedTestResult {
         /// Gets the enum value.
         ///
@@ -8458,6 +9053,7 @@ pub mod continuous_test_result {
         }
     }
 
+    #[cfg(feature = "environments")]
     impl std::default::Default for AggregatedTestResult {
         fn default() -> Self {
             use std::convert::From;
@@ -8465,12 +9061,14 @@ pub mod continuous_test_result {
         }
     }
 
+    #[cfg(feature = "environments")]
     impl std::fmt::Display for AggregatedTestResult {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "environments")]
     impl std::convert::From<i32> for AggregatedTestResult {
         fn from(value: i32) -> Self {
             match value {
@@ -8484,6 +9082,7 @@ pub mod continuous_test_result {
         }
     }
 
+    #[cfg(feature = "environments")]
     impl std::convert::From<&str> for AggregatedTestResult {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -8498,6 +9097,7 @@ pub mod continuous_test_result {
         }
     }
 
+    #[cfg(feature = "environments")]
     impl serde::ser::Serialize for AggregatedTestResult {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -8512,6 +9112,7 @@ pub mod continuous_test_result {
         }
     }
 
+    #[cfg(feature = "environments")]
     impl<'de> serde::de::Deserialize<'de> for AggregatedTestResult {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -8528,6 +9129,7 @@ pub mod continuous_test_result {
 /// [Environments.RunContinuousTest][google.cloud.dialogflow.cx.v3.Environments.RunContinuousTest].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.RunContinuousTest]: crate::client::Environments::run_continuous_test
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8543,6 +9145,7 @@ pub struct RunContinuousTestRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl RunContinuousTestRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8555,6 +9158,7 @@ impl RunContinuousTestRequest {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for RunContinuousTestRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.RunContinuousTestRequest"
@@ -8565,6 +9169,7 @@ impl wkt::message::Message for RunContinuousTestRequest {
 /// [Environments.RunContinuousTest][google.cloud.dialogflow.cx.v3.Environments.RunContinuousTest].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.RunContinuousTest]: crate::client::Environments::run_continuous_test
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8578,6 +9183,7 @@ pub struct RunContinuousTestResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl RunContinuousTestResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8602,6 +9208,7 @@ impl RunContinuousTestResponse {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for RunContinuousTestResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.RunContinuousTestResponse"
@@ -8613,6 +9220,7 @@ impl wkt::message::Message for RunContinuousTestResponse {
 /// long running operation.
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.RunContinuousTest]: crate::client::Environments::run_continuous_test
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8627,6 +9235,7 @@ pub struct RunContinuousTestMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl RunContinuousTestMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8644,6 +9253,7 @@ impl RunContinuousTestMetadata {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for RunContinuousTestMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.RunContinuousTestMetadata"
@@ -8654,6 +9264,7 @@ impl wkt::message::Message for RunContinuousTestMetadata {
 /// [Environments.ListContinuousTestResults][google.cloud.dialogflow.cx.v3.Environments.ListContinuousTestResults].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.ListContinuousTestResults]: crate::client::Environments::list_continuous_test_results
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8681,6 +9292,7 @@ pub struct ListContinuousTestResultsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl ListContinuousTestResultsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8705,6 +9317,7 @@ impl ListContinuousTestResultsRequest {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for ListContinuousTestResultsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListContinuousTestResultsRequest"
@@ -8712,6 +9325,7 @@ impl wkt::message::Message for ListContinuousTestResultsRequest {
 }
 
 /// The response message for [Environments.ListTestCaseResults][].
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8732,6 +9346,7 @@ pub struct ListContinuousTestResultsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl ListContinuousTestResultsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8755,12 +9370,14 @@ impl ListContinuousTestResultsResponse {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for ListContinuousTestResultsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListContinuousTestResultsResponse"
     }
 }
 
+#[cfg(feature = "environments")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListContinuousTestResultsResponse {
     type PageItem = crate::model::ContinuousTestResult;
@@ -8779,6 +9396,7 @@ impl gax::paginator::internal::PageableResponse for ListContinuousTestResultsRes
 /// [Environments.DeployFlow][google.cloud.dialogflow.cx.v3.Environments.DeployFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.DeployFlow]: crate::client::Environments::deploy_flow
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8802,6 +9420,7 @@ pub struct DeployFlowRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl DeployFlowRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8820,6 +9439,7 @@ impl DeployFlowRequest {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for DeployFlowRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeployFlowRequest"
@@ -8830,6 +9450,7 @@ impl wkt::message::Message for DeployFlowRequest {
 /// [Environments.DeployFlow][google.cloud.dialogflow.cx.v3.Environments.DeployFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.DeployFlow]: crate::client::Environments::deploy_flow
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8852,6 +9473,7 @@ pub struct DeployFlowResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl DeployFlowResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8882,6 +9504,7 @@ impl DeployFlowResponse {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for DeployFlowResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeployFlowResponse"
@@ -8893,6 +9516,7 @@ impl wkt::message::Message for DeployFlowResponse {
 /// long running operation.
 ///
 /// [google.cloud.dialogflow.cx.v3.Environments.DeployFlow]: crate::client::Environments::deploy_flow
+#[cfg(feature = "environments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -8907,6 +9531,7 @@ pub struct DeployFlowMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "environments")]
 impl DeployFlowMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -8924,6 +9549,7 @@ impl DeployFlowMetadata {
     }
 }
 
+#[cfg(feature = "environments")]
 impl wkt::message::Message for DeployFlowMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeployFlowMetadata"
@@ -8931,6 +9557,7 @@ impl wkt::message::Message for DeployFlowMetadata {
 }
 
 /// Represents an experiment in an environment.
+#[cfg(feature = "experiments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -9019,6 +9646,7 @@ pub struct Experiment {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "experiments")]
 impl Experiment {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -9234,6 +9862,7 @@ impl Experiment {
     }
 }
 
+#[cfg(feature = "experiments")]
 impl wkt::message::Message for Experiment {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Experiment"
@@ -9241,11 +9870,13 @@ impl wkt::message::Message for Experiment {
 }
 
 /// Defines additional types related to [Experiment].
+#[cfg(feature = "experiments")]
 pub mod experiment {
     #[allow(unused_imports)]
     use super::*;
 
     /// Definition of the experiment.
+    #[cfg(feature = "experiments")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -9268,6 +9899,7 @@ pub mod experiment {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "experiments")]
     impl Definition {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -9326,6 +9958,7 @@ pub mod experiment {
         }
     }
 
+    #[cfg(feature = "experiments")]
     impl wkt::message::Message for Definition {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Experiment.Definition"
@@ -9333,12 +9966,14 @@ pub mod experiment {
     }
 
     /// Defines additional types related to [Definition].
+    #[cfg(feature = "experiments")]
     pub mod definition {
         #[allow(unused_imports)]
         use super::*;
 
         /// The variants of the experiment. We currently only support single variant
         /// experiment.
+        #[cfg(feature = "experiments")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -9351,6 +9986,7 @@ pub mod experiment {
 
     /// The inference result which includes an objective metric to optimize and the
     /// confidence interval.
+    #[cfg(feature = "experiments")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -9370,6 +10006,7 @@ pub mod experiment {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "experiments")]
     impl Result {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -9405,6 +10042,7 @@ pub mod experiment {
         }
     }
 
+    #[cfg(feature = "experiments")]
     impl wkt::message::Message for Result {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Experiment.Result"
@@ -9412,12 +10050,14 @@ pub mod experiment {
     }
 
     /// Defines additional types related to [Result].
+    #[cfg(feature = "experiments")]
     pub mod result {
         #[allow(unused_imports)]
         use super::*;
 
         /// A confidence interval is a range of possible values for the experiment
         /// objective you are trying to measure.
+        #[cfg(feature = "experiments")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -9449,6 +10089,7 @@ pub mod experiment {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "experiments")]
         impl ConfidenceInterval {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -9479,6 +10120,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl wkt::message::Message for ConfidenceInterval {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.Experiment.Result.ConfidenceInterval"
@@ -9486,6 +10128,7 @@ pub mod experiment {
         }
 
         /// Metric and corresponding confidence intervals.
+        #[cfg(feature = "experiments")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -9518,6 +10161,7 @@ pub mod experiment {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "experiments")]
         impl Metric {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -9628,6 +10272,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl wkt::message::Message for Metric {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.Experiment.Result.Metric"
@@ -9635,11 +10280,13 @@ pub mod experiment {
         }
 
         /// Defines additional types related to [Metric].
+        #[cfg(feature = "experiments")]
         pub mod metric {
             #[allow(unused_imports)]
             use super::*;
 
             /// The actual value of the metric.
+            #[cfg(feature = "experiments")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
@@ -9653,6 +10300,7 @@ pub mod experiment {
         }
 
         /// Version variant and associated metrics.
+        #[cfg(feature = "experiments")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -9682,6 +10330,7 @@ pub mod experiment {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "experiments")]
         impl VersionMetrics {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -9711,6 +10360,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl wkt::message::Message for VersionMetrics {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.Experiment.Result.VersionMetrics"
@@ -9732,6 +10382,7 @@ pub mod experiment {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "experiments")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum MetricType {
@@ -9756,6 +10407,7 @@ pub mod experiment {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "experiments")]
         pub mod metric_type {
             #[allow(unused_imports)]
             use super::*;
@@ -9763,6 +10415,7 @@ pub mod experiment {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "experiments")]
         impl MetricType {
             /// Gets the enum value.
             ///
@@ -9803,6 +10456,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl std::default::Default for MetricType {
             fn default() -> Self {
                 use std::convert::From;
@@ -9810,6 +10464,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl std::fmt::Display for MetricType {
             fn fmt(
                 &self,
@@ -9819,6 +10474,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl std::convert::From<i32> for MetricType {
             fn from(value: i32) -> Self {
                 match value {
@@ -9835,6 +10491,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl std::convert::From<&str> for MetricType {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -9852,6 +10509,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl serde::ser::Serialize for MetricType {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -9869,6 +10527,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl<'de> serde::de::Deserialize<'de> for MetricType {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -9895,6 +10554,7 @@ pub mod experiment {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "experiments")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum CountType {
@@ -9914,6 +10574,7 @@ pub mod experiment {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "experiments")]
         pub mod count_type {
             #[allow(unused_imports)]
             use super::*;
@@ -9921,6 +10582,7 @@ pub mod experiment {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "experiments")]
         impl CountType {
             /// Gets the enum value.
             ///
@@ -9951,6 +10613,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl std::default::Default for CountType {
             fn default() -> Self {
                 use std::convert::From;
@@ -9958,6 +10621,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl std::fmt::Display for CountType {
             fn fmt(
                 &self,
@@ -9967,6 +10631,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl std::convert::From<i32> for CountType {
             fn from(value: i32) -> Self {
                 match value {
@@ -9981,6 +10646,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl std::convert::From<&str> for CountType {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -9996,6 +10662,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl serde::ser::Serialize for CountType {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -10011,6 +10678,7 @@ pub mod experiment {
             }
         }
 
+        #[cfg(feature = "experiments")]
         impl<'de> serde::de::Deserialize<'de> for CountType {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -10038,6 +10706,7 @@ pub mod experiment {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "experiments")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -10059,6 +10728,7 @@ pub mod experiment {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "experiments")]
     pub mod state {
         #[allow(unused_imports)]
         use super::*;
@@ -10066,6 +10736,7 @@ pub mod experiment {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "experiments")]
     impl State {
         /// Gets the enum value.
         ///
@@ -10098,6 +10769,7 @@ pub mod experiment {
         }
     }
 
+    #[cfg(feature = "experiments")]
     impl std::default::Default for State {
         fn default() -> Self {
             use std::convert::From;
@@ -10105,12 +10777,14 @@ pub mod experiment {
         }
     }
 
+    #[cfg(feature = "experiments")]
     impl std::fmt::Display for State {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "experiments")]
     impl std::convert::From<i32> for State {
         fn from(value: i32) -> Self {
             match value {
@@ -10126,6 +10800,7 @@ pub mod experiment {
         }
     }
 
+    #[cfg(feature = "experiments")]
     impl std::convert::From<&str> for State {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -10142,6 +10817,7 @@ pub mod experiment {
         }
     }
 
+    #[cfg(feature = "experiments")]
     impl serde::ser::Serialize for State {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -10158,6 +10834,7 @@ pub mod experiment {
         }
     }
 
+    #[cfg(feature = "experiments")]
     impl<'de> serde::de::Deserialize<'de> for State {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -10171,6 +10848,7 @@ pub mod experiment {
 }
 
 /// A list of flow version variants.
+#[cfg(feature = "experiments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -10185,6 +10863,7 @@ pub struct VersionVariants {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "experiments")]
 impl VersionVariants {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -10202,6 +10881,7 @@ impl VersionVariants {
     }
 }
 
+#[cfg(feature = "experiments")]
 impl wkt::message::Message for VersionVariants {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.VersionVariants"
@@ -10209,11 +10889,13 @@ impl wkt::message::Message for VersionVariants {
 }
 
 /// Defines additional types related to [VersionVariants].
+#[cfg(feature = "experiments")]
 pub mod version_variants {
     #[allow(unused_imports)]
     use super::*;
 
     /// A single flow version with specified traffic allocation.
+    #[cfg(feature = "experiments")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -10241,6 +10923,7 @@ pub mod version_variants {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "experiments")]
     impl Variant {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -10265,6 +10948,7 @@ pub mod version_variants {
         }
     }
 
+    #[cfg(feature = "experiments")]
     impl wkt::message::Message for Variant {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.VersionVariants.Variant"
@@ -10273,6 +10957,7 @@ pub mod version_variants {
 }
 
 /// The history of variants update.
+#[cfg(feature = "experiments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -10291,6 +10976,7 @@ pub struct VariantsHistory {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "experiments")]
 impl VariantsHistory {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -10361,6 +11047,7 @@ impl VariantsHistory {
     }
 }
 
+#[cfg(feature = "experiments")]
 impl wkt::message::Message for VariantsHistory {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.VariantsHistory"
@@ -10368,12 +11055,14 @@ impl wkt::message::Message for VariantsHistory {
 }
 
 /// Defines additional types related to [VariantsHistory].
+#[cfg(feature = "experiments")]
 pub mod variants_history {
     #[allow(unused_imports)]
     use super::*;
 
     /// The variants updated. We currently only support single variant
     /// experiment.
+    #[cfg(feature = "experiments")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -10385,6 +11074,7 @@ pub mod variants_history {
 }
 
 /// The configuration for auto rollout.
+#[cfg(feature = "experiments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -10417,6 +11107,7 @@ pub struct RolloutConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "experiments")]
 impl RolloutConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -10452,6 +11143,7 @@ impl RolloutConfig {
     }
 }
 
+#[cfg(feature = "experiments")]
 impl wkt::message::Message for RolloutConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.RolloutConfig"
@@ -10459,11 +11151,13 @@ impl wkt::message::Message for RolloutConfig {
 }
 
 /// Defines additional types related to [RolloutConfig].
+#[cfg(feature = "experiments")]
 pub mod rollout_config {
     #[allow(unused_imports)]
     use super::*;
 
     /// A single rollout step with specified traffic allocation.
+    #[cfg(feature = "experiments")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -10490,6 +11184,7 @@ pub mod rollout_config {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "experiments")]
     impl RolloutStep {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -10529,6 +11224,7 @@ pub mod rollout_config {
         }
     }
 
+    #[cfg(feature = "experiments")]
     impl wkt::message::Message for RolloutStep {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.RolloutConfig.RolloutStep"
@@ -10537,6 +11233,7 @@ pub mod rollout_config {
 }
 
 /// State of the auto-rollout process.
+#[cfg(feature = "experiments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -10560,6 +11257,7 @@ pub struct RolloutState {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "experiments")]
 impl RolloutState {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -10596,6 +11294,7 @@ impl RolloutState {
     }
 }
 
+#[cfg(feature = "experiments")]
 impl wkt::message::Message for RolloutState {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.RolloutState"
@@ -10606,6 +11305,7 @@ impl wkt::message::Message for RolloutState {
 /// [Experiments.ListExperiments][google.cloud.dialogflow.cx.v3.Experiments.ListExperiments].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.ListExperiments]: crate::client::Experiments::list_experiments
+#[cfg(feature = "experiments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -10635,6 +11335,7 @@ pub struct ListExperimentsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "experiments")]
 impl ListExperimentsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -10659,6 +11360,7 @@ impl ListExperimentsRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
 impl wkt::message::Message for ListExperimentsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListExperimentsRequest"
@@ -10669,6 +11371,7 @@ impl wkt::message::Message for ListExperimentsRequest {
 /// [Experiments.ListExperiments][google.cloud.dialogflow.cx.v3.Experiments.ListExperiments].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.ListExperiments]: crate::client::Experiments::list_experiments
+#[cfg(feature = "experiments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -10692,6 +11395,7 @@ pub struct ListExperimentsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "experiments")]
 impl ListExperimentsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -10715,12 +11419,14 @@ impl ListExperimentsResponse {
     }
 }
 
+#[cfg(feature = "experiments")]
 impl wkt::message::Message for ListExperimentsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListExperimentsResponse"
     }
 }
 
+#[cfg(feature = "experiments")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListExperimentsResponse {
     type PageItem = crate::model::Experiment;
@@ -10739,6 +11445,7 @@ impl gax::paginator::internal::PageableResponse for ListExperimentsResponse {
 /// [Experiments.GetExperiment][google.cloud.dialogflow.cx.v3.Experiments.GetExperiment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.GetExperiment]: crate::client::Experiments::get_experiment
+#[cfg(feature = "experiments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -10757,6 +11464,7 @@ pub struct GetExperimentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "experiments")]
 impl GetExperimentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -10769,6 +11477,7 @@ impl GetExperimentRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
 impl wkt::message::Message for GetExperimentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetExperimentRequest"
@@ -10779,6 +11488,7 @@ impl wkt::message::Message for GetExperimentRequest {
 /// [Experiments.CreateExperiment][google.cloud.dialogflow.cx.v3.Experiments.CreateExperiment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.CreateExperiment]: crate::client::Experiments::create_experiment
+#[cfg(feature = "experiments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -10802,6 +11512,7 @@ pub struct CreateExperimentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "experiments")]
 impl CreateExperimentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -10832,6 +11543,7 @@ impl CreateExperimentRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
 impl wkt::message::Message for CreateExperimentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateExperimentRequest"
@@ -10842,6 +11554,7 @@ impl wkt::message::Message for CreateExperimentRequest {
 /// [Experiments.UpdateExperiment][google.cloud.dialogflow.cx.v3.Experiments.UpdateExperiment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.UpdateExperiment]: crate::client::Experiments::update_experiment
+#[cfg(feature = "experiments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -10859,6 +11572,7 @@ pub struct UpdateExperimentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "experiments")]
 impl UpdateExperimentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -10901,6 +11615,7 @@ impl UpdateExperimentRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
 impl wkt::message::Message for UpdateExperimentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateExperimentRequest"
@@ -10911,6 +11626,7 @@ impl wkt::message::Message for UpdateExperimentRequest {
 /// [Experiments.DeleteExperiment][google.cloud.dialogflow.cx.v3.Experiments.DeleteExperiment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.DeleteExperiment]: crate::client::Experiments::delete_experiment
+#[cfg(feature = "experiments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -10929,6 +11645,7 @@ pub struct DeleteExperimentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "experiments")]
 impl DeleteExperimentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -10941,6 +11658,7 @@ impl DeleteExperimentRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
 impl wkt::message::Message for DeleteExperimentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteExperimentRequest"
@@ -10951,6 +11669,7 @@ impl wkt::message::Message for DeleteExperimentRequest {
 /// [Experiments.StartExperiment][google.cloud.dialogflow.cx.v3.Experiments.StartExperiment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.StartExperiment]: crate::client::Experiments::start_experiment
+#[cfg(feature = "experiments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -10967,6 +11686,7 @@ pub struct StartExperimentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "experiments")]
 impl StartExperimentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -10979,6 +11699,7 @@ impl StartExperimentRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
 impl wkt::message::Message for StartExperimentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.StartExperimentRequest"
@@ -10989,6 +11710,7 @@ impl wkt::message::Message for StartExperimentRequest {
 /// [Experiments.StopExperiment][google.cloud.dialogflow.cx.v3.Experiments.StopExperiment].
 ///
 /// [google.cloud.dialogflow.cx.v3.Experiments.StopExperiment]: crate::client::Experiments::stop_experiment
+#[cfg(feature = "experiments")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11005,6 +11727,7 @@ pub struct StopExperimentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "experiments")]
 impl StopExperimentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11017,6 +11740,7 @@ impl StopExperimentRequest {
     }
 }
 
+#[cfg(feature = "experiments")]
 impl wkt::message::Message for StopExperimentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.StopExperimentRequest"
@@ -11024,6 +11748,12 @@ impl wkt::message::Message for StopExperimentRequest {
 }
 
 /// Settings related to NLU.
+#[cfg(any(
+    feature = "flows",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "versions",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11054,6 +11784,12 @@ pub struct NluSettings {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "versions",
+))]
 impl NluSettings {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11086,6 +11822,12 @@ impl NluSettings {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "versions",
+))]
 impl wkt::message::Message for NluSettings {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.NluSettings"
@@ -11093,6 +11835,12 @@ impl wkt::message::Message for NluSettings {
 }
 
 /// Defines additional types related to [NluSettings].
+#[cfg(any(
+    feature = "flows",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "versions",
+))]
 pub mod nlu_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -11112,6 +11860,12 @@ pub mod nlu_settings {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ModelType {
@@ -11129,6 +11883,12 @@ pub mod nlu_settings {
     }
 
     #[doc(hidden)]
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     pub mod model_type {
         #[allow(unused_imports)]
         use super::*;
@@ -11136,6 +11896,12 @@ pub mod nlu_settings {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl ModelType {
         /// Gets the enum value.
         ///
@@ -11164,6 +11930,12 @@ pub mod nlu_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl std::default::Default for ModelType {
         fn default() -> Self {
             use std::convert::From;
@@ -11171,12 +11943,24 @@ pub mod nlu_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl std::fmt::Display for ModelType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl std::convert::From<i32> for ModelType {
         fn from(value: i32) -> Self {
             match value {
@@ -11190,6 +11974,12 @@ pub mod nlu_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl std::convert::From<&str> for ModelType {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -11204,6 +11994,12 @@ pub mod nlu_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl serde::ser::Serialize for ModelType {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -11218,6 +12014,12 @@ pub mod nlu_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl<'de> serde::de::Deserialize<'de> for ModelType {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -11244,6 +12046,12 @@ pub mod nlu_settings {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ModelTrainingMode {
@@ -11263,6 +12071,12 @@ pub mod nlu_settings {
     }
 
     #[doc(hidden)]
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     pub mod model_training_mode {
         #[allow(unused_imports)]
         use super::*;
@@ -11270,6 +12084,12 @@ pub mod nlu_settings {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl ModelTrainingMode {
         /// Gets the enum value.
         ///
@@ -11298,6 +12118,12 @@ pub mod nlu_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl std::default::Default for ModelTrainingMode {
         fn default() -> Self {
             use std::convert::From;
@@ -11305,12 +12131,24 @@ pub mod nlu_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl std::fmt::Display for ModelTrainingMode {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl std::convert::From<i32> for ModelTrainingMode {
         fn from(value: i32) -> Self {
             match value {
@@ -11324,6 +12162,12 @@ pub mod nlu_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl std::convert::From<&str> for ModelTrainingMode {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -11338,6 +12182,12 @@ pub mod nlu_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl serde::ser::Serialize for ModelTrainingMode {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -11352,6 +12202,12 @@ pub mod nlu_settings {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "versions",
+    ))]
     impl<'de> serde::de::Deserialize<'de> for ModelTrainingMode {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -11378,6 +12234,7 @@ pub mod nlu_settings {
 /// routes. However, when the followed transition route moves the conversation
 /// session into a different flow, the matched intent can be carried over and to
 /// be consumed in the target flow.
+#[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11489,6 +12346,7 @@ pub struct Flow {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
 impl Flow {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11624,6 +12482,7 @@ impl Flow {
     }
 }
 
+#[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
 impl wkt::message::Message for Flow {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Flow"
@@ -11631,11 +12490,13 @@ impl wkt::message::Message for Flow {
 }
 
 /// Defines additional types related to [Flow].
+#[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
 pub mod flow {
     #[allow(unused_imports)]
     use super::*;
 
     /// Settings for multi-lingual agents.
+    #[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -11669,6 +12530,7 @@ pub mod flow {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
     impl MultiLanguageSettings {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -11695,6 +12557,7 @@ pub mod flow {
         }
     }
 
+    #[cfg(any(feature = "flows", feature = "sessions", feature = "test-cases",))]
     impl wkt::message::Message for MultiLanguageSettings {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Flow.MultiLanguageSettings"
@@ -11706,6 +12569,7 @@ pub mod flow {
 /// [Flows.CreateFlow][google.cloud.dialogflow.cx.v3.Flows.CreateFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.CreateFlow]: crate::client::Flows::create_flow
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11741,6 +12605,7 @@ pub struct CreateFlowRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl CreateFlowRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11777,6 +12642,7 @@ impl CreateFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for CreateFlowRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateFlowRequest"
@@ -11787,6 +12653,7 @@ impl wkt::message::Message for CreateFlowRequest {
 /// [Flows.DeleteFlow][google.cloud.dialogflow.cx.v3.Flows.DeleteFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.DeleteFlow]: crate::client::Flows::delete_flow
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11820,6 +12687,7 @@ pub struct DeleteFlowRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl DeleteFlowRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11838,6 +12706,7 @@ impl DeleteFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for DeleteFlowRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteFlowRequest"
@@ -11848,6 +12717,7 @@ impl wkt::message::Message for DeleteFlowRequest {
 /// [Flows.ListFlows][google.cloud.dialogflow.cx.v3.Flows.ListFlows].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ListFlows]: crate::client::Flows::list_flows
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11891,6 +12761,7 @@ pub struct ListFlowsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl ListFlowsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11921,6 +12792,7 @@ impl ListFlowsRequest {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for ListFlowsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListFlowsRequest"
@@ -11931,6 +12803,7 @@ impl wkt::message::Message for ListFlowsRequest {
 /// [Flows.ListFlows][google.cloud.dialogflow.cx.v3.Flows.ListFlows].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ListFlows]: crate::client::Flows::list_flows
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -11952,6 +12825,7 @@ pub struct ListFlowsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl ListFlowsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -11975,12 +12849,14 @@ impl ListFlowsResponse {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for ListFlowsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListFlowsResponse"
     }
 }
 
+#[cfg(feature = "flows")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListFlowsResponse {
     type PageItem = crate::model::Flow;
@@ -11999,6 +12875,7 @@ impl gax::paginator::internal::PageableResponse for ListFlowsResponse {
 /// [Flows.GetFlow][google.cloud.dialogflow.cx.v3.Flows.GetFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.GetFlow]: crate::client::Flows::get_flow
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12032,6 +12909,7 @@ pub struct GetFlowRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl GetFlowRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12050,6 +12928,7 @@ impl GetFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for GetFlowRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetFlowRequest"
@@ -12060,6 +12939,7 @@ impl wkt::message::Message for GetFlowRequest {
 /// [Flows.UpdateFlow][google.cloud.dialogflow.cx.v3.Flows.UpdateFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.UpdateFlow]: crate::client::Flows::update_flow
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12094,6 +12974,7 @@ pub struct UpdateFlowRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl UpdateFlowRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12142,6 +13023,7 @@ impl UpdateFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for UpdateFlowRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateFlowRequest"
@@ -12152,6 +13034,7 @@ impl wkt::message::Message for UpdateFlowRequest {
 /// [Flows.TrainFlow][google.cloud.dialogflow.cx.v3.Flows.TrainFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.TrainFlow]: crate::client::Flows::train_flow
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12168,6 +13051,7 @@ pub struct TrainFlowRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl TrainFlowRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12180,6 +13064,7 @@ impl TrainFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for TrainFlowRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.TrainFlowRequest"
@@ -12190,6 +13075,7 @@ impl wkt::message::Message for TrainFlowRequest {
 /// [Flows.ValidateFlow][google.cloud.dialogflow.cx.v3.Flows.ValidateFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ValidateFlow]: crate::client::Flows::validate_flow
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12211,6 +13097,7 @@ pub struct ValidateFlowRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl ValidateFlowRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12229,6 +13116,7 @@ impl ValidateFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for ValidateFlowRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ValidateFlowRequest"
@@ -12239,6 +13127,7 @@ impl wkt::message::Message for ValidateFlowRequest {
 /// [Flows.GetFlowValidationResult][google.cloud.dialogflow.cx.v3.Flows.GetFlowValidationResult].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.GetFlowValidationResult]: crate::client::Flows::get_flow_validation_result
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12260,6 +13149,7 @@ pub struct GetFlowValidationResultRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl GetFlowValidationResultRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12278,6 +13168,7 @@ impl GetFlowValidationResultRequest {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for GetFlowValidationResultRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetFlowValidationResultRequest"
@@ -12288,6 +13179,7 @@ impl wkt::message::Message for GetFlowValidationResultRequest {
 /// [Flows.GetFlowValidationResult][google.cloud.dialogflow.cx.v3.Flows.GetFlowValidationResult].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.GetFlowValidationResult]: crate::client::Flows::get_flow_validation_result
+#[cfg(any(feature = "agents", feature = "flows",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12313,6 +13205,7 @@ pub struct FlowValidationResult {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "agents", feature = "flows",))]
 impl FlowValidationResult {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12354,6 +13247,7 @@ impl FlowValidationResult {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "flows",))]
 impl wkt::message::Message for FlowValidationResult {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.FlowValidationResult"
@@ -12364,6 +13258,7 @@ impl wkt::message::Message for FlowValidationResult {
 /// [Flows.ImportFlow][google.cloud.dialogflow.cx.v3.Flows.ImportFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ImportFlow]: crate::client::Flows::import_flow
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12393,6 +13288,7 @@ pub struct ImportFlowRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl ImportFlowRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12493,6 +13389,7 @@ impl ImportFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for ImportFlowRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportFlowRequest"
@@ -12500,6 +13397,7 @@ impl wkt::message::Message for ImportFlowRequest {
 }
 
 /// Defines additional types related to [ImportFlowRequest].
+#[cfg(feature = "flows")]
 pub mod import_flow_request {
     #[allow(unused_imports)]
     use super::*;
@@ -12519,6 +13417,7 @@ pub mod import_flow_request {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "flows")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ImportOption {
@@ -12540,6 +13439,7 @@ pub mod import_flow_request {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "flows")]
     pub mod import_option {
         #[allow(unused_imports)]
         use super::*;
@@ -12547,6 +13447,7 @@ pub mod import_flow_request {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "flows")]
     impl ImportOption {
         /// Gets the enum value.
         ///
@@ -12575,6 +13476,7 @@ pub mod import_flow_request {
         }
     }
 
+    #[cfg(feature = "flows")]
     impl std::default::Default for ImportOption {
         fn default() -> Self {
             use std::convert::From;
@@ -12582,12 +13484,14 @@ pub mod import_flow_request {
         }
     }
 
+    #[cfg(feature = "flows")]
     impl std::fmt::Display for ImportOption {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "flows")]
     impl std::convert::From<i32> for ImportOption {
         fn from(value: i32) -> Self {
             match value {
@@ -12601,6 +13505,7 @@ pub mod import_flow_request {
         }
     }
 
+    #[cfg(feature = "flows")]
     impl std::convert::From<&str> for ImportOption {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -12615,6 +13520,7 @@ pub mod import_flow_request {
         }
     }
 
+    #[cfg(feature = "flows")]
     impl serde::ser::Serialize for ImportOption {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -12629,6 +13535,7 @@ pub mod import_flow_request {
         }
     }
 
+    #[cfg(feature = "flows")]
     impl<'de> serde::de::Deserialize<'de> for ImportOption {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -12641,6 +13548,7 @@ pub mod import_flow_request {
     }
 
     /// Required. The flow to import.
+    #[cfg(feature = "flows")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -12668,6 +13576,7 @@ pub mod import_flow_request {
 /// with an [ImportFlowRequest][google.cloud.dialogflow.cx.v3.ImportFlowRequest].
 ///
 /// [google.cloud.dialogflow.cx.v3.ImportFlowRequest]: crate::model::ImportFlowRequest
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12685,6 +13594,7 @@ pub struct FlowImportStrategy {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl FlowImportStrategy {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12700,6 +13610,7 @@ impl FlowImportStrategy {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for FlowImportStrategy {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.FlowImportStrategy"
@@ -12710,6 +13621,7 @@ impl wkt::message::Message for FlowImportStrategy {
 /// [Flows.ImportFlow][google.cloud.dialogflow.cx.v3.Flows.ImportFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ImportFlow]: crate::client::Flows::import_flow
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12726,6 +13638,7 @@ pub struct ImportFlowResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl ImportFlowResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12738,6 +13651,7 @@ impl ImportFlowResponse {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for ImportFlowResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportFlowResponse"
@@ -12748,6 +13662,7 @@ impl wkt::message::Message for ImportFlowResponse {
 /// [Flows.ExportFlow][google.cloud.dialogflow.cx.v3.Flows.ExportFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ExportFlow]: crate::client::Flows::export_flow
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12783,6 +13698,7 @@ pub struct ExportFlowRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl ExportFlowRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12807,6 +13723,7 @@ impl ExportFlowRequest {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for ExportFlowRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportFlowRequest"
@@ -12817,6 +13734,7 @@ impl wkt::message::Message for ExportFlowRequest {
 /// [Flows.ExportFlow][google.cloud.dialogflow.cx.v3.Flows.ExportFlow].
 ///
 /// [google.cloud.dialogflow.cx.v3.Flows.ExportFlow]: crate::client::Flows::export_flow
+#[cfg(feature = "flows")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -12830,6 +13748,7 @@ pub struct ExportFlowResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "flows")]
 impl ExportFlowResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -12897,6 +13816,7 @@ impl ExportFlowResponse {
     }
 }
 
+#[cfg(feature = "flows")]
 impl wkt::message::Message for ExportFlowResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportFlowResponse"
@@ -12904,11 +13824,13 @@ impl wkt::message::Message for ExportFlowResponse {
 }
 
 /// Defines additional types related to [ExportFlowResponse].
+#[cfg(feature = "flows")]
 pub mod export_flow_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// The exported flow.
+    #[cfg(feature = "flows")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -12949,6 +13871,13 @@ pub mod export_flow_response {
 /// [google.cloud.dialogflow.cx.v3.Form]: crate::model::Form
 /// [google.cloud.dialogflow.cx.v3.Page]: crate::model::Page
 /// [google.cloud.dialogflow.cx.v3.QueryResult]: crate::model::QueryResult
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -13023,6 +13952,13 @@ pub struct Fulfillment {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 impl Fulfillment {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -13104,6 +14040,13 @@ impl Fulfillment {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 impl wkt::message::Message for Fulfillment {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Fulfillment"
@@ -13111,11 +14054,25 @@ impl wkt::message::Message for Fulfillment {
 }
 
 /// Defines additional types related to [Fulfillment].
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 pub mod fulfillment {
     #[allow(unused_imports)]
     use super::*;
 
     /// Setting a parameter value.
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -13135,6 +14092,13 @@ pub mod fulfillment {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl SetParameterAction {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -13165,6 +14129,13 @@ pub mod fulfillment {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for SetParameterAction {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Fulfillment.SetParameterAction"
@@ -13173,6 +14144,13 @@ pub mod fulfillment {
 
     /// A list of cascading if-else conditions. Cases are mutually exclusive.
     /// The first one with a matching condition is selected, all the rest ignored.
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -13187,6 +14165,13 @@ pub mod fulfillment {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl ConditionalCases {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -13204,6 +14189,13 @@ pub mod fulfillment {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for ConditionalCases {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Fulfillment.ConditionalCases"
@@ -13211,12 +14203,26 @@ pub mod fulfillment {
     }
 
     /// Defines additional types related to [ConditionalCases].
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     pub mod conditional_cases {
         #[allow(unused_imports)]
         use super::*;
 
         /// Each case has a Boolean condition. When it is evaluated to be True, the
         /// corresponding messages will be selected and evaluated recursively.
+        #[cfg(any(
+            feature = "flows",
+            feature = "pages",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -13246,6 +14252,13 @@ pub mod fulfillment {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(
+            feature = "flows",
+            feature = "pages",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+        ))]
         impl Case {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -13274,6 +14287,13 @@ pub mod fulfillment {
             }
         }
 
+        #[cfg(any(
+            feature = "flows",
+            feature = "pages",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+        ))]
         impl wkt::message::Message for Case {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.Fulfillment.ConditionalCases.Case"
@@ -13281,11 +14301,25 @@ pub mod fulfillment {
         }
 
         /// Defines additional types related to [Case].
+        #[cfg(any(
+            feature = "flows",
+            feature = "pages",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+        ))]
         pub mod case {
             #[allow(unused_imports)]
             use super::*;
 
             /// The list of messages or conditional cases to activate for this case.
+            #[cfg(any(
+                feature = "flows",
+                feature = "pages",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+            ))]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -13300,6 +14334,13 @@ pub mod fulfillment {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(any(
+                feature = "flows",
+                feature = "pages",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+            ))]
             impl CaseContent {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -13385,6 +14426,13 @@ pub mod fulfillment {
                 }
             }
 
+            #[cfg(any(
+                feature = "flows",
+                feature = "pages",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+            ))]
             impl wkt::message::Message for CaseContent {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.dialogflow.cx.v3.Fulfillment.ConditionalCases.Case.CaseContent"
@@ -13392,11 +14440,25 @@ pub mod fulfillment {
             }
 
             /// Defines additional types related to [CaseContent].
+            #[cfg(any(
+                feature = "flows",
+                feature = "pages",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+            ))]
             pub mod case_content {
                 #[allow(unused_imports)]
                 use super::*;
 
                 /// Either a message is returned or additional cases to be evaluated.
+                #[cfg(any(
+                    feature = "flows",
+                    feature = "pages",
+                    feature = "sessions",
+                    feature = "test-cases",
+                    feature = "transition-route-groups",
+                ))]
                 #[serde_with::serde_as]
                 #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
                 #[serde(rename_all = "camelCase")]
@@ -13414,6 +14476,14 @@ pub mod fulfillment {
 
 /// Google Cloud Storage location for a Dialogflow operation that writes or
 /// exports objects (e.g. exported agent or transcripts) outside of Dialogflow.
+#[cfg(any(
+    feature = "agents",
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -13430,6 +14500,14 @@ pub struct GcsDestination {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "agents",
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 impl GcsDestination {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -13442,6 +14520,14 @@ impl GcsDestination {
     }
 }
 
+#[cfg(any(
+    feature = "agents",
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 impl wkt::message::Message for GcsDestination {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GcsDestination"
@@ -13449,6 +14535,7 @@ impl wkt::message::Message for GcsDestination {
 }
 
 /// Settings for Generative AI.
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -13482,6 +14569,7 @@ pub struct GenerativeSettings {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl GenerativeSettings {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -13554,6 +14642,7 @@ impl GenerativeSettings {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for GenerativeSettings {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GenerativeSettings"
@@ -13561,11 +14650,13 @@ impl wkt::message::Message for GenerativeSettings {
 }
 
 /// Defines additional types related to [GenerativeSettings].
+#[cfg(feature = "agents")]
 pub mod generative_settings {
     #[allow(unused_imports)]
     use super::*;
 
     /// Settings for Generative Fallback.
+    #[cfg(feature = "agents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -13587,6 +14678,7 @@ pub mod generative_settings {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "agents")]
     impl FallbackSettings {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -13615,6 +14707,7 @@ pub mod generative_settings {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl wkt::message::Message for FallbackSettings {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.GenerativeSettings.FallbackSettings"
@@ -13622,11 +14715,13 @@ pub mod generative_settings {
     }
 
     /// Defines additional types related to [FallbackSettings].
+    #[cfg(feature = "agents")]
     pub mod fallback_settings {
         #[allow(unused_imports)]
         use super::*;
 
         /// Prompt template.
+        #[cfg(feature = "agents")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -13654,6 +14749,7 @@ pub mod generative_settings {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "agents")]
         impl PromptTemplate {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -13684,6 +14780,7 @@ pub mod generative_settings {
             }
         }
 
+        #[cfg(feature = "agents")]
         impl wkt::message::Message for PromptTemplate {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.GenerativeSettings.FallbackSettings.PromptTemplate"
@@ -13695,6 +14792,7 @@ pub mod generative_settings {
     /// like "You are \<agent\>. You are a helpful and verbose <agent_identity> at
     /// \<business\>, <business_description>. Your task is to help humans on
     /// <agent_scope>".
+    #[cfg(feature = "agents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -13739,6 +14837,7 @@ pub mod generative_settings {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "agents")]
     impl KnowledgeConnectorSettings {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -13790,6 +14889,7 @@ pub mod generative_settings {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl wkt::message::Message for KnowledgeConnectorSettings {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.GenerativeSettings.KnowledgeConnectorSettings"
@@ -13801,6 +14901,7 @@ pub mod generative_settings {
 /// prompt can contain parameters which will be resolved before calling the
 /// model. It can optionally contain banned phrases to ensure the model responses
 /// are safe.
+#[cfg(feature = "generators")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -13843,6 +14944,7 @@ pub struct Generator {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "generators")]
 impl Generator {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -13908,6 +15010,7 @@ impl Generator {
     }
 }
 
+#[cfg(feature = "generators")]
 impl wkt::message::Message for Generator {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Generator"
@@ -13915,11 +15018,13 @@ impl wkt::message::Message for Generator {
 }
 
 /// Defines additional types related to [Generator].
+#[cfg(feature = "generators")]
 pub mod generator {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents a custom placeholder in the prompt text.
+    #[cfg(feature = "generators")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -13939,6 +15044,7 @@ pub mod generator {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "generators")]
     impl Placeholder {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -13957,6 +15063,7 @@ pub mod generator {
         }
     }
 
+    #[cfg(feature = "generators")]
     impl wkt::message::Message for Placeholder {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Generator.Placeholder"
@@ -13965,6 +15072,7 @@ pub mod generator {
 
     /// Parameters to be passed to the LLM. If not set, default values will be
     /// used.
+    #[cfg(feature = "generators")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -14005,6 +15113,7 @@ pub mod generator {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "generators")]
     impl ModelParameter {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -14083,6 +15192,7 @@ pub mod generator {
         }
     }
 
+    #[cfg(feature = "generators")]
     impl wkt::message::Message for ModelParameter {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Generator.ModelParameter"
@@ -14091,6 +15201,7 @@ pub mod generator {
 }
 
 /// Text input which can be used for prompt or banned phrases.
+#[cfg(feature = "generators")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14105,6 +15216,7 @@ pub struct Phrase {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "generators")]
 impl Phrase {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14117,6 +15229,7 @@ impl Phrase {
     }
 }
 
+#[cfg(feature = "generators")]
 impl wkt::message::Message for Phrase {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Phrase"
@@ -14127,6 +15240,7 @@ impl wkt::message::Message for Phrase {
 /// [Generators.ListGenerators][google.cloud.dialogflow.cx.v3.Generators.ListGenerators].
 ///
 /// [google.cloud.dialogflow.cx.v3.Generators.ListGenerators]: crate::client::Generators::list_generators
+#[cfg(feature = "generators")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14158,6 +15272,7 @@ pub struct ListGeneratorsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "generators")]
 impl ListGeneratorsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14188,6 +15303,7 @@ impl ListGeneratorsRequest {
     }
 }
 
+#[cfg(feature = "generators")]
 impl wkt::message::Message for ListGeneratorsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListGeneratorsRequest"
@@ -14198,6 +15314,7 @@ impl wkt::message::Message for ListGeneratorsRequest {
 /// [Generators.ListGenerators][google.cloud.dialogflow.cx.v3.Generators.ListGenerators].
 ///
 /// [google.cloud.dialogflow.cx.v3.Generators.ListGenerators]: crate::client::Generators::list_generators
+#[cfg(feature = "generators")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14219,6 +15336,7 @@ pub struct ListGeneratorsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "generators")]
 impl ListGeneratorsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14242,12 +15360,14 @@ impl ListGeneratorsResponse {
     }
 }
 
+#[cfg(feature = "generators")]
 impl wkt::message::Message for ListGeneratorsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListGeneratorsResponse"
     }
 }
 
+#[cfg(feature = "generators")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListGeneratorsResponse {
     type PageItem = crate::model::Generator;
@@ -14266,6 +15386,7 @@ impl gax::paginator::internal::PageableResponse for ListGeneratorsResponse {
 /// [Generators.GetGenerator][google.cloud.dialogflow.cx.v3.Generators.GetGenerator].
 ///
 /// [google.cloud.dialogflow.cx.v3.Generators.GetGenerator]: crate::client::Generators::get_generator
+#[cfg(feature = "generators")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14287,6 +15408,7 @@ pub struct GetGeneratorRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "generators")]
 impl GetGeneratorRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14305,6 +15427,7 @@ impl GetGeneratorRequest {
     }
 }
 
+#[cfg(feature = "generators")]
 impl wkt::message::Message for GetGeneratorRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetGeneratorRequest"
@@ -14315,6 +15438,7 @@ impl wkt::message::Message for GetGeneratorRequest {
 /// [Generators.CreateGenerator][google.cloud.dialogflow.cx.v3.Generators.CreateGenerator].
 ///
 /// [google.cloud.dialogflow.cx.v3.Generators.CreateGenerator]: crate::client::Generators::create_generator
+#[cfg(feature = "generators")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14342,6 +15466,7 @@ pub struct CreateGeneratorRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "generators")]
 impl CreateGeneratorRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14378,6 +15503,7 @@ impl CreateGeneratorRequest {
     }
 }
 
+#[cfg(feature = "generators")]
 impl wkt::message::Message for CreateGeneratorRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateGeneratorRequest"
@@ -14388,6 +15514,7 @@ impl wkt::message::Message for CreateGeneratorRequest {
 /// [Generators.UpdateGenerator][google.cloud.dialogflow.cx.v3.Generators.UpdateGenerator].
 ///
 /// [google.cloud.dialogflow.cx.v3.Generators.UpdateGenerator]: crate::client::Generators::update_generator
+#[cfg(feature = "generators")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14411,6 +15538,7 @@ pub struct UpdateGeneratorRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "generators")]
 impl UpdateGeneratorRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14459,6 +15587,7 @@ impl UpdateGeneratorRequest {
     }
 }
 
+#[cfg(feature = "generators")]
 impl wkt::message::Message for UpdateGeneratorRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateGeneratorRequest"
@@ -14469,6 +15598,7 @@ impl wkt::message::Message for UpdateGeneratorRequest {
 /// [Generators.DeleteGenerator][google.cloud.dialogflow.cx.v3.Generators.DeleteGenerator].
 ///
 /// [google.cloud.dialogflow.cx.v3.Generators.DeleteGenerator]: crate::client::Generators::delete_generator
+#[cfg(feature = "generators")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14497,6 +15627,7 @@ pub struct DeleteGeneratorRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "generators")]
 impl DeleteGeneratorRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14515,6 +15646,7 @@ impl DeleteGeneratorRequest {
     }
 }
 
+#[cfg(feature = "generators")]
 impl wkt::message::Message for DeleteGeneratorRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteGeneratorRequest"
@@ -14525,6 +15657,7 @@ impl wkt::message::Message for DeleteGeneratorRequest {
 /// (e.g. [intents][google.cloud.dialogflow.cx.v3.Intent]) outside of Dialogflow.
 ///
 /// [google.cloud.dialogflow.cx.v3.Intent]: crate::model::Intent
+#[cfg(any(feature = "entity-types", feature = "intents",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14540,6 +15673,7 @@ pub struct InlineDestination {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "entity-types", feature = "intents",))]
 impl InlineDestination {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14552,6 +15686,7 @@ impl InlineDestination {
     }
 }
 
+#[cfg(any(feature = "entity-types", feature = "intents",))]
 impl wkt::message::Message for InlineDestination {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.InlineDestination"
@@ -14562,6 +15697,7 @@ impl wkt::message::Message for InlineDestination {
 /// (e.g. [intents][google.cloud.dialogflow.cx.v3.Intent]) into Dialogflow.
 ///
 /// [google.cloud.dialogflow.cx.v3.Intent]: crate::model::Intent
+#[cfg(any(feature = "entity-types", feature = "intents",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14576,6 +15712,7 @@ pub struct InlineSource {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "entity-types", feature = "intents",))]
 impl InlineSource {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14588,6 +15725,7 @@ impl InlineSource {
     }
 }
 
+#[cfg(any(feature = "entity-types", feature = "intents",))]
 impl wkt::message::Message for InlineSource {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.InlineSource"
@@ -14599,6 +15737,7 @@ impl wkt::message::Message for InlineSource {
 /// You can provide information for the Dialogflow API to use to match user input
 /// to an intent by adding training phrases (i.e., examples of user input) to
 /// your intent.
+#[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -14684,6 +15823,7 @@ pub struct Intent {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
 impl Intent {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -14754,6 +15894,7 @@ impl Intent {
     }
 }
 
+#[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
 impl wkt::message::Message for Intent {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Intent"
@@ -14761,11 +15902,13 @@ impl wkt::message::Message for Intent {
 }
 
 /// Defines additional types related to [Intent].
+#[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
 pub mod intent {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents an example that the agent is trained on to identify the intent.
+    #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -14811,6 +15954,7 @@ pub mod intent {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
     impl TrainingPhrase {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -14840,6 +15984,7 @@ pub mod intent {
         }
     }
 
+    #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
     impl wkt::message::Message for TrainingPhrase {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Intent.TrainingPhrase"
@@ -14847,11 +15992,13 @@ pub mod intent {
     }
 
     /// Defines additional types related to [TrainingPhrase].
+    #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
     pub mod training_phrase {
         #[allow(unused_imports)]
         use super::*;
 
         /// Represents a part of a training phrase.
+        #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -14875,6 +16022,7 @@ pub mod intent {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
         impl Part {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -14896,6 +16044,7 @@ pub mod intent {
             }
         }
 
+        #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
         impl wkt::message::Message for Part {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.Intent.TrainingPhrase.Part"
@@ -14904,6 +16053,7 @@ pub mod intent {
     }
 
     /// Represents an intent parameter.
+    #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -14952,6 +16102,7 @@ pub mod intent {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
     impl Parameter {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -14982,6 +16133,7 @@ pub mod intent {
         }
     }
 
+    #[cfg(any(feature = "intents", feature = "sessions", feature = "test-cases",))]
     impl wkt::message::Message for Parameter {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Intent.Parameter"
@@ -14993,6 +16145,7 @@ pub mod intent {
 /// [Intents.ListIntents][google.cloud.dialogflow.cx.v3.Intents.ListIntents].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ListIntents]: crate::client::Intents::list_intents
+#[cfg(feature = "intents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15038,6 +16191,7 @@ pub struct ListIntentsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "intents")]
 impl ListIntentsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -15077,6 +16231,7 @@ impl ListIntentsRequest {
     }
 }
 
+#[cfg(feature = "intents")]
 impl wkt::message::Message for ListIntentsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListIntentsRequest"
@@ -15087,6 +16242,7 @@ impl wkt::message::Message for ListIntentsRequest {
 /// [Intents.ListIntents][google.cloud.dialogflow.cx.v3.Intents.ListIntents].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ListIntents]: crate::client::Intents::list_intents
+#[cfg(feature = "intents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15108,6 +16264,7 @@ pub struct ListIntentsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "intents")]
 impl ListIntentsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -15131,12 +16288,14 @@ impl ListIntentsResponse {
     }
 }
 
+#[cfg(feature = "intents")]
 impl wkt::message::Message for ListIntentsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListIntentsResponse"
     }
 }
 
+#[cfg(feature = "intents")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListIntentsResponse {
     type PageItem = crate::model::Intent;
@@ -15155,6 +16314,7 @@ impl gax::paginator::internal::PageableResponse for ListIntentsResponse {
 /// [Intents.GetIntent][google.cloud.dialogflow.cx.v3.Intents.GetIntent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.GetIntent]: crate::client::Intents::get_intent
+#[cfg(feature = "intents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15185,6 +16345,7 @@ pub struct GetIntentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "intents")]
 impl GetIntentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -15203,6 +16364,7 @@ impl GetIntentRequest {
     }
 }
 
+#[cfg(feature = "intents")]
 impl wkt::message::Message for GetIntentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetIntentRequest"
@@ -15213,6 +16375,7 @@ impl wkt::message::Message for GetIntentRequest {
 /// [Intents.CreateIntent][google.cloud.dialogflow.cx.v3.Intents.CreateIntent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.CreateIntent]: crate::client::Intents::create_intent
+#[cfg(feature = "intents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15245,6 +16408,7 @@ pub struct CreateIntentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "intents")]
 impl CreateIntentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -15281,6 +16445,7 @@ impl CreateIntentRequest {
     }
 }
 
+#[cfg(feature = "intents")]
 impl wkt::message::Message for CreateIntentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateIntentRequest"
@@ -15291,6 +16456,7 @@ impl wkt::message::Message for CreateIntentRequest {
 /// [Intents.UpdateIntent][google.cloud.dialogflow.cx.v3.Intents.UpdateIntent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.UpdateIntent]: crate::client::Intents::update_intent
+#[cfg(feature = "intents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15322,6 +16488,7 @@ pub struct UpdateIntentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "intents")]
 impl UpdateIntentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -15370,6 +16537,7 @@ impl UpdateIntentRequest {
     }
 }
 
+#[cfg(feature = "intents")]
 impl wkt::message::Message for UpdateIntentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateIntentRequest"
@@ -15380,6 +16548,7 @@ impl wkt::message::Message for UpdateIntentRequest {
 /// [Intents.DeleteIntent][google.cloud.dialogflow.cx.v3.Intents.DeleteIntent].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.DeleteIntent]: crate::client::Intents::delete_intent
+#[cfg(feature = "intents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15396,6 +16565,7 @@ pub struct DeleteIntentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "intents")]
 impl DeleteIntentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -15408,6 +16578,7 @@ impl DeleteIntentRequest {
     }
 }
 
+#[cfg(feature = "intents")]
 impl wkt::message::Message for DeleteIntentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteIntentRequest"
@@ -15418,6 +16589,7 @@ impl wkt::message::Message for DeleteIntentRequest {
 /// [Intents.ImportIntents][google.cloud.dialogflow.cx.v3.Intents.ImportIntents].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ImportIntents]: crate::client::Intents::import_intents
+#[cfg(feature = "intents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15442,6 +16614,7 @@ pub struct ImportIntentsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "intents")]
 impl ImportIntentsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -15536,6 +16709,7 @@ impl ImportIntentsRequest {
     }
 }
 
+#[cfg(feature = "intents")]
 impl wkt::message::Message for ImportIntentsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportIntentsRequest"
@@ -15543,6 +16717,7 @@ impl wkt::message::Message for ImportIntentsRequest {
 }
 
 /// Defines additional types related to [ImportIntentsRequest].
+#[cfg(feature = "intents")]
 pub mod import_intents_request {
     #[allow(unused_imports)]
     use super::*;
@@ -15562,6 +16737,7 @@ pub mod import_intents_request {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "intents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MergeOption {
@@ -15596,6 +16772,7 @@ pub mod import_intents_request {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "intents")]
     pub mod merge_option {
         #[allow(unused_imports)]
         use super::*;
@@ -15603,6 +16780,7 @@ pub mod import_intents_request {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "intents")]
     impl MergeOption {
         /// Gets the enum value.
         ///
@@ -15639,6 +16817,7 @@ pub mod import_intents_request {
         }
     }
 
+    #[cfg(feature = "intents")]
     impl std::default::Default for MergeOption {
         fn default() -> Self {
             use std::convert::From;
@@ -15646,12 +16825,14 @@ pub mod import_intents_request {
         }
     }
 
+    #[cfg(feature = "intents")]
     impl std::fmt::Display for MergeOption {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "intents")]
     impl std::convert::From<i32> for MergeOption {
         fn from(value: i32) -> Self {
             match value {
@@ -15669,6 +16850,7 @@ pub mod import_intents_request {
         }
     }
 
+    #[cfg(feature = "intents")]
     impl std::convert::From<&str> for MergeOption {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -15687,6 +16869,7 @@ pub mod import_intents_request {
         }
     }
 
+    #[cfg(feature = "intents")]
     impl serde::ser::Serialize for MergeOption {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -15705,6 +16888,7 @@ pub mod import_intents_request {
         }
     }
 
+    #[cfg(feature = "intents")]
     impl<'de> serde::de::Deserialize<'de> for MergeOption {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -15717,6 +16901,7 @@ pub mod import_intents_request {
     }
 
     /// Required. The intents to import.
+    #[cfg(feature = "intents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -15741,6 +16926,7 @@ pub mod import_intents_request {
 /// [Intents.ImportIntents][google.cloud.dialogflow.cx.v3.Intents.ImportIntents].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ImportIntents]: crate::client::Intents::import_intents
+#[cfg(feature = "intents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15764,6 +16950,7 @@ pub struct ImportIntentsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "intents")]
 impl ImportIntentsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -15799,6 +16986,7 @@ impl ImportIntentsResponse {
     }
 }
 
+#[cfg(feature = "intents")]
 impl wkt::message::Message for ImportIntentsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportIntentsResponse"
@@ -15806,6 +16994,7 @@ impl wkt::message::Message for ImportIntentsResponse {
 }
 
 /// Defines additional types related to [ImportIntentsResponse].
+#[cfg(feature = "intents")]
 pub mod import_intents_response {
     #[allow(unused_imports)]
     use super::*;
@@ -15813,6 +17002,7 @@ pub mod import_intents_response {
     /// Conflicting resources detected during the import process. Only filled when
     /// [REPORT_CONFLICT][ImportIntentsResponse.REPORT_CONFLICT] is set in the
     /// request and there are conflicts in the display names.
+    #[cfg(feature = "intents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -15832,6 +17022,7 @@ pub mod import_intents_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "intents")]
     impl ConflictingResources {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -15860,6 +17051,7 @@ pub mod import_intents_response {
         }
     }
 
+    #[cfg(feature = "intents")]
     impl wkt::message::Message for ConflictingResources {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportIntentsResponse.ConflictingResources"
@@ -15872,6 +17064,7 @@ pub mod import_intents_response {
 /// long running operation.
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ImportIntents]: crate::client::Intents::import_intents
+#[cfg(feature = "intents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15881,12 +17074,14 @@ pub struct ImportIntentsMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "intents")]
 impl ImportIntentsMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
     }
 }
 
+#[cfg(feature = "intents")]
 impl wkt::message::Message for ImportIntentsMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportIntentsMetadata"
@@ -15897,6 +17092,7 @@ impl wkt::message::Message for ImportIntentsMetadata {
 /// [Intents.ExportIntents][google.cloud.dialogflow.cx.v3.Intents.ExportIntents].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ExportIntents]: crate::client::Intents::export_intents
+#[cfg(feature = "intents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -15929,6 +17125,7 @@ pub struct ExportIntentsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "intents")]
 impl ExportIntentsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -16027,6 +17224,7 @@ impl ExportIntentsRequest {
     }
 }
 
+#[cfg(feature = "intents")]
 impl wkt::message::Message for ExportIntentsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportIntentsRequest"
@@ -16034,6 +17232,7 @@ impl wkt::message::Message for ExportIntentsRequest {
 }
 
 /// Defines additional types related to [ExportIntentsRequest].
+#[cfg(feature = "intents")]
 pub mod export_intents_request {
     #[allow(unused_imports)]
     use super::*;
@@ -16053,6 +17252,7 @@ pub mod export_intents_request {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "intents")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DataFormat {
@@ -16072,6 +17272,7 @@ pub mod export_intents_request {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "intents")]
     pub mod data_format {
         #[allow(unused_imports)]
         use super::*;
@@ -16079,6 +17280,7 @@ pub mod export_intents_request {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "intents")]
     impl DataFormat {
         /// Gets the enum value.
         ///
@@ -16109,6 +17311,7 @@ pub mod export_intents_request {
         }
     }
 
+    #[cfg(feature = "intents")]
     impl std::default::Default for DataFormat {
         fn default() -> Self {
             use std::convert::From;
@@ -16116,12 +17319,14 @@ pub mod export_intents_request {
         }
     }
 
+    #[cfg(feature = "intents")]
     impl std::fmt::Display for DataFormat {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "intents")]
     impl std::convert::From<i32> for DataFormat {
         fn from(value: i32) -> Self {
             match value {
@@ -16136,6 +17341,7 @@ pub mod export_intents_request {
         }
     }
 
+    #[cfg(feature = "intents")]
     impl std::convert::From<&str> for DataFormat {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -16151,6 +17357,7 @@ pub mod export_intents_request {
         }
     }
 
+    #[cfg(feature = "intents")]
     impl serde::ser::Serialize for DataFormat {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -16166,6 +17373,7 @@ pub mod export_intents_request {
         }
     }
 
+    #[cfg(feature = "intents")]
     impl<'de> serde::de::Deserialize<'de> for DataFormat {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -16178,6 +17386,7 @@ pub mod export_intents_request {
     }
 
     /// The destination to export.
+    #[cfg(feature = "intents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -16203,6 +17412,7 @@ pub mod export_intents_request {
 /// [Intents.ExportIntents][google.cloud.dialogflow.cx.v3.Intents.ExportIntents].
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ExportIntents]: crate::client::Intents::export_intents
+#[cfg(feature = "intents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -16216,6 +17426,7 @@ pub struct ExportIntentsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "intents")]
 impl ExportIntentsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -16293,6 +17504,7 @@ impl ExportIntentsResponse {
     }
 }
 
+#[cfg(feature = "intents")]
 impl wkt::message::Message for ExportIntentsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportIntentsResponse"
@@ -16300,11 +17512,13 @@ impl wkt::message::Message for ExportIntentsResponse {
 }
 
 /// Defines additional types related to [ExportIntentsResponse].
+#[cfg(feature = "intents")]
 pub mod export_intents_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// The exported intents.
+    #[cfg(feature = "intents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -16330,6 +17544,7 @@ pub mod export_intents_response {
 /// long running operation.
 ///
 /// [google.cloud.dialogflow.cx.v3.Intents.ExportIntents]: crate::client::Intents::export_intents
+#[cfg(feature = "intents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -16339,12 +17554,14 @@ pub struct ExportIntentsMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "intents")]
 impl ExportIntentsMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
     }
 }
 
+#[cfg(feature = "intents")]
 impl wkt::message::Message for ExportIntentsMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportIntentsMetadata"
@@ -16367,6 +17584,7 @@ impl wkt::message::Message for ExportIntentsMetadata {
 ///
 /// For more information, see the
 /// [Page guide](https://cloud.google.com/dialogflow/cx/docs/concept/page).
+#[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -16478,6 +17696,7 @@ pub struct Page {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
 impl Page {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -16607,6 +17826,7 @@ impl Page {
     }
 }
 
+#[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
 impl wkt::message::Message for Page {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Page"
@@ -16622,6 +17842,7 @@ impl wkt::message::Message for Page {
 ///
 /// [google.cloud.dialogflow.cx.v3.Page]: crate::model::Page
 /// [google.cloud.dialogflow.cx.v3.SessionInfo.parameters]: crate::model::SessionInfo::parameters
+#[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -16636,6 +17857,7 @@ pub struct Form {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
 impl Form {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -16653,6 +17875,7 @@ impl Form {
     }
 }
 
+#[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
 impl wkt::message::Message for Form {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Form"
@@ -16660,11 +17883,13 @@ impl wkt::message::Message for Form {
 }
 
 /// Defines additional types related to [Form].
+#[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
 pub mod form {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents a form parameter.
+    #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -16730,6 +17955,7 @@ pub mod form {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
     impl Parameter {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -16823,6 +18049,7 @@ pub mod form {
         }
     }
 
+    #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
     impl wkt::message::Message for Parameter {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Form.Parameter"
@@ -16830,11 +18057,13 @@ pub mod form {
     }
 
     /// Defines additional types related to [Parameter].
+    #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
     pub mod parameter {
         #[allow(unused_imports)]
         use super::*;
 
         /// Configuration for how the filling of a parameter should be handled.
+        #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -16886,6 +18115,7 @@ pub mod form {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
         impl FillBehavior {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -16924,6 +18154,7 @@ pub mod form {
             }
         }
 
+        #[cfg(any(feature = "pages", feature = "sessions", feature = "test-cases",))]
         impl wkt::message::Message for FillBehavior {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.Form.Parameter.FillBehavior"
@@ -16953,6 +18184,12 @@ pub mod form {
 /// [google.cloud.dialogflow.cx.v3.EventHandler.target_flow]: crate::model::EventHandler::target
 /// [google.cloud.dialogflow.cx.v3.EventHandler.target_page]: crate::model::EventHandler::target
 /// [google.cloud.dialogflow.cx.v3.EventHandler.trigger_fulfillment]: crate::model::EventHandler::trigger_fulfillment
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -16988,6 +18225,12 @@ pub struct EventHandler {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl EventHandler {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17082,6 +18325,12 @@ impl EventHandler {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl wkt::message::Message for EventHandler {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.EventHandler"
@@ -17089,6 +18338,12 @@ impl wkt::message::Message for EventHandler {
 }
 
 /// Defines additional types related to [EventHandler].
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 pub mod event_handler {
     #[allow(unused_imports)]
     use super::*;
@@ -17099,6 +18354,12 @@ pub mod event_handler {
     /// another flow in the same agent.
     ///
     /// [google.cloud.dialogflow.cx.v3.TransitionRoute]: crate::model::TransitionRoute
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -17136,6 +18397,13 @@ pub mod event_handler {
 /// [google.cloud.dialogflow.cx.v3.TransitionRoute.target_flow]: crate::model::TransitionRoute::target
 /// [google.cloud.dialogflow.cx.v3.TransitionRoute.target_page]: crate::model::TransitionRoute::target
 /// [google.cloud.dialogflow.cx.v3.TransitionRoute.trigger_fulfillment]: crate::model::TransitionRoute::trigger_fulfillment
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17201,6 +18469,13 @@ pub struct TransitionRoute {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 impl TransitionRoute {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17307,6 +18582,13 @@ impl TransitionRoute {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 impl wkt::message::Message for TransitionRoute {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.TransitionRoute"
@@ -17314,6 +18596,13 @@ impl wkt::message::Message for TransitionRoute {
 }
 
 /// Defines additional types related to [TransitionRoute].
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 pub mod transition_route {
     #[allow(unused_imports)]
     use super::*;
@@ -17324,6 +18613,13 @@ pub mod transition_route {
     /// another flow in the same agent.
     ///
     /// [google.cloud.dialogflow.cx.v3.TransitionRoute]: crate::model::TransitionRoute
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -17344,6 +18640,7 @@ pub mod transition_route {
 /// [Pages.ListPages][google.cloud.dialogflow.cx.v3.Pages.ListPages].
 ///
 /// [google.cloud.dialogflow.cx.v3.Pages.ListPages]: crate::client::Pages::list_pages
+#[cfg(feature = "pages")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17398,6 +18695,7 @@ pub struct ListPagesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "pages")]
 impl ListPagesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17428,6 +18726,7 @@ impl ListPagesRequest {
     }
 }
 
+#[cfg(feature = "pages")]
 impl wkt::message::Message for ListPagesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListPagesRequest"
@@ -17438,6 +18737,7 @@ impl wkt::message::Message for ListPagesRequest {
 /// [Pages.ListPages][google.cloud.dialogflow.cx.v3.Pages.ListPages].
 ///
 /// [google.cloud.dialogflow.cx.v3.Pages.ListPages]: crate::client::Pages::list_pages
+#[cfg(feature = "pages")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17459,6 +18759,7 @@ pub struct ListPagesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "pages")]
 impl ListPagesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17482,12 +18783,14 @@ impl ListPagesResponse {
     }
 }
 
+#[cfg(feature = "pages")]
 impl wkt::message::Message for ListPagesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListPagesResponse"
     }
 }
 
+#[cfg(feature = "pages")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListPagesResponse {
     type PageItem = crate::model::Page;
@@ -17506,6 +18809,7 @@ impl gax::paginator::internal::PageableResponse for ListPagesResponse {
 /// [Pages.GetPage][google.cloud.dialogflow.cx.v3.Pages.GetPage].
 ///
 /// [google.cloud.dialogflow.cx.v3.Pages.GetPage]: crate::client::Pages::get_page
+#[cfg(feature = "pages")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17549,6 +18853,7 @@ pub struct GetPageRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "pages")]
 impl GetPageRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17567,6 +18872,7 @@ impl GetPageRequest {
     }
 }
 
+#[cfg(feature = "pages")]
 impl wkt::message::Message for GetPageRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetPageRequest"
@@ -17577,6 +18883,7 @@ impl wkt::message::Message for GetPageRequest {
 /// [Pages.CreatePage][google.cloud.dialogflow.cx.v3.Pages.CreatePage].
 ///
 /// [google.cloud.dialogflow.cx.v3.Pages.CreatePage]: crate::client::Pages::create_page
+#[cfg(feature = "pages")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17623,6 +18930,7 @@ pub struct CreatePageRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "pages")]
 impl CreatePageRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17659,6 +18967,7 @@ impl CreatePageRequest {
     }
 }
 
+#[cfg(feature = "pages")]
 impl wkt::message::Message for CreatePageRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreatePageRequest"
@@ -17669,6 +18978,7 @@ impl wkt::message::Message for CreatePageRequest {
 /// [Pages.UpdatePage][google.cloud.dialogflow.cx.v3.Pages.UpdatePage].
 ///
 /// [google.cloud.dialogflow.cx.v3.Pages.UpdatePage]: crate::client::Pages::update_page
+#[cfg(feature = "pages")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17713,6 +19023,7 @@ pub struct UpdatePageRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "pages")]
 impl UpdatePageRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17761,6 +19072,7 @@ impl UpdatePageRequest {
     }
 }
 
+#[cfg(feature = "pages")]
 impl wkt::message::Message for UpdatePageRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdatePageRequest"
@@ -17771,6 +19083,7 @@ impl wkt::message::Message for UpdatePageRequest {
 /// [Pages.DeletePage][google.cloud.dialogflow.cx.v3.Pages.DeletePage].
 ///
 /// [google.cloud.dialogflow.cx.v3.Pages.DeletePage]: crate::client::Pages::delete_page
+#[cfg(feature = "pages")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17804,6 +19117,7 @@ pub struct DeletePageRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "pages")]
 impl DeletePageRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17822,6 +19136,7 @@ impl DeletePageRequest {
     }
 }
 
+#[cfg(feature = "pages")]
 impl wkt::message::Message for DeletePageRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeletePageRequest"
@@ -17831,6 +19146,12 @@ impl wkt::message::Message for DeletePageRequest {
 /// The Knowledge Connector settings for this page or flow.
 /// This includes information such as the attached Knowledge Bases, and the way
 /// to execute fulfillment.
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -17869,6 +19190,12 @@ pub struct KnowledgeConnectorSettings {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl KnowledgeConnectorSettings {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -17974,6 +19301,12 @@ impl KnowledgeConnectorSettings {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl wkt::message::Message for KnowledgeConnectorSettings {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.KnowledgeConnectorSettings"
@@ -17981,6 +19314,12 @@ impl wkt::message::Message for KnowledgeConnectorSettings {
 }
 
 /// Defines additional types related to [KnowledgeConnectorSettings].
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 pub mod knowledge_connector_settings {
     #[allow(unused_imports)]
     use super::*;
@@ -17991,6 +19330,12 @@ pub mod knowledge_connector_settings {
     /// or another flow in the same agent.
     ///
     /// [google.cloud.dialogflow.cx.v3.KnowledgeConnectorSettings]: crate::model::KnowledgeConnectorSettings
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -18024,6 +19369,13 @@ pub mod knowledge_connector_settings {
 ///
 /// This approach allows for more sophisticated user experience scenarios, where
 /// the text displayed to the user may differ from what is heard.
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -18052,6 +19404,13 @@ pub struct ResponseMessage {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 impl ResponseMessage {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -18399,6 +19758,13 @@ impl ResponseMessage {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 impl wkt::message::Message for ResponseMessage {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ResponseMessage"
@@ -18406,11 +19772,25 @@ impl wkt::message::Message for ResponseMessage {
 }
 
 /// Defines additional types related to [ResponseMessage].
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+))]
 pub mod response_message {
     #[allow(unused_imports)]
     use super::*;
 
     /// The text response message.
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -18433,6 +19813,13 @@ pub mod response_message {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl Text {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -18459,6 +19846,13 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for Text {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ResponseMessage.Text"
@@ -18483,6 +19877,13 @@ pub mod response_message {
     ///
     /// [google.cloud.dialogflow.cx.v3.Page]: crate::model::Page
     /// [google.cloud.dialogflow.cx.v3.Page.entry_fulfillment]: crate::model::Page::entry_fulfillment
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -18497,6 +19898,13 @@ pub mod response_message {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl LiveAgentHandoff {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -18521,6 +19929,13 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for LiveAgentHandoff {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ResponseMessage.LiveAgentHandoff"
@@ -18548,6 +19963,13 @@ pub mod response_message {
     /// [google.cloud.dialogflow.cx.v3.Page]: crate::model::Page
     /// [google.cloud.dialogflow.cx.v3.Page.entry_fulfillment]: crate::model::Page::entry_fulfillment
     /// [google.cloud.dialogflow.cx.v3.ResponseMessage.ConversationSuccess]: crate::model::response_message::ConversationSuccess
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -18561,6 +19983,13 @@ pub mod response_message {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl ConversationSuccess {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -18585,6 +20014,13 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for ConversationSuccess {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ResponseMessage.ConversationSuccess"
@@ -18593,6 +20029,13 @@ pub mod response_message {
 
     /// A text or ssml response that is preferentially used for TTS output audio
     /// synthesis, as described in the comment on the ResponseMessage message.
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -18613,6 +20056,13 @@ pub mod response_message {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl OutputAudioText {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -18694,6 +20144,13 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for OutputAudioText {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ResponseMessage.OutputAudioText"
@@ -18701,11 +20158,25 @@ pub mod response_message {
     }
 
     /// Defines additional types related to [OutputAudioText].
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     pub mod output_audio_text {
         #[allow(unused_imports)]
         use super::*;
 
         /// The source, which is either plain text or SSML.
+        #[cfg(any(
+            feature = "flows",
+            feature = "pages",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -18722,6 +20193,13 @@ pub mod response_message {
     /// Indicates that interaction with the Dialogflow agent has ended.
     /// This message is generated by Dialogflow only and not supposed to be
     /// defined by the user.
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -18731,12 +20209,26 @@ pub mod response_message {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl EndInteraction {
         pub fn new() -> Self {
             std::default::Default::default()
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for EndInteraction {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ResponseMessage.EndInteraction"
@@ -18744,6 +20236,13 @@ pub mod response_message {
     }
 
     /// Specifies an audio clip to be played by the client as part of the response.
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -18766,6 +20265,13 @@ pub mod response_message {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl PlayAudio {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -18787,6 +20293,13 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for PlayAudio {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ResponseMessage.PlayAudio"
@@ -18802,6 +20315,13 @@ pub mod response_message {
     /// defined by the user.
     ///
     /// [google.cloud.dialogflow.cx.v3.ResponseMessage.play_audio]: crate::model::ResponseMessage::message
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -18816,6 +20336,13 @@ pub mod response_message {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl MixedAudio {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -18833,6 +20360,13 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for MixedAudio {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ResponseMessage.MixedAudio"
@@ -18840,11 +20374,25 @@ pub mod response_message {
     }
 
     /// Defines additional types related to [MixedAudio].
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     pub mod mixed_audio {
         #[allow(unused_imports)]
         use super::*;
 
         /// Represents one segment of audio.
+        #[cfg(any(
+            feature = "flows",
+            feature = "pages",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -18866,6 +20414,13 @@ pub mod response_message {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(
+            feature = "flows",
+            feature = "pages",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+        ))]
         impl Segment {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -18949,6 +20504,13 @@ pub mod response_message {
             }
         }
 
+        #[cfg(any(
+            feature = "flows",
+            feature = "pages",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+        ))]
         impl wkt::message::Message for Segment {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.ResponseMessage.MixedAudio.Segment"
@@ -18956,11 +20518,25 @@ pub mod response_message {
         }
 
         /// Defines additional types related to [Segment].
+        #[cfg(any(
+            feature = "flows",
+            feature = "pages",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+        ))]
         pub mod segment {
             #[allow(unused_imports)]
             use super::*;
 
             /// Content of the segment.
+            #[cfg(any(
+                feature = "flows",
+                feature = "pages",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+            ))]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(rename_all = "camelCase")]
@@ -18981,6 +20557,13 @@ pub mod response_message {
 
     /// Represents the signal that telles the client to transfer the phone call
     /// connected to the agent to a third-party endpoint.
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -18995,6 +20578,13 @@ pub mod response_message {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl TelephonyTransferCall {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -19049,6 +20639,13 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for TelephonyTransferCall {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ResponseMessage.TelephonyTransferCall"
@@ -19056,11 +20653,25 @@ pub mod response_message {
     }
 
     /// Defines additional types related to [TelephonyTransferCall].
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     pub mod telephony_transfer_call {
         #[allow(unused_imports)]
         use super::*;
 
         /// Endpoint to transfer the call to.
+        #[cfg(any(
+            feature = "flows",
+            feature = "pages",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -19077,6 +20688,13 @@ pub mod response_message {
     /// Messenger compatible info card.
     ///
     /// Otherwise, the info card response is skipped.
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -19086,12 +20704,26 @@ pub mod response_message {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl KnowledgeInfoCard {
         pub fn new() -> Self {
             std::default::Default::default()
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl wkt::message::Message for KnowledgeInfoCard {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ResponseMessage.KnowledgeInfoCard"
@@ -19113,6 +20745,13 @@ pub mod response_message {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ResponseType {
@@ -19145,6 +20784,13 @@ pub mod response_message {
     }
 
     #[doc(hidden)]
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     pub mod response_type {
         #[allow(unused_imports)]
         use super::*;
@@ -19152,6 +20798,13 @@ pub mod response_message {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl ResponseType {
         /// Gets the enum value.
         ///
@@ -19182,6 +20835,13 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl std::default::Default for ResponseType {
         fn default() -> Self {
             use std::convert::From;
@@ -19189,12 +20849,26 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl std::fmt::Display for ResponseType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl std::convert::From<i32> for ResponseType {
         fn from(value: i32) -> Self {
             match value {
@@ -19209,6 +20883,13 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl std::convert::From<&str> for ResponseType {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -19224,6 +20905,13 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl serde::ser::Serialize for ResponseType {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -19239,6 +20927,13 @@ pub mod response_message {
         }
     }
 
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     impl<'de> serde::de::Deserialize<'de> for ResponseType {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -19251,6 +20946,13 @@ pub mod response_message {
     }
 
     /// Required. The rich response message.
+    #[cfg(any(
+        feature = "flows",
+        feature = "pages",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -19302,6 +21004,7 @@ pub mod response_message {
 }
 
 /// Settings for Generative Safety.
+#[cfg(feature = "agents")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -19316,6 +21019,7 @@ pub struct SafetySettings {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "agents")]
 impl SafetySettings {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -19333,6 +21037,7 @@ impl SafetySettings {
     }
 }
 
+#[cfg(feature = "agents")]
 impl wkt::message::Message for SafetySettings {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.SafetySettings"
@@ -19340,11 +21045,13 @@ impl wkt::message::Message for SafetySettings {
 }
 
 /// Defines additional types related to [SafetySettings].
+#[cfg(feature = "agents")]
 pub mod safety_settings {
     #[allow(unused_imports)]
     use super::*;
 
     /// Text input which can be used for prompt or banned phrases.
+    #[cfg(feature = "agents")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -19364,6 +21071,7 @@ pub mod safety_settings {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "agents")]
     impl Phrase {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -19385,6 +21093,7 @@ pub mod safety_settings {
         }
     }
 
+    #[cfg(feature = "agents")]
     impl wkt::message::Message for Phrase {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.SafetySettings.Phrase"
@@ -19396,6 +21105,7 @@ pub mod safety_settings {
 /// [SecuritySettingsService.GetSecuritySettings][google.cloud.dialogflow.cx.v3.SecuritySettingsService.GetSecuritySettings].
 ///
 /// [google.cloud.dialogflow.cx.v3.SecuritySettingsService.GetSecuritySettings]: crate::client::SecuritySettingsService::get_security_settings
+#[cfg(feature = "security-settings-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -19412,6 +21122,7 @@ pub struct GetSecuritySettingsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "security-settings-service")]
 impl GetSecuritySettingsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -19424,6 +21135,7 @@ impl GetSecuritySettingsRequest {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
 impl wkt::message::Message for GetSecuritySettingsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetSecuritySettingsRequest"
@@ -19434,6 +21146,7 @@ impl wkt::message::Message for GetSecuritySettingsRequest {
 /// [SecuritySettingsService.UpdateSecuritySettings][google.cloud.dialogflow.cx.v3.SecuritySettingsService.UpdateSecuritySettings].
 ///
 /// [google.cloud.dialogflow.cx.v3.SecuritySettingsService.UpdateSecuritySettings]: crate::client::SecuritySettingsService::update_security_settings
+#[cfg(feature = "security-settings-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -19453,6 +21166,7 @@ pub struct UpdateSecuritySettingsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "security-settings-service")]
 impl UpdateSecuritySettingsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -19495,6 +21209,7 @@ impl UpdateSecuritySettingsRequest {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
 impl wkt::message::Message for UpdateSecuritySettingsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateSecuritySettingsRequest"
@@ -19502,6 +21217,7 @@ impl wkt::message::Message for UpdateSecuritySettingsRequest {
 }
 
 /// The request message for [SecuritySettings.ListSecuritySettings][].
+#[cfg(feature = "security-settings-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -19528,6 +21244,7 @@ pub struct ListSecuritySettingsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "security-settings-service")]
 impl ListSecuritySettingsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -19552,6 +21269,7 @@ impl ListSecuritySettingsRequest {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
 impl wkt::message::Message for ListSecuritySettingsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListSecuritySettingsRequest"
@@ -19559,6 +21277,7 @@ impl wkt::message::Message for ListSecuritySettingsRequest {
 }
 
 /// The response message for [SecuritySettings.ListSecuritySettings][].
+#[cfg(feature = "security-settings-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -19579,6 +21298,7 @@ pub struct ListSecuritySettingsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "security-settings-service")]
 impl ListSecuritySettingsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -19602,12 +21322,14 @@ impl ListSecuritySettingsResponse {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
 impl wkt::message::Message for ListSecuritySettingsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListSecuritySettingsResponse"
     }
 }
 
+#[cfg(feature = "security-settings-service")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListSecuritySettingsResponse {
     type PageItem = crate::model::SecuritySettings;
@@ -19623,6 +21345,7 @@ impl gax::paginator::internal::PageableResponse for ListSecuritySettingsResponse
 }
 
 /// The request message for [SecuritySettings.CreateSecuritySettings][].
+#[cfg(feature = "security-settings-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -19645,6 +21368,7 @@ pub struct CreateSecuritySettingsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "security-settings-service")]
 impl CreateSecuritySettingsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -19675,6 +21399,7 @@ impl CreateSecuritySettingsRequest {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
 impl wkt::message::Message for CreateSecuritySettingsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateSecuritySettingsRequest"
@@ -19682,6 +21407,7 @@ impl wkt::message::Message for CreateSecuritySettingsRequest {
 }
 
 /// The request message for [SecuritySettings.DeleteSecuritySettings][].
+#[cfg(feature = "security-settings-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -19701,6 +21427,7 @@ pub struct DeleteSecuritySettingsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "security-settings-service")]
 impl DeleteSecuritySettingsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -19713,6 +21440,7 @@ impl DeleteSecuritySettingsRequest {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
 impl wkt::message::Message for DeleteSecuritySettingsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteSecuritySettingsRequest"
@@ -19722,6 +21450,7 @@ impl wkt::message::Message for DeleteSecuritySettingsRequest {
 /// Represents the settings related to security issues, such as data redaction
 /// and data retention. It may take hours for updates on the settings to
 /// propagate to all the related components and take effect.
+#[cfg(feature = "security-settings-service")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -19853,6 +21582,7 @@ pub struct SecuritySettings {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "security-settings-service")]
 impl SecuritySettings {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -20029,6 +21759,7 @@ impl SecuritySettings {
     }
 }
 
+#[cfg(feature = "security-settings-service")]
 impl wkt::message::Message for SecuritySettings {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.SecuritySettings"
@@ -20036,11 +21767,13 @@ impl wkt::message::Message for SecuritySettings {
 }
 
 /// Defines additional types related to [SecuritySettings].
+#[cfg(feature = "security-settings-service")]
 pub mod security_settings {
     #[allow(unused_imports)]
     use super::*;
 
     /// Settings for exporting audio.
+    #[cfg(feature = "security-settings-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -20083,6 +21816,7 @@ pub mod security_settings {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl AudioExportSettings {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -20127,6 +21861,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl wkt::message::Message for AudioExportSettings {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.SecuritySettings.AudioExportSettings"
@@ -20134,6 +21869,7 @@ pub mod security_settings {
     }
 
     /// Defines additional types related to [AudioExportSettings].
+    #[cfg(feature = "security-settings-service")]
     pub mod audio_export_settings {
         #[allow(unused_imports)]
         use super::*;
@@ -20154,6 +21890,7 @@ pub mod security_settings {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(feature = "security-settings-service")]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum AudioFormat {
@@ -20173,6 +21910,7 @@ pub mod security_settings {
         }
 
         #[doc(hidden)]
+        #[cfg(feature = "security-settings-service")]
         pub mod audio_format {
             #[allow(unused_imports)]
             use super::*;
@@ -20180,6 +21918,7 @@ pub mod security_settings {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(feature = "security-settings-service")]
         impl AudioFormat {
             /// Gets the enum value.
             ///
@@ -20210,6 +21949,7 @@ pub mod security_settings {
             }
         }
 
+        #[cfg(feature = "security-settings-service")]
         impl std::default::Default for AudioFormat {
             fn default() -> Self {
                 use std::convert::From;
@@ -20217,6 +21957,7 @@ pub mod security_settings {
             }
         }
 
+        #[cfg(feature = "security-settings-service")]
         impl std::fmt::Display for AudioFormat {
             fn fmt(
                 &self,
@@ -20226,6 +21967,7 @@ pub mod security_settings {
             }
         }
 
+        #[cfg(feature = "security-settings-service")]
         impl std::convert::From<i32> for AudioFormat {
             fn from(value: i32) -> Self {
                 match value {
@@ -20240,6 +21982,7 @@ pub mod security_settings {
             }
         }
 
+        #[cfg(feature = "security-settings-service")]
         impl std::convert::From<&str> for AudioFormat {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -20255,6 +21998,7 @@ pub mod security_settings {
             }
         }
 
+        #[cfg(feature = "security-settings-service")]
         impl serde::ser::Serialize for AudioFormat {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -20270,6 +22014,7 @@ pub mod security_settings {
             }
         }
 
+        #[cfg(feature = "security-settings-service")]
         impl<'de> serde::de::Deserialize<'de> for AudioFormat {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -20283,6 +22028,7 @@ pub mod security_settings {
 
     /// Settings for exporting conversations to
     /// [Insights](https://cloud.google.com/contact-center/insights/docs).
+    #[cfg(feature = "security-settings-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -20298,6 +22044,7 @@ pub mod security_settings {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl InsightsExportSettings {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -20310,6 +22057,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl wkt::message::Message for InsightsExportSettings {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.SecuritySettings.InsightsExportSettings"
@@ -20331,6 +22079,7 @@ pub mod security_settings {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "security-settings-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum RedactionStrategy {
@@ -20346,6 +22095,7 @@ pub mod security_settings {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "security-settings-service")]
     pub mod redaction_strategy {
         #[allow(unused_imports)]
         use super::*;
@@ -20353,6 +22103,7 @@ pub mod security_settings {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl RedactionStrategy {
         /// Gets the enum value.
         ///
@@ -20379,6 +22130,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::default::Default for RedactionStrategy {
         fn default() -> Self {
             use std::convert::From;
@@ -20386,12 +22138,14 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::fmt::Display for RedactionStrategy {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::convert::From<i32> for RedactionStrategy {
         fn from(value: i32) -> Self {
             match value {
@@ -20404,6 +22158,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::convert::From<&str> for RedactionStrategy {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -20417,6 +22172,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl serde::ser::Serialize for RedactionStrategy {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -20430,6 +22186,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl<'de> serde::de::Deserialize<'de> for RedactionStrategy {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -20456,6 +22213,7 @@ pub mod security_settings {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "security-settings-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum RedactionScope {
@@ -20473,6 +22231,7 @@ pub mod security_settings {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "security-settings-service")]
     pub mod redaction_scope {
         #[allow(unused_imports)]
         use super::*;
@@ -20480,6 +22239,7 @@ pub mod security_settings {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl RedactionScope {
         /// Gets the enum value.
         ///
@@ -20506,6 +22266,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::default::Default for RedactionScope {
         fn default() -> Self {
             use std::convert::From;
@@ -20513,12 +22274,14 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::fmt::Display for RedactionScope {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::convert::From<i32> for RedactionScope {
         fn from(value: i32) -> Self {
             match value {
@@ -20531,6 +22294,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::convert::From<&str> for RedactionScope {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -20544,6 +22308,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl serde::ser::Serialize for RedactionScope {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -20557,6 +22322,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl<'de> serde::de::Deserialize<'de> for RedactionScope {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -20583,6 +22349,7 @@ pub mod security_settings {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "security-settings-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum RetentionStrategy {
@@ -20600,6 +22367,7 @@ pub mod security_settings {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "security-settings-service")]
     pub mod retention_strategy {
         #[allow(unused_imports)]
         use super::*;
@@ -20607,6 +22375,7 @@ pub mod security_settings {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl RetentionStrategy {
         /// Gets the enum value.
         ///
@@ -20635,6 +22404,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::default::Default for RetentionStrategy {
         fn default() -> Self {
             use std::convert::From;
@@ -20642,12 +22412,14 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::fmt::Display for RetentionStrategy {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::convert::From<i32> for RetentionStrategy {
         fn from(value: i32) -> Self {
             match value {
@@ -20660,6 +22432,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::convert::From<&str> for RetentionStrategy {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -20673,6 +22446,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl serde::ser::Serialize for RetentionStrategy {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -20686,6 +22460,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl<'de> serde::de::Deserialize<'de> for RetentionStrategy {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -20712,6 +22487,7 @@ pub mod security_settings {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "security-settings-service")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum PurgeDataType {
@@ -20728,6 +22504,7 @@ pub mod security_settings {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "security-settings-service")]
     pub mod purge_data_type {
         #[allow(unused_imports)]
         use super::*;
@@ -20735,6 +22512,7 @@ pub mod security_settings {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl PurgeDataType {
         /// Gets the enum value.
         ///
@@ -20761,6 +22539,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::default::Default for PurgeDataType {
         fn default() -> Self {
             use std::convert::From;
@@ -20768,12 +22547,14 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::fmt::Display for PurgeDataType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::convert::From<i32> for PurgeDataType {
         fn from(value: i32) -> Self {
             match value {
@@ -20786,6 +22567,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl std::convert::From<&str> for PurgeDataType {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -20799,6 +22581,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl serde::ser::Serialize for PurgeDataType {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -20812,6 +22595,7 @@ pub mod security_settings {
         }
     }
 
+    #[cfg(feature = "security-settings-service")]
     impl<'de> serde::de::Deserialize<'de> for PurgeDataType {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -20826,6 +22610,7 @@ pub mod security_settings {
     /// Specifies how data is retained. Note that even if the data is
     /// purged due to retention policy, we may still hold it in backup storage for
     /// a few days without allowing direct readings.
+    #[cfg(feature = "security-settings-service")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -20852,6 +22637,7 @@ pub mod security_settings {
 }
 
 /// Stores information about feedback provided by users about a response.
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -20878,6 +22664,7 @@ pub struct AnswerFeedback {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl AnswerFeedback {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -20917,6 +22704,7 @@ impl AnswerFeedback {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for AnswerFeedback {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.AnswerFeedback"
@@ -20924,11 +22712,13 @@ impl wkt::message::Message for AnswerFeedback {
 }
 
 /// Defines additional types related to [AnswerFeedback].
+#[cfg(feature = "sessions")]
 pub mod answer_feedback {
     #[allow(unused_imports)]
     use super::*;
 
     /// Stores extra information about why users provided thumbs down rating.
+    #[cfg(feature = "sessions")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -20951,6 +22741,7 @@ pub mod answer_feedback {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "sessions")]
     impl RatingReason {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -20974,6 +22765,7 @@ pub mod answer_feedback {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl wkt::message::Message for RatingReason {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.AnswerFeedback.RatingReason"
@@ -20995,6 +22787,7 @@ pub mod answer_feedback {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "sessions")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Rating {
@@ -21012,6 +22805,7 @@ pub mod answer_feedback {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "sessions")]
     pub mod rating {
         #[allow(unused_imports)]
         use super::*;
@@ -21019,6 +22813,7 @@ pub mod answer_feedback {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "sessions")]
     impl Rating {
         /// Gets the enum value.
         ///
@@ -21047,6 +22842,7 @@ pub mod answer_feedback {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::default::Default for Rating {
         fn default() -> Self {
             use std::convert::From;
@@ -21054,12 +22850,14 @@ pub mod answer_feedback {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::fmt::Display for Rating {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::convert::From<i32> for Rating {
         fn from(value: i32) -> Self {
             match value {
@@ -21073,6 +22871,7 @@ pub mod answer_feedback {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::convert::From<&str> for Rating {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -21087,6 +22886,7 @@ pub mod answer_feedback {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl serde::ser::Serialize for Rating {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -21101,6 +22901,7 @@ pub mod answer_feedback {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl<'de> serde::de::Deserialize<'de> for Rating {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -21114,6 +22915,7 @@ pub mod answer_feedback {
 }
 
 /// The request to set the feedback for a bot answer.
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21143,6 +22945,7 @@ pub struct SubmitAnswerFeedbackRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl SubmitAnswerFeedbackRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21197,6 +23000,7 @@ impl SubmitAnswerFeedbackRequest {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for SubmitAnswerFeedbackRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.SubmitAnswerFeedbackRequest"
@@ -21204,6 +23008,7 @@ impl wkt::message::Message for SubmitAnswerFeedbackRequest {
 }
 
 /// The request to detect user's intent.
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21246,6 +23051,7 @@ pub struct DetectIntentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl DetectIntentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21312,6 +23118,7 @@ impl DetectIntentRequest {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for DetectIntentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DetectIntentRequest"
@@ -21319,6 +23126,7 @@ impl wkt::message::Message for DetectIntentRequest {
 }
 
 /// The message returned from the DetectIntent method.
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21371,6 +23179,7 @@ pub struct DetectIntentResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl DetectIntentResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21442,6 +23251,7 @@ impl DetectIntentResponse {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for DetectIntentResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DetectIntentResponse"
@@ -21449,6 +23259,7 @@ impl wkt::message::Message for DetectIntentResponse {
 }
 
 /// Defines additional types related to [DetectIntentResponse].
+#[cfg(feature = "sessions")]
 pub mod detect_intent_response {
     #[allow(unused_imports)]
     use super::*;
@@ -21468,6 +23279,7 @@ pub mod detect_intent_response {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "sessions")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ResponseType {
@@ -21487,6 +23299,7 @@ pub mod detect_intent_response {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "sessions")]
     pub mod response_type {
         #[allow(unused_imports)]
         use super::*;
@@ -21494,6 +23307,7 @@ pub mod detect_intent_response {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "sessions")]
     impl ResponseType {
         /// Gets the enum value.
         ///
@@ -21522,6 +23336,7 @@ pub mod detect_intent_response {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::default::Default for ResponseType {
         fn default() -> Self {
             use std::convert::From;
@@ -21529,12 +23344,14 @@ pub mod detect_intent_response {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::fmt::Display for ResponseType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::convert::From<i32> for ResponseType {
         fn from(value: i32) -> Self {
             match value {
@@ -21548,6 +23365,7 @@ pub mod detect_intent_response {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::convert::From<&str> for ResponseType {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -21562,6 +23380,7 @@ pub mod detect_intent_response {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl serde::ser::Serialize for ResponseType {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -21576,6 +23395,7 @@ pub mod detect_intent_response {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl<'de> serde::de::Deserialize<'de> for ResponseType {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -21629,6 +23449,7 @@ pub mod detect_intent_response {
 /// [google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.query_input]: crate::model::StreamingDetectIntentRequest::query_input
 /// [google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.query_params]: crate::model::StreamingDetectIntentRequest::query_params
 /// [google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.session]: crate::model::StreamingDetectIntentRequest::session
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21685,6 +23506,7 @@ pub struct StreamingDetectIntentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl StreamingDetectIntentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -21763,6 +23585,7 @@ impl StreamingDetectIntentRequest {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for StreamingDetectIntentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest"
@@ -21773,6 +23596,7 @@ impl wkt::message::Message for StreamingDetectIntentRequest {
 /// It will get populated in `StreamingDetectIntentResponse` or
 /// `StreamingAnalyzeContentResponse` when the flag `enable_debugging_info` is
 /// set to true in corresponding requests.
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -21873,6 +23697,7 @@ pub struct CloudConversationDebuggingInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl CloudConversationDebuggingInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -22103,6 +23928,7 @@ impl CloudConversationDebuggingInfo {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for CloudConversationDebuggingInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CloudConversationDebuggingInfo"
@@ -22135,6 +23961,7 @@ impl wkt::message::Message for CloudConversationDebuggingInfo {
 /// is set to `FINAL`.
 ///
 /// [google.cloud.dialogflow.cx.v3.DetectIntentResponse.response_type]: crate::model::DetectIntentResponse::response_type
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -22153,6 +23980,7 @@ pub struct StreamingDetectIntentResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl StreamingDetectIntentResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -22259,6 +24087,7 @@ impl StreamingDetectIntentResponse {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for StreamingDetectIntentResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.StreamingDetectIntentResponse"
@@ -22266,11 +24095,13 @@ impl wkt::message::Message for StreamingDetectIntentResponse {
 }
 
 /// Defines additional types related to [StreamingDetectIntentResponse].
+#[cfg(feature = "sessions")]
 pub mod streaming_detect_intent_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// The output response.
+    #[cfg(feature = "sessions")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -22320,6 +24151,7 @@ pub mod streaming_detect_intent_response {
 ///
 /// Concatenating the finalized transcripts with `is_final` set to true,
 /// the complete utterance becomes "to be or not to be that is the question".
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -22392,6 +24224,7 @@ pub struct StreamingRecognitionResult {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl StreamingRecognitionResult {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -22468,6 +24301,7 @@ impl StreamingRecognitionResult {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for StreamingRecognitionResult {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.StreamingRecognitionResult"
@@ -22475,6 +24309,7 @@ impl wkt::message::Message for StreamingRecognitionResult {
 }
 
 /// Defines additional types related to [StreamingRecognitionResult].
+#[cfg(feature = "sessions")]
 pub mod streaming_recognition_result {
     #[allow(unused_imports)]
     use super::*;
@@ -22494,6 +24329,7 @@ pub mod streaming_recognition_result {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "sessions")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MessageType {
@@ -22520,6 +24356,7 @@ pub mod streaming_recognition_result {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "sessions")]
     pub mod message_type {
         #[allow(unused_imports)]
         use super::*;
@@ -22527,6 +24364,7 @@ pub mod streaming_recognition_result {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "sessions")]
     impl MessageType {
         /// Gets the enum value.
         ///
@@ -22555,6 +24393,7 @@ pub mod streaming_recognition_result {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::default::Default for MessageType {
         fn default() -> Self {
             use std::convert::From;
@@ -22562,12 +24401,14 @@ pub mod streaming_recognition_result {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::fmt::Display for MessageType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::convert::From<i32> for MessageType {
         fn from(value: i32) -> Self {
             match value {
@@ -22581,6 +24422,7 @@ pub mod streaming_recognition_result {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::convert::From<&str> for MessageType {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -22595,6 +24437,7 @@ pub mod streaming_recognition_result {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl serde::ser::Serialize for MessageType {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -22609,6 +24452,7 @@ pub mod streaming_recognition_result {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl<'de> serde::de::Deserialize<'de> for MessageType {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -22622,6 +24466,7 @@ pub mod streaming_recognition_result {
 }
 
 /// Represents the parameters of a conversational query.
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -22809,6 +24654,7 @@ pub struct QueryParameters {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl QueryParameters {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -22997,6 +24843,7 @@ impl QueryParameters {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for QueryParameters {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.QueryParameters"
@@ -23004,6 +24851,7 @@ impl wkt::message::Message for QueryParameters {
 }
 
 /// Search configuration for UCS search queries.
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23032,6 +24880,7 @@ pub struct SearchConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl SearchConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23060,6 +24909,7 @@ impl SearchConfig {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for SearchConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.SearchConfig"
@@ -23070,6 +24920,7 @@ impl wkt::message::Message for SearchConfig {
 /// A copy of google.cloud.discoveryengine.v1main.BoostSpec, field documentation
 /// is available at
 /// <https://cloud.google.com/generative-ai-app-builder/docs/reference/rest/v1alpha/BoostSpec>
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23087,6 +24938,7 @@ pub struct BoostSpec {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl BoostSpec {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23104,6 +24956,7 @@ impl BoostSpec {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for BoostSpec {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.BoostSpec"
@@ -23111,11 +24964,13 @@ impl wkt::message::Message for BoostSpec {
 }
 
 /// Defines additional types related to [BoostSpec].
+#[cfg(feature = "sessions")]
 pub mod boost_spec {
     #[allow(unused_imports)]
     use super::*;
 
     /// Boost applies to documents which match a condition.
+    #[cfg(feature = "sessions")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -23164,6 +25019,7 @@ pub mod boost_spec {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "sessions")]
     impl ConditionBoostSpec {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -23200,6 +25056,7 @@ pub mod boost_spec {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl wkt::message::Message for ConditionBoostSpec {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.BoostSpec.ConditionBoostSpec"
@@ -23207,6 +25064,7 @@ pub mod boost_spec {
     }
 
     /// Defines additional types related to [ConditionBoostSpec].
+    #[cfg(feature = "sessions")]
     pub mod condition_boost_spec {
         #[allow(unused_imports)]
         use super::*;
@@ -23214,6 +25072,7 @@ pub mod boost_spec {
         /// Specification for custom ranking based on customer specified attribute
         /// value. It provides more controls for customized ranking than the simple
         /// (condition, boost) combination above.
+        #[cfg(feature = "sessions")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -23252,6 +25111,7 @@ pub mod boost_spec {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "sessions")]
         impl BoostControlSpec {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -23290,6 +25150,7 @@ pub mod boost_spec {
             }
         }
 
+        #[cfg(feature = "sessions")]
         impl wkt::message::Message for BoostControlSpec {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.BoostSpec.ConditionBoostSpec.BoostControlSpec"
@@ -23297,6 +25158,7 @@ pub mod boost_spec {
         }
 
         /// Defines additional types related to [BoostControlSpec].
+        #[cfg(feature = "sessions")]
         pub mod boost_control_spec {
             #[allow(unused_imports)]
             use super::*;
@@ -23304,6 +25166,7 @@ pub mod boost_spec {
             /// The control points used to define the curve. The curve defined
             /// through these control points can only be monotonically increasing
             /// or decreasing(constant values are acceptable).
+            #[cfg(feature = "sessions")]
             #[serde_with::serde_as]
             #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
             #[serde(default, rename_all = "camelCase")]
@@ -23330,6 +25193,7 @@ pub mod boost_spec {
                 _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
             }
 
+            #[cfg(feature = "sessions")]
             impl ControlPoint {
                 pub fn new() -> Self {
                     std::default::Default::default()
@@ -23351,6 +25215,7 @@ pub mod boost_spec {
                 }
             }
 
+            #[cfg(feature = "sessions")]
             impl wkt::message::Message for ControlPoint {
                 fn typename() -> &'static str {
                     "type.googleapis.com/google.cloud.dialogflow.cx.v3.BoostSpec.ConditionBoostSpec.BoostControlSpec.ControlPoint"
@@ -23373,6 +25238,7 @@ pub mod boost_spec {
             /// guidelines.
             ///
             /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(feature = "sessions")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum AttributeType {
@@ -23398,6 +25264,7 @@ pub mod boost_spec {
             }
 
             #[doc(hidden)]
+            #[cfg(feature = "sessions")]
             pub mod attribute_type {
                 #[allow(unused_imports)]
                 use super::*;
@@ -23405,6 +25272,7 @@ pub mod boost_spec {
                 pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
             }
 
+            #[cfg(feature = "sessions")]
             impl AttributeType {
                 /// Gets the enum value.
                 ///
@@ -23435,6 +25303,7 @@ pub mod boost_spec {
                 }
             }
 
+            #[cfg(feature = "sessions")]
             impl std::default::Default for AttributeType {
                 fn default() -> Self {
                     use std::convert::From;
@@ -23442,6 +25311,7 @@ pub mod boost_spec {
                 }
             }
 
+            #[cfg(feature = "sessions")]
             impl std::fmt::Display for AttributeType {
                 fn fmt(
                     &self,
@@ -23451,6 +25321,7 @@ pub mod boost_spec {
                 }
             }
 
+            #[cfg(feature = "sessions")]
             impl std::convert::From<i32> for AttributeType {
                 fn from(value: i32) -> Self {
                     match value {
@@ -23464,6 +25335,7 @@ pub mod boost_spec {
                 }
             }
 
+            #[cfg(feature = "sessions")]
             impl std::convert::From<&str> for AttributeType {
                 fn from(value: &str) -> Self {
                     use std::string::ToString;
@@ -23478,6 +25350,7 @@ pub mod boost_spec {
                 }
             }
 
+            #[cfg(feature = "sessions")]
             impl serde::ser::Serialize for AttributeType {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -23492,6 +25365,7 @@ pub mod boost_spec {
                 }
             }
 
+            #[cfg(feature = "sessions")]
             impl<'de> serde::de::Deserialize<'de> for AttributeType {
                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                 where
@@ -23518,6 +25392,7 @@ pub mod boost_spec {
             /// guidelines.
             ///
             /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(feature = "sessions")]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum InterpolationType {
@@ -23534,6 +25409,7 @@ pub mod boost_spec {
             }
 
             #[doc(hidden)]
+            #[cfg(feature = "sessions")]
             pub mod interpolation_type {
                 #[allow(unused_imports)]
                 use super::*;
@@ -23541,6 +25417,7 @@ pub mod boost_spec {
                 pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
             }
 
+            #[cfg(feature = "sessions")]
             impl InterpolationType {
                 /// Gets the enum value.
                 ///
@@ -23569,6 +25446,7 @@ pub mod boost_spec {
                 }
             }
 
+            #[cfg(feature = "sessions")]
             impl std::default::Default for InterpolationType {
                 fn default() -> Self {
                     use std::convert::From;
@@ -23576,6 +25454,7 @@ pub mod boost_spec {
                 }
             }
 
+            #[cfg(feature = "sessions")]
             impl std::fmt::Display for InterpolationType {
                 fn fmt(
                     &self,
@@ -23585,6 +25464,7 @@ pub mod boost_spec {
                 }
             }
 
+            #[cfg(feature = "sessions")]
             impl std::convert::From<i32> for InterpolationType {
                 fn from(value: i32) -> Self {
                     match value {
@@ -23597,6 +25477,7 @@ pub mod boost_spec {
                 }
             }
 
+            #[cfg(feature = "sessions")]
             impl std::convert::From<&str> for InterpolationType {
                 fn from(value: &str) -> Self {
                     use std::string::ToString;
@@ -23610,6 +25491,7 @@ pub mod boost_spec {
                 }
             }
 
+            #[cfg(feature = "sessions")]
             impl serde::ser::Serialize for InterpolationType {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -23623,6 +25505,7 @@ pub mod boost_spec {
                 }
             }
 
+            #[cfg(feature = "sessions")]
             impl<'de> serde::de::Deserialize<'de> for InterpolationType {
                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                 where
@@ -23637,6 +25520,7 @@ pub mod boost_spec {
 }
 
 /// Boost specifications for data stores.
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23659,6 +25543,7 @@ pub struct BoostSpecs {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl BoostSpecs {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23687,6 +25572,7 @@ impl BoostSpecs {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for BoostSpecs {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.BoostSpecs"
@@ -23694,6 +25580,7 @@ impl wkt::message::Message for BoostSpecs {
 }
 
 /// Filter specifications for data stores.
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23718,6 +25605,7 @@ pub struct FilterSpecs {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl FilterSpecs {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23741,6 +25629,7 @@ impl FilterSpecs {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for FilterSpecs {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.FilterSpecs"
@@ -23761,6 +25650,7 @@ impl wkt::message::Message for FilterSpecs {
 ///
 /// . The results of a tool executed by the client.
 ///
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -23782,6 +25672,7 @@ pub struct QueryInput {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl QueryInput {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -23928,6 +25819,7 @@ impl QueryInput {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl wkt::message::Message for QueryInput {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.QueryInput"
@@ -23935,11 +25827,13 @@ impl wkt::message::Message for QueryInput {
 }
 
 /// Defines additional types related to [QueryInput].
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 pub mod query_input {
     #[allow(unused_imports)]
     use super::*;
 
     /// Required. The input specification.
+    #[cfg(any(feature = "sessions", feature = "test-cases",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -23959,6 +25853,7 @@ pub mod query_input {
 }
 
 /// Represents the result of a conversational query.
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -24139,6 +26034,7 @@ pub struct QueryResult {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl QueryResult {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -24533,6 +26429,7 @@ impl QueryResult {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for QueryResult {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.QueryResult"
@@ -24540,11 +26437,13 @@ impl wkt::message::Message for QueryResult {
 }
 
 /// Defines additional types related to [QueryResult].
+#[cfg(feature = "sessions")]
 pub mod query_result {
     #[allow(unused_imports)]
     use super::*;
 
     /// The original conversational query.
+    #[cfg(feature = "sessions")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -24582,6 +26481,7 @@ pub mod query_result {
 }
 
 /// Represents the natural language text to be processed.
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -24596,6 +26496,7 @@ pub struct TextInput {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl TextInput {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -24608,6 +26509,7 @@ impl TextInput {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl wkt::message::Message for TextInput {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.TextInput"
@@ -24616,6 +26518,7 @@ impl wkt::message::Message for TextInput {
 
 /// Represents the intent to trigger programmatically rather than as a result of
 /// natural language processing.
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -24632,6 +26535,7 @@ pub struct IntentInput {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl IntentInput {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -24644,6 +26548,7 @@ impl IntentInput {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl wkt::message::Message for IntentInput {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.IntentInput"
@@ -24651,6 +26556,7 @@ impl wkt::message::Message for IntentInput {
 }
 
 /// Represents the natural speech audio to be processed.
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -24680,6 +26586,7 @@ pub struct AudioInput {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl AudioInput {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -24710,6 +26617,7 @@ impl AudioInput {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl wkt::message::Message for AudioInput {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.AudioInput"
@@ -24717,6 +26625,7 @@ impl wkt::message::Message for AudioInput {
 }
 
 /// Represents the event to trigger.
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -24731,6 +26640,7 @@ pub struct EventInput {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl EventInput {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -24743,6 +26653,7 @@ impl EventInput {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl wkt::message::Message for EventInput {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.EventInput"
@@ -24750,6 +26661,7 @@ impl wkt::message::Message for EventInput {
 }
 
 /// Represents the input for dtmf event.
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -24769,6 +26681,7 @@ pub struct DtmfInput {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl DtmfInput {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -24787,6 +26700,7 @@ impl DtmfInput {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl wkt::message::Message for DtmfInput {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DtmfInput"
@@ -24794,6 +26708,7 @@ impl wkt::message::Message for DtmfInput {
 }
 
 /// Represents one match result of [MatchIntent][].
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -24864,6 +26779,7 @@ pub struct Match {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl Match {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -24933,6 +26849,7 @@ impl Match {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for Match {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Match"
@@ -24940,6 +26857,7 @@ impl wkt::message::Message for Match {
 }
 
 /// Defines additional types related to [Match].
+#[cfg(feature = "sessions")]
 pub mod r#match {
     #[allow(unused_imports)]
     use super::*;
@@ -24959,6 +26877,7 @@ pub mod r#match {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "sessions")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum MatchType {
@@ -24988,6 +26907,7 @@ pub mod r#match {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "sessions")]
     pub mod match_type {
         #[allow(unused_imports)]
         use super::*;
@@ -24995,6 +26915,7 @@ pub mod r#match {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "sessions")]
     impl MatchType {
         /// Gets the enum value.
         ///
@@ -25035,6 +26956,7 @@ pub mod r#match {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::default::Default for MatchType {
         fn default() -> Self {
             use std::convert::From;
@@ -25042,12 +26964,14 @@ pub mod r#match {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::fmt::Display for MatchType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::convert::From<i32> for MatchType {
         fn from(value: i32) -> Self {
             match value {
@@ -25067,6 +26991,7 @@ pub mod r#match {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl std::convert::From<&str> for MatchType {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -25087,6 +27012,7 @@ pub mod r#match {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl serde::ser::Serialize for MatchType {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -25107,6 +27033,7 @@ pub mod r#match {
         }
     }
 
+    #[cfg(feature = "sessions")]
     impl<'de> serde::de::Deserialize<'de> for MatchType {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -25120,6 +27047,7 @@ pub mod r#match {
 }
 
 /// Request of [MatchIntent][].
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25159,6 +27087,7 @@ pub struct MatchIntentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl MatchIntentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25213,6 +27142,7 @@ impl MatchIntentRequest {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for MatchIntentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.MatchIntentRequest"
@@ -25220,6 +27150,7 @@ impl wkt::message::Message for MatchIntentRequest {
 }
 
 /// Response of [MatchIntent][].
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25247,6 +27178,7 @@ pub struct MatchIntentResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl MatchIntentResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25393,6 +27325,7 @@ impl MatchIntentResponse {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for MatchIntentResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.MatchIntentResponse"
@@ -25400,11 +27333,13 @@ impl wkt::message::Message for MatchIntentResponse {
 }
 
 /// Defines additional types related to [MatchIntentResponse].
+#[cfg(feature = "sessions")]
 pub mod match_intent_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// The original conversational query.
+    #[cfg(feature = "sessions")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -25436,6 +27371,7 @@ pub mod match_intent_response {
 }
 
 /// Request of [FulfillIntent][]
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25459,6 +27395,7 @@ pub struct FulfillIntentRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl FulfillIntentRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25519,6 +27456,7 @@ impl FulfillIntentRequest {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for FulfillIntentRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.FulfillIntentRequest"
@@ -25526,6 +27464,7 @@ impl wkt::message::Message for FulfillIntentRequest {
 }
 
 /// Response of [FulfillIntent][]
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25566,6 +27505,7 @@ pub struct FulfillIntentResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl FulfillIntentResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25620,6 +27560,7 @@ impl FulfillIntentResponse {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for FulfillIntentResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.FulfillIntentResponse"
@@ -25629,6 +27570,7 @@ impl wkt::message::Message for FulfillIntentResponse {
 /// The result of sentiment analysis. Sentiment analysis inspects user input
 /// and identifies the prevailing subjective opinion, especially to determine a
 /// user's attitude as positive, negative, or neutral.
+#[cfg(feature = "sessions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25650,6 +27592,7 @@ pub struct SentimentAnalysisResult {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "sessions")]
 impl SentimentAnalysisResult {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25668,6 +27611,7 @@ impl SentimentAnalysisResult {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl wkt::message::Message for SentimentAnalysisResult {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.SentimentAnalysisResult"
@@ -25689,6 +27633,7 @@ impl wkt::message::Message for SentimentAnalysisResult {
 /// documentation](https://cloud.google.com/dialogflow/docs/entities-overview).
 ///
 /// [google.cloud.dialogflow.cx.v3.EntityType]: crate::model::EntityType
+#[cfg(any(feature = "session-entity-types", feature = "sessions",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25721,6 +27666,7 @@ pub struct SessionEntityType {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "session-entity-types", feature = "sessions",))]
 impl SessionEntityType {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25755,6 +27701,7 @@ impl SessionEntityType {
     }
 }
 
+#[cfg(any(feature = "session-entity-types", feature = "sessions",))]
 impl wkt::message::Message for SessionEntityType {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.SessionEntityType"
@@ -25762,6 +27709,7 @@ impl wkt::message::Message for SessionEntityType {
 }
 
 /// Defines additional types related to [SessionEntityType].
+#[cfg(any(feature = "session-entity-types", feature = "sessions",))]
 pub mod session_entity_type {
     #[allow(unused_imports)]
     use super::*;
@@ -25781,6 +27729,7 @@ pub mod session_entity_type {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(feature = "session-entity-types", feature = "sessions",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum EntityOverrideMode {
@@ -25810,6 +27759,7 @@ pub mod session_entity_type {
     }
 
     #[doc(hidden)]
+    #[cfg(any(feature = "session-entity-types", feature = "sessions",))]
     pub mod entity_override_mode {
         #[allow(unused_imports)]
         use super::*;
@@ -25817,6 +27767,7 @@ pub mod session_entity_type {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(any(feature = "session-entity-types", feature = "sessions",))]
     impl EntityOverrideMode {
         /// Gets the enum value.
         ///
@@ -25845,6 +27796,7 @@ pub mod session_entity_type {
         }
     }
 
+    #[cfg(any(feature = "session-entity-types", feature = "sessions",))]
     impl std::default::Default for EntityOverrideMode {
         fn default() -> Self {
             use std::convert::From;
@@ -25852,12 +27804,14 @@ pub mod session_entity_type {
         }
     }
 
+    #[cfg(any(feature = "session-entity-types", feature = "sessions",))]
     impl std::fmt::Display for EntityOverrideMode {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(any(feature = "session-entity-types", feature = "sessions",))]
     impl std::convert::From<i32> for EntityOverrideMode {
         fn from(value: i32) -> Self {
             match value {
@@ -25871,6 +27825,7 @@ pub mod session_entity_type {
         }
     }
 
+    #[cfg(any(feature = "session-entity-types", feature = "sessions",))]
     impl std::convert::From<&str> for EntityOverrideMode {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -25885,6 +27840,7 @@ pub mod session_entity_type {
         }
     }
 
+    #[cfg(any(feature = "session-entity-types", feature = "sessions",))]
     impl serde::ser::Serialize for EntityOverrideMode {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -25899,6 +27855,7 @@ pub mod session_entity_type {
         }
     }
 
+    #[cfg(any(feature = "session-entity-types", feature = "sessions",))]
     impl<'de> serde::de::Deserialize<'de> for EntityOverrideMode {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -25915,6 +27872,7 @@ pub mod session_entity_type {
 /// [SessionEntityTypes.ListSessionEntityTypes][google.cloud.dialogflow.cx.v3.SessionEntityTypes.ListSessionEntityTypes].
 ///
 /// [google.cloud.dialogflow.cx.v3.SessionEntityTypes.ListSessionEntityTypes]: crate::client::SessionEntityTypes::list_session_entity_types
+#[cfg(feature = "session-entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -25946,6 +27904,7 @@ pub struct ListSessionEntityTypesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "session-entity-types")]
 impl ListSessionEntityTypesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -25970,6 +27929,7 @@ impl ListSessionEntityTypesRequest {
     }
 }
 
+#[cfg(feature = "session-entity-types")]
 impl wkt::message::Message for ListSessionEntityTypesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListSessionEntityTypesRequest"
@@ -25980,6 +27940,7 @@ impl wkt::message::Message for ListSessionEntityTypesRequest {
 /// [SessionEntityTypes.ListSessionEntityTypes][google.cloud.dialogflow.cx.v3.SessionEntityTypes.ListSessionEntityTypes].
 ///
 /// [google.cloud.dialogflow.cx.v3.SessionEntityTypes.ListSessionEntityTypes]: crate::client::SessionEntityTypes::list_session_entity_types
+#[cfg(feature = "session-entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26001,6 +27962,7 @@ pub struct ListSessionEntityTypesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "session-entity-types")]
 impl ListSessionEntityTypesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26024,12 +27986,14 @@ impl ListSessionEntityTypesResponse {
     }
 }
 
+#[cfg(feature = "session-entity-types")]
 impl wkt::message::Message for ListSessionEntityTypesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListSessionEntityTypesResponse"
     }
 }
 
+#[cfg(feature = "session-entity-types")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListSessionEntityTypesResponse {
     type PageItem = crate::model::SessionEntityType;
@@ -26048,6 +28012,7 @@ impl gax::paginator::internal::PageableResponse for ListSessionEntityTypesRespon
 /// [SessionEntityTypes.GetSessionEntityType][google.cloud.dialogflow.cx.v3.SessionEntityTypes.GetSessionEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.SessionEntityTypes.GetSessionEntityType]: crate::client::SessionEntityTypes::get_session_entity_type
+#[cfg(feature = "session-entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26068,6 +28033,7 @@ pub struct GetSessionEntityTypeRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "session-entity-types")]
 impl GetSessionEntityTypeRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26080,6 +28046,7 @@ impl GetSessionEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "session-entity-types")]
 impl wkt::message::Message for GetSessionEntityTypeRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetSessionEntityTypeRequest"
@@ -26090,6 +28057,7 @@ impl wkt::message::Message for GetSessionEntityTypeRequest {
 /// [SessionEntityTypes.CreateSessionEntityType][google.cloud.dialogflow.cx.v3.SessionEntityTypes.CreateSessionEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.SessionEntityTypes.CreateSessionEntityType]: crate::client::SessionEntityTypes::create_session_entity_type
+#[cfg(feature = "session-entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26114,6 +28082,7 @@ pub struct CreateSessionEntityTypeRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "session-entity-types")]
 impl CreateSessionEntityTypeRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26144,6 +28113,7 @@ impl CreateSessionEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "session-entity-types")]
 impl wkt::message::Message for CreateSessionEntityTypeRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateSessionEntityTypeRequest"
@@ -26154,6 +28124,7 @@ impl wkt::message::Message for CreateSessionEntityTypeRequest {
 /// [SessionEntityTypes.UpdateSessionEntityType][google.cloud.dialogflow.cx.v3.SessionEntityTypes.UpdateSessionEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.SessionEntityTypes.UpdateSessionEntityType]: crate::client::SessionEntityTypes::update_session_entity_type
+#[cfg(feature = "session-entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26177,6 +28148,7 @@ pub struct UpdateSessionEntityTypeRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "session-entity-types")]
 impl UpdateSessionEntityTypeRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26219,6 +28191,7 @@ impl UpdateSessionEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "session-entity-types")]
 impl wkt::message::Message for UpdateSessionEntityTypeRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateSessionEntityTypeRequest"
@@ -26229,6 +28202,7 @@ impl wkt::message::Message for UpdateSessionEntityTypeRequest {
 /// [SessionEntityTypes.DeleteSessionEntityType][google.cloud.dialogflow.cx.v3.SessionEntityTypes.DeleteSessionEntityType].
 ///
 /// [google.cloud.dialogflow.cx.v3.SessionEntityTypes.DeleteSessionEntityType]: crate::client::SessionEntityTypes::delete_session_entity_type
+#[cfg(feature = "session-entity-types")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26249,6 +28223,7 @@ pub struct DeleteSessionEntityTypeRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "session-entity-types")]
 impl DeleteSessionEntityTypeRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26261,6 +28236,7 @@ impl DeleteSessionEntityTypeRequest {
     }
 }
 
+#[cfg(feature = "session-entity-types")]
 impl wkt::message::Message for DeleteSessionEntityTypeRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteSessionEntityTypeRequest"
@@ -26268,6 +28244,7 @@ impl wkt::message::Message for DeleteSessionEntityTypeRequest {
 }
 
 /// Represents a test case.
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26324,6 +28301,7 @@ pub struct TestCase {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl TestCase {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26424,6 +28402,7 @@ impl TestCase {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for TestCase {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.TestCase"
@@ -26431,6 +28410,7 @@ impl wkt::message::Message for TestCase {
 }
 
 /// Represents a result from running a test case in an agent environment.
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26467,6 +28447,7 @@ pub struct TestCaseResult {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl TestCaseResult {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26523,6 +28504,7 @@ impl TestCaseResult {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for TestCaseResult {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.TestCaseResult"
@@ -26530,6 +28512,7 @@ impl wkt::message::Message for TestCaseResult {
 }
 
 /// Represents configurations for a test case.
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26568,6 +28551,7 @@ pub struct TestConfig {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl TestConfig {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26597,6 +28581,7 @@ impl TestConfig {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for TestConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.TestConfig"
@@ -26605,6 +28590,7 @@ impl wkt::message::Message for TestConfig {
 
 /// One interaction between a human and virtual agent. The human provides some
 /// input and the virtual agent provides a response.
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26623,6 +28609,7 @@ pub struct ConversationTurn {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl ConversationTurn {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26665,6 +28652,7 @@ impl ConversationTurn {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for ConversationTurn {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ConversationTurn"
@@ -26672,11 +28660,13 @@ impl wkt::message::Message for ConversationTurn {
 }
 
 /// Defines additional types related to [ConversationTurn].
+#[cfg(feature = "test-cases")]
 pub mod conversation_turn {
     #[allow(unused_imports)]
     use super::*;
 
     /// The input from the human user.
+    #[cfg(feature = "test-cases")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -26713,6 +28703,7 @@ pub mod conversation_turn {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "test-cases")]
     impl UserInput {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -26767,6 +28758,7 @@ pub mod conversation_turn {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl wkt::message::Message for UserInput {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ConversationTurn.UserInput"
@@ -26774,6 +28766,7 @@ pub mod conversation_turn {
     }
 
     /// The output from the virtual agent.
+    #[cfg(feature = "test-cases")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -26829,6 +28822,7 @@ pub mod conversation_turn {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "test-cases")]
     impl VirtualAgentOutput {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -26947,6 +28941,7 @@ pub mod conversation_turn {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl wkt::message::Message for VirtualAgentOutput {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.ConversationTurn.VirtualAgentOutput"
@@ -26955,6 +28950,7 @@ pub mod conversation_turn {
 }
 
 /// The description of differences between original and replayed agent output.
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -26976,6 +28972,7 @@ pub struct TestRunDifference {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl TestRunDifference {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -26997,6 +28994,7 @@ impl TestRunDifference {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for TestRunDifference {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.TestRunDifference"
@@ -27004,6 +29002,7 @@ impl wkt::message::Message for TestRunDifference {
 }
 
 /// Defines additional types related to [TestRunDifference].
+#[cfg(feature = "test-cases")]
 pub mod test_run_difference {
     #[allow(unused_imports)]
     use super::*;
@@ -27023,6 +29022,7 @@ pub mod test_run_difference {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "test-cases")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DiffType {
@@ -27046,6 +29046,7 @@ pub mod test_run_difference {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "test-cases")]
     pub mod diff_type {
         #[allow(unused_imports)]
         use super::*;
@@ -27053,6 +29054,7 @@ pub mod test_run_difference {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "test-cases")]
     impl DiffType {
         /// Gets the enum value.
         ///
@@ -27087,6 +29089,7 @@ pub mod test_run_difference {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::default::Default for DiffType {
         fn default() -> Self {
             use std::convert::From;
@@ -27094,12 +29097,14 @@ pub mod test_run_difference {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::fmt::Display for DiffType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::convert::From<i32> for DiffType {
         fn from(value: i32) -> Self {
             match value {
@@ -27116,6 +29121,7 @@ pub mod test_run_difference {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::convert::From<&str> for DiffType {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -27133,6 +29139,7 @@ pub mod test_run_difference {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl serde::ser::Serialize for DiffType {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -27150,6 +29157,7 @@ pub mod test_run_difference {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl<'de> serde::de::Deserialize<'de> for DiffType {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -27165,6 +29173,7 @@ pub mod test_run_difference {
 /// Transition coverage represents the percentage of all possible page
 /// transitions (page-level transition routes and event handlers, excluding
 /// transition route groups) present within any of a parent's test cases.
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -27184,6 +29193,7 @@ pub struct TransitionCoverage {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl TransitionCoverage {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -27207,6 +29217,7 @@ impl TransitionCoverage {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for TransitionCoverage {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.TransitionCoverage"
@@ -27214,11 +29225,13 @@ impl wkt::message::Message for TransitionCoverage {
 }
 
 /// Defines additional types related to [TransitionCoverage].
+#[cfg(feature = "test-cases")]
 pub mod transition_coverage {
     #[allow(unused_imports)]
     use super::*;
 
     /// The source or target of a transition.
+    #[cfg(feature = "test-cases")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -27232,6 +29245,7 @@ pub mod transition_coverage {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "test-cases")]
     impl TransitionNode {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -27310,6 +29324,7 @@ pub mod transition_coverage {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl wkt::message::Message for TransitionNode {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.TransitionCoverage.TransitionNode"
@@ -27317,11 +29332,13 @@ pub mod transition_coverage {
     }
 
     /// Defines additional types related to [TransitionNode].
+    #[cfg(feature = "test-cases")]
     pub mod transition_node {
         #[allow(unused_imports)]
         use super::*;
 
         /// A TransitionNode can be either a page or a flow.
+        #[cfg(feature = "test-cases")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -27341,6 +29358,7 @@ pub mod transition_coverage {
     }
 
     /// A transition in a page.
+    #[cfg(feature = "test-cases")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -27373,6 +29391,7 @@ pub mod transition_coverage {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "test-cases")]
     impl Transition {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -27507,6 +29526,7 @@ pub mod transition_coverage {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl wkt::message::Message for Transition {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.TransitionCoverage.Transition"
@@ -27514,11 +29534,13 @@ pub mod transition_coverage {
     }
 
     /// Defines additional types related to [Transition].
+    #[cfg(feature = "test-cases")]
     pub mod transition {
         #[allow(unused_imports)]
         use super::*;
 
         /// The detailed transition.
+        #[cfg(feature = "test-cases")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(rename_all = "camelCase")]
@@ -27535,6 +29557,7 @@ pub mod transition_coverage {
 /// Transition route group coverage represents the percentage of all possible
 /// transition routes present within any of a parent's test cases. The results
 /// are grouped by the transition route group.
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -27555,6 +29578,7 @@ pub struct TransitionRouteGroupCoverage {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl TransitionRouteGroupCoverage {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -27578,6 +29602,7 @@ impl TransitionRouteGroupCoverage {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for TransitionRouteGroupCoverage {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.TransitionRouteGroupCoverage"
@@ -27585,11 +29610,13 @@ impl wkt::message::Message for TransitionRouteGroupCoverage {
 }
 
 /// Defines additional types related to [TransitionRouteGroupCoverage].
+#[cfg(feature = "test-cases")]
 pub mod transition_route_group_coverage {
     #[allow(unused_imports)]
     use super::*;
 
     /// Coverage result message for one transition route group.
+    #[cfg(feature = "test-cases")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -27615,6 +29642,7 @@ pub mod transition_route_group_coverage {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "test-cases")]
     impl Coverage {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -27658,6 +29686,7 @@ pub mod transition_route_group_coverage {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl wkt::message::Message for Coverage {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.TransitionRouteGroupCoverage.Coverage"
@@ -27665,11 +29694,13 @@ pub mod transition_route_group_coverage {
     }
 
     /// Defines additional types related to [Coverage].
+    #[cfg(feature = "test-cases")]
     pub mod coverage {
         #[allow(unused_imports)]
         use super::*;
 
         /// A transition coverage in a transition route group.
+        #[cfg(feature = "test-cases")]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -27689,6 +29720,7 @@ pub mod transition_route_group_coverage {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(feature = "test-cases")]
         impl Transition {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -27719,6 +29751,7 @@ pub mod transition_route_group_coverage {
             }
         }
 
+        #[cfg(feature = "test-cases")]
         impl wkt::message::Message for Transition {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.TransitionRouteGroupCoverage.Coverage.Transition"
@@ -27729,6 +29762,7 @@ pub mod transition_route_group_coverage {
 
 /// Intent coverage represents the percentage of all possible intents in the
 /// agent that are triggered in any of a parent's test cases.
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -27748,6 +29782,7 @@ pub struct IntentCoverage {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl IntentCoverage {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -27771,6 +29806,7 @@ impl IntentCoverage {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for IntentCoverage {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.IntentCoverage"
@@ -27778,11 +29814,13 @@ impl wkt::message::Message for IntentCoverage {
 }
 
 /// Defines additional types related to [IntentCoverage].
+#[cfg(feature = "test-cases")]
 pub mod intent_coverage {
     #[allow(unused_imports)]
     use super::*;
 
     /// The agent's intent.
+    #[cfg(feature = "test-cases")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -27803,6 +29841,7 @@ pub mod intent_coverage {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(feature = "test-cases")]
     impl Intent {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -27821,6 +29860,7 @@ pub mod intent_coverage {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl wkt::message::Message for Intent {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.IntentCoverage.Intent"
@@ -27832,6 +29872,7 @@ pub mod intent_coverage {
 /// [TestCases.CalculateCoverage][google.cloud.dialogflow.cx.v3.TestCases.CalculateCoverage].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.CalculateCoverage]: crate::client::TestCases::calculate_coverage
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -27853,6 +29894,7 @@ pub struct CalculateCoverageRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl CalculateCoverageRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -27876,6 +29918,7 @@ impl CalculateCoverageRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for CalculateCoverageRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CalculateCoverageRequest"
@@ -27883,6 +29926,7 @@ impl wkt::message::Message for CalculateCoverageRequest {
 }
 
 /// Defines additional types related to [CalculateCoverageRequest].
+#[cfg(feature = "test-cases")]
 pub mod calculate_coverage_request {
     #[allow(unused_imports)]
     use super::*;
@@ -27902,6 +29946,7 @@ pub mod calculate_coverage_request {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "test-cases")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum CoverageType {
@@ -27921,6 +29966,7 @@ pub mod calculate_coverage_request {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "test-cases")]
     pub mod coverage_type {
         #[allow(unused_imports)]
         use super::*;
@@ -27928,6 +29974,7 @@ pub mod calculate_coverage_request {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "test-cases")]
     impl CoverageType {
         /// Gets the enum value.
         ///
@@ -27958,6 +30005,7 @@ pub mod calculate_coverage_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::default::Default for CoverageType {
         fn default() -> Self {
             use std::convert::From;
@@ -27965,12 +30013,14 @@ pub mod calculate_coverage_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::fmt::Display for CoverageType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::convert::From<i32> for CoverageType {
         fn from(value: i32) -> Self {
             match value {
@@ -27985,6 +30035,7 @@ pub mod calculate_coverage_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::convert::From<&str> for CoverageType {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -28000,6 +30051,7 @@ pub mod calculate_coverage_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl serde::ser::Serialize for CoverageType {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -28015,6 +30067,7 @@ pub mod calculate_coverage_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl<'de> serde::de::Deserialize<'de> for CoverageType {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -28031,6 +30084,7 @@ pub mod calculate_coverage_request {
 /// [TestCases.CalculateCoverage][google.cloud.dialogflow.cx.v3.TestCases.CalculateCoverage].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.CalculateCoverage]: crate::client::TestCases::calculate_coverage
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28050,6 +30104,7 @@ pub struct CalculateCoverageResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl CalculateCoverageResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28174,6 +30229,7 @@ impl CalculateCoverageResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for CalculateCoverageResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CalculateCoverageResponse"
@@ -28181,11 +30237,13 @@ impl wkt::message::Message for CalculateCoverageResponse {
 }
 
 /// Defines additional types related to [CalculateCoverageResponse].
+#[cfg(feature = "test-cases")]
 pub mod calculate_coverage_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// The type of coverage requested.
+    #[cfg(feature = "test-cases")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -28204,6 +30262,7 @@ pub mod calculate_coverage_response {
 /// [TestCases.ListTestCases][google.cloud.dialogflow.cx.v3.TestCases.ListTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ListTestCases]: crate::client::TestCases::list_test_cases
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28236,6 +30295,7 @@ pub struct ListTestCasesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl ListTestCasesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28269,6 +30329,7 @@ impl ListTestCasesRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for ListTestCasesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListTestCasesRequest"
@@ -28276,6 +30337,7 @@ impl wkt::message::Message for ListTestCasesRequest {
 }
 
 /// Defines additional types related to [ListTestCasesRequest].
+#[cfg(feature = "test-cases")]
 pub mod list_test_cases_request {
     #[allow(unused_imports)]
     use super::*;
@@ -28295,6 +30357,7 @@ pub mod list_test_cases_request {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "test-cases")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum TestCaseView {
@@ -28314,6 +30377,7 @@ pub mod list_test_cases_request {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "test-cases")]
     pub mod test_case_view {
         #[allow(unused_imports)]
         use super::*;
@@ -28321,6 +30385,7 @@ pub mod list_test_cases_request {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "test-cases")]
     impl TestCaseView {
         /// Gets the enum value.
         ///
@@ -28349,6 +30414,7 @@ pub mod list_test_cases_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::default::Default for TestCaseView {
         fn default() -> Self {
             use std::convert::From;
@@ -28356,12 +30422,14 @@ pub mod list_test_cases_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::fmt::Display for TestCaseView {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::convert::From<i32> for TestCaseView {
         fn from(value: i32) -> Self {
             match value {
@@ -28375,6 +30443,7 @@ pub mod list_test_cases_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::convert::From<&str> for TestCaseView {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -28389,6 +30458,7 @@ pub mod list_test_cases_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl serde::ser::Serialize for TestCaseView {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -28403,6 +30473,7 @@ pub mod list_test_cases_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl<'de> serde::de::Deserialize<'de> for TestCaseView {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -28419,6 +30490,7 @@ pub mod list_test_cases_request {
 /// [TestCases.ListTestCases][google.cloud.dialogflow.cx.v3.TestCases.ListTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ListTestCases]: crate::client::TestCases::list_test_cases
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28440,6 +30512,7 @@ pub struct ListTestCasesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl ListTestCasesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28463,12 +30536,14 @@ impl ListTestCasesResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for ListTestCasesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListTestCasesResponse"
     }
 }
 
+#[cfg(feature = "test-cases")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListTestCasesResponse {
     type PageItem = crate::model::TestCase;
@@ -28487,6 +30562,7 @@ impl gax::paginator::internal::PageableResponse for ListTestCasesResponse {
 /// [TestCases.BatchDeleteTestCases][google.cloud.dialogflow.cx.v3.TestCases.BatchDeleteTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.BatchDeleteTestCases]: crate::client::TestCases::batch_delete_test_cases
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28508,6 +30584,7 @@ pub struct BatchDeleteTestCasesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl BatchDeleteTestCasesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28531,6 +30608,7 @@ impl BatchDeleteTestCasesRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for BatchDeleteTestCasesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.BatchDeleteTestCasesRequest"
@@ -28541,6 +30619,7 @@ impl wkt::message::Message for BatchDeleteTestCasesRequest {
 /// [TestCases.CreateTestCase][google.cloud.dialogflow.cx.v3.TestCases.CreateTestCase].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.CreateTestCase]: crate::client::TestCases::create_test_case
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28560,6 +30639,7 @@ pub struct CreateTestCaseRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl CreateTestCaseRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28590,6 +30670,7 @@ impl CreateTestCaseRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for CreateTestCaseRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateTestCaseRequest"
@@ -28600,6 +30681,7 @@ impl wkt::message::Message for CreateTestCaseRequest {
 /// [TestCases.UpdateTestCase][google.cloud.dialogflow.cx.v3.TestCases.UpdateTestCase].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.UpdateTestCase]: crate::client::TestCases::update_test_case
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28623,6 +30705,7 @@ pub struct UpdateTestCaseRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl UpdateTestCaseRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28665,6 +30748,7 @@ impl UpdateTestCaseRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for UpdateTestCaseRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateTestCaseRequest"
@@ -28675,6 +30759,7 @@ impl wkt::message::Message for UpdateTestCaseRequest {
 /// [TestCases.GetTestCase][google.cloud.dialogflow.cx.v3.TestCases.GetTestCase].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.GetTestCase]: crate::client::TestCases::get_test_case
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28691,6 +30776,7 @@ pub struct GetTestCaseRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl GetTestCaseRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28703,6 +30789,7 @@ impl GetTestCaseRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for GetTestCaseRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetTestCaseRequest"
@@ -28713,6 +30800,7 @@ impl wkt::message::Message for GetTestCaseRequest {
 /// [TestCases.RunTestCase][google.cloud.dialogflow.cx.v3.TestCases.RunTestCase].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.RunTestCase]: crate::client::TestCases::run_test_case
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28735,6 +30823,7 @@ pub struct RunTestCaseRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl RunTestCaseRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28753,6 +30842,7 @@ impl RunTestCaseRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for RunTestCaseRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.RunTestCaseRequest"
@@ -28763,6 +30853,7 @@ impl wkt::message::Message for RunTestCaseRequest {
 /// [TestCases.RunTestCase][google.cloud.dialogflow.cx.v3.TestCases.RunTestCase].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.RunTestCase]: crate::client::TestCases::run_test_case
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28776,6 +30867,7 @@ pub struct RunTestCaseResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl RunTestCaseResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28800,6 +30892,7 @@ impl RunTestCaseResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for RunTestCaseResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.RunTestCaseResponse"
@@ -28811,6 +30904,7 @@ impl wkt::message::Message for RunTestCaseResponse {
 /// long running operation. This message currently has no fields.
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.RunTestCase]: crate::client::TestCases::run_test_case
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28820,12 +30914,14 @@ pub struct RunTestCaseMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl RunTestCaseMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for RunTestCaseMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.RunTestCaseMetadata"
@@ -28836,6 +30932,7 @@ impl wkt::message::Message for RunTestCaseMetadata {
 /// [TestCases.BatchRunTestCases][google.cloud.dialogflow.cx.v3.TestCases.BatchRunTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.BatchRunTestCases]: crate::client::TestCases::batch_run_test_cases
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28863,6 +30960,7 @@ pub struct BatchRunTestCasesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl BatchRunTestCasesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28892,6 +30990,7 @@ impl BatchRunTestCasesRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for BatchRunTestCasesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.BatchRunTestCasesRequest"
@@ -28902,6 +31001,7 @@ impl wkt::message::Message for BatchRunTestCasesRequest {
 /// [TestCases.BatchRunTestCases][google.cloud.dialogflow.cx.v3.TestCases.BatchRunTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.BatchRunTestCases]: crate::client::TestCases::batch_run_test_cases
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28921,6 +31021,7 @@ pub struct BatchRunTestCasesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl BatchRunTestCasesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28938,6 +31039,7 @@ impl BatchRunTestCasesResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for BatchRunTestCasesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.BatchRunTestCasesResponse"
@@ -28949,6 +31051,7 @@ impl wkt::message::Message for BatchRunTestCasesResponse {
 /// long running operation.
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.BatchRunTestCases]: crate::client::TestCases::batch_run_test_cases
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -28963,6 +31066,7 @@ pub struct BatchRunTestCasesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl BatchRunTestCasesMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -28980,6 +31084,7 @@ impl BatchRunTestCasesMetadata {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for BatchRunTestCasesMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.BatchRunTestCasesMetadata"
@@ -28987,6 +31092,7 @@ impl wkt::message::Message for BatchRunTestCasesMetadata {
 }
 
 /// Error info for running a test.
+#[cfg(any(feature = "environments", feature = "test-cases",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -29009,6 +31115,7 @@ pub struct TestError {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "environments", feature = "test-cases",))]
 impl TestError {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -29057,6 +31164,7 @@ impl TestError {
     }
 }
 
+#[cfg(any(feature = "environments", feature = "test-cases",))]
 impl wkt::message::Message for TestError {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.TestError"
@@ -29067,6 +31175,7 @@ impl wkt::message::Message for TestError {
 /// [TestCases.ImportTestCases][google.cloud.dialogflow.cx.v3.TestCases.ImportTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ImportTestCases]: crate::client::TestCases::import_test_cases
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -29086,6 +31195,7 @@ pub struct ImportTestCasesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl ImportTestCasesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -29162,6 +31272,7 @@ impl ImportTestCasesRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for ImportTestCasesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportTestCasesRequest"
@@ -29169,11 +31280,13 @@ impl wkt::message::Message for ImportTestCasesRequest {
 }
 
 /// Defines additional types related to [ImportTestCasesRequest].
+#[cfg(feature = "test-cases")]
 pub mod import_test_cases_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Required. The source to import.
+    #[cfg(feature = "test-cases")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -29201,6 +31314,7 @@ pub mod import_test_cases_request {
 /// [TestCases.ImportTestCases][google.cloud.dialogflow.cx.v3.TestCases.ImportTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ImportTestCases]: crate::client::TestCases::import_test_cases
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -29217,6 +31331,7 @@ pub struct ImportTestCasesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl ImportTestCasesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -29234,6 +31349,7 @@ impl ImportTestCasesResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for ImportTestCasesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportTestCasesResponse"
@@ -29245,6 +31361,7 @@ impl wkt::message::Message for ImportTestCasesResponse {
 /// long running operation.
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ImportTestCases]: crate::client::TestCases::import_test_cases
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -29259,6 +31376,7 @@ pub struct ImportTestCasesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl ImportTestCasesMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -29276,6 +31394,7 @@ impl ImportTestCasesMetadata {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for ImportTestCasesMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ImportTestCasesMetadata"
@@ -29283,6 +31402,7 @@ impl wkt::message::Message for ImportTestCasesMetadata {
 }
 
 /// Error info for importing a test.
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -29300,6 +31420,7 @@ pub struct TestCaseError {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl TestCaseError {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -29342,6 +31463,7 @@ impl TestCaseError {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for TestCaseError {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.TestCaseError"
@@ -29352,6 +31474,7 @@ impl wkt::message::Message for TestCaseError {
 /// [TestCases.ExportTestCases][google.cloud.dialogflow.cx.v3.TestCases.ExportTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ExportTestCases]: crate::client::TestCases::export_test_cases
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -29391,6 +31514,7 @@ pub struct ExportTestCasesRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl ExportTestCasesRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -29461,6 +31585,7 @@ impl ExportTestCasesRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for ExportTestCasesRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportTestCasesRequest"
@@ -29468,6 +31593,7 @@ impl wkt::message::Message for ExportTestCasesRequest {
 }
 
 /// Defines additional types related to [ExportTestCasesRequest].
+#[cfg(feature = "test-cases")]
 pub mod export_test_cases_request {
     #[allow(unused_imports)]
     use super::*;
@@ -29487,6 +31613,7 @@ pub mod export_test_cases_request {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "test-cases")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum DataFormat {
@@ -29504,6 +31631,7 @@ pub mod export_test_cases_request {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "test-cases")]
     pub mod data_format {
         #[allow(unused_imports)]
         use super::*;
@@ -29511,6 +31639,7 @@ pub mod export_test_cases_request {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "test-cases")]
     impl DataFormat {
         /// Gets the enum value.
         ///
@@ -29539,6 +31668,7 @@ pub mod export_test_cases_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::default::Default for DataFormat {
         fn default() -> Self {
             use std::convert::From;
@@ -29546,12 +31676,14 @@ pub mod export_test_cases_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::fmt::Display for DataFormat {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::convert::From<i32> for DataFormat {
         fn from(value: i32) -> Self {
             match value {
@@ -29565,6 +31697,7 @@ pub mod export_test_cases_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl std::convert::From<&str> for DataFormat {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -29579,6 +31712,7 @@ pub mod export_test_cases_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl serde::ser::Serialize for DataFormat {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -29593,6 +31727,7 @@ pub mod export_test_cases_request {
         }
     }
 
+    #[cfg(feature = "test-cases")]
     impl<'de> serde::de::Deserialize<'de> for DataFormat {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -29605,6 +31740,7 @@ pub mod export_test_cases_request {
     }
 
     /// The destination to export.
+    #[cfg(feature = "test-cases")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -29628,6 +31764,7 @@ pub mod export_test_cases_request {
 /// [TestCases.ExportTestCases][google.cloud.dialogflow.cx.v3.TestCases.ExportTestCases].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ExportTestCases]: crate::client::TestCases::export_test_cases
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -29641,6 +31778,7 @@ pub struct ExportTestCasesResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl ExportTestCasesResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -29713,6 +31851,7 @@ impl ExportTestCasesResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for ExportTestCasesResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportTestCasesResponse"
@@ -29720,11 +31859,13 @@ impl wkt::message::Message for ExportTestCasesResponse {
 }
 
 /// Defines additional types related to [ExportTestCasesResponse].
+#[cfg(feature = "test-cases")]
 pub mod export_test_cases_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// The exported test cases.
+    #[cfg(feature = "test-cases")]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -29749,6 +31890,7 @@ pub mod export_test_cases_response {
 /// long running operation. This message currently has no fields.
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ExportTestCases]: crate::client::TestCases::export_test_cases
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -29758,12 +31900,14 @@ pub struct ExportTestCasesMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl ExportTestCasesMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for ExportTestCasesMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ExportTestCasesMetadata"
@@ -29774,6 +31918,7 @@ impl wkt::message::Message for ExportTestCasesMetadata {
 /// [TestCases.ListTestCaseResults][google.cloud.dialogflow.cx.v3.TestCases.ListTestCaseResults].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ListTestCaseResults]: crate::client::TestCases::list_test_case_results
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -29832,6 +31977,7 @@ pub struct ListTestCaseResultsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl ListTestCaseResultsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -29862,6 +32008,7 @@ impl ListTestCaseResultsRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for ListTestCaseResultsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListTestCaseResultsRequest"
@@ -29872,6 +32019,7 @@ impl wkt::message::Message for ListTestCaseResultsRequest {
 /// [TestCases.ListTestCaseResults][google.cloud.dialogflow.cx.v3.TestCases.ListTestCaseResults].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.ListTestCaseResults]: crate::client::TestCases::list_test_case_results
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -29892,6 +32040,7 @@ pub struct ListTestCaseResultsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl ListTestCaseResultsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -29915,12 +32064,14 @@ impl ListTestCaseResultsResponse {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for ListTestCaseResultsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListTestCaseResultsResponse"
     }
 }
 
+#[cfg(feature = "test-cases")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListTestCaseResultsResponse {
     type PageItem = crate::model::TestCaseResult;
@@ -29939,6 +32090,7 @@ impl gax::paginator::internal::PageableResponse for ListTestCaseResultsResponse 
 /// [TestCases.GetTestCaseResult][google.cloud.dialogflow.cx.v3.TestCases.GetTestCaseResult].
 ///
 /// [google.cloud.dialogflow.cx.v3.TestCases.GetTestCaseResult]: crate::client::TestCases::get_test_case_result
+#[cfg(feature = "test-cases")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -29955,6 +32107,7 @@ pub struct GetTestCaseResultRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "test-cases")]
 impl GetTestCaseResultRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -29967,6 +32120,7 @@ impl GetTestCaseResultRequest {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl wkt::message::Message for GetTestCaseResultRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetTestCaseResultRequest"
@@ -29979,6 +32133,7 @@ impl wkt::message::Message for GetTestCaseResultRequest {
 ///
 /// [google.cloud.dialogflow.cx.v3.Page]: crate::model::Page
 /// [google.cloud.dialogflow.cx.v3.TransitionRoute]: crate::model::TransitionRoute
+#[cfg(any(feature = "test-cases", feature = "transition-route-groups",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -30013,6 +32168,7 @@ pub struct TransitionRouteGroup {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "test-cases", feature = "transition-route-groups",))]
 impl TransitionRouteGroup {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -30042,6 +32198,7 @@ impl TransitionRouteGroup {
     }
 }
 
+#[cfg(any(feature = "test-cases", feature = "transition-route-groups",))]
 impl wkt::message::Message for TransitionRouteGroup {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.TransitionRouteGroup"
@@ -30052,6 +32209,7 @@ impl wkt::message::Message for TransitionRouteGroup {
 /// [TransitionRouteGroups.ListTransitionRouteGroups][google.cloud.dialogflow.cx.v3.TransitionRouteGroups.ListTransitionRouteGroups].
 ///
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroups.ListTransitionRouteGroups]: crate::client::TransitionRouteGroups::list_transition_route_groups
+#[cfg(feature = "transition-route-groups")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -30096,6 +32254,7 @@ pub struct ListTransitionRouteGroupsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "transition-route-groups")]
 impl ListTransitionRouteGroupsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -30126,6 +32285,7 @@ impl ListTransitionRouteGroupsRequest {
     }
 }
 
+#[cfg(feature = "transition-route-groups")]
 impl wkt::message::Message for ListTransitionRouteGroupsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListTransitionRouteGroupsRequest"
@@ -30136,6 +32296,7 @@ impl wkt::message::Message for ListTransitionRouteGroupsRequest {
 /// [TransitionRouteGroups.ListTransitionRouteGroups][google.cloud.dialogflow.cx.v3.TransitionRouteGroups.ListTransitionRouteGroups].
 ///
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroups.ListTransitionRouteGroups]: crate::client::TransitionRouteGroups::list_transition_route_groups
+#[cfg(feature = "transition-route-groups")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -30159,6 +32320,7 @@ pub struct ListTransitionRouteGroupsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "transition-route-groups")]
 impl ListTransitionRouteGroupsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -30182,12 +32344,14 @@ impl ListTransitionRouteGroupsResponse {
     }
 }
 
+#[cfg(feature = "transition-route-groups")]
 impl wkt::message::Message for ListTransitionRouteGroupsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListTransitionRouteGroupsResponse"
     }
 }
 
+#[cfg(feature = "transition-route-groups")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListTransitionRouteGroupsResponse {
     type PageItem = crate::model::TransitionRouteGroup;
@@ -30206,6 +32370,7 @@ impl gax::paginator::internal::PageableResponse for ListTransitionRouteGroupsRes
 /// [TransitionRouteGroups.GetTransitionRouteGroup][google.cloud.dialogflow.cx.v3.TransitionRouteGroups.GetTransitionRouteGroup].
 ///
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroups.GetTransitionRouteGroup]: crate::client::TransitionRouteGroups::get_transition_route_group
+#[cfg(feature = "transition-route-groups")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -30243,6 +32408,7 @@ pub struct GetTransitionRouteGroupRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "transition-route-groups")]
 impl GetTransitionRouteGroupRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -30261,6 +32427,7 @@ impl GetTransitionRouteGroupRequest {
     }
 }
 
+#[cfg(feature = "transition-route-groups")]
 impl wkt::message::Message for GetTransitionRouteGroupRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetTransitionRouteGroupRequest"
@@ -30271,6 +32438,7 @@ impl wkt::message::Message for GetTransitionRouteGroupRequest {
 /// [TransitionRouteGroups.CreateTransitionRouteGroup][google.cloud.dialogflow.cx.v3.TransitionRouteGroups.CreateTransitionRouteGroup].
 ///
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroups.CreateTransitionRouteGroup]: crate::client::TransitionRouteGroups::create_transition_route_group
+#[cfg(feature = "transition-route-groups")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -30311,6 +32479,7 @@ pub struct CreateTransitionRouteGroupRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "transition-route-groups")]
 impl CreateTransitionRouteGroupRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -30347,6 +32516,7 @@ impl CreateTransitionRouteGroupRequest {
     }
 }
 
+#[cfg(feature = "transition-route-groups")]
 impl wkt::message::Message for CreateTransitionRouteGroupRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateTransitionRouteGroupRequest"
@@ -30357,6 +32527,7 @@ impl wkt::message::Message for CreateTransitionRouteGroupRequest {
 /// [TransitionRouteGroups.UpdateTransitionRouteGroup][google.cloud.dialogflow.cx.v3.TransitionRouteGroups.UpdateTransitionRouteGroup].
 ///
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroups.UpdateTransitionRouteGroup]: crate::client::TransitionRouteGroups::update_transition_route_group
+#[cfg(feature = "transition-route-groups")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -30389,6 +32560,7 @@ pub struct UpdateTransitionRouteGroupRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "transition-route-groups")]
 impl UpdateTransitionRouteGroupRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -30437,6 +32609,7 @@ impl UpdateTransitionRouteGroupRequest {
     }
 }
 
+#[cfg(feature = "transition-route-groups")]
 impl wkt::message::Message for UpdateTransitionRouteGroupRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateTransitionRouteGroupRequest"
@@ -30447,6 +32620,7 @@ impl wkt::message::Message for UpdateTransitionRouteGroupRequest {
 /// [TransitionRouteGroups.DeleteTransitionRouteGroup][google.cloud.dialogflow.cx.v3.TransitionRouteGroups.DeleteTransitionRouteGroup].
 ///
 /// [google.cloud.dialogflow.cx.v3.TransitionRouteGroups.DeleteTransitionRouteGroup]: crate::client::TransitionRouteGroups::delete_transition_route_group
+#[cfg(feature = "transition-route-groups")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -30479,6 +32653,7 @@ pub struct DeleteTransitionRouteGroupRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "transition-route-groups")]
 impl DeleteTransitionRouteGroupRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -30497,6 +32672,7 @@ impl DeleteTransitionRouteGroupRequest {
     }
 }
 
+#[cfg(feature = "transition-route-groups")]
 impl wkt::message::Message for DeleteTransitionRouteGroupRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteTransitionRouteGroupRequest"
@@ -30504,6 +32680,7 @@ impl wkt::message::Message for DeleteTransitionRouteGroupRequest {
 }
 
 /// Agent/flow validation message.
+#[cfg(any(feature = "agents", feature = "flows",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -30539,6 +32716,7 @@ pub struct ValidationMessage {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "agents", feature = "flows",))]
 impl ValidationMessage {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -30594,6 +32772,7 @@ impl ValidationMessage {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "flows",))]
 impl wkt::message::Message for ValidationMessage {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ValidationMessage"
@@ -30601,6 +32780,7 @@ impl wkt::message::Message for ValidationMessage {
 }
 
 /// Defines additional types related to [ValidationMessage].
+#[cfg(any(feature = "agents", feature = "flows",))]
 pub mod validation_message {
     #[allow(unused_imports)]
     use super::*;
@@ -30620,6 +32800,7 @@ pub mod validation_message {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(feature = "agents", feature = "flows",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ResourceType {
@@ -30661,6 +32842,7 @@ pub mod validation_message {
     }
 
     #[doc(hidden)]
+    #[cfg(any(feature = "agents", feature = "flows",))]
     pub mod resource_type {
         #[allow(unused_imports)]
         use super::*;
@@ -30668,6 +32850,7 @@ pub mod validation_message {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl ResourceType {
         /// Gets the enum value.
         ///
@@ -30722,6 +32905,7 @@ pub mod validation_message {
         }
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl std::default::Default for ResourceType {
         fn default() -> Self {
             use std::convert::From;
@@ -30729,12 +32913,14 @@ pub mod validation_message {
         }
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl std::fmt::Display for ResourceType {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl std::convert::From<i32> for ResourceType {
         fn from(value: i32) -> Self {
             match value {
@@ -30760,6 +32946,7 @@ pub mod validation_message {
         }
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl std::convert::From<&str> for ResourceType {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -30786,6 +32973,7 @@ pub mod validation_message {
         }
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl serde::ser::Serialize for ResourceType {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -30812,6 +33000,7 @@ pub mod validation_message {
         }
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl<'de> serde::de::Deserialize<'de> for ResourceType {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -30838,6 +33027,7 @@ pub mod validation_message {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(any(feature = "agents", feature = "flows",))]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Severity {
@@ -30857,6 +33047,7 @@ pub mod validation_message {
     }
 
     #[doc(hidden)]
+    #[cfg(any(feature = "agents", feature = "flows",))]
     pub mod severity {
         #[allow(unused_imports)]
         use super::*;
@@ -30864,6 +33055,7 @@ pub mod validation_message {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl Severity {
         /// Gets the enum value.
         ///
@@ -30894,6 +33086,7 @@ pub mod validation_message {
         }
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl std::default::Default for Severity {
         fn default() -> Self {
             use std::convert::From;
@@ -30901,12 +33094,14 @@ pub mod validation_message {
         }
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl std::fmt::Display for Severity {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl std::convert::From<i32> for Severity {
         fn from(value: i32) -> Self {
             match value {
@@ -30921,6 +33116,7 @@ pub mod validation_message {
         }
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl std::convert::From<&str> for Severity {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -30936,6 +33132,7 @@ pub mod validation_message {
         }
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl serde::ser::Serialize for Severity {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -30951,6 +33148,7 @@ pub mod validation_message {
         }
     }
 
+    #[cfg(any(feature = "agents", feature = "flows",))]
     impl<'de> serde::de::Deserialize<'de> for Severity {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -30964,6 +33162,7 @@ pub mod validation_message {
 }
 
 /// Resource name and display name.
+#[cfg(any(feature = "agents", feature = "flows",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -30983,6 +33182,7 @@ pub struct ResourceName {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "agents", feature = "flows",))]
 impl ResourceName {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -31001,6 +33201,7 @@ impl ResourceName {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "flows",))]
 impl wkt::message::Message for ResourceName {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ResourceName"
@@ -31011,6 +33212,7 @@ impl wkt::message::Message for ResourceName {
 /// [Versions.CreateVersion][google.cloud.dialogflow.cx.v3.Versions.CreateVersion].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.CreateVersion]: crate::client::Versions::create_version
+#[cfg(feature = "versions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -31027,6 +33229,7 @@ pub struct CreateVersionOperationMetadata {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "versions")]
 impl CreateVersionOperationMetadata {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -31039,6 +33242,7 @@ impl CreateVersionOperationMetadata {
     }
 }
 
+#[cfg(feature = "versions")]
 impl wkt::message::Message for CreateVersionOperationMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateVersionOperationMetadata"
@@ -31046,6 +33250,7 @@ impl wkt::message::Message for CreateVersionOperationMetadata {
 }
 
 /// Represents a version of a flow.
+#[cfg(feature = "versions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -31088,6 +33293,7 @@ pub struct Version {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "versions")]
 impl Version {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -31154,6 +33360,7 @@ impl Version {
     }
 }
 
+#[cfg(feature = "versions")]
 impl wkt::message::Message for Version {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Version"
@@ -31161,6 +33368,7 @@ impl wkt::message::Message for Version {
 }
 
 /// Defines additional types related to [Version].
+#[cfg(feature = "versions")]
 pub mod version {
     #[allow(unused_imports)]
     use super::*;
@@ -31180,6 +33388,7 @@ pub mod version {
     /// guidelines.
     ///
     /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[cfg(feature = "versions")]
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum State {
@@ -31199,6 +33408,7 @@ pub mod version {
     }
 
     #[doc(hidden)]
+    #[cfg(feature = "versions")]
     pub mod state {
         #[allow(unused_imports)]
         use super::*;
@@ -31206,6 +33416,7 @@ pub mod version {
         pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
     }
 
+    #[cfg(feature = "versions")]
     impl State {
         /// Gets the enum value.
         ///
@@ -31236,6 +33447,7 @@ pub mod version {
         }
     }
 
+    #[cfg(feature = "versions")]
     impl std::default::Default for State {
         fn default() -> Self {
             use std::convert::From;
@@ -31243,12 +33455,14 @@ pub mod version {
         }
     }
 
+    #[cfg(feature = "versions")]
     impl std::fmt::Display for State {
         fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
             wkt::internal::display_enum(f, self.name(), self.value())
         }
     }
 
+    #[cfg(feature = "versions")]
     impl std::convert::From<i32> for State {
         fn from(value: i32) -> Self {
             match value {
@@ -31263,6 +33477,7 @@ pub mod version {
         }
     }
 
+    #[cfg(feature = "versions")]
     impl std::convert::From<&str> for State {
         fn from(value: &str) -> Self {
             use std::string::ToString;
@@ -31278,6 +33493,7 @@ pub mod version {
         }
     }
 
+    #[cfg(feature = "versions")]
     impl serde::ser::Serialize for State {
         fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
         where
@@ -31293,6 +33509,7 @@ pub mod version {
         }
     }
 
+    #[cfg(feature = "versions")]
     impl<'de> serde::de::Deserialize<'de> for State {
         fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
         where
@@ -31309,6 +33526,7 @@ pub mod version {
 /// [Versions.ListVersions][google.cloud.dialogflow.cx.v3.Versions.ListVersions].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.ListVersions]: crate::client::Versions::list_versions
+#[cfg(feature = "versions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -31338,6 +33556,7 @@ pub struct ListVersionsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "versions")]
 impl ListVersionsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -31362,6 +33581,7 @@ impl ListVersionsRequest {
     }
 }
 
+#[cfg(feature = "versions")]
 impl wkt::message::Message for ListVersionsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListVersionsRequest"
@@ -31372,6 +33592,7 @@ impl wkt::message::Message for ListVersionsRequest {
 /// [Versions.ListVersions][google.cloud.dialogflow.cx.v3.Versions.ListVersions].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.ListVersions]: crate::client::Versions::list_versions
+#[cfg(feature = "versions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -31394,6 +33615,7 @@ pub struct ListVersionsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "versions")]
 impl ListVersionsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -31417,12 +33639,14 @@ impl ListVersionsResponse {
     }
 }
 
+#[cfg(feature = "versions")]
 impl wkt::message::Message for ListVersionsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListVersionsResponse"
     }
 }
 
+#[cfg(feature = "versions")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListVersionsResponse {
     type PageItem = crate::model::Version;
@@ -31441,6 +33665,7 @@ impl gax::paginator::internal::PageableResponse for ListVersionsResponse {
 /// [Versions.GetVersion][google.cloud.dialogflow.cx.v3.Versions.GetVersion].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.GetVersion]: crate::client::Versions::get_version
+#[cfg(feature = "versions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -31459,6 +33684,7 @@ pub struct GetVersionRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "versions")]
 impl GetVersionRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -31471,6 +33697,7 @@ impl GetVersionRequest {
     }
 }
 
+#[cfg(feature = "versions")]
 impl wkt::message::Message for GetVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetVersionRequest"
@@ -31481,6 +33708,7 @@ impl wkt::message::Message for GetVersionRequest {
 /// [Versions.CreateVersion][google.cloud.dialogflow.cx.v3.Versions.CreateVersion].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.CreateVersion]: crate::client::Versions::create_version
+#[cfg(feature = "versions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -31504,6 +33732,7 @@ pub struct CreateVersionRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "versions")]
 impl CreateVersionRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -31534,6 +33763,7 @@ impl CreateVersionRequest {
     }
 }
 
+#[cfg(feature = "versions")]
 impl wkt::message::Message for CreateVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateVersionRequest"
@@ -31544,6 +33774,7 @@ impl wkt::message::Message for CreateVersionRequest {
 /// [Versions.UpdateVersion][google.cloud.dialogflow.cx.v3.Versions.UpdateVersion].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.UpdateVersion]: crate::client::Versions::update_version
+#[cfg(feature = "versions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -31562,6 +33793,7 @@ pub struct UpdateVersionRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "versions")]
 impl UpdateVersionRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -31604,6 +33836,7 @@ impl UpdateVersionRequest {
     }
 }
 
+#[cfg(feature = "versions")]
 impl wkt::message::Message for UpdateVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateVersionRequest"
@@ -31614,6 +33847,7 @@ impl wkt::message::Message for UpdateVersionRequest {
 /// [Versions.DeleteVersion][google.cloud.dialogflow.cx.v3.Versions.DeleteVersion].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.DeleteVersion]: crate::client::Versions::delete_version
+#[cfg(feature = "versions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -31632,6 +33866,7 @@ pub struct DeleteVersionRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "versions")]
 impl DeleteVersionRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -31644,6 +33879,7 @@ impl DeleteVersionRequest {
     }
 }
 
+#[cfg(feature = "versions")]
 impl wkt::message::Message for DeleteVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteVersionRequest"
@@ -31654,6 +33890,7 @@ impl wkt::message::Message for DeleteVersionRequest {
 /// [Versions.LoadVersion][google.cloud.dialogflow.cx.v3.Versions.LoadVersion].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.LoadVersion]: crate::client::Versions::load_version
+#[cfg(feature = "versions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -31680,6 +33917,7 @@ pub struct LoadVersionRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "versions")]
 impl LoadVersionRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -31698,6 +33936,7 @@ impl LoadVersionRequest {
     }
 }
 
+#[cfg(feature = "versions")]
 impl wkt::message::Message for LoadVersionRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.LoadVersionRequest"
@@ -31708,6 +33947,7 @@ impl wkt::message::Message for LoadVersionRequest {
 /// [Versions.CompareVersions][google.cloud.dialogflow.cx.v3.Versions.CompareVersions].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.CompareVersions]: crate::client::Versions::compare_versions
+#[cfg(feature = "versions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -31745,6 +33985,7 @@ pub struct CompareVersionsRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "versions")]
 impl CompareVersionsRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -31769,6 +34010,7 @@ impl CompareVersionsRequest {
     }
 }
 
+#[cfg(feature = "versions")]
 impl wkt::message::Message for CompareVersionsRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CompareVersionsRequest"
@@ -31779,6 +34021,7 @@ impl wkt::message::Message for CompareVersionsRequest {
 /// [Versions.CompareVersions][google.cloud.dialogflow.cx.v3.Versions.CompareVersions].
 ///
 /// [google.cloud.dialogflow.cx.v3.Versions.CompareVersions]: crate::client::Versions::compare_versions
+#[cfg(feature = "versions")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -31802,6 +34045,7 @@ pub struct CompareVersionsResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "versions")]
 impl CompareVersionsResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -31844,6 +34088,7 @@ impl CompareVersionsResponse {
     }
 }
 
+#[cfg(feature = "versions")]
 impl wkt::message::Message for CompareVersionsResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CompareVersionsResponse"
@@ -31854,6 +34099,7 @@ impl wkt::message::Message for CompareVersionsResponse {
 /// allow the developer to use the data extracted by Dialogflow's natural
 /// language processing to generate dynamic responses, validate collected data,
 /// or trigger actions on the backend.
+#[cfg(any(feature = "environments", feature = "webhooks",))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -31897,6 +34143,7 @@ pub struct Webhook {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(any(feature = "environments", feature = "webhooks",))]
 impl Webhook {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -32011,6 +34258,7 @@ impl Webhook {
     }
 }
 
+#[cfg(any(feature = "environments", feature = "webhooks",))]
 impl wkt::message::Message for Webhook {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.Webhook"
@@ -32018,11 +34266,13 @@ impl wkt::message::Message for Webhook {
 }
 
 /// Defines additional types related to [Webhook].
+#[cfg(any(feature = "environments", feature = "webhooks",))]
 pub mod webhook {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents configuration for a generic web service.
+    #[cfg(any(feature = "environments", feature = "webhooks",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -32113,6 +34363,7 @@ pub mod webhook {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "environments", feature = "webhooks",))]
     impl GenericWebService {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -32234,6 +34485,7 @@ pub mod webhook {
         }
     }
 
+    #[cfg(any(feature = "environments", feature = "webhooks",))]
     impl wkt::message::Message for GenericWebService {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Webhook.GenericWebService"
@@ -32241,12 +34493,14 @@ pub mod webhook {
     }
 
     /// Defines additional types related to [GenericWebService].
+    #[cfg(any(feature = "environments", feature = "webhooks",))]
     pub mod generic_web_service {
         #[allow(unused_imports)]
         use super::*;
 
         /// Represents configuration of OAuth client credential flow for 3rd party
         /// API authentication.
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -32277,6 +34531,7 @@ pub mod webhook {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl OAuthConfig {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -32321,6 +34576,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl wkt::message::Message for OAuthConfig {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.Webhook.GenericWebService.OAuthConfig"
@@ -32343,6 +34599,7 @@ pub mod webhook {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum ServiceAgentAuth {
@@ -32370,6 +34627,7 @@ pub mod webhook {
         }
 
         #[doc(hidden)]
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         pub mod service_agent_auth {
             #[allow(unused_imports)]
             use super::*;
@@ -32377,6 +34635,7 @@ pub mod webhook {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl ServiceAgentAuth {
             /// Gets the enum value.
             ///
@@ -32409,6 +34668,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl std::default::Default for ServiceAgentAuth {
             fn default() -> Self {
                 use std::convert::From;
@@ -32416,6 +34676,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl std::fmt::Display for ServiceAgentAuth {
             fn fmt(
                 &self,
@@ -32425,6 +34686,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl std::convert::From<i32> for ServiceAgentAuth {
             fn from(value: i32) -> Self {
                 match value {
@@ -32439,6 +34701,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl std::convert::From<&str> for ServiceAgentAuth {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -32454,6 +34717,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl serde::ser::Serialize for ServiceAgentAuth {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -32469,6 +34733,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl<'de> serde::de::Deserialize<'de> for ServiceAgentAuth {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -32495,6 +34760,7 @@ pub mod webhook {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum WebhookType {
@@ -32512,6 +34778,7 @@ pub mod webhook {
         }
 
         #[doc(hidden)]
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         pub mod webhook_type {
             #[allow(unused_imports)]
             use super::*;
@@ -32519,6 +34786,7 @@ pub mod webhook {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl WebhookType {
             /// Gets the enum value.
             ///
@@ -32547,6 +34815,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl std::default::Default for WebhookType {
             fn default() -> Self {
                 use std::convert::From;
@@ -32554,6 +34823,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl std::fmt::Display for WebhookType {
             fn fmt(
                 &self,
@@ -32563,6 +34833,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl std::convert::From<i32> for WebhookType {
             fn from(value: i32) -> Self {
                 match value {
@@ -32576,6 +34847,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl std::convert::From<&str> for WebhookType {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -32590,6 +34862,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl serde::ser::Serialize for WebhookType {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -32604,6 +34877,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl<'de> serde::de::Deserialize<'de> for WebhookType {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -32630,6 +34904,7 @@ pub mod webhook {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum HttpMethod {
@@ -32657,6 +34932,7 @@ pub mod webhook {
         }
 
         #[doc(hidden)]
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         pub mod http_method {
             #[allow(unused_imports)]
             use super::*;
@@ -32664,6 +34940,7 @@ pub mod webhook {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl HttpMethod {
             /// Gets the enum value.
             ///
@@ -32702,6 +34979,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl std::default::Default for HttpMethod {
             fn default() -> Self {
                 use std::convert::From;
@@ -32709,6 +34987,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl std::fmt::Display for HttpMethod {
             fn fmt(
                 &self,
@@ -32718,6 +34997,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl std::convert::From<i32> for HttpMethod {
             fn from(value: i32) -> Self {
                 match value {
@@ -32736,6 +35016,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl std::convert::From<&str> for HttpMethod {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -32755,6 +35036,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl serde::ser::Serialize for HttpMethod {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -32774,6 +35056,7 @@ pub mod webhook {
             }
         }
 
+        #[cfg(any(feature = "environments", feature = "webhooks",))]
         impl<'de> serde::de::Deserialize<'de> for HttpMethod {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -32788,6 +35071,7 @@ pub mod webhook {
 
     /// Represents configuration for a [Service
     /// Directory](https://cloud.google.com/service-directory) service.
+    #[cfg(any(feature = "environments", feature = "webhooks",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -32811,6 +35095,7 @@ pub mod webhook {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(any(feature = "environments", feature = "webhooks",))]
     impl ServiceDirectoryConfig {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -32841,6 +35126,7 @@ pub mod webhook {
         }
     }
 
+    #[cfg(any(feature = "environments", feature = "webhooks",))]
     impl wkt::message::Message for ServiceDirectoryConfig {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.Webhook.ServiceDirectoryConfig"
@@ -32848,6 +35134,7 @@ pub mod webhook {
     }
 
     /// Required. The webhook configuration.
+    #[cfg(any(feature = "environments", feature = "webhooks",))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(rename_all = "camelCase")]
@@ -32865,6 +35152,7 @@ pub mod webhook {
 /// [Webhooks.ListWebhooks][google.cloud.dialogflow.cx.v3.Webhooks.ListWebhooks].
 ///
 /// [google.cloud.dialogflow.cx.v3.Webhooks.ListWebhooks]: crate::client::Webhooks::list_webhooks
+#[cfg(feature = "webhooks")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -32891,6 +35179,7 @@ pub struct ListWebhooksRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "webhooks")]
 impl ListWebhooksRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -32915,6 +35204,7 @@ impl ListWebhooksRequest {
     }
 }
 
+#[cfg(feature = "webhooks")]
 impl wkt::message::Message for ListWebhooksRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListWebhooksRequest"
@@ -32925,6 +35215,7 @@ impl wkt::message::Message for ListWebhooksRequest {
 /// [Webhooks.ListWebhooks][google.cloud.dialogflow.cx.v3.Webhooks.ListWebhooks].
 ///
 /// [google.cloud.dialogflow.cx.v3.Webhooks.ListWebhooks]: crate::client::Webhooks::list_webhooks
+#[cfg(feature = "webhooks")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -32946,6 +35237,7 @@ pub struct ListWebhooksResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "webhooks")]
 impl ListWebhooksResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -32969,12 +35261,14 @@ impl ListWebhooksResponse {
     }
 }
 
+#[cfg(feature = "webhooks")]
 impl wkt::message::Message for ListWebhooksResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.ListWebhooksResponse"
     }
 }
 
+#[cfg(feature = "webhooks")]
 #[doc(hidden)]
 impl gax::paginator::internal::PageableResponse for ListWebhooksResponse {
     type PageItem = crate::model::Webhook;
@@ -32993,6 +35287,7 @@ impl gax::paginator::internal::PageableResponse for ListWebhooksResponse {
 /// [Webhooks.GetWebhook][google.cloud.dialogflow.cx.v3.Webhooks.GetWebhook].
 ///
 /// [google.cloud.dialogflow.cx.v3.Webhooks.GetWebhook]: crate::client::Webhooks::get_webhook
+#[cfg(feature = "webhooks")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -33009,6 +35304,7 @@ pub struct GetWebhookRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "webhooks")]
 impl GetWebhookRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -33021,6 +35317,7 @@ impl GetWebhookRequest {
     }
 }
 
+#[cfg(feature = "webhooks")]
 impl wkt::message::Message for GetWebhookRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.GetWebhookRequest"
@@ -33031,6 +35328,7 @@ impl wkt::message::Message for GetWebhookRequest {
 /// [Webhooks.CreateWebhook][google.cloud.dialogflow.cx.v3.Webhooks.CreateWebhook].
 ///
 /// [google.cloud.dialogflow.cx.v3.Webhooks.CreateWebhook]: crate::client::Webhooks::create_webhook
+#[cfg(feature = "webhooks")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -33050,6 +35348,7 @@ pub struct CreateWebhookRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "webhooks")]
 impl CreateWebhookRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -33080,6 +35379,7 @@ impl CreateWebhookRequest {
     }
 }
 
+#[cfg(feature = "webhooks")]
 impl wkt::message::Message for CreateWebhookRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.CreateWebhookRequest"
@@ -33090,6 +35390,7 @@ impl wkt::message::Message for CreateWebhookRequest {
 /// [Webhooks.UpdateWebhook][google.cloud.dialogflow.cx.v3.Webhooks.UpdateWebhook].
 ///
 /// [google.cloud.dialogflow.cx.v3.Webhooks.UpdateWebhook]: crate::client::Webhooks::update_webhook
+#[cfg(feature = "webhooks")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -33108,6 +35409,7 @@ pub struct UpdateWebhookRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "webhooks")]
 impl UpdateWebhookRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -33150,6 +35452,7 @@ impl UpdateWebhookRequest {
     }
 }
 
+#[cfg(feature = "webhooks")]
 impl wkt::message::Message for UpdateWebhookRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.UpdateWebhookRequest"
@@ -33160,6 +35463,7 @@ impl wkt::message::Message for UpdateWebhookRequest {
 /// [Webhooks.DeleteWebhook][google.cloud.dialogflow.cx.v3.Webhooks.DeleteWebhook].
 ///
 /// [google.cloud.dialogflow.cx.v3.Webhooks.DeleteWebhook]: crate::client::Webhooks::delete_webhook
+#[cfg(feature = "webhooks")]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -33193,6 +35497,7 @@ pub struct DeleteWebhookRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(feature = "webhooks")]
 impl DeleteWebhookRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -33211,6 +35516,7 @@ impl DeleteWebhookRequest {
     }
 }
 
+#[cfg(feature = "webhooks")]
 impl wkt::message::Message for DeleteWebhookRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.DeleteWebhookRequest"
@@ -33222,6 +35528,25 @@ impl wkt::message::Message for DeleteWebhookRequest {
 ///
 /// You may see undocumented fields in an actual request. These fields are used
 /// internally by Dialogflow and should be ignored.
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -33295,6 +35620,25 @@ pub struct WebhookRequest {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 impl WebhookRequest {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -33578,6 +35922,25 @@ impl WebhookRequest {
     }
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 impl wkt::message::Message for WebhookRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.WebhookRequest"
@@ -33585,11 +35948,49 @@ impl wkt::message::Message for WebhookRequest {
 }
 
 /// Defines additional types related to [WebhookRequest].
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 pub mod webhook_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents fulfillment information communicated to the webhook.
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -33612,6 +36013,25 @@ pub mod webhook_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     impl FulfillmentInfo {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -33624,6 +36044,25 @@ pub mod webhook_request {
         }
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     impl wkt::message::Message for FulfillmentInfo {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.WebhookRequest.FulfillmentInfo"
@@ -33631,6 +36070,25 @@ pub mod webhook_request {
     }
 
     /// Represents intent information communicated to the webhook.
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -33675,6 +36133,25 @@ pub mod webhook_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     impl IntentInfo {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -33717,6 +36194,25 @@ pub mod webhook_request {
         }
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     impl wkt::message::Message for IntentInfo {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.WebhookRequest.IntentInfo"
@@ -33724,11 +36220,49 @@ pub mod webhook_request {
     }
 
     /// Defines additional types related to [IntentInfo].
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     pub mod intent_info {
         #[allow(unused_imports)]
         use super::*;
 
         /// Represents a value for an intent parameter.
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -33749,6 +36283,25 @@ pub mod webhook_request {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         impl IntentParameterValue {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -33782,6 +36335,25 @@ pub mod webhook_request {
             }
         }
 
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         impl wkt::message::Message for IntentParameterValue {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.WebhookRequest.IntentInfo.IntentParameterValue"
@@ -33790,6 +36362,25 @@ pub mod webhook_request {
     }
 
     /// Represents the result of sentiment analysis.
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -33812,6 +36403,25 @@ pub mod webhook_request {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     impl SentimentAnalysisResult {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -33830,6 +36440,25 @@ pub mod webhook_request {
         }
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     impl wkt::message::Message for SentimentAnalysisResult {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.WebhookRequest.SentimentAnalysisResult"
@@ -33873,6 +36502,25 @@ pub mod webhook_request {
 }
 
 /// The response message for a webhook call.
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -33911,6 +36559,25 @@ pub struct WebhookResponse {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 impl WebhookResponse {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -34053,6 +36720,25 @@ impl WebhookResponse {
     }
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 impl wkt::message::Message for WebhookResponse {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.WebhookResponse"
@@ -34060,11 +36746,49 @@ impl wkt::message::Message for WebhookResponse {
 }
 
 /// Defines additional types related to [WebhookResponse].
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 pub mod webhook_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents a fulfillment response to the user.
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -34084,6 +36808,25 @@ pub mod webhook_response {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     impl FulfillmentResponse {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -34112,6 +36855,25 @@ pub mod webhook_response {
         }
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     impl wkt::message::Message for FulfillmentResponse {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.WebhookResponse.FulfillmentResponse"
@@ -34119,6 +36881,25 @@ pub mod webhook_response {
     }
 
     /// Defines additional types related to [FulfillmentResponse].
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     pub mod fulfillment_response {
         #[allow(unused_imports)]
         use super::*;
@@ -34138,6 +36919,25 @@ pub mod webhook_response {
         /// guidelines.
         ///
         /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum MergeBehavior {
@@ -34157,6 +36957,25 @@ pub mod webhook_response {
         }
 
         #[doc(hidden)]
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         pub mod merge_behavior {
             #[allow(unused_imports)]
             use super::*;
@@ -34164,6 +36983,25 @@ pub mod webhook_response {
             pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
         }
 
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         impl MergeBehavior {
             /// Gets the enum value.
             ///
@@ -34192,6 +37030,25 @@ pub mod webhook_response {
             }
         }
 
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         impl std::default::Default for MergeBehavior {
             fn default() -> Self {
                 use std::convert::From;
@@ -34199,6 +37056,25 @@ pub mod webhook_response {
             }
         }
 
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         impl std::fmt::Display for MergeBehavior {
             fn fmt(
                 &self,
@@ -34208,6 +37084,25 @@ pub mod webhook_response {
             }
         }
 
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         impl std::convert::From<i32> for MergeBehavior {
             fn from(value: i32) -> Self {
                 match value {
@@ -34221,6 +37116,25 @@ pub mod webhook_response {
             }
         }
 
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         impl std::convert::From<&str> for MergeBehavior {
             fn from(value: &str) -> Self {
                 use std::string::ToString;
@@ -34235,6 +37149,25 @@ pub mod webhook_response {
             }
         }
 
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         impl serde::ser::Serialize for MergeBehavior {
             fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
             where
@@ -34249,6 +37182,25 @@ pub mod webhook_response {
             }
         }
 
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         impl<'de> serde::de::Deserialize<'de> for MergeBehavior {
             fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
             where
@@ -34280,6 +37232,25 @@ pub mod webhook_response {
 }
 
 /// Represents page information communicated to and from the webhook.
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -34322,6 +37293,25 @@ pub struct PageInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 impl PageInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -34358,6 +37348,25 @@ impl PageInfo {
     }
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 impl wkt::message::Message for PageInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.PageInfo"
@@ -34365,11 +37374,49 @@ impl wkt::message::Message for PageInfo {
 }
 
 /// Defines additional types related to [PageInfo].
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 pub mod page_info {
     #[allow(unused_imports)]
     use super::*;
 
     /// Represents form information.
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -34391,6 +37438,25 @@ pub mod page_info {
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     impl FormInfo {
         pub fn new() -> Self {
             std::default::Default::default()
@@ -34408,6 +37474,25 @@ pub mod page_info {
         }
     }
 
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     impl wkt::message::Message for FormInfo {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.dialogflow.cx.v3.PageInfo.FormInfo"
@@ -34415,11 +37500,49 @@ pub mod page_info {
     }
 
     /// Defines additional types related to [FormInfo].
+    #[cfg(all(
+        feature = "agents",
+        feature = "changelogs",
+        feature = "deployments",
+        feature = "entity-types",
+        feature = "environments",
+        feature = "experiments",
+        feature = "flows",
+        feature = "generators",
+        feature = "intents",
+        feature = "pages",
+        feature = "security-settings-service",
+        feature = "session-entity-types",
+        feature = "sessions",
+        feature = "test-cases",
+        feature = "transition-route-groups",
+        feature = "versions",
+        feature = "webhooks",
+    ))]
     pub mod form_info {
         #[allow(unused_imports)]
         use super::*;
 
         /// Represents parameter information.
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         #[serde_with::serde_as]
         #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
         #[serde(default, rename_all = "camelCase")]
@@ -34495,6 +37618,25 @@ pub mod page_info {
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         impl ParameterInfo {
             pub fn new() -> Self {
                 std::default::Default::default()
@@ -34553,6 +37695,25 @@ pub mod page_info {
             }
         }
 
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         impl wkt::message::Message for ParameterInfo {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.dialogflow.cx.v3.PageInfo.FormInfo.ParameterInfo"
@@ -34560,6 +37721,25 @@ pub mod page_info {
         }
 
         /// Defines additional types related to [ParameterInfo].
+        #[cfg(all(
+            feature = "agents",
+            feature = "changelogs",
+            feature = "deployments",
+            feature = "entity-types",
+            feature = "environments",
+            feature = "experiments",
+            feature = "flows",
+            feature = "generators",
+            feature = "intents",
+            feature = "pages",
+            feature = "security-settings-service",
+            feature = "session-entity-types",
+            feature = "sessions",
+            feature = "test-cases",
+            feature = "transition-route-groups",
+            feature = "versions",
+            feature = "webhooks",
+        ))]
         pub mod parameter_info {
             #[allow(unused_imports)]
             use super::*;
@@ -34579,6 +37759,25 @@ pub mod page_info {
             /// guidelines.
             ///
             /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+            #[cfg(all(
+                feature = "agents",
+                feature = "changelogs",
+                feature = "deployments",
+                feature = "entity-types",
+                feature = "environments",
+                feature = "experiments",
+                feature = "flows",
+                feature = "generators",
+                feature = "intents",
+                feature = "pages",
+                feature = "security-settings-service",
+                feature = "session-entity-types",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+                feature = "versions",
+                feature = "webhooks",
+            ))]
             #[derive(Clone, Debug, PartialEq)]
             #[non_exhaustive]
             pub enum ParameterState {
@@ -34600,6 +37799,25 @@ pub mod page_info {
             }
 
             #[doc(hidden)]
+            #[cfg(all(
+                feature = "agents",
+                feature = "changelogs",
+                feature = "deployments",
+                feature = "entity-types",
+                feature = "environments",
+                feature = "experiments",
+                feature = "flows",
+                feature = "generators",
+                feature = "intents",
+                feature = "pages",
+                feature = "security-settings-service",
+                feature = "session-entity-types",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+                feature = "versions",
+                feature = "webhooks",
+            ))]
             pub mod parameter_state {
                 #[allow(unused_imports)]
                 use super::*;
@@ -34607,6 +37825,25 @@ pub mod page_info {
                 pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
             }
 
+            #[cfg(all(
+                feature = "agents",
+                feature = "changelogs",
+                feature = "deployments",
+                feature = "entity-types",
+                feature = "environments",
+                feature = "experiments",
+                feature = "flows",
+                feature = "generators",
+                feature = "intents",
+                feature = "pages",
+                feature = "security-settings-service",
+                feature = "session-entity-types",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+                feature = "versions",
+                feature = "webhooks",
+            ))]
             impl ParameterState {
                 /// Gets the enum value.
                 ///
@@ -34639,6 +37876,25 @@ pub mod page_info {
                 }
             }
 
+            #[cfg(all(
+                feature = "agents",
+                feature = "changelogs",
+                feature = "deployments",
+                feature = "entity-types",
+                feature = "environments",
+                feature = "experiments",
+                feature = "flows",
+                feature = "generators",
+                feature = "intents",
+                feature = "pages",
+                feature = "security-settings-service",
+                feature = "session-entity-types",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+                feature = "versions",
+                feature = "webhooks",
+            ))]
             impl std::default::Default for ParameterState {
                 fn default() -> Self {
                     use std::convert::From;
@@ -34646,6 +37902,25 @@ pub mod page_info {
                 }
             }
 
+            #[cfg(all(
+                feature = "agents",
+                feature = "changelogs",
+                feature = "deployments",
+                feature = "entity-types",
+                feature = "environments",
+                feature = "experiments",
+                feature = "flows",
+                feature = "generators",
+                feature = "intents",
+                feature = "pages",
+                feature = "security-settings-service",
+                feature = "session-entity-types",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+                feature = "versions",
+                feature = "webhooks",
+            ))]
             impl std::fmt::Display for ParameterState {
                 fn fmt(
                     &self,
@@ -34655,6 +37930,25 @@ pub mod page_info {
                 }
             }
 
+            #[cfg(all(
+                feature = "agents",
+                feature = "changelogs",
+                feature = "deployments",
+                feature = "entity-types",
+                feature = "environments",
+                feature = "experiments",
+                feature = "flows",
+                feature = "generators",
+                feature = "intents",
+                feature = "pages",
+                feature = "security-settings-service",
+                feature = "session-entity-types",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+                feature = "versions",
+                feature = "webhooks",
+            ))]
             impl std::convert::From<i32> for ParameterState {
                 fn from(value: i32) -> Self {
                     match value {
@@ -34669,6 +37963,25 @@ pub mod page_info {
                 }
             }
 
+            #[cfg(all(
+                feature = "agents",
+                feature = "changelogs",
+                feature = "deployments",
+                feature = "entity-types",
+                feature = "environments",
+                feature = "experiments",
+                feature = "flows",
+                feature = "generators",
+                feature = "intents",
+                feature = "pages",
+                feature = "security-settings-service",
+                feature = "session-entity-types",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+                feature = "versions",
+                feature = "webhooks",
+            ))]
             impl std::convert::From<&str> for ParameterState {
                 fn from(value: &str) -> Self {
                     use std::string::ToString;
@@ -34684,6 +37997,25 @@ pub mod page_info {
                 }
             }
 
+            #[cfg(all(
+                feature = "agents",
+                feature = "changelogs",
+                feature = "deployments",
+                feature = "entity-types",
+                feature = "environments",
+                feature = "experiments",
+                feature = "flows",
+                feature = "generators",
+                feature = "intents",
+                feature = "pages",
+                feature = "security-settings-service",
+                feature = "session-entity-types",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+                feature = "versions",
+                feature = "webhooks",
+            ))]
             impl serde::ser::Serialize for ParameterState {
                 fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
                 where
@@ -34699,6 +38031,25 @@ pub mod page_info {
                 }
             }
 
+            #[cfg(all(
+                feature = "agents",
+                feature = "changelogs",
+                feature = "deployments",
+                feature = "entity-types",
+                feature = "environments",
+                feature = "experiments",
+                feature = "flows",
+                feature = "generators",
+                feature = "intents",
+                feature = "pages",
+                feature = "security-settings-service",
+                feature = "session-entity-types",
+                feature = "sessions",
+                feature = "test-cases",
+                feature = "transition-route-groups",
+                feature = "versions",
+                feature = "webhooks",
+            ))]
             impl<'de> serde::de::Deserialize<'de> for ParameterState {
                 fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
                 where
@@ -34713,6 +38064,25 @@ pub mod page_info {
 }
 
 /// Represents session information communicated to and from the webhook.
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -34756,6 +38126,25 @@ pub struct SessionInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 impl SessionInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -34780,6 +38169,25 @@ impl SessionInfo {
     }
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 impl wkt::message::Message for SessionInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.SessionInfo"
@@ -34787,6 +38195,25 @@ impl wkt::message::Message for SessionInfo {
 }
 
 /// Represents the language information of the request.
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -34815,6 +38242,25 @@ pub struct LanguageInfo {
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 impl LanguageInfo {
     pub fn new() -> Self {
         std::default::Default::default()
@@ -34845,6 +38291,25 @@ impl LanguageInfo {
     }
 }
 
+#[cfg(all(
+    feature = "agents",
+    feature = "changelogs",
+    feature = "deployments",
+    feature = "entity-types",
+    feature = "environments",
+    feature = "experiments",
+    feature = "flows",
+    feature = "generators",
+    feature = "intents",
+    feature = "pages",
+    feature = "security-settings-service",
+    feature = "session-entity-types",
+    feature = "sessions",
+    feature = "test-cases",
+    feature = "transition-route-groups",
+    feature = "versions",
+    feature = "webhooks",
+))]
 impl wkt::message::Message for LanguageInfo {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.dialogflow.cx.v3.LanguageInfo"
@@ -34870,6 +38335,7 @@ impl wkt::message::Message for LanguageInfo {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum AudioEncoding {
@@ -34917,6 +38383,7 @@ pub enum AudioEncoding {
 }
 
 #[doc(hidden)]
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 pub mod audio_encoding {
     #[allow(unused_imports)]
     use super::*;
@@ -34924,6 +38391,7 @@ pub mod audio_encoding {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl AudioEncoding {
     /// Gets the enum value.
     ///
@@ -34966,6 +38434,7 @@ impl AudioEncoding {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl std::default::Default for AudioEncoding {
     fn default() -> Self {
         use std::convert::From;
@@ -34973,12 +38442,14 @@ impl std::default::Default for AudioEncoding {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl std::fmt::Display for AudioEncoding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl std::convert::From<i32> for AudioEncoding {
     fn from(value: i32) -> Self {
         match value {
@@ -34998,6 +38469,7 @@ impl std::convert::From<i32> for AudioEncoding {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl std::convert::From<&str> for AudioEncoding {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -35018,6 +38490,7 @@ impl std::convert::From<&str> for AudioEncoding {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl serde::ser::Serialize for AudioEncoding {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -35038,6 +38511,7 @@ impl serde::ser::Serialize for AudioEncoding {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl<'de> serde::de::Deserialize<'de> for AudioEncoding {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -35073,6 +38547,7 @@ impl<'de> serde::de::Deserialize<'de> for AudioEncoding {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum SpeechModelVariant {
@@ -35110,6 +38585,7 @@ pub enum SpeechModelVariant {
 }
 
 #[doc(hidden)]
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 pub mod speech_model_variant {
     #[allow(unused_imports)]
     use super::*;
@@ -35117,6 +38593,7 @@ pub mod speech_model_variant {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl SpeechModelVariant {
     /// Gets the enum value.
     ///
@@ -35147,6 +38624,7 @@ impl SpeechModelVariant {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl std::default::Default for SpeechModelVariant {
     fn default() -> Self {
         use std::convert::From;
@@ -35154,12 +38632,14 @@ impl std::default::Default for SpeechModelVariant {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl std::fmt::Display for SpeechModelVariant {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl std::convert::From<i32> for SpeechModelVariant {
     fn from(value: i32) -> Self {
         match value {
@@ -35174,6 +38654,7 @@ impl std::convert::From<i32> for SpeechModelVariant {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl std::convert::From<&str> for SpeechModelVariant {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -35189,6 +38670,7 @@ impl std::convert::From<&str> for SpeechModelVariant {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl serde::ser::Serialize for SpeechModelVariant {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -35204,6 +38686,7 @@ impl serde::ser::Serialize for SpeechModelVariant {
     }
 }
 
+#[cfg(any(feature = "sessions", feature = "test-cases",))]
 impl<'de> serde::de::Deserialize<'de> for SpeechModelVariant {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -35231,6 +38714,7 @@ impl<'de> serde::de::Deserialize<'de> for SpeechModelVariant {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(any(feature = "agents", feature = "sessions",))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum SsmlVoiceGender {
@@ -35251,6 +38735,7 @@ pub enum SsmlVoiceGender {
 }
 
 #[doc(hidden)]
+#[cfg(any(feature = "agents", feature = "sessions",))]
 pub mod ssml_voice_gender {
     #[allow(unused_imports)]
     use super::*;
@@ -35258,6 +38743,7 @@ pub mod ssml_voice_gender {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(any(feature = "agents", feature = "sessions",))]
 impl SsmlVoiceGender {
     /// Gets the enum value.
     ///
@@ -35288,6 +38774,7 @@ impl SsmlVoiceGender {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "sessions",))]
 impl std::default::Default for SsmlVoiceGender {
     fn default() -> Self {
         use std::convert::From;
@@ -35295,12 +38782,14 @@ impl std::default::Default for SsmlVoiceGender {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "sessions",))]
 impl std::fmt::Display for SsmlVoiceGender {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(any(feature = "agents", feature = "sessions",))]
 impl std::convert::From<i32> for SsmlVoiceGender {
     fn from(value: i32) -> Self {
         match value {
@@ -35315,6 +38804,7 @@ impl std::convert::From<i32> for SsmlVoiceGender {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "sessions",))]
 impl std::convert::From<&str> for SsmlVoiceGender {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -35330,6 +38820,7 @@ impl std::convert::From<&str> for SsmlVoiceGender {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "sessions",))]
 impl serde::ser::Serialize for SsmlVoiceGender {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -35345,6 +38836,7 @@ impl serde::ser::Serialize for SsmlVoiceGender {
     }
 }
 
+#[cfg(any(feature = "agents", feature = "sessions",))]
 impl<'de> serde::de::Deserialize<'de> for SsmlVoiceGender {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -35371,6 +38863,7 @@ impl<'de> serde::de::Deserialize<'de> for SsmlVoiceGender {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(feature = "sessions")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum OutputAudioEncoding {
@@ -35400,6 +38893,7 @@ pub enum OutputAudioEncoding {
 }
 
 #[doc(hidden)]
+#[cfg(feature = "sessions")]
 pub mod output_audio_encoding {
     #[allow(unused_imports)]
     use super::*;
@@ -35407,6 +38901,7 @@ pub mod output_audio_encoding {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(feature = "sessions")]
 impl OutputAudioEncoding {
     /// Gets the enum value.
     ///
@@ -35443,6 +38938,7 @@ impl OutputAudioEncoding {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl std::default::Default for OutputAudioEncoding {
     fn default() -> Self {
         use std::convert::From;
@@ -35450,12 +38946,14 @@ impl std::default::Default for OutputAudioEncoding {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl std::fmt::Display for OutputAudioEncoding {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(feature = "sessions")]
 impl std::convert::From<i32> for OutputAudioEncoding {
     fn from(value: i32) -> Self {
         match value {
@@ -35473,6 +38971,7 @@ impl std::convert::From<i32> for OutputAudioEncoding {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl std::convert::From<&str> for OutputAudioEncoding {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -35491,6 +38990,7 @@ impl std::convert::From<&str> for OutputAudioEncoding {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl serde::ser::Serialize for OutputAudioEncoding {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -35509,6 +39009,7 @@ impl serde::ser::Serialize for OutputAudioEncoding {
     }
 }
 
+#[cfg(feature = "sessions")]
 impl<'de> serde::de::Deserialize<'de> for OutputAudioEncoding {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -35536,6 +39037,12 @@ impl<'de> serde::de::Deserialize<'de> for OutputAudioEncoding {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum DataStoreType {
@@ -35556,6 +39063,12 @@ pub enum DataStoreType {
 }
 
 #[doc(hidden)]
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 pub mod data_store_type {
     #[allow(unused_imports)]
     use super::*;
@@ -35563,6 +39076,12 @@ pub mod data_store_type {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl DataStoreType {
     /// Gets the enum value.
     ///
@@ -35593,6 +39112,12 @@ impl DataStoreType {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl std::default::Default for DataStoreType {
     fn default() -> Self {
         use std::convert::From;
@@ -35600,12 +39125,24 @@ impl std::default::Default for DataStoreType {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl std::fmt::Display for DataStoreType {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl std::convert::From<i32> for DataStoreType {
     fn from(value: i32) -> Self {
         match value {
@@ -35620,6 +39157,12 @@ impl std::convert::From<i32> for DataStoreType {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl std::convert::From<&str> for DataStoreType {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -35635,6 +39178,12 @@ impl std::convert::From<&str> for DataStoreType {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl serde::ser::Serialize for DataStoreType {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -35650,6 +39199,12 @@ impl serde::ser::Serialize for DataStoreType {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl<'de> serde::de::Deserialize<'de> for DataStoreType {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -35676,6 +39231,12 @@ impl<'de> serde::de::Deserialize<'de> for DataStoreType {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum DocumentProcessingMode {
@@ -35695,6 +39256,12 @@ pub enum DocumentProcessingMode {
 }
 
 #[doc(hidden)]
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 pub mod document_processing_mode {
     #[allow(unused_imports)]
     use super::*;
@@ -35702,6 +39269,12 @@ pub mod document_processing_mode {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl DocumentProcessingMode {
     /// Gets the enum value.
     ///
@@ -35730,6 +39303,12 @@ impl DocumentProcessingMode {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl std::default::Default for DocumentProcessingMode {
     fn default() -> Self {
         use std::convert::From;
@@ -35737,12 +39316,24 @@ impl std::default::Default for DocumentProcessingMode {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl std::fmt::Display for DocumentProcessingMode {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl std::convert::From<i32> for DocumentProcessingMode {
     fn from(value: i32) -> Self {
         match value {
@@ -35756,6 +39347,12 @@ impl std::convert::From<i32> for DocumentProcessingMode {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl std::convert::From<&str> for DocumentProcessingMode {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -35770,6 +39367,12 @@ impl std::convert::From<&str> for DocumentProcessingMode {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl serde::ser::Serialize for DocumentProcessingMode {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -35784,6 +39387,12 @@ impl serde::ser::Serialize for DocumentProcessingMode {
     }
 }
 
+#[cfg(any(
+    feature = "flows",
+    feature = "pages",
+    feature = "sessions",
+    feature = "test-cases",
+))]
 impl<'de> serde::de::Deserialize<'de> for DocumentProcessingMode {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -35812,6 +39421,7 @@ impl<'de> serde::de::Deserialize<'de> for DocumentProcessingMode {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(feature = "flows")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum ImportStrategy {
@@ -35838,6 +39448,7 @@ pub enum ImportStrategy {
 }
 
 #[doc(hidden)]
+#[cfg(feature = "flows")]
 pub mod import_strategy {
     #[allow(unused_imports)]
     use super::*;
@@ -35845,6 +39456,7 @@ pub mod import_strategy {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(feature = "flows")]
 impl ImportStrategy {
     /// Gets the enum value.
     ///
@@ -35879,6 +39491,7 @@ impl ImportStrategy {
     }
 }
 
+#[cfg(feature = "flows")]
 impl std::default::Default for ImportStrategy {
     fn default() -> Self {
         use std::convert::From;
@@ -35886,12 +39499,14 @@ impl std::default::Default for ImportStrategy {
     }
 }
 
+#[cfg(feature = "flows")]
 impl std::fmt::Display for ImportStrategy {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(feature = "flows")]
 impl std::convert::From<i32> for ImportStrategy {
     fn from(value: i32) -> Self {
         match value {
@@ -35908,6 +39523,7 @@ impl std::convert::From<i32> for ImportStrategy {
     }
 }
 
+#[cfg(feature = "flows")]
 impl std::convert::From<&str> for ImportStrategy {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -35925,6 +39541,7 @@ impl std::convert::From<&str> for ImportStrategy {
     }
 }
 
+#[cfg(feature = "flows")]
 impl serde::ser::Serialize for ImportStrategy {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -35942,6 +39559,7 @@ impl serde::ser::Serialize for ImportStrategy {
     }
 }
 
+#[cfg(feature = "flows")]
 impl<'de> serde::de::Deserialize<'de> for ImportStrategy {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -35970,6 +39588,7 @@ impl<'de> serde::de::Deserialize<'de> for ImportStrategy {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(feature = "intents")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum IntentView {
@@ -35987,6 +39606,7 @@ pub enum IntentView {
 }
 
 #[doc(hidden)]
+#[cfg(feature = "intents")]
 pub mod intent_view {
     #[allow(unused_imports)]
     use super::*;
@@ -35994,6 +39614,7 @@ pub mod intent_view {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(feature = "intents")]
 impl IntentView {
     /// Gets the enum value.
     ///
@@ -36022,6 +39643,7 @@ impl IntentView {
     }
 }
 
+#[cfg(feature = "intents")]
 impl std::default::Default for IntentView {
     fn default() -> Self {
         use std::convert::From;
@@ -36029,12 +39651,14 @@ impl std::default::Default for IntentView {
     }
 }
 
+#[cfg(feature = "intents")]
 impl std::fmt::Display for IntentView {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(feature = "intents")]
 impl std::convert::From<i32> for IntentView {
     fn from(value: i32) -> Self {
         match value {
@@ -36048,6 +39672,7 @@ impl std::convert::From<i32> for IntentView {
     }
 }
 
+#[cfg(feature = "intents")]
 impl std::convert::From<&str> for IntentView {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -36062,6 +39687,7 @@ impl std::convert::From<&str> for IntentView {
     }
 }
 
+#[cfg(feature = "intents")]
 impl serde::ser::Serialize for IntentView {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -36076,6 +39702,7 @@ impl serde::ser::Serialize for IntentView {
     }
 }
 
+#[cfg(feature = "intents")]
 impl<'de> serde::de::Deserialize<'de> for IntentView {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
@@ -36102,6 +39729,7 @@ impl<'de> serde::de::Deserialize<'de> for IntentView {
 /// guidelines.
 ///
 /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[cfg(feature = "test-cases")]
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
 pub enum TestResult {
@@ -36119,6 +39747,7 @@ pub enum TestResult {
 }
 
 #[doc(hidden)]
+#[cfg(feature = "test-cases")]
 pub mod test_result {
     #[allow(unused_imports)]
     use super::*;
@@ -36126,6 +39755,7 @@ pub mod test_result {
     pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
 }
 
+#[cfg(feature = "test-cases")]
 impl TestResult {
     /// Gets the enum value.
     ///
@@ -36154,6 +39784,7 @@ impl TestResult {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl std::default::Default for TestResult {
     fn default() -> Self {
         use std::convert::From;
@@ -36161,12 +39792,14 @@ impl std::default::Default for TestResult {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl std::fmt::Display for TestResult {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
         wkt::internal::display_enum(f, self.name(), self.value())
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl std::convert::From<i32> for TestResult {
     fn from(value: i32) -> Self {
         match value {
@@ -36180,6 +39813,7 @@ impl std::convert::From<i32> for TestResult {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl std::convert::From<&str> for TestResult {
     fn from(value: &str) -> Self {
         use std::string::ToString;
@@ -36194,6 +39828,7 @@ impl std::convert::From<&str> for TestResult {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl serde::ser::Serialize for TestResult {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
@@ -36208,6 +39843,7 @@ impl serde::ser::Serialize for TestResult {
     }
 }
 
+#[cfg(feature = "test-cases")]
 impl<'de> serde::de::Deserialize<'de> for TestResult {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where

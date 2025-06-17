@@ -18,3 +18,4 @@ service-config = 'google/cloud/dialogflow/v2/dialogflow_v2.yaml'
 
 [codec]
 copyright-year = '2025'
+per-service-features = 'true'
