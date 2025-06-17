@@ -26,6 +26,67 @@ keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
 
+[features]
+default = [
+    "agents",
+    "answer-records",
+    "contexts",
+    "conversations",
+    "conversation-datasets",
+    "conversation-models",
+    "conversation-profiles",
+    "documents",
+    "encryption-spec-service",
+    "entity-types",
+    "environments",
+    "fulfillments",
+    "generators",
+    "intents",
+    "knowledge-bases",
+    "participants",
+    "sessions",
+    "session-entity-types",
+    "versions",
+]
+# Enables `client::Agents` and all the types it depends on.
+agents = []
+# Enables `client::AnswerRecords` and all the types it depends on.
+answer-records = []
+# Enables `client::Contexts` and all the types it depends on.
+contexts = []
+# Enables `client::Conversations` and all the types it depends on.
+conversations = []
+# Enables `client::ConversationDatasets` and all the types it depends on.
+conversation-datasets = []
+# Enables `client::ConversationModels` and all the types it depends on.
+conversation-models = []
+# Enables `client::ConversationProfiles` and all the types it depends on.
+conversation-profiles = []
+# Enables `client::Documents` and all the types it depends on.
+documents = []
+# Enables `client::EncryptionSpecService` and all the types it depends on.
+encryption-spec-service = []
+# Enables `client::EntityTypes` and all the types it depends on.
+entity-types = []
+# Enables `client::Environments` and all the types it depends on.
+environments = []
+# Enables `client::Fulfillments` and all the types it depends on.
+fulfillments = []
+# Enables `client::Generators` and all the types it depends on.
+generators = []
+# Enables `client::Intents` and all the types it depends on.
+intents = []
+# Enables `client::KnowledgeBases` and all the types it depends on.
+knowledge-bases = []
+# Enables `client::Participants` and all the types it depends on.
+participants = []
+# Enables `client::Sessions` and all the types it depends on.
+sessions = []
+# Enables `client::SessionEntityTypes` and all the types it depends on.
+session-entity-types = []
+# Enables `client::Versions` and all the types it depends on.
+versions = []
+
 [dependencies]
 async-trait.workspace = true
 bytes.workspace      = true

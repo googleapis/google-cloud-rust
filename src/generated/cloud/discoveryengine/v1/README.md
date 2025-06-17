@@ -13,25 +13,25 @@ Discovery Engine API.
 
 The main types to work with this crate are the clients:
 
-- [CmekConfigService]
-- [CompletionService]
-- [ControlService]
-- [ConversationalSearchService]
-- [DataStoreService]
-- [DocumentService]
-- [EngineService]
-- [GroundedGenerationService]
-- [IdentityMappingStoreService]
-- [ProjectService]
-- [RankService]
-- [RecommendationService]
-- [SchemaService]
-- [SearchService]
-- [SearchTuningService]
-- [ServingConfigService]
-- [SiteSearchEngineService]
-- [UserEventService]
-- [UserLicenseService]
+- [CmekConfigService]: enabled by the `cmek-config-service` feature.
+- [CompletionService]: enabled by the `completion-service` feature.
+- [ControlService]: enabled by the `control-service` feature.
+- [ConversationalSearchService]: enabled by the `conversational-search-service` feature.
+- [DataStoreService]: enabled by the `data-store-service` feature.
+- [DocumentService]: enabled by the `document-service` feature.
+- [EngineService]: enabled by the `engine-service` feature.
+- [GroundedGenerationService]: enabled by the `grounded-generation-service` feature.
+- [IdentityMappingStoreService]: enabled by the `identity-mapping-store-service` feature.
+- [ProjectService]: enabled by the `project-service` feature.
+- [RankService]: enabled by the `rank-service` feature.
+- [RecommendationService]: enabled by the `recommendation-service` feature.
+- [SchemaService]: enabled by the `schema-service` feature.
+- [SearchService]: enabled by the `search-service` feature.
+- [SearchTuningService]: enabled by the `search-tuning-service` feature.
+- [ServingConfigService]: enabled by the `serving-config-service` feature.
+- [SiteSearchEngineService]: enabled by the `site-search-engine-service` feature.
+- [UserEventService]: enabled by the `user-event-service` feature.
+- [UserLicenseService]: enabled by the `user-license-service` feature.
 
 ## More Information
 

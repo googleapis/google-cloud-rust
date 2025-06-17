@@ -59,11 +59,14 @@
 /// create one and the reuse it.  You do not need to wrap `Agents` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "agents")]
+#[cfg_attr(docsrs, doc(cfg(feature = "agents")))]
 #[derive(Clone, Debug)]
 pub struct Agents {
     inner: std::sync::Arc<dyn super::stub::dynamic::Agents>,
 }
 
+#[cfg(feature = "agents")]
 impl Agents {
     /// Returns a builder for [Agents].
     ///
@@ -371,11 +374,14 @@ impl Agents {
 /// create one and the reuse it.  You do not need to wrap `AnswerRecords` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "answer-records")]
+#[cfg_attr(docsrs, doc(cfg(feature = "answer-records")))]
 #[derive(Clone, Debug)]
 pub struct AnswerRecords {
     inner: std::sync::Arc<dyn super::stub::dynamic::AnswerRecords>,
 }
 
+#[cfg(feature = "answer-records")]
 impl AnswerRecords {
     /// Returns a builder for [AnswerRecords].
     ///
@@ -518,11 +524,14 @@ impl AnswerRecords {
 /// create one and the reuse it.  You do not need to wrap `Contexts` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "contexts")]
+#[cfg_attr(docsrs, doc(cfg(feature = "contexts")))]
 #[derive(Clone, Debug)]
 pub struct Contexts {
     inner: std::sync::Arc<dyn super::stub::dynamic::Contexts>,
 }
 
+#[cfg(feature = "contexts")]
 impl Contexts {
     /// Returns a builder for [Contexts].
     ///
@@ -687,11 +696,14 @@ impl Contexts {
 /// create one and the reuse it.  You do not need to wrap `Conversations` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "conversations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "conversations")))]
 #[derive(Clone, Debug)]
 pub struct Conversations {
     inner: std::sync::Arc<dyn super::stub::dynamic::Conversations>,
 }
 
+#[cfg(feature = "conversations")]
 impl Conversations {
     /// Returns a builder for [Conversations].
     ///
@@ -923,11 +935,14 @@ impl Conversations {
 /// create one and the reuse it.  You do not need to wrap `ConversationDatasets` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "conversation-datasets")]
+#[cfg_attr(docsrs, doc(cfg(feature = "conversation-datasets")))]
 #[derive(Clone, Debug)]
 pub struct ConversationDatasets {
     inner: std::sync::Arc<dyn super::stub::dynamic::ConversationDatasets>,
 }
 
+#[cfg(feature = "conversation-datasets")]
 impl ConversationDatasets {
     /// Returns a builder for [ConversationDatasets].
     ///
@@ -1163,11 +1178,14 @@ impl ConversationDatasets {
 /// create one and the reuse it.  You do not need to wrap `ConversationModels` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "conversation-models")]
+#[cfg_attr(docsrs, doc(cfg(feature = "conversation-models")))]
 #[derive(Clone, Debug)]
 pub struct ConversationModels {
     inner: std::sync::Arc<dyn super::stub::dynamic::ConversationModels>,
 }
 
+#[cfg(feature = "conversation-models")]
 impl ConversationModels {
     /// Returns a builder for [ConversationModels].
     ///
@@ -1472,11 +1490,14 @@ impl ConversationModels {
 /// create one and the reuse it.  You do not need to wrap `ConversationProfiles` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "conversation-profiles")]
+#[cfg_attr(docsrs, doc(cfg(feature = "conversation-profiles")))]
 #[derive(Clone, Debug)]
 pub struct ConversationProfiles {
     inner: std::sync::Arc<dyn super::stub::dynamic::ConversationProfiles>,
 }
 
+#[cfg(feature = "conversation-profiles")]
 impl ConversationProfiles {
     /// Returns a builder for [ConversationProfiles].
     ///
@@ -1736,11 +1757,14 @@ impl ConversationProfiles {
 /// create one and the reuse it.  You do not need to wrap `Documents` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "documents")]
+#[cfg_attr(docsrs, doc(cfg(feature = "documents")))]
 #[derive(Clone, Debug)]
 pub struct Documents {
     inner: std::sync::Arc<dyn super::stub::dynamic::Documents>,
 }
 
+#[cfg(feature = "documents")]
 impl Documents {
     /// Returns a builder for [Documents].
     ///
@@ -2046,11 +2070,14 @@ impl Documents {
 /// create one and the reuse it.  You do not need to wrap `EncryptionSpecService` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "encryption-spec-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "encryption-spec-service")))]
 #[derive(Clone, Debug)]
 pub struct EncryptionSpecService {
     inner: std::sync::Arc<dyn super::stub::dynamic::EncryptionSpecService>,
 }
 
+#[cfg(feature = "encryption-spec-service")]
 impl EncryptionSpecService {
     /// Returns a builder for [EncryptionSpecService].
     ///
@@ -2213,11 +2240,14 @@ impl EncryptionSpecService {
 /// create one and the reuse it.  You do not need to wrap `EntityTypes` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "entity-types")]
+#[cfg_attr(docsrs, doc(cfg(feature = "entity-types")))]
 #[derive(Clone, Debug)]
 pub struct EntityTypes {
     inner: std::sync::Arc<dyn super::stub::dynamic::EntityTypes>,
 }
 
+#[cfg(feature = "entity-types")]
 impl EntityTypes {
     /// Returns a builder for [EntityTypes].
     ///
@@ -2534,11 +2564,14 @@ impl EntityTypes {
 /// create one and the reuse it.  You do not need to wrap `Environments` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "environments")]
+#[cfg_attr(docsrs, doc(cfg(feature = "environments")))]
 #[derive(Clone, Debug)]
 pub struct Environments {
     inner: std::sync::Arc<dyn super::stub::dynamic::Environments>,
 }
 
+#[cfg(feature = "environments")]
 impl Environments {
     /// Returns a builder for [Environments].
     ///
@@ -2711,11 +2744,14 @@ impl Environments {
 /// create one and the reuse it.  You do not need to wrap `Fulfillments` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "fulfillments")]
+#[cfg_attr(docsrs, doc(cfg(feature = "fulfillments")))]
 #[derive(Clone, Debug)]
 pub struct Fulfillments {
     inner: std::sync::Arc<dyn super::stub::dynamic::Fulfillments>,
 }
 
+#[cfg(feature = "fulfillments")]
 impl Fulfillments {
     /// Returns a builder for [Fulfillments].
     ///
@@ -2859,11 +2895,14 @@ impl Fulfillments {
 /// create one and the reuse it.  You do not need to wrap `Generators` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "generators")]
+#[cfg_attr(docsrs, doc(cfg(feature = "generators")))]
 #[derive(Clone, Debug)]
 pub struct Generators {
     inner: std::sync::Arc<dyn super::stub::dynamic::Generators>,
 }
 
+#[cfg(feature = "generators")]
 impl Generators {
     /// Returns a builder for [Generators].
     ///
@@ -3020,11 +3059,14 @@ impl Generators {
 /// create one and the reuse it.  You do not need to wrap `Intents` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "intents")]
+#[cfg_attr(docsrs, doc(cfg(feature = "intents")))]
 #[derive(Clone, Debug)]
 pub struct Intents {
     inner: std::sync::Arc<dyn super::stub::dynamic::Intents>,
 }
 
+#[cfg(feature = "intents")]
 impl Intents {
     /// Returns a builder for [Intents].
     ///
@@ -3252,11 +3294,14 @@ impl Intents {
 /// create one and the reuse it.  You do not need to wrap `KnowledgeBases` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "knowledge-bases")]
+#[cfg_attr(docsrs, doc(cfg(feature = "knowledge-bases")))]
 #[derive(Clone, Debug)]
 pub struct KnowledgeBases {
     inner: std::sync::Arc<dyn super::stub::dynamic::KnowledgeBases>,
 }
 
+#[cfg(feature = "knowledge-bases")]
 impl KnowledgeBases {
     /// Returns a builder for [KnowledgeBases].
     ///
@@ -3413,11 +3458,14 @@ impl KnowledgeBases {
 /// create one and the reuse it.  You do not need to wrap `Participants` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "participants")]
+#[cfg_attr(docsrs, doc(cfg(feature = "participants")))]
 #[derive(Clone, Debug)]
 pub struct Participants {
     inner: std::sync::Arc<dyn super::stub::dynamic::Participants>,
 }
 
+#[cfg(feature = "participants")]
 impl Participants {
     /// Returns a builder for [Participants].
     ///
@@ -3603,11 +3651,14 @@ impl Participants {
 /// create one and the reuse it.  You do not need to wrap `Sessions` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "sessions")]
+#[cfg_attr(docsrs, doc(cfg(feature = "sessions")))]
 #[derive(Clone, Debug)]
 pub struct Sessions {
     inner: std::sync::Arc<dyn super::stub::dynamic::Sessions>,
 }
 
+#[cfg(feature = "sessions")]
 impl Sessions {
     /// Returns a builder for [Sessions].
     ///
@@ -3761,11 +3812,14 @@ impl Sessions {
 /// create one and the reuse it.  You do not need to wrap `SessionEntityTypes` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "session-entity-types")]
+#[cfg_attr(docsrs, doc(cfg(feature = "session-entity-types")))]
 #[derive(Clone, Debug)]
 pub struct SessionEntityTypes {
     inner: std::sync::Arc<dyn super::stub::dynamic::SessionEntityTypes>,
 }
 
+#[cfg(feature = "session-entity-types")]
 impl SessionEntityTypes {
     /// Returns a builder for [SessionEntityTypes].
     ///
@@ -3958,11 +4012,14 @@ impl SessionEntityTypes {
 /// create one and the reuse it.  You do not need to wrap `Versions` in
 /// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
 /// already uses an `Arc` internally.
+#[cfg(feature = "versions")]
+#[cfg_attr(docsrs, doc(cfg(feature = "versions")))]
 #[derive(Clone, Debug)]
 pub struct Versions {
     inner: std::sync::Arc<dyn super::stub::dynamic::Versions>,
 }
 
+#[cfg(feature = "versions")]
 impl Versions {
     /// Returns a builder for [Versions].
     ///

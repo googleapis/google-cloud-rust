@@ -37,6 +37,8 @@ pub(crate) mod dynamic;
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "agents")]
+#[cfg_attr(docsrs, doc(cfg(feature = "agents")))]
 pub trait Agents: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Agents::get_agent].
     fn get_agent(
@@ -222,6 +224,8 @@ pub trait Agents: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "answer-records")]
+#[cfg_attr(docsrs, doc(cfg(feature = "answer-records")))]
 pub trait AnswerRecords: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::AnswerRecords::list_answer_records].
     fn list_answer_records(
@@ -310,6 +314,8 @@ pub trait AnswerRecords: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "contexts")]
+#[cfg_attr(docsrs, doc(cfg(feature = "contexts")))]
 pub trait Contexts: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Contexts::list_contexts].
     fn list_contexts(
@@ -438,6 +444,8 @@ pub trait Contexts: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "conversations")]
+#[cfg_attr(docsrs, doc(cfg(feature = "conversations")))]
 pub trait Conversations: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Conversations::create_conversation].
     fn create_conversation(
@@ -633,6 +641,8 @@ pub trait Conversations: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "conversation-datasets")]
+#[cfg_attr(docsrs, doc(cfg(feature = "conversation-datasets")))]
 pub trait ConversationDatasets: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ConversationDatasets::create_conversation_dataset].
     fn create_conversation_dataset(
@@ -778,6 +788,8 @@ pub trait ConversationDatasets: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "conversation-models")]
+#[cfg_attr(docsrs, doc(cfg(feature = "conversation-models")))]
 pub trait ConversationModels: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ConversationModels::create_conversation_model].
     fn create_conversation_model(
@@ -969,6 +981,8 @@ pub trait ConversationModels: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "conversation-profiles")]
+#[cfg_attr(docsrs, doc(cfg(feature = "conversation-profiles")))]
 pub trait ConversationProfiles: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ConversationProfiles::list_conversation_profiles].
     fn list_conversation_profiles(
@@ -1134,6 +1148,8 @@ pub trait ConversationProfiles: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "documents")]
+#[cfg_attr(docsrs, doc(cfg(feature = "documents")))]
 pub trait Documents: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Documents::list_documents].
     fn list_documents(
@@ -1310,6 +1326,8 @@ pub trait Documents: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "encryption-spec-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "encryption-spec-service")))]
 pub trait EncryptionSpecService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::EncryptionSpecService::get_encryption_spec].
     fn get_encryption_spec(
@@ -1420,6 +1438,8 @@ pub trait EncryptionSpecService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "entity-types")]
+#[cfg_attr(docsrs, doc(cfg(feature = "entity-types")))]
 pub trait EntityTypes: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::EntityTypes::list_entity_types].
     fn list_entity_types(
@@ -1616,6 +1636,8 @@ pub trait EntityTypes: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "environments")]
+#[cfg_attr(docsrs, doc(cfg(feature = "environments")))]
 pub trait Environments: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Environments::list_environments].
     fn list_environments(
@@ -1746,6 +1768,8 @@ pub trait Environments: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "fulfillments")]
+#[cfg_attr(docsrs, doc(cfg(feature = "fulfillments")))]
 pub trait Fulfillments: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Fulfillments::get_fulfillment].
     fn get_fulfillment(
@@ -1834,6 +1858,8 @@ pub trait Fulfillments: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "generators")]
+#[cfg_attr(docsrs, doc(cfg(feature = "generators")))]
 pub trait Generators: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Generators::create_generator].
     fn create_generator(
@@ -1953,6 +1979,8 @@ pub trait Generators: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "intents")]
+#[cfg_attr(docsrs, doc(cfg(feature = "intents")))]
 pub trait Intents: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Intents::list_intents].
     fn list_intents(
@@ -2116,6 +2144,8 @@ pub trait Intents: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "knowledge-bases")]
+#[cfg_attr(docsrs, doc(cfg(feature = "knowledge-bases")))]
 pub trait KnowledgeBases: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::KnowledgeBases::list_knowledge_bases].
     fn list_knowledge_bases(
@@ -2235,6 +2265,8 @@ pub trait KnowledgeBases: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "participants")]
+#[cfg_attr(docsrs, doc(cfg(feature = "participants")))]
 pub trait Participants: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Participants::create_participant].
     fn create_participant(
@@ -2402,6 +2434,8 @@ pub trait Participants: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "sessions")]
+#[cfg_attr(docsrs, doc(cfg(feature = "sessions")))]
 pub trait Sessions: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Sessions::detect_intent].
     fn detect_intent(
@@ -2479,6 +2513,8 @@ pub trait Sessions: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "session-entity-types")]
+#[cfg_attr(docsrs, doc(cfg(feature = "session-entity-types")))]
 pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SessionEntityTypes::list_session_entity_types].
     fn list_session_entity_types(
@@ -2600,6 +2636,8 @@ pub trait SessionEntityTypes: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "versions")]
+#[cfg_attr(docsrs, doc(cfg(feature = "versions")))]
 pub trait Versions: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::Versions::list_versions].
     fn list_versions(

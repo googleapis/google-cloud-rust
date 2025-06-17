@@ -37,6 +37,8 @@ pub(crate) mod dynamic;
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "cmek-config-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "cmek-config-service")))]
 pub trait CmekConfigService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::CmekConfigService::update_cmek_config].
     fn update_cmek_config(
@@ -147,6 +149,8 @@ pub trait CmekConfigService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "completion-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "completion-service")))]
 pub trait CompletionService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::CompletionService::complete_query].
     fn complete_query(
@@ -268,6 +272,8 @@ pub trait CompletionService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "control-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "control-service")))]
 pub trait ControlService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ControlService::create_control].
     fn create_control(
@@ -365,6 +371,8 @@ pub trait ControlService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "conversational-search-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "conversational-search-service")))]
 pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ConversationalSearchService::converse_conversation].
     fn converse_conversation(
@@ -548,6 +556,8 @@ pub trait ConversationalSearchService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "data-store-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "data-store-service")))]
 pub trait DataStoreService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DataStoreService::create_data_store].
     fn create_data_store(
@@ -669,6 +679,8 @@ pub trait DataStoreService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "document-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "document-service")))]
 pub trait DocumentService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::DocumentService::get_document].
     fn get_document(
@@ -823,6 +835,8 @@ pub trait DocumentService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "engine-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "engine-service")))]
 pub trait EngineService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::EngineService::create_engine].
     fn create_engine(
@@ -944,6 +958,8 @@ pub trait EngineService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "grounded-generation-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "grounded-generation-service")))]
 pub trait GroundedGenerationService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::GroundedGenerationService::generate_grounded_content].
     fn generate_grounded_content(
@@ -1012,6 +1028,8 @@ pub trait GroundedGenerationService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "identity-mapping-store-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "identity-mapping-store-service")))]
 pub trait IdentityMappingStoreService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::IdentityMappingStoreService::create_identity_mapping_store].
     fn create_identity_mapping_store(
@@ -1157,6 +1175,8 @@ pub trait IdentityMappingStoreService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "project-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "project-service")))]
 pub trait ProjectService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ProjectService::provision_project].
     fn provision_project(
@@ -1234,6 +1254,8 @@ pub trait ProjectService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "rank-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "rank-service")))]
 pub trait RankService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RankService::rank].
     fn rank(
@@ -1289,6 +1311,8 @@ pub trait RankService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "recommendation-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "recommendation-service")))]
 pub trait RecommendationService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::RecommendationService::recommend].
     fn recommend(
@@ -1344,6 +1368,8 @@ pub trait RecommendationService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "schema-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "schema-service")))]
 pub trait SchemaService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SchemaService::get_schema].
     fn get_schema(
@@ -1465,6 +1491,8 @@ pub trait SchemaService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "search-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "search-service")))]
 pub trait SearchService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SearchService::search].
     fn search(
@@ -1531,6 +1559,8 @@ pub trait SearchService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "search-tuning-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "search-tuning-service")))]
 pub trait SearchTuningService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SearchTuningService::train_custom_model].
     fn train_custom_model(
@@ -1619,6 +1649,8 @@ pub trait SearchTuningService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "serving-config-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "serving-config-service")))]
 pub trait ServingConfigService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::ServingConfigService::update_serving_config].
     fn update_serving_config(
@@ -1674,6 +1706,8 @@ pub trait ServingConfigService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "site-search-engine-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "site-search-engine-service")))]
 pub trait SiteSearchEngineService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::SiteSearchEngineService::get_site_search_engine].
     fn get_site_search_engine(
@@ -1907,6 +1941,8 @@ pub trait SiteSearchEngineService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "user-event-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "user-event-service")))]
 pub trait UserEventService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::UserEventService::write_user_event].
     fn write_user_event(
@@ -2017,6 +2053,8 @@ pub trait UserEventService: std::fmt::Debug + Send + Sync {
 /// too. To avoid breaking applications the trait provides a default
 /// implementation of each method. Most of these implementations just return an
 /// error.
+#[cfg(feature = "user-license-service")]
+#[cfg_attr(docsrs, doc(cfg(feature = "user-license-service")))]
 pub trait UserLicenseService: std::fmt::Debug + Send + Sync {
     /// Implements [super::client::UserLicenseService::list_user_licenses].
     fn list_user_licenses(
