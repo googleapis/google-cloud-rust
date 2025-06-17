@@ -55,7 +55,7 @@ mod test {
     #[test_case(r#"{"singular": {}, "singular": {}}"#)]
     #[test_case(r#"{"optional": {}, "optional": {}}"#)]
     #[test_case(r#"{"repeated": [], "repeated": []}"#)]
-    #[test_case(r#"{"map": {},      "map": {}}"#)]
+    #[test_case(r#"{"map":      {}, "map":      {}}"#)]
     fn reject_duplicate_fields(input: &str) -> Result {
         let err = serde_json::from_str::<__MessageWithRecursion>(input).unwrap_err();
         assert!(err.is_data(), "{err:?}");

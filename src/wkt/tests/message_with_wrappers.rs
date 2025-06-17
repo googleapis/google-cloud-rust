@@ -338,8 +338,8 @@ mod test {
     #[test_case::test_matrix(
         [
             r#"{"singular": null, "singular": null}"#,
-            r#"{"repeated": [], "repeated": []}"#,
-            r#"{"map": {}, "map": {}}"#,
+            r#"{"repeated": [],   "repeated": []}"#,
+            r#"{"map":      {},   "map":      {}}"#,
         ],
         [
             __MessageWithBoolValue(MessageWithBoolValue::new()),

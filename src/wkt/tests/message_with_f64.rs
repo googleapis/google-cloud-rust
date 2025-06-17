@@ -91,7 +91,7 @@ mod test {
     #[test_case(r#"{"singular": 0,  "singular": 0}"#)]
     #[test_case(r#"{"optional": 0,  "optional": 0}"#)]
     #[test_case(r#"{"repeated": [], "repeated": []}"#)]
-    #[test_case(r#"{"map": {}, "map": {}}"#)]
+    #[test_case(r#"{"map":      {}, "map":      {}}"#)]
     fn reject_duplicate_fields(input: &str) -> Result {
         let err = serde_json::from_str::<__MessageWithF64>(input).unwrap_err();
         assert!(err.is_data(), "{err:?}");

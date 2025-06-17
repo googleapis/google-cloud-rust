@@ -59,15 +59,15 @@ mod test {
         Ok(())
     }
 
-    #[test_case(r#"{"singular": true,  "singular": true}"#)]
-    #[test_case(r#"{"optional": false, "optional": false}"#)]
-    #[test_case(r#"{"repeated": [],    "repeated": []}"#)]
-    #[test_case(r#"{"mapKey": {},      "mapKey": {}}"#)]
-    #[test_case(r#"{"mapKey": {},      "map_key": {}}"#)]
-    #[test_case(r#"{"mapValue": {},    "mapValue": {}}"#)]
-    #[test_case(r#"{"mapValue": {},    "map_value": {}}"#)]
-    #[test_case(r#"{"mapKeyValue": {}, "mapKeyValue": {}}"#)]
-    #[test_case(r#"{"mapKeyValue": {}, "map_key_value": {}}"#)]
+    #[test_case(r#"{"singular":    true,  "singular":      true}"#)]
+    #[test_case(r#"{"optional":    false, "optional":      false}"#)]
+    #[test_case(r#"{"repeated":    [],    "repeated":      []}"#)]
+    #[test_case(r#"{"mapKey":      {},    "mapKey":        {}}"#)]
+    #[test_case(r#"{"mapKey":      {},    "map_key":       {}}"#)]
+    #[test_case(r#"{"mapValue":    {},    "mapValue":      {}}"#)]
+    #[test_case(r#"{"mapValue":    {},    "map_value":     {}}"#)]
+    #[test_case(r#"{"mapKeyValue": {},    "mapKeyValue":   {}}"#)]
+    #[test_case(r#"{"mapKeyValue": {},    "map_key_value": {}}"#)]
     fn reject_duplicate_fields(input: &str) -> Result {
         let err = serde_json::from_str::<__MessageWithBool>(input).unwrap_err();
         assert!(err.is_data(), "{err:?}");
