@@ -18600,6 +18600,17 @@ pub struct Routine {
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_governance_type: crate::model::routine::DataGovernanceType,
 
+    /// Optional. Options for Python UDF.
+    /// [Preview](https://cloud.google.com/products/#product-launch-stages)
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub python_options: std::option::Option<crate::model::PythonOptions>,
+
+    /// Optional. Options for the runtime of the external system executing the
+    /// routine. This field is only applicable for Python UDFs.
+    /// [Preview](https://cloud.google.com/products/#product-launch-stages)
+    #[serde(skip_serializing_if = "std::option::Option::is_none")]
+    pub external_runtime_options: std::option::Option<crate::model::ExternalRuntimeOptions>,
+
     #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
@@ -18813,6 +18824,42 @@ impl Routine {
         v: T,
     ) -> Self {
         self.data_governance_type = v.into();
+        self
+    }
+
+    /// Sets the value of [python_options][crate::model::Routine::python_options].
+    pub fn set_python_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::PythonOptions>,
+    {
+        self.python_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [python_options][crate::model::Routine::python_options].
+    pub fn set_or_clear_python_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::PythonOptions>,
+    {
+        self.python_options = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [external_runtime_options][crate::model::Routine::external_runtime_options].
+    pub fn set_external_runtime_options<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::ExternalRuntimeOptions>,
+    {
+        self.external_runtime_options = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [external_runtime_options][crate::model::Routine::external_runtime_options].
+    pub fn set_or_clear_external_runtime_options<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::ExternalRuntimeOptions>,
+    {
+        self.external_runtime_options = v.map(|x| x.into());
         self
     }
 }
@@ -20008,6 +20055,147 @@ pub mod routine {
                 ".google.cloud.bigquery.v2.Routine.DataGovernanceType",
             ))
         }
+    }
+}
+
+/// Options for a user-defined Python function.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct PythonOptions {
+    /// Required. The entry point function in the user's Python code.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub entry_point: std::string::String,
+
+    /// Optional. A list of package names along with versions to be installed.
+    /// Follows requirements.txt syntax (e.g. numpy==2.0, permutation,
+    /// urllib3<2.2.1)
+    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
+    pub packages: std::vec::Vec<std::string::String>,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl PythonOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [entry_point][crate::model::PythonOptions::entry_point].
+    pub fn set_entry_point<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.entry_point = v.into();
+        self
+    }
+
+    /// Sets the value of [packages][crate::model::PythonOptions::packages].
+    pub fn set_packages<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.packages = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for PythonOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.PythonOptions"
+    }
+}
+
+/// Options for the runtime of the external system.
+#[serde_with::serde_as]
+#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
+#[serde(default, rename_all = "camelCase")]
+#[non_exhaustive]
+pub struct ExternalRuntimeOptions {
+    /// Optional. Amount of memory provisioned for the container instance. Format:
+    /// {number}{unit} where unit is one of "M", "G", "Mi" and "Gi" (e.g. 1G,
+    /// 512Mi). If not specified, the default value is 512Mi.
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub container_memory: std::string::String,
+
+    /// Optional. Amount of CPU provisioned for the container instance. If not
+    /// specified, the default value is 0.33 vCPUs.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
+    pub container_cpu: f64,
+
+    /// Optional. Fully qualified name of the connection whose service account will
+    /// be used to execute the code in the container. Format:
+    /// ```"projects/{project_id}/locations/{location_id}/connections/{connection_id}"```
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub runtime_connection: std::string::String,
+
+    /// Optional. Maximum number of rows in each batch sent to the external
+    /// runtime. If absent or if 0, BigQuery dynamically decides the number of rows
+    /// in a batch.
+    #[serde(skip_serializing_if = "wkt::internal::is_default")]
+    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
+    pub max_batching_rows: i64,
+
+    /// Optional. Language runtime version (e.g. python-3.11).
+    #[serde(skip_serializing_if = "std::string::String::is_empty")]
+    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
+    pub runtime_version: std::string::String,
+
+    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ExternalRuntimeOptions {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [container_memory][crate::model::ExternalRuntimeOptions::container_memory].
+    pub fn set_container_memory<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.container_memory = v.into();
+        self
+    }
+
+    /// Sets the value of [container_cpu][crate::model::ExternalRuntimeOptions::container_cpu].
+    pub fn set_container_cpu<T: std::convert::Into<f64>>(mut self, v: T) -> Self {
+        self.container_cpu = v.into();
+        self
+    }
+
+    /// Sets the value of [runtime_connection][crate::model::ExternalRuntimeOptions::runtime_connection].
+    pub fn set_runtime_connection<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.runtime_connection = v.into();
+        self
+    }
+
+    /// Sets the value of [max_batching_rows][crate::model::ExternalRuntimeOptions::max_batching_rows].
+    pub fn set_max_batching_rows<T: std::convert::Into<i64>>(mut self, v: T) -> Self {
+        self.max_batching_rows = v.into();
+        self
+    }
+
+    /// Sets the value of [runtime_version][crate::model::ExternalRuntimeOptions::runtime_version].
+    pub fn set_runtime_version<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.runtime_version = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ExternalRuntimeOptions {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.bigquery.v2.ExternalRuntimeOptions"
     }
 }
 

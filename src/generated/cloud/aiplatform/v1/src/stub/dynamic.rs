@@ -9575,6 +9575,18 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
+    async fn update_rag_engine_config(
+        &self,
+        req: crate::model::UpdateRagEngineConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn get_rag_engine_config(
+        &self,
+        req: crate::model::GetRagEngineConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::RagEngineConfig>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -9738,6 +9750,24 @@ impl<T: super::VertexRagDataService> VertexRagDataService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_rag_file(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_rag_engine_config(
+        &self,
+        req: crate::model::UpdateRagEngineConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_rag_engine_config(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_rag_engine_config(
+        &self,
+        req: crate::model::GetRagEngineConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::RagEngineConfig>> {
+        T::get_rag_engine_config(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

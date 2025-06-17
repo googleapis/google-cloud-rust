@@ -18427,6 +18427,62 @@ impl super::stub::VertexRagDataService for VertexRagDataService {
             .await
     }
 
+    async fn update_rag_engine_config(
+        &self,
+        req: crate::model::UpdateRagEngineConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}", {
+            let arg = &req
+                .rag_engine_config
+                .as_ref()
+                .ok_or_else(|| gaxi::path_parameter::missing("rag_engine_config"))?
+                .name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("rag_engine_config.name"));
+            }
+            arg
+        },);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::PATCH, path)
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, Some(req.rag_engine_config), options)
+            .await
+    }
+
+    async fn get_rag_engine_config(
+        &self,
+        req: crate::model::GetRagEngineConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::RagEngineConfig>> {
+        let options = gax::options::internal::set_default_idempotency(options, true);
+        let path = format!("/v1/{}", {
+            let arg = &req.name;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("name"));
+            }
+            arg
+        },);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::GET, path)
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner
+            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .await
+    }
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

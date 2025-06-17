@@ -7308,6 +7308,28 @@ pub trait VertexRagDataService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::VertexRagDataService::update_rag_engine_config].
+    fn update_rag_engine_config(
+        &self,
+        _req: crate::model::UpdateRagEngineConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::VertexRagDataService::get_rag_engine_config].
+    fn get_rag_engine_config(
+        &self,
+        _req: crate::model::GetRagEngineConfigRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::RagEngineConfig>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::VertexRagDataService::list_locations].
     fn list_locations(
         &self,
