@@ -119,6 +119,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithEnum {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -166,23 +167,44 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithEnum {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             result.singular =
                                 map.next_value::<crate::generated::message_with_enum::TestEnum>()?;
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             result.optional = map.next_value::<std::option::Option<
                                 crate::generated::message_with_enum::TestEnum,
                             >>()?;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             result.repeated = map.next_value::<std::vec::Vec<crate::generated::message_with_enum::TestEnum>>()?;
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             result.map = map.next_value::<std::collections::HashMap<
                                 std::string::String,
                                 crate::generated::message_with_enum::TestEnum,
@@ -673,6 +695,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __string_contents,
             __string_contents_one,
@@ -731,11 +754,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__string_contents => {
+                            if !fields.insert(__FieldTag::__string_contents) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for string_contents",
+                                ));
+                            }
                             if result.single_string.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `single_string`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents, latest field was stringContents",
@@ -748,6 +777,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             );
                         }
                         __FieldTag::__string_contents_one => {
+                            if !fields.insert(__FieldTag::__string_contents_one) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for string_contents_one",
+                                ));
+                            }
                             if result.two_strings.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `two_strings`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents_one, latest field was stringContentsOne",
@@ -760,6 +794,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             );
                         }
                         __FieldTag::__string_contents_two => {
+                            if !fields.insert(__FieldTag::__string_contents_two) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for string_contents_two",
+                                ));
+                            }
                             if result.two_strings.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `two_strings`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents_two, latest field was stringContentsTwo",
@@ -772,6 +811,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             );
                         }
                         __FieldTag::__message_value => {
+                            if !fields.insert(__FieldTag::__message_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for message_value",
+                                ));
+                            }
                             if result.one_message.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `one_message`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.message_value, latest field was messageValue",
@@ -786,6 +830,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             );
                         }
                         __FieldTag::__another_message => {
+                            if !fields.insert(__FieldTag::__another_message) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for another_message",
+                                ));
+                            }
                             if result.mixed.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.another_message, latest field was anotherMessage",
@@ -800,6 +849,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             );
                         }
                         __FieldTag::__string => {
+                            if !fields.insert(__FieldTag::__string) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for string",
+                                ));
+                            }
                             if result.mixed.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string, latest field was string",
@@ -812,6 +866,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             );
                         }
                         __FieldTag::__duration => {
+                            if !fields.insert(__FieldTag::__duration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for duration",
+                                ));
+                            }
                             if result.mixed.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.duration, latest field was duration",
@@ -922,6 +981,7 @@ pub mod message_with_one_of {
         {
             #[allow(non_camel_case_types)]
             #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
             enum __FieldTag {
                 __parent,
                 Unknown(std::string::String),
@@ -966,11 +1026,17 @@ pub mod message_with_one_of {
                 {
                     #[allow(unused_imports)]
                     use serde::de::Error;
+                    let mut fields = std::collections::HashSet::new();
                     let mut result = Self::Value::new();
                     while let Some(tag) = map.next_key::<__FieldTag>()? {
                         #[allow(clippy::match_single_binding)]
                         match tag {
                             __FieldTag::__parent => {
+                                if !fields.insert(__FieldTag::__parent) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for parent",
+                                    ));
+                                }
                                 result.parent = map.next_value::<std::string::String>()?;
                             }
                             __FieldTag::Unknown(key) => {
@@ -1411,6 +1477,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __null,
             __bool_value,
@@ -1479,11 +1546,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__null => {
+                            if !fields.insert(__FieldTag::__null) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for null",
+                                ));
+                            }
                             if result.complex.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.null, latest field was null",
@@ -1496,6 +1569,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             );
                         }
                         __FieldTag::__bool_value => {
+                            if !fields.insert(__FieldTag::__bool_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bool_value",
+                                ));
+                            }
                             if result.complex.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.bool_value, latest field was boolValue",
@@ -1508,6 +1586,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             );
                         }
                         __FieldTag::__bytes_value => {
+                            if !fields.insert(__FieldTag::__bytes_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bytes_value",
+                                ));
+                            }
                             struct __With(::bytes::Bytes);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -1534,6 +1617,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             );
                         }
                         __FieldTag::__string_value => {
+                            if !fields.insert(__FieldTag::__string_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for string_value",
+                                ));
+                            }
                             if result.complex.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.string_value, latest field was stringValue",
@@ -1546,6 +1634,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             );
                         }
                         __FieldTag::__float_value => {
+                            if !fields.insert(__FieldTag::__float_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for float_value",
+                                ));
+                            }
                             struct __With(f32);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -1570,6 +1663,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             );
                         }
                         __FieldTag::__double_value => {
+                            if !fields.insert(__FieldTag::__double_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for double_value",
+                                ));
+                            }
                             struct __With(f64);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -1594,6 +1692,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             );
                         }
                         __FieldTag::__int => {
+                            if !fields.insert(__FieldTag::__int) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for int",
+                                ));
+                            }
                             struct __With(i32);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -1618,6 +1721,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             );
                         }
                         __FieldTag::__long => {
+                            if !fields.insert(__FieldTag::__long) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for long",
+                                ));
+                            }
                             struct __With(i64);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -1642,6 +1750,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             );
                         }
                         __FieldTag::__enum => {
+                            if !fields.insert(__FieldTag::__enum) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enum",
+                                ));
+                            }
                             if result.complex.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.enum, latest field was enum",
@@ -1654,6 +1767,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             );
                         }
                         __FieldTag::__inner => {
+                            if !fields.insert(__FieldTag::__inner) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for inner",
+                                ));
+                            }
                             if result.complex.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.inner, latest field was inner",
@@ -1668,6 +1786,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             );
                         }
                         __FieldTag::__duration => {
+                            if !fields.insert(__FieldTag::__duration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for duration",
+                                ));
+                            }
                             if result.complex.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.duration, latest field was duration",
@@ -1680,6 +1803,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             );
                         }
                         __FieldTag::__value => {
+                            if !fields.insert(__FieldTag::__value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for value",
+                                ));
+                            }
                             if result.complex.is_some() {
                                 return Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.value, latest field was value",
@@ -1855,6 +1983,7 @@ pub mod message_with_complex_one_of {
         {
             #[allow(non_camel_case_types)]
             #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
             enum __FieldTag {
                 __strings,
                 Unknown(std::string::String),
@@ -1899,11 +2028,17 @@ pub mod message_with_complex_one_of {
                 {
                     #[allow(unused_imports)]
                     use serde::de::Error;
+                    let mut fields = std::collections::HashSet::new();
                     let mut result = Self::Value::new();
                     while let Some(tag) = map.next_key::<__FieldTag>()? {
                         #[allow(clippy::match_single_binding)]
                         match tag {
                             __FieldTag::__strings => {
+                                if !fields.insert(__FieldTag::__strings) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for strings",
+                                    ));
+                                }
                                 result.strings =
                                     map.next_value::<std::vec::Vec<std::string::String>>()?;
                             }
@@ -2191,6 +2326,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF32 {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -2238,11 +2374,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF32 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<f32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -2257,6 +2399,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF32 {
                             result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             struct __With(std::option::Option<f32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -2271,6 +2418,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF32 {
                             result.optional = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<f32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -2288,6 +2440,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF32 {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<std::string::String, f32>,
@@ -2495,6 +2652,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF64 {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -2542,11 +2700,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF64 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<f64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -2561,6 +2725,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF64 {
                             result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             struct __With(std::option::Option<f64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -2575,6 +2744,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF64 {
                             result.optional = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<f64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -2592,6 +2766,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithF64 {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<std::string::String, f64>,
@@ -2834,6 +3013,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -2888,11 +3068,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -2907,6 +3093,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
                             result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -2921,6 +3112,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
                             result.optional = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -2938,6 +3134,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_value => {
+                            if !fields.insert(__FieldTag::__map_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_value",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<std::string::String, i32>,
@@ -2964,6 +3165,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
                             result.map_value = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_key => {
+                            if !fields.insert(__FieldTag::__map_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_key",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<i32, std::string::String>,
@@ -2990,6 +3196,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI32 {
                             result.map_key = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_key_value => {
+                            if !fields.insert(__FieldTag::__map_key_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_key_value",
+                                ));
+                            }
                             struct __With(std::option::Option<std::collections::HashMap<i32, i32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -3255,6 +3466,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -3309,11 +3521,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<u32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -3328,6 +3546,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
                             result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             struct __With(std::option::Option<u32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -3342,6 +3565,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
                             result.optional = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<u32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -3359,6 +3587,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_value => {
+                            if !fields.insert(__FieldTag::__map_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_value",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<std::string::String, u32>,
@@ -3385,6 +3618,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
                             result.map_value = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_key => {
+                            if !fields.insert(__FieldTag::__map_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_key",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<u32, std::string::String>,
@@ -3411,6 +3649,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU32 {
                             result.map_key = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_key_value => {
+                            if !fields.insert(__FieldTag::__map_key_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_key_value",
+                                ));
+                            }
                             struct __With(std::option::Option<std::collections::HashMap<u32, u32>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -3676,6 +3919,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -3730,11 +3974,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<i64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -3749,6 +3999,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
                             result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             struct __With(std::option::Option<i64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -3763,6 +4018,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
                             result.optional = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -3780,6 +4040,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_value => {
+                            if !fields.insert(__FieldTag::__map_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_value",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<std::string::String, i64>,
@@ -3806,6 +4071,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
                             result.map_value = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_key => {
+                            if !fields.insert(__FieldTag::__map_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_key",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<i64, std::string::String>,
@@ -3832,6 +4102,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithI64 {
                             result.map_key = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_key_value => {
+                            if !fields.insert(__FieldTag::__map_key_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_key_value",
+                                ));
+                            }
                             struct __With(std::option::Option<std::collections::HashMap<i64, i64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -4097,6 +4372,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -4151,11 +4427,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<u64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -4170,6 +4452,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
                             result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             struct __With(std::option::Option<u64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -4184,6 +4471,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
                             result.optional = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<u64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -4201,6 +4493,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_value => {
+                            if !fields.insert(__FieldTag::__map_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_value",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<std::string::String, u64>,
@@ -4227,6 +4524,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
                             result.map_value = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_key => {
+                            if !fields.insert(__FieldTag::__map_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_key",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<u64, std::string::String>,
@@ -4253,6 +4555,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithU64 {
                             result.map_key = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_key_value => {
+                            if !fields.insert(__FieldTag::__map_key_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_key_value",
+                                ));
+                            }
                             struct __With(std::option::Option<std::collections::HashMap<u64, u64>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -4485,6 +4792,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytes {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -4532,11 +4840,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytes {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<::bytes::Bytes>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -4551,6 +4865,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytes {
                             result.singular = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             struct __With(std::option::Option<::bytes::Bytes>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -4565,6 +4884,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytes {
                             result.optional = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<::bytes::Bytes>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -4584,6 +4908,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytes {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<std::string::String, ::bytes::Bytes>,
@@ -4831,6 +5160,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBool {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -4885,25 +5215,51 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBool {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             result.singular = map.next_value::<bool>()?;
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             result.optional = map.next_value::<std::option::Option<bool>>()?;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             result.repeated = map.next_value::<std::vec::Vec<bool>>()?;
                         }
                         __FieldTag::__map_value => {
+                            if !fields.insert(__FieldTag::__map_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_value",
+                                ));
+                            }
                             result.map_value = map
                                 .next_value::<std::collections::HashMap<std::string::String, bool>>(
                                 )?;
                         }
                         __FieldTag::__map_key => {
+                            if !fields.insert(__FieldTag::__map_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_key",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<bool, std::string::String>,
@@ -4930,6 +5286,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBool {
                             result.map_key = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_key_value => {
+                            if !fields.insert(__FieldTag::__map_key_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_key_value",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<std::collections::HashMap<bool, bool>>,
                             );
@@ -5156,6 +5517,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -5210,22 +5572,43 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             result.singular = map.next_value::<std::string::String>()?;
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             result.optional =
                                 map.next_value::<std::option::Option<std::string::String>>()?;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             result.repeated =
                                 map.next_value::<std::vec::Vec<std::string::String>>()?;
                         }
                         __FieldTag::__map_value => {
+                            if !fields.insert(__FieldTag::__map_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_value",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<i32, std::string::String>,
@@ -5252,6 +5635,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
                             result.map_value = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_key => {
+                            if !fields.insert(__FieldTag::__map_key) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_key",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<std::string::String, i32>,
@@ -5278,6 +5666,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
                             result.map_key = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map_key_value => {
+                            if !fields.insert(__FieldTag::__map_key_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_key_value",
+                                ));
+                            }
                             result.map_key_value = map.next_value::<std::collections::HashMap<
                                 std::string::String,
                                 std::string::String,
@@ -5465,6 +5858,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithRecursion {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -5512,24 +5906,45 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithRecursion {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             result.singular = map.next_value::<std::option::Option<
                                 std::boxed::Box<crate::generated::message_with_recursion::Level0>,
                             >>()?;
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             result.optional = map.next_value::<std::option::Option<
                                 std::boxed::Box<crate::generated::message_with_recursion::Level0>,
                             >>()?;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             result.repeated = map.next_value::<std::vec::Vec<crate::generated::message_with_recursion::Level0>>()?;
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             result.map = map.next_value::<std::collections::HashMap<
                                 std::string::String,
                                 crate::generated::message_with_recursion::Level0,
@@ -5658,6 +6073,7 @@ pub mod message_with_recursion {
         {
             #[allow(non_camel_case_types)]
             #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
             enum __FieldTag {
                 __level_1,
                 __side,
@@ -5705,11 +6121,17 @@ pub mod message_with_recursion {
                 {
                     #[allow(unused_imports)]
                     use serde::de::Error;
+                    let mut fields = std::collections::HashSet::new();
                     let mut result = Self::Value::new();
                     while let Some(tag) = map.next_key::<__FieldTag>()? {
                         #[allow(clippy::match_single_binding)]
                         match tag {
                             __FieldTag::__level_1 => {
+                                if !fields.insert(__FieldTag::__level_1) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for level_1",
+                                    ));
+                                }
                                 result.level_1 = map.next_value::<std::option::Option<
                                     std::boxed::Box<
                                         crate::generated::message_with_recursion::Level1,
@@ -5717,6 +6139,11 @@ pub mod message_with_recursion {
                                 >>()?;
                             }
                             __FieldTag::__side => {
+                                if !fields.insert(__FieldTag::__side) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for side",
+                                    ));
+                                }
                                 result.side = map.next_value::<std::option::Option<
                                     crate::generated::message_with_recursion::NonRecursive,
                                 >>()?;
@@ -5809,6 +6236,7 @@ pub mod message_with_recursion {
         {
             #[allow(non_camel_case_types)]
             #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
             enum __FieldTag {
                 __recurse,
                 Unknown(std::string::String),
@@ -5853,11 +6281,17 @@ pub mod message_with_recursion {
                 {
                     #[allow(unused_imports)]
                     use serde::de::Error;
+                    let mut fields = std::collections::HashSet::new();
                     let mut result = Self::Value::new();
                     while let Some(tag) = map.next_key::<__FieldTag>()? {
                         #[allow(clippy::match_single_binding)]
                         match tag {
                             __FieldTag::__recurse => {
+                                if !fields.insert(__FieldTag::__recurse) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for recurse",
+                                    ));
+                                }
                                 result.recurse = map.next_value::<std::option::Option<
                                     std::boxed::Box<crate::generated::MessageWithRecursion>,
                                 >>()?;
@@ -5936,6 +6370,7 @@ pub mod message_with_recursion {
         {
             #[allow(non_camel_case_types)]
             #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
             enum __FieldTag {
                 __value,
                 Unknown(std::string::String),
@@ -5980,11 +6415,17 @@ pub mod message_with_recursion {
                 {
                     #[allow(unused_imports)]
                     use serde::de::Error;
+                    let mut fields = std::collections::HashSet::new();
                     let mut result = Self::Value::new();
                     while let Some(tag) = map.next_key::<__FieldTag>()? {
                         #[allow(clippy::match_single_binding)]
                         match tag {
                             __FieldTag::__value => {
+                                if !fields.insert(__FieldTag::__value) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for value",
+                                    ));
+                                }
                                 result.value = map.next_value::<std::string::String>()?;
                             }
                             __FieldTag::Unknown(key) => {
@@ -6132,6 +6573,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithValue {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -6179,24 +6621,45 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             result.singular = map
                                 .next_value::<std::option::Option<wkt::Value>>()?
                                 .or(Some(wkt::Value::Null));
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             result.optional = map
                                 .next_value::<std::option::Option<wkt::Value>>()?
                                 .or(Some(wkt::Value::Null));
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             result.repeated = map.next_value::<std::vec::Vec<wkt::Value>>()?;
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Value>>()?;
                         }
                         __FieldTag::Unknown(key) => {
@@ -6352,6 +6815,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStruct {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -6399,22 +6863,43 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStruct {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             result.singular =
                                 map.next_value::<std::option::Option<wkt::Struct>>()?;
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             result.optional =
                                 map.next_value::<std::option::Option<wkt::Struct>>()?;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             result.repeated = map.next_value::<std::vec::Vec<wkt::Struct>>()?;
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Struct>>()?;
                         }
                         __FieldTag::Unknown(key) => {
@@ -6570,6 +7055,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithListValue {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -6617,22 +7103,43 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithListValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             result.singular =
                                 map.next_value::<std::option::Option<wkt::ListValue>>()?;
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             result.optional =
                                 map.next_value::<std::option::Option<wkt::ListValue>>()?;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             result.repeated = map.next_value::<std::vec::Vec<wkt::ListValue>>()?;
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::ListValue>>()?;
                         }
                         __FieldTag::Unknown(key) => {
@@ -6777,6 +7284,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithNullValue {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -6824,24 +7332,45 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithNullValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             result.singular = map
                                 .next_value::<std::option::Option<wkt::NullValue>>()?
                                 .unwrap_or_default();
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             result.optional = map
                                 .next_value::<std::option::Option<wkt::NullValue>>()?
                                 .or(Some(wkt::NullValue));
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             result.repeated = map.next_value::<std::vec::Vec<wkt::NullValue>>()?;
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::NullValue>>()?;
                         }
                         __FieldTag::Unknown(key) => {
@@ -6997,6 +7526,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFieldMask {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __optional,
@@ -7044,22 +7574,43 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFieldMask {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             result.singular =
                                 map.next_value::<std::option::Option<wkt::FieldMask>>()?;
                         }
                         __FieldTag::__optional => {
+                            if !fields.insert(__FieldTag::__optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional",
+                                ));
+                            }
                             result.optional =
                                 map.next_value::<std::option::Option<wkt::FieldMask>>()?;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             result.repeated = map.next_value::<std::vec::Vec<wkt::FieldMask>>()?;
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::FieldMask>>()?;
                         }
                         __FieldTag::Unknown(key) => {
@@ -7194,6 +7745,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFloatValue {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __repeated,
@@ -7239,11 +7791,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFloatValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<wkt::FloatValue>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -7258,6 +7816,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFloatValue {
                             result.singular = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<wkt::FloatValue>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -7275,6 +7838,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFloatValue {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<std::string::String, wkt::FloatValue>,
@@ -7460,6 +8028,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithDoubleValue {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __repeated,
@@ -7505,11 +8074,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithDoubleValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<wkt::DoubleValue>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -7524,6 +8099,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithDoubleValue {
                             result.singular = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<wkt::DoubleValue>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -7541,6 +8121,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithDoubleValue {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<
@@ -7729,6 +8314,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithInt32Value {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __repeated,
@@ -7774,11 +8360,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithInt32Value {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<wkt::Int32Value>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -7793,6 +8385,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithInt32Value {
                             result.singular = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<wkt::Int32Value>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -7810,6 +8407,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithInt32Value {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<std::string::String, wkt::Int32Value>,
@@ -7995,6 +8597,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithUInt32Value {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __repeated,
@@ -8040,11 +8643,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithUInt32Value {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<wkt::UInt32Value>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -8059,6 +8668,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithUInt32Value {
                             result.singular = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<wkt::UInt32Value>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -8076,6 +8690,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithUInt32Value {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<
@@ -8264,6 +8883,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithInt64Value {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __repeated,
@@ -8309,11 +8929,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithInt64Value {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<wkt::Int64Value>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -8328,6 +8954,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithInt64Value {
                             result.singular = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<wkt::Int64Value>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -8345,6 +8976,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithInt64Value {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<std::string::String, wkt::Int64Value>,
@@ -8530,6 +9166,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithUInt64Value {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __repeated,
@@ -8575,11 +9212,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithUInt64Value {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<wkt::Int64Value>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -8594,6 +9237,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithUInt64Value {
                             result.singular = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<wkt::Int64Value>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -8611,6 +9259,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithUInt64Value {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<std::string::String, wkt::Int64Value>,
@@ -8797,6 +9450,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytesValue {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __repeated,
@@ -8842,11 +9496,17 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytesValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             struct __With(std::option::Option<wkt::BytesValue>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -8861,6 +9521,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytesValue {
                             result.singular = map.next_value::<__With>()?.0;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             struct __With(std::option::Option<std::vec::Vec<wkt::BytesValue>>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
@@ -8880,6 +9545,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBytesValue {
                             result.repeated = map.next_value::<__With>()?.0.unwrap_or_default();
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             struct __With(
                                 std::option::Option<
                                     std::collections::HashMap<std::string::String, wkt::BytesValue>,
@@ -9066,6 +9736,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBoolValue {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __repeated,
@@ -9111,18 +9782,34 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBoolValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             result.singular =
                                 map.next_value::<std::option::Option<wkt::BoolValue>>()?;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             result.repeated = map.next_value::<std::vec::Vec<wkt::BoolValue>>()?;
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::BoolValue>>()?;
                         }
                         __FieldTag::Unknown(key) => {
@@ -9253,6 +9940,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStringValue {
     {
         #[allow(non_camel_case_types)]
         #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __singular,
             __repeated,
@@ -9298,19 +9986,35 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStringValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
                         __FieldTag::__singular => {
+                            if !fields.insert(__FieldTag::__singular) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for singular",
+                                ));
+                            }
                             result.singular =
                                 map.next_value::<std::option::Option<wkt::StringValue>>()?;
                         }
                         __FieldTag::__repeated => {
+                            if !fields.insert(__FieldTag::__repeated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated",
+                                ));
+                            }
                             result.repeated =
                                 map.next_value::<std::vec::Vec<wkt::StringValue>>()?;
                         }
                         __FieldTag::__map => {
+                            if !fields.insert(__FieldTag::__map) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map",
+                                ));
+                            }
                             result.map =
                                 map.next_value::<std::collections::HashMap<
                                     std::string::String,

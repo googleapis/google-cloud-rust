@@ -62,6 +62,21 @@ mod test {
         Ok(())
     }
 
+    #[test_case(r#"{"singular":    0,  "singular":      0}"#)]
+    #[test_case(r#"{"optional":    0,  "optional":      0}"#)]
+    #[test_case(r#"{"repeated":    [], "repeated":      []}"#)]
+    #[test_case(r#"{"mapKey":      {}, "mapKey":        {}}"#)]
+    #[test_case(r#"{"mapKey":      {}, "map_key":       {}}"#)]
+    #[test_case(r#"{"mapValue":    {}, "mapValue":      {}}"#)]
+    #[test_case(r#"{"mapValue":    {}, "map_value":     {}}"#)]
+    #[test_case(r#"{"mapKeyValue": {}, "mapKeyValue":   {}}"#)]
+    #[test_case(r#"{"mapKeyValue": {}, "map_key_value": {}}"#)]
+    fn reject_duplicate_fields(input: &str) -> Result {
+        let err = serde_json::from_str::<__MessageWithU64>(input).unwrap_err();
+        assert!(err.is_data(), "{err:?}");
+        Ok(())
+    }
+
     #[test_case(json!({"unknown": "test-value"}))]
     #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
     fn test_unknown(input: Value) -> Result {

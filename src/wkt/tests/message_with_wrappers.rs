@@ -334,4 +334,28 @@ mod test {
         assert_eq!(ser, output);
         Ok(())
     }
+
+    #[test_case::test_matrix(
+        [
+            r#"{"singular": null, "singular": null}"#,
+            r#"{"repeated": [],   "repeated": []}"#,
+            r#"{"map":      {},   "map":      {}}"#,
+        ],
+        [
+            __MessageWithBoolValue(MessageWithBoolValue::new()),
+            __MessageWithBytesValue(MessageWithBytesValue::new()),
+            __MessageWithDoubleValue(MessageWithDoubleValue::new()),
+            __MessageWithInt32Value(MessageWithInt32Value::new()),
+            __MessageWithInt64Value(MessageWithInt64Value::new()),
+            __MessageWithStringValue(MessageWithStringValue::new()),
+        ]
+    )]
+    fn reject_duplicate_fields<T>(input: &str, _unused: T) -> Result
+    where
+        T: serde::de::DeserializeOwned + std::fmt::Debug,
+    {
+        let err = serde_json::from_str::<T>(input).unwrap_err();
+        assert!(err.is_data(), "{err:?}");
+        Ok(())
+    }
 }

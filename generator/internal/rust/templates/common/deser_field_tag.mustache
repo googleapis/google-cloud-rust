@@ -25,6 +25,7 @@ limitations under the License.
 }}
 #[allow(non_camel_case_types)]
 #[doc(hidden)]
+#[derive(PartialEq, Eq, Hash)]
 enum __FieldTag {
     {{#Fields}}
     __{{Codec.SetterName}},
