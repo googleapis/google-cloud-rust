@@ -128,6 +128,9 @@ jobs:
           done
           cargo clippy --no-deps --package google-cloud-lro --all-features --all-targets --profile=test -- --deny warnings
 
+          # We use google-cloud-aiplatform-v1 to test the generator w.r.t.
+          # per-client features. As usual, we assume the generator works for
+          # other generated libraries if it works for one.
           cargo clean
           echo "==== google-cloud-aiplatform-v1 ===="
           cargo build -p google-cloud-aiplatform-v1 --no-default-features
