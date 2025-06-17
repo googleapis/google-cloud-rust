@@ -57697,6 +57697,196 @@ pub mod vertex_rag_data_service {
         }
     }
 
+    /// The request builder for [VertexRagDataService::update_rag_engine_config][crate::client::VertexRagDataService::update_rag_engine_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_aiplatform_v1::builder;
+    /// use builder::vertex_rag_data_service::UpdateRagEngineConfig;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateRagEngineConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateRagEngineConfig(RequestBuilder<crate::model::UpdateRagEngineConfigRequest>);
+
+    impl UpdateRagEngineConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VertexRagDataService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateRagEngineConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_rag_engine_config][crate::client::VertexRagDataService::update_rag_engine_config].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_rag_engine_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_rag_engine_config`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<
+            crate::model::RagEngineConfig,
+            crate::model::UpdateRagEngineConfigOperationMetadata,
+        > {
+            type Operation = lro::internal::Operation<
+                crate::model::RagEngineConfig,
+                crate::model::UpdateRagEngineConfigOperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [rag_engine_config][crate::model::UpdateRagEngineConfigRequest::rag_engine_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_rag_engine_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::RagEngineConfig>,
+        {
+            self.0.request.rag_engine_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [rag_engine_config][crate::model::UpdateRagEngineConfigRequest::rag_engine_config].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_rag_engine_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::RagEngineConfig>,
+        {
+            self.0.request.rag_engine_config = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateRagEngineConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [VertexRagDataService::get_rag_engine_config][crate::client::VertexRagDataService::get_rag_engine_config] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_aiplatform_v1::builder;
+    /// use builder::vertex_rag_data_service::GetRagEngineConfig;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetRagEngineConfig {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetRagEngineConfig(RequestBuilder<crate::model::GetRagEngineConfigRequest>);
+
+    impl GetRagEngineConfig {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::VertexRagDataService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetRagEngineConfigRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::RagEngineConfig> {
+            (*self.0.stub)
+                .get_rag_engine_config(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetRagEngineConfigRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetRagEngineConfig {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [VertexRagDataService::list_locations][crate::client::VertexRagDataService::list_locations] calls.
     ///
     /// # Example

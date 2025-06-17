@@ -8651,6 +8651,30 @@ impl VertexRagDataService {
         super::builder::vertex_rag_data_service::DeleteRagFile::new(self.inner.clone())
     }
 
+    /// Updates a RagEngineConfig.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_rag_engine_config(
+        &self,
+    ) -> super::builder::vertex_rag_data_service::UpdateRagEngineConfig {
+        super::builder::vertex_rag_data_service::UpdateRagEngineConfig::new(self.inner.clone())
+    }
+
+    /// Gets a RagEngineConfig.
+    pub fn get_rag_engine_config(
+        &self,
+    ) -> super::builder::vertex_rag_data_service::GetRagEngineConfig {
+        super::builder::vertex_rag_data_service::GetRagEngineConfig::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     pub fn list_locations(&self) -> super::builder::vertex_rag_data_service::ListLocations {
         super::builder::vertex_rag_data_service::ListLocations::new(self.inner.clone())

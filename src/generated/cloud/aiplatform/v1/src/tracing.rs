@@ -6491,6 +6491,24 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn update_rag_engine_config(
+        &self,
+        req: crate::model::UpdateRagEngineConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_rag_engine_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_rag_engine_config(
+        &self,
+        req: crate::model::GetRagEngineConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::RagEngineConfig>> {
+        self.inner.get_rag_engine_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
