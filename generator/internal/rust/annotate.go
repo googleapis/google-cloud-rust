@@ -723,6 +723,36 @@ func (c *codec) mapKeySerdeAs(field *api.Field) string {
 	return c.primitiveSerdeAs(field)
 }
 
+func (c *codec) mapValueSerdeAs(field *api.Field) string {
+	if field.Typez == api.MESSAGE_TYPE {
+		return c.messageFieldSerdeAs(field)
+	}
+	return c.primitiveSerdeAs(field)
+}
+
+func (c *codec) messageFieldSerdeAs(field *api.Field) string {
+	switch field.TypezID {
+	case ".google.protobuf.BytesValue":
+		return "serde_with::base64::Base64"
+	case ".google.protobuf.UInt64Value":
+		return "wkt::internal::U64"
+	case ".google.protobuf.Int64Value":
+		return "wkt::internal::I64"
+	case ".google.protobuf.UInt32Value":
+		return "wkt::internal::U32"
+	case ".google.protobuf.Int32Value":
+		return "wkt::internal::I32"
+	case ".google.protobuf.FloatValue":
+		return "wkt::internal::F32"
+	case ".google.protobuf.DoubleValue":
+		return "wkt::internal::F64"
+	case ".google.protobuf.BoolValue":
+		return ""
+	default:
+		return ""
+	}
+}
+
 func (c *codec) annotateField(field *api.Field, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {
 	ann := &fieldAnnotations{
 		FieldName:          toSnake(field.Name),
@@ -752,7 +782,7 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 			ann.ValueField = msg.Fields[1]
 			ann.ValueType = mapType(msg.Fields[1], state, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 			key := c.mapKeySerdeAs(msg.Fields[0])
-			value := c.primitiveSerdeAs(msg.Fields[1])
+			value := c.mapValueSerdeAs(msg.Fields[1])
 			if key != "" || value != "" {
 				if key == "" {
 					key = "serde_with::Same"
@@ -762,6 +792,8 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 				}
 				ann.SerdeAs = fmt.Sprintf("std::collections::HashMap<%s, %s>", key, value)
 			}
+		} else {
+			ann.SerdeAs = c.messageFieldSerdeAs(field)
 		}
 	}
 }
