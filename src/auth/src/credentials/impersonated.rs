@@ -347,7 +347,7 @@ impl Builder {
                     let url = self.service_account_impersonation_url.ok_or_else(|| {
                     BuilderError::parsing("`service_account_impersonation_url` is required when building from source credentials")
                 })?;
-                    (source_credentials, url, self.delegates, None)
+                    (source_credentials, url, None, None)
                 }
             };
 
@@ -356,6 +356,7 @@ impl Builder {
             .unwrap_or_else(|| vec![DEFAULT_SCOPE.to_string()]);
 
         let quota_project_id = self.quota_project_id.or(quota_project_id);
+        let delegates = self.delegates.or(delegates);
 
         let token_provider = ImpersonatedTokenProvider {
             source_credentials,
@@ -679,6 +680,65 @@ mod test {
     }
 
     #[tokio::test]
+    async fn test_with_delegates() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"
+                ),
+                request::headers(contains((
+                    "authorization",
+                    "Bearer test-user-account-token"
+                ))),
+                request::body(json_decoded(eq(json!({
+                    "scope": [DEFAULT_SCOPE],
+                    "lifetime": "3600s",
+                    "delegates": ["delegate1", "delegate2"]
+                }))))
+            ])
+            .respond_with(json_encoded(json!({
+                "accessToken": "test-impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/token").to_string()
+            }
+        });
+        let (token_provider, _) = Builder::new(impersonated_credential)
+            .with_delegates(vec!["delegate1", "delegate2"])
+            .build_components()?;
+
+        let token = token_provider.token().await?;
+        assert_eq!(token.token, "test-impersonated-token");
+        assert_eq!(token.token_type, "Bearer");
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn test_impersonated_service_account_fail() -> TestResult {
         let server = Server::run();
         server.expect(
@@ -829,6 +889,27 @@ mod test {
     }
 
     #[tokio::test]
+    async fn test_missing_impersonation_url_fail() {
+        let source_credentials = crate::credentials::user_account::Builder::new(json!({
+            "type": "authorized_user",
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token"
+        }))
+        .build()
+        .unwrap();
+
+        let result = Builder::from_source_credentials(source_credentials).build();
+        assert!(result.is_err());
+        let err = result.unwrap_err();
+        assert!(err.is_parsing());
+        assert!(
+            err.to_string()
+                .contains("`service_account_impersonation_url` is required")
+        );
+    }
+
+    #[tokio::test]
     async fn test_nested_impersonated_credentials_fail() {
         let nested_impersonated = json!({
             "type": "impersonated_service_account",
@@ -926,6 +1007,49 @@ mod test {
 
         let err = token_provider.token().await.unwrap_err();
         assert!(!err.is_transient());
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_invalid_expiry_format() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+        server.expect(
+            Expectation::matching(request::method_path(
+                "POST",
+                "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            ))
+            .respond_with(json_encoded(json!({
+                "accessToken": "test-impersonated-token",
+                "expireTime": "invalid-format"
+            }))),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/token").to_string()
+            }
+        });
+        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
+
+        let err = token_provider.token().await.unwrap_err();
+        assert!(!err.is_transient());
+        assert!(err.to_string().contains("failed to parse expireTime"));
 
         Ok(())
     }
