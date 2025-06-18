@@ -420,6 +420,10 @@ type Message struct {
 	Codec any
 }
 
+func (m *Message) HasFields() bool {
+	return len(m.Fields) != 0
+}
+
 // Information related to pagination aka [AIP-4233](https://google.aip.dev/client-libraries/4233).
 type PaginationInfo struct {
 	// The field that gives us the next page token.

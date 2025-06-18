@@ -200,6 +200,48 @@ jobs:
       - run: |
           cargo test --features run-showcase-tests -p integration-tests
 
+  protojson-conformance:
+    runs-on: ubuntu-24.04
+    strategy:
+      matrix:
+        rust-version: ['rust:current']
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: 'protocolbuffers/protobuf'
+          ref: '31.x'
+          path: 'protobuf'
+      - uses: actions/checkout@v4
+        with:
+          path: 'main'
+      - uses: actions/cache@v4
+        with:
+          path: |
+            ~/.cargo
+          key: ${{ github.job }}-${{ runner.os }}-${{ matrix.rust-version }}-cargo-${{ hashFiles('main/Cargo.lock', 'main/.github/workflows/sdk.yaml') }}
+      - name: Setup Rust ${{ matrix.rust-version }}
+        run: |
+          set -e
+          rustup toolchain install ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+          rustup default ${{ fromJson(env.GHA_RUST_VERSIONS)[matrix.rust-version] }}
+      - name: Display Cargo version
+        run: cargo version
+      - name: Display rustc version
+        run: rustup show active-toolchain -v
+      - name: Build conformance testee
+        working-directory: main
+        run: |
+          cargo build -p protojson-conformance
+      - name: Run conformance test
+        working-directory: protobuf
+        env:
+          USE_BAZEL_VERSION: '8.2.1'
+        run: |
+          bazelisk run --enable_bzlmod -- \
+               //conformance:conformance_test_runner \
+               --failure_list ${GITHUB_WORKSPACE}/main/src/protojson-conformance/expected_failures.txt \
+               ${GITHUB_WORKSPACE}/main/target/debug/protojson-conformance
+
   docs:
     runs-on: ubuntu-24.04
     strategy:
