@@ -135,7 +135,7 @@ mod test {
     #[tokio::test]
     #[serial_test::serial]
     async fn create_access_token_credentials_adc_impersonated_service_account() {
-        let contents = r#"{
+        let contents = json!({
             "type": "impersonated_service_account",
             "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
             "source_credentials": {
@@ -144,7 +144,7 @@ mod test {
                 "client_secret": "test-client-secret",
                 "refresh_token": "test-refresh-token"
             }
-        }"#;
+        }).to_string();
 
         let file = tempfile::NamedTempFile::new().unwrap();
         let path = file.into_temp_path();
@@ -158,7 +158,7 @@ mod test {
 
     #[tokio::test]
     async fn create_access_token_credentials_json_impersonated_service_account() {
-        let contents = r#"{
+        let contents = json!({
             "type": "impersonated_service_account",
             "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
             "source_credentials": {
@@ -167,11 +167,11 @@ mod test {
                 "client_secret": "test-client-secret",
                 "refresh_token": "test-refresh-token"
             }
-        }"#;
+        });
 
         let quota_project = "test-quota-project";
 
-        let ic = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
+        let ic = AccessTokenCredentialBuilder::new(contents)
             .with_quota_project_id(quota_project)
             .build()
             .unwrap();

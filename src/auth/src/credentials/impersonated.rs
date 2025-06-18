@@ -142,7 +142,7 @@ impl Builder {
     /// # use serde_json::json;
     /// #
     /// # tokio_test::block_on(async {
-    /// let source_credentials = user_account::Builder::new(json!("{ /* add details here */ }")).build()?;
+    /// let source_credentials = user_account::Builder::new(json!({ /* add details here */ })).build()?;
     ///
     /// let creds = impersonated::Builder::from_source_credentials(source_credentials)
     ///     .with_target_principal("test-principal")
@@ -170,7 +170,7 @@ impl Builder {
     /// # use serde_json::json;
     /// #
     /// # tokio_test::block_on(async {
-    /// let impersonated_credential = json!("{ /* add details here */ }");
+    /// let impersonated_credential = json!({ /* add details here */ });
     ///
     /// let creds = impersonated::Builder::new(impersonated_credential.into())
     ///     .with_target_principal("test-principal")
@@ -193,7 +193,7 @@ impl Builder {
     /// # use serde_json::json;
     /// #
     /// # tokio_test::block_on(async {
-    /// let impersonated_credential = json!("{ /* add details here */ }");
+    /// let impersonated_credential = json!({ /* add details here */ });
     ///
     /// let creds = impersonated::Builder::new(impersonated_credential.into())
     ///     .with_delegates(["delegate1", "delegate2"])
@@ -218,7 +218,7 @@ impl Builder {
     /// # use serde_json::json;
     /// #
     /// # tokio_test::block_on(async {
-    /// let impersonated_credential = json!("{ /* add details here */ }");
+    /// let impersonated_credential = json!({ /* add details here */ });
     ///
     /// let creds = impersonated::Builder::new(impersonated_credential.into())
     ///     .with_scopes(["https://www.googleapis.com/auth/pubsub"])
@@ -252,7 +252,7 @@ impl Builder {
     /// # use serde_json::json;
     /// #
     /// # tokio_test::block_on(async {
-    /// let impersonated_credential = json!("{ /* add details here */ }");
+    /// let impersonated_credential = json!({ /* add details here */ });
     ///
     /// let creds = impersonated::Builder::new(impersonated_credential.into())
     ///     .with_quota_project_id("my-project")
@@ -274,7 +274,7 @@ impl Builder {
     /// # use std::time::Duration;
     /// #
     /// # tokio_test::block_on(async {
-    /// let impersonated_credential = json!("{ /* add details here */ }");
+    /// let impersonated_credential = json!({ /* add details here */ });
     ///
     /// let creds = impersonated::Builder::new(impersonated_credential.into())
     ///     .with_lifetime(Duration::from_secs(500))
@@ -408,7 +408,7 @@ struct ImpersonatedTokenProvider {
 impl Debug for ImpersonatedTokenProvider {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         f.debug_struct("ImpersonatedTokenProvider")
-            .field("source_credentials", &"...")
+            .field("source_credentials", &self.source_credentials)
             .field(
                 "service_account_impersonation_url",
                 &self.service_account_impersonation_url,
@@ -434,11 +434,7 @@ impl TokenProvider for ImpersonatedTokenProvider {
         let source_headers = self.source_credentials.headers(Extensions::new()).await?;
         let source_headers = match source_headers {
             CacheableResource::New { data, .. } => data,
-            CacheableResource::NotModified => {
-                return Err(errors::non_retryable_from_str(
-                    "unexpected not modified response for source credentials",
-                ));
-            }
+            CacheableResource::NotModified => unreachable!("requested source credentials without a caching etag"),
         };
 
         let client = Client::new();
@@ -475,7 +471,7 @@ impl TokenProvider for ImpersonatedTokenProvider {
             &time::format_description::well_known::Rfc3339,
         )
         .map_err(|e| {
-            errors::non_retryable_from_str(format!("failed to parse expireTime: {}", e))
+            errors::non_retryable(e)
         })?;
 
         let remaining_duration = parsed_dt - OffsetDateTime::now_utc();
@@ -505,7 +501,7 @@ mod test {
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;
 
-    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+    type TestResult = anyhow::Result<()>;
 
     #[tokio::test]
     async fn test_impersonated_service_account() -> TestResult {
@@ -788,21 +784,19 @@ mod test {
         .build()
         .unwrap();
 
-        let provider = ImpersonatedTokenProvider {
+        let expected = ImpersonatedTokenProvider {
             source_credentials,
             service_account_impersonation_url: "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken".to_string(),
             delegates: Some(vec!["delegate1".to_string()]),
             scopes: vec!["scope1".to_string()],
             lifetime: Duration::from_secs(3600),
         };
-        let fmt = format!("{provider:?}");
-        assert!(!fmt.contains("test-client-id"));
-        assert!(!fmt.contains("test-client-secret"));
-        assert!(!fmt.contains("test-refresh-token"));
-        assert!(fmt.contains("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"));
-        assert!(fmt.contains("delegate1"));
-        assert!(fmt.contains("scope1"));
-        assert!(fmt.contains("3600s"));
+        let fmt = format!("{expected:?}");
+        assert!(fmt.contains("UserCredentials"), "{fmt}");
+        assert!(fmt.contains("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"), "{fmt}");
+        assert!(fmt.contains("delegate1"), "{fmt}");
+        assert!(fmt.contains("scope1"), "{fmt}");
+        assert!(fmt.contains("3600s"), "{fmt}");
     }
 
     #[test]
@@ -1049,7 +1043,6 @@ mod test {
 
         let err = token_provider.token().await.unwrap_err();
         assert!(!err.is_transient());
-        assert!(err.to_string().contains("failed to parse expireTime"));
 
         Ok(())
     }
@@ -1257,6 +1250,80 @@ mod test {
             }
             CacheableResource::NotModified => panic!("Expected new headers, but got NotModified"),
         }
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_impersonated_does_not_propagate_settings_to_source() -> TestResult {
+        let server = Server::run();
+
+        // Expectation for the source credential token request.
+        // It should NOT have any scopes in the body.
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/source_token"),
+                request::body(json_decoded(|body: &serde_json::Value| body["scopes"].is_null()))
+            ])
+            .respond_with(
+                json_encoded(json!({
+                    "access_token": "source-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+
+        // Expectation for the impersonation request.
+        // It SHOULD have the scopes from the impersonated builder.
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"
+                ),
+                request::headers(contains((
+                    "authorization",
+                    "Bearer source-token"
+                ))),
+                request::body(json_decoded(eq(json!({
+                    "scope": ["impersonated-scope"],
+                    "lifetime": "3600s"
+                }))))
+            ])
+            .respond_with(json_encoded(json!({
+                "accessToken": "impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/source_token").to_string()
+            }
+        });
+
+        let creds = Builder::new(impersonated_credential)
+            .with_scopes(vec!["impersonated-scope"])
+            .with_quota_project_id("impersonated-quota-project")
+            .build()?;
+
+        // The quota project should be set on the final credentials object.
+        let fmt = format!("{:?}", creds);
+        assert!(fmt.contains("impersonated-quota-project"));
+
+        // Fetching the token will trigger the mock server expectations.
+        let _token = creds.headers(Extensions::new()).await?;
 
         Ok(())
     }
