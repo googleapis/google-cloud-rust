@@ -19,7 +19,7 @@
 //! environment, you can use service account impersonation. The typical principals
 //! used to impersonate a service account are [User Account] or another [Service Account].
 //!
-//! The princpial that is trying to impersonate a target service account should have
+//! The principal that is trying to impersonate a target service account should have
 //! [Service Account Token Creator Role] on the target service account.
 //!
 //! # Example
