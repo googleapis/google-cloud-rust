@@ -47,6 +47,16 @@ mod test {
         Ok(())
     }
 
+    #[test_case(r#"{"singular":  null}"#)]
+    #[test_case(r#"{"optional":  null}"#)]
+    #[test_case(r#"{"repeated":  null}"#)]
+    #[test_case(r#"{"map":       null}"#)]
+    fn test_null_is_default(input: &str) -> Result {
+        let got = serde_json::from_str::<__MessageWithEnum>(input)?;
+        assert_eq!(got.0, MessageWithEnum::default());
+        Ok(())
+    }
+
     #[test_case(r#"{"singular": 0,  "singular": 0}"#)]
     #[test_case(r#"{"optional": 0,  "optional": 0}"#)]
     #[test_case(r#"{"repeated": [], "repeated": []}"#)]

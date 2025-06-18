@@ -335,6 +335,55 @@ mod test {
         Ok(())
     }
 
+    // TODO(#2376) - simplify the test once __Foo goes away.
+    trait Tup {
+        type Inner;
+        fn value(self) -> Self::Inner;
+    }
+
+    // TODO(#2376) - we can avoid a macro once the __Foo() wrappers go away.
+    macro_rules! impl_tup {
+        ($msg:ident, $tup:ident) => {
+            impl Tup for $tup {
+                type Inner = $msg;
+                fn value(self) -> Self::Inner {
+                    self.0
+                }
+            }
+        };
+    }
+    impl_tup!(MessageWithBoolValue, __MessageWithBoolValue);
+    impl_tup!(MessageWithBytesValue, __MessageWithBytesValue);
+    impl_tup!(MessageWithDoubleValue, __MessageWithDoubleValue);
+    impl_tup!(MessageWithInt32Value, __MessageWithInt32Value);
+    impl_tup!(MessageWithInt64Value, __MessageWithInt64Value);
+    impl_tup!(MessageWithStringValue, __MessageWithStringValue);
+
+    #[test_case::test_matrix(
+        [
+                r#"{"singular": null}"#,
+                r#"{"repeated": null}"#,
+                r#"{"map":      null}"#,
+        ],
+        [
+            __MessageWithBoolValue(MessageWithBoolValue::new()),
+            __MessageWithBytesValue(MessageWithBytesValue::new()),
+            __MessageWithDoubleValue(MessageWithDoubleValue::new()),
+            __MessageWithInt32Value(MessageWithInt32Value::new()),
+            __MessageWithInt64Value(MessageWithInt64Value::new()),
+            __MessageWithStringValue(MessageWithStringValue::new()),
+        ]
+    )]
+    fn null_is_default<T>(input: &str, want: T) -> Result
+    where
+        T: Tup + serde::de::DeserializeOwned,
+        T::Inner: PartialEq + std::fmt::Debug,
+    {
+        let got = serde_json::from_str::<T>(input)?;
+        assert_eq!(got.value(), want.value());
+        Ok(())
+    }
+
     #[test_case::test_matrix(
         [
             r#"{"singular": null, "singular": null}"#,

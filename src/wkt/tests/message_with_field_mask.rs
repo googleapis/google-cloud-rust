@@ -50,6 +50,16 @@ mod test {
         Ok(())
     }
 
+    #[test_case(r#"{"singular":  null}"#)]
+    #[test_case(r#"{"optional":  null}"#)]
+    #[test_case(r#"{"repeated":  null}"#)]
+    #[test_case(r#"{"map":       null}"#)]
+    fn test_null_is_default(input: &str) -> Result {
+        let got = serde_json::from_str::<__MessageWithFieldMask>(input)?;
+        assert_eq!(got.0, MessageWithFieldMask::default());
+        Ok(())
+    }
+
     #[test_case(r#"{"singular": "a,b,c", "singular": "a,b,c"}"#)]
     #[test_case(r#"{"optional": "a,b,c", "optional": "a,b,c"}"#)]
     #[test_case(r#"{"repeated": [],      "repeated": []}"#)]

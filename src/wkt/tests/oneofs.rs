@@ -58,6 +58,19 @@ mod test {
         Ok(())
     }
 
+    #[test_case(r#"{"string_contents":      null}"#, MessageWithOneOf::new().set_string_contents(""))]
+    #[test_case(r#"{"string_contents_one":  null}"#, MessageWithOneOf::new().set_string_contents_one(""))]
+    #[test_case(r#"{"string_contents_two":  null}"#, MessageWithOneOf::new().set_string_contents_two(""))]
+    #[test_case(r#"{"message_value":        null}"#, MessageWithOneOf::new().set_message_value(Message::default()))]
+    #[test_case(r#"{"another_message":      null}"#, MessageWithOneOf::new().set_another_message(Message::default()))]
+    #[test_case(r#"{"string":               null}"#, MessageWithOneOf::new().set_string(""))]
+    #[test_case(r#"{"duration":             null}"#, MessageWithOneOf::new().set_duration(Duration::default()))]
+    fn test_null_is_default(input: &str, want: MessageWithOneOf) -> Result {
+        let got = serde_json::from_str::<__MessageWithOneOf>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
+
     #[test_case(json!({"stringContentsOne": "abc", "stringContentsTwo": "cde"}))]
     #[test_case(json!({"stringContentsTwo": "abc", "stringContentsOne": "cde"}))]
     #[test_case(json!({"anotherMessage": {}, "string": "cde"}))]
