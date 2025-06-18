@@ -27,6 +27,7 @@
 //! # use google_cloud_auth::credentials::impersonated;
 //! # use serde_json::json;
 //! # use std::time::Duration;
+//! # use http::Extensions;
 //! #
 //! # tokio_test::block_on(async {
 //! let source_credentials = json!({
@@ -42,7 +43,7 @@
 //!     "source_credentials": source_credentials,
 //! });
 //!
-//! let creds = impersonated::Builder::new(impersonated_credential)
+//! let credentials = impersonated::Builder::new(impersonated_credential)
 //!     .with_lifetime(Duration::from_secs(500))
 //!     .build()?;
 //! let headers = credentials.headers(Extensions::new()).await?;
@@ -137,14 +138,16 @@ impl Builder {
     /// # Example
     /// ```
     /// # use google_cloud_auth::credentials::impersonated;
+    /// # use google_cloud_auth::credentials::user_account;
     /// # use serde_json::json;
     /// #
     /// # tokio_test::block_on(async {
-    /// let source_credentials = json!("{ /* add details here */ }");
+    /// let source_credentials = user_account::Builder::new(json!("{ /* add details here */ }")).build()?;
     ///
-    /// let creds = impersonated::Builder::from_source_credentials(source_credentials.into())
+    /// let creds = impersonated::Builder::from_source_credentials(source_credentials)
     ///     .with_target_principal("test-principal")
-    ///     .build();
+    ///     .build()?;
+    /// # Ok::<(), anyhow::Error>(())
     /// # });
     /// ```
     pub fn from_source_credentials(source_credentials: Credentials) -> Self {
@@ -159,6 +162,7 @@ impl Builder {
     }
 
     /// Sets the target principal. This is required when using `from_source_credentials`.
+    /// Target principal is the email of the service account to impersonate.
     ///
     /// # Example
     /// ```
@@ -607,8 +611,7 @@ mod test {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential)
-            .build_components()?;
+        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
 
         let token = token_provider.token().await?;
         assert_eq!(token.token, "test-impersonated-token");
@@ -706,8 +709,7 @@ mod test {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential)
-            .build_components()?;
+        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
 
         let err = token_provider.token().await.unwrap_err();
         assert!(err.is_transient());
@@ -920,8 +922,7 @@ mod test {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential)
-            .build_components()?;
+        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
 
         let err = token_provider.token().await.unwrap_err();
         assert!(!err.is_transient());
@@ -960,8 +961,7 @@ mod test {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential)
-            .build_components()?;
+        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
 
         let e = token_provider.token().await.err().unwrap();
         assert!(!e.is_transient(), "{e}");
@@ -1000,8 +1000,7 @@ mod test {
                 "token_uri": server.url("/token").to_string()
             }
         });
-        let (token_provider, _) = Builder::new(impersonated_credential)
-            .build_components()?;
+        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
 
         let err = token_provider.token().await.unwrap_err();
         assert!(!err.is_transient());

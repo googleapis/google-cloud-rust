@@ -112,6 +112,27 @@ mod test {
     }
 
     #[tokio::test]
+    async fn create_access_token_credentials_json_user_credentials() {
+        let contents = r#"{
+            "client_id": "test-client-id",
+            "client_secret": "test-client-secret",
+            "refresh_token": "test-refresh-token",
+            "type": "authorized_user"
+        }"#;
+
+        let quota_project = "test-quota-project";
+
+        let uc = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
+            .with_quota_project_id(quota_project)
+            .build()
+            .unwrap();
+
+        let fmt = format!("{:?}", uc);
+        assert!(fmt.contains("UserCredentials"));
+        assert!(fmt.contains(quota_project));
+    }
+
+    #[tokio::test]
     #[serial_test::serial]
     async fn create_access_token_credentials_adc_impersonated_service_account() {
         let contents = r#"{
@@ -157,27 +178,6 @@ mod test {
 
         let fmt = format!("{:?}", ic);
         assert!(fmt.contains("ImpersonatedServiceAccount"));
-        assert!(fmt.contains(quota_project));
-    }
-
-    #[tokio::test]
-    async fn create_access_token_credentials_json_user_credentials() {
-        let contents = r#"{
-            "client_id": "test-client-id",
-            "client_secret": "test-client-secret",
-            "refresh_token": "test-refresh-token",
-            "type": "authorized_user"
-        }"#;
-
-        let quota_project = "test-quota-project";
-
-        let uc = AccessTokenCredentialBuilder::new(serde_json::from_str(contents).unwrap())
-            .with_quota_project_id(quota_project)
-            .build()
-            .unwrap();
-
-        let fmt = format!("{:?}", uc);
-        assert!(fmt.contains("UserCredentials"));
         assert!(fmt.contains(quota_project));
     }
 
