@@ -17,6 +17,9 @@ protoc --version
 If not, follow the steps in [Protocol Buffer Compiler Installation] to download
 a suitable version.
 
+Make sure your workstation has up-to-date versions of Rust and Go. Follow the
+instructions in [Set Up Development Environment].
+
 ## Generate new library
 
 First define the library's name:
@@ -88,6 +91,29 @@ Commit all these changes and send a PR to merge them:
 git commit -m "feat(api/types): generate library"
 ```
 
+### Testing library generation for an existing library
+
+Sometimes it may be useful to re-generate an existing library, to test the
+generation step, practice before generating a new library, or to test the
+documentation.
+
+We will use `websecurityscanner` as an example. Start by removing the existing
+library:
+
+```shell
+sed -i.bak  '/websecurityscanner/d' Cargo.toml
+rm Cargo.toml.bak
+git rm -fr src/generated/cloud/websecurityscanner/
+git commit -m"Remove for testing" Cargo.toml Cargo.lock src/generated/cloud/websecurityscanner/
+```
+
+Now add the library back:
+
+```shell
+go -C generator/ run ./cmd/sidekick rust-generate -project-root .. \
+    -service-config google/cloud/websecurityscanner/v1/websecurityscanner_v1.yaml
+```
+
 ## Update the code with new googleapis protos
 
 Run:
@@ -127,8 +153,8 @@ go -C generator/ run ./cmd/sidekick refresh \
 ## The Glorious Future
 
 Someday `sidekick` will be stable enough that (a) it will not be part of the
-`google-cloud-rust` repository, and we will be able to install it. At that point
-we will be able to say:
+`google-cloud-rust` repository, and (b) we will be able to install it. At that
+point we will be able to say:
 
 ```bash
 go install github.com/googleapis/google-cloud-generator/sidekick@v1.0.0
@@ -141,3 +167,4 @@ sidekick update && taplo fmt .sidekick.toml && cargo fmt
 ```
 
 [protocol buffer compiler installation]: https://protobuf.dev/installation/
+[set up development environment]: /doc/contributor/howto-guide-set-up-development-environment.md
