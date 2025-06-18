@@ -17,8 +17,8 @@ protoc --version
 If not, follow the steps in [Protocol Buffer Compiler Installation] to download
 a suitable version.
 
-Make sure your workstation has up-to-date versions of Rust and Go. Follow
-the instructions in [Set Up Development Environment].
+Make sure your workstation has up-to-date versions of Rust and Go. Follow the
+instructions in [Set Up Development Environment].
 
 ## Generate new library
 
