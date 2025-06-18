@@ -781,7 +781,13 @@ func (c *codec) methodInOutTypeName(id string, state *api.APIState, sourceSpecif
 	return fullyQualifiedMessageName(m, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 }
 
-func messageAttributes() []string {
+func (c *codec) messageAttributes() []string {
+	if c.withGeneratedSerde {
+		return []string{
+			`#[derive(Clone, Debug, Default, PartialEq)]`,
+			`#[non_exhaustive]`,
+		}
+	}
 	return []string{
 		`#[serde_with::serde_as]`,
 		`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,

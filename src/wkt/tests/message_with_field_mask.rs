@@ -14,7 +14,7 @@
 
 #[cfg(test)]
 mod test {
-    use common::{__MessageWithFieldMask, MessageWithFieldMask};
+    use common::MessageWithFieldMask;
     use google_cloud_wkt::FieldMask;
     use serde_json::{Value, json};
     use test_case::test_case;
@@ -32,7 +32,7 @@ mod test {
     #[test_case(MessageWithFieldMask::new().set_repeated([test_field_mask()]), json!({"repeated": ["a,b,c"]}))]
     #[test_case(MessageWithFieldMask::new().set_map([("key", test_field_mask())]), json!({"map": {"key": "a,b,c"}}))]
     fn test_ser(input: MessageWithFieldMask, want: Value) -> Result {
-        let got = serde_json::to_value(__MessageWithFieldMask(input))?;
+        let got = serde_json::to_value(input)?;
         assert_eq!(got, want);
         Ok(())
     }
@@ -45,8 +45,8 @@ mod test {
     #[test_case(MessageWithFieldMask::new().set_repeated([test_field_mask()]), json!({"repeated": ["a,b,c"]}))]
     #[test_case(MessageWithFieldMask::new().set_map([("key", test_field_mask())]), json!({"map": {"key": "a,b,c"}}))]
     fn test_de(want: MessageWithFieldMask, input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithFieldMask>(input)?;
-        assert_eq!(got.0, want);
+        let got = serde_json::from_value::<MessageWithFieldMask>(input)?;
+        assert_eq!(got, want);
         Ok(())
     }
 
@@ -55,8 +55,8 @@ mod test {
     #[test_case(r#"{"repeated":  null}"#)]
     #[test_case(r#"{"map":       null}"#)]
     fn test_null_is_default(input: &str) -> Result {
-        let got = serde_json::from_str::<__MessageWithFieldMask>(input)?;
-        assert_eq!(got.0, MessageWithFieldMask::default());
+        let got = serde_json::from_str::<MessageWithFieldMask>(input)?;
+        assert_eq!(got, MessageWithFieldMask::default());
         Ok(())
     }
 
@@ -65,7 +65,7 @@ mod test {
     #[test_case(r#"{"repeated": [],      "repeated": []}"#)]
     #[test_case(r#"{"map":      {},      "map":      {}}"#)]
     fn reject_duplicate_fields(input: &str) -> Result {
-        let err = serde_json::from_str::<__MessageWithFieldMask>(input).unwrap_err();
+        let err = serde_json::from_str::<MessageWithFieldMask>(input).unwrap_err();
         assert!(err.is_data(), "{err:?}");
         Ok(())
     }
@@ -73,7 +73,7 @@ mod test {
     #[test_case(json!({"unknown": "test-value"}))]
     #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
     fn test_unknown(input: Value) -> Result {
-        let deser = serde_json::from_value::<__MessageWithFieldMask>(input.clone())?;
+        let deser = serde_json::from_value::<MessageWithFieldMask>(input.clone())?;
         let got = serde_json::to_value(deser)?;
         assert_eq!(got, input);
         Ok(())
