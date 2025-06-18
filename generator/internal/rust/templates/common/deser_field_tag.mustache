@@ -49,6 +49,7 @@ impl<'de> serde::de::Deserialize<'de> for __FieldTag {
                 E: serde::de::Error,
             {
                 use std::result::Result::Ok;
+                use std::string::ToString;
                 {{^HasFields}}
                 Ok(__FieldTag::Unknown(value.to_string()))
                 {{/HasFields}}

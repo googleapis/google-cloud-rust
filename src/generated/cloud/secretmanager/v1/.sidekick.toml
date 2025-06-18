@@ -18,3 +18,4 @@ service-config = 'google/cloud/secretmanager/v1/secretmanager_v1.yaml'
 
 [codec]
 copyright-year = '2024'
+with-generated-serde  = 'true'

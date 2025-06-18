@@ -53,7 +53,9 @@ impl<'de> serde::de::Deserialize<'de> for __With {
     }
 }
 if result.{{Group.Codec.FieldName}}.is_some() {
-    return Err(A::Error::duplicate_field("multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}"))
+    return std::result::Result::Err(A::Error::duplicate_field(
+        "multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}",
+    ))
 }
 result.{{Group.Codec.FieldName}} = std::option::Option::Some(
     {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
