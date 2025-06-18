@@ -434,7 +434,9 @@ impl TokenProvider for ImpersonatedTokenProvider {
         let source_headers = self.source_credentials.headers(Extensions::new()).await?;
         let source_headers = match source_headers {
             CacheableResource::New { data, .. } => data,
-            CacheableResource::NotModified => unreachable!("requested source credentials without a caching etag"),
+            CacheableResource::NotModified => {
+                unreachable!("requested source credentials without a caching etag")
+            }
         };
 
         let client = Client::new();
@@ -470,9 +472,7 @@ impl TokenProvider for ImpersonatedTokenProvider {
             &token_response.expire_time,
             &time::format_description::well_known::Rfc3339,
         )
-        .map_err(|e| {
-            errors::non_retryable(e)
-        })?;
+        .map_err(errors::non_retryable)?;
 
         let remaining_duration = parsed_dt - OffsetDateTime::now_utc();
         let expires_at = Instant::now() + remaining_duration.try_into().unwrap();
@@ -1263,15 +1263,15 @@ mod test {
         server.expect(
             Expectation::matching(all_of![
                 request::method_path("POST", "/source_token"),
-                request::body(json_decoded(|body: &serde_json::Value| body["scopes"].is_null()))
+                request::body(json_decoded(
+                    |body: &serde_json::Value| body["scopes"].is_null()
+                ))
             ])
-            .respond_with(
-                json_encoded(json!({
-                    "access_token": "source-token",
-                    "expires_in": 3600,
-                    "token_type": "Bearer",
-                })),
-            ),
+            .respond_with(json_encoded(json!({
+                "access_token": "source-token",
+                "expires_in": 3600,
+                "token_type": "Bearer",
+            }))),
         );
 
         let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
@@ -1286,10 +1286,7 @@ mod test {
                     "POST",
                     "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"
                 ),
-                request::headers(contains((
-                    "authorization",
-                    "Bearer source-token"
-                ))),
+                request::headers(contains(("authorization", "Bearer source-token"))),
                 request::body(json_decoded(eq(json!({
                     "scope": ["impersonated-scope"],
                     "lifetime": "3600s"
