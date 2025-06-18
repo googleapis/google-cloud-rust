@@ -237,10 +237,10 @@ jobs:
         env:
           USE_BAZEL_VERSION: '8.2.1'
         run: |
-           bazelisk run --enable_bzlmod -- \
-                //conformance:conformance_test_runner \
-                --failure_list ${GITHUB_WORKSPACE}/main/src/protojson-conformance/expected_failures.txt \
-                ${GITHUB_WORKSPACE}/main/target/debug/protojson-conformance
+          bazelisk run --enable_bzlmod -- \
+               //conformance:conformance_test_runner \
+               --failure_list ${GITHUB_WORKSPACE}/main/src/protojson-conformance/expected_failures.txt \
+               ${GITHUB_WORKSPACE}/main/target/debug/protojson-conformance
 
   docs:
     runs-on: ubuntu-24.04
