@@ -41,13 +41,13 @@ Uses the conventions in the Rust monorepo to determine the source and output
 directories from the name of the service config YAML file.
 `,
 		cmdSidekick,
-		rust_generate,
+		rustGenerate,
 	)
 }
 
 // generate takes some state and applies it to a template to create a client
 // library.
-func rust_generate(rootConfig *config.Config, cmdLine *CommandLine) error {
+func rustGenerate(rootConfig *config.Config, cmdLine *CommandLine) error {
 	if cmdLine.SpecificationSource == "" {
 		cmdLine.SpecificationSource = path.Dir(cmdLine.ServiceConfig)
 	}
