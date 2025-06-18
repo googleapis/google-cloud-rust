@@ -30,12 +30,6 @@ use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
 
-#[async_trait::async_trait]
-pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
-    /// Generate subject token that will be used on STS exchange.
-    async fn subject_token(&self) -> Result<String>;
-}
-
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub(crate) struct CredentialSourceFormat {
     #[serde(rename = "type")]

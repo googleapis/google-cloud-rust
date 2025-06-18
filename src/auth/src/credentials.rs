@@ -30,6 +30,8 @@ pub(crate) mod internal;
 pub mod mds;
 pub mod service_account;
 pub mod user_account;
+pub mod subject_token;
+
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";
 pub(crate) const DEFAULT_UNIVERSE_DOMAIN: &str = "googleapis.com";
 
