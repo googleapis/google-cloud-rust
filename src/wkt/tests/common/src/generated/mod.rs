@@ -179,7 +179,10 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithEnum {
                                 ));
                             }
                             result.singular =
-                                map.next_value::<crate::generated::message_with_enum::TestEnum>()?;
+                                map.next_value::<std::option::Option<
+                                    crate::generated::message_with_enum::TestEnum,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__optional => {
                             if !fields.insert(__FieldTag::__optional) {
@@ -197,7 +200,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithEnum {
                                     "multiple values for repeated",
                                 ));
                             }
-                            result.repeated = map.next_value::<std::vec::Vec<crate::generated::message_with_enum::TestEnum>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::generated::message_with_enum::TestEnum>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
                             if !fields.insert(__FieldTag::__map) {
@@ -205,10 +212,14 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithEnum {
                                     "multiple values for map",
                                 ));
                             }
-                            result.map = map.next_value::<std::collections::HashMap<
-                                std::string::String,
-                                crate::generated::message_with_enum::TestEnum,
-                            >>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::generated::message_with_enum::TestEnum,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -772,7 +783,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.single_string = std::option::Option::Some(
                                 crate::generated::message_with_one_of::SingleString::StringContents(
-                                    map.next_value::<std::string::String>()?,
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -789,7 +801,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.two_strings = std::option::Option::Some(
                                 crate::generated::message_with_one_of::TwoStrings::StringContentsOne(
-                                    map.next_value::<std::string::String>()?
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -806,7 +818,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.two_strings = std::option::Option::Some(
                                 crate::generated::message_with_one_of::TwoStrings::StringContentsTwo(
-                                    map.next_value::<std::string::String>()?
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -823,9 +835,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.one_message = std::option::Option::Some(
                                 crate::generated::message_with_one_of::OneMessage::MessageValue(
-                                    map.next_value::<std::boxed::Box<
-                                        crate::generated::message_with_one_of::Message,
-                                    >>()?,
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<
+                                            crate::generated::message_with_one_of::Message,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -842,9 +857,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.mixed = std::option::Option::Some(
                                 crate::generated::message_with_one_of::Mixed::AnotherMessage(
-                                    map.next_value::<std::boxed::Box<
-                                        crate::generated::message_with_one_of::Message,
-                                    >>()?,
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<
+                                            crate::generated::message_with_one_of::Message,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -861,7 +879,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.mixed = std::option::Option::Some(
                                 crate::generated::message_with_one_of::Mixed::String(
-                                    map.next_value::<std::string::String>()?,
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -878,7 +897,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithOneOf {
                             }
                             result.mixed = std::option::Option::Some(
                                 crate::generated::message_with_one_of::Mixed::Duration(
-                                    map.next_value::<std::boxed::Box<wkt::Duration>>()?,
+                                    map.next_value::<std::option::Option<std::boxed::Box<wkt::Duration>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -1037,7 +1056,9 @@ pub mod message_with_one_of {
                                         "multiple values for parent",
                                     ));
                                 }
-                                result.parent = map.next_value::<std::string::String>()?;
+                                result.parent = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
                             }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
@@ -1564,7 +1585,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Null(
-                                    map.next_value::<wkt::NullValue>()?,
+                                    map.next_value::<std::option::Option<wkt::NullValue>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1581,7 +1603,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::BoolValue(
-                                    map.next_value::<bool>()?,
+                                    map.next_value::<std::option::Option<bool>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1591,7 +1614,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                     "multiple values for bytes_value",
                                 ));
                             }
-                            struct __With(::bytes::Bytes);
+                            struct __With(std::option::Option<::bytes::Bytes>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
                                     deserializer: D,
@@ -1599,10 +1622,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::<serde_with::base64::Base64>::deserialize(
-                                        deserializer,
-                                    )
-                                    .map(__With)
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
                                 }
                             }
                             if result.complex.is_some() {
@@ -1612,7 +1632,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::BytesValue(
-                                    map.next_value::<__With>()?.0,
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1629,7 +1649,8 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::StringValue(
-                                    map.next_value::<std::string::String>()?,
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1639,7 +1660,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                     "multiple values for float_value",
                                 ));
                             }
-                            struct __With(f32);
+                            struct __With(std::option::Option<f32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
                                     deserializer: D,
@@ -1647,8 +1668,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::<wkt::internal::F32>::deserialize(deserializer)
-                                        .map(__With)
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
                                 }
                             }
                             if result.complex.is_some() {
@@ -1658,7 +1678,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::FloatValue(
-                                    map.next_value::<__With>()?.0,
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1668,7 +1688,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                     "multiple values for double_value",
                                 ));
                             }
-                            struct __With(f64);
+                            struct __With(std::option::Option<f64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
                                     deserializer: D,
@@ -1676,8 +1696,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::<wkt::internal::F64>::deserialize(deserializer)
-                                        .map(__With)
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
                                 }
                             }
                             if result.complex.is_some() {
@@ -1687,7 +1706,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::DoubleValue(
-                                    map.next_value::<__With>()?.0,
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1697,7 +1716,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                     "multiple values for int",
                                 ));
                             }
-                            struct __With(i32);
+                            struct __With(std::option::Option<i32>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
                                     deserializer: D,
@@ -1705,8 +1724,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::<wkt::internal::I32>::deserialize(deserializer)
-                                        .map(__With)
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
                                 }
                             }
                             if result.complex.is_some() {
@@ -1716,7 +1734,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Int(
-                                    map.next_value::<__With>()?.0,
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1726,7 +1744,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                     "multiple values for long",
                                 ));
                             }
-                            struct __With(i64);
+                            struct __With(std::option::Option<i64>);
                             impl<'de> serde::de::Deserialize<'de> for __With {
                                 fn deserialize<D>(
                                     deserializer: D,
@@ -1734,8 +1752,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                                 where
                                     D: serde::de::Deserializer<'de>,
                                 {
-                                    serde_with::As::<wkt::internal::I64>::deserialize(deserializer)
-                                        .map(__With)
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
                                 }
                             }
                             if result.complex.is_some() {
@@ -1745,7 +1762,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Long(
-                                    map.next_value::<__With>()?.0,
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1762,7 +1779,10 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Enum(
-                                    map.next_value::<crate::generated::message_with_complex_one_of::TestEnum>()?
+                                    map.next_value::<std::option::Option<
+                                        crate::generated::message_with_complex_one_of::TestEnum,
+                                    >>()?
+                                    .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1779,9 +1799,12 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Inner(
-                                    map.next_value::<std::boxed::Box<
-                                        crate::generated::message_with_complex_one_of::Inner,
-                                    >>()?,
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<
+                                            crate::generated::message_with_complex_one_of::Inner,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default(),
                                 ),
                             );
                         }
@@ -1798,7 +1821,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Duration(
-                                    map.next_value::<std::boxed::Box<wkt::Duration>>()?,
+                                    map.next_value::<std::option::Option<std::boxed::Box<wkt::Duration>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -1815,7 +1838,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithComplexOneOf {
                             }
                             result.complex = std::option::Option::Some(
                                 crate::generated::message_with_complex_one_of::Complex::Value(
-                                    map.next_value::<std::boxed::Box<wkt::Value>>()?,
+                                    map.next_value::<std::option::Option<std::boxed::Box<wkt::Value>>>()?.unwrap_or_default()
                                 ),
                             );
                         }
@@ -2039,8 +2062,7 @@ pub mod message_with_complex_one_of {
                                         "multiple values for strings",
                                     ));
                                 }
-                                result.strings =
-                                    map.next_value::<std::vec::Vec<std::string::String>>()?;
+                                result.strings = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                             }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
@@ -5226,7 +5248,9 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBool {
                                     "multiple values for singular",
                                 ));
                             }
-                            result.singular = map.next_value::<bool>()?;
+                            result.singular = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__optional => {
                             if !fields.insert(__FieldTag::__optional) {
@@ -5242,7 +5266,9 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBool {
                                     "multiple values for repeated",
                                 ));
                             }
-                            result.repeated = map.next_value::<std::vec::Vec<bool>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<bool>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map_value => {
                             if !fields.insert(__FieldTag::__map_value) {
@@ -5251,8 +5277,10 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBool {
                                 ));
                             }
                             result.map_value = map
-                                .next_value::<std::collections::HashMap<std::string::String, bool>>(
-                                )?;
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, bool>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map_key => {
                             if !fields.insert(__FieldTag::__map_key) {
@@ -5583,7 +5611,9 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
                                     "multiple values for singular",
                                 ));
                             }
-                            result.singular = map.next_value::<std::string::String>()?;
+                            result.singular = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__optional => {
                             if !fields.insert(__FieldTag::__optional) {
@@ -5600,8 +5630,7 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
                                     "multiple values for repeated",
                                 ));
                             }
-                            result.repeated =
-                                map.next_value::<std::vec::Vec<std::string::String>>()?;
+                            result.repeated = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
                         __FieldTag::__map_value => {
                             if !fields.insert(__FieldTag::__map_value) {
@@ -5671,10 +5700,14 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithString {
                                     "multiple values for map_key_value",
                                 ));
                             }
-                            result.map_key_value = map.next_value::<std::collections::HashMap<
-                                std::string::String,
-                                std::string::String,
-                            >>()?;
+                            result.map_key_value = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -5937,7 +5970,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithRecursion {
                                     "multiple values for repeated",
                                 ));
                             }
-                            result.repeated = map.next_value::<std::vec::Vec<crate::generated::message_with_recursion::Level0>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::generated::message_with_recursion::Level0>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
                             if !fields.insert(__FieldTag::__map) {
@@ -5945,10 +5982,14 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithRecursion {
                                     "multiple values for map",
                                 ));
                             }
-                            result.map = map.next_value::<std::collections::HashMap<
-                                std::string::String,
-                                crate::generated::message_with_recursion::Level0,
-                            >>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::generated::message_with_recursion::Level0,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6426,7 +6467,9 @@ pub mod message_with_recursion {
                                         "multiple values for value",
                                     ));
                                 }
-                                result.value = map.next_value::<std::string::String>()?;
+                                result.value = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
                             }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
@@ -6652,7 +6695,9 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithValue {
                                     "multiple values for repeated",
                                 ));
                             }
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::Value>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::Value>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
                             if !fields.insert(__FieldTag::__map) {
@@ -6660,7 +6705,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithValue {
                                     "multiple values for map",
                                 ));
                             }
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Value>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::Value>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -6892,7 +6941,9 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStruct {
                                     "multiple values for repeated",
                                 ));
                             }
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::Struct>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::Struct>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
                             if !fields.insert(__FieldTag::__map) {
@@ -6900,7 +6951,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStruct {
                                     "multiple values for map",
                                 ));
                             }
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::Struct>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::Struct>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7132,7 +7187,9 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithListValue {
                                     "multiple values for repeated",
                                 ));
                             }
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::ListValue>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::ListValue>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
                             if !fields.insert(__FieldTag::__map) {
@@ -7140,7 +7197,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithListValue {
                                     "multiple values for map",
                                 ));
                             }
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::ListValue>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::ListValue>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7363,7 +7424,9 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithNullValue {
                                     "multiple values for repeated",
                                 ));
                             }
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::NullValue>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::NullValue>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
                             if !fields.insert(__FieldTag::__map) {
@@ -7371,7 +7434,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithNullValue {
                                     "multiple values for map",
                                 ));
                             }
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::NullValue>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::NullValue>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -7603,7 +7670,9 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFieldMask {
                                     "multiple values for repeated",
                                 ));
                             }
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::FieldMask>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::FieldMask>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
                             if !fields.insert(__FieldTag::__map) {
@@ -7611,7 +7680,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithFieldMask {
                                     "multiple values for map",
                                 ));
                             }
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::FieldMask>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::FieldMask>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -9802,7 +9875,9 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBoolValue {
                                     "multiple values for repeated",
                                 ));
                             }
-                            result.repeated = map.next_value::<std::vec::Vec<wkt::BoolValue>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::BoolValue>>>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
                             if !fields.insert(__FieldTag::__map) {
@@ -9810,7 +9885,11 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithBoolValue {
                                     "multiple values for map",
                                 ));
                             }
-                            result.map = map.next_value::<std::collections::HashMap<std::string::String,wkt::BoolValue>>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::BoolValue>,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
@@ -10006,8 +10085,10 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStringValue {
                                     "multiple values for repeated",
                                 ));
                             }
-                            result.repeated =
-                                map.next_value::<std::vec::Vec<wkt::StringValue>>()?;
+                            result.repeated = map
+                                .next_value::<std::option::Option<std::vec::Vec<wkt::StringValue>>>(
+                                )?
+                                .unwrap_or_default();
                         }
                         __FieldTag::__map => {
                             if !fields.insert(__FieldTag::__map) {
@@ -10015,11 +10096,14 @@ impl<'de> serde::de::Deserialize<'de> for __MessageWithStringValue {
                                     "multiple values for map",
                                 ));
                             }
-                            result.map =
-                                map.next_value::<std::collections::HashMap<
-                                    std::string::String,
-                                    wkt::StringValue,
-                                >>()?;
+                            result.map = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        wkt::StringValue,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
                         }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;

@@ -42,6 +42,16 @@ mod test {
         Ok(())
     }
 
+    #[test_case(r#"{"singular": null}"#)]
+    // This is special: #[test_case(r#"{"optional": null}"#)]
+    #[test_case(r#"{"repeated": null}"#)]
+    #[test_case(r#"{"map":      null}"#)]
+    fn test_null_is_default(input: &str) -> Result {
+        let got = serde_json::from_str::<__MessageWithNullValue>(input)?;
+        assert_eq!(got.0, MessageWithNullValue::default());
+        Ok(())
+    }
+
     #[test_case(r#"{"singular": null, "singular": null}"#)]
     #[test_case(r#"{"optional": null, "optional": null}"#)]
     #[test_case(r#"{"repeated": [],   "repeated": []}"#)]

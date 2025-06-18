@@ -99,6 +99,24 @@ mod test {
         Ok(())
     }
 
+    #[test_case(r#"{"null":         null}"#, MessageWithComplexOneOf::new().set_null(wkt::NullValue))]
+    #[test_case(r#"{"bool_value":   null}"#, MessageWithComplexOneOf::new().set_bool_value(false))]
+    #[test_case(r#"{"bytes_value":  null}"#, MessageWithComplexOneOf::new().set_bytes_value(""))]
+    #[test_case(r#"{"string_value": null}"#, MessageWithComplexOneOf::new().set_string_value(""))]
+    #[test_case(r#"{"float_value":  null}"#, MessageWithComplexOneOf::new().set_float_value(0_f32))]
+    #[test_case(r#"{"double_value": null}"#, MessageWithComplexOneOf::new().set_double_value(0_f64))]
+    #[test_case(r#"{"int":          null}"#, MessageWithComplexOneOf::new().set_int(0))]
+    #[test_case(r#"{"long":         null}"#, MessageWithComplexOneOf::new().set_long(0_i64))]
+    #[test_case(r#"{"enum":         null}"#, MessageWithComplexOneOf::new().set_enum(TestEnum::default()))]
+    #[test_case(r#"{"inner":        null}"#, MessageWithComplexOneOf::new().set_inner(Inner::default()))]
+    #[test_case(r#"{"duration":     null}"#, MessageWithComplexOneOf::new().set_duration(Duration::default()))]
+    // wkt::Value is special #[test_case(r#"{"value": null}"#, MessageWithComplexOneOf::new().set_value(/* no default */))]
+    fn test_null_is_default(input: &str, want: MessageWithComplexOneOf) -> Result {
+        let got = serde_json::from_str::<__MessageWithComplexOneOf>(input)?;
+        assert_eq!(got.0, want);
+        Ok(())
+    }
+
     #[test_case(r#"{"null":        null,         "null":        null}"#)]
     #[test_case(r#"{"null":        null,         "boolValue":   true}"#)]
     #[test_case(r#"{"boolValue":   true,         "boolValue":   true}"#)]
