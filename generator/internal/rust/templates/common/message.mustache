@@ -329,12 +329,14 @@ impl serde::ser::Serialize for {{Codec.Name}} {
         use serde::ser::SerializeMap;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         {{#Fields}}
+        {{^Synthetic}}
         {{^Codec.RequiresSerdeAs}}
         {{> /templates/common/ser_plain_message_field}}
         {{/Codec.RequiresSerdeAs}}
         {{#Codec.RequiresSerdeAs}}
         {{> /templates/common/ser_with_message_field}}
         {{/Codec.RequiresSerdeAs}}
+        {{/Synthetic}}
         {{/Fields}}
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
