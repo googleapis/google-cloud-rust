@@ -12193,9 +12193,9 @@ impl wkt::message::Message for BatchCreateResourceValueConfigsResponse {
 ///
 /// Note:
 ///
-/// . If multiple bulk update requests match the same resource, the order in
-///   which they get executed is not defined.
-/// . Once a bulk operation is started, there is no way to stop it.
+/// 1. If multiple bulk update requests match the same resource, the order in
+///    which they get executed is not defined.
+/// 1. Once a bulk operation is started, there is no way to stop it.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]
@@ -13274,7 +13274,7 @@ pub struct GroupFindingsRequest {
     ///
     /// * event_time: `=`, `>`, `<`, `>=`, `<=`
     ///
-    /// * Usage: This should be milliseconds since epoch or an RFC3339 string.
+    ///   Usage: This should be milliseconds since epoch or an RFC3339 string.
     ///   Examples:
     ///   `event_time = "2019-06-10T16:07:18-07:00"`
     ///   `event_time = 1560208038000`
@@ -13906,7 +13906,7 @@ pub struct ListFindingsRequest {
     ///
     /// * event_time: `=`, `>`, `<`, `>=`, `<=`
     ///
-    /// * Usage: This should be milliseconds since epoch or an RFC3339 string.
+    ///   Usage: This should be milliseconds since epoch or an RFC3339 string.
     ///   Examples:
     ///   `event_time = "2019-06-10T16:07:18-07:00"`
     ///   `event_time = 1560208038000`

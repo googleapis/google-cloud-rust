@@ -4977,8 +4977,8 @@ pub struct Clip {
     /// `{clipId}` is a user-specified resource id that conforms to the following
     /// criteria:
     ///
-    /// . 1 character minimum, 63 characters maximum
-    /// . Only contains letters, digits, underscores, and hyphens
+    /// 1. 1 character minimum, 63 characters maximum
+    /// 1. Only contains letters, digits, underscores, and hyphens
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
@@ -5759,8 +5759,8 @@ pub struct DvrSession {
     /// `{dvrSessionId}` is a user-specified resource id that conforms to the
     /// following criteria:
     ///
-    /// . 1 character minimum, 63 characters maximum
-    /// . Only contains letters, digits, underscores, and hyphens
+    /// 1. 1 character minimum, 63 characters maximum
+    /// 1. Only contains letters, digits, underscores, and hyphens
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
@@ -9396,8 +9396,8 @@ pub struct CreateClipRequest {
 
     /// Required. Id of the requesting object in the following form:
     ///
-    /// . 1 character minimum, 63 characters maximum
-    /// . Only contains letters, digits, underscores, and hyphens
+    /// 1. 1 character minimum, 63 characters maximum
+    /// 1. Only contains letters, digits, underscores, and hyphens
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub clip_id: std::string::String,
@@ -9737,8 +9737,8 @@ pub struct CreateDvrSessionRequest {
 
     /// Required. Id of the requesting object in the following form:
     ///
-    /// . 1 character minimum, 63 characters maximum
-    /// . Only contains letters, digits, underscores, and hyphens
+    /// 1. 1 character minimum, 63 characters maximum
+    /// 1. Only contains letters, digits, underscores, and hyphens
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dvr_session_id: std::string::String,

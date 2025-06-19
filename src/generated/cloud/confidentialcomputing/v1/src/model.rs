@@ -1197,11 +1197,11 @@ pub struct ContainerImageSignature {
     /// Optional. A signature over the payload.
     /// The container image digest is incorporated into the signature as follows:
     ///
-    /// . Generate a SimpleSigning format payload that includes the container
-    ///   image digest.
-    /// . Generate a signature over SHA256 digest of the payload.
-    ///   The signature generation process can be represented as follows:
-    ///   `Sign(sha256(SimpleSigningPayload(sha256(Image Manifest))))`
+    /// 1. Generate a SimpleSigning format payload that includes the container
+    ///    image digest.
+    /// 1. Generate a signature over SHA256 digest of the payload.
+    ///    The signature generation process can be represented as follows:
+    ///    `Sign(sha256(SimpleSigningPayload(sha256(Image Manifest))))`
     #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub signature: ::bytes::Bytes,

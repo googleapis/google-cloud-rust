@@ -10495,10 +10495,10 @@ impl wkt::message::Message for BatchCreateInstancesMetadata {
 /// because of failure of the previous one. Then, resulting states would look
 /// something like:
 ///
-/// . Instance1 = ROLLED_BACK
-/// . Instance2 = ROLLED_BACK
-/// . Instance3 = FAILED
-/// . Instance4 = FAILED
+/// 1. Instance1 = ROLLED_BACK
+/// 1. Instance2 = ROLLED_BACK
+/// 1. Instance3 = FAILED
+/// 1. Instance4 = FAILED
 ///
 /// However, while the operation is running, the instance might be in other
 /// states including PENDING_CREATE, ACTIVE, DELETING and CREATING. The states
@@ -10512,11 +10512,11 @@ pub struct BatchCreateInstanceStatus {
     /// Once the operation is complete, the final state of the instances in the
     /// LRO can be one of:
     ///
-    /// . ACTIVE, indicating that instances were created successfully
-    /// . FAILED, indicating that a particular instance failed creation
-    /// . ROLLED_BACK indicating that although the instance was created
-    ///   successfully, it had to be rolled back and deleted due to failure in
-    ///   other steps of the workflow.
+    /// 1. ACTIVE, indicating that instances were created successfully
+    /// 1. FAILED, indicating that a particular instance failed creation
+    /// 1. ROLLED_BACK indicating that although the instance was created
+    ///    successfully, it had to be rolled back and deleted due to failure in
+    ///    other steps of the workflow.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::batch_create_instance_status::State,

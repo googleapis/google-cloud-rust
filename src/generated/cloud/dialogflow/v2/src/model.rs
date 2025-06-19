@@ -1538,15 +1538,15 @@ impl wkt::message::Message for GetValidationResultRequest {
 ///
 /// A typical workflow for customers provide feedback to an answer is:
 ///
-/// . For human agent assistant, customers get suggestion via ListSuggestions
-///   API. Together with the answers,
-///   [AnswerRecord.name][google.cloud.dialogflow.v2.AnswerRecord.name] are
-///   returned to the customers.
-/// . The customer uses the
-///   [AnswerRecord.name][google.cloud.dialogflow.v2.AnswerRecord.name] to call the
-///   [AnswerRecords.UpdateAnswerRecord][google.cloud.dialogflow.v2.AnswerRecords.UpdateAnswerRecord]
-///   method to send feedback about a specific answer that they believe is
-///   wrong.
+/// 1. For human agent assistant, customers get suggestion via ListSuggestions
+///    API. Together with the answers,
+///    [AnswerRecord.name][google.cloud.dialogflow.v2.AnswerRecord.name] are
+///    returned to the customers.
+/// 1. The customer uses the
+///    [AnswerRecord.name][google.cloud.dialogflow.v2.AnswerRecord.name] to call the
+///    [AnswerRecords.UpdateAnswerRecord][google.cloud.dialogflow.v2.AnswerRecords.UpdateAnswerRecord]
+///    method to send feedback about a specific answer that they believe is
+///    wrong.
 ///
 /// [google.cloud.dialogflow.v2.AnswerRecord.name]: crate::model::AnswerRecord::name
 /// [google.cloud.dialogflow.v2.AnswerRecords.UpdateAnswerRecord]: crate::client::AnswerRecords::update_answer_record
@@ -5912,9 +5912,9 @@ pub struct CreateConversationRequest {
     /// `[a-zA-Z][a-zA-Z0-9_-]*` with the characters length in range of [3,64].
     /// If the field is provided, the caller is responsible for
     ///
-    /// . the uniqueness of the ID, otherwise the request will be rejected.
-    /// . the consistency for whether to use custom ID or not under a project to
-    ///   better ensure uniqueness.
+    /// 1. the uniqueness of the ID, otherwise the request will be rejected.
+    /// 1. the consistency for whether to use custom ID or not under a project to
+    ///    better ensure uniqueness.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub conversation_id: std::string::String,
@@ -7995,11 +7995,11 @@ pub mod search_knowledge_request {
                         pub struct ControlPoint {
                             /// Optional. Can be one of:
                             ///
-                            /// . The numerical field value.
-                            /// . The duration spec for freshness:
-                            ///   The value must be formatted as an XSD `dayTimeDuration` value
-                            ///   (a restricted subset of an ISO 8601 duration value). The
-                            ///   pattern for this is: `[nD][T[nH][nM][nS]]`.
+                            /// 1. The numerical field value.
+                            /// 1. The duration spec for freshness:
+                            ///    The value must be formatted as an XSD `dayTimeDuration` value
+                            ///    (a restricted subset of an ISO 8601 duration value). The
+                            ///    pattern for this is: `[nD][T[nH][nM][nS]]`.
                             #[serde(skip_serializing_if = "std::string::String::is_empty")]
                             #[serde_as(as = "serde_with::DefaultOnNull<_>")]
                             pub attribute_value: std::string::String,
@@ -21920,9 +21920,9 @@ pub struct CreateGeneratorRequest {
     /// If the field is not provided, an Id will be auto-generated.
     /// If the field is provided, the caller is responsible for
     ///
-    /// . the uniqueness of the ID, otherwise the request will be rejected.
-    /// . the consistency for whether to use custom ID or not under a project to
-    ///   better ensure uniqueness.
+    /// 1. the uniqueness of the ID, otherwise the request will be rejected.
+    /// 1. the consistency for whether to use custom ID or not under a project to
+    ///    better ensure uniqueness.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub generator_id: std::string::String,
@@ -30483,18 +30483,18 @@ pub struct Participant {
     ///
     /// You can specify a user id as follows:
     ///
-    /// . If you set this field in
-    ///   [CreateParticipantRequest][google.cloud.dialogflow.v2.CreateParticipantRequest.participant]
-    ///   or
-    ///   [UpdateParticipantRequest][google.cloud.dialogflow.v2.UpdateParticipantRequest.participant],
-    ///   Dialogflow adds the obfuscated user id with the participant.
+    /// 1. If you set this field in
+    ///    [CreateParticipantRequest][google.cloud.dialogflow.v2.CreateParticipantRequest.participant]
+    ///    or
+    ///    [UpdateParticipantRequest][google.cloud.dialogflow.v2.UpdateParticipantRequest.participant],
+    ///    Dialogflow adds the obfuscated user id with the participant.
     ///
-    /// . If you set this field in
-    ///   [AnalyzeContent][google.cloud.dialogflow.v2.AnalyzeContentRequest.participant]
-    ///   or
-    ///   [StreamingAnalyzeContent][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.participant],
-    ///   Dialogflow will update
-    ///   [Participant.obfuscated_external_user_id][google.cloud.dialogflow.v2.Participant.obfuscated_external_user_id].
+    /// 1. If you set this field in
+    ///    [AnalyzeContent][google.cloud.dialogflow.v2.AnalyzeContentRequest.participant]
+    ///    or
+    ///    [StreamingAnalyzeContent][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.participant],
+    ///    Dialogflow will update
+    ///    [Participant.obfuscated_external_user_id][google.cloud.dialogflow.v2.Participant.obfuscated_external_user_id].
     ///
     ///
     /// Dialogflow returns an error if you try to add a user id for a
@@ -31856,36 +31856,36 @@ impl wkt::message::Message for AnalyzeContentResponse {
 ///
 /// Multiple request messages should be sent in order:
 ///
-/// . The first message must contain
-///   [participant][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.participant],
-///   [config][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.config]
-///   and optionally
-///   [query_params][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.query_params].
-///   If you want to receive an audio response, it should also contain
-///   [reply_audio_config][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.reply_audio_config].
-///   The message must not contain
-///   [input][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.input].
+/// 1. The first message must contain
+///    [participant][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.participant],
+///    [config][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.config]
+///    and optionally
+///    [query_params][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.query_params].
+///    If you want to receive an audio response, it should also contain
+///    [reply_audio_config][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.reply_audio_config].
+///    The message must not contain
+///    [input][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.input].
 ///
-/// . If
-///   [config][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.config] in
-///   the first message
-///   was set to
-///   [audio_config][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.audio_config],
-///   all subsequent messages must contain
-///   [input_audio][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.input_audio]
-///   to continue with Speech recognition. However, note that:
+/// 1. If
+///    [config][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.config] in
+///    the first message
+///    was set to
+///    [audio_config][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.audio_config],
+///    all subsequent messages must contain
+///    [input_audio][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.input_audio]
+///    to continue with Speech recognition. However, note that:
 ///
-///   * Dialogflow will bill you for the audio so far.
-///   * Dialogflow discards all Speech recognition results in favor of the
-///     text input.
-/// . If
-///   [StreamingAnalyzeContentRequest.config][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.config]
-///   in the first message was set
-///   to
-///   [StreamingAnalyzeContentRequest.text_config][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.text_config],
-///   then the second message must contain only
-///   [input_text][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.input_text].
-///   Moreover, you must not send more than two messages.
+///    * Dialogflow will bill you for the audio so far.
+///    * Dialogflow discards all Speech recognition results in favor of the
+///      text input.
+/// 1. If
+///    [StreamingAnalyzeContentRequest.config][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.config]
+///    in the first message was set
+///    to
+///    [StreamingAnalyzeContentRequest.text_config][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.text_config],
+///    then the second message must contain only
+///    [input_text][google.cloud.dialogflow.v2.StreamingAnalyzeContentRequest.input_text].
+///    Moreover, you must not send more than two messages.
 ///
 ///
 /// After you sent all input, you must half-close or abort the request stream.
@@ -32332,24 +32332,24 @@ pub mod streaming_analyze_content_request {
 ///
 /// Multiple response messages can be returned in order:
 ///
-/// . If the input was set to streaming audio, the first one or more messages
-///   contain `recognition_result`. Each `recognition_result` represents a more
-///   complete transcript of what the user said. The last `recognition_result`
-///   has `is_final` set to `true`.
+/// 1. If the input was set to streaming audio, the first one or more messages
+///    contain `recognition_result`. Each `recognition_result` represents a more
+///    complete transcript of what the user said. The last `recognition_result`
+///    has `is_final` set to `true`.
 ///
-/// . In virtual agent stage: if `enable_partial_automated_agent_reply` is
-///   true, the following N (currently 1 <= N <= 4) messages
-///   contain `automated_agent_reply` and optionally `reply_audio`
-///   returned by the virtual agent. The first (N-1)
-///   `automated_agent_reply`s will have `automated_agent_reply_type` set to
-///   `PARTIAL`. The last `automated_agent_reply` has
-///   `automated_agent_reply_type` set to `FINAL`.
-///   If `enable_partial_automated_agent_reply` is not enabled, response stream
-///   only contains the final reply.
+/// 1. In virtual agent stage: if `enable_partial_automated_agent_reply` is
+///    true, the following N (currently 1 <= N <= 4) messages
+///    contain `automated_agent_reply` and optionally `reply_audio`
+///    returned by the virtual agent. The first (N-1)
+///    `automated_agent_reply`s will have `automated_agent_reply_type` set to
+///    `PARTIAL`. The last `automated_agent_reply` has
+///    `automated_agent_reply_type` set to `FINAL`.
+///    If `enable_partial_automated_agent_reply` is not enabled, response stream
+///    only contains the final reply.
 ///
-/// . In human assist stage: the following N (N >= 1) messages contain
-///   `human_agent_suggestion_results`, `end_user_suggestion_results` or
-///   `message`.
+///    In human assist stage: the following N (N >= 1) messages contain
+///    `human_agent_suggestion_results`, `end_user_suggestion_results` or
+///    `message`.
 ///
 #[cfg(feature = "participants")]
 #[serde_with::serde_as]
@@ -35371,12 +35371,12 @@ pub struct DetectIntentRequest {
 
     /// Required. The input specification. It can be set to:
     ///
-    /// . an audio config which instructs the speech recognizer how to process
-    ///   the speech audio,
+    /// 1. an audio config which instructs the speech recognizer how to process
+    ///    the speech audio,
     ///
-    /// . a conversational query in the form of text, or
+    /// 1. a conversational query in the form of text, or
     ///
-    /// . an event that specifies which intent to trigger.
+    /// 1. an event that specifies which intent to trigger.
     ///
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub query_input: std::option::Option<crate::model::QueryInput>,
@@ -35838,12 +35838,12 @@ impl wkt::message::Message for QueryParameters {
 
 /// Represents the query input. It can contain either:
 ///
-/// . An audio config which instructs the speech recognizer how to process the
-///   speech audio.
+/// 1. An audio config which instructs the speech recognizer how to process the
+///    speech audio.
 ///
-/// . A conversational query in the form of text.
+/// 1. A conversational query in the form of text.
 ///
-/// . An event that specifies which intent to trigger.
+/// 1. An event that specifies which intent to trigger.
 ///
 #[cfg(feature = "sessions")]
 #[serde_with::serde_as]
@@ -36334,33 +36334,33 @@ impl wkt::message::Message for QueryResult {
 ///
 /// Multiple request messages should be sent in order:
 ///
-/// . The first message must contain
-///   [session][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.session],
-///   [query_input][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.query_input]
-///   plus optionally
-///   [query_params][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.query_params].
-///   If the client wants to receive an audio response, it should also contain
-///   [output_audio_config][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.output_audio_config].
-///   The message must not contain
-///   [input_audio][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.input_audio].
+/// 1. The first message must contain
+///    [session][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.session],
+///    [query_input][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.query_input]
+///    plus optionally
+///    [query_params][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.query_params].
+///    If the client wants to receive an audio response, it should also contain
+///    [output_audio_config][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.output_audio_config].
+///    The message must not contain
+///    [input_audio][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.input_audio].
 ///
-/// . If
-///   [query_input][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.query_input]
-///   was set to
-///   [query_input.audio_config][google.cloud.dialogflow.v2.InputAudioConfig],
-///   all subsequent messages must contain
-///   [input_audio][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.input_audio]
-///   to continue with Speech recognition. If you decide to rather detect an
-///   intent from text input after you already started Speech recognition,
-///   please send a message with
-///   [query_input.text][google.cloud.dialogflow.v2.QueryInput.text].
+/// 1. If
+///    [query_input][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.query_input]
+///    was set to
+///    [query_input.audio_config][google.cloud.dialogflow.v2.InputAudioConfig],
+///    all subsequent messages must contain
+///    [input_audio][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.input_audio]
+///    to continue with Speech recognition. If you decide to rather detect an
+///    intent from text input after you already started Speech recognition,
+///    please send a message with
+///    [query_input.text][google.cloud.dialogflow.v2.QueryInput.text].
 ///
-/// . However, note that:
+///    However, note that:
 ///
-///   * Dialogflow will bill you for the audio duration so far.
-///   * Dialogflow discards all Speech recognition results in favor of the
-///     input text.
-///   * Dialogflow will use the language code from the first message.
+///    * Dialogflow will bill you for the audio duration so far.
+///    * Dialogflow discards all Speech recognition results in favor of the
+///      input text.
+///    * Dialogflow will use the language code from the first message.
 ///
 /// After you sent all input, you must half-close or abort the request stream.
 ///
@@ -36404,12 +36404,12 @@ pub struct StreamingDetectIntentRequest {
 
     /// Required. The input specification. It can be set to:
     ///
-    /// . an audio config which instructs the speech recognizer how to process
-    ///   the speech audio,
+    /// 1. an audio config which instructs the speech recognizer how to process
+    ///    the speech audio,
     ///
-    /// . a conversational query in the form of text, or
+    /// 1. a conversational query in the form of text, or
     ///
-    /// . an event that specifies which intent to trigger.
+    /// 1. an event that specifies which intent to trigger.
     ///
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub query_input: std::option::Option<crate::model::QueryInput>,
@@ -36924,17 +36924,17 @@ impl wkt::message::Message for CloudConversationDebuggingInfo {
 ///
 /// Multiple response messages can be returned in order:
 ///
-/// . If the
-///   [StreamingDetectIntentRequest.input_audio][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.input_audio]
-///   field was
-///   set, the `recognition_result` field is populated for one
-///   or more messages.
-///   See the
-///   [StreamingRecognitionResult][google.cloud.dialogflow.v2.StreamingRecognitionResult]
-///   message for details about the result message sequence.
+/// 1. If the
+///    [StreamingDetectIntentRequest.input_audio][google.cloud.dialogflow.v2.StreamingDetectIntentRequest.input_audio]
+///    field was
+///    set, the `recognition_result` field is populated for one
+///    or more messages.
+///    See the
+///    [StreamingRecognitionResult][google.cloud.dialogflow.v2.StreamingRecognitionResult]
+///    message for details about the result message sequence.
 ///
-/// . The next message contains `response_id`, `query_result`
-///   and optionally `webhook_status` if a WebHook was called.
+/// 1. The next message contains `response_id`, `query_result`
+///    and optionally `webhook_status` if a WebHook was called.
 ///
 ///
 /// [google.cloud.dialogflow.v2.StreamingDetectIntentRequest.input_audio]: crate::model::StreamingDetectIntentRequest::input_audio
@@ -40484,7 +40484,7 @@ pub enum SpeechModelVariant {
     ///   [model][google.cloud.dialogflow.v2.InputAudioConfig.model] and request
     ///   language, Dialogflow falls back to the standard variant.
     ///
-    /// * The [Cloud Speech
+    ///   The [Cloud Speech
     ///   documentation](https://cloud.google.com/speech-to-text/docs/enhanced-models)
     ///   describes which models have enhanced variants.
     ///

@@ -5606,27 +5606,27 @@ impl wkt::message::Message for StreamingRecognitionResult {
 /// Here are some examples of `StreamingRecognizeResponse`s that might
 /// be returned while processing audio:
 ///
-/// . results { alternatives { transcript: "tube" } stability: 0.01 }
+/// 1. results { alternatives { transcript: "tube" } stability: 0.01 }
 ///
-/// . results { alternatives { transcript: "to be a" } stability: 0.01 }
+/// 1. results { alternatives { transcript: "to be a" } stability: 0.01 }
 ///
-/// . results { alternatives { transcript: "to be" } stability: 0.9 }
-///   results { alternatives { transcript: " or not to be" } stability: 0.01 }
+/// 1. results { alternatives { transcript: "to be" } stability: 0.9 }
+///    results { alternatives { transcript: " or not to be" } stability: 0.01 }
 ///
-/// . results { alternatives { transcript: "to be or not to be"
-///   confidence: 0.92 }
-///   alternatives { transcript: "to bee or not to bee" }
-///   is_final: true }
+/// 1. results { alternatives { transcript: "to be or not to be"
+///    confidence: 0.92 }
+///    alternatives { transcript: "to bee or not to bee" }
+///    is_final: true }
 ///
-/// . results { alternatives { transcript: " that's" } stability: 0.01 }
+/// 1. results { alternatives { transcript: " that's" } stability: 0.01 }
 ///
-/// . results { alternatives { transcript: " that is" } stability: 0.9 }
-///   results { alternatives { transcript: " the question" } stability: 0.01 }
+/// 1. results { alternatives { transcript: " that is" } stability: 0.9 }
+///    results { alternatives { transcript: " the question" } stability: 0.01 }
 ///
-/// . results { alternatives { transcript: " that is the question"
-///   confidence: 0.98 }
-///   alternatives { transcript: " that was the question" }
-///   is_final: true }
+/// 1. results { alternatives { transcript: " that is the question"
+///    confidence: 0.98 }
+///    alternatives { transcript: " that was the question" }
+///    is_final: true }
 ///
 ///
 /// Notes:

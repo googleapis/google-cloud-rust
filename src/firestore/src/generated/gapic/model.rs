@@ -5687,13 +5687,13 @@ impl wkt::message::Message for BatchWriteResponse {
 ///
 /// The query stages are executed in the following order:
 ///
-/// . from
-/// . where
-/// . select
-/// . order_by + start_at + end_at
-/// . offset
-/// . limit
-/// . find_nearest
+/// 1. from
+/// 1. where
+/// 1. select
+/// 1. order_by + start_at + end_at
+/// 1. offset
+/// 1. limit
+/// 1. find_nearest
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]

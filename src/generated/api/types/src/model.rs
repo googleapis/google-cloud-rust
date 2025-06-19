@@ -415,9 +415,9 @@ pub struct AuthProvider {
     ///
     /// If not specified,  default to use following 3 locations:
     ///
-    /// ) Authorization: Bearer
-    /// ) x-goog-iap-jwt-assertion
-    /// ) access_token query parameter
+    /// 1. Authorization: Bearer
+    /// 1. x-goog-iap-jwt-assertion
+    /// 1. access_token query parameter
     ///
     /// Default locations can be specified as followings:
     /// jwt_locations:
@@ -4890,22 +4890,22 @@ impl wkt::message::Message for Http {
 ///
 /// Rules for HTTP mapping
 ///
-/// . Leaf request fields (recursive expansion nested messages in the request
-///   message) are classified into three categories:
-///   - Fields referred by the path template. They are passed via the URL path.
-///   - Fields referred by the [HttpRule.body][google.api.HttpRule.body]. They
-///     are passed via the HTTP
-///     request body.
-///   - All other fields are passed via the URL query parameters, and the
-///     parameter name is the field path in the request message. A repeated
-///     field can be represented as multiple query parameters under the same
-///     name.
-/// . If [HttpRule.body][google.api.HttpRule.body] is "*", there is no URL
-///   query parameter, all fields
-///   are passed via URL path and HTTP request body.
-/// . If [HttpRule.body][google.api.HttpRule.body] is omitted, there is no HTTP
-///   request body, all
-///   fields are passed via URL path and URL query parameters.
+/// 1. Leaf request fields (recursive expansion nested messages in the request
+///    message) are classified into three categories:
+///    - Fields referred by the path template. They are passed via the URL path.
+///    - Fields referred by the [HttpRule.body][google.api.HttpRule.body]. They
+///      are passed via the HTTP
+///      request body.
+///    - All other fields are passed via the URL query parameters, and the
+///      parameter name is the field path in the request message. A repeated
+///      field can be represented as multiple query parameters under the same
+///      name.
+/// 1. If [HttpRule.body][google.api.HttpRule.body] is "*", there is no URL
+///    query parameter, all fields
+///    are passed via URL path and HTTP request body.
+/// 1. If [HttpRule.body][google.api.HttpRule.body] is omitted, there is no HTTP
+///    request body, all
+///    fields are passed via URL path and URL query parameters.
 ///
 /// Path template syntax
 ///

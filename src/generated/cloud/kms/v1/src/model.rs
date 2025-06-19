@@ -2210,8 +2210,8 @@ pub struct CryptoKey {
     /// At [next_rotation_time][google.cloud.kms.v1.CryptoKey.next_rotation_time],
     /// the Key Management Service will automatically:
     ///
-    /// . Create a new version of this [CryptoKey][google.cloud.kms.v1.CryptoKey].
-    /// . Mark the new version as primary.
+    /// 1. Create a new version of this [CryptoKey][google.cloud.kms.v1.CryptoKey].
+    /// 1. Mark the new version as primary.
     ///
     /// Key rotations performed manually via
     /// [CreateCryptoKeyVersion][google.cloud.kms.v1.KeyManagementService.CreateCryptoKeyVersion]

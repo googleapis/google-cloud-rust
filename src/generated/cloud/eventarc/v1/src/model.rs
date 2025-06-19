@@ -273,9 +273,9 @@ pub mod channel {
         /// The INACTIVE state indicates that the Channel cannot receive events
         /// permanently. There are two possible cases this state can happen:
         ///
-        /// . The SaaS provider disconnected from this Channel.
-        /// . The Channel activation token has expired but the SaaS provider
-        ///   wasn't connected.
+        /// 1. The SaaS provider disconnected from this Channel.
+        /// 1. The Channel activation token has expired but the SaaS provider
+        ///    wasn't connected.
         ///
         /// To re-establish a Connection with a provider, the subscriber
         /// should create a new Channel and give it to the provider.
@@ -5947,11 +5947,11 @@ pub mod pipeline {
             /// To construct the HTTP request payload and the value of the content-type
             /// HTTP header, the payload format is defined as follows:
             ///
-            /// ) Use the output_payload_format_type on the Pipeline.Destination if it
-            ///   is set, else:
-            /// ) Use the input_payload_format_type on the Pipeline if it is set,
-            ///   else:
-            /// ) Treat the payload as opaque binary data.
+            /// 1. Use the output_payload_format_type on the Pipeline.Destination if it
+            ///    is set, else:
+            /// 1. Use the input_payload_format_type on the Pipeline if it is set,
+            ///    else:
+            /// 1. Treat the payload as opaque binary data.
             ///
             /// The `data` field of the message is converted to the payload format or
             /// left as-is for case 3) and then attached as the payload of the HTTP

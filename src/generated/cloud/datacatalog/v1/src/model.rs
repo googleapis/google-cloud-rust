@@ -2103,11 +2103,11 @@ pub mod lookup_entry_request {
         ///
         /// * For non-regionalized resources:
         ///
-        /// * `{SYSTEM}:{PROJECT}.{PATH_TO_RESOURCE_SEPARATED_WITH_DOTS}`
+        ///   `{SYSTEM}:{PROJECT}.{PATH_TO_RESOURCE_SEPARATED_WITH_DOTS}`
         ///
         /// * For regionalized resources:
         ///
-        /// * `{SYSTEM}:{PROJECT}.{LOCATION_ID}.{PATH_TO_RESOURCE_SEPARATED_WITH_DOTS}`
+        ///   `{SYSTEM}:{PROJECT}.{LOCATION_ID}.{PATH_TO_RESOURCE_SEPARATED_WITH_DOTS}`
         ///
         ///
         /// Example for a DPMS table:
@@ -11722,11 +11722,11 @@ pub struct SearchCatalogResult {
     ///
     /// * For non-regionalized resources:
     ///
-    /// * `{SYSTEM}:{PROJECT}.{PATH_TO_RESOURCE_SEPARATED_WITH_DOTS}`
+    ///   `{SYSTEM}:{PROJECT}.{PATH_TO_RESOURCE_SEPARATED_WITH_DOTS}`
     ///
     /// * For regionalized resources:
     ///
-    /// * `{SYSTEM}:{PROJECT}.{LOCATION_ID}.{PATH_TO_RESOURCE_SEPARATED_WITH_DOTS}`
+    ///   `{SYSTEM}:{PROJECT}.{LOCATION_ID}.{PATH_TO_RESOURCE_SEPARATED_WITH_DOTS}`
     ///
     ///
     /// Example for a DPMS table:

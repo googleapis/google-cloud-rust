@@ -1341,6 +1341,9 @@ func isLinkDestination(line string, matchStart, matchEnd int) bool {
 func processList(list *ast.List, indentLevel int, documentationBytes []byte, elementID string) []string {
 	var results []string
 	listMarker := string(list.Marker)
+	if list.IsOrdered() {
+		listMarker = "1."
+	}
 	for child := list.FirstChild(); child != nil; child = child.NextSibling() {
 		if child.Kind() == ast.KindListItem {
 			listItems := processListItem(child.(*ast.ListItem), indentLevel, listMarker, documentationBytes, elementID)
@@ -1351,13 +1354,27 @@ func processList(list *ast.List, indentLevel int, documentationBytes []byte, ele
 }
 
 func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string, documentationBytes []byte, elementID string) []string {
+	var markerIndent int
+	switch len(listMarker) {
+	case 1:
+		markerIndent = 2
+	case 2:
+		markerIndent = 3
+	default:
+		markerIndent = 2
+	}
 	var results []string
+	paragraphStart := listMarker
 	for child := listItem.FirstChild(); child != nil; child = child.NextSibling() {
+		if child.Kind() == ast.KindListItem {
+			paragraphStart = listMarker
+		}
 		if child.Kind() == ast.KindList {
-			nestedListItems := processList(child.(*ast.List), indentLevel+1, documentationBytes, elementID)
+			nestedListItems := processList(child.(*ast.List), indentLevel+markerIndent, documentationBytes, elementID)
 			results = append(results, nestedListItems...)
 			break
-		} else if child.Kind() == ast.KindParagraph || child.Kind() == ast.KindTextBlock {
+		}
+		if child.Kind() == ast.KindParagraph || child.Kind() == ast.KindTextBlock {
 			if child.Lines().Len() == 0 {
 				// This indicates a bug in the documentation that should be
 				// fixed upstream. We continue despite the error because missing
@@ -1367,11 +1384,8 @@ func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string,
 			}
 			for i := 0; i < child.Lines().Len(); i++ {
 				line := child.Lines().At(i)
-				if i == 0 {
-					results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, processCommentLine(child, line, documentationBytes)))
-				} else {
-					results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), processCommentLine(child, line, documentationBytes)))
-				}
+				results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), paragraphStart, processCommentLine(child, line, documentationBytes)))
+				paragraphStart = fmt.Sprintf("%*s", len(listMarker), "")
 			}
 			if child.Kind() == ast.KindParagraph {
 				results = append(results, "\n")
@@ -1382,7 +1396,7 @@ func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string,
 }
 
 func indent(level int) string {
-	return fmt.Sprintf("%*s", level*2, "")
+	return fmt.Sprintf("%*s", level, "")
 }
 
 func annotateCodeBlock(node ast.Node, documentationBytes []byte) []string {

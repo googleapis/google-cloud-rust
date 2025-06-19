@@ -7581,13 +7581,13 @@ pub mod cluster {
         /// Describes the Cloud KMS encryption key that will be used to protect the
         /// destination Bigtable cluster. The requirements for this key are:
         ///
-        /// ) The Cloud Bigtable service account associated with the project that
-        ///   contains this cluster must be granted the
-        ///   `cloudkms.cryptoKeyEncrypterDecrypter` role on the CMEK key.
-        /// ) Only regional keys can be used and the region of the CMEK key must
-        ///   match the region of the cluster.
-        ///   Values are of the form
-        ///   `projects/{project}/locations/{location}/keyRings/{keyring}/cryptoKeys/{key}`
+        /// 1. The Cloud Bigtable service account associated with the project that
+        ///    contains this cluster must be granted the
+        ///    `cloudkms.cryptoKeyEncrypterDecrypter` role on the CMEK key.
+        /// 1. Only regional keys can be used and the region of the CMEK key must
+        ///    match the region of the cluster.
+        ///    Values are of the form
+        ///    `projects/{project}/locations/{location}/keyRings/{keyring}/cryptoKeys/{key}`
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub kms_key_name: std::string::String,

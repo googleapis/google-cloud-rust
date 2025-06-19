@@ -14282,12 +14282,12 @@ pub mod uptime_check_config {
         /// The content type header to use for the check. The following
         /// configurations result in errors:
         ///
-        /// . Content type is specified in both the `headers` field and the
-        ///   `content_type` field.
-        /// . Request method is `GET` and `content_type` is not `TYPE_UNSPECIFIED`
-        /// . Request method is `POST` and `content_type` is `TYPE_UNSPECIFIED`.
-        /// . Request method is `POST` and a "Content-Type" header is provided via
-        ///   `headers` field. The `content_type` field should be used instead.
+        /// 1. Content type is specified in both the `headers` field and the
+        ///    `content_type` field.
+        /// 1. Request method is `GET` and `content_type` is not `TYPE_UNSPECIFIED`
+        /// 1. Request method is `POST` and `content_type` is `TYPE_UNSPECIFIED`.
+        /// 1. Request method is `POST` and a "Content-Type" header is provided via
+        ///    `headers` field. The `content_type` field should be used instead.
         #[serde(skip_serializing_if = "wkt::internal::is_default")]
         #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub content_type: crate::model::uptime_check_config::http_check::ContentType,
@@ -14296,9 +14296,9 @@ pub mod uptime_check_config {
         /// configurations outlined in the `content_type` field apply to
         /// `custom_content_type`, as well as the following:
         ///
-        /// . `content_type` is `URL_ENCODED` and `custom_content_type` is set.
-        /// . `content_type` is `USER_PROVIDED` and `custom_content_type` is not
-        ///   set.
+        /// 1. `content_type` is `URL_ENCODED` and `custom_content_type` is set.
+        /// 1. `content_type` is `USER_PROVIDED` and `custom_content_type` is not
+        ///    set.
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
         #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub custom_content_type: std::string::String,

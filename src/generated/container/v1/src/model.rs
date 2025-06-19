@@ -16160,24 +16160,24 @@ pub mod node_pool {
     /// If the strategy is ROLLING, use max_surge and max_unavailable to control
     /// the level of parallelism and the level of disruption caused by upgrade.
     ///
-    /// . maxSurge controls the number of additional nodes that can be added to
-    ///   the node pool temporarily for the time of the upgrade to increase the
-    ///   number of available nodes.
-    /// . maxUnavailable controls the number of nodes that can be simultaneously
-    ///   unavailable.
-    /// . (maxUnavailable + maxSurge) determines the level of parallelism (how
-    ///   many nodes are being upgraded at the same time).
+    /// 1. maxSurge controls the number of additional nodes that can be added to
+    ///    the node pool temporarily for the time of the upgrade to increase the
+    ///    number of available nodes.
+    /// 1. maxUnavailable controls the number of nodes that can be simultaneously
+    ///    unavailable.
+    /// 1. (maxUnavailable + maxSurge) determines the level of parallelism (how
+    ///    many nodes are being upgraded at the same time).
     ///
     /// If the strategy is BLUE_GREEN, use blue_green_settings to configure the
     /// blue-green upgrade related settings.
     ///
-    /// . standard_rollout_policy is the default policy. The policy is used to
-    ///   control the way blue pool gets drained. The draining is executed in the
-    ///   batch mode. The batch size could be specified as either percentage of the
-    ///   node pool size or the number of nodes. batch_soak_duration is the soak
-    ///   time after each batch gets drained.
-    /// . node_pool_soak_duration is the soak time after all blue nodes are
-    ///   drained. After this period, the blue pool nodes will be deleted.
+    /// 1. standard_rollout_policy is the default policy. The policy is used to
+    ///    control the way blue pool gets drained. The draining is executed in the
+    ///    batch mode. The batch size could be specified as either percentage of the
+    ///    node pool size or the number of nodes. batch_soak_duration is the soak
+    ///    time after each batch gets drained.
+    /// 1. node_pool_soak_duration is the soak time after all blue nodes are
+    ///    drained. After this period, the blue pool nodes will be deleted.
     #[serde_with::serde_as]
     #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
     #[serde(default, rename_all = "camelCase")]
@@ -27494,15 +27494,15 @@ pub struct LocalNvmeSsdBlockConfig {
     /// A zero (or unset) value has different meanings depending on machine type
     /// being used:
     ///
-    /// . For pre-Gen3 machines, which support flexible numbers of local ssds,
-    ///   zero (or unset) means to disable using local SSDs as ephemeral storage.
-    /// . For Gen3 machines which dictate a specific number of local ssds, zero
-    ///   (or unset) means to use the default number of local ssds that goes with
-    ///   that machine type. For example, for a c3-standard-8-lssd machine, 2 local
-    ///   ssds would be provisioned. For c3-standard-8 (which doesn't support local
-    ///   ssds), 0 will be provisioned. See
-    ///   <https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds>
-    ///   for more info.
+    /// 1. For pre-Gen3 machines, which support flexible numbers of local ssds,
+    ///    zero (or unset) means to disable using local SSDs as ephemeral storage.
+    /// 1. For Gen3 machines which dictate a specific number of local ssds, zero
+    ///    (or unset) means to use the default number of local ssds that goes with
+    ///    that machine type. For example, for a c3-standard-8-lssd machine, 2 local
+    ///    ssds would be provisioned. For c3-standard-8 (which doesn't support local
+    ///    ssds), 0 will be provisioned. See
+    ///    <https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds>
+    ///    for more info.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub local_ssd_count: i32,
@@ -27542,19 +27542,19 @@ pub struct EphemeralStorageLocalSsdConfig {
     /// A zero (or unset) value has different meanings depending on machine type
     /// being used:
     ///
-    /// . For pre-Gen3 machines, which support flexible numbers of local ssds,
-    ///   zero (or unset) means to disable using local SSDs as ephemeral storage. The
-    ///   limit for this value is dependent upon the maximum number of disk
-    ///   available on a machine per zone. See:
-    ///   <https://cloud.google.com/compute/docs/disks/local-ssd>
-    ///   for more information.
-    /// . For Gen3 machines which dictate a specific number of local ssds, zero
-    ///   (or unset) means to use the default number of local ssds that goes with
-    ///   that machine type. For example, for a c3-standard-8-lssd machine, 2 local
-    ///   ssds would be provisioned. For c3-standard-8 (which doesn't support local
-    ///   ssds), 0 will be provisioned. See
-    ///   <https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds>
-    ///   for more info.
+    /// 1. For pre-Gen3 machines, which support flexible numbers of local ssds,
+    ///    zero (or unset) means to disable using local SSDs as ephemeral storage. The
+    ///    limit for this value is dependent upon the maximum number of disk
+    ///    available on a machine per zone. See:
+    ///    <https://cloud.google.com/compute/docs/disks/local-ssd>
+    ///    for more information.
+    /// 1. For Gen3 machines which dictate a specific number of local ssds, zero
+    ///    (or unset) means to use the default number of local ssds that goes with
+    ///    that machine type. For example, for a c3-standard-8-lssd machine, 2 local
+    ///    ssds would be provisioned. For c3-standard-8 (which doesn't support local
+    ///    ssds), 0 will be provisioned. See
+    ///    <https://cloud.google.com/compute/docs/disks/local-ssd#choose_number_local_ssds>
+    ///    for more info.
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub local_ssd_count: i32,
@@ -27605,9 +27605,9 @@ impl wkt::message::Message for EphemeralStorageLocalSsdConfig {
 pub struct ResourceManagerTags {
     /// TagKeyValue must be in one of the following formats ([KEY]=[VALUE])
     ///
-    /// . `tagKeys/{tag_key_id}=tagValues/{tag_value_id}`
-    /// . `{org_id}/{tag_key_name}={tag_value_name}`
-    /// . `{project_id}/{tag_key_name}={tag_value_name}`
+    /// 1. `tagKeys/{tag_key_id}=tagValues/{tag_value_id}`
+    /// 1. `{org_id}/{tag_key_name}={tag_value_name}`
+    /// 1. `{project_id}/{tag_key_name}={tag_value_name}`
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub tags: std::collections::HashMap<std::string::String, std::string::String>,

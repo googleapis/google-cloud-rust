@@ -6722,10 +6722,10 @@ pub mod build_trigger {
         /// Autodetect build configuration.  The following precedence is used (case
         /// insensitive):
         ///
-        /// . cloudbuild.yaml
-        /// . cloudbuild.yml
-        /// . cloudbuild.json
-        /// . Dockerfile
+        /// 1. cloudbuild.yaml
+        /// 1. cloudbuild.yml
+        /// 1. cloudbuild.json
+        /// 1. Dockerfile
         ///
         /// Currently only available for GitHub App Triggers.
         Autodetect(#[serde_as(as = "serde_with::DefaultOnNull<_>")] bool),
@@ -7772,16 +7772,16 @@ pub mod pull_request_filter {
         CommentsDisabled,
         /// Builds will only fire in response to pull requests if:
         ///
-        /// . The pull request author has repository write permission or above and
-        ///   `/gcbrun` is in the PR description.
-        /// . A user with repository writer permissions or above comments `/gcbrun`
-        ///   on a pull request authored by any user.
+        /// 1. The pull request author has repository write permission or above and
+        ///    `/gcbrun` is in the PR description.
+        /// 1. A user with repository writer permissions or above comments `/gcbrun`
+        ///    on a pull request authored by any user.
         CommentsEnabled,
         /// Builds will only fire in response to pull requests if:
         ///
-        /// . The pull request author is a repository writer or above.
-        /// . If the author does not have write permissions, a user with write
-        ///   permissions or above must comment `/gcbrun` in order to fire a build.
+        /// 1. The pull request author is a repository writer or above.
+        /// 1. If the author does not have write permissions, a user with write
+        ///    permissions or above must comment `/gcbrun` in order to fire a build.
         CommentsEnabledForExternalContributorsOnly,
         /// If set, the enum was initialized with an unknown value.
         ///

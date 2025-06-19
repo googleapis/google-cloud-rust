@@ -382,8 +382,8 @@ pub struct ManagementServer {
     /// Optional. Resource labels to represent user provided metadata.
     /// Labels currently defined:
     ///
-    /// . migrate_from_go=<false|true>
-    ///   If set to true, the MS is created in migration ready mode.
+    /// 1. migrate_from_go=<false|true>
+    ///    If set to true, the MS is created in migration ready mode.
     #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
