@@ -8390,12 +8390,12 @@ pub mod restore_config {
             /// The "add" operation performs one of the following functions,
             /// depending upon what the target location references:
             ///
-            /// . If the target location specifies an array index, a new value is
-            ///   inserted into the array at the specified index.
-            /// . If the target location specifies an object member that does not
-            ///   already exist, a new member is added to the object.
-            /// . If the target location specifies an object member that does exist,
-            ///   that member's value is replaced.
+            /// 1. If the target location specifies an array index, a new value is
+            ///    inserted into the array at the specified index.
+            /// 1. If the target location specifies an object member that does not
+            ///    already exist, a new member is added to the object.
+            /// 1. If the target location specifies an object member that does exist,
+            ///    that member's value is replaced.
             Add,
             /// The "test" operation tests that a value at the target location is
             /// equal to a specified value.

@@ -4614,9 +4614,9 @@ pub struct DdlStatementActionInfo {
     /// The entity name(s) being operated on the DDL statement.
     /// E.g.
     ///
-    /// . For statement "CREATE TABLE t1(...)", `entity_names` = ["t1"].
-    /// . For statement "GRANT ROLE r1, r2 ...", `entity_names` = ["r1", "r2"].
-    /// . For statement "ANALYZE", `entity_names` = [].
+    /// 1. For statement "CREATE TABLE t1(...)", `entity_names` = ["t1"].
+    /// 1. For statement "GRANT ROLE r1, r2 ...", `entity_names` = ["r1", "r2"].
+    /// 1. For statement "ANALYZE", `entity_names` = [].
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub entity_names: std::vec::Vec<std::string::String>,

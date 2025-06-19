@@ -6159,12 +6159,12 @@ pub struct OSPolicyAssignment {
     /// Required. Rollout to deploy the OS policy assignment.
     /// A rollout is triggered in the following situations:
     ///
-    /// ) OSPolicyAssignment is created.
-    /// ) OSPolicyAssignment is updated and the update contains changes to one of
-    ///   the following fields:
-    ///   - instance_filter
-    ///   - os_policies
-    /// ) OSPolicyAssignment is deleted.
+    /// 1. OSPolicyAssignment is created.
+    /// 1. OSPolicyAssignment is updated and the update contains changes to one of
+    ///    the following fields:
+    ///    - instance_filter
+    ///    - os_policies
+    /// 1. OSPolicyAssignment is deleted.
     #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rollout: std::option::Option<crate::model::os_policy_assignment::Rollout>,
 

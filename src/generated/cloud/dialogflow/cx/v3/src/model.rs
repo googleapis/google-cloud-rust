@@ -8764,24 +8764,24 @@ pub struct ListChangelogsRequest {
     /// The filter string. Supports filter by user_email, resource, type and
     /// create_time. Some examples:
     ///
-    /// . By user email:
-    ///   user_email = "someone@google.com"
-    /// . By resource name:
-    ///   resource = "projects/123/locations/global/agents/456/flows/789"
-    /// . By resource display name:
-    ///   display_name = "my agent"
-    /// . By action:
-    ///   action = "Create"
-    /// . By type:
-    ///   type = "flows"
-    /// . By create time. Currently predicates on `create_time` and
-    ///   `create_time_epoch_seconds` are supported:
-    ///   create_time_epoch_seconds > 1551790877 AND create_time <=
-    ///   2017-01-15T01:30:15.01Z
-    /// . Combination of above filters:
-    ///   resource = "projects/123/locations/global/agents/456/flows/789"
-    ///   AND user_email = "someone@google.com"
-    ///   AND create_time <= 2017-01-15T01:30:15.01Z
+    /// 1. By user email:
+    ///    user_email = "someone@google.com"
+    /// 1. By resource name:
+    ///    resource = "projects/123/locations/global/agents/456/flows/789"
+    /// 1. By resource display name:
+    ///    display_name = "my agent"
+    /// 1. By action:
+    ///    action = "Create"
+    /// 1. By type:
+    ///    type = "flows"
+    /// 1. By create time. Currently predicates on `create_time` and
+    ///    `create_time_epoch_seconds` are supported:
+    ///    create_time_epoch_seconds > 1551790877 AND create_time <=
+    ///    2017-01-15T01:30:15.01Z
+    /// 1. Combination of above filters:
+    ///    resource = "projects/123/locations/global/agents/456/flows/789"
+    ///    AND user_email = "someone@google.com"
+    ///    AND create_time <= 2017-01-15T01:30:15.01Z
     pub filter: std::string::String,
 
     /// The maximum number of items to return in a single page. By default 100 and
@@ -31278,11 +31278,11 @@ pub struct Fulfillment {
     /// Dialogflow invokes webhook.
     /// Warning:
     ///
-    /// ) This flag only affects streaming API. Responses are still queued
-    ///   and returned once in non-streaming API.
-    /// ) The flag can be enabled in any fulfillment but only the first 3 partial
-    ///   responses will be returned. You may only want to apply it to fulfillments
-    ///   that have slow webhooks.
+    /// 1. This flag only affects streaming API. Responses are still queued
+    ///    and returned once in non-streaming API.
+    /// 1. The flag can be enabled in any fulfillment but only the first 3 partial
+    ///    responses will be returned. You may only want to apply it to fulfillments
+    ///    that have slow webhooks.
     pub return_partial_responses: bool,
 
     /// The value of this field will be populated in the
@@ -51935,31 +51935,31 @@ pub mod detect_intent_response {
 ///
 /// Multiple request messages should be sent in order:
 ///
-/// . The first message must contain
-///   [session][google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.session],
-///   [query_input][google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.query_input]
-///   plus optionally
-///   [query_params][google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.query_params].
-///   If the client wants to receive an audio response, it should also contain
-///   [output_audio_config][google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.output_audio_config].
+/// 1. The first message must contain
+///    [session][google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.session],
+///    [query_input][google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.query_input]
+///    plus optionally
+///    [query_params][google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.query_params].
+///    If the client wants to receive an audio response, it should also contain
+///    [output_audio_config][google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.output_audio_config].
 ///
-/// . If
-///   [query_input][google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.query_input]
-///   was set to
-///   [query_input.audio.config][google.cloud.dialogflow.cx.v3.AudioInput.config],
-///   all subsequent messages must contain
-///   [query_input.audio.audio][google.cloud.dialogflow.cx.v3.AudioInput.audio]
-///   to continue with Speech recognition. If you decide to rather detect an
-///   intent from text input after you already started Speech recognition,
-///   please send a message with
-///   [query_input.text][google.cloud.dialogflow.cx.v3.QueryInput.text].
+/// 1. If
+///    [query_input][google.cloud.dialogflow.cx.v3.StreamingDetectIntentRequest.query_input]
+///    was set to
+///    [query_input.audio.config][google.cloud.dialogflow.cx.v3.AudioInput.config],
+///    all subsequent messages must contain
+///    [query_input.audio.audio][google.cloud.dialogflow.cx.v3.AudioInput.audio]
+///    to continue with Speech recognition. If you decide to rather detect an
+///    intent from text input after you already started Speech recognition,
+///    please send a message with
+///    [query_input.text][google.cloud.dialogflow.cx.v3.QueryInput.text].
 ///
-/// . However, note that:
+///    However, note that:
 ///
-///   * Dialogflow will bill you for the audio duration so far.
-///   * Dialogflow discards all Speech recognition results in favor of the
-///     input text.
-///   * Dialogflow will use the language code from the first message.
+///    * Dialogflow will bill you for the audio duration so far.
+///    * Dialogflow discards all Speech recognition results in favor of the
+///      input text.
+///    * Dialogflow will use the language code from the first message.
 ///
 /// After you sent all input, you must half-close or abort the request stream.
 ///
@@ -55510,11 +55510,11 @@ pub mod boost_spec {
             pub struct ControlPoint {
                 /// Optional. Can be one of:
                 ///
-                /// . The numerical field value.
-                /// . The duration spec for freshness:
-                ///   The value must be formatted as an XSD `dayTimeDuration` value (a
-                ///   restricted subset of an ISO 8601 duration value). The pattern for
-                ///   this is: `[nD][T[nH][nM][nS]]`.
+                /// 1. The numerical field value.
+                /// 1. The duration spec for freshness:
+                ///    The value must be formatted as an XSD `dayTimeDuration` value (a
+                ///    restricted subset of an ISO 8601 duration value). The pattern for
+                ///    this is: `[nD][T[nH][nM][nS]]`.
                 pub attribute_value: std::string::String,
 
                 /// Optional. The value between -1 to 1 by which to boost the score if
@@ -56354,17 +56354,17 @@ impl serde::ser::Serialize for FilterSpecs {
 
 /// Represents the query input. It can contain one of:
 ///
-/// . A conversational query in the form of text.
+/// 1. A conversational query in the form of text.
 ///
-/// . An intent query that specifies which intent to trigger.
+/// 1. An intent query that specifies which intent to trigger.
 ///
-/// . Natural language speech audio to be processed.
+/// 1. Natural language speech audio to be processed.
 ///
-/// . An event to be triggered.
+/// 1. An event to be triggered.
 ///
-/// . DTMF digits to invoke an intent and fill in parameter value.
+/// 1. DTMF digits to invoke an intent and fill in parameter value.
 ///
-/// . The results of a tool executed by the client.
+/// 1. The results of a tool executed by the client.
 ///
 #[cfg(any(feature = "sessions", feature = "test-cases",))]
 #[derive(Clone, Debug, Default, PartialEq)]
@@ -83639,7 +83639,7 @@ pub enum SpeechModelVariant {
     ///   [model][google.cloud.dialogflow.cx.v3.InputAudioConfig.model] and request
     ///   language, Dialogflow falls back to the standard variant.
     ///
-    /// * The [Cloud Speech
+    ///   The [Cloud Speech
     ///   documentation](https://cloud.google.com/speech-to-text/docs/enhanced-models)
     ///   describes which models have enhanced variants.
     ///

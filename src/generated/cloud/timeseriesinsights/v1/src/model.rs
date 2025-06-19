@@ -114,9 +114,9 @@ impl wkt::message::Message for BigqueryMapping {
 pub struct DataSource {
     /// Data source URI.
     ///
-    /// ) Google Cloud Storage files (JSON) are defined in the following form.
-    ///   `gs://bucket_name/object_name`. For more information on Cloud Storage URIs,
-    ///   please see <https://cloud.google.com/storage/docs/reference-uris>.
+    /// 1. Google Cloud Storage files (JSON) are defined in the following form.
+    ///    `gs://bucket_name/object_name`. For more information on Cloud Storage URIs,
+    ///    please see <https://cloud.google.com/storage/docs/reference-uris>.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
@@ -750,18 +750,18 @@ pub struct AppendEventsRequest {
     ///
     /// Note:
     ///
-    /// . The [DataSet][google.cloud.timeseriesinsights.v1.DataSet] must be shown in a `LOADED` state
-    ///   in the results of `list` method; otherwise, all events from
-    ///   the append request will be dropped, and a `NOT_FOUND` status will be
-    ///   returned.
-    /// . All events in a single request must have the same
-    ///   [groupId][google.cloud.timeseriesinsights.v1.Event.group_id] if set; otherwise, an
-    ///   `INVALID_ARGUMENT` status will be returned.
-    /// . If [groupId][google.cloud.timeseriesinsights.v1.Event.group_id] is not set (or 0), there
-    ///   should be only 1 event; otherwise, an `INVALID_ARGUMENT` status will be
-    ///   returned.
-    /// . The events must be newer than the current time minus
-    ///   [DataSet TTL][google.cloud.timeseriesinsights.v1.DataSet.ttl] or they will be dropped.
+    /// 1. The [DataSet][google.cloud.timeseriesinsights.v1.DataSet] must be shown in a `LOADED` state
+    ///    in the results of `list` method; otherwise, all events from
+    ///    the append request will be dropped, and a `NOT_FOUND` status will be
+    ///    returned.
+    /// 1. All events in a single request must have the same
+    ///    [groupId][google.cloud.timeseriesinsights.v1.Event.group_id] if set; otherwise, an
+    ///    `INVALID_ARGUMENT` status will be returned.
+    /// 1. If [groupId][google.cloud.timeseriesinsights.v1.Event.group_id] is not set (or 0), there
+    ///    should be only 1 event; otherwise, an `INVALID_ARGUMENT` status will be
+    ///    returned.
+    /// 1. The events must be newer than the current time minus
+    ///    [DataSet TTL][google.cloud.timeseriesinsights.v1.DataSet.ttl] or they will be dropped.
     ///
     /// [google.cloud.timeseriesinsights.v1.DataSet]: crate::model::DataSet
     /// [google.cloud.timeseriesinsights.v1.DataSet.ttl]: crate::model::DataSet::ttl

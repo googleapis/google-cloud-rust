@@ -1048,9 +1048,9 @@ pub struct Membership {
     ///
     /// `membership_id` must be a valid RFC 1123 compliant DNS label:
     ///
-    /// . At most 63 characters in length
-    /// . It must consist of lower case alphanumeric characters or `-`
-    /// . It must start and end with an alphanumeric character
+    /// 1. At most 63 characters in length
+    /// 1. It must consist of lower case alphanumeric characters or `-`
+    /// 1. It must start and end with an alphanumeric character
     ///
     /// Which can be expressed as the regex: `[a-z0-9]([-a-z0-9]*[a-z0-9])?`,
     /// with a maximum length of 63 characters.
@@ -2270,19 +2270,19 @@ pub struct ListMembershipsRequest {
     ///
     /// - Name is `bar` in project `foo-proj` and location `global`:
     ///
-    /// - name = "projects/foo-proj/locations/global/membership/bar"
+    ///   name = "projects/foo-proj/locations/global/membership/bar"
     ///
     /// - Memberships that have a label called `foo`:
     ///
-    /// - labels.foo:*
+    ///   labels.foo:*
     ///
     /// - Memberships that have a label called `foo` whose value is `bar`:
     ///
-    /// - labels.foo = bar
+    ///   labels.foo = bar
     ///
     /// - Memberships in the CREATING state:
     ///
-    /// - state = CREATING
+    ///   state = CREATING
     ///
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
@@ -2470,9 +2470,9 @@ pub struct CreateMembershipRequest {
     /// Required. Client chosen ID for the membership. `membership_id` must be a
     /// valid RFC 1123 compliant DNS label:
     ///
-    /// . At most 63 characters in length
-    /// . It must consist of lower case alphanumeric characters or `-`
-    /// . It must start and end with an alphanumeric character
+    /// 1. At most 63 characters in length
+    /// 1. It must consist of lower case alphanumeric characters or `-`
+    /// 1. It must start and end with an alphanumeric character
     ///
     /// Which can be expressed as the regex: `[a-z0-9]([-a-z0-9]*[a-z0-9])?`,
     /// with a maximum length of 63 characters.
@@ -3023,15 +3023,15 @@ pub struct ListFeaturesRequest {
     ///
     /// - Feature with the name "servicemesh" in project "foo-proj":
     ///
-    /// - name = "projects/foo-proj/locations/global/features/servicemesh"
+    ///   name = "projects/foo-proj/locations/global/features/servicemesh"
     ///
     /// - Features that have a label called `foo`:
     ///
-    /// - labels.foo:*
+    ///   labels.foo:*
     ///
     /// - Features that have a label called `foo` whose value is `bar`:
     ///
-    /// - labels.foo = bar
+    ///   labels.foo = bar
     ///
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]

@@ -1139,9 +1139,9 @@ impl SequenceService {
 /// against Showcase.
 /// Adding this comment with special characters for comment formatting tests:
 ///
-/// . (abra->kadabra->alakazam)
+/// 1. (abra->kadabra->alakazam)
 ///
-/// ) [Nonsense][]: `pokemon/*/psychic/*`
+/// 1. [Nonsense][]: `pokemon/*/psychic/*`
 ///
 /// # Configuration
 ///
@@ -1233,9 +1233,9 @@ impl Testing {
     /// Creates a new testing session.
     /// Adding this comment with special characters for comment formatting tests:
     ///
-    /// . (abra->kadabra->alakazam)
+    /// 1. (abra->kadabra->alakazam)
     ///
-    /// ) [Nonsense][]: `pokemon/*/psychic/*`
+    /// 1. [Nonsense][]: `pokemon/*/psychic/*`
     pub fn create_session(&self) -> super::builder::testing::CreateSession {
         super::builder::testing::CreateSession::new(self.inner.clone())
     }

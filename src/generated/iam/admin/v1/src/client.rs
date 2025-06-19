@@ -375,10 +375,10 @@ impl Iam {
     /// This method does not enable the service account to access other resources.
     /// To grant roles to a service account on a resource, follow these steps:
     ///
-    /// . Call the resource's `getIamPolicy` method to get its current IAM policy.
-    /// . Edit the policy so that it binds the service account to an IAM role for
-    ///   the resource.
-    /// . Call the resource's `setIamPolicy` method to update its IAM policy.
+    /// 1. Call the resource's `getIamPolicy` method to get its current IAM policy.
+    /// 1. Edit the policy so that it binds the service account to an IAM role for
+    ///    the resource.
+    /// 1. Call the resource's `setIamPolicy` method to update its IAM policy.
     ///
     /// For detailed instructions, see
     /// [Manage access to project, folders, and

@@ -3163,12 +3163,12 @@ pub struct SearchBlueprintRevisionsRequest {
 
     /// Required. Supported queries:
     ///
-    /// . ""                       : Lists all revisions across all blueprints.
-    /// . "latest=true"            : Lists latest revisions across all blueprints.
-    /// . "name={name}"            : Lists all revisions of blueprint with name
-    ///   {name}.
-    /// . "name={name} latest=true": Lists latest revision of blueprint with name
-    ///   {name}
+    /// 1. ""                       : Lists all revisions across all blueprints.
+    /// 1. "latest=true"            : Lists latest revisions across all blueprints.
+    /// 1. "name={name}"            : Lists all revisions of blueprint with name
+    ///    {name}.
+    /// 1. "name={name} latest=true": Lists latest revision of blueprint with name
+    ///    {name}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,
@@ -3987,13 +3987,13 @@ pub struct SearchDeploymentRevisionsRequest {
 
     /// Required. Supported queries:
     ///
-    /// . ""                       : Lists all revisions across all deployments.
-    /// . "latest=true"            : Lists latest revisions across all
-    ///   deployments.
-    /// . "name={name}"            : Lists all revisions of deployment with name
-    ///   {name}.
-    /// . "name={name} latest=true": Lists latest revision of deployment with name
-    ///   {name}
+    /// 1. ""                       : Lists all revisions across all deployments.
+    /// 1. "latest=true"            : Lists latest revisions across all
+    ///    deployments.
+    /// 1. "name={name}"            : Lists all revisions of deployment with name
+    ///    {name}.
+    /// 1. "name={name} latest=true": Lists latest revision of deployment with name
+    ///    {name}
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub query: std::string::String,

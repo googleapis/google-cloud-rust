@@ -22117,14 +22117,14 @@ pub mod model {
             /// The column to split data with. This column won't be used as a
             /// feature.
             ///
-            /// . When data_split_method is CUSTOM, the corresponding column should
-            ///   be boolean. The rows with true value tag are eval data, and the false
-            ///   are training data.
-            /// . When data_split_method is SEQ, the first DATA_SPLIT_EVAL_FRACTION
-            ///   rows (from smallest to largest) in the corresponding column are used
-            ///   as training data, and the rest are eval data. It respects the order
-            ///   in Orderable data types:
-            ///   <https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#data_type_properties>
+            /// 1. When data_split_method is CUSTOM, the corresponding column should
+            ///    be boolean. The rows with true value tag are eval data, and the false
+            ///    are training data.
+            /// 1. When data_split_method is SEQ, the first DATA_SPLIT_EVAL_FRACTION
+            ///    rows (from smallest to largest) in the corresponding column are used
+            ///    as training data, and the rest are eval data. It respects the order
+            ///    in Orderable data types:
+            ///    <https://cloud.google.com/bigquery/docs/reference/standard-sql/data-types#data_type_properties>
             pub data_split_column: std::string::String,
 
             /// The strategy to determine learn rate for the current iteration.
@@ -45963,14 +45963,14 @@ impl serde::ser::Serialize for RowAccessPolicyReference {
 ///
 /// * ARRAY\<STRING\>:
 ///
-/// * {
+///   {
 ///   "typeKind": "ARRAY",
 ///   "arrayElementType": {"typeKind": "STRING"}
 ///   }
 ///
 /// * STRUCT<x STRING, y ARRAY\<DATE\>>:
 ///
-/// * {
+///   {
 ///   "typeKind": "STRUCT",
 ///   "structType":
 ///   {
@@ -45994,7 +45994,7 @@ impl serde::ser::Serialize for RowAccessPolicyReference {
 ///
 /// * RANGE\<DATE\>:
 ///
-/// * {
+///   {
 ///   "typeKind": "RANGE",
 ///   "rangeElementType": {"typeKind": "DATE"}
 ///   }

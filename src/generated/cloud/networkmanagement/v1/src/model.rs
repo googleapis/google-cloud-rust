@@ -447,11 +447,11 @@ pub struct Endpoint {
     /// network URI.
     /// The following are two cases where you may need to provide the project ID:
     ///
-    /// . Only the IP address is specified, and the IP address is within a Google
-    ///   Cloud project.
-    /// . When you are using Shared VPC and the IP address that you provide is
-    ///   from the service project. In this case, the network that the IP address
-    ///   resides in is defined in the host project.
+    /// 1. Only the IP address is specified, and the IP address is within a Google
+    ///    Cloud project.
+    /// 1. When you are using Shared VPC and the IP address that you provide is
+    ///    from the service project. In this case, the network that the IP address
+    ///    resides in is defined in the host project.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub project_id: std::string::String,

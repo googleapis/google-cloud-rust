@@ -45,7 +45,7 @@
 /// * A collection of `Grant` resources. A grant is a request by a requester to
 ///   get the privileged access specified in an entitlement for some duration.
 ///
-/// * After the approval workflow as specified in the entitlement is satisfied,
+///   After the approval workflow as specified in the entitlement is satisfied,
 ///   the specified access is given to the requester. The access is automatically
 ///   taken back after the requested duration is over.
 ///

@@ -114,9 +114,9 @@ impl wkt::message::Message for FailureSet {
 
 /// Represents a single test case's input.  The testee should:
 ///
-/// . parse this proto (which should always succeed)
-/// . parse the protobuf or JSON payload in "payload" (which may fail)
-/// . if the parse succeeded, serialize the message in the requested format.
+/// 1. parse this proto (which should always succeed)
+/// 1. parse the protobuf or JSON payload in "payload" (which may fail)
+/// 1. if the parse succeeded, serialize the message in the requested format.
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]

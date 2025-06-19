@@ -288,9 +288,9 @@ impl ApiHub {
     ///
     /// In case of an OAS spec, updating spec contents can lead to:
     ///
-    /// . Creation, deletion and update of operations.
-    /// . Creation, deletion and update of definitions.
-    /// . Update of other info parsed out from the new spec.
+    /// 1. Creation, deletion and update of operations.
+    /// 1. Creation, deletion and update of definitions.
+    /// 1. Update of other info parsed out from the new spec.
     ///
     /// In case of contents or source_uri being present in update mask, spec_type
     /// must also be present. Also, spec_type can not be present in update mask if

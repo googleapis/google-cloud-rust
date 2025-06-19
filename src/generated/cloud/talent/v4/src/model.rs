@@ -4350,15 +4350,15 @@ pub struct LocationFilter {
 
     /// CLDR region code of the country/region. This field may be used in two ways:
     ///
-    /// ) If telecommute preference is not set, this field is used address
-    ///   ambiguity of the user-input address. For example, "Liverpool" may refer to
-    ///   "Liverpool, NY, US" or "Liverpool, UK". This region code biases the
-    ///   address resolution toward a specific country or territory. If this field is
-    ///   not set, address resolution is biased toward the United States by default.
+    /// 1. If telecommute preference is not set, this field is used address
+    ///    ambiguity of the user-input address. For example, "Liverpool" may refer to
+    ///    "Liverpool, NY, US" or "Liverpool, UK". This region code biases the
+    ///    address resolution toward a specific country or territory. If this field is
+    ///    not set, address resolution is biased toward the United States by default.
     ///
-    /// ) If telecommute preference is set to TELECOMMUTE_ALLOWED, the
-    ///   telecommute location filter will be limited to the region specified in this
-    ///   field. If this field is not set, the telecommute job locations will not be
+    /// 1. If telecommute preference is set to TELECOMMUTE_ALLOWED, the
+    ///    telecommute location filter will be limited to the region specified in this
+    ///    field. If this field is not set, the telecommute job locations will not be
     ///
     ///
     /// See

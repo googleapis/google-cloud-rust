@@ -2624,13 +2624,13 @@ pub struct AllocateQuotaResponse {
     /// Quota metrics to indicate the result of allocation. Depending on the
     /// request, one or more of the following metrics will be included:
     ///
-    /// . Per quota group or per quota metric incremental usage will be specified
-    ///   using the following delta metric :
-    ///   "serviceruntime.googleapis.com/api/consumer/quota_used_count"
+    /// 1. Per quota group or per quota metric incremental usage will be specified
+    ///    using the following delta metric :
+    ///    "serviceruntime.googleapis.com/api/consumer/quota_used_count"
     ///
-    /// . The quota limit reached condition will be specified using the following
-    ///   boolean metric :
-    ///   "serviceruntime.googleapis.com/quota/exceeded"
+    /// 1. The quota limit reached condition will be specified using the following
+    ///    boolean metric :
+    ///    "serviceruntime.googleapis.com/quota/exceeded"
     ///
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
@@ -3529,17 +3529,17 @@ pub struct ReportResponse {
     /// Partial failures, one for each `Operation` in the request that failed
     /// processing. There are three possible combinations of the RPC status:
     ///
-    /// . The combination of a successful RPC status and an empty `report_errors`
-    ///   list indicates a complete success where all `Operations` in the
-    ///   request are processed successfully.
-    /// . The combination of a successful RPC status and a non-empty
-    ///   `report_errors` list indicates a partial success where some
-    ///   `Operations` in the request succeeded. Each
-    ///   `Operation` that failed processing has a corresponding item
-    ///   in this list.
-    /// . A failed RPC status indicates a general non-deterministic failure.
-    ///   When this happens, it's impossible to know which of the
-    ///   'Operations' in the request succeeded or failed.
+    /// 1. The combination of a successful RPC status and an empty `report_errors`
+    ///    list indicates a complete success where all `Operations` in the
+    ///    request are processed successfully.
+    /// 1. The combination of a successful RPC status and a non-empty
+    ///    `report_errors` list indicates a partial success where some
+    ///    `Operations` in the request succeeded. Each
+    ///    `Operation` that failed processing has a corresponding item
+    ///    in this list.
+    /// 1. A failed RPC status indicates a general non-deterministic failure.
+    ///    When this happens, it's impossible to know which of the
+    ///    'Operations' in the request succeeded or failed.
     #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub report_errors: std::vec::Vec<crate::model::report_response::ReportError>,

@@ -8912,22 +8912,22 @@ pub mod data_discovery_spec {
         /// Optional. The location of the BigQuery dataset to publish BigLake
         /// external or non-BigLake external tables to.
         ///
-        /// . If the Cloud Storage bucket is located in a multi-region bucket, then
-        ///   BigQuery dataset can be in the same multi-region bucket or any single
-        ///   region that is included in the same multi-region bucket. The datascan can
-        ///   be created in any single region that is included in the same multi-region
-        ///   bucket
-        /// . If the Cloud Storage bucket is located in a dual-region bucket, then
-        ///   BigQuery dataset can be located in regions that are included in the
-        ///   dual-region bucket, or in a multi-region that includes the dual-region.
-        ///   The datascan can be created in any single region that is included in the
-        ///   same dual-region bucket.
-        /// . If the Cloud Storage bucket is located in a single region, then
-        ///   BigQuery dataset can be in the same single region or any multi-region
-        ///   bucket that includes the same single region. The datascan will be created
-        ///   in the same single region as the bucket.
-        /// . If the BigQuery dataset is in single region, it must be in the same
-        ///   single region as the datascan.
+        /// 1. If the Cloud Storage bucket is located in a multi-region bucket, then
+        ///    BigQuery dataset can be in the same multi-region bucket or any single
+        ///    region that is included in the same multi-region bucket. The datascan can
+        ///    be created in any single region that is included in the same multi-region
+        ///    bucket
+        /// 1. If the Cloud Storage bucket is located in a dual-region bucket, then
+        ///    BigQuery dataset can be located in regions that are included in the
+        ///    dual-region bucket, or in a multi-region that includes the dual-region.
+        ///    The datascan can be created in any single region that is included in the
+        ///    same dual-region bucket.
+        /// 1. If the Cloud Storage bucket is located in a single region, then
+        ///    BigQuery dataset can be in the same single region or any multi-region
+        ///    bucket that includes the same single region. The datascan will be created
+        ///    in the same single region as the bucket.
+        /// 1. If the BigQuery dataset is in single region, it must be in the same
+        ///    single region as the datascan.
         ///
         /// For supported values, refer to
         /// <https://cloud.google.com/bigquery/docs/locations#supported_locations>.

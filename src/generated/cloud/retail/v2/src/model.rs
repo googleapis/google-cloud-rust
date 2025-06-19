@@ -11418,7 +11418,7 @@ pub struct PredictRequest {
     ///   `NOT "tagA"`. Tag values must be double quoted UTF-8 encoded strings
     ///   with a size limit of 1,000 characters.
     ///
-    /// * Note: "Recently viewed" models don't support tag filtering at the
+    ///   Note: "Recently viewed" models don't support tag filtering at the
     ///   moment.
     ///
     /// * filterOutOfStockItems. Restricts predictions to products that do not
@@ -20410,9 +20410,9 @@ pub struct UserEvent {
     ///
     /// A general guideline to populate the sesion_id:
     ///
-    /// . If user has no activity for 30 min, a new session_id should be assigned.
-    /// . The session_id should be unique across users, suggest use uuid or add
-    ///   visitor_id as prefix.
+    /// 1. If user has no activity for 30 min, a new session_id should be assigned.
+    /// 1. The session_id should be unique across users, suggest use uuid or add
+    ///    visitor_id as prefix.
     #[serde(skip_serializing_if = "std::string::String::is_empty")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub session_id: std::string::String,

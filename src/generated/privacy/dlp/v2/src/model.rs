@@ -11044,8 +11044,8 @@ pub struct CryptoDeterministicConfig {
     /// If the context is not set, plaintext would be used as is for encryption.
     /// If the context is set but:
     ///
-    /// . there is no record present when transforming a given value or
-    /// . the field is not present when transforming a given value,
+    /// 1. there is no record present when transforming a given value or
+    /// 1. the field is not present when transforming a given value,
     ///
     /// plaintext would be used as is for encryption.
     ///
@@ -11962,8 +11962,8 @@ pub struct CryptoReplaceFfxFpeConfig {
     ///
     /// If the context is set but:
     ///
-    /// . there is no record present when transforming a given value or
-    /// . the field is not present when transforming a given value,
+    /// 1. there is no record present when transforming a given value or
+    /// 1. the field is not present when transforming a given value,
     ///
     /// a default tweak will be used.
     ///

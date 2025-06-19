@@ -529,18 +529,18 @@ pub struct ImageSource {
 
     /// The URI of the source image. Can be either:
     ///
-    /// . A Google Cloud Storage URI of the form
-    ///   `gs://bucket_name/object_name`. Object versioning is not supported. See
-    ///   [Google Cloud Storage Request
-    ///   URIs](https://cloud.google.com/storage/docs/reference-uris) for more
-    ///   info.
+    /// 1. A Google Cloud Storage URI of the form
+    ///    `gs://bucket_name/object_name`. Object versioning is not supported. See
+    ///    [Google Cloud Storage Request
+    ///    URIs](https://cloud.google.com/storage/docs/reference-uris) for more
+    ///    info.
     ///
-    /// . A publicly-accessible image HTTP/HTTPS URL. When fetching images from
-    ///   HTTP/HTTPS URLs, Google cannot guarantee that the request will be
-    ///   completed. Your request may fail if the specified host denies the
-    ///   request (e.g. due to request throttling or DOS prevention), or if Google
-    ///   throttles requests to the site for abuse prevention. You should not
-    ///   depend on externally-hosted images for production applications.
+    /// 1. A publicly-accessible image HTTP/HTTPS URL. When fetching images from
+    ///    HTTP/HTTPS URLs, Google cannot guarantee that the request will be
+    ///    completed. Your request may fail if the specified host denies the
+    ///    request (e.g. due to request throttling or DOS prevention), or if Google
+    ///    throttles requests to the site for abuse prevention. You should not
+    ///    depend on externally-hosted images for production applications.
     ///
     ///
     /// When both `gcs_image_uri` and `image_uri` are specified, `image_uri` takes
@@ -6100,14 +6100,14 @@ pub struct ImportProductSetsGcsSource {
     /// The format of the input csv file should be one image per line.
     /// In each line, there are 8 columns.
     ///
-    /// . image-uri
-    /// . image-id
-    /// . product-set-id
-    /// . product-id
-    /// . product-category
-    /// . product-display-name
-    /// . labels
-    /// . bounding-poly
+    /// 1. image-uri
+    /// 1. image-id
+    /// 1. product-set-id
+    /// 1. product-id
+    /// 1. product-category
+    /// 1. product-display-name
+    /// 1. labels
+    /// 1. bounding-poly
     ///
     /// The `image-uri`, `product-set-id`, `product-id`, and `product-category`
     /// columns are required. All other columns are optional.
@@ -7323,7 +7323,7 @@ pub struct Block {
     ///
     /// * when it's rotated 180 degrees around the top-left corner it becomes:
     ///
-    /// * and the vertex order will still be (0, 1, 2, 3).
+    ///   and the vertex order will still be (0, 1, 2, 3).
     ///
     ///
     /// ```norust

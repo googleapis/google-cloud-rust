@@ -2154,11 +2154,11 @@ pub struct SanitizationResult {
     /// Output only. Overall filter match state for Sanitization.
     /// The state can have below two values.
     ///
-    /// ) NO_MATCH_FOUND: No filters in configuration satisfy matching criteria.
-    ///   In other words, input passed all filters.
+    /// 1. NO_MATCH_FOUND: No filters in configuration satisfy matching criteria.
+    ///    In other words, input passed all filters.
     ///
-    /// ) MATCH_FOUND: At least one filter in configuration satisfies matching.
-    ///   In other words, input did not pass one or more filters.
+    /// 1. MATCH_FOUND: At least one filter in configuration satisfies matching.
+    ///    In other words, input did not pass one or more filters.
     ///
     #[serde(skip_serializing_if = "wkt::internal::is_default")]
     #[serde_as(as = "serde_with::DefaultOnNull<_>")]

@@ -4026,13 +4026,13 @@ pub mod aws_node_pool {
 /// Set the surge_settings parameter to use the Surge Update mechanism for
 /// the rolling update of node pool nodes.
 ///
-/// . max_surge controls the number of additional nodes that can be created
-///   beyond the current size of the node pool temporarily for the time of the
-///   update to increase the number of available nodes.
-/// . max_unavailable controls the number of nodes that can be simultaneously
-///   unavailable during the update.
-/// . (max_surge + max_unavailable) determines the level of parallelism (i.e.,
-///   the number of nodes being updated at the same time).
+/// 1. max_surge controls the number of additional nodes that can be created
+///    beyond the current size of the node pool temporarily for the time of the
+///    update to increase the number of available nodes.
+/// 1. max_unavailable controls the number of nodes that can be simultaneously
+///    unavailable during the update.
+/// 1. (max_surge + max_unavailable) determines the level of parallelism (i.e.,
+///    the number of nodes being updated at the same time).
 #[serde_with::serde_as]
 #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
 #[serde(default, rename_all = "camelCase")]

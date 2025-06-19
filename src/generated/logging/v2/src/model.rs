@@ -6257,14 +6257,14 @@ pub struct LogMetric {
     /// Two functions are supported for value extraction: `EXTRACT(field)` or
     /// `REGEXP_EXTRACT(field, regex)`. The arguments are:
     ///
-    /// . field: The name of the log entry field from which the value is to be
-    ///   extracted.
-    /// . regex: A regular expression using the Google RE2 syntax
-    ///   (<https://github.com/google/re2/wiki/Syntax>) with a single capture
-    ///   group to extract data from the specified log entry field. The value
-    ///   of the field is converted to a string before applying the regex.
-    ///   It is an error to specify a regex that does not include exactly one
-    ///   capture group.
+    /// 1. field: The name of the log entry field from which the value is to be
+    ///    extracted.
+    /// 1. regex: A regular expression using the Google RE2 syntax
+    ///    (<https://github.com/google/re2/wiki/Syntax>) with a single capture
+    ///    group to extract data from the specified log entry field. The value
+    ///    of the field is converted to a string before applying the regex.
+    ///    It is an error to specify a regex that does not include exactly one
+    ///    capture group.
     ///
     /// The result of the extraction must be convertible to a double type, as the
     /// distribution always records double values. If either the extraction or
