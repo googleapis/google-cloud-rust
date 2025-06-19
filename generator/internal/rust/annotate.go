@@ -320,7 +320,7 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 
 	codec.hasServices = len(model.State.ServiceByID) > 0
 	// TODO(#2376) - slowly introduce generated serialization by default
-	codec.withGeneratedSerde = codec.withGeneratedSerde || packageName < "google-cloud-b"
+	codec.withGeneratedSerde = codec.withGeneratedSerde || packageName < "google-cloud-c"
 
 	loadWellKnownTypes(model.State)
 	resolveUsedPackages(model, codec.extraPackages)
