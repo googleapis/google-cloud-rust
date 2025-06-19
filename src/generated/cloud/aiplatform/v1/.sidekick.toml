@@ -21,4 +21,3 @@ copyright-year = '2025'
 # TODO(#893) - handle the bad HTML tags in this library.
 disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links,invalid_html_tags"
 per-service-features      = 'true'
-with-generated-serde      = 'true'

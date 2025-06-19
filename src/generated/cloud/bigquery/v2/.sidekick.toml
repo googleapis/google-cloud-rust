@@ -33,4 +33,3 @@ session_info.proto,\
 copyright-year        = '2025'
 package-name-override = 'google-cloud-bigquery-v2'
 not-for-publication   = 'true'
-with-generated-serde  = 'true'

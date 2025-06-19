@@ -146,8 +146,10 @@ type messageAnnotation struct {
 	// If set, this message is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
-	// If true, enable test types for generated serde serialization
-	WithGeneratedSerde bool
+}
+
+func (*messageAnnotation) WithGeneratedSerde() bool {
+	return true
 }
 
 type methodAnnotation struct {
@@ -235,8 +237,10 @@ type oneOfAnnotation struct {
 	// If set, this enum is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
-	// If true, enable test types for generated serde serialization
-	WithGeneratedSerde bool
+}
+
+func (*oneOfAnnotation) WithGeneratedSerde() bool {
+	return true
 }
 
 type fieldAnnotations struct {
@@ -275,8 +279,10 @@ type fieldAnnotations struct {
 	// If true, this is a `wkt::NullValue` field, and also requires super-extra
 	// custom deserialization.
 	IsWktNullValue bool
-	// If true, enable test types for generated serde serialization
-	WithGeneratedSerde bool
+}
+
+func (a *fieldAnnotations) WithGeneratedSerde() bool {
+	return true
 }
 
 func (a *fieldAnnotations) SkipIfIsEmpty() bool {
@@ -316,14 +322,11 @@ type enumValueAnnotation struct {
 // tags. For example, the Mustache tag {{#Services}} uses the
 // [Template.Services] field.
 func annotateModel(model *api.API, codec *codec) *modelAnnotations {
-	packageName := PackageName(model, codec.packageNameOverride)
-
 	codec.hasServices = len(model.State.ServiceByID) > 0
-	// TODO(#2376) - slowly introduce generated serialization by default
-	codec.withGeneratedSerde = codec.withGeneratedSerde || packageName < "google-cloud-b"
 
 	loadWellKnownTypes(model.State)
 	resolveUsedPackages(model, codec.extraPackages)
+	packageName := PackageName(model, codec.packageNameOverride)
 	packageNamespace := strings.ReplaceAll(packageName, "-", "_")
 	// Only annotate enums and messages that we intend to generate. In the
 	// process we discover the external dependencies and trim the list of
@@ -566,7 +569,6 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
 		HasSyntheticFields: hasSyntheticFields,
-		WithGeneratedSerde: c.withGeneratedSerde,
 	}
 }
 
@@ -707,7 +709,6 @@ func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api
 		StructQualifiedName: structQualifiedName,
 		FieldType:           fmt.Sprintf("%s::%s", scope, enumName),
 		DocLines:            c.formatDocComments(oneof.Documentation, oneof.ID, state, message.Scopes()),
-		WithGeneratedSerde:  c.withGeneratedSerde,
 	}
 }
 
@@ -784,7 +785,6 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		SkipIfIsDefault:    field.Typez != api.STRING_TYPE && field.Typez != api.BYTES_TYPE,
 		IsWktValue:         field.Typez == api.MESSAGE_TYPE && field.TypezID == ".google.protobuf.Value",
 		IsWktNullValue:     field.Typez == api.ENUM_TYPE && field.TypezID == ".google.protobuf.NullValue",
-		WithGeneratedSerde: c.withGeneratedSerde,
 	}
 	if field.Recursive || (field.Typez == api.MESSAGE_TYPE && field.IsOneOf) {
 		ann.IsBoxed = true

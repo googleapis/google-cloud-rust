@@ -903,9 +903,7 @@ func TestMessageAnnotations(t *testing.T) {
 		PackageModuleName: "test::v1",
 		SourceFQN:         "test.v1.TestMessage",
 		MessageAttributes: []string{
-			`#[serde_with::serde_as]`,
-			`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
-			`#[serde(default, rename_all = "camelCase")]`,
+			`#[derive(Clone, Debug, Default, PartialEq)]`,
 			`#[non_exhaustive]`,
 		},
 		DocLines:       []string{"/// A test message."},
@@ -924,9 +922,7 @@ func TestMessageAnnotations(t *testing.T) {
 		PackageModuleName: "test::v1",
 		SourceFQN:         "test.v1.TestMessage.NestedMessage",
 		MessageAttributes: []string{
-			`#[serde_with::serde_as]`,
-			`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
-			`#[serde(default, rename_all = "camelCase")]`,
+			`#[derive(Clone, Debug, Default, PartialEq)]`,
 			`#[non_exhaustive]`,
 		},
 		DocLines:       []string{"/// A nested message."},
@@ -1002,9 +998,7 @@ func TestFieldAnnotations(t *testing.T) {
 		PackageModuleName: "test",
 		SourceFQN:         "test.TestMessage",
 		MessageAttributes: []string{
-			`#[serde_with::serde_as]`,
-			`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
-			`#[serde(default, rename_all = "camelCase")]`,
+			`#[derive(Clone, Debug, Default, PartialEq)]`,
 			`#[non_exhaustive]`,
 		},
 		DocLines:    []string{"/// A test message."},
@@ -1180,9 +1174,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 		PackageModuleName: "test",
 		SourceFQN:         "test.TestMessage",
 		MessageAttributes: []string{
-			`#[serde_with::serde_as]`,
-			`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
-			`#[serde(default, rename_all = "camelCase")]`,
+			`#[derive(Clone, Debug, Default, PartialEq)]`,
 			`#[non_exhaustive]`,
 		},
 		DocLines:    []string{"/// A test message."},

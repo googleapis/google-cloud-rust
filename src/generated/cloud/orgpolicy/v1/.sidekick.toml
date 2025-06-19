@@ -20,7 +20,6 @@ title-override = 'Organization Policy Types'
 
 [codec]
 copyright-year       = '2025'
-with-generated-serde = 'true'
 
 [[documentation-overrides]]
 id      = '.google.cloud.orgpolicy.v1.Policy.ListPolicy'

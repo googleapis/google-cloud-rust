@@ -22,4 +22,3 @@ copyright-year = '2025'
 # TODO(#742) - remove `broken_intro_doc_links` workaround when no longer needed
 # TODO(#1532) - fix the multi-line <a></a> problems
 disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links,invalid_html_tags,bare_urls"
-with-generated-serde      = 'true'

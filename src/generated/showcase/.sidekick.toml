@@ -22,4 +22,3 @@ roots = 'showcase,googleapis'
 [codec]
 copyright-year       = '2025'
 not-for-publication  = 'true'
-with-generated-serde = 'true'

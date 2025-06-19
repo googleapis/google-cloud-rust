@@ -18,7 +18,6 @@ service-config = 'google/spanner/admin/database/v1/spanner.yaml'
 
 [codec]
 copyright-year       = '2025'
-with-generated-serde = 'true'
 
 [[documentation-overrides]]
 id      = '.google.spanner.admin.database.v1.ListBackupsRequest.filter'

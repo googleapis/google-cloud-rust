@@ -218,6 +218,7 @@ extend-ignore-re = [
   # src/generated/cloud/backupdr/v1 uses `BA` in fields and enums.
   "WITHIN_ORG_BUT_UNRESTRICTED_FOR_BA",
   "WithinOrgButUnrestrictedForBa",
+  "baProxyUri",
   "ba_proxy_uri",
   "to BA proxy",
   # src/generated/cloud/bigquery/migration/v2 uses product names that look like
@@ -226,6 +227,7 @@ extend-ignore-re = [
   "Vertica2BQ",
   "VerticaDialect",
   "\\W[Vv]ertica\\W",
+  "verticaDialect",
   "vertica_dialect",
   # src/generated/cloud/bigquery/v2 uses `ALS` which is a false positive typo
   # for `ALSO`
@@ -237,6 +239,7 @@ extend-ignore-re = [
   # seems too broad.
   " whe ",
   # src/generated/cloud/dataplex/v1 has a typo in a field name. Cannot be fixed.
+  "evalutionType",
   "evalution_type",
   # src/generated/cloud/dialogflow/v2 uses enums that look like typos.
   "GOST R 34",
@@ -269,5 +272,6 @@ extend-ignore-re = [
   # src/generated/cloud/video/stitcher/v1 use "GAM" as an acronym.
   "Gam[A-Z]",
   "\\WGAM\\W",
+  "gam[A-z][a-z]",
   "gam_[a-z]",
 ]
