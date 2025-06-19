@@ -14,11 +14,12 @@
 
 [general]
 specification-source = 'google/cloud/dialogflow/v2'
-service-config = 'google/cloud/dialogflow/v2/dialogflow_v2.yaml'
+service-config       = 'google/cloud/dialogflow/v2/dialogflow_v2.yaml'
 
 [codec]
-copyright-year = '2025'
+copyright-year       = '2025'
 per-service-features = 'true'
+with-generated-serde = 'true'
 
 [[documentation-overrides]]
 id      = '.google.cloud.dialogflow.v2.HumanAgentAssistantConfig.ConversationModelConfig.baseline_model_version'
