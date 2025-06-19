@@ -239,6 +239,7 @@ extend-ignore-re = [
   # seems too broad.
   " whe ",
   # src/generated/cloud/dataplex/v1 has a typo in a field name. Cannot be fixed.
+  "evalutionType",
   "evalution_type",
   # src/generated/cloud/dialogflow/v2 uses enums that look like typos.
   "GOST R 34",
