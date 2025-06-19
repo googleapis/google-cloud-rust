@@ -1539,6 +1539,59 @@ func TestFormatDocCommentsBullets(t *testing.T) {
 	}
 }
 
+func TestFormatDocCommentsNumbers(t *testing.T) {
+	input := `Numbered lists are different:
+
+1.   A simple list item
+2.   A number list item
+     continued in the next line
+3.   A second list item
+
+     with a second paragraph
+4.   A third list item
+
+     also with a second paragraph
+
+	 * And some nested list items
+	 * and some more
+	   even split ones
+	 * and more
+5.   A fourth list item
+    with some bad indentation
+`
+	want := []string{
+		"/// Numbered lists are different:",
+		"///",
+		"/// 1. A simple list item",
+		"///",
+		"/// 1. A number list item",
+		"///    continued in the next line",
+		"///",
+		"/// 1. A second list item",
+		"///",
+		"///    with a second paragraph",
+		"///",
+		"/// 1. A third list item",
+		"///",
+		"///    also with a second paragraph",
+		"///",
+		"///    * And some nested list items",
+		"///    * and some more",
+		"///      even split ones",
+		"///    * and more",
+		"/// 1. A fourth list item",
+		"///    with some bad indentation",
+		"///",
+	}
+
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	c := createRustCodec()
+	got := c.formatDocComments(input, "test-only-ID", model.State, []string{})
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
 func TestFormatDocCommentsImplicitBlockQuote(t *testing.T) {
 	input := `
 Blockquotes come in many forms. They can start with a leading '> ', as in:
