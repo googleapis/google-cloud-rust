@@ -27,25 +27,17 @@ use crate as wkt;
 /// sometimes simply referred to as "APIs" in other contexts, such as the name of
 /// this message itself. See <https://cloud.google.com/apis/design/glossary> for
 /// detailed terminology.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Api {
     /// The fully qualified name of this interface, including package name
     /// followed by the interface's simple name.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The methods of this interface, in unspecified order.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub methods: std::vec::Vec<crate::Method>,
 
     /// Any metadata attached to the interface.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub options: std::vec::Vec<crate::Option>,
 
     /// A version string for this interface. If specified, must have the form
@@ -67,28 +59,20 @@ pub struct Api {
     /// `google.feature.v1`. For major versions 0 and 1, the suffix can
     /// be omitted. Zero major versions must only be used for
     /// experimental, non-GA interfaces.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Source context for the protocol buffer service represented by this
     /// message.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub source_context: std::option::Option<crate::SourceContext>,
 
     /// Included interfaces. See [Mixin][].
     ///
     /// [Mixin]: crate::Mixin
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub mixins: std::vec::Vec<crate::Mixin>,
 
     /// The source syntax of the service.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub syntax: crate::Syntax,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -173,48 +157,223 @@ impl wkt::message::Message for Api {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Api {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __methods,
+            __options,
+            __version,
+            __source_context,
+            __mixins,
+            __syntax,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Api")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "methods" => Ok(__FieldTag::__methods),
+                            "options" => Ok(__FieldTag::__options),
+                            "version" => Ok(__FieldTag::__version),
+                            "sourceContext" => Ok(__FieldTag::__source_context),
+                            "source_context" => Ok(__FieldTag::__source_context),
+                            "mixins" => Ok(__FieldTag::__mixins),
+                            "syntax" => Ok(__FieldTag::__syntax),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Api;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Api")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__methods => {
+                            if !fields.insert(__FieldTag::__methods) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for methods",
+                                ));
+                            }
+                            result.methods = map
+                                .next_value::<std::option::Option<std::vec::Vec<crate::Method>>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options = map
+                                .next_value::<std::option::Option<std::vec::Vec<crate::Option>>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__version => {
+                            if !fields.insert(__FieldTag::__version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for version",
+                                ));
+                            }
+                            result.version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__source_context => {
+                            if !fields.insert(__FieldTag::__source_context) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for source_context",
+                                ));
+                            }
+                            result.source_context =
+                                map.next_value::<std::option::Option<crate::SourceContext>>()?;
+                        }
+                        __FieldTag::__mixins => {
+                            if !fields.insert(__FieldTag::__mixins) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for mixins",
+                                ));
+                            }
+                            result.mixins = map
+                                .next_value::<std::option::Option<std::vec::Vec<crate::Mixin>>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__syntax => {
+                            if !fields.insert(__FieldTag::__syntax) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for syntax",
+                                ));
+                            }
+                            result.syntax = map
+                                .next_value::<std::option::Option<crate::Syntax>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Api {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.methods.is_empty() {
+            state.serialize_entry("methods", &self.methods)?;
+        }
+        if !self.options.is_empty() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !self.version.is_empty() {
+            state.serialize_entry("version", &self.version)?;
+        }
+        if self.source_context.is_some() {
+            state.serialize_entry("sourceContext", &self.source_context)?;
+        }
+        if !self.mixins.is_empty() {
+            state.serialize_entry("mixins", &self.mixins)?;
+        }
+        if !wkt::internal::is_default(&self.syntax) {
+            state.serialize_entry("syntax", &self.syntax)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Method represents a method of an API interface.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Method {
     /// The simple name of this method.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// A URL of the input message type.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_type_url: std::string::String,
 
     /// If true, the request is streamed.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_streaming: bool,
 
     /// The URL of the output message type.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_type_url: std::string::String,
 
     /// If true, the response is streamed.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_streaming: bool,
 
     /// Any metadata attached to the method.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub options: std::vec::Vec<crate::Option>,
 
     /// The source syntax of this method.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub syntax: crate::Syntax,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -280,6 +439,202 @@ impl Method {
 impl wkt::message::Message for Method {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Method"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Method {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __request_type_url,
+            __request_streaming,
+            __response_type_url,
+            __response_streaming,
+            __options,
+            __syntax,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Method")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "requestTypeUrl" => Ok(__FieldTag::__request_type_url),
+                            "request_type_url" => Ok(__FieldTag::__request_type_url),
+                            "requestStreaming" => Ok(__FieldTag::__request_streaming),
+                            "request_streaming" => Ok(__FieldTag::__request_streaming),
+                            "responseTypeUrl" => Ok(__FieldTag::__response_type_url),
+                            "response_type_url" => Ok(__FieldTag::__response_type_url),
+                            "responseStreaming" => Ok(__FieldTag::__response_streaming),
+                            "response_streaming" => Ok(__FieldTag::__response_streaming),
+                            "options" => Ok(__FieldTag::__options),
+                            "syntax" => Ok(__FieldTag::__syntax),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Method;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Method")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__request_type_url => {
+                            if !fields.insert(__FieldTag::__request_type_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_type_url",
+                                ));
+                            }
+                            result.request_type_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__request_streaming => {
+                            if !fields.insert(__FieldTag::__request_streaming) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_streaming",
+                                ));
+                            }
+                            result.request_streaming = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__response_type_url => {
+                            if !fields.insert(__FieldTag::__response_type_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for response_type_url",
+                                ));
+                            }
+                            result.response_type_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__response_streaming => {
+                            if !fields.insert(__FieldTag::__response_streaming) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for response_streaming",
+                                ));
+                            }
+                            result.response_streaming = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options = map
+                                .next_value::<std::option::Option<std::vec::Vec<crate::Option>>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__syntax => {
+                            if !fields.insert(__FieldTag::__syntax) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for syntax",
+                                ));
+                            }
+                            result.syntax = map
+                                .next_value::<std::option::Option<crate::Syntax>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Method {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.request_type_url.is_empty() {
+            state.serialize_entry("requestTypeUrl", &self.request_type_url)?;
+        }
+        if !wkt::internal::is_default(&self.request_streaming) {
+            state.serialize_entry("requestStreaming", &self.request_streaming)?;
+        }
+        if !self.response_type_url.is_empty() {
+            state.serialize_entry("responseTypeUrl", &self.response_type_url)?;
+        }
+        if !wkt::internal::is_default(&self.response_streaming) {
+            state.serialize_entry("responseStreaming", &self.response_streaming)?;
+        }
+        if !self.options.is_empty() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !wkt::internal::is_default(&self.syntax) {
+            state.serialize_entry("syntax", &self.syntax)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -374,23 +729,16 @@ impl wkt::message::Message for Method {
 /// ```
 ///
 /// [root]: wkt::Mixin::root
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Mixin {
     /// The fully qualified name of the interface which is included.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// If non-empty specifies a path under which inherited HTTP paths
     /// are rooted.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub root: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -418,18 +766,130 @@ impl wkt::message::Message for Mixin {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Mixin {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __root,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Mixin")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "root" => Ok(__FieldTag::__root),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Mixin;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Mixin")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__root => {
+                            if !fields.insert(__FieldTag::__root) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for root",
+                                ));
+                            }
+                            result.root = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Mixin {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.root.is_empty() {
+            state.serialize_entry("root", &self.root)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// The protocol compiler can output a FileDescriptorSet containing the .proto
 /// files it parses.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileDescriptorSet {
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub file: std::vec::Vec<crate::FileDescriptorProto>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -456,77 +916,150 @@ impl wkt::message::Message for FileDescriptorSet {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FileDescriptorSet {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __file,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FileDescriptorSet")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "file" => Ok(__FieldTag::__file),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FileDescriptorSet;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FileDescriptorSet")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__file => {
+                            if !fields.insert(__FieldTag::__file) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for file",
+                                ));
+                            }
+                            result.file = map.next_value::<std::option::Option<std::vec::Vec<crate::FileDescriptorProto>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FileDescriptorSet {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.file.is_empty() {
+            state.serialize_entry("file", &self.file)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Describes a complete .proto file.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileDescriptorProto {
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub package: std::string::String,
 
     /// Names of files imported by this file.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dependency: std::vec::Vec<std::string::String>,
 
     /// Indexes of the public imported files in the dependency list above.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub public_dependency: std::vec::Vec<i32>,
 
     /// Indexes of the weak imported files in the dependency list.
     /// For Google-internal migration only. Do not use.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub weak_dependency: std::vec::Vec<i32>,
 
     /// All top-level definitions in this file.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub message_type: std::vec::Vec<crate::DescriptorProto>,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub enum_type: std::vec::Vec<crate::EnumDescriptorProto>,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub service: std::vec::Vec<crate::ServiceDescriptorProto>,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub extension: std::vec::Vec<crate::FieldDescriptorProto>,
 
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::FileOptions>,
 
     /// This field contains optional information about the original source code.
     /// You may safely remove this entire field without harming runtime
     /// functionality of the descriptors -- the information is needed only by
     /// development tools.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub source_code_info: std::option::Option<crate::SourceCodeInfo>,
 
     /// The syntax of the proto file.
     /// The supported values are "proto2", "proto3", and "editions".
     ///
     /// If `edition` is present, this value must be "editions".
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub syntax: std::string::String,
 
     /// The edition of the proto file.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub edition: crate::Edition,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -679,54 +1212,359 @@ impl wkt::message::Message for FileDescriptorProto {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FileDescriptorProto {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __package,
+            __dependency,
+            __public_dependency,
+            __weak_dependency,
+            __message_type,
+            __enum_type,
+            __service,
+            __extension,
+            __options,
+            __source_code_info,
+            __syntax,
+            __edition,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FileDescriptorProto")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "package" => Ok(__FieldTag::__package),
+                            "dependency" => Ok(__FieldTag::__dependency),
+                            "publicDependency" => Ok(__FieldTag::__public_dependency),
+                            "public_dependency" => Ok(__FieldTag::__public_dependency),
+                            "weakDependency" => Ok(__FieldTag::__weak_dependency),
+                            "weak_dependency" => Ok(__FieldTag::__weak_dependency),
+                            "messageType" => Ok(__FieldTag::__message_type),
+                            "message_type" => Ok(__FieldTag::__message_type),
+                            "enumType" => Ok(__FieldTag::__enum_type),
+                            "enum_type" => Ok(__FieldTag::__enum_type),
+                            "service" => Ok(__FieldTag::__service),
+                            "extension" => Ok(__FieldTag::__extension),
+                            "options" => Ok(__FieldTag::__options),
+                            "sourceCodeInfo" => Ok(__FieldTag::__source_code_info),
+                            "source_code_info" => Ok(__FieldTag::__source_code_info),
+                            "syntax" => Ok(__FieldTag::__syntax),
+                            "edition" => Ok(__FieldTag::__edition),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FileDescriptorProto;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FileDescriptorProto")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__package => {
+                            if !fields.insert(__FieldTag::__package) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for package",
+                                ));
+                            }
+                            result.package = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__dependency => {
+                            if !fields.insert(__FieldTag::__dependency) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dependency",
+                                ));
+                            }
+                            result.dependency = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__public_dependency => {
+                            if !fields.insert(__FieldTag::__public_dependency) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for public_dependency",
+                                ));
+                            }
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.public_dependency =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__weak_dependency => {
+                            if !fields.insert(__FieldTag::__weak_dependency) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for weak_dependency",
+                                ));
+                            }
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.weak_dependency =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__message_type => {
+                            if !fields.insert(__FieldTag::__message_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for message_type",
+                                ));
+                            }
+                            result.message_type = map.next_value::<std::option::Option<std::vec::Vec<crate::DescriptorProto>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__enum_type => {
+                            if !fields.insert(__FieldTag::__enum_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enum_type",
+                                ));
+                            }
+                            result.enum_type = map.next_value::<std::option::Option<std::vec::Vec<crate::EnumDescriptorProto>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__service => {
+                            if !fields.insert(__FieldTag::__service) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service",
+                                ));
+                            }
+                            result.service =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::ServiceDescriptorProto>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__extension => {
+                            if !fields.insert(__FieldTag::__extension) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for extension",
+                                ));
+                            }
+                            result.extension = map.next_value::<std::option::Option<std::vec::Vec<crate::FieldDescriptorProto>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options =
+                                map.next_value::<std::option::Option<crate::FileOptions>>()?;
+                        }
+                        __FieldTag::__source_code_info => {
+                            if !fields.insert(__FieldTag::__source_code_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for source_code_info",
+                                ));
+                            }
+                            result.source_code_info =
+                                map.next_value::<std::option::Option<crate::SourceCodeInfo>>()?;
+                        }
+                        __FieldTag::__syntax => {
+                            if !fields.insert(__FieldTag::__syntax) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for syntax",
+                                ));
+                            }
+                            result.syntax = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__edition => {
+                            if !fields.insert(__FieldTag::__edition) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for edition",
+                                ));
+                            }
+                            result.edition = map
+                                .next_value::<std::option::Option<crate::Edition>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FileDescriptorProto {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.package.is_empty() {
+            state.serialize_entry("package", &self.package)?;
+        }
+        if !self.dependency.is_empty() {
+            state.serialize_entry("dependency", &self.dependency)?;
+        }
+        if !self.public_dependency.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("publicDependency", &__With(&self.public_dependency))?;
+        }
+        if !self.weak_dependency.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("weakDependency", &__With(&self.weak_dependency))?;
+        }
+        if !self.message_type.is_empty() {
+            state.serialize_entry("messageType", &self.message_type)?;
+        }
+        if !self.enum_type.is_empty() {
+            state.serialize_entry("enumType", &self.enum_type)?;
+        }
+        if !self.service.is_empty() {
+            state.serialize_entry("service", &self.service)?;
+        }
+        if !self.extension.is_empty() {
+            state.serialize_entry("extension", &self.extension)?;
+        }
+        if self.options.is_some() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if self.source_code_info.is_some() {
+            state.serialize_entry("sourceCodeInfo", &self.source_code_info)?;
+        }
+        if !self.syntax.is_empty() {
+            state.serialize_entry("syntax", &self.syntax)?;
+        }
+        if !wkt::internal::is_default(&self.edition) {
+            state.serialize_entry("edition", &self.edition)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Describes a message type.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DescriptorProto {
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub field: std::vec::Vec<crate::FieldDescriptorProto>,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub extension: std::vec::Vec<crate::FieldDescriptorProto>,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub nested_type: std::vec::Vec<crate::DescriptorProto>,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub enum_type: std::vec::Vec<crate::EnumDescriptorProto>,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub extension_range: std::vec::Vec<crate::descriptor_proto::ExtensionRange>,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub oneof_decl: std::vec::Vec<crate::OneofDescriptorProto>,
 
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::MessageOptions>,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reserved_range: std::vec::Vec<crate::descriptor_proto::ReservedRange>,
 
     /// Reserved field names, which may not be used by fields in the same message.
     /// A given name may only be reserved once.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reserved_name: std::vec::Vec<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -854,28 +1692,254 @@ impl wkt::message::Message for DescriptorProto {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DescriptorProto {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __field,
+            __extension,
+            __nested_type,
+            __enum_type,
+            __extension_range,
+            __oneof_decl,
+            __options,
+            __reserved_range,
+            __reserved_name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DescriptorProto")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "field" => Ok(__FieldTag::__field),
+                            "extension" => Ok(__FieldTag::__extension),
+                            "nestedType" => Ok(__FieldTag::__nested_type),
+                            "nested_type" => Ok(__FieldTag::__nested_type),
+                            "enumType" => Ok(__FieldTag::__enum_type),
+                            "enum_type" => Ok(__FieldTag::__enum_type),
+                            "extensionRange" => Ok(__FieldTag::__extension_range),
+                            "extension_range" => Ok(__FieldTag::__extension_range),
+                            "oneofDecl" => Ok(__FieldTag::__oneof_decl),
+                            "oneof_decl" => Ok(__FieldTag::__oneof_decl),
+                            "options" => Ok(__FieldTag::__options),
+                            "reservedRange" => Ok(__FieldTag::__reserved_range),
+                            "reserved_range" => Ok(__FieldTag::__reserved_range),
+                            "reservedName" => Ok(__FieldTag::__reserved_name),
+                            "reserved_name" => Ok(__FieldTag::__reserved_name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DescriptorProto;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DescriptorProto")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__field => {
+                            if !fields.insert(__FieldTag::__field) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field",
+                                ));
+                            }
+                            result.field = map.next_value::<std::option::Option<std::vec::Vec<crate::FieldDescriptorProto>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__extension => {
+                            if !fields.insert(__FieldTag::__extension) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for extension",
+                                ));
+                            }
+                            result.extension = map.next_value::<std::option::Option<std::vec::Vec<crate::FieldDescriptorProto>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__nested_type => {
+                            if !fields.insert(__FieldTag::__nested_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for nested_type",
+                                ));
+                            }
+                            result.nested_type = map.next_value::<std::option::Option<std::vec::Vec<crate::DescriptorProto>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__enum_type => {
+                            if !fields.insert(__FieldTag::__enum_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enum_type",
+                                ));
+                            }
+                            result.enum_type = map.next_value::<std::option::Option<std::vec::Vec<crate::EnumDescriptorProto>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__extension_range => {
+                            if !fields.insert(__FieldTag::__extension_range) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for extension_range",
+                                ));
+                            }
+                            result.extension_range = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::descriptor_proto::ExtensionRange>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__oneof_decl => {
+                            if !fields.insert(__FieldTag::__oneof_decl) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_decl",
+                                ));
+                            }
+                            result.oneof_decl = map.next_value::<std::option::Option<std::vec::Vec<crate::OneofDescriptorProto>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options =
+                                map.next_value::<std::option::Option<crate::MessageOptions>>()?;
+                        }
+                        __FieldTag::__reserved_range => {
+                            if !fields.insert(__FieldTag::__reserved_range) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reserved_range",
+                                ));
+                            }
+                            result.reserved_range = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::descriptor_proto::ReservedRange>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__reserved_name => {
+                            if !fields.insert(__FieldTag::__reserved_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reserved_name",
+                                ));
+                            }
+                            result.reserved_name = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DescriptorProto {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.field.is_empty() {
+            state.serialize_entry("field", &self.field)?;
+        }
+        if !self.extension.is_empty() {
+            state.serialize_entry("extension", &self.extension)?;
+        }
+        if !self.nested_type.is_empty() {
+            state.serialize_entry("nestedType", &self.nested_type)?;
+        }
+        if !self.enum_type.is_empty() {
+            state.serialize_entry("enumType", &self.enum_type)?;
+        }
+        if !self.extension_range.is_empty() {
+            state.serialize_entry("extensionRange", &self.extension_range)?;
+        }
+        if !self.oneof_decl.is_empty() {
+            state.serialize_entry("oneofDecl", &self.oneof_decl)?;
+        }
+        if self.options.is_some() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !self.reserved_range.is_empty() {
+            state.serialize_entry("reservedRange", &self.reserved_range)?;
+        }
+        if !self.reserved_name.is_empty() {
+            state.serialize_entry("reservedName", &self.reserved_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [DescriptorProto].
 pub mod descriptor_proto {
     #[allow(unused_imports)]
     use super::*;
 
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ExtensionRange {
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub start: i32,
 
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub end: i32,
 
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub options: std::option::Option<crate::ExtensionRangeOptions>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -921,23 +1985,186 @@ pub mod descriptor_proto {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for ExtensionRange {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __start,
+                __end,
+                __options,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for ExtensionRange")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "start" => Ok(__FieldTag::__start),
+                                "end" => Ok(__FieldTag::__end),
+                                "options" => Ok(__FieldTag::__options),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = ExtensionRange;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct ExtensionRange")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__start => {
+                                if !fields.insert(__FieldTag::__start) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for start",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.start = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__end => {
+                                if !fields.insert(__FieldTag::__end) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for end",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.end = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__options => {
+                                if !fields.insert(__FieldTag::__options) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for options",
+                                    ));
+                                }
+                                result.options = map.next_value::<std::option::Option<crate::ExtensionRangeOptions>>()?
+                                    ;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for ExtensionRange {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.start) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("start", &__With(&self.start))?;
+            }
+            if !wkt::internal::is_default(&self.end) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("end", &__With(&self.end))?;
+            }
+            if self.options.is_some() {
+                state.serialize_entry("options", &self.options)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Range of reserved tag numbers. Reserved tag numbers may not be used by
     /// fields or extension ranges in the same message. Reserved ranges may
     /// not overlap.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ReservedRange {
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub start: i32,
 
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub end: i32,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -964,37 +2191,183 @@ pub mod descriptor_proto {
             "type.googleapis.com/google.protobuf.DescriptorProto.ReservedRange"
         }
     }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for ReservedRange {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __start,
+                __end,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for ReservedRange")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "start" => Ok(__FieldTag::__start),
+                                "end" => Ok(__FieldTag::__end),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = ReservedRange;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct ReservedRange")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__start => {
+                                if !fields.insert(__FieldTag::__start) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for start",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.start = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__end => {
+                                if !fields.insert(__FieldTag::__end) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for end",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.end = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for ReservedRange {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.start) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("start", &__With(&self.start))?;
+            }
+            if !wkt::internal::is_default(&self.end) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("end", &__With(&self.end))?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
 }
 
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExtensionRangeOptions {
     /// The parser stores options it doesn't recognize here. See above.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
     /// For external users: DO NOT USE. We are in the process of open sourcing
     /// extension declaration and executing internal cleanups before it can be
     /// used externally.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub declaration: std::vec::Vec<crate::extension_range_options::Declaration>,
 
     /// Any features defined in the specific edition.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub features: std::option::Option<crate::FeatureSet>,
 
     /// The verification state of the range.
     /// TODO: flip the default to DECLARATION once all empty ranges
     /// are marked as UNVERIFIED.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub verification: crate::extension_range_options::VerificationState,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1061,49 +2434,184 @@ impl wkt::message::Message for ExtensionRangeOptions {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ExtensionRangeOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __uninterpreted_option,
+            __declaration,
+            __features,
+            __verification,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ExtensionRangeOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "uninterpretedOption" => Ok(__FieldTag::__uninterpreted_option),
+                            "uninterpreted_option" => Ok(__FieldTag::__uninterpreted_option),
+                            "declaration" => Ok(__FieldTag::__declaration),
+                            "features" => Ok(__FieldTag::__features),
+                            "verification" => Ok(__FieldTag::__verification),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ExtensionRangeOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ExtensionRangeOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__uninterpreted_option => {
+                            if !fields.insert(__FieldTag::__uninterpreted_option) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uninterpreted_option",
+                                ));
+                            }
+                            result.uninterpreted_option = map.next_value::<std::option::Option<std::vec::Vec<crate::UninterpretedOption>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__declaration => {
+                            if !fields.insert(__FieldTag::__declaration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for declaration",
+                                ));
+                            }
+                            result.declaration = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::extension_range_options::Declaration>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__features => {
+                            if !fields.insert(__FieldTag::__features) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for features",
+                                ));
+                            }
+                            result.features =
+                                map.next_value::<std::option::Option<crate::FeatureSet>>()?;
+                        }
+                        __FieldTag::__verification => {
+                            if !fields.insert(__FieldTag::__verification) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for verification",
+                                ));
+                            }
+                            result.verification = map
+                                .next_value::<std::option::Option<
+                                    crate::extension_range_options::VerificationState,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ExtensionRangeOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.uninterpreted_option.is_empty() {
+            state.serialize_entry("uninterpretedOption", &self.uninterpreted_option)?;
+        }
+        if !self.declaration.is_empty() {
+            state.serialize_entry("declaration", &self.declaration)?;
+        }
+        if self.features.is_some() {
+            state.serialize_entry("features", &self.features)?;
+        }
+        if !wkt::internal::is_default(&self.verification) {
+            state.serialize_entry("verification", &self.verification)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [ExtensionRangeOptions].
 pub mod extension_range_options {
     #[allow(unused_imports)]
     use super::*;
 
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Declaration {
         /// The extension number declared within the extension range.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub number: i32,
 
         /// The fully-qualified name of the extension field. There must be a leading
         /// dot in front of the full name.
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub full_name: std::string::String,
 
         /// The fully-qualified type name of the extension field. Unlike
         /// Metadata.type, Declaration.type must have a leading dot for messages
         /// and enums.
-        #[serde(rename = "type")]
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub r#type: std::string::String,
 
         /// If true, indicates that the number is reserved in the extension range,
         /// and any extension field with the number will fail to compile. Set this
         /// when a declared extension field is deleted.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub reserved: bool,
 
         /// If true, indicates that the extension must be defined as repeated.
         /// Otherwise the extension must be defined as optional.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub repeated: bool,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -1146,6 +2654,190 @@ pub mod extension_range_options {
     impl wkt::message::Message for Declaration {
         fn typename() -> &'static str {
             "type.googleapis.com/google.protobuf.ExtensionRangeOptions.Declaration"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Declaration {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __number,
+                __full_name,
+                __type,
+                __reserved,
+                __repeated,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Declaration")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "number" => Ok(__FieldTag::__number),
+                                "fullName" => Ok(__FieldTag::__full_name),
+                                "full_name" => Ok(__FieldTag::__full_name),
+                                "type" => Ok(__FieldTag::__type),
+                                "reserved" => Ok(__FieldTag::__reserved),
+                                "repeated" => Ok(__FieldTag::__repeated),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Declaration;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Declaration")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__number => {
+                                if !fields.insert(__FieldTag::__number) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for number",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.number = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__full_name => {
+                                if !fields.insert(__FieldTag::__full_name) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for full_name",
+                                    ));
+                                }
+                                result.full_name = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__type => {
+                                if !fields.insert(__FieldTag::__type) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for type",
+                                    ));
+                                }
+                                result.r#type = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__reserved => {
+                                if !fields.insert(__FieldTag::__reserved) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for reserved",
+                                    ));
+                                }
+                                result.reserved = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__repeated => {
+                                if !fields.insert(__FieldTag::__repeated) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for repeated",
+                                    ));
+                                }
+                                result.repeated = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Declaration {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.number) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("number", &__With(&self.number))?;
+            }
+            if !self.full_name.is_empty() {
+                state.serialize_entry("fullName", &self.full_name)?;
+            }
+            if !self.r#type.is_empty() {
+                state.serialize_entry("type", &self.r#type)?;
+            }
+            if !wkt::internal::is_default(&self.reserved) {
+                state.serialize_entry("reserved", &self.reserved)?;
+            }
+            if !wkt::internal::is_default(&self.repeated) {
+                state.serialize_entry("repeated", &self.repeated)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -1275,28 +2967,17 @@ pub mod extension_range_options {
 }
 
 /// Describes a field within a message.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldDescriptorProto {
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub number: i32,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label: crate::field_descriptor_proto::Label,
 
     /// If type_name is set, this need not be set.  If both this and type_name
     /// are set, this must be one of TYPE_ENUM, TYPE_MESSAGE or TYPE_GROUP.
-    #[serde(rename = "type")]
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: crate::field_descriptor_proto::Type,
 
     /// For message and enum types, this is the name of the type.  If the name
@@ -1304,39 +2985,28 @@ pub struct FieldDescriptorProto {
     /// rules are used to find the type (i.e. first the nested types within this
     /// message are searched, then within the parent, on up to the root
     /// namespace).
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub type_name: std::string::String,
 
     /// For extensions, this is the name of the type being extended.  It is
     /// resolved in the same manner as type_name.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub extendee: std::string::String,
 
     /// For numeric types, contains the original text representation of the value.
     /// For booleans, "true" or "false".
     /// For strings, contains the default text contents (not escaped in any way).
     /// For bytes, contains the C escaped value.  All bytes >= 128 are escaped.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_value: std::string::String,
 
     /// If set, gives the index of a oneof in the containing type's oneof_decl
     /// list.  This field is a member of that oneof.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub oneof_index: i32,
 
     /// JSON name of this field. The value is set by protocol compiler. If the
     /// user has set a "json_name" option on this field, that option's value
     /// will be used. Otherwise, it's deduced from the field's name by converting
     /// it to camelCase.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub json_name: std::string::String,
 
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::FieldOptions>,
 
     /// If true, this is a proto3 "optional". When a proto3 field is optional, it
@@ -1360,11 +3030,8 @@ pub struct FieldDescriptorProto {
     ///
     /// Proto2 optional fields do not set this flag, because they already indicate
     /// optional with `LABEL_OPTIONAL`.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub proto3_optional: bool,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1461,6 +3128,294 @@ impl FieldDescriptorProto {
 impl wkt::message::Message for FieldDescriptorProto {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.FieldDescriptorProto"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FieldDescriptorProto {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __number,
+            __label,
+            __type,
+            __type_name,
+            __extendee,
+            __default_value,
+            __oneof_index,
+            __json_name,
+            __options,
+            __proto3_optional,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FieldDescriptorProto")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "number" => Ok(__FieldTag::__number),
+                            "label" => Ok(__FieldTag::__label),
+                            "type" => Ok(__FieldTag::__type),
+                            "typeName" => Ok(__FieldTag::__type_name),
+                            "type_name" => Ok(__FieldTag::__type_name),
+                            "extendee" => Ok(__FieldTag::__extendee),
+                            "defaultValue" => Ok(__FieldTag::__default_value),
+                            "default_value" => Ok(__FieldTag::__default_value),
+                            "oneofIndex" => Ok(__FieldTag::__oneof_index),
+                            "oneof_index" => Ok(__FieldTag::__oneof_index),
+                            "jsonName" => Ok(__FieldTag::__json_name),
+                            "json_name" => Ok(__FieldTag::__json_name),
+                            "options" => Ok(__FieldTag::__options),
+                            "proto3Optional" => Ok(__FieldTag::__proto3_optional),
+                            "proto3_optional" => Ok(__FieldTag::__proto3_optional),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FieldDescriptorProto;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FieldDescriptorProto")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__number => {
+                            if !fields.insert(__FieldTag::__number) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for number",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.number = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__label => {
+                            if !fields.insert(__FieldTag::__label) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for label",
+                                ));
+                            }
+                            result.label = map.next_value::<std::option::Option<crate::field_descriptor_proto::Label>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type = map.next_value::<std::option::Option<crate::field_descriptor_proto::Type>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__type_name => {
+                            if !fields.insert(__FieldTag::__type_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type_name",
+                                ));
+                            }
+                            result.type_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__extendee => {
+                            if !fields.insert(__FieldTag::__extendee) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for extendee",
+                                ));
+                            }
+                            result.extendee = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__default_value => {
+                            if !fields.insert(__FieldTag::__default_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for default_value",
+                                ));
+                            }
+                            result.default_value = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__oneof_index => {
+                            if !fields.insert(__FieldTag::__oneof_index) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_index",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.oneof_index = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__json_name => {
+                            if !fields.insert(__FieldTag::__json_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for json_name",
+                                ));
+                            }
+                            result.json_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options =
+                                map.next_value::<std::option::Option<crate::FieldOptions>>()?;
+                        }
+                        __FieldTag::__proto3_optional => {
+                            if !fields.insert(__FieldTag::__proto3_optional) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for proto3_optional",
+                                ));
+                            }
+                            result.proto3_optional = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FieldDescriptorProto {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.number) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("number", &__With(&self.number))?;
+        }
+        if !wkt::internal::is_default(&self.label) {
+            state.serialize_entry("label", &self.label)?;
+        }
+        if !wkt::internal::is_default(&self.r#type) {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !self.type_name.is_empty() {
+            state.serialize_entry("typeName", &self.type_name)?;
+        }
+        if !self.extendee.is_empty() {
+            state.serialize_entry("extendee", &self.extendee)?;
+        }
+        if !self.default_value.is_empty() {
+            state.serialize_entry("defaultValue", &self.default_value)?;
+        }
+        if !wkt::internal::is_default(&self.oneof_index) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("oneofIndex", &__With(&self.oneof_index))?;
+        }
+        if !self.json_name.is_empty() {
+            state.serialize_entry("jsonName", &self.json_name)?;
+        }
+        if self.options.is_some() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !wkt::internal::is_default(&self.proto3_optional) {
+            state.serialize_entry("proto3Optional", &self.proto3_optional)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -1833,19 +3788,13 @@ pub mod field_descriptor_proto {
 }
 
 /// Describes a oneof.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OneofDescriptorProto {
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::OneofOptions>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1885,37 +3834,141 @@ impl wkt::message::Message for OneofDescriptorProto {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for OneofDescriptorProto {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __options,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for OneofDescriptorProto")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "options" => Ok(__FieldTag::__options),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = OneofDescriptorProto;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct OneofDescriptorProto")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options =
+                                map.next_value::<std::option::Option<crate::OneofOptions>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for OneofDescriptorProto {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.options.is_some() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Describes an enum type.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumDescriptorProto {
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub value: std::vec::Vec<crate::EnumValueDescriptorProto>,
 
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::EnumOptions>,
 
     /// Range of reserved numeric values. Reserved numeric values may not be used
     /// by enum values in the same enum declaration. Reserved ranges may not
     /// overlap.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reserved_range: std::vec::Vec<crate::enum_descriptor_proto::EnumReservedRange>,
 
     /// Reserved enum value names, which may not be reused. A given name may only
     /// be reserved once.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reserved_name: std::vec::Vec<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1988,6 +4041,171 @@ impl wkt::message::Message for EnumDescriptorProto {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for EnumDescriptorProto {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __value,
+            __options,
+            __reserved_range,
+            __reserved_name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EnumDescriptorProto")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "value" => Ok(__FieldTag::__value),
+                            "options" => Ok(__FieldTag::__options),
+                            "reservedRange" => Ok(__FieldTag::__reserved_range),
+                            "reserved_range" => Ok(__FieldTag::__reserved_range),
+                            "reservedName" => Ok(__FieldTag::__reserved_name),
+                            "reserved_name" => Ok(__FieldTag::__reserved_name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = EnumDescriptorProto;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EnumDescriptorProto")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__value => {
+                            if !fields.insert(__FieldTag::__value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for value",
+                                ));
+                            }
+                            result.value =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::EnumValueDescriptorProto>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options =
+                                map.next_value::<std::option::Option<crate::EnumOptions>>()?;
+                        }
+                        __FieldTag::__reserved_range => {
+                            if !fields.insert(__FieldTag::__reserved_range) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reserved_range",
+                                ));
+                            }
+                            result.reserved_range = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::enum_descriptor_proto::EnumReservedRange>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__reserved_name => {
+                            if !fields.insert(__FieldTag::__reserved_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reserved_name",
+                                ));
+                            }
+                            result.reserved_name = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for EnumDescriptorProto {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if self.options.is_some() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !self.reserved_range.is_empty() {
+            state.serialize_entry("reservedRange", &self.reserved_range)?;
+        }
+        if !self.reserved_name.is_empty() {
+            state.serialize_entry("reservedName", &self.reserved_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [EnumDescriptorProto].
 pub mod enum_descriptor_proto {
     #[allow(unused_imports)]
@@ -1999,20 +4217,13 @@ pub mod enum_descriptor_proto {
     /// Note that this is distinct from DescriptorProto.ReservedRange in that it
     /// is inclusive such that it can appropriately represent the entire int32
     /// domain.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EnumReservedRange {
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub start: i32,
 
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub end: i32,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -2039,26 +4250,174 @@ pub mod enum_descriptor_proto {
             "type.googleapis.com/google.protobuf.EnumDescriptorProto.EnumReservedRange"
         }
     }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for EnumReservedRange {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __start,
+                __end,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for EnumReservedRange")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "start" => Ok(__FieldTag::__start),
+                                "end" => Ok(__FieldTag::__end),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = EnumReservedRange;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct EnumReservedRange")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__start => {
+                                if !fields.insert(__FieldTag::__start) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for start",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.start = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__end => {
+                                if !fields.insert(__FieldTag::__end) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for end",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.end = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for EnumReservedRange {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.start) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("start", &__With(&self.start))?;
+            }
+            if !wkt::internal::is_default(&self.end) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("end", &__With(&self.end))?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
 }
 
 /// Describes a value within an enum.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumValueDescriptorProto {
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub number: i32,
 
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::EnumValueOptions>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2104,24 +4463,165 @@ impl wkt::message::Message for EnumValueDescriptorProto {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for EnumValueDescriptorProto {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __number,
+            __options,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EnumValueDescriptorProto")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "number" => Ok(__FieldTag::__number),
+                            "options" => Ok(__FieldTag::__options),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = EnumValueDescriptorProto;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EnumValueDescriptorProto")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__number => {
+                            if !fields.insert(__FieldTag::__number) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for number",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.number = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options =
+                                map.next_value::<std::option::Option<crate::EnumValueOptions>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for EnumValueDescriptorProto {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.number) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("number", &__With(&self.number))?;
+        }
+        if self.options.is_some() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Describes a service.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceDescriptorProto {
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub method: std::vec::Vec<crate::MethodDescriptorProto>,
 
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::ServiceOptions>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2172,40 +4672,159 @@ impl wkt::message::Message for ServiceDescriptorProto {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ServiceDescriptorProto {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __method,
+            __options,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ServiceDescriptorProto")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "method" => Ok(__FieldTag::__method),
+                            "options" => Ok(__FieldTag::__options),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ServiceDescriptorProto;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ServiceDescriptorProto")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__method => {
+                            if !fields.insert(__FieldTag::__method) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for method",
+                                ));
+                            }
+                            result.method =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::MethodDescriptorProto>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options =
+                                map.next_value::<std::option::Option<crate::ServiceOptions>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ServiceDescriptorProto {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.method.is_empty() {
+            state.serialize_entry("method", &self.method)?;
+        }
+        if self.options.is_some() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Describes a method of a service.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MethodDescriptorProto {
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Input and output type names.  These are resolved in the same way as
     /// FieldDescriptorProto.type_name, but must refer to a message type.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_type: std::string::String,
 
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_type: std::string::String,
 
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub options: std::option::Option<crate::MethodOptions>,
 
     /// Identifies if client streams multiple client messages
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub client_streaming: bool,
 
     /// Identifies if server streams multiple server messages
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub server_streaming: bool,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2269,17 +4888,193 @@ impl wkt::message::Message for MethodDescriptorProto {
     }
 }
 
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for MethodDescriptorProto {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __input_type,
+            __output_type,
+            __options,
+            __client_streaming,
+            __server_streaming,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MethodDescriptorProto")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "inputType" => Ok(__FieldTag::__input_type),
+                            "input_type" => Ok(__FieldTag::__input_type),
+                            "outputType" => Ok(__FieldTag::__output_type),
+                            "output_type" => Ok(__FieldTag::__output_type),
+                            "options" => Ok(__FieldTag::__options),
+                            "clientStreaming" => Ok(__FieldTag::__client_streaming),
+                            "client_streaming" => Ok(__FieldTag::__client_streaming),
+                            "serverStreaming" => Ok(__FieldTag::__server_streaming),
+                            "server_streaming" => Ok(__FieldTag::__server_streaming),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MethodDescriptorProto;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MethodDescriptorProto")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__input_type => {
+                            if !fields.insert(__FieldTag::__input_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for input_type",
+                                ));
+                            }
+                            result.input_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__output_type => {
+                            if !fields.insert(__FieldTag::__output_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for output_type",
+                                ));
+                            }
+                            result.output_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options =
+                                map.next_value::<std::option::Option<crate::MethodOptions>>()?;
+                        }
+                        __FieldTag::__client_streaming => {
+                            if !fields.insert(__FieldTag::__client_streaming) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for client_streaming",
+                                ));
+                            }
+                            result.client_streaming = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__server_streaming => {
+                            if !fields.insert(__FieldTag::__server_streaming) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for server_streaming",
+                                ));
+                            }
+                            result.server_streaming = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for MethodDescriptorProto {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.input_type.is_empty() {
+            state.serialize_entry("inputType", &self.input_type)?;
+        }
+        if !self.output_type.is_empty() {
+            state.serialize_entry("outputType", &self.output_type)?;
+        }
+        if self.options.is_some() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !wkt::internal::is_default(&self.client_streaming) {
+            state.serialize_entry("clientStreaming", &self.client_streaming)?;
+        }
+        if !wkt::internal::is_default(&self.server_streaming) {
+            state.serialize_entry("serverStreaming", &self.server_streaming)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileOptions {
     /// Sets the Java package where classes generated from this .proto will be
     /// placed.  By default, the proto package is used, but this is often
     /// inappropriate because proto packages do not normally start with backwards
     /// domain names.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub java_package: std::string::String,
 
     /// Controls the name of the wrapper Java class generated for the .proto file.
@@ -2287,8 +5082,6 @@ pub struct FileOptions {
     /// well as any top-level extensions defined in the .proto file.
     /// If java_multiple_files is disabled, then all the other classes from the
     /// .proto file will be nested inside the single wrapper outer class.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub java_outer_classname: std::string::String,
 
     /// If enabled, then the Java code generator will generate a separate .java
@@ -2297,13 +5090,9 @@ pub struct FileOptions {
     /// named by java_outer_classname.  However, the wrapper class will still be
     /// generated to contain the file's getDescriptor() method as well as any
     /// top-level extensions defined in the file.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub java_multiple_files: bool,
 
     /// This option does nothing.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub java_generate_equals_and_hash: bool,
 
@@ -2317,12 +5106,8 @@ pub struct FileOptions {
     /// Proto3 files already perform these checks. Setting the option explicitly to
     /// false has no effect: it cannot be used to opt proto3 files out of UTF-8
     /// checks.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub java_string_check_utf8: bool,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub optimize_for: crate::file_options::OptimizeMode,
 
     /// Sets the Go package where structs generated from this .proto will be
@@ -2331,8 +5116,6 @@ pub struct FileOptions {
     /// - The basename of the package import path, if provided.
     /// - Otherwise, the package statement in the .proto file, if present.
     /// - Otherwise, the basename of the .proto file, without extension.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub go_package: std::string::String,
 
     /// Should generic services be generated in each language?  "Generic" services
@@ -2345,89 +5128,61 @@ pub struct FileOptions {
     /// that generate code specific to your particular RPC system.  Therefore,
     /// these default to false.  Old code which depends on generic services should
     /// explicitly set them to true.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cc_generic_services: bool,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub java_generic_services: bool,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub py_generic_services: bool,
 
     /// Is this file deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for everything in the file, or it will be completely ignored; in the very
     /// least, this is a formalization for deprecating files.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     /// Enables the use of arenas for the proto messages in this file. This applies
     /// only to generated classes for C++.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cc_enable_arenas: bool,
 
     /// Sets the objective c class prefix which is prepended to all objective c
     /// generated classes from this .proto. There is no default.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub objc_class_prefix: std::string::String,
 
     /// Namespace for generated classes; defaults to the package.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub csharp_namespace: std::string::String,
 
     /// By default Swift generators will take the proto package and CamelCase it
     /// replacing '.' with underscore and use that to prefix the types/symbols
     /// defined. When this options is provided, they will use this value instead
     /// to prefix the types/symbols defined.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub swift_prefix: std::string::String,
 
     /// Sets the php class prefix which is prepended to all php generated classes
     /// from this .proto. Default is empty.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub php_class_prefix: std::string::String,
 
     /// Use this option to change the namespace of php generated classes. Default
     /// is empty. When this option is empty, the package name will be used for
     /// determining the namespace.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub php_namespace: std::string::String,
 
     /// Use this option to change the namespace of php generated metadata classes.
     /// Default is empty. When this option is empty, the proto file name will be
     /// used for determining the namespace.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub php_metadata_namespace: std::string::String,
 
     /// Use this option to change the package of ruby generated classes. Default
     /// is empty. When this option is not set, the package name will be used for
     /// determining the ruby package.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ruby_package: std::string::String,
 
     /// Any features defined in the specific edition.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub features: std::option::Option<crate::FeatureSet>,
 
     /// The parser stores options it doesn't recognize here.
     /// See the documentation for the "Options" section above.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2605,6 +5360,429 @@ impl wkt::message::Message for FileOptions {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FileOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __java_package,
+            __java_outer_classname,
+            __java_multiple_files,
+            __java_generate_equals_and_hash,
+            __java_string_check_utf8,
+            __optimize_for,
+            __go_package,
+            __cc_generic_services,
+            __java_generic_services,
+            __py_generic_services,
+            __deprecated,
+            __cc_enable_arenas,
+            __objc_class_prefix,
+            __csharp_namespace,
+            __swift_prefix,
+            __php_class_prefix,
+            __php_namespace,
+            __php_metadata_namespace,
+            __ruby_package,
+            __features,
+            __uninterpreted_option,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FileOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "javaPackage" => Ok(__FieldTag::__java_package),
+                            "java_package" => Ok(__FieldTag::__java_package),
+                            "javaOuterClassname" => Ok(__FieldTag::__java_outer_classname),
+                            "java_outer_classname" => Ok(__FieldTag::__java_outer_classname),
+                            "javaMultipleFiles" => Ok(__FieldTag::__java_multiple_files),
+                            "java_multiple_files" => Ok(__FieldTag::__java_multiple_files),
+                            "javaGenerateEqualsAndHash" => {
+                                Ok(__FieldTag::__java_generate_equals_and_hash)
+                            }
+                            "java_generate_equals_and_hash" => {
+                                Ok(__FieldTag::__java_generate_equals_and_hash)
+                            }
+                            "javaStringCheckUtf8" => Ok(__FieldTag::__java_string_check_utf8),
+                            "java_string_check_utf8" => Ok(__FieldTag::__java_string_check_utf8),
+                            "optimizeFor" => Ok(__FieldTag::__optimize_for),
+                            "optimize_for" => Ok(__FieldTag::__optimize_for),
+                            "goPackage" => Ok(__FieldTag::__go_package),
+                            "go_package" => Ok(__FieldTag::__go_package),
+                            "ccGenericServices" => Ok(__FieldTag::__cc_generic_services),
+                            "cc_generic_services" => Ok(__FieldTag::__cc_generic_services),
+                            "javaGenericServices" => Ok(__FieldTag::__java_generic_services),
+                            "java_generic_services" => Ok(__FieldTag::__java_generic_services),
+                            "pyGenericServices" => Ok(__FieldTag::__py_generic_services),
+                            "py_generic_services" => Ok(__FieldTag::__py_generic_services),
+                            "deprecated" => Ok(__FieldTag::__deprecated),
+                            "ccEnableArenas" => Ok(__FieldTag::__cc_enable_arenas),
+                            "cc_enable_arenas" => Ok(__FieldTag::__cc_enable_arenas),
+                            "objcClassPrefix" => Ok(__FieldTag::__objc_class_prefix),
+                            "objc_class_prefix" => Ok(__FieldTag::__objc_class_prefix),
+                            "csharpNamespace" => Ok(__FieldTag::__csharp_namespace),
+                            "csharp_namespace" => Ok(__FieldTag::__csharp_namespace),
+                            "swiftPrefix" => Ok(__FieldTag::__swift_prefix),
+                            "swift_prefix" => Ok(__FieldTag::__swift_prefix),
+                            "phpClassPrefix" => Ok(__FieldTag::__php_class_prefix),
+                            "php_class_prefix" => Ok(__FieldTag::__php_class_prefix),
+                            "phpNamespace" => Ok(__FieldTag::__php_namespace),
+                            "php_namespace" => Ok(__FieldTag::__php_namespace),
+                            "phpMetadataNamespace" => Ok(__FieldTag::__php_metadata_namespace),
+                            "php_metadata_namespace" => Ok(__FieldTag::__php_metadata_namespace),
+                            "rubyPackage" => Ok(__FieldTag::__ruby_package),
+                            "ruby_package" => Ok(__FieldTag::__ruby_package),
+                            "features" => Ok(__FieldTag::__features),
+                            "uninterpretedOption" => Ok(__FieldTag::__uninterpreted_option),
+                            "uninterpreted_option" => Ok(__FieldTag::__uninterpreted_option),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FileOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FileOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__java_package => {
+                            if !fields.insert(__FieldTag::__java_package) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for java_package",
+                                ));
+                            }
+                            result.java_package = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__java_outer_classname => {
+                            if !fields.insert(__FieldTag::__java_outer_classname) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for java_outer_classname",
+                                ));
+                            }
+                            result.java_outer_classname = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__java_multiple_files => {
+                            if !fields.insert(__FieldTag::__java_multiple_files) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for java_multiple_files",
+                                ));
+                            }
+                            result.java_multiple_files = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__java_generate_equals_and_hash => {
+                            if !fields.insert(__FieldTag::__java_generate_equals_and_hash) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for java_generate_equals_and_hash",
+                                ));
+                            }
+                            result.java_generate_equals_and_hash = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__java_string_check_utf8 => {
+                            if !fields.insert(__FieldTag::__java_string_check_utf8) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for java_string_check_utf8",
+                                ));
+                            }
+                            result.java_string_check_utf8 = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__optimize_for => {
+                            if !fields.insert(__FieldTag::__optimize_for) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optimize_for",
+                                ));
+                            }
+                            result.optimize_for = map.next_value::<std::option::Option<crate::file_options::OptimizeMode>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__go_package => {
+                            if !fields.insert(__FieldTag::__go_package) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for go_package",
+                                ));
+                            }
+                            result.go_package = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cc_generic_services => {
+                            if !fields.insert(__FieldTag::__cc_generic_services) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cc_generic_services",
+                                ));
+                            }
+                            result.cc_generic_services = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__java_generic_services => {
+                            if !fields.insert(__FieldTag::__java_generic_services) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for java_generic_services",
+                                ));
+                            }
+                            result.java_generic_services = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__py_generic_services => {
+                            if !fields.insert(__FieldTag::__py_generic_services) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for py_generic_services",
+                                ));
+                            }
+                            result.py_generic_services = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deprecated => {
+                            if !fields.insert(__FieldTag::__deprecated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deprecated",
+                                ));
+                            }
+                            result.deprecated = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cc_enable_arenas => {
+                            if !fields.insert(__FieldTag::__cc_enable_arenas) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cc_enable_arenas",
+                                ));
+                            }
+                            result.cc_enable_arenas = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__objc_class_prefix => {
+                            if !fields.insert(__FieldTag::__objc_class_prefix) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for objc_class_prefix",
+                                ));
+                            }
+                            result.objc_class_prefix = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__csharp_namespace => {
+                            if !fields.insert(__FieldTag::__csharp_namespace) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for csharp_namespace",
+                                ));
+                            }
+                            result.csharp_namespace = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__swift_prefix => {
+                            if !fields.insert(__FieldTag::__swift_prefix) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for swift_prefix",
+                                ));
+                            }
+                            result.swift_prefix = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__php_class_prefix => {
+                            if !fields.insert(__FieldTag::__php_class_prefix) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for php_class_prefix",
+                                ));
+                            }
+                            result.php_class_prefix = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__php_namespace => {
+                            if !fields.insert(__FieldTag::__php_namespace) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for php_namespace",
+                                ));
+                            }
+                            result.php_namespace = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__php_metadata_namespace => {
+                            if !fields.insert(__FieldTag::__php_metadata_namespace) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for php_metadata_namespace",
+                                ));
+                            }
+                            result.php_metadata_namespace = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ruby_package => {
+                            if !fields.insert(__FieldTag::__ruby_package) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ruby_package",
+                                ));
+                            }
+                            result.ruby_package = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__features => {
+                            if !fields.insert(__FieldTag::__features) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for features",
+                                ));
+                            }
+                            result.features =
+                                map.next_value::<std::option::Option<crate::FeatureSet>>()?;
+                        }
+                        __FieldTag::__uninterpreted_option => {
+                            if !fields.insert(__FieldTag::__uninterpreted_option) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uninterpreted_option",
+                                ));
+                            }
+                            result.uninterpreted_option = map.next_value::<std::option::Option<std::vec::Vec<crate::UninterpretedOption>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FileOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.java_package.is_empty() {
+            state.serialize_entry("javaPackage", &self.java_package)?;
+        }
+        if !self.java_outer_classname.is_empty() {
+            state.serialize_entry("javaOuterClassname", &self.java_outer_classname)?;
+        }
+        if !wkt::internal::is_default(&self.java_multiple_files) {
+            state.serialize_entry("javaMultipleFiles", &self.java_multiple_files)?;
+        }
+        if !wkt::internal::is_default(&self.java_generate_equals_and_hash) {
+            state.serialize_entry(
+                "javaGenerateEqualsAndHash",
+                &self.java_generate_equals_and_hash,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.java_string_check_utf8) {
+            state.serialize_entry("javaStringCheckUtf8", &self.java_string_check_utf8)?;
+        }
+        if !wkt::internal::is_default(&self.optimize_for) {
+            state.serialize_entry("optimizeFor", &self.optimize_for)?;
+        }
+        if !self.go_package.is_empty() {
+            state.serialize_entry("goPackage", &self.go_package)?;
+        }
+        if !wkt::internal::is_default(&self.cc_generic_services) {
+            state.serialize_entry("ccGenericServices", &self.cc_generic_services)?;
+        }
+        if !wkt::internal::is_default(&self.java_generic_services) {
+            state.serialize_entry("javaGenericServices", &self.java_generic_services)?;
+        }
+        if !wkt::internal::is_default(&self.py_generic_services) {
+            state.serialize_entry("pyGenericServices", &self.py_generic_services)?;
+        }
+        if !wkt::internal::is_default(&self.deprecated) {
+            state.serialize_entry("deprecated", &self.deprecated)?;
+        }
+        if !wkt::internal::is_default(&self.cc_enable_arenas) {
+            state.serialize_entry("ccEnableArenas", &self.cc_enable_arenas)?;
+        }
+        if !self.objc_class_prefix.is_empty() {
+            state.serialize_entry("objcClassPrefix", &self.objc_class_prefix)?;
+        }
+        if !self.csharp_namespace.is_empty() {
+            state.serialize_entry("csharpNamespace", &self.csharp_namespace)?;
+        }
+        if !self.swift_prefix.is_empty() {
+            state.serialize_entry("swiftPrefix", &self.swift_prefix)?;
+        }
+        if !self.php_class_prefix.is_empty() {
+            state.serialize_entry("phpClassPrefix", &self.php_class_prefix)?;
+        }
+        if !self.php_namespace.is_empty() {
+            state.serialize_entry("phpNamespace", &self.php_namespace)?;
+        }
+        if !self.php_metadata_namespace.is_empty() {
+            state.serialize_entry("phpMetadataNamespace", &self.php_metadata_namespace)?;
+        }
+        if !self.ruby_package.is_empty() {
+            state.serialize_entry("rubyPackage", &self.ruby_package)?;
+        }
+        if self.features.is_some() {
+            state.serialize_entry("features", &self.features)?;
+        }
+        if !self.uninterpreted_option.is_empty() {
+            state.serialize_entry("uninterpretedOption", &self.uninterpreted_option)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [FileOptions].
 pub mod file_options {
     #[allow(unused_imports)]
@@ -2741,9 +5919,7 @@ pub mod file_options {
     }
 }
 
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MessageOptions {
     /// Set true to use the old proto1 MessageSet wire format for extensions.
@@ -2764,23 +5940,17 @@ pub struct MessageOptions {
     ///
     /// Because this is an option, the above two restrictions are not enforced by
     /// the protocol compiler.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message_set_wire_format: bool,
 
     /// Disables the generation of the standard "descriptor()" accessor, which can
     /// conflict with a field of the same name.  This is meant to make migration
     /// from proto1 easier; new code should avoid fields named "descriptor".
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub no_standard_descriptor_accessor: bool,
 
     /// Is this message deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for the message, or it will be completely ignored; in the very least,
     /// this is a formalization for deprecating messages.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     /// Whether the message is an automatically generated map entry type for the
@@ -2804,8 +5974,6 @@ pub struct MessageOptions {
     /// NOTE: Do not set the option in .proto files. Always use the maps syntax
     /// instead. The option should only be implicitly set by the proto compiler
     /// parser.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub map_entry: bool,
 
     /// Enable the legacy handling of JSON field name conflicts.  This lowercases
@@ -2818,21 +5986,15 @@ pub struct MessageOptions {
     ///
     /// TODO This is legacy behavior we plan to remove once downstream
     /// teams have had time to migrate.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub deprecated_legacy_json_field_conflicts: bool,
 
     /// Any features defined in the specific edition.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub features: std::option::Option<crate::FeatureSet>,
 
     /// The parser stores options it doesn't recognize here. See above.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2914,9 +6076,216 @@ impl wkt::message::Message for MessageOptions {
     }
 }
 
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for MessageOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __message_set_wire_format,
+            __no_standard_descriptor_accessor,
+            __deprecated,
+            __map_entry,
+            __deprecated_legacy_json_field_conflicts,
+            __features,
+            __uninterpreted_option,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MessageOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "messageSetWireFormat" => Ok(__FieldTag::__message_set_wire_format),
+                            "message_set_wire_format" => Ok(__FieldTag::__message_set_wire_format),
+                            "noStandardDescriptorAccessor" => {
+                                Ok(__FieldTag::__no_standard_descriptor_accessor)
+                            }
+                            "no_standard_descriptor_accessor" => {
+                                Ok(__FieldTag::__no_standard_descriptor_accessor)
+                            }
+                            "deprecated" => Ok(__FieldTag::__deprecated),
+                            "mapEntry" => Ok(__FieldTag::__map_entry),
+                            "map_entry" => Ok(__FieldTag::__map_entry),
+                            "deprecatedLegacyJsonFieldConflicts" => {
+                                Ok(__FieldTag::__deprecated_legacy_json_field_conflicts)
+                            }
+                            "deprecated_legacy_json_field_conflicts" => {
+                                Ok(__FieldTag::__deprecated_legacy_json_field_conflicts)
+                            }
+                            "features" => Ok(__FieldTag::__features),
+                            "uninterpretedOption" => Ok(__FieldTag::__uninterpreted_option),
+                            "uninterpreted_option" => Ok(__FieldTag::__uninterpreted_option),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MessageOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MessageOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__message_set_wire_format => {
+                            if !fields.insert(__FieldTag::__message_set_wire_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for message_set_wire_format",
+                                ));
+                            }
+                            result.message_set_wire_format = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__no_standard_descriptor_accessor => {
+                            if !fields.insert(__FieldTag::__no_standard_descriptor_accessor) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for no_standard_descriptor_accessor",
+                                ));
+                            }
+                            result.no_standard_descriptor_accessor = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deprecated => {
+                            if !fields.insert(__FieldTag::__deprecated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deprecated",
+                                ));
+                            }
+                            result.deprecated = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__map_entry => {
+                            if !fields.insert(__FieldTag::__map_entry) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for map_entry",
+                                ));
+                            }
+                            result.map_entry = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deprecated_legacy_json_field_conflicts => {
+                            if !fields.insert(__FieldTag::__deprecated_legacy_json_field_conflicts)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deprecated_legacy_json_field_conflicts",
+                                ));
+                            }
+                            result.deprecated_legacy_json_field_conflicts = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__features => {
+                            if !fields.insert(__FieldTag::__features) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for features",
+                                ));
+                            }
+                            result.features =
+                                map.next_value::<std::option::Option<crate::FeatureSet>>()?;
+                        }
+                        __FieldTag::__uninterpreted_option => {
+                            if !fields.insert(__FieldTag::__uninterpreted_option) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uninterpreted_option",
+                                ));
+                            }
+                            result.uninterpreted_option = map.next_value::<std::option::Option<std::vec::Vec<crate::UninterpretedOption>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for MessageOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.message_set_wire_format) {
+            state.serialize_entry("messageSetWireFormat", &self.message_set_wire_format)?;
+        }
+        if !wkt::internal::is_default(&self.no_standard_descriptor_accessor) {
+            state.serialize_entry(
+                "noStandardDescriptorAccessor",
+                &self.no_standard_descriptor_accessor,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.deprecated) {
+            state.serialize_entry("deprecated", &self.deprecated)?;
+        }
+        if !wkt::internal::is_default(&self.map_entry) {
+            state.serialize_entry("mapEntry", &self.map_entry)?;
+        }
+        if !wkt::internal::is_default(&self.deprecated_legacy_json_field_conflicts) {
+            state.serialize_entry(
+                "deprecatedLegacyJsonFieldConflicts",
+                &self.deprecated_legacy_json_field_conflicts,
+            )?;
+        }
+        if self.features.is_some() {
+            state.serialize_entry("features", &self.features)?;
+        }
+        if !self.uninterpreted_option.is_empty() {
+            state.serialize_entry("uninterpretedOption", &self.uninterpreted_option)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FieldOptions {
     /// NOTE: ctype is deprecated. Use `features.(pb.cpp).string_type` instead.
@@ -2926,8 +6295,6 @@ pub struct FieldOptions {
     /// [ctype=CORD] and [ctype=STRING] (the default) on non-repeated fields of
     /// type "bytes" in the open source release.
     /// TODO: make ctype actually deprecated.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ctype: crate::field_options::CType,
 
     /// The packed option can be enabled for repeated primitive fields to enable
@@ -2937,8 +6304,6 @@ pub struct FieldOptions {
     /// false will avoid using packed encoding.  This option is prohibited in
     /// Editions, but the `repeated_field_encoding` feature can be used to control
     /// the behavior.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub packed: bool,
 
     /// The jstype option determines the JavaScript type used for values of the
@@ -2952,8 +6317,6 @@ pub struct FieldOptions {
     ///
     /// This option is an enum to permit additional types to be added, e.g.
     /// goog.math.Integer.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub jstype: crate::field_options::JSType,
 
     /// Should this field be parsed lazily?  Lazy applies only to message-type
@@ -2978,61 +6341,40 @@ pub struct FieldOptions {
     /// on the outer message would fail if the inner message has missing required
     /// fields. Failed verification would result in parsing failure (except when
     /// uninitialized messages are acceptable).
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub lazy: bool,
 
     /// unverified_lazy does no correctness checks on the byte stream. This should
     /// only be used where lazy with verification is prohibitive for performance
     /// reasons.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub unverified_lazy: bool,
 
     /// Is this field deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for accessors, or it will be completely ignored; in the very least, this
     /// is a formalization for deprecating fields.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     /// For Google-internal migration only. Do not use.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub weak: bool,
 
     /// Indicate that the field value should not be printed out when using debug
     /// formats, e.g. when the field contains sensitive credentials.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub debug_redact: bool,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub retention: crate::field_options::OptionRetention,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub targets: std::vec::Vec<crate::field_options::OptionTargetType>,
 
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub edition_defaults: std::vec::Vec<crate::field_options::EditionDefault>,
 
     /// Any features defined in the specific edition.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub features: std::option::Option<crate::FeatureSet>,
 
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub feature_support: std::option::Option<crate::field_options::FeatureSupport>,
 
     /// The parser stores options it doesn't recognize here. See above.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3174,25 +6516,318 @@ impl wkt::message::Message for FieldOptions {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FieldOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __ctype,
+            __packed,
+            __jstype,
+            __lazy,
+            __unverified_lazy,
+            __deprecated,
+            __weak,
+            __debug_redact,
+            __retention,
+            __targets,
+            __edition_defaults,
+            __features,
+            __feature_support,
+            __uninterpreted_option,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FieldOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "ctype" => Ok(__FieldTag::__ctype),
+                            "packed" => Ok(__FieldTag::__packed),
+                            "jstype" => Ok(__FieldTag::__jstype),
+                            "lazy" => Ok(__FieldTag::__lazy),
+                            "unverifiedLazy" => Ok(__FieldTag::__unverified_lazy),
+                            "unverified_lazy" => Ok(__FieldTag::__unverified_lazy),
+                            "deprecated" => Ok(__FieldTag::__deprecated),
+                            "weak" => Ok(__FieldTag::__weak),
+                            "debugRedact" => Ok(__FieldTag::__debug_redact),
+                            "debug_redact" => Ok(__FieldTag::__debug_redact),
+                            "retention" => Ok(__FieldTag::__retention),
+                            "targets" => Ok(__FieldTag::__targets),
+                            "editionDefaults" => Ok(__FieldTag::__edition_defaults),
+                            "edition_defaults" => Ok(__FieldTag::__edition_defaults),
+                            "features" => Ok(__FieldTag::__features),
+                            "featureSupport" => Ok(__FieldTag::__feature_support),
+                            "feature_support" => Ok(__FieldTag::__feature_support),
+                            "uninterpretedOption" => Ok(__FieldTag::__uninterpreted_option),
+                            "uninterpreted_option" => Ok(__FieldTag::__uninterpreted_option),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FieldOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FieldOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__ctype => {
+                            if !fields.insert(__FieldTag::__ctype) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ctype",
+                                ));
+                            }
+                            result.ctype = map
+                                .next_value::<std::option::Option<crate::field_options::CType>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__packed => {
+                            if !fields.insert(__FieldTag::__packed) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed",
+                                ));
+                            }
+                            result.packed = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__jstype => {
+                            if !fields.insert(__FieldTag::__jstype) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for jstype",
+                                ));
+                            }
+                            result.jstype = map
+                                .next_value::<std::option::Option<crate::field_options::JSType>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__lazy => {
+                            if !fields.insert(__FieldTag::__lazy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for lazy",
+                                ));
+                            }
+                            result.lazy = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unverified_lazy => {
+                            if !fields.insert(__FieldTag::__unverified_lazy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unverified_lazy",
+                                ));
+                            }
+                            result.unverified_lazy = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deprecated => {
+                            if !fields.insert(__FieldTag::__deprecated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deprecated",
+                                ));
+                            }
+                            result.deprecated = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__weak => {
+                            if !fields.insert(__FieldTag::__weak) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for weak",
+                                ));
+                            }
+                            result.weak = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__debug_redact => {
+                            if !fields.insert(__FieldTag::__debug_redact) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for debug_redact",
+                                ));
+                            }
+                            result.debug_redact = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__retention => {
+                            if !fields.insert(__FieldTag::__retention) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for retention",
+                                ));
+                            }
+                            result.retention = map.next_value::<std::option::Option<crate::field_options::OptionRetention>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__targets => {
+                            if !fields.insert(__FieldTag::__targets) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for targets",
+                                ));
+                            }
+                            result.targets = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::field_options::OptionTargetType>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__edition_defaults => {
+                            if !fields.insert(__FieldTag::__edition_defaults) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for edition_defaults",
+                                ));
+                            }
+                            result.edition_defaults = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::field_options::EditionDefault>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__features => {
+                            if !fields.insert(__FieldTag::__features) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for features",
+                                ));
+                            }
+                            result.features =
+                                map.next_value::<std::option::Option<crate::FeatureSet>>()?;
+                        }
+                        __FieldTag::__feature_support => {
+                            if !fields.insert(__FieldTag::__feature_support) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for feature_support",
+                                ));
+                            }
+                            result.feature_support = map.next_value::<std::option::Option<crate::field_options::FeatureSupport>>()?
+                                ;
+                        }
+                        __FieldTag::__uninterpreted_option => {
+                            if !fields.insert(__FieldTag::__uninterpreted_option) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uninterpreted_option",
+                                ));
+                            }
+                            result.uninterpreted_option = map.next_value::<std::option::Option<std::vec::Vec<crate::UninterpretedOption>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FieldOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.ctype) {
+            state.serialize_entry("ctype", &self.ctype)?;
+        }
+        if !wkt::internal::is_default(&self.packed) {
+            state.serialize_entry("packed", &self.packed)?;
+        }
+        if !wkt::internal::is_default(&self.jstype) {
+            state.serialize_entry("jstype", &self.jstype)?;
+        }
+        if !wkt::internal::is_default(&self.lazy) {
+            state.serialize_entry("lazy", &self.lazy)?;
+        }
+        if !wkt::internal::is_default(&self.unverified_lazy) {
+            state.serialize_entry("unverifiedLazy", &self.unverified_lazy)?;
+        }
+        if !wkt::internal::is_default(&self.deprecated) {
+            state.serialize_entry("deprecated", &self.deprecated)?;
+        }
+        if !wkt::internal::is_default(&self.weak) {
+            state.serialize_entry("weak", &self.weak)?;
+        }
+        if !wkt::internal::is_default(&self.debug_redact) {
+            state.serialize_entry("debugRedact", &self.debug_redact)?;
+        }
+        if !wkt::internal::is_default(&self.retention) {
+            state.serialize_entry("retention", &self.retention)?;
+        }
+        if !self.targets.is_empty() {
+            state.serialize_entry("targets", &self.targets)?;
+        }
+        if !self.edition_defaults.is_empty() {
+            state.serialize_entry("editionDefaults", &self.edition_defaults)?;
+        }
+        if self.features.is_some() {
+            state.serialize_entry("features", &self.features)?;
+        }
+        if self.feature_support.is_some() {
+            state.serialize_entry("featureSupport", &self.feature_support)?;
+        }
+        if !self.uninterpreted_option.is_empty() {
+            state.serialize_entry("uninterpretedOption", &self.uninterpreted_option)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [FieldOptions].
 pub mod field_options {
     #[allow(unused_imports)]
     use super::*;
 
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EditionDefault {
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub edition: crate::Edition,
 
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub value: std::string::String,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3220,39 +6855,148 @@ pub mod field_options {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for EditionDefault {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __edition,
+                __value,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for EditionDefault")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "edition" => Ok(__FieldTag::__edition),
+                                "value" => Ok(__FieldTag::__value),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = EditionDefault;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct EditionDefault")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__edition => {
+                                if !fields.insert(__FieldTag::__edition) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for edition",
+                                    ));
+                                }
+                                result.edition = map
+                                    .next_value::<std::option::Option<crate::Edition>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__value => {
+                                if !fields.insert(__FieldTag::__value) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for value",
+                                    ));
+                                }
+                                result.value = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for EditionDefault {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.edition) {
+                state.serialize_entry("edition", &self.edition)?;
+            }
+            if !self.value.is_empty() {
+                state.serialize_entry("value", &self.value)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Information about the support window of a feature.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FeatureSupport {
         /// The edition that this feature was first available in.  In editions
         /// earlier than this one, the default assigned to EDITION_LEGACY will be
         /// used, and proto files will not be able to override it.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub edition_introduced: crate::Edition,
 
         /// The edition this feature becomes deprecated in.  Using this after this
         /// edition may trigger warnings.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub edition_deprecated: crate::Edition,
 
         /// The deprecation warning text if this feature is used after the edition it
         /// was marked deprecated in.
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub deprecation_warning: std::string::String,
 
         /// The edition this feature is no longer available in.  In editions after
         /// this one, the last default assigned will be used, and proto files will
         /// not be able to override it.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub edition_removed: crate::Edition,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3298,6 +7042,160 @@ pub mod field_options {
     impl wkt::message::Message for FeatureSupport {
         fn typename() -> &'static str {
             "type.googleapis.com/google.protobuf.FieldOptions.FeatureSupport"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for FeatureSupport {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __edition_introduced,
+                __edition_deprecated,
+                __deprecation_warning,
+                __edition_removed,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for FeatureSupport")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "editionIntroduced" => Ok(__FieldTag::__edition_introduced),
+                                "edition_introduced" => Ok(__FieldTag::__edition_introduced),
+                                "editionDeprecated" => Ok(__FieldTag::__edition_deprecated),
+                                "edition_deprecated" => Ok(__FieldTag::__edition_deprecated),
+                                "deprecationWarning" => Ok(__FieldTag::__deprecation_warning),
+                                "deprecation_warning" => Ok(__FieldTag::__deprecation_warning),
+                                "editionRemoved" => Ok(__FieldTag::__edition_removed),
+                                "edition_removed" => Ok(__FieldTag::__edition_removed),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = FeatureSupport;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct FeatureSupport")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__edition_introduced => {
+                                if !fields.insert(__FieldTag::__edition_introduced) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for edition_introduced",
+                                    ));
+                                }
+                                result.edition_introduced = map
+                                    .next_value::<std::option::Option<crate::Edition>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__edition_deprecated => {
+                                if !fields.insert(__FieldTag::__edition_deprecated) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for edition_deprecated",
+                                    ));
+                                }
+                                result.edition_deprecated = map
+                                    .next_value::<std::option::Option<crate::Edition>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__deprecation_warning => {
+                                if !fields.insert(__FieldTag::__deprecation_warning) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for deprecation_warning",
+                                    ));
+                                }
+                                result.deprecation_warning = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__edition_removed => {
+                                if !fields.insert(__FieldTag::__edition_removed) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for edition_removed",
+                                    ));
+                                }
+                                result.edition_removed = map
+                                    .next_value::<std::option::Option<crate::Edition>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for FeatureSupport {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.edition_introduced) {
+                state.serialize_entry("editionIntroduced", &self.edition_introduced)?;
+            }
+            if !wkt::internal::is_default(&self.edition_deprecated) {
+                state.serialize_entry("editionDeprecated", &self.edition_deprecated)?;
+            }
+            if !self.deprecation_warning.is_empty() {
+                state.serialize_entry("deprecationWarning", &self.deprecation_warning)?;
+            }
+            if !wkt::internal::is_default(&self.edition_removed) {
+                state.serialize_entry("editionRemoved", &self.edition_removed)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -3872,21 +7770,15 @@ pub mod field_options {
     }
 }
 
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OneofOptions {
     /// Any features defined in the specific edition.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub features: std::option::Option<crate::FeatureSet>,
 
     /// The parser stores options it doesn't recognize here. See above.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3931,23 +7823,132 @@ impl wkt::message::Message for OneofOptions {
     }
 }
 
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for OneofOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __features,
+            __uninterpreted_option,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for OneofOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "features" => Ok(__FieldTag::__features),
+                            "uninterpretedOption" => Ok(__FieldTag::__uninterpreted_option),
+                            "uninterpreted_option" => Ok(__FieldTag::__uninterpreted_option),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = OneofOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct OneofOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__features => {
+                            if !fields.insert(__FieldTag::__features) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for features",
+                                ));
+                            }
+                            result.features =
+                                map.next_value::<std::option::Option<crate::FeatureSet>>()?;
+                        }
+                        __FieldTag::__uninterpreted_option => {
+                            if !fields.insert(__FieldTag::__uninterpreted_option) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uninterpreted_option",
+                                ));
+                            }
+                            result.uninterpreted_option = map.next_value::<std::option::Option<std::vec::Vec<crate::UninterpretedOption>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for OneofOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.features.is_some() {
+            state.serialize_entry("features", &self.features)?;
+        }
+        if !self.uninterpreted_option.is_empty() {
+            state.serialize_entry("uninterpretedOption", &self.uninterpreted_option)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumOptions {
     /// Set this option to true to allow mapping different tag names to the same
     /// value.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_alias: bool,
 
     /// Is this enum deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for the enum, or it will be completely ignored; in the very least, this
     /// is a formalization for deprecating enums.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     /// Enable the legacy handling of JSON field name conflicts.  This lowercases
@@ -3956,21 +7957,15 @@ pub struct EnumOptions {
     /// well.
     /// TODO Remove this legacy behavior once downstream teams have
     /// had time to migrate.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub deprecated_legacy_json_field_conflicts: bool,
 
     /// Any features defined in the specific edition.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub features: std::option::Option<crate::FeatureSet>,
 
     /// The parser stores options it doesn't recognize here. See above.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4037,40 +8032,199 @@ impl wkt::message::Message for EnumOptions {
     }
 }
 
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for EnumOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __allow_alias,
+            __deprecated,
+            __deprecated_legacy_json_field_conflicts,
+            __features,
+            __uninterpreted_option,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EnumOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "allowAlias" => Ok(__FieldTag::__allow_alias),
+                            "allow_alias" => Ok(__FieldTag::__allow_alias),
+                            "deprecated" => Ok(__FieldTag::__deprecated),
+                            "deprecatedLegacyJsonFieldConflicts" => {
+                                Ok(__FieldTag::__deprecated_legacy_json_field_conflicts)
+                            }
+                            "deprecated_legacy_json_field_conflicts" => {
+                                Ok(__FieldTag::__deprecated_legacy_json_field_conflicts)
+                            }
+                            "features" => Ok(__FieldTag::__features),
+                            "uninterpretedOption" => Ok(__FieldTag::__uninterpreted_option),
+                            "uninterpreted_option" => Ok(__FieldTag::__uninterpreted_option),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = EnumOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EnumOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__allow_alias => {
+                            if !fields.insert(__FieldTag::__allow_alias) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allow_alias",
+                                ));
+                            }
+                            result.allow_alias = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deprecated => {
+                            if !fields.insert(__FieldTag::__deprecated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deprecated",
+                                ));
+                            }
+                            result.deprecated = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deprecated_legacy_json_field_conflicts => {
+                            if !fields.insert(__FieldTag::__deprecated_legacy_json_field_conflicts)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deprecated_legacy_json_field_conflicts",
+                                ));
+                            }
+                            result.deprecated_legacy_json_field_conflicts = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__features => {
+                            if !fields.insert(__FieldTag::__features) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for features",
+                                ));
+                            }
+                            result.features =
+                                map.next_value::<std::option::Option<crate::FeatureSet>>()?;
+                        }
+                        __FieldTag::__uninterpreted_option => {
+                            if !fields.insert(__FieldTag::__uninterpreted_option) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uninterpreted_option",
+                                ));
+                            }
+                            result.uninterpreted_option = map.next_value::<std::option::Option<std::vec::Vec<crate::UninterpretedOption>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for EnumOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.allow_alias) {
+            state.serialize_entry("allowAlias", &self.allow_alias)?;
+        }
+        if !wkt::internal::is_default(&self.deprecated) {
+            state.serialize_entry("deprecated", &self.deprecated)?;
+        }
+        if !wkt::internal::is_default(&self.deprecated_legacy_json_field_conflicts) {
+            state.serialize_entry(
+                "deprecatedLegacyJsonFieldConflicts",
+                &self.deprecated_legacy_json_field_conflicts,
+            )?;
+        }
+        if self.features.is_some() {
+            state.serialize_entry("features", &self.features)?;
+        }
+        if !self.uninterpreted_option.is_empty() {
+            state.serialize_entry("uninterpretedOption", &self.uninterpreted_option)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumValueOptions {
     /// Is this enum value deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for the enum value, or it will be completely ignored; in the very least,
     /// this is a formalization for deprecating enum values.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     /// Any features defined in the specific edition.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub features: std::option::Option<crate::FeatureSet>,
 
     /// Indicate that fields annotated with this enum value should not be printed
     /// out when using debug formats, e.g. when the field contains sensitive
     /// credentials.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub debug_redact: bool,
 
     /// Information about the support window of a feature value.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub feature_support: std::option::Option<crate::field_options::FeatureSupport>,
 
     /// The parser stores options it doesn't recognize here. See above.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4145,29 +8299,182 @@ impl wkt::message::Message for EnumValueOptions {
     }
 }
 
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for EnumValueOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __deprecated,
+            __features,
+            __debug_redact,
+            __feature_support,
+            __uninterpreted_option,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EnumValueOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "deprecated" => Ok(__FieldTag::__deprecated),
+                            "features" => Ok(__FieldTag::__features),
+                            "debugRedact" => Ok(__FieldTag::__debug_redact),
+                            "debug_redact" => Ok(__FieldTag::__debug_redact),
+                            "featureSupport" => Ok(__FieldTag::__feature_support),
+                            "feature_support" => Ok(__FieldTag::__feature_support),
+                            "uninterpretedOption" => Ok(__FieldTag::__uninterpreted_option),
+                            "uninterpreted_option" => Ok(__FieldTag::__uninterpreted_option),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = EnumValueOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EnumValueOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__deprecated => {
+                            if !fields.insert(__FieldTag::__deprecated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deprecated",
+                                ));
+                            }
+                            result.deprecated = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__features => {
+                            if !fields.insert(__FieldTag::__features) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for features",
+                                ));
+                            }
+                            result.features =
+                                map.next_value::<std::option::Option<crate::FeatureSet>>()?;
+                        }
+                        __FieldTag::__debug_redact => {
+                            if !fields.insert(__FieldTag::__debug_redact) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for debug_redact",
+                                ));
+                            }
+                            result.debug_redact = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__feature_support => {
+                            if !fields.insert(__FieldTag::__feature_support) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for feature_support",
+                                ));
+                            }
+                            result.feature_support = map.next_value::<std::option::Option<crate::field_options::FeatureSupport>>()?
+                                ;
+                        }
+                        __FieldTag::__uninterpreted_option => {
+                            if !fields.insert(__FieldTag::__uninterpreted_option) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uninterpreted_option",
+                                ));
+                            }
+                            result.uninterpreted_option = map.next_value::<std::option::Option<std::vec::Vec<crate::UninterpretedOption>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for EnumValueOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.deprecated) {
+            state.serialize_entry("deprecated", &self.deprecated)?;
+        }
+        if self.features.is_some() {
+            state.serialize_entry("features", &self.features)?;
+        }
+        if !wkt::internal::is_default(&self.debug_redact) {
+            state.serialize_entry("debugRedact", &self.debug_redact)?;
+        }
+        if self.feature_support.is_some() {
+            state.serialize_entry("featureSupport", &self.feature_support)?;
+        }
+        if !self.uninterpreted_option.is_empty() {
+            state.serialize_entry("uninterpretedOption", &self.uninterpreted_option)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ServiceOptions {
     /// Any features defined in the specific edition.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub features: std::option::Option<crate::FeatureSet>,
 
     /// Is this service deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for the service, or it will be completely ignored; in the very least,
     /// this is a formalization for deprecating services.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
     /// The parser stores options it doesn't recognize here. See above.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4218,33 +8525,153 @@ impl wkt::message::Message for ServiceOptions {
     }
 }
 
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ServiceOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __features,
+            __deprecated,
+            __uninterpreted_option,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ServiceOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "features" => Ok(__FieldTag::__features),
+                            "deprecated" => Ok(__FieldTag::__deprecated),
+                            "uninterpretedOption" => Ok(__FieldTag::__uninterpreted_option),
+                            "uninterpreted_option" => Ok(__FieldTag::__uninterpreted_option),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ServiceOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ServiceOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__features => {
+                            if !fields.insert(__FieldTag::__features) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for features",
+                                ));
+                            }
+                            result.features =
+                                map.next_value::<std::option::Option<crate::FeatureSet>>()?;
+                        }
+                        __FieldTag::__deprecated => {
+                            if !fields.insert(__FieldTag::__deprecated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deprecated",
+                                ));
+                            }
+                            result.deprecated = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__uninterpreted_option => {
+                            if !fields.insert(__FieldTag::__uninterpreted_option) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uninterpreted_option",
+                                ));
+                            }
+                            result.uninterpreted_option = map.next_value::<std::option::Option<std::vec::Vec<crate::UninterpretedOption>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ServiceOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.features.is_some() {
+            state.serialize_entry("features", &self.features)?;
+        }
+        if !wkt::internal::is_default(&self.deprecated) {
+            state.serialize_entry("deprecated", &self.deprecated)?;
+        }
+        if !self.uninterpreted_option.is_empty() {
+            state.serialize_entry("uninterpretedOption", &self.uninterpreted_option)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct MethodOptions {
     /// Is this method deprecated?
     /// Depending on the target platform, this can emit Deprecated annotations
     /// for the method, or it will be completely ignored; in the very least,
     /// this is a formalization for deprecating methods.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub deprecated: bool,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub idempotency_level: crate::method_options::IdempotencyLevel,
 
     /// Any features defined in the specific edition.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub features: std::option::Option<crate::FeatureSet>,
 
     /// The parser stores options it doesn't recognize here. See above.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub uninterpreted_option: std::vec::Vec<crate::UninterpretedOption>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4301,6 +8728,150 @@ impl MethodOptions {
 impl wkt::message::Message for MethodOptions {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.MethodOptions"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for MethodOptions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __deprecated,
+            __idempotency_level,
+            __features,
+            __uninterpreted_option,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for MethodOptions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "deprecated" => Ok(__FieldTag::__deprecated),
+                            "idempotencyLevel" => Ok(__FieldTag::__idempotency_level),
+                            "idempotency_level" => Ok(__FieldTag::__idempotency_level),
+                            "features" => Ok(__FieldTag::__features),
+                            "uninterpretedOption" => Ok(__FieldTag::__uninterpreted_option),
+                            "uninterpreted_option" => Ok(__FieldTag::__uninterpreted_option),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = MethodOptions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct MethodOptions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__deprecated => {
+                            if !fields.insert(__FieldTag::__deprecated) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deprecated",
+                                ));
+                            }
+                            result.deprecated = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__idempotency_level => {
+                            if !fields.insert(__FieldTag::__idempotency_level) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for idempotency_level",
+                                ));
+                            }
+                            result.idempotency_level = map.next_value::<std::option::Option<crate::method_options::IdempotencyLevel>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__features => {
+                            if !fields.insert(__FieldTag::__features) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for features",
+                                ));
+                            }
+                            result.features =
+                                map.next_value::<std::option::Option<crate::FeatureSet>>()?;
+                        }
+                        __FieldTag::__uninterpreted_option => {
+                            if !fields.insert(__FieldTag::__uninterpreted_option) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uninterpreted_option",
+                                ));
+                            }
+                            result.uninterpreted_option = map.next_value::<std::option::Option<std::vec::Vec<crate::UninterpretedOption>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for MethodOptions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.deprecated) {
+            state.serialize_entry("deprecated", &self.deprecated)?;
+        }
+        if !wkt::internal::is_default(&self.idempotency_level) {
+            state.serialize_entry("idempotencyLevel", &self.idempotency_level)?;
+        }
+        if self.features.is_some() {
+            state.serialize_entry("features", &self.features)?;
+        }
+        if !self.uninterpreted_option.is_empty() {
+            state.serialize_entry("uninterpretedOption", &self.uninterpreted_option)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -4447,42 +9018,25 @@ pub mod method_options {
 /// options protos in descriptor objects (e.g. returned by Descriptor::options(),
 /// or produced by Descriptor::CopyTo()) will never have UninterpretedOptions
 /// in them.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct UninterpretedOption {
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub name: std::vec::Vec<crate::uninterpreted_option::NamePart>,
 
     /// The value of the uninterpreted option, in whatever type the tokenizer
     /// identified it as during parsing. Exactly one of these should be set.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub identifier_value: std::string::String,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::U64>")]
     pub positive_int_value: u64,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub negative_int_value: i64,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub double_value: f64,
 
-    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub string_value: ::bytes::Bytes,
 
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub aggregate_value: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4548,6 +9102,280 @@ impl wkt::message::Message for UninterpretedOption {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UninterpretedOption {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __identifier_value,
+            __positive_int_value,
+            __negative_int_value,
+            __double_value,
+            __string_value,
+            __aggregate_value,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UninterpretedOption")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "identifierValue" => Ok(__FieldTag::__identifier_value),
+                            "identifier_value" => Ok(__FieldTag::__identifier_value),
+                            "positiveIntValue" => Ok(__FieldTag::__positive_int_value),
+                            "positive_int_value" => Ok(__FieldTag::__positive_int_value),
+                            "negativeIntValue" => Ok(__FieldTag::__negative_int_value),
+                            "negative_int_value" => Ok(__FieldTag::__negative_int_value),
+                            "doubleValue" => Ok(__FieldTag::__double_value),
+                            "double_value" => Ok(__FieldTag::__double_value),
+                            "stringValue" => Ok(__FieldTag::__string_value),
+                            "string_value" => Ok(__FieldTag::__string_value),
+                            "aggregateValue" => Ok(__FieldTag::__aggregate_value),
+                            "aggregate_value" => Ok(__FieldTag::__aggregate_value),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UninterpretedOption;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UninterpretedOption")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::uninterpreted_option::NamePart>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__identifier_value => {
+                            if !fields.insert(__FieldTag::__identifier_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for identifier_value",
+                                ));
+                            }
+                            result.identifier_value = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__positive_int_value => {
+                            if !fields.insert(__FieldTag::__positive_int_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for positive_int_value",
+                                ));
+                            }
+                            struct __With(std::option::Option<u64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::U64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.positive_int_value =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__negative_int_value => {
+                            if !fields.insert(__FieldTag::__negative_int_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for negative_int_value",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.negative_int_value =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__double_value => {
+                            if !fields.insert(__FieldTag::__double_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for double_value",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.double_value = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__string_value => {
+                            if !fields.insert(__FieldTag::__string_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for string_value",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.string_value = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__aggregate_value => {
+                            if !fields.insert(__FieldTag::__aggregate_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for aggregate_value",
+                                ));
+                            }
+                            result.aggregate_value = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UninterpretedOption {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.identifier_value.is_empty() {
+            state.serialize_entry("identifierValue", &self.identifier_value)?;
+        }
+        if !wkt::internal::is_default(&self.positive_int_value) {
+            struct __With<'a>(&'a u64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::U64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("positiveIntValue", &__With(&self.positive_int_value))?;
+        }
+        if !wkt::internal::is_default(&self.negative_int_value) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("negativeIntValue", &__With(&self.negative_int_value))?;
+        }
+        if !wkt::internal::is_default(&self.double_value) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("doubleValue", &__With(&self.double_value))?;
+        }
+        if !self.string_value.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("stringValue", &__With(&self.string_value))?;
+        }
+        if !self.aggregate_value.is_empty() {
+            state.serialize_entry("aggregateValue", &self.aggregate_value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [UninterpretedOption].
 pub mod uninterpreted_option {
     #[allow(unused_imports)]
@@ -4558,20 +9386,13 @@ pub mod uninterpreted_option {
     /// extension (denoted with parentheses in options specs in .proto files).
     /// E.g.,{ ["foo", false], ["bar.baz", true], ["moo", false] } represents
     /// "foo.(bar.baz).moo".
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct NamePart {
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name_part: std::string::String,
 
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub is_extension: bool,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -4598,6 +9419,128 @@ pub mod uninterpreted_option {
             "type.googleapis.com/google.protobuf.UninterpretedOption.NamePart"
         }
     }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for NamePart {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __name_part,
+                __is_extension,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for NamePart")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "namePart" => Ok(__FieldTag::__name_part),
+                                "name_part" => Ok(__FieldTag::__name_part),
+                                "isExtension" => Ok(__FieldTag::__is_extension),
+                                "is_extension" => Ok(__FieldTag::__is_extension),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = NamePart;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct NamePart")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__name_part => {
+                                if !fields.insert(__FieldTag::__name_part) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for name_part",
+                                    ));
+                                }
+                                result.name_part = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__is_extension => {
+                                if !fields.insert(__FieldTag::__is_extension) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for is_extension",
+                                    ));
+                                }
+                                result.is_extension = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for NamePart {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.name_part.is_empty() {
+                state.serialize_entry("namePart", &self.name_part)?;
+            }
+            if !wkt::internal::is_default(&self.is_extension) {
+                state.serialize_entry("isExtension", &self.is_extension)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
 }
 
 /// TODO Enums in C++ gencode (and potentially other languages) are
@@ -4606,36 +9549,21 @@ pub mod uninterpreted_option {
 /// readability, but leave us very open to this scenario.  A future feature will
 /// be designed and implemented to handle this, hopefully before we ever hit a
 /// conflict here.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureSet {
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub field_presence: crate::feature_set::FieldPresence,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enum_type: crate::feature_set::EnumType,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub repeated_field_encoding: crate::feature_set::RepeatedFieldEncoding,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub utf8_validation: crate::feature_set::Utf8Validation,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message_encoding: crate::feature_set::MessageEncoding,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub json_format: crate::feature_set::JsonFormat,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4704,6 +9632,182 @@ impl FeatureSet {
 impl wkt::message::Message for FeatureSet {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.FeatureSet"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FeatureSet {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __field_presence,
+            __enum_type,
+            __repeated_field_encoding,
+            __utf8_validation,
+            __message_encoding,
+            __json_format,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FeatureSet")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "fieldPresence" => Ok(__FieldTag::__field_presence),
+                            "field_presence" => Ok(__FieldTag::__field_presence),
+                            "enumType" => Ok(__FieldTag::__enum_type),
+                            "enum_type" => Ok(__FieldTag::__enum_type),
+                            "repeatedFieldEncoding" => Ok(__FieldTag::__repeated_field_encoding),
+                            "repeated_field_encoding" => Ok(__FieldTag::__repeated_field_encoding),
+                            "utf8Validation" => Ok(__FieldTag::__utf8_validation),
+                            "utf8_validation" => Ok(__FieldTag::__utf8_validation),
+                            "messageEncoding" => Ok(__FieldTag::__message_encoding),
+                            "message_encoding" => Ok(__FieldTag::__message_encoding),
+                            "jsonFormat" => Ok(__FieldTag::__json_format),
+                            "json_format" => Ok(__FieldTag::__json_format),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FeatureSet;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FeatureSet")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__field_presence => {
+                            if !fields.insert(__FieldTag::__field_presence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for field_presence",
+                                ));
+                            }
+                            result.field_presence = map.next_value::<std::option::Option<crate::feature_set::FieldPresence>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__enum_type => {
+                            if !fields.insert(__FieldTag::__enum_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enum_type",
+                                ));
+                            }
+                            result.enum_type = map
+                                .next_value::<std::option::Option<crate::feature_set::EnumType>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__repeated_field_encoding => {
+                            if !fields.insert(__FieldTag::__repeated_field_encoding) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for repeated_field_encoding",
+                                ));
+                            }
+                            result.repeated_field_encoding = map.next_value::<std::option::Option<crate::feature_set::RepeatedFieldEncoding>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__utf8_validation => {
+                            if !fields.insert(__FieldTag::__utf8_validation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for utf8_validation",
+                                ));
+                            }
+                            result.utf8_validation = map.next_value::<std::option::Option<crate::feature_set::Utf8Validation>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__message_encoding => {
+                            if !fields.insert(__FieldTag::__message_encoding) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for message_encoding",
+                                ));
+                            }
+                            result.message_encoding = map.next_value::<std::option::Option<crate::feature_set::MessageEncoding>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__json_format => {
+                            if !fields.insert(__FieldTag::__json_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for json_format",
+                                ));
+                            }
+                            result.json_format = map
+                                .next_value::<std::option::Option<crate::feature_set::JsonFormat>>(
+                                )?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FeatureSet {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.field_presence) {
+            state.serialize_entry("fieldPresence", &self.field_presence)?;
+        }
+        if !wkt::internal::is_default(&self.enum_type) {
+            state.serialize_entry("enumType", &self.enum_type)?;
+        }
+        if !wkt::internal::is_default(&self.repeated_field_encoding) {
+            state.serialize_entry("repeatedFieldEncoding", &self.repeated_field_encoding)?;
+        }
+        if !wkt::internal::is_default(&self.utf8_validation) {
+            state.serialize_entry("utf8Validation", &self.utf8_validation)?;
+        }
+        if !wkt::internal::is_default(&self.message_encoding) {
+            state.serialize_entry("messageEncoding", &self.message_encoding)?;
+        }
+        if !wkt::internal::is_default(&self.json_format) {
+            state.serialize_entry("jsonFormat", &self.json_format)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -5491,28 +10595,19 @@ pub mod feature_set {
 /// messages are generated from FeatureSet extensions and can be used to seed
 /// feature resolution. The resolution with this object becomes a simple search
 /// for the closest matching edition, followed by proto merges.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FeatureSetDefaults {
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub defaults: std::vec::Vec<crate::feature_set_defaults::FeatureSetEditionDefault>,
 
     /// The minimum supported edition (inclusive) when this was constructed.
     /// Editions before this will not have defaults.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub minimum_edition: crate::Edition,
 
     /// The maximum known edition (inclusive) when this was constructed. Editions
     /// after this will not have reliable defaults.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub maximum_edition: crate::Edition,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5551,6 +10646,144 @@ impl wkt::message::Message for FeatureSetDefaults {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FeatureSetDefaults {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __defaults,
+            __minimum_edition,
+            __maximum_edition,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FeatureSetDefaults")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "defaults" => Ok(__FieldTag::__defaults),
+                            "minimumEdition" => Ok(__FieldTag::__minimum_edition),
+                            "minimum_edition" => Ok(__FieldTag::__minimum_edition),
+                            "maximumEdition" => Ok(__FieldTag::__maximum_edition),
+                            "maximum_edition" => Ok(__FieldTag::__maximum_edition),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FeatureSetDefaults;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FeatureSetDefaults")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__defaults => {
+                            if !fields.insert(__FieldTag::__defaults) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for defaults",
+                                ));
+                            }
+                            result.defaults = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::feature_set_defaults::FeatureSetEditionDefault,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__minimum_edition => {
+                            if !fields.insert(__FieldTag::__minimum_edition) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for minimum_edition",
+                                ));
+                            }
+                            result.minimum_edition = map
+                                .next_value::<std::option::Option<crate::Edition>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__maximum_edition => {
+                            if !fields.insert(__FieldTag::__maximum_edition) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for maximum_edition",
+                                ));
+                            }
+                            result.maximum_edition = map
+                                .next_value::<std::option::Option<crate::Edition>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FeatureSetDefaults {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.defaults.is_empty() {
+            state.serialize_entry("defaults", &self.defaults)?;
+        }
+        if !wkt::internal::is_default(&self.minimum_edition) {
+            state.serialize_entry("minimumEdition", &self.minimum_edition)?;
+        }
+        if !wkt::internal::is_default(&self.maximum_edition) {
+            state.serialize_entry("maximumEdition", &self.maximum_edition)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [FeatureSetDefaults].
 pub mod feature_set_defaults {
     #[allow(unused_imports)]
@@ -5560,24 +10793,17 @@ pub mod feature_set_defaults {
     /// defaults. Not all editions may be contained here.  For a given edition,
     /// the defaults at the closest matching edition ordered at or before it should
     /// be used.  This field must be in strict ascending order by edition.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FeatureSetEditionDefault {
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub edition: crate::Edition,
 
         /// Defaults of features that can be overridden in this edition.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub overridable_features: std::option::Option<crate::FeatureSet>,
 
         /// Defaults of features that can't be overridden in this edition.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub fixed_features: std::option::Option<crate::FeatureSet>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -5634,13 +10860,146 @@ pub mod feature_set_defaults {
             "type.googleapis.com/google.protobuf.FeatureSetDefaults.FeatureSetEditionDefault"
         }
     }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for FeatureSetEditionDefault {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __edition,
+                __overridable_features,
+                __fixed_features,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for FeatureSetEditionDefault")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "edition" => Ok(__FieldTag::__edition),
+                                "overridableFeatures" => Ok(__FieldTag::__overridable_features),
+                                "overridable_features" => Ok(__FieldTag::__overridable_features),
+                                "fixedFeatures" => Ok(__FieldTag::__fixed_features),
+                                "fixed_features" => Ok(__FieldTag::__fixed_features),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = FeatureSetEditionDefault;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct FeatureSetEditionDefault")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__edition => {
+                                if !fields.insert(__FieldTag::__edition) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for edition",
+                                    ));
+                                }
+                                result.edition = map
+                                    .next_value::<std::option::Option<crate::Edition>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__overridable_features => {
+                                if !fields.insert(__FieldTag::__overridable_features) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for overridable_features",
+                                    ));
+                                }
+                                result.overridable_features =
+                                    map.next_value::<std::option::Option<crate::FeatureSet>>()?;
+                            }
+                            __FieldTag::__fixed_features => {
+                                if !fields.insert(__FieldTag::__fixed_features) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for fixed_features",
+                                    ));
+                                }
+                                result.fixed_features =
+                                    map.next_value::<std::option::Option<crate::FeatureSet>>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for FeatureSetEditionDefault {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.edition) {
+                state.serialize_entry("edition", &self.edition)?;
+            }
+            if self.overridable_features.is_some() {
+                state.serialize_entry("overridableFeatures", &self.overridable_features)?;
+            }
+            if self.fixed_features.is_some() {
+                state.serialize_entry("fixedFeatures", &self.fixed_features)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
 }
 
 /// Encapsulates information about the original source file from which a
 /// FileDescriptorProto was generated.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceCodeInfo {
     /// A Location identifies a piece of source code in a .proto file which
@@ -5687,11 +11046,8 @@ pub struct SourceCodeInfo {
     /// - Code which tries to interpret locations should probably be designed to
     ///   ignore those that it doesn't understand, as more types of locations could
     ///   be recorded in the future.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub location: std::vec::Vec<crate::source_code_info::Location>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5718,14 +11074,116 @@ impl wkt::message::Message for SourceCodeInfo {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SourceCodeInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __location,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SourceCodeInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "location" => Ok(__FieldTag::__location),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SourceCodeInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SourceCodeInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            result.location = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::source_code_info::Location>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SourceCodeInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.location.is_empty() {
+            state.serialize_entry("location", &self.location)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [SourceCodeInfo].
 pub mod source_code_info {
     #[allow(unused_imports)]
     use super::*;
 
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Location {
         /// Identifies which part of the FileDescriptorProto was defined at this
@@ -5751,8 +11209,6 @@ pub mod source_code_info {
         /// [ 4, 3, 2, 7 ]
         /// this path refers to the whole field declaration (from the beginning
         /// of the label to the terminating semicolon).
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
         pub path: std::vec::Vec<i32>,
 
         /// Always has exactly three or four elements: start line, start column,
@@ -5760,8 +11216,6 @@ pub mod source_code_info {
         /// These are packed into a single field for efficiency.  Note that line
         /// and column numbers are zero-based -- typically you will want to add
         /// 1 to each before displaying to a user.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
         pub span: std::vec::Vec<i32>,
 
         /// If this SourceCodeInfo represents a complete declaration, these are any
@@ -5812,19 +11266,12 @@ pub mod source_code_info {
         ///   optional int32 grault = 6;
         ///
         /// // ignored detached comments.
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub leading_comments: std::string::String,
 
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub trailing_comments: std::string::String,
 
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub leading_detached_comments: std::vec::Vec<std::string::String>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -5890,23 +11337,239 @@ pub mod source_code_info {
             "type.googleapis.com/google.protobuf.SourceCodeInfo.Location"
         }
     }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Location {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __path,
+                __span,
+                __leading_comments,
+                __trailing_comments,
+                __leading_detached_comments,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Location")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "path" => Ok(__FieldTag::__path),
+                                "span" => Ok(__FieldTag::__span),
+                                "leadingComments" => Ok(__FieldTag::__leading_comments),
+                                "leading_comments" => Ok(__FieldTag::__leading_comments),
+                                "trailingComments" => Ok(__FieldTag::__trailing_comments),
+                                "trailing_comments" => Ok(__FieldTag::__trailing_comments),
+                                "leadingDetachedComments" => {
+                                    Ok(__FieldTag::__leading_detached_comments)
+                                }
+                                "leading_detached_comments" => {
+                                    Ok(__FieldTag::__leading_detached_comments)
+                                }
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Location;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Location")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__path => {
+                                if !fields.insert(__FieldTag::__path) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for path",
+                                    ));
+                                }
+                                struct __With(std::option::Option<std::vec::Vec<i32>>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::<
+                                            std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                        >::deserialize(
+                                            deserializer
+                                        )
+                                        .map(__With)
+                                    }
+                                }
+                                result.path = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__span => {
+                                if !fields.insert(__FieldTag::__span) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for span",
+                                    ));
+                                }
+                                struct __With(std::option::Option<std::vec::Vec<i32>>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::<
+                                            std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                        >::deserialize(
+                                            deserializer
+                                        )
+                                        .map(__With)
+                                    }
+                                }
+                                result.span = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__leading_comments => {
+                                if !fields.insert(__FieldTag::__leading_comments) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for leading_comments",
+                                    ));
+                                }
+                                result.leading_comments = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__trailing_comments => {
+                                if !fields.insert(__FieldTag::__trailing_comments) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for trailing_comments",
+                                    ));
+                                }
+                                result.trailing_comments = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__leading_detached_comments => {
+                                if !fields.insert(__FieldTag::__leading_detached_comments) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for leading_detached_comments",
+                                    ));
+                                }
+                                result.leading_detached_comments = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Location {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.path.is_empty() {
+                struct __With<'a>(&'a std::vec::Vec<i32>);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                            self.0, serializer,
+                        )
+                    }
+                }
+                state.serialize_entry("path", &__With(&self.path))?;
+            }
+            if !self.span.is_empty() {
+                struct __With<'a>(&'a std::vec::Vec<i32>);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                            self.0, serializer,
+                        )
+                    }
+                }
+                state.serialize_entry("span", &__With(&self.span))?;
+            }
+            if !self.leading_comments.is_empty() {
+                state.serialize_entry("leadingComments", &self.leading_comments)?;
+            }
+            if !self.trailing_comments.is_empty() {
+                state.serialize_entry("trailingComments", &self.trailing_comments)?;
+            }
+            if !self.leading_detached_comments.is_empty() {
+                state
+                    .serialize_entry("leadingDetachedComments", &self.leading_detached_comments)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
 }
 
 /// Describes the relationship between generated code and its original source
 /// file. A GeneratedCodeInfo message is associated with only one generated
 /// source file, but may contain references to different source .proto files.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GeneratedCodeInfo {
     /// An Annotation connects some span of text in generated code to an element
     /// of its generating .proto file.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub annotation: std::vec::Vec<crate::generated_code_info::Annotation>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5933,45 +11596,136 @@ impl wkt::message::Message for GeneratedCodeInfo {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GeneratedCodeInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __annotation,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GeneratedCodeInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "annotation" => Ok(__FieldTag::__annotation),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GeneratedCodeInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GeneratedCodeInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__annotation => {
+                            if !fields.insert(__FieldTag::__annotation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for annotation",
+                                ));
+                            }
+                            result.annotation = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::generated_code_info::Annotation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GeneratedCodeInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.annotation.is_empty() {
+            state.serialize_entry("annotation", &self.annotation)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [GeneratedCodeInfo].
 pub mod generated_code_info {
     #[allow(unused_imports)]
     use super::*;
 
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Annotation {
         /// Identifies the element in the original source .proto file. This field
         /// is formatted the same as SourceCodeInfo.Location.path.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
         pub path: std::vec::Vec<i32>,
 
         /// Identifies the filesystem path to the original source .proto.
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub source_file: std::string::String,
 
         /// Identifies the starting offset in bytes in the generated code
         /// that relates to the identified object.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub begin: i32,
 
         /// Identifies the ending offset in bytes in the generated code that
         /// relates to the identified object. The end offset should be one past
         /// the last relevant byte (so the length of the text = end - begin).
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub end: i32,
 
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub semantic: crate::generated_code_info::annotation::Semantic,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -6024,6 +11778,235 @@ pub mod generated_code_info {
     impl wkt::message::Message for Annotation {
         fn typename() -> &'static str {
             "type.googleapis.com/google.protobuf.GeneratedCodeInfo.Annotation"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Annotation {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __path,
+                __source_file,
+                __begin,
+                __end,
+                __semantic,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Annotation")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "path" => Ok(__FieldTag::__path),
+                                "sourceFile" => Ok(__FieldTag::__source_file),
+                                "source_file" => Ok(__FieldTag::__source_file),
+                                "begin" => Ok(__FieldTag::__begin),
+                                "end" => Ok(__FieldTag::__end),
+                                "semantic" => Ok(__FieldTag::__semantic),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Annotation;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Annotation")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__path => {
+                                if !fields.insert(__FieldTag::__path) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for path",
+                                    ));
+                                }
+                                struct __With(std::option::Option<std::vec::Vec<i32>>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::<
+                                            std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                        >::deserialize(
+                                            deserializer
+                                        )
+                                        .map(__With)
+                                    }
+                                }
+                                result.path = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__source_file => {
+                                if !fields.insert(__FieldTag::__source_file) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for source_file",
+                                    ));
+                                }
+                                result.source_file = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__begin => {
+                                if !fields.insert(__FieldTag::__begin) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for begin",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.begin = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__end => {
+                                if !fields.insert(__FieldTag::__end) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for end",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.end = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__semantic => {
+                                if !fields.insert(__FieldTag::__semantic) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for semantic",
+                                    ));
+                                }
+                                result.semantic = map
+                                    .next_value::<std::option::Option<
+                                        crate::generated_code_info::annotation::Semantic,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Annotation {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.path.is_empty() {
+                struct __With<'a>(&'a std::vec::Vec<i32>);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                            self.0, serializer,
+                        )
+                    }
+                }
+                state.serialize_entry("path", &__With(&self.path))?;
+            }
+            if !self.source_file.is_empty() {
+                state.serialize_entry("sourceFile", &self.source_file)?;
+            }
+            if !wkt::internal::is_default(&self.begin) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("begin", &__With(&self.begin))?;
+            }
+            if !wkt::internal::is_default(&self.end) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("end", &__With(&self.end))?;
+            }
+            if !wkt::internal::is_default(&self.semantic) {
+                state.serialize_entry("semantic", &self.semantic)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -6172,18 +12155,13 @@ pub mod generated_code_info {
 
 /// `SourceContext` represents information about the source of a
 /// protobuf element, like the file in which it is defined.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SourceContext {
     /// The path-qualified name of the .proto file that contained the associated
     /// protobuf element.  For example: `"google/protobuf/source_context.proto"`.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub file_name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6205,47 +12183,134 @@ impl wkt::message::Message for SourceContext {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SourceContext {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __file_name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SourceContext")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "fileName" => Ok(__FieldTag::__file_name),
+                            "file_name" => Ok(__FieldTag::__file_name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SourceContext;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SourceContext")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__file_name => {
+                            if !fields.insert(__FieldTag::__file_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for file_name",
+                                ));
+                            }
+                            result.file_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SourceContext {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.file_name.is_empty() {
+            state.serialize_entry("fileName", &self.file_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A protocol buffer message type.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Type {
     /// The fully qualified message name.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The list of fields.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub fields: std::vec::Vec<crate::Field>,
 
     /// The list of types appearing in `oneof` definitions in this type.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub oneofs: std::vec::Vec<std::string::String>,
 
     /// The protocol buffer options.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub options: std::vec::Vec<crate::Option>,
 
     /// The source context.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub source_context: std::option::Option<crate::SourceContext>,
 
     /// The source syntax.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub syntax: crate::Syntax,
 
     /// The source edition string, only valid when syntax is SYNTAX_EDITIONS.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub edition: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6330,65 +12395,232 @@ impl wkt::message::Message for Type {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Type {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __fields,
+            __oneofs,
+            __options,
+            __source_context,
+            __syntax,
+            __edition,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Type")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "fields" => Ok(__FieldTag::__fields),
+                            "oneofs" => Ok(__FieldTag::__oneofs),
+                            "options" => Ok(__FieldTag::__options),
+                            "sourceContext" => Ok(__FieldTag::__source_context),
+                            "source_context" => Ok(__FieldTag::__source_context),
+                            "syntax" => Ok(__FieldTag::__syntax),
+                            "edition" => Ok(__FieldTag::__edition),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Type;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Type")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__fields => {
+                            if !fields.insert(__FieldTag::__fields) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fields",
+                                ));
+                            }
+                            result.fields = map
+                                .next_value::<std::option::Option<std::vec::Vec<crate::Field>>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__oneofs => {
+                            if !fields.insert(__FieldTag::__oneofs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneofs",
+                                ));
+                            }
+                            result.oneofs = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options = map
+                                .next_value::<std::option::Option<std::vec::Vec<crate::Option>>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__source_context => {
+                            if !fields.insert(__FieldTag::__source_context) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for source_context",
+                                ));
+                            }
+                            result.source_context =
+                                map.next_value::<std::option::Option<crate::SourceContext>>()?;
+                        }
+                        __FieldTag::__syntax => {
+                            if !fields.insert(__FieldTag::__syntax) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for syntax",
+                                ));
+                            }
+                            result.syntax = map
+                                .next_value::<std::option::Option<crate::Syntax>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__edition => {
+                            if !fields.insert(__FieldTag::__edition) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for edition",
+                                ));
+                            }
+                            result.edition = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Type {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.fields.is_empty() {
+            state.serialize_entry("fields", &self.fields)?;
+        }
+        if !self.oneofs.is_empty() {
+            state.serialize_entry("oneofs", &self.oneofs)?;
+        }
+        if !self.options.is_empty() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if self.source_context.is_some() {
+            state.serialize_entry("sourceContext", &self.source_context)?;
+        }
+        if !wkt::internal::is_default(&self.syntax) {
+            state.serialize_entry("syntax", &self.syntax)?;
+        }
+        if !self.edition.is_empty() {
+            state.serialize_entry("edition", &self.edition)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A single field of a message type.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Field {
     /// The field type.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub kind: crate::field::Kind,
 
     /// The field cardinality.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub cardinality: crate::field::Cardinality,
 
     /// The field number.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub number: i32,
 
     /// The field name.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The field type URL, without the scheme, for message or enumeration
     /// types. Example: `"type.googleapis.com/google.protobuf.Timestamp"`.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub type_url: std::string::String,
 
     /// The index of the field type in `Type.oneofs`, for message or enumeration
     /// types. The first type has index 1; zero means the type is not in the list.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub oneof_index: i32,
 
     /// Whether to use alternative packed wire representation.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub packed: bool,
 
     /// The protocol buffer options.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub options: std::vec::Vec<crate::Option>,
 
     /// The field JSON name.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub json_name: std::string::String,
 
     /// The string value of the default value of this field. Proto2 syntax only.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub default_value: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6469,6 +12701,283 @@ impl Field {
 impl wkt::message::Message for Field {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Field"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Field {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __kind,
+            __cardinality,
+            __number,
+            __name,
+            __type_url,
+            __oneof_index,
+            __packed,
+            __options,
+            __json_name,
+            __default_value,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Field")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "kind" => Ok(__FieldTag::__kind),
+                            "cardinality" => Ok(__FieldTag::__cardinality),
+                            "number" => Ok(__FieldTag::__number),
+                            "name" => Ok(__FieldTag::__name),
+                            "typeUrl" => Ok(__FieldTag::__type_url),
+                            "type_url" => Ok(__FieldTag::__type_url),
+                            "oneofIndex" => Ok(__FieldTag::__oneof_index),
+                            "oneof_index" => Ok(__FieldTag::__oneof_index),
+                            "packed" => Ok(__FieldTag::__packed),
+                            "options" => Ok(__FieldTag::__options),
+                            "jsonName" => Ok(__FieldTag::__json_name),
+                            "json_name" => Ok(__FieldTag::__json_name),
+                            "defaultValue" => Ok(__FieldTag::__default_value),
+                            "default_value" => Ok(__FieldTag::__default_value),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Field;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Field")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__kind => {
+                            if !fields.insert(__FieldTag::__kind) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for kind",
+                                ));
+                            }
+                            result.kind = map
+                                .next_value::<std::option::Option<crate::field::Kind>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cardinality => {
+                            if !fields.insert(__FieldTag::__cardinality) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cardinality",
+                                ));
+                            }
+                            result.cardinality = map
+                                .next_value::<std::option::Option<crate::field::Cardinality>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__number => {
+                            if !fields.insert(__FieldTag::__number) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for number",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.number = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__type_url => {
+                            if !fields.insert(__FieldTag::__type_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type_url",
+                                ));
+                            }
+                            result.type_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__oneof_index => {
+                            if !fields.insert(__FieldTag::__oneof_index) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for oneof_index",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.oneof_index = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__packed => {
+                            if !fields.insert(__FieldTag::__packed) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for packed",
+                                ));
+                            }
+                            result.packed = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options = map
+                                .next_value::<std::option::Option<std::vec::Vec<crate::Option>>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__json_name => {
+                            if !fields.insert(__FieldTag::__json_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for json_name",
+                                ));
+                            }
+                            result.json_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__default_value => {
+                            if !fields.insert(__FieldTag::__default_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for default_value",
+                                ));
+                            }
+                            result.default_value = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Field {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.kind) {
+            state.serialize_entry("kind", &self.kind)?;
+        }
+        if !wkt::internal::is_default(&self.cardinality) {
+            state.serialize_entry("cardinality", &self.cardinality)?;
+        }
+        if !wkt::internal::is_default(&self.number) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("number", &__With(&self.number))?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.type_url.is_empty() {
+            state.serialize_entry("typeUrl", &self.type_url)?;
+        }
+        if !wkt::internal::is_default(&self.oneof_index) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("oneofIndex", &__With(&self.oneof_index))?;
+        }
+        if !wkt::internal::is_default(&self.packed) {
+            state.serialize_entry("packed", &self.packed)?;
+        }
+        if !self.options.is_empty() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !self.json_name.is_empty() {
+            state.serialize_entry("jsonName", &self.json_name)?;
+        }
+        if !self.default_value.is_empty() {
+            state.serialize_entry("defaultValue", &self.default_value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -6862,41 +13371,27 @@ pub mod field {
 }
 
 /// Enum type definition.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Enum {
     /// Enum type name.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Enum value definitions.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub enumvalue: std::vec::Vec<crate::EnumValue>,
 
     /// Protocol buffer options.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub options: std::vec::Vec<crate::Option>,
 
     /// The source context.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub source_context: std::option::Option<crate::SourceContext>,
 
     /// The source syntax.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub syntax: crate::Syntax,
 
     /// The source edition string, only valid when syntax is SYNTAX_EDITIONS.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub edition: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6970,28 +13465,197 @@ impl wkt::message::Message for Enum {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Enum {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __enumvalue,
+            __options,
+            __source_context,
+            __syntax,
+            __edition,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Enum")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "enumvalue" => Ok(__FieldTag::__enumvalue),
+                            "options" => Ok(__FieldTag::__options),
+                            "sourceContext" => Ok(__FieldTag::__source_context),
+                            "source_context" => Ok(__FieldTag::__source_context),
+                            "syntax" => Ok(__FieldTag::__syntax),
+                            "edition" => Ok(__FieldTag::__edition),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Enum;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Enum")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__enumvalue => {
+                            if !fields.insert(__FieldTag::__enumvalue) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enumvalue",
+                                ));
+                            }
+                            result.enumvalue = map
+                                .next_value::<std::option::Option<std::vec::Vec<crate::EnumValue>>>(
+                                )?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options = map
+                                .next_value::<std::option::Option<std::vec::Vec<crate::Option>>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__source_context => {
+                            if !fields.insert(__FieldTag::__source_context) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for source_context",
+                                ));
+                            }
+                            result.source_context =
+                                map.next_value::<std::option::Option<crate::SourceContext>>()?;
+                        }
+                        __FieldTag::__syntax => {
+                            if !fields.insert(__FieldTag::__syntax) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for syntax",
+                                ));
+                            }
+                            result.syntax = map
+                                .next_value::<std::option::Option<crate::Syntax>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__edition => {
+                            if !fields.insert(__FieldTag::__edition) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for edition",
+                                ));
+                            }
+                            result.edition = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Enum {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.enumvalue.is_empty() {
+            state.serialize_entry("enumvalue", &self.enumvalue)?;
+        }
+        if !self.options.is_empty() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if self.source_context.is_some() {
+            state.serialize_entry("sourceContext", &self.source_context)?;
+        }
+        if !wkt::internal::is_default(&self.syntax) {
+            state.serialize_entry("syntax", &self.syntax)?;
+        }
+        if !self.edition.is_empty() {
+            state.serialize_entry("edition", &self.edition)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Enum value definition.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct EnumValue {
     /// Enum value name.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Enum value number.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub number: i32,
 
     /// Protocol buffer options.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub options: std::vec::Vec<crate::Option>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7030,29 +13694,173 @@ impl wkt::message::Message for EnumValue {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for EnumValue {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __number,
+            __options,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for EnumValue")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "number" => Ok(__FieldTag::__number),
+                            "options" => Ok(__FieldTag::__options),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = EnumValue;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct EnumValue")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__number => {
+                            if !fields.insert(__FieldTag::__number) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for number",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.number = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__options => {
+                            if !fields.insert(__FieldTag::__options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for options",
+                                ));
+                            }
+                            result.options = map
+                                .next_value::<std::option::Option<std::vec::Vec<crate::Option>>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for EnumValue {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.number) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("number", &__With(&self.number))?;
+        }
+        if !self.options.is_empty() {
+            state.serialize_entry("options", &self.options)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A protocol buffer option, which can be attached to a message, field,
 /// enumeration, etc.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Option {
     /// The option's name. For protobuf built-in options (options defined in
     /// descriptor.proto), this is the short name. For example, `"map_entry"`.
     /// For custom options, it should be the fully-qualified name. For example,
     /// `"google.api.http"`.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The option's value packed in an Any message. If the value is a primitive,
     /// the corresponding wrapper type defined in google/protobuf/wrappers.proto
     /// should be used. If the value is an enum, it should be stored as an int32
     /// value using the google.protobuf.Int32Value type.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub value: std::option::Option<crate::Any>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7089,6 +13897,121 @@ impl Option {
 impl wkt::message::Message for Option {
     fn typename() -> &'static str {
         "type.googleapis.com/google.protobuf.Option"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Option {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __value,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Option")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "value" => Ok(__FieldTag::__value),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Option;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Option")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__value => {
+                            if !fields.insert(__FieldTag::__value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for value",
+                                ));
+                            }
+                            result.value = map.next_value::<std::option::Option<crate::Any>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Option {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.value.is_some() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
