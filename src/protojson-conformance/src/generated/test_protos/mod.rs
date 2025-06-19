@@ -2351,6 +2351,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "optionalInt32" => Ok(__FieldTag::__optional_int32),
                             "optional_int32" => Ok(__FieldTag::__optional_int32),
@@ -2679,6 +2680,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -4475,7 +4477,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 }
                             }
                             if result.oneof_field.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `oneof_field`, a oneof with full ID .protobuf_test_messages.proto3.TestAllTypesProto3.oneof_uint32, latest field was oneofUint32",
                                 ));
                             }
@@ -4492,7 +4494,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 ));
                             }
                             if result.oneof_field.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `oneof_field`, a oneof with full ID .protobuf_test_messages.proto3.TestAllTypesProto3.oneof_nested_message, latest field was oneofNestedMessage",
                                 ));
                             }
@@ -4509,7 +4511,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 ));
                             }
                             if result.oneof_field.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `oneof_field`, a oneof with full ID .protobuf_test_messages.proto3.TestAllTypesProto3.oneof_string, latest field was oneofString",
                                 ));
                             }
@@ -4537,7 +4539,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 }
                             }
                             if result.oneof_field.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `oneof_field`, a oneof with full ID .protobuf_test_messages.proto3.TestAllTypesProto3.oneof_bytes, latest field was oneofBytes",
                                 ));
                             }
@@ -4554,7 +4556,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 ));
                             }
                             if result.oneof_field.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `oneof_field`, a oneof with full ID .protobuf_test_messages.proto3.TestAllTypesProto3.oneof_bool, latest field was oneofBool",
                                 ));
                             }
@@ -4582,7 +4584,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 }
                             }
                             if result.oneof_field.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `oneof_field`, a oneof with full ID .protobuf_test_messages.proto3.TestAllTypesProto3.oneof_uint64, latest field was oneofUint64",
                                 ));
                             }
@@ -4610,7 +4612,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 }
                             }
                             if result.oneof_field.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `oneof_field`, a oneof with full ID .protobuf_test_messages.proto3.TestAllTypesProto3.oneof_float, latest field was oneofFloat",
                                 ));
                             }
@@ -4638,7 +4640,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 }
                             }
                             if result.oneof_field.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `oneof_field`, a oneof with full ID .protobuf_test_messages.proto3.TestAllTypesProto3.oneof_double, latest field was oneofDouble",
                                 ));
                             }
@@ -4655,7 +4657,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 ));
                             }
                             if result.oneof_field.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `oneof_field`, a oneof with full ID .protobuf_test_messages.proto3.TestAllTypesProto3.oneof_enum, latest field was oneofEnum",
                                 ));
                             }
@@ -4672,7 +4674,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                                 ));
                             }
                             if result.oneof_field.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `oneof_field`, a oneof with full ID .protobuf_test_messages.proto3.TestAllTypesProto3.oneof_null_value, latest field was oneofNullValue",
                                 ));
                             }
@@ -5511,7 +5513,7 @@ impl<'de> serde::de::Deserialize<'de> for TestAllTypesProto3 {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -5525,7 +5527,9 @@ impl serde::ser::Serialize for TestAllTypesProto3 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.optional_int32) {
             struct __With<'a>(&'a i32);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -7154,6 +7158,7 @@ pub mod test_all_types_proto_3 {
                             E: serde::de::Error,
                         {
                             use std::result::Result::Ok;
+                            use std::string::ToString;
                             match value {
                                 "a" => Ok(__FieldTag::__a),
                                 "corecursive" => Ok(__FieldTag::__corecursive),
@@ -7176,6 +7181,7 @@ pub mod test_all_types_proto_3 {
                 {
                     #[allow(unused_imports)]
                     use serde::de::Error;
+                    use std::option::Option::Some;
                     let mut fields = std::collections::HashSet::new();
                     let mut result = Self::Value::new();
                     while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -7218,7 +7224,7 @@ pub mod test_all_types_proto_3 {
                             }
                         }
                     }
-                    Ok(result)
+                    std::result::Result::Ok(result)
                 }
             }
             deserializer.deserialize_any(Visitor)
@@ -7232,7 +7238,9 @@ pub mod test_all_types_proto_3 {
             S: serde::ser::Serializer,
         {
             use serde::ser::SerializeMap;
-            let mut state = serializer.serialize_map(None)?;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
             if !wkt::internal::is_default(&self.a) {
                 struct __With<'a>(&'a i32);
                 impl<'a> serde::ser::Serialize for __With<'a> {
@@ -7603,6 +7611,7 @@ impl<'de> serde::de::Deserialize<'de> for ForeignMessage {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "c" => Ok(__FieldTag::__c),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -7624,6 +7633,7 @@ impl<'de> serde::de::Deserialize<'de> for ForeignMessage {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -7654,7 +7664,7 @@ impl<'de> serde::de::Deserialize<'de> for ForeignMessage {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -7668,7 +7678,9 @@ impl serde::ser::Serialize for ForeignMessage {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.c) {
             struct __With<'a>(&'a i32);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -7736,6 +7748,7 @@ impl<'de> serde::de::Deserialize<'de> for NullHypothesisProto3 {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         Ok(__FieldTag::Unknown(value.to_string()))
                     }
                 }
@@ -7754,6 +7767,7 @@ impl<'de> serde::de::Deserialize<'de> for NullHypothesisProto3 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
@@ -7764,7 +7778,7 @@ impl<'de> serde::de::Deserialize<'de> for NullHypothesisProto3 {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -7778,7 +7792,9 @@ impl serde::ser::Serialize for NullHypothesisProto3 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
@@ -7834,6 +7850,7 @@ impl<'de> serde::de::Deserialize<'de> for EnumOnlyProto3 {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         Ok(__FieldTag::Unknown(value.to_string()))
                     }
                 }
@@ -7852,6 +7869,7 @@ impl<'de> serde::de::Deserialize<'de> for EnumOnlyProto3 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
@@ -7862,7 +7880,7 @@ impl<'de> serde::de::Deserialize<'de> for EnumOnlyProto3 {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -7876,7 +7894,9 @@ impl serde::ser::Serialize for EnumOnlyProto3 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;

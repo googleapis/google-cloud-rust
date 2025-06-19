@@ -130,6 +130,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithEnum {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -154,6 +155,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithEnum {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -214,7 +216,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithEnum {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -228,7 +230,9 @@ impl serde::ser::Serialize for MessageWithEnum {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             state.serialize_entry("singular", &self.singular)?;
         }
@@ -711,6 +715,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithOneOf {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "stringContents" => Ok(__FieldTag::__string_contents),
                             "string_contents" => Ok(__FieldTag::__string_contents),
@@ -743,6 +748,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithOneOf {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -755,7 +761,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithOneOf {
                                 ));
                             }
                             if result.single_string.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `single_string`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents, latest field was stringContents",
                                 ));
                             }
@@ -773,7 +779,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithOneOf {
                                 ));
                             }
                             if result.two_strings.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `two_strings`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents_one, latest field was stringContentsOne",
                                 ));
                             }
@@ -790,7 +796,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithOneOf {
                                 ));
                             }
                             if result.two_strings.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `two_strings`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string_contents_two, latest field was stringContentsTwo",
                                 ));
                             }
@@ -807,7 +813,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithOneOf {
                                 ));
                             }
                             if result.one_message.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `one_message`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.message_value, latest field was messageValue",
                                 ));
                             }
@@ -829,7 +835,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithOneOf {
                                 ));
                             }
                             if result.mixed.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.another_message, latest field was anotherMessage",
                                 ));
                             }
@@ -851,7 +857,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithOneOf {
                                 ));
                             }
                             if result.mixed.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.string, latest field was string",
                                 ));
                             }
@@ -869,7 +875,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithOneOf {
                                 ));
                             }
                             if result.mixed.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `mixed`, a oneof with full ID .google.rust.sdk.test.MessageWithOneOf.duration, latest field was duration",
                                 ));
                             }
@@ -885,7 +891,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithOneOf {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -899,7 +905,9 @@ impl serde::ser::Serialize for MessageWithOneOf {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.string_contents() {
             state.serialize_entry("stringContents", value)?;
         }
@@ -993,6 +1001,7 @@ pub mod message_with_one_of {
                             E: serde::de::Error,
                         {
                             use std::result::Result::Ok;
+                            use std::string::ToString;
                             match value {
                                 "parent" => Ok(__FieldTag::__parent),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -1014,6 +1023,7 @@ pub mod message_with_one_of {
                 {
                     #[allow(unused_imports)]
                     use serde::de::Error;
+                    use std::option::Option::Some;
                     let mut fields = std::collections::HashSet::new();
                     let mut result = Self::Value::new();
                     while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -1035,7 +1045,7 @@ pub mod message_with_one_of {
                             }
                         }
                     }
-                    Ok(result)
+                    std::result::Result::Ok(result)
                 }
             }
             deserializer.deserialize_any(Visitor)
@@ -1049,7 +1059,9 @@ pub mod message_with_one_of {
             S: serde::ser::Serializer,
         {
             use serde::ser::SerializeMap;
-            let mut state = serializer.serialize_map(None)?;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
             if !self.parent.is_empty() {
                 state.serialize_entry("parent", &self.parent)?;
             }
@@ -1485,6 +1497,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "null" => Ok(__FieldTag::__null),
                             "boolValue" => Ok(__FieldTag::__bool_value),
@@ -1522,6 +1535,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -1534,7 +1548,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 ));
                             }
                             if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.null, latest field was null",
                                 ));
                             }
@@ -1552,7 +1566,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 ));
                             }
                             if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.bool_value, latest field was boolValue",
                                 ));
                             }
@@ -1581,7 +1595,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 }
                             }
                             if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.bytes_value, latest field was bytesValue",
                                 ));
                             }
@@ -1598,7 +1612,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 ));
                             }
                             if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.string_value, latest field was stringValue",
                                 ));
                             }
@@ -1627,7 +1641,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 }
                             }
                             if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.float_value, latest field was floatValue",
                                 ));
                             }
@@ -1655,7 +1669,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 }
                             }
                             if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.double_value, latest field was doubleValue",
                                 ));
                             }
@@ -1683,7 +1697,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 }
                             }
                             if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.int, latest field was int",
                                 ));
                             }
@@ -1711,7 +1725,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 }
                             }
                             if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.long, latest field was long",
                                 ));
                             }
@@ -1728,7 +1742,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 ));
                             }
                             if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.enum, latest field was enum",
                                 ));
                             }
@@ -1748,7 +1762,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 ));
                             }
                             if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.inner, latest field was inner",
                                 ));
                             }
@@ -1770,7 +1784,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 ));
                             }
                             if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.duration, latest field was duration",
                                 ));
                             }
@@ -1787,7 +1801,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 ));
                             }
                             if result.complex.is_some() {
-                                return Err(A::Error::duplicate_field(
+                                return std::result::Result::Err(A::Error::duplicate_field(
                                     "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.value, latest field was value",
                                 ));
                             }
@@ -1803,7 +1817,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -1817,7 +1831,9 @@ impl serde::ser::Serialize for MessageWithComplexOneOf {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if let Some(value) = self.null() {
             state.serialize_entry("null", value)?;
         }
@@ -1976,6 +1992,7 @@ pub mod message_with_complex_one_of {
                             E: serde::de::Error,
                         {
                             use std::result::Result::Ok;
+                            use std::string::ToString;
                             match value {
                                 "strings" => Ok(__FieldTag::__strings),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -1997,6 +2014,7 @@ pub mod message_with_complex_one_of {
                 {
                     #[allow(unused_imports)]
                     use serde::de::Error;
+                    use std::option::Option::Some;
                     let mut fields = std::collections::HashSet::new();
                     let mut result = Self::Value::new();
                     while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2016,7 +2034,7 @@ pub mod message_with_complex_one_of {
                             }
                         }
                     }
-                    Ok(result)
+                    std::result::Result::Ok(result)
                 }
             }
             deserializer.deserialize_any(Visitor)
@@ -2030,7 +2048,9 @@ pub mod message_with_complex_one_of {
             S: serde::ser::Serializer,
         {
             use serde::ser::SerializeMap;
-            let mut state = serializer.serialize_map(None)?;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
             if !self.strings.is_empty() {
                 state.serialize_entry("strings", &self.strings)?;
             }
@@ -2296,6 +2316,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithF32 {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -2320,6 +2341,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithF32 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2422,7 +2444,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithF32 {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -2436,7 +2458,9 @@ impl serde::ser::Serialize for MessageWithF32 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             struct __With<'a>(&'a f32);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -2609,6 +2633,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithF64 {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -2633,6 +2658,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithF64 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -2735,7 +2761,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithF64 {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -2749,7 +2775,9 @@ impl serde::ser::Serialize for MessageWithF64 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             struct __With<'a>(&'a f64);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -2953,6 +2981,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithI32 {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -2982,6 +3011,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithI32 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -3143,7 +3173,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithI32 {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -3157,7 +3187,9 @@ impl serde::ser::Serialize for MessageWithI32 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             struct __With<'a>(&'a i32);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -3387,6 +3419,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithU32 {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -3416,6 +3449,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithU32 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -3577,7 +3611,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithU32 {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -3591,7 +3625,9 @@ impl serde::ser::Serialize for MessageWithU32 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             struct __With<'a>(&'a u32);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -3821,6 +3857,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithI64 {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -3850,6 +3887,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithI64 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -4011,7 +4049,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithI64 {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -4025,7 +4063,9 @@ impl serde::ser::Serialize for MessageWithI64 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             struct __With<'a>(&'a i64);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -4255,6 +4295,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithU64 {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -4284,6 +4325,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithU64 {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -4445,7 +4487,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithU64 {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -4459,7 +4501,9 @@ impl serde::ser::Serialize for MessageWithU64 {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             struct __With<'a>(&'a u64);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -4658,6 +4702,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithBytes {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -4682,6 +4727,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithBytes {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -4786,7 +4832,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithBytes {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -4800,7 +4846,9 @@ impl serde::ser::Serialize for MessageWithBytes {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.singular.is_empty() {
             struct __With<'a>(&'a ::bytes::Bytes);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -5006,6 +5054,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithBool {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -5035,6 +5084,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithBool {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -5147,7 +5197,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithBool {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -5161,7 +5211,9 @@ impl serde::ser::Serialize for MessageWithBool {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             state.serialize_entry("singular", &self.singular)?;
         }
@@ -5353,6 +5405,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithString {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -5382,6 +5435,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithString {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -5497,7 +5551,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithString {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -5511,7 +5565,9 @@ impl serde::ser::Serialize for MessageWithString {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.singular.is_empty() {
             state.serialize_entry("singular", &self.singular)?;
         }
@@ -5684,6 +5740,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithRecursion {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -5708,6 +5765,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithRecursion {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -5766,7 +5824,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithRecursion {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -5780,7 +5838,9 @@ impl serde::ser::Serialize for MessageWithRecursion {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;
         }
@@ -5899,6 +5959,7 @@ pub mod message_with_recursion {
                             E: serde::de::Error,
                         {
                             use std::result::Result::Ok;
+                            use std::string::ToString;
                             match value {
                                 "level1" => Ok(__FieldTag::__level_1),
                                 "level_1" => Ok(__FieldTag::__level_1),
@@ -5922,6 +5983,7 @@ pub mod message_with_recursion {
                 {
                     #[allow(unused_imports)]
                     use serde::de::Error;
+                    use std::option::Option::Some;
                     let mut fields = std::collections::HashSet::new();
                     let mut result = Self::Value::new();
                     while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -5955,7 +6017,7 @@ pub mod message_with_recursion {
                             }
                         }
                     }
-                    Ok(result)
+                    std::result::Result::Ok(result)
                 }
             }
             deserializer.deserialize_any(Visitor)
@@ -5969,7 +6031,9 @@ pub mod message_with_recursion {
             S: serde::ser::Serializer,
         {
             use serde::ser::SerializeMap;
-            let mut state = serializer.serialize_map(None)?;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
             if self.level_1.is_some() {
                 state.serialize_entry("level1", &self.level_1)?;
             }
@@ -6055,6 +6119,7 @@ pub mod message_with_recursion {
                             E: serde::de::Error,
                         {
                             use std::result::Result::Ok;
+                            use std::string::ToString;
                             match value {
                                 "recurse" => Ok(__FieldTag::__recurse),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -6076,6 +6141,7 @@ pub mod message_with_recursion {
                 {
                     #[allow(unused_imports)]
                     use serde::de::Error;
+                    use std::option::Option::Some;
                     let mut fields = std::collections::HashSet::new();
                     let mut result = Self::Value::new();
                     while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -6097,7 +6163,7 @@ pub mod message_with_recursion {
                             }
                         }
                     }
-                    Ok(result)
+                    std::result::Result::Ok(result)
                 }
             }
             deserializer.deserialize_any(Visitor)
@@ -6111,7 +6177,9 @@ pub mod message_with_recursion {
             S: serde::ser::Serializer,
         {
             use serde::ser::SerializeMap;
-            let mut state = serializer.serialize_map(None)?;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
             if self.recurse.is_some() {
                 state.serialize_entry("recurse", &self.recurse)?;
             }
@@ -6182,6 +6250,7 @@ pub mod message_with_recursion {
                             E: serde::de::Error,
                         {
                             use std::result::Result::Ok;
+                            use std::string::ToString;
                             match value {
                                 "value" => Ok(__FieldTag::__value),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
@@ -6203,6 +6272,7 @@ pub mod message_with_recursion {
                 {
                     #[allow(unused_imports)]
                     use serde::de::Error;
+                    use std::option::Option::Some;
                     let mut fields = std::collections::HashSet::new();
                     let mut result = Self::Value::new();
                     while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -6224,7 +6294,7 @@ pub mod message_with_recursion {
                             }
                         }
                     }
-                    Ok(result)
+                    std::result::Result::Ok(result)
                 }
             }
             deserializer.deserialize_any(Visitor)
@@ -6238,7 +6308,9 @@ pub mod message_with_recursion {
             S: serde::ser::Serializer,
         {
             use serde::ser::SerializeMap;
-            let mut state = serializer.serialize_map(None)?;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
             if !self.value.is_empty() {
                 state.serialize_entry("value", &self.value)?;
             }
@@ -6374,6 +6446,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithValue {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -6398,6 +6471,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -6451,7 +6525,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithValue {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -6465,7 +6539,9 @@ impl serde::ser::Serialize for MessageWithValue {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;
         }
@@ -6609,6 +6685,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithStruct {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -6633,6 +6710,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithStruct {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -6684,7 +6762,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithStruct {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -6698,7 +6776,9 @@ impl serde::ser::Serialize for MessageWithStruct {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;
         }
@@ -6842,6 +6922,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithListValue {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -6866,6 +6947,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithListValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -6917,7 +6999,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithListValue {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -6931,7 +7013,9 @@ impl serde::ser::Serialize for MessageWithListValue {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;
         }
@@ -7063,6 +7147,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithNullValue {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -7087,6 +7172,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithNullValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -7140,7 +7226,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithNullValue {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -7154,7 +7240,9 @@ impl serde::ser::Serialize for MessageWithNullValue {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !wkt::internal::is_default(&self.singular) {
             state.serialize_entry("singular", &self.singular)?;
         }
@@ -7298,6 +7386,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithFieldMask {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "optional" => Ok(__FieldTag::__optional),
@@ -7322,6 +7411,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithFieldMask {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -7373,7 +7463,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithFieldMask {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -7387,7 +7477,9 @@ impl serde::ser::Serialize for MessageWithFieldMask {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;
         }
@@ -7509,6 +7601,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithFloatValue {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "repeated" => Ok(__FieldTag::__repeated),
@@ -7532,6 +7625,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithFloatValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -7615,7 +7709,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithFloatValue {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -7629,7 +7723,9 @@ impl serde::ser::Serialize for MessageWithFloatValue {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::FloatValue>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -7779,6 +7875,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithDoubleValue {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "repeated" => Ok(__FieldTag::__repeated),
@@ -7802,6 +7899,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithDoubleValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -7888,7 +7986,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithDoubleValue {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -7902,7 +8000,9 @@ impl serde::ser::Serialize for MessageWithDoubleValue {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::DoubleValue>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -8052,6 +8152,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithInt32Value {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "repeated" => Ok(__FieldTag::__repeated),
@@ -8075,6 +8176,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithInt32Value {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -8158,7 +8260,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithInt32Value {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -8172,7 +8274,9 @@ impl serde::ser::Serialize for MessageWithInt32Value {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::Int32Value>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -8322,6 +8426,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithUInt32Value {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "repeated" => Ok(__FieldTag::__repeated),
@@ -8345,6 +8450,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithUInt32Value {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -8431,7 +8537,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithUInt32Value {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -8445,7 +8551,9 @@ impl serde::ser::Serialize for MessageWithUInt32Value {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::UInt32Value>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -8595,6 +8703,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithInt64Value {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "repeated" => Ok(__FieldTag::__repeated),
@@ -8618,6 +8727,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithInt64Value {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -8701,7 +8811,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithInt64Value {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -8715,7 +8825,9 @@ impl serde::ser::Serialize for MessageWithInt64Value {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::Int64Value>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -8865,6 +8977,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithUInt64Value {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "repeated" => Ok(__FieldTag::__repeated),
@@ -8888,6 +9001,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithUInt64Value {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -8971,7 +9085,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithUInt64Value {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -8985,7 +9099,9 @@ impl serde::ser::Serialize for MessageWithUInt64Value {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::Int64Value>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -9136,6 +9252,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithBytesValue {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "repeated" => Ok(__FieldTag::__repeated),
@@ -9159,6 +9276,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithBytesValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -9244,7 +9362,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithBytesValue {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -9258,7 +9376,9 @@ impl serde::ser::Serialize for MessageWithBytesValue {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             struct __With<'a>(&'a std::option::Option<wkt::BytesValue>);
             impl<'a> serde::ser::Serialize for __With<'a> {
@@ -9410,6 +9530,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithBoolValue {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "repeated" => Ok(__FieldTag::__repeated),
@@ -9433,6 +9554,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithBoolValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -9475,7 +9597,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithBoolValue {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -9489,7 +9611,9 @@ impl serde::ser::Serialize for MessageWithBoolValue {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;
         }
@@ -9608,6 +9732,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithStringValue {
                         E: serde::de::Error,
                     {
                         use std::result::Result::Ok;
+                        use std::string::ToString;
                         match value {
                             "singular" => Ok(__FieldTag::__singular),
                             "repeated" => Ok(__FieldTag::__repeated),
@@ -9631,6 +9756,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithStringValue {
             {
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                use std::option::Option::Some;
                 let mut fields = std::collections::HashSet::new();
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
@@ -9677,7 +9803,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithStringValue {
                         }
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -9691,7 +9817,9 @@ impl serde::ser::Serialize for MessageWithStringValue {
         S: serde::ser::Serializer,
     {
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         if self.singular.is_some() {
             state.serialize_entry("singular", &self.singular)?;
         }

@@ -281,6 +281,7 @@ impl<'de> serde::de::Deserialize<'de> for {{Codec.Name}} {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
                 {{#HasFields}}
@@ -309,7 +310,7 @@ impl<'de> serde::de::Deserialize<'de> for {{Codec.Name}} {
                         },
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
         deserializer.deserialize_any(Visitor)
@@ -323,8 +324,10 @@ impl serde::ser::Serialize for {{Codec.Name}} {
     where
         S: serde::ser::Serializer,
     {
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         {{#Fields}}
         {{^Codec.RequiresSerdeAs}}
         {{> /templates/common/ser_plain_message_field}}
