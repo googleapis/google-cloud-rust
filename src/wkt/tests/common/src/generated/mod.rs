@@ -1449,6 +1449,34 @@ impl MessageWithComplexOneOf {
         );
         self
     }
+
+    /// The value of [complex][crate::generated::MessageWithComplexOneOf::complex]
+    /// if it holds a `OptionalDouble`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn optional_double(&self) -> std::option::Option<&std::boxed::Box<wkt::DoubleValue>> {
+        #[allow(unreachable_patterns)]
+        self.complex.as_ref().and_then(|v| match v {
+            crate::generated::message_with_complex_one_of::Complex::OptionalDouble(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [complex][crate::generated::MessageWithComplexOneOf::complex]
+    /// to hold a `OptionalDouble`.
+    ///
+    /// Note that all the setters affecting `complex` are
+    /// mutually exclusive.
+    pub fn set_optional_double<T: std::convert::Into<std::boxed::Box<wkt::DoubleValue>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.complex = std::option::Option::Some(
+            crate::generated::message_with_complex_one_of::Complex::OptionalDouble(v.into()),
+        );
+        self
+    }
 }
 
 impl wkt::message::Message for MessageWithComplexOneOf {
@@ -1479,6 +1507,7 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
             __inner,
             __duration,
             __value,
+            __optional_double,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1516,6 +1545,8 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                             "inner" => Ok(__FieldTag::__inner),
                             "duration" => Ok(__FieldTag::__duration),
                             "value" => Ok(__FieldTag::__value),
+                            "optionalDouble" => Ok(__FieldTag::__optional_double),
+                            "optional_double" => Ok(__FieldTag::__optional_double),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -1811,6 +1842,37 @@ impl<'de> serde::de::Deserialize<'de> for MessageWithComplexOneOf {
                                 ),
                             );
                         }
+                        __FieldTag::__optional_double => {
+                            if !fields.insert(__FieldTag::__optional_double) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for optional_double",
+                                ));
+                            }
+                            struct __With(std::option::Option<std::boxed::Box<wkt::DoubleValue>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::boxed::Box<wkt::internal::F64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            if result.complex.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `complex`, a oneof with full ID .google.rust.sdk.test.MessageWithComplexOneOf.optional_double, latest field was optionalDouble",
+                                ));
+                            }
+                            result.complex = std::option::Option::Some(
+                                crate::generated::message_with_complex_one_of::Complex::OptionalDouble(
+                                    map.next_value::<__With>()?.0.unwrap_or_default()
+                                ),
+                            );
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -1914,6 +1976,18 @@ impl serde::ser::Serialize for MessageWithComplexOneOf {
         }
         if let Some(value) = self.value() {
             state.serialize_entry("value", value)?;
+        }
+        if let Some(value) = self.optional_double() {
+            struct __With<'a>(&'a std::boxed::Box<wkt::DoubleValue>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("optionalDouble", &__With(value))?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -2202,6 +2276,7 @@ pub mod message_with_complex_one_of {
         Inner(std::boxed::Box<crate::generated::message_with_complex_one_of::Inner>),
         Duration(std::boxed::Box<wkt::Duration>),
         Value(std::boxed::Box<wkt::Value>),
+        OptionalDouble(std::boxed::Box<wkt::DoubleValue>),
     }
 }
 
