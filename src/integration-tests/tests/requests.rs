@@ -34,7 +34,7 @@ mod requests {
 
         client
             .cancel_operation()
-            .set_name("operations/test-001")
+            .set_name("projects/test-project/locations/test-locations/operations/test-001")
             .send()
             .await?;
         Ok(())
