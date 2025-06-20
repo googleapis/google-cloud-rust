@@ -169,7 +169,7 @@ impl Any {
     /// ```
     pub fn from_msg<T>(message: &T) -> Result<Self, Error>
     where
-        T: crate::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+        T: crate::message::Message,
     {
         let serializer = T::serializer();
         let value = serializer.serialize_to_map(message)?;
@@ -188,7 +188,7 @@ impl Any {
     /// ```
     pub fn to_msg<T>(&self) -> Result<T, Error>
     where
-        T: crate::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+        T: crate::message::Message,
     {
         let map = &self.0;
         let r#type = map
