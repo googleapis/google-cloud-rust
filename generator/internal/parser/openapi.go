@@ -212,9 +212,9 @@ func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packa
 			pathInfo := &api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						Verb:            op.Verb,
-						PathTemplate:    pathTemplate,
-						QueryParameters: queryParameters,
+						Verb:               op.Verb,
+						LegacyPathTemplate: pathTemplate,
+						QueryParameters:    queryParameters,
 					},
 				},
 				BodyFieldPath: bodyFieldPath,
@@ -236,11 +236,11 @@ func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packa
 	return methods, nil
 }
 
-func makePathTemplate(template string) []api.PathSegment {
-	segments := []api.PathSegment{}
+func makePathTemplate(template string) []api.LegacyPathSegment {
+	segments := []api.LegacyPathSegment{}
 	for idx, component := range strings.Split(template, ":") {
 		if idx != 0 {
-			segments = append(segments, api.PathSegment{Verb: &component})
+			segments = append(segments, api.NewVerbPathSegment(component))
 			continue
 		}
 		for _, element := range strings.Split(component, "/") {
@@ -249,10 +249,10 @@ func makePathTemplate(template string) []api.PathSegment {
 			}
 			if strings.HasPrefix(element, "{") && strings.HasSuffix(element, "}") {
 				element = element[1 : len(element)-1]
-				segments = append(segments, api.PathSegment{FieldPath: &element})
+				segments = append(segments, api.NewFieldPathPathSegment(element))
 				continue
 			}
-			segments = append(segments, api.PathSegment{Literal: &element})
+			segments = append(segments, api.NewLiteralPathSegment(element))
 		}
 	}
 	return segments

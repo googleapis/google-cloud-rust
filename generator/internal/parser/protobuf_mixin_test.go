@@ -74,7 +74,7 @@ func TestProtobuf_LocationMixin(t *testing.T) {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
-					PathTemplate: []api.PathSegment{
+					LegacyPathTemplate: []api.LegacyPathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment("name"),
 					},
@@ -137,7 +137,7 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "POST",
-					PathTemplate: []api.PathSegment{
+					LegacyPathTemplate: []api.LegacyPathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment("resource"),
 						api.NewVerbPathSegment("getIamPolicy"),
@@ -208,7 +208,7 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
-					PathTemplate: []api.PathSegment{
+					LegacyPathTemplate: []api.LegacyPathSegment{
 						api.NewLiteralPathSegment("v2"),
 						api.NewFieldPathPathSegment("name"),
 					},
@@ -290,7 +290,7 @@ func TestProtobuf_OperationMixinNoEmpty(t *testing.T) {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "DELETE",
-					PathTemplate: []api.PathSegment{
+					LegacyPathTemplate: []api.LegacyPathSegment{
 						api.NewLiteralPathSegment("v2"),
 						api.NewFieldPathPathSegment("name"),
 					},
@@ -369,7 +369,7 @@ func TestProtobuf_DuplicateMixin(t *testing.T) {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
-					PathTemplate: []api.PathSegment{
+					LegacyPathTemplate: []api.LegacyPathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewFieldPathPathSegment("name"),
 					},

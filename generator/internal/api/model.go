@@ -265,7 +265,7 @@ type PathBinding struct {
 	// - PATCH
 	Verb string
 	// The path broken by components.
-	PathTemplate []PathSegment
+	LegacyPathTemplate []LegacyPathSegment
 	// Query parameter fields.
 	QueryParameters map[string]bool
 }
@@ -356,7 +356,7 @@ const (
 // should produce:
 // ```
 //
-//	[]PathSegment{
+//	[]LegacyPathSegment{
 //	  {Literal:   &"v1"},
 //	  {Literal:   &"projects"},
 //	  {FieldPath: &"project"},
@@ -368,22 +368,22 @@ const (
 // ```
 //
 // The Codec interpret these elements as needed.
-type PathSegment struct {
+type LegacyPathSegment struct {
 	Literal   *string
 	FieldPath *string
 	Verb      *string
 }
 
-func NewLiteralPathSegment(s string) PathSegment {
-	return PathSegment{Literal: &s}
+func NewLiteralPathSegment(s string) LegacyPathSegment {
+	return LegacyPathSegment{Literal: &s}
 }
 
-func NewFieldPathPathSegment(s string) PathSegment {
-	return PathSegment{FieldPath: &s}
+func NewFieldPathPathSegment(s string) LegacyPathSegment {
+	return LegacyPathSegment{FieldPath: &s}
 }
 
-func NewVerbPathSegment(s string) PathSegment {
-	return PathSegment{Verb: &s}
+func NewVerbPathSegment(s string) LegacyPathSegment {
+	return LegacyPathSegment{Verb: &s}
 }
 
 // Message defines a message used in request/response handling.

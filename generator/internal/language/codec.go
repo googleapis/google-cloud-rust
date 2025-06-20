@@ -43,7 +43,7 @@ func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 		return nil
 	}
 	pathNames := []string{}
-	for _, arg := range m.PathInfo.Bindings[0].PathTemplate {
+	for _, arg := range m.PathInfo.Bindings[0].LegacyPathTemplate {
 		if arg.FieldPath != nil {
 			components := strings.Split(*arg.FieldPath, ".")
 			pathNames = append(pathNames, components[0])

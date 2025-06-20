@@ -107,9 +107,9 @@ func processRuleShallow(httpRule *annotations.HttpRule, state *api.APIState, mID
 		// Most often this happens with streaming RPCs. We will handle any
 		/// errors later in the code generation, maybe by ignoring the RPC.
 		return &api.PathBinding{
-			Verb:            "POST",
-			PathTemplate:    []api.PathSegment{},
-			QueryParameters: map[string]bool{},
+			Verb:               "POST",
+			LegacyPathTemplate: []api.LegacyPathSegment{},
+			QueryParameters:    map[string]bool{},
 		}, "*", nil
 	}
 	pathTemplate, err := httprule.ParseSegments(rawPath)
@@ -122,13 +122,13 @@ func processRuleShallow(httpRule *annotations.HttpRule, state *api.APIState, mID
 	}
 
 	return &api.PathBinding{
-		Verb:            verb,
-		PathTemplate:    pathTemplate,
-		QueryParameters: queryParameters,
+		Verb:               verb,
+		LegacyPathTemplate: pathTemplate,
+		QueryParameters:    queryParameters,
 	}, httpRule.GetBody(), nil
 }
 
-func queryParameters(msgID string, pathTemplate []api.PathSegment, body string, state *api.APIState) (map[string]bool, error) {
+func queryParameters(msgID string, pathTemplate []api.LegacyPathSegment, body string, state *api.APIState) (map[string]bool, error) {
 	msg, ok := state.MessageByID[msgID]
 	if !ok {
 		return nil, fmt.Errorf("unable to lookup type %s", msgID)

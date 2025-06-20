@@ -724,7 +724,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
-					PathTemplate: []api.PathSegment{
+					LegacyPathTemplate: []api.LegacyPathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewLiteralPathSegment("projects"),
 						api.NewFieldPathPathSegment("project"),
@@ -750,7 +750,7 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 	})
 
 	cs := sample.MethodCreate()
-	cs.PathInfo.Bindings[0].PathTemplate = []api.PathSegment{
+	cs.PathInfo.Bindings[0].LegacyPathTemplate = []api.LegacyPathSegment{
 		api.NewLiteralPathSegment("v1"),
 		api.NewLiteralPathSegment("projects"),
 		api.NewFieldPathPathSegment("project"),
@@ -910,7 +910,7 @@ func TestOpenAPI_Pagination(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							PathTemplate: []api.PathSegment{
+							LegacyPathTemplate: []api.LegacyPathSegment{
 								api.NewLiteralPathSegment("v1"),
 								api.NewLiteralPathSegment("projects"),
 								api.NewFieldPathPathSegment("project"),
@@ -1123,7 +1123,7 @@ func TestOpenAPI_Deprecated(t *testing.T) {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
-					PathTemplate: []api.PathSegment{
+					LegacyPathTemplate: []api.LegacyPathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewLiteralPathSegment("projects"),
 						api.NewFieldPathPathSegment("project"),
@@ -1146,7 +1146,7 @@ func TestOpenAPI_Deprecated(t *testing.T) {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
-					PathTemplate: []api.PathSegment{
+					LegacyPathTemplate: []api.LegacyPathSegment{
 						api.NewLiteralPathSegment("v1"),
 						api.NewLiteralPathSegment("projects"),
 						api.NewFieldPathPathSegment("project"),
