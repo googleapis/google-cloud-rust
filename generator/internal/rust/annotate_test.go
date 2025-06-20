@@ -218,7 +218,7 @@ func TestServiceAnnotationsLROTypes(t *testing.T) {
 	// annotations.
 	binding := &api.PathBinding{
 		Verb:                     "POST",
-		LegacyLegacyPathTemplate: []api.LegacyPathSegment{},
+		LegacyPathTemplate: []api.LegacyPathSegment{},
 		QueryParameters:          map[string]bool{},
 	}
 	pathInfo := &api.PathInfo{
