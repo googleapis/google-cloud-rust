@@ -639,7 +639,7 @@ impl std::fmt::Display for Error {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         match (&self.kind, &self.source) {
             (ErrorKind::Binding, Some(e)) => {
-                write!(f, "cannot find a matching binding to send the request {e}")
+                write!(f, "cannot find a matching binding to send the request: {e}")
             }
             (ErrorKind::Serialization, Some(e)) => write!(f, "cannot serialize the request {e}"),
             (ErrorKind::Deserialization, Some(e)) => {
