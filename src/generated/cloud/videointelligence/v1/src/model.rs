@@ -34,9 +34,7 @@ extern crate tracing;
 extern crate wkt;
 
 /// Video annotation request.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateVideoRequest {
     /// Input video location. Currently, only
@@ -50,24 +48,17 @@ pub struct AnnotateVideoRequest {
     /// Supported wildcards: '*' to match 0 or more characters;
     /// '?' to match 1 character. If unset, the input video should be embedded
     /// in the request as `input_content`. If set, `input_content` must be unset.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_uri: std::string::String,
 
     /// The video data bytes.
     /// If unset, the input video(s) should be specified via the `input_uri`.
     /// If set, `input_uri` must be unset.
-    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub input_content: ::bytes::Bytes,
 
     /// Required. Requested video annotation features.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub features: std::vec::Vec<crate::model::Feature>,
 
     /// Additional video context and/or feature-specific parameters.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub video_context: std::option::Option<crate::model::VideoContext>,
 
     /// Optional. Location where the output (in JSON format) should be stored.
@@ -77,19 +68,14 @@ pub struct AnnotateVideoRequest {
     /// [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT]). For
     /// more information, see [Request
     /// URIs](https://cloud.google.com/storage/docs/request-endpoints).
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub output_uri: std::string::String,
 
     /// Optional. Cloud region where annotation should take place. Supported cloud
     /// regions are: `us-east1`, `us-west1`, `europe-west1`, `asia-east1`. If no
     /// region is specified, the region will be determined based on video file
     /// location.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub location_id: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -158,53 +144,238 @@ impl wkt::message::Message for AnnotateVideoRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AnnotateVideoRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __input_uri,
+            __input_content,
+            __features,
+            __video_context,
+            __output_uri,
+            __location_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AnnotateVideoRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "inputUri" => Ok(__FieldTag::__input_uri),
+                            "input_uri" => Ok(__FieldTag::__input_uri),
+                            "inputContent" => Ok(__FieldTag::__input_content),
+                            "input_content" => Ok(__FieldTag::__input_content),
+                            "features" => Ok(__FieldTag::__features),
+                            "videoContext" => Ok(__FieldTag::__video_context),
+                            "video_context" => Ok(__FieldTag::__video_context),
+                            "outputUri" => Ok(__FieldTag::__output_uri),
+                            "output_uri" => Ok(__FieldTag::__output_uri),
+                            "locationId" => Ok(__FieldTag::__location_id),
+                            "location_id" => Ok(__FieldTag::__location_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AnnotateVideoRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AnnotateVideoRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__input_uri => {
+                            if !fields.insert(__FieldTag::__input_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for input_uri",
+                                ));
+                            }
+                            result.input_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__input_content => {
+                            if !fields.insert(__FieldTag::__input_content) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for input_content",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.input_content =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__features => {
+                            if !fields.insert(__FieldTag::__features) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for features",
+                                ));
+                            }
+                            result.features = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Feature>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__video_context => {
+                            if !fields.insert(__FieldTag::__video_context) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for video_context",
+                                ));
+                            }
+                            result.video_context = map
+                                .next_value::<std::option::Option<crate::model::VideoContext>>()?;
+                        }
+                        __FieldTag::__output_uri => {
+                            if !fields.insert(__FieldTag::__output_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for output_uri",
+                                ));
+                            }
+                            result.output_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__location_id => {
+                            if !fields.insert(__FieldTag::__location_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location_id",
+                                ));
+                            }
+                            result.location_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AnnotateVideoRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.input_uri.is_empty() {
+            state.serialize_entry("inputUri", &self.input_uri)?;
+        }
+        if !self.input_content.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("inputContent", &__With(&self.input_content))?;
+        }
+        if !self.features.is_empty() {
+            state.serialize_entry("features", &self.features)?;
+        }
+        if self.video_context.is_some() {
+            state.serialize_entry("videoContext", &self.video_context)?;
+        }
+        if !self.output_uri.is_empty() {
+            state.serialize_entry("outputUri", &self.output_uri)?;
+        }
+        if !self.location_id.is_empty() {
+            state.serialize_entry("locationId", &self.location_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Video context and/or feature-specific parameters.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoContext {
     /// Video segments to annotate. The segments may overlap and are not required
     /// to be contiguous or span the whole video. If unspecified, each video is
     /// treated as a single segment.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segments: std::vec::Vec<crate::model::VideoSegment>,
 
     /// Config for LABEL_DETECTION.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub label_detection_config: std::option::Option<crate::model::LabelDetectionConfig>,
 
     /// Config for SHOT_CHANGE_DETECTION.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub shot_change_detection_config: std::option::Option<crate::model::ShotChangeDetectionConfig>,
 
     /// Config for EXPLICIT_CONTENT_DETECTION.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub explicit_content_detection_config:
         std::option::Option<crate::model::ExplicitContentDetectionConfig>,
 
     /// Config for FACE_DETECTION.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub face_detection_config: std::option::Option<crate::model::FaceDetectionConfig>,
 
     /// Config for SPEECH_TRANSCRIPTION.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub speech_transcription_config: std::option::Option<crate::model::SpeechTranscriptionConfig>,
 
     /// Config for TEXT_DETECTION.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub text_detection_config: std::option::Option<crate::model::TextDetectionConfig>,
 
     /// Config for PERSON_DETECTION.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub person_detection_config: std::option::Option<crate::model::PersonDetectionConfig>,
 
     /// Config for OBJECT_TRACKING.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub object_tracking_config: std::option::Option<crate::model::ObjectTrackingConfig>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -378,31 +549,266 @@ impl wkt::message::Message for VideoContext {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for VideoContext {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __segments,
+            __label_detection_config,
+            __shot_change_detection_config,
+            __explicit_content_detection_config,
+            __face_detection_config,
+            __speech_transcription_config,
+            __text_detection_config,
+            __person_detection_config,
+            __object_tracking_config,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for VideoContext")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "segments" => Ok(__FieldTag::__segments),
+                            "labelDetectionConfig" => Ok(__FieldTag::__label_detection_config),
+                            "label_detection_config" => Ok(__FieldTag::__label_detection_config),
+                            "shotChangeDetectionConfig" => {
+                                Ok(__FieldTag::__shot_change_detection_config)
+                            }
+                            "shot_change_detection_config" => {
+                                Ok(__FieldTag::__shot_change_detection_config)
+                            }
+                            "explicitContentDetectionConfig" => {
+                                Ok(__FieldTag::__explicit_content_detection_config)
+                            }
+                            "explicit_content_detection_config" => {
+                                Ok(__FieldTag::__explicit_content_detection_config)
+                            }
+                            "faceDetectionConfig" => Ok(__FieldTag::__face_detection_config),
+                            "face_detection_config" => Ok(__FieldTag::__face_detection_config),
+                            "speechTranscriptionConfig" => {
+                                Ok(__FieldTag::__speech_transcription_config)
+                            }
+                            "speech_transcription_config" => {
+                                Ok(__FieldTag::__speech_transcription_config)
+                            }
+                            "textDetectionConfig" => Ok(__FieldTag::__text_detection_config),
+                            "text_detection_config" => Ok(__FieldTag::__text_detection_config),
+                            "personDetectionConfig" => Ok(__FieldTag::__person_detection_config),
+                            "person_detection_config" => Ok(__FieldTag::__person_detection_config),
+                            "objectTrackingConfig" => Ok(__FieldTag::__object_tracking_config),
+                            "object_tracking_config" => Ok(__FieldTag::__object_tracking_config),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = VideoContext;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct VideoContext")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__segments => {
+                            if !fields.insert(__FieldTag::__segments) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segments",
+                                ));
+                            }
+                            result.segments = map.next_value::<std::option::Option<std::vec::Vec<crate::model::VideoSegment>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__label_detection_config => {
+                            if !fields.insert(__FieldTag::__label_detection_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for label_detection_config",
+                                ));
+                            }
+                            result.label_detection_config = map.next_value::<std::option::Option<crate::model::LabelDetectionConfig>>()?
+                                ;
+                        }
+                        __FieldTag::__shot_change_detection_config => {
+                            if !fields.insert(__FieldTag::__shot_change_detection_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shot_change_detection_config",
+                                ));
+                            }
+                            result.shot_change_detection_config = map.next_value::<std::option::Option<crate::model::ShotChangeDetectionConfig>>()?
+                                ;
+                        }
+                        __FieldTag::__explicit_content_detection_config => {
+                            if !fields.insert(__FieldTag::__explicit_content_detection_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for explicit_content_detection_config",
+                                ));
+                            }
+                            result.explicit_content_detection_config =
+                                map.next_value::<std::option::Option<
+                                    crate::model::ExplicitContentDetectionConfig,
+                                >>()?;
+                        }
+                        __FieldTag::__face_detection_config => {
+                            if !fields.insert(__FieldTag::__face_detection_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for face_detection_config",
+                                ));
+                            }
+                            result.face_detection_config = map.next_value::<std::option::Option<crate::model::FaceDetectionConfig>>()?
+                                ;
+                        }
+                        __FieldTag::__speech_transcription_config => {
+                            if !fields.insert(__FieldTag::__speech_transcription_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for speech_transcription_config",
+                                ));
+                            }
+                            result.speech_transcription_config = map.next_value::<std::option::Option<crate::model::SpeechTranscriptionConfig>>()?
+                                ;
+                        }
+                        __FieldTag::__text_detection_config => {
+                            if !fields.insert(__FieldTag::__text_detection_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for text_detection_config",
+                                ));
+                            }
+                            result.text_detection_config = map.next_value::<std::option::Option<crate::model::TextDetectionConfig>>()?
+                                ;
+                        }
+                        __FieldTag::__person_detection_config => {
+                            if !fields.insert(__FieldTag::__person_detection_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for person_detection_config",
+                                ));
+                            }
+                            result.person_detection_config = map.next_value::<std::option::Option<crate::model::PersonDetectionConfig>>()?
+                                ;
+                        }
+                        __FieldTag::__object_tracking_config => {
+                            if !fields.insert(__FieldTag::__object_tracking_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for object_tracking_config",
+                                ));
+                            }
+                            result.object_tracking_config = map.next_value::<std::option::Option<crate::model::ObjectTrackingConfig>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for VideoContext {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.segments.is_empty() {
+            state.serialize_entry("segments", &self.segments)?;
+        }
+        if self.label_detection_config.is_some() {
+            state.serialize_entry("labelDetectionConfig", &self.label_detection_config)?;
+        }
+        if self.shot_change_detection_config.is_some() {
+            state.serialize_entry(
+                "shotChangeDetectionConfig",
+                &self.shot_change_detection_config,
+            )?;
+        }
+        if self.explicit_content_detection_config.is_some() {
+            state.serialize_entry(
+                "explicitContentDetectionConfig",
+                &self.explicit_content_detection_config,
+            )?;
+        }
+        if self.face_detection_config.is_some() {
+            state.serialize_entry("faceDetectionConfig", &self.face_detection_config)?;
+        }
+        if self.speech_transcription_config.is_some() {
+            state.serialize_entry(
+                "speechTranscriptionConfig",
+                &self.speech_transcription_config,
+            )?;
+        }
+        if self.text_detection_config.is_some() {
+            state.serialize_entry("textDetectionConfig", &self.text_detection_config)?;
+        }
+        if self.person_detection_config.is_some() {
+            state.serialize_entry("personDetectionConfig", &self.person_detection_config)?;
+        }
+        if self.object_tracking_config.is_some() {
+            state.serialize_entry("objectTrackingConfig", &self.object_tracking_config)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Config for LABEL_DETECTION.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelDetectionConfig {
     /// What labels should be detected with LABEL_DETECTION, in addition to
     /// video-level labels or segment-level labels.
     /// If unspecified, defaults to `SHOT_MODE`.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label_detection_mode: crate::model::LabelDetectionMode,
 
     /// Whether the video has been shot from a stationary (i.e., non-moving)
     /// camera. When set to true, might improve detection accuracy for moving
     /// objects. Should be used with `SHOT_AND_FRAME_MODE` enabled.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub stationary_camera: bool,
 
     /// Model to use for label detection.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     /// The confidence threshold we perform filtering on the labels from
@@ -411,8 +817,6 @@ pub struct LabelDetectionConfig {
     /// range will be clipped.
     /// Note: For best results, follow the default threshold. We will update
     /// the default threshold everytime when we release a new model.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub frame_confidence_threshold: f32,
 
     /// The confidence threshold we perform filtering on the labels from
@@ -421,11 +825,8 @@ pub struct LabelDetectionConfig {
     /// outside of this range will be clipped.
     /// Note: For best results, follow the default threshold. We will update
     /// the default threshold everytime when we release a new model.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub video_confidence_threshold: f32,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -474,20 +875,231 @@ impl wkt::message::Message for LabelDetectionConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for LabelDetectionConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __label_detection_mode,
+            __stationary_camera,
+            __model,
+            __frame_confidence_threshold,
+            __video_confidence_threshold,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for LabelDetectionConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "labelDetectionMode" => Ok(__FieldTag::__label_detection_mode),
+                            "label_detection_mode" => Ok(__FieldTag::__label_detection_mode),
+                            "stationaryCamera" => Ok(__FieldTag::__stationary_camera),
+                            "stationary_camera" => Ok(__FieldTag::__stationary_camera),
+                            "model" => Ok(__FieldTag::__model),
+                            "frameConfidenceThreshold" => {
+                                Ok(__FieldTag::__frame_confidence_threshold)
+                            }
+                            "frame_confidence_threshold" => {
+                                Ok(__FieldTag::__frame_confidence_threshold)
+                            }
+                            "videoConfidenceThreshold" => {
+                                Ok(__FieldTag::__video_confidence_threshold)
+                            }
+                            "video_confidence_threshold" => {
+                                Ok(__FieldTag::__video_confidence_threshold)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = LabelDetectionConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct LabelDetectionConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__label_detection_mode => {
+                            if !fields.insert(__FieldTag::__label_detection_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for label_detection_mode",
+                                ));
+                            }
+                            result.label_detection_mode = map.next_value::<std::option::Option<crate::model::LabelDetectionMode>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__stationary_camera => {
+                            if !fields.insert(__FieldTag::__stationary_camera) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for stationary_camera",
+                                ));
+                            }
+                            result.stationary_camera = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__model => {
+                            if !fields.insert(__FieldTag::__model) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for model",
+                                ));
+                            }
+                            result.model = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__frame_confidence_threshold => {
+                            if !fields.insert(__FieldTag::__frame_confidence_threshold) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for frame_confidence_threshold",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.frame_confidence_threshold =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__video_confidence_threshold => {
+                            if !fields.insert(__FieldTag::__video_confidence_threshold) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for video_confidence_threshold",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.video_confidence_threshold =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for LabelDetectionConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.label_detection_mode) {
+            state.serialize_entry("labelDetectionMode", &self.label_detection_mode)?;
+        }
+        if !wkt::internal::is_default(&self.stationary_camera) {
+            state.serialize_entry("stationaryCamera", &self.stationary_camera)?;
+        }
+        if !self.model.is_empty() {
+            state.serialize_entry("model", &self.model)?;
+        }
+        if !wkt::internal::is_default(&self.frame_confidence_threshold) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "frameConfidenceThreshold",
+                &__With(&self.frame_confidence_threshold),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.video_confidence_threshold) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "videoConfidenceThreshold",
+                &__With(&self.video_confidence_threshold),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Config for SHOT_CHANGE_DETECTION.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShotChangeDetectionConfig {
     /// Model to use for shot change detection.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -509,20 +1121,117 @@ impl wkt::message::Message for ShotChangeDetectionConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ShotChangeDetectionConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __model,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ShotChangeDetectionConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "model" => Ok(__FieldTag::__model),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ShotChangeDetectionConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ShotChangeDetectionConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__model => {
+                            if !fields.insert(__FieldTag::__model) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for model",
+                                ));
+                            }
+                            result.model = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ShotChangeDetectionConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.model.is_empty() {
+            state.serialize_entry("model", &self.model)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Config for OBJECT_TRACKING.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectTrackingConfig {
     /// Model to use for object tracking.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -544,31 +1253,124 @@ impl wkt::message::Message for ObjectTrackingConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ObjectTrackingConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __model,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ObjectTrackingConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "model" => Ok(__FieldTag::__model),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ObjectTrackingConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ObjectTrackingConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__model => {
+                            if !fields.insert(__FieldTag::__model) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for model",
+                                ));
+                            }
+                            result.model = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ObjectTrackingConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.model.is_empty() {
+            state.serialize_entry("model", &self.model)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Config for FACE_DETECTION.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FaceDetectionConfig {
     /// Model to use for face detection.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
     /// Whether bounding boxes are included in the face annotation output.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_bounding_boxes: bool,
 
     /// Whether to enable face attributes detection, such as glasses, dark_glasses,
     /// mouth_open etc. Ignored if 'include_bounding_boxes' is set to false.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_attributes: bool,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -602,33 +1404,158 @@ impl wkt::message::Message for FaceDetectionConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FaceDetectionConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __model,
+            __include_bounding_boxes,
+            __include_attributes,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FaceDetectionConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "model" => Ok(__FieldTag::__model),
+                            "includeBoundingBoxes" => Ok(__FieldTag::__include_bounding_boxes),
+                            "include_bounding_boxes" => Ok(__FieldTag::__include_bounding_boxes),
+                            "includeAttributes" => Ok(__FieldTag::__include_attributes),
+                            "include_attributes" => Ok(__FieldTag::__include_attributes),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FaceDetectionConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FaceDetectionConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__model => {
+                            if !fields.insert(__FieldTag::__model) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for model",
+                                ));
+                            }
+                            result.model = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__include_bounding_boxes => {
+                            if !fields.insert(__FieldTag::__include_bounding_boxes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for include_bounding_boxes",
+                                ));
+                            }
+                            result.include_bounding_boxes = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__include_attributes => {
+                            if !fields.insert(__FieldTag::__include_attributes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for include_attributes",
+                                ));
+                            }
+                            result.include_attributes = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FaceDetectionConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.model.is_empty() {
+            state.serialize_entry("model", &self.model)?;
+        }
+        if !wkt::internal::is_default(&self.include_bounding_boxes) {
+            state.serialize_entry("includeBoundingBoxes", &self.include_bounding_boxes)?;
+        }
+        if !wkt::internal::is_default(&self.include_attributes) {
+            state.serialize_entry("includeAttributes", &self.include_attributes)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Config for PERSON_DETECTION.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PersonDetectionConfig {
     /// Whether bounding boxes are included in the person detection annotation
     /// output.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_bounding_boxes: bool,
 
     /// Whether to enable pose landmarks detection. Ignored if
     /// 'include_bounding_boxes' is set to false.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_pose_landmarks: bool,
 
     /// Whether to enable person attributes detection, such as cloth color (black,
     /// blue, etc), type (coat, dress, etc), pattern (plain, floral, etc), hair,
     /// etc.
     /// Ignored if 'include_bounding_boxes' is set to false.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub include_attributes: bool,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -662,20 +1589,150 @@ impl wkt::message::Message for PersonDetectionConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for PersonDetectionConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __include_bounding_boxes,
+            __include_pose_landmarks,
+            __include_attributes,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for PersonDetectionConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "includeBoundingBoxes" => Ok(__FieldTag::__include_bounding_boxes),
+                            "include_bounding_boxes" => Ok(__FieldTag::__include_bounding_boxes),
+                            "includePoseLandmarks" => Ok(__FieldTag::__include_pose_landmarks),
+                            "include_pose_landmarks" => Ok(__FieldTag::__include_pose_landmarks),
+                            "includeAttributes" => Ok(__FieldTag::__include_attributes),
+                            "include_attributes" => Ok(__FieldTag::__include_attributes),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = PersonDetectionConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct PersonDetectionConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__include_bounding_boxes => {
+                            if !fields.insert(__FieldTag::__include_bounding_boxes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for include_bounding_boxes",
+                                ));
+                            }
+                            result.include_bounding_boxes = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__include_pose_landmarks => {
+                            if !fields.insert(__FieldTag::__include_pose_landmarks) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for include_pose_landmarks",
+                                ));
+                            }
+                            result.include_pose_landmarks = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__include_attributes => {
+                            if !fields.insert(__FieldTag::__include_attributes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for include_attributes",
+                                ));
+                            }
+                            result.include_attributes = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for PersonDetectionConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.include_bounding_boxes) {
+            state.serialize_entry("includeBoundingBoxes", &self.include_bounding_boxes)?;
+        }
+        if !wkt::internal::is_default(&self.include_pose_landmarks) {
+            state.serialize_entry("includePoseLandmarks", &self.include_pose_landmarks)?;
+        }
+        if !wkt::internal::is_default(&self.include_attributes) {
+            state.serialize_entry("includeAttributes", &self.include_attributes)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Config for EXPLICIT_CONTENT_DETECTION.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplicitContentDetectionConfig {
     /// Model to use for explicit content detection.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -697,10 +1754,110 @@ impl wkt::message::Message for ExplicitContentDetectionConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ExplicitContentDetectionConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __model,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ExplicitContentDetectionConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "model" => Ok(__FieldTag::__model),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ExplicitContentDetectionConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ExplicitContentDetectionConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__model => {
+                            if !fields.insert(__FieldTag::__model) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for model",
+                                ));
+                            }
+                            result.model = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ExplicitContentDetectionConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.model.is_empty() {
+            state.serialize_entry("model", &self.model)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Config for TEXT_DETECTION.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextDetectionConfig {
     /// Language hint can be specified if the language to be detected is known a
@@ -708,18 +1865,13 @@ pub struct TextDetectionConfig {
     /// be language code in BCP-47 format.
     ///
     /// Automatic language detection is performed if no hint is provided.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub language_hints: std::vec::Vec<std::string::String>,
 
     /// Model to use for text detection.
     /// Supported values: "builtin/stable" (the default if unset) and
     /// "builtin/latest".
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub model: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -752,23 +1904,134 @@ impl wkt::message::Message for TextDetectionConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for TextDetectionConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __language_hints,
+            __model,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TextDetectionConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "languageHints" => Ok(__FieldTag::__language_hints),
+                            "language_hints" => Ok(__FieldTag::__language_hints),
+                            "model" => Ok(__FieldTag::__model),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = TextDetectionConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TextDetectionConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__language_hints => {
+                            if !fields.insert(__FieldTag::__language_hints) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for language_hints",
+                                ));
+                            }
+                            result.language_hints = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__model => {
+                            if !fields.insert(__FieldTag::__model) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for model",
+                                ));
+                            }
+                            result.model = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for TextDetectionConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.language_hints.is_empty() {
+            state.serialize_entry("languageHints", &self.language_hints)?;
+        }
+        if !self.model.is_empty() {
+            state.serialize_entry("model", &self.model)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Video segment.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoSegment {
     /// Time-offset, relative to the beginning of the video,
     /// corresponding to the start of the segment (inclusive).
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time_offset: std::option::Option<wkt::Duration>,
 
     /// Time-offset, relative to the beginning of the video,
     /// corresponding to the end of the segment (inclusive).
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time_offset: std::option::Option<wkt::Duration>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -820,22 +2083,133 @@ impl wkt::message::Message for VideoSegment {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for VideoSegment {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __start_time_offset,
+            __end_time_offset,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for VideoSegment")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "startTimeOffset" => Ok(__FieldTag::__start_time_offset),
+                            "start_time_offset" => Ok(__FieldTag::__start_time_offset),
+                            "endTimeOffset" => Ok(__FieldTag::__end_time_offset),
+                            "end_time_offset" => Ok(__FieldTag::__end_time_offset),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = VideoSegment;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct VideoSegment")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__start_time_offset => {
+                            if !fields.insert(__FieldTag::__start_time_offset) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_time_offset",
+                                ));
+                            }
+                            result.start_time_offset =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__end_time_offset => {
+                            if !fields.insert(__FieldTag::__end_time_offset) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_time_offset",
+                                ));
+                            }
+                            result.end_time_offset =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for VideoSegment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.start_time_offset.is_some() {
+            state.serialize_entry("startTimeOffset", &self.start_time_offset)?;
+        }
+        if self.end_time_offset.is_some() {
+            state.serialize_entry("endTimeOffset", &self.end_time_offset)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Video segment level annotation results for label detection.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelSegment {
     /// Video segment where a label was detected.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub segment: std::option::Option<crate::model::VideoSegment>,
 
     /// Confidence that the label is accurate. Range: [0, 1].
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -875,23 +2249,151 @@ impl wkt::message::Message for LabelSegment {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for LabelSegment {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __segment,
+            __confidence,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for LabelSegment")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "segment" => Ok(__FieldTag::__segment),
+                            "confidence" => Ok(__FieldTag::__confidence),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = LabelSegment;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct LabelSegment")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__segment => {
+                            if !fields.insert(__FieldTag::__segment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segment",
+                                ));
+                            }
+                            result.segment = map
+                                .next_value::<std::option::Option<crate::model::VideoSegment>>()?;
+                        }
+                        __FieldTag::__confidence => {
+                            if !fields.insert(__FieldTag::__confidence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for confidence",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.confidence = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for LabelSegment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.segment.is_some() {
+            state.serialize_entry("segment", &self.segment)?;
+        }
+        if !wkt::internal::is_default(&self.confidence) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("confidence", &__With(&self.confidence))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Video frame level annotation results for label detection.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelFrame {
     /// Time-offset, relative to the beginning of the video, corresponding to the
     /// video frame for this location.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub time_offset: std::option::Option<wkt::Duration>,
 
     /// Confidence that the label is accurate. Range: [0, 1].
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -931,30 +2433,156 @@ impl wkt::message::Message for LabelFrame {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for LabelFrame {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __time_offset,
+            __confidence,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for LabelFrame")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "timeOffset" => Ok(__FieldTag::__time_offset),
+                            "time_offset" => Ok(__FieldTag::__time_offset),
+                            "confidence" => Ok(__FieldTag::__confidence),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = LabelFrame;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct LabelFrame")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__time_offset => {
+                            if !fields.insert(__FieldTag::__time_offset) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for time_offset",
+                                ));
+                            }
+                            result.time_offset =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__confidence => {
+                            if !fields.insert(__FieldTag::__confidence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for confidence",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.confidence = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for LabelFrame {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.time_offset.is_some() {
+            state.serialize_entry("timeOffset", &self.time_offset)?;
+        }
+        if !wkt::internal::is_default(&self.confidence) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("confidence", &__With(&self.confidence))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Detected entity from video analysis.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Entity {
     /// Opaque entity ID. Some IDs may be available in
     /// [Google Knowledge Graph Search
     /// API](https://developers.google.com/knowledge-graph/).
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub entity_id: std::string::String,
 
     /// Textual description, e.g., `Fixed-gear bicycle`.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub description: std::string::String,
 
     /// Language code for `description` in BCP-47 format.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -988,40 +2616,162 @@ impl wkt::message::Message for Entity {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Entity {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __entity_id,
+            __description,
+            __language_code,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Entity")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "entityId" => Ok(__FieldTag::__entity_id),
+                            "entity_id" => Ok(__FieldTag::__entity_id),
+                            "description" => Ok(__FieldTag::__description),
+                            "languageCode" => Ok(__FieldTag::__language_code),
+                            "language_code" => Ok(__FieldTag::__language_code),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Entity;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Entity")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__entity_id => {
+                            if !fields.insert(__FieldTag::__entity_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entity_id",
+                                ));
+                            }
+                            result.entity_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__language_code => {
+                            if !fields.insert(__FieldTag::__language_code) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for language_code",
+                                ));
+                            }
+                            result.language_code = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Entity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.entity_id.is_empty() {
+            state.serialize_entry("entityId", &self.entity_id)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.language_code.is_empty() {
+            state.serialize_entry("languageCode", &self.language_code)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Label annotation.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LabelAnnotation {
     /// Detected entity.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub entity: std::option::Option<crate::model::Entity>,
 
     /// Common categories for the detected entity.
     /// For example, when the label is `Terrier`, the category is likely `dog`. And
     /// in some cases there might be more than one categories e.g., `Terrier` could
     /// also be a `pet`.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub category_entities: std::vec::Vec<crate::model::Entity>,
 
     /// All video segments where a label was detected.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segments: std::vec::Vec<crate::model::LabelSegment>,
 
     /// All video frames where a label was detected.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frames: std::vec::Vec<crate::model::LabelFrame>,
 
     /// Feature version.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1094,23 +2844,173 @@ impl wkt::message::Message for LabelAnnotation {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for LabelAnnotation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __entity,
+            __category_entities,
+            __segments,
+            __frames,
+            __version,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for LabelAnnotation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "entity" => Ok(__FieldTag::__entity),
+                            "categoryEntities" => Ok(__FieldTag::__category_entities),
+                            "category_entities" => Ok(__FieldTag::__category_entities),
+                            "segments" => Ok(__FieldTag::__segments),
+                            "frames" => Ok(__FieldTag::__frames),
+                            "version" => Ok(__FieldTag::__version),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = LabelAnnotation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct LabelAnnotation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__entity => {
+                            if !fields.insert(__FieldTag::__entity) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entity",
+                                ));
+                            }
+                            result.entity =
+                                map.next_value::<std::option::Option<crate::model::Entity>>()?;
+                        }
+                        __FieldTag::__category_entities => {
+                            if !fields.insert(__FieldTag::__category_entities) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for category_entities",
+                                ));
+                            }
+                            result.category_entities = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Entity>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__segments => {
+                            if !fields.insert(__FieldTag::__segments) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segments",
+                                ));
+                            }
+                            result.segments = map.next_value::<std::option::Option<std::vec::Vec<crate::model::LabelSegment>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__frames => {
+                            if !fields.insert(__FieldTag::__frames) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for frames",
+                                ));
+                            }
+                            result.frames = map.next_value::<std::option::Option<std::vec::Vec<crate::model::LabelFrame>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__version => {
+                            if !fields.insert(__FieldTag::__version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for version",
+                                ));
+                            }
+                            result.version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for LabelAnnotation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.entity.is_some() {
+            state.serialize_entry("entity", &self.entity)?;
+        }
+        if !self.category_entities.is_empty() {
+            state.serialize_entry("categoryEntities", &self.category_entities)?;
+        }
+        if !self.segments.is_empty() {
+            state.serialize_entry("segments", &self.segments)?;
+        }
+        if !self.frames.is_empty() {
+            state.serialize_entry("frames", &self.frames)?;
+        }
+        if !self.version.is_empty() {
+            state.serialize_entry("version", &self.version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Video frame level annotation results for explicit content.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplicitContentFrame {
     /// Time-offset, relative to the beginning of the video, corresponding to the
     /// video frame for this location.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub time_offset: std::option::Option<wkt::Duration>,
 
     /// Likelihood of the pornography content..
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub pornography_likelihood: crate::model::Likelihood,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1153,25 +3053,136 @@ impl wkt::message::Message for ExplicitContentFrame {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ExplicitContentFrame {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __time_offset,
+            __pornography_likelihood,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ExplicitContentFrame")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "timeOffset" => Ok(__FieldTag::__time_offset),
+                            "time_offset" => Ok(__FieldTag::__time_offset),
+                            "pornographyLikelihood" => Ok(__FieldTag::__pornography_likelihood),
+                            "pornography_likelihood" => Ok(__FieldTag::__pornography_likelihood),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ExplicitContentFrame;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ExplicitContentFrame")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__time_offset => {
+                            if !fields.insert(__FieldTag::__time_offset) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for time_offset",
+                                ));
+                            }
+                            result.time_offset =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__pornography_likelihood => {
+                            if !fields.insert(__FieldTag::__pornography_likelihood) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pornography_likelihood",
+                                ));
+                            }
+                            result.pornography_likelihood = map
+                                .next_value::<std::option::Option<crate::model::Likelihood>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ExplicitContentFrame {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.time_offset.is_some() {
+            state.serialize_entry("timeOffset", &self.time_offset)?;
+        }
+        if !wkt::internal::is_default(&self.pornography_likelihood) {
+            state.serialize_entry("pornographyLikelihood", &self.pornography_likelihood)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Explicit content annotation (based on per-frame visual signals only).
 /// If no explicit content has been detected in a frame, no annotations are
 /// present for that frame.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ExplicitContentAnnotation {
     /// All video frames where explicit content was detected.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frames: std::vec::Vec<crate::model::ExplicitContentFrame>,
 
     /// Feature version.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1204,35 +3215,143 @@ impl wkt::message::Message for ExplicitContentAnnotation {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ExplicitContentAnnotation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __frames,
+            __version,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ExplicitContentAnnotation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "frames" => Ok(__FieldTag::__frames),
+                            "version" => Ok(__FieldTag::__version),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ExplicitContentAnnotation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ExplicitContentAnnotation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__frames => {
+                            if !fields.insert(__FieldTag::__frames) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for frames",
+                                ));
+                            }
+                            result.frames = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ExplicitContentFrame>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__version => {
+                            if !fields.insert(__FieldTag::__version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for version",
+                                ));
+                            }
+                            result.version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ExplicitContentAnnotation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.frames.is_empty() {
+            state.serialize_entry("frames", &self.frames)?;
+        }
+        if !self.version.is_empty() {
+            state.serialize_entry("version", &self.version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Normalized bounding box.
 /// The normalized vertex coordinates are relative to the original image.
 /// Range: [0, 1].
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedBoundingBox {
     /// Left X coordinate.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub left: f32,
 
     /// Top Y coordinate.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub top: f32,
 
     /// Right X coordinate.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub right: f32,
 
     /// Bottom Y coordinate.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub bottom: f32,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1272,28 +3391,238 @@ impl wkt::message::Message for NormalizedBoundingBox {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for NormalizedBoundingBox {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __left,
+            __top,
+            __right,
+            __bottom,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for NormalizedBoundingBox")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "left" => Ok(__FieldTag::__left),
+                            "top" => Ok(__FieldTag::__top),
+                            "right" => Ok(__FieldTag::__right),
+                            "bottom" => Ok(__FieldTag::__bottom),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = NormalizedBoundingBox;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct NormalizedBoundingBox")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__left => {
+                            if !fields.insert(__FieldTag::__left) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for left",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.left = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__top => {
+                            if !fields.insert(__FieldTag::__top) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for top",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.top = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__right => {
+                            if !fields.insert(__FieldTag::__right) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for right",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.right = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__bottom => {
+                            if !fields.insert(__FieldTag::__bottom) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for bottom",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.bottom = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for NormalizedBoundingBox {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.left) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("left", &__With(&self.left))?;
+        }
+        if !wkt::internal::is_default(&self.top) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("top", &__With(&self.top))?;
+        }
+        if !wkt::internal::is_default(&self.right) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("right", &__With(&self.right))?;
+        }
+        if !wkt::internal::is_default(&self.bottom) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("bottom", &__With(&self.bottom))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Face detection annotation.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FaceDetectionAnnotation {
     /// The face tracks with attributes.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tracks: std::vec::Vec<crate::model::Track>,
 
     /// The thumbnail of a person's face.
-    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub thumbnail: ::bytes::Bytes,
 
     /// Feature version.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1332,23 +3661,164 @@ impl wkt::message::Message for FaceDetectionAnnotation {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FaceDetectionAnnotation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __tracks,
+            __thumbnail,
+            __version,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FaceDetectionAnnotation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "tracks" => Ok(__FieldTag::__tracks),
+                            "thumbnail" => Ok(__FieldTag::__thumbnail),
+                            "version" => Ok(__FieldTag::__version),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FaceDetectionAnnotation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FaceDetectionAnnotation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__tracks => {
+                            if !fields.insert(__FieldTag::__tracks) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tracks",
+                                ));
+                            }
+                            result.tracks = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Track>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__thumbnail => {
+                            if !fields.insert(__FieldTag::__thumbnail) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for thumbnail",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.thumbnail = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__version => {
+                            if !fields.insert(__FieldTag::__version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for version",
+                                ));
+                            }
+                            result.version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FaceDetectionAnnotation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.tracks.is_empty() {
+            state.serialize_entry("tracks", &self.tracks)?;
+        }
+        if !self.thumbnail.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("thumbnail", &__With(&self.thumbnail))?;
+        }
+        if !self.version.is_empty() {
+            state.serialize_entry("version", &self.version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Person detection annotation per video.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct PersonDetectionAnnotation {
     /// The detected tracks of a person.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tracks: std::vec::Vec<crate::model::Track>,
 
     /// Feature version.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1381,17 +3851,128 @@ impl wkt::message::Message for PersonDetectionAnnotation {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for PersonDetectionAnnotation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __tracks,
+            __version,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for PersonDetectionAnnotation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "tracks" => Ok(__FieldTag::__tracks),
+                            "version" => Ok(__FieldTag::__version),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = PersonDetectionAnnotation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct PersonDetectionAnnotation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__tracks => {
+                            if !fields.insert(__FieldTag::__tracks) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tracks",
+                                ));
+                            }
+                            result.tracks = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Track>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__version => {
+                            if !fields.insert(__FieldTag::__version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for version",
+                                ));
+                            }
+                            result.version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for PersonDetectionAnnotation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.tracks.is_empty() {
+            state.serialize_entry("tracks", &self.tracks)?;
+        }
+        if !self.version.is_empty() {
+            state.serialize_entry("version", &self.version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Video segment level annotation results for face detection.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FaceSegment {
     /// Video segment where a face was detected.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub segment: std::option::Option<crate::model::VideoSegment>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1425,26 +4006,121 @@ impl wkt::message::Message for FaceSegment {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FaceSegment {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __segment,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FaceSegment")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "segment" => Ok(__FieldTag::__segment),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FaceSegment;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FaceSegment")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__segment => {
+                            if !fields.insert(__FieldTag::__segment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segment",
+                                ));
+                            }
+                            result.segment = map
+                                .next_value::<std::option::Option<crate::model::VideoSegment>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FaceSegment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.segment.is_some() {
+            state.serialize_entry("segment", &self.segment)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Deprecated. No effect.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 #[deprecated]
 pub struct FaceFrame {
     /// Normalized Bounding boxes in a frame.
     /// There can be more than one boxes if the same face is detected in multiple
     /// locations within the current frame.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub normalized_bounding_boxes: std::vec::Vec<crate::model::NormalizedBoundingBox>,
 
     /// Time-offset, relative to the beginning of the video,
     /// corresponding to the video frame for this location.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub time_offset: std::option::Option<wkt::Duration>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1489,29 +4165,144 @@ impl wkt::message::Message for FaceFrame {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FaceFrame {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __normalized_bounding_boxes,
+            __time_offset,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FaceFrame")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "normalizedBoundingBoxes" => {
+                                Ok(__FieldTag::__normalized_bounding_boxes)
+                            }
+                            "normalized_bounding_boxes" => {
+                                Ok(__FieldTag::__normalized_bounding_boxes)
+                            }
+                            "timeOffset" => Ok(__FieldTag::__time_offset),
+                            "time_offset" => Ok(__FieldTag::__time_offset),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FaceFrame;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FaceFrame")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__normalized_bounding_boxes => {
+                            if !fields.insert(__FieldTag::__normalized_bounding_boxes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for normalized_bounding_boxes",
+                                ));
+                            }
+                            result.normalized_bounding_boxes = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::NormalizedBoundingBox>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__time_offset => {
+                            if !fields.insert(__FieldTag::__time_offset) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for time_offset",
+                                ));
+                            }
+                            result.time_offset =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FaceFrame {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.normalized_bounding_boxes.is_empty() {
+            state.serialize_entry("normalizedBoundingBoxes", &self.normalized_bounding_boxes)?;
+        }
+        if self.time_offset.is_some() {
+            state.serialize_entry("timeOffset", &self.time_offset)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Deprecated. No effect.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 #[deprecated]
 pub struct FaceAnnotation {
     /// Thumbnail of a representative face view (in JPEG format).
-    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub thumbnail: ::bytes::Bytes,
 
     /// All video segments where a face was detected.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segments: std::vec::Vec<crate::model::FaceSegment>,
 
     /// All video frames where a face was detected.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frames: std::vec::Vec<crate::model::FaceFrame>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1555,34 +4346,171 @@ impl wkt::message::Message for FaceAnnotation {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FaceAnnotation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __thumbnail,
+            __segments,
+            __frames,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FaceAnnotation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "thumbnail" => Ok(__FieldTag::__thumbnail),
+                            "segments" => Ok(__FieldTag::__segments),
+                            "frames" => Ok(__FieldTag::__frames),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FaceAnnotation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FaceAnnotation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__thumbnail => {
+                            if !fields.insert(__FieldTag::__thumbnail) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for thumbnail",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.thumbnail = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__segments => {
+                            if !fields.insert(__FieldTag::__segments) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segments",
+                                ));
+                            }
+                            result.segments = map.next_value::<std::option::Option<std::vec::Vec<crate::model::FaceSegment>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__frames => {
+                            if !fields.insert(__FieldTag::__frames) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for frames",
+                                ));
+                            }
+                            result.frames = map.next_value::<std::option::Option<std::vec::Vec<crate::model::FaceFrame>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FaceAnnotation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.thumbnail.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("thumbnail", &__With(&self.thumbnail))?;
+        }
+        if !self.segments.is_empty() {
+            state.serialize_entry("segments", &self.segments)?;
+        }
+        if !self.frames.is_empty() {
+            state.serialize_entry("frames", &self.frames)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// For tracking related features.
 /// An object at time_offset with attributes, and located with
 /// normalized_bounding_box.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimestampedObject {
     /// Normalized Bounding box in a frame, where the object is located.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub normalized_bounding_box: std::option::Option<crate::model::NormalizedBoundingBox>,
 
     /// Time-offset, relative to the beginning of the video,
     /// corresponding to the video frame for this object.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub time_offset: std::option::Option<wkt::Duration>,
 
     /// Optional. The attributes of the object in the bounding box.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub attributes: std::vec::Vec<crate::model::DetectedAttribute>,
 
     /// Optional. The detected landmarks.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub landmarks: std::vec::Vec<crate::model::DetectedLandmark>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1656,32 +4584,173 @@ impl wkt::message::Message for TimestampedObject {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for TimestampedObject {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __normalized_bounding_box,
+            __time_offset,
+            __attributes,
+            __landmarks,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TimestampedObject")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "normalizedBoundingBox" => Ok(__FieldTag::__normalized_bounding_box),
+                            "normalized_bounding_box" => Ok(__FieldTag::__normalized_bounding_box),
+                            "timeOffset" => Ok(__FieldTag::__time_offset),
+                            "time_offset" => Ok(__FieldTag::__time_offset),
+                            "attributes" => Ok(__FieldTag::__attributes),
+                            "landmarks" => Ok(__FieldTag::__landmarks),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = TimestampedObject;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TimestampedObject")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__normalized_bounding_box => {
+                            if !fields.insert(__FieldTag::__normalized_bounding_box) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for normalized_bounding_box",
+                                ));
+                            }
+                            result.normalized_bounding_box = map.next_value::<std::option::Option<crate::model::NormalizedBoundingBox>>()?
+                                ;
+                        }
+                        __FieldTag::__time_offset => {
+                            if !fields.insert(__FieldTag::__time_offset) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for time_offset",
+                                ));
+                            }
+                            result.time_offset =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__attributes => {
+                            if !fields.insert(__FieldTag::__attributes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for attributes",
+                                ));
+                            }
+                            result.attributes =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::DetectedAttribute>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__landmarks => {
+                            if !fields.insert(__FieldTag::__landmarks) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for landmarks",
+                                ));
+                            }
+                            result.landmarks =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::DetectedLandmark>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for TimestampedObject {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.normalized_bounding_box.is_some() {
+            state.serialize_entry("normalizedBoundingBox", &self.normalized_bounding_box)?;
+        }
+        if self.time_offset.is_some() {
+            state.serialize_entry("timeOffset", &self.time_offset)?;
+        }
+        if !self.attributes.is_empty() {
+            state.serialize_entry("attributes", &self.attributes)?;
+        }
+        if !self.landmarks.is_empty() {
+            state.serialize_entry("landmarks", &self.landmarks)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A track of an object instance.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Track {
     /// Video segment of a track.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub segment: std::option::Option<crate::model::VideoSegment>,
 
     /// The object with timestamp and attributes per frame in the track.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub timestamped_objects: std::vec::Vec<crate::model::TimestampedObject>,
 
     /// Optional. Attributes in the track level.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub attributes: std::vec::Vec<crate::model::DetectedAttribute>,
 
     /// Optional. The confidence score of the tracked object.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1743,30 +4812,190 @@ impl wkt::message::Message for Track {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Track {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __segment,
+            __timestamped_objects,
+            __attributes,
+            __confidence,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Track")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "segment" => Ok(__FieldTag::__segment),
+                            "timestampedObjects" => Ok(__FieldTag::__timestamped_objects),
+                            "timestamped_objects" => Ok(__FieldTag::__timestamped_objects),
+                            "attributes" => Ok(__FieldTag::__attributes),
+                            "confidence" => Ok(__FieldTag::__confidence),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Track;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Track")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__segment => {
+                            if !fields.insert(__FieldTag::__segment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segment",
+                                ));
+                            }
+                            result.segment = map
+                                .next_value::<std::option::Option<crate::model::VideoSegment>>()?;
+                        }
+                        __FieldTag::__timestamped_objects => {
+                            if !fields.insert(__FieldTag::__timestamped_objects) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for timestamped_objects",
+                                ));
+                            }
+                            result.timestamped_objects =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::TimestampedObject>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__attributes => {
+                            if !fields.insert(__FieldTag::__attributes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for attributes",
+                                ));
+                            }
+                            result.attributes =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::DetectedAttribute>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__confidence => {
+                            if !fields.insert(__FieldTag::__confidence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for confidence",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.confidence = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Track {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.segment.is_some() {
+            state.serialize_entry("segment", &self.segment)?;
+        }
+        if !self.timestamped_objects.is_empty() {
+            state.serialize_entry("timestampedObjects", &self.timestamped_objects)?;
+        }
+        if !self.attributes.is_empty() {
+            state.serialize_entry("attributes", &self.attributes)?;
+        }
+        if !wkt::internal::is_default(&self.confidence) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("confidence", &__With(&self.confidence))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A generic detected attribute represented by name in string format.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectedAttribute {
     /// The name of the attribute, for example, glasses, dark_glasses, mouth_open.
     /// A full list of supported type names will be provided in the document.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Detected attribute confidence. Range [0, 1].
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// Text value of the detection result. For example, the value for "HairColor"
     /// can be "black", "blonde", etc.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub value: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1800,29 +5029,171 @@ impl wkt::message::Message for DetectedAttribute {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DetectedAttribute {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __confidence,
+            __value,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DetectedAttribute")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "confidence" => Ok(__FieldTag::__confidence),
+                            "value" => Ok(__FieldTag::__value),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DetectedAttribute;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DetectedAttribute")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__confidence => {
+                            if !fields.insert(__FieldTag::__confidence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for confidence",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.confidence = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__value => {
+                            if !fields.insert(__FieldTag::__value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for value",
+                                ));
+                            }
+                            result.value = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DetectedAttribute {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.confidence) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("confidence", &__With(&self.confidence))?;
+        }
+        if !self.value.is_empty() {
+            state.serialize_entry("value", &self.value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A generic detected landmark represented by name in string format and a 2D
 /// location.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DetectedLandmark {
     /// The name of this landmark, for example, left_hand, right_shoulder.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// The 2D point of the detected landmark using the normalized image
     /// coordindate system. The normalized coordinates have the range from 0 to 1.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub point: std::option::Option<crate::model::NormalizedVertex>,
 
     /// The confidence score of the detected landmark. Range [0, 1].
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1868,26 +5239,169 @@ impl wkt::message::Message for DetectedLandmark {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DetectedLandmark {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __point,
+            __confidence,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DetectedLandmark")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "point" => Ok(__FieldTag::__point),
+                            "confidence" => Ok(__FieldTag::__confidence),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DetectedLandmark;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DetectedLandmark")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__point => {
+                            if !fields.insert(__FieldTag::__point) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for point",
+                                ));
+                            }
+                            result.point = map
+                                .next_value::<std::option::Option<crate::model::NormalizedVertex>>(
+                                )?;
+                        }
+                        __FieldTag::__confidence => {
+                            if !fields.insert(__FieldTag::__confidence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for confidence",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.confidence = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DetectedLandmark {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.point.is_some() {
+            state.serialize_entry("point", &self.point)?;
+        }
+        if !wkt::internal::is_default(&self.confidence) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("confidence", &__With(&self.confidence))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Annotation results for a single video.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoAnnotationResults {
     /// Video file location in
     /// [Cloud Storage](https://cloud.google.com/storage/).
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_uri: std::string::String,
 
     /// Video segment on which the annotation is run.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub segment: std::option::Option<crate::model::VideoSegment>,
 
     /// Topical label annotations on video level or user-specified segment level.
     /// There is exactly one element for each unique label.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segment_label_annotations: std::vec::Vec<crate::model::LabelAnnotation>,
 
     /// Presence label annotations on video level or user-specified segment level.
@@ -1896,14 +5410,10 @@ pub struct VideoAnnotationResults {
     /// fine-grained, segment-level labels detected in video content and is made
     /// available only when the client sets `LabelDetectionConfig.model` to
     /// "builtin/latest" in the request.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segment_presence_label_annotations: std::vec::Vec<crate::model::LabelAnnotation>,
 
     /// Topical label annotations on shot level.
     /// There is exactly one element for each unique label.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub shot_label_annotations: std::vec::Vec<crate::model::LabelAnnotation>,
 
     /// Presence label annotations on shot level. There is exactly one element for
@@ -1911,69 +5421,46 @@ pub struct VideoAnnotationResults {
     /// `shot_label_annotations`, this field presents more fine-grained, shot-level
     /// labels detected in video content and is made available only when the client
     /// sets `LabelDetectionConfig.model` to "builtin/latest" in the request.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub shot_presence_label_annotations: std::vec::Vec<crate::model::LabelAnnotation>,
 
     /// Label annotations on frame level.
     /// There is exactly one element for each unique label.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frame_label_annotations: std::vec::Vec<crate::model::LabelAnnotation>,
 
     /// Deprecated. Please use `face_detection_annotations` instead.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub face_annotations: std::vec::Vec<crate::model::FaceAnnotation>,
 
     /// Face detection annotations.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub face_detection_annotations: std::vec::Vec<crate::model::FaceDetectionAnnotation>,
 
     /// Shot annotations. Each shot is represented as a video segment.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub shot_annotations: std::vec::Vec<crate::model::VideoSegment>,
 
     /// Explicit content annotation.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub explicit_annotation: std::option::Option<crate::model::ExplicitContentAnnotation>,
 
     /// Speech transcription.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub speech_transcriptions: std::vec::Vec<crate::model::SpeechTranscription>,
 
     /// OCR text detection and tracking.
     /// Annotations for list of detected text snippets. Each will have list of
     /// frame information associated with it.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub text_annotations: std::vec::Vec<crate::model::TextAnnotation>,
 
     /// Annotations for list of objects detected and tracked in video.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub object_annotations: std::vec::Vec<crate::model::ObjectTrackingAnnotation>,
 
     /// Annotations for list of logos detected, tracked and recognized in video.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub logo_recognition_annotations: std::vec::Vec<crate::model::LogoRecognitionAnnotation>,
 
     /// Person detection annotations.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub person_detection_annotations: std::vec::Vec<crate::model::PersonDetectionAnnotation>,
 
     /// If set, indicates an error. Note that for a single `AnnotateVideoRequest`
     /// some videos may succeed and some may fail.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub error: std::option::Option<rpc::model::Status>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2193,20 +5680,427 @@ impl wkt::message::Message for VideoAnnotationResults {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for VideoAnnotationResults {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __input_uri,
+            __segment,
+            __segment_label_annotations,
+            __segment_presence_label_annotations,
+            __shot_label_annotations,
+            __shot_presence_label_annotations,
+            __frame_label_annotations,
+            __face_annotations,
+            __face_detection_annotations,
+            __shot_annotations,
+            __explicit_annotation,
+            __speech_transcriptions,
+            __text_annotations,
+            __object_annotations,
+            __logo_recognition_annotations,
+            __person_detection_annotations,
+            __error,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for VideoAnnotationResults")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "inputUri" => Ok(__FieldTag::__input_uri),
+                            "input_uri" => Ok(__FieldTag::__input_uri),
+                            "segment" => Ok(__FieldTag::__segment),
+                            "segmentLabelAnnotations" => {
+                                Ok(__FieldTag::__segment_label_annotations)
+                            }
+                            "segment_label_annotations" => {
+                                Ok(__FieldTag::__segment_label_annotations)
+                            }
+                            "segmentPresenceLabelAnnotations" => {
+                                Ok(__FieldTag::__segment_presence_label_annotations)
+                            }
+                            "segment_presence_label_annotations" => {
+                                Ok(__FieldTag::__segment_presence_label_annotations)
+                            }
+                            "shotLabelAnnotations" => Ok(__FieldTag::__shot_label_annotations),
+                            "shot_label_annotations" => Ok(__FieldTag::__shot_label_annotations),
+                            "shotPresenceLabelAnnotations" => {
+                                Ok(__FieldTag::__shot_presence_label_annotations)
+                            }
+                            "shot_presence_label_annotations" => {
+                                Ok(__FieldTag::__shot_presence_label_annotations)
+                            }
+                            "frameLabelAnnotations" => Ok(__FieldTag::__frame_label_annotations),
+                            "frame_label_annotations" => Ok(__FieldTag::__frame_label_annotations),
+                            "faceAnnotations" => Ok(__FieldTag::__face_annotations),
+                            "face_annotations" => Ok(__FieldTag::__face_annotations),
+                            "faceDetectionAnnotations" => {
+                                Ok(__FieldTag::__face_detection_annotations)
+                            }
+                            "face_detection_annotations" => {
+                                Ok(__FieldTag::__face_detection_annotations)
+                            }
+                            "shotAnnotations" => Ok(__FieldTag::__shot_annotations),
+                            "shot_annotations" => Ok(__FieldTag::__shot_annotations),
+                            "explicitAnnotation" => Ok(__FieldTag::__explicit_annotation),
+                            "explicit_annotation" => Ok(__FieldTag::__explicit_annotation),
+                            "speechTranscriptions" => Ok(__FieldTag::__speech_transcriptions),
+                            "speech_transcriptions" => Ok(__FieldTag::__speech_transcriptions),
+                            "textAnnotations" => Ok(__FieldTag::__text_annotations),
+                            "text_annotations" => Ok(__FieldTag::__text_annotations),
+                            "objectAnnotations" => Ok(__FieldTag::__object_annotations),
+                            "object_annotations" => Ok(__FieldTag::__object_annotations),
+                            "logoRecognitionAnnotations" => {
+                                Ok(__FieldTag::__logo_recognition_annotations)
+                            }
+                            "logo_recognition_annotations" => {
+                                Ok(__FieldTag::__logo_recognition_annotations)
+                            }
+                            "personDetectionAnnotations" => {
+                                Ok(__FieldTag::__person_detection_annotations)
+                            }
+                            "person_detection_annotations" => {
+                                Ok(__FieldTag::__person_detection_annotations)
+                            }
+                            "error" => Ok(__FieldTag::__error),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = VideoAnnotationResults;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct VideoAnnotationResults")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__input_uri => {
+                            if !fields.insert(__FieldTag::__input_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for input_uri",
+                                ));
+                            }
+                            result.input_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__segment => {
+                            if !fields.insert(__FieldTag::__segment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segment",
+                                ));
+                            }
+                            result.segment = map
+                                .next_value::<std::option::Option<crate::model::VideoSegment>>()?;
+                        }
+                        __FieldTag::__segment_label_annotations => {
+                            if !fields.insert(__FieldTag::__segment_label_annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segment_label_annotations",
+                                ));
+                            }
+                            result.segment_label_annotations =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::LabelAnnotation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__segment_presence_label_annotations => {
+                            if !fields.insert(__FieldTag::__segment_presence_label_annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segment_presence_label_annotations",
+                                ));
+                            }
+                            result.segment_presence_label_annotations =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::LabelAnnotation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__shot_label_annotations => {
+                            if !fields.insert(__FieldTag::__shot_label_annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shot_label_annotations",
+                                ));
+                            }
+                            result.shot_label_annotations =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::LabelAnnotation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__shot_presence_label_annotations => {
+                            if !fields.insert(__FieldTag::__shot_presence_label_annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shot_presence_label_annotations",
+                                ));
+                            }
+                            result.shot_presence_label_annotations =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::LabelAnnotation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__frame_label_annotations => {
+                            if !fields.insert(__FieldTag::__frame_label_annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for frame_label_annotations",
+                                ));
+                            }
+                            result.frame_label_annotations =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::LabelAnnotation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__face_annotations => {
+                            if !fields.insert(__FieldTag::__face_annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for face_annotations",
+                                ));
+                            }
+                            result.face_annotations =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::FaceAnnotation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__face_detection_annotations => {
+                            if !fields.insert(__FieldTag::__face_detection_annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for face_detection_annotations",
+                                ));
+                            }
+                            result.face_detection_annotations = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::FaceDetectionAnnotation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__shot_annotations => {
+                            if !fields.insert(__FieldTag::__shot_annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shot_annotations",
+                                ));
+                            }
+                            result.shot_annotations = map.next_value::<std::option::Option<std::vec::Vec<crate::model::VideoSegment>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__explicit_annotation => {
+                            if !fields.insert(__FieldTag::__explicit_annotation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for explicit_annotation",
+                                ));
+                            }
+                            result.explicit_annotation = map.next_value::<std::option::Option<crate::model::ExplicitContentAnnotation>>()?
+                                ;
+                        }
+                        __FieldTag::__speech_transcriptions => {
+                            if !fields.insert(__FieldTag::__speech_transcriptions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for speech_transcriptions",
+                                ));
+                            }
+                            result.speech_transcriptions = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::SpeechTranscription>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__text_annotations => {
+                            if !fields.insert(__FieldTag::__text_annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for text_annotations",
+                                ));
+                            }
+                            result.text_annotations =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::TextAnnotation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__object_annotations => {
+                            if !fields.insert(__FieldTag::__object_annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for object_annotations",
+                                ));
+                            }
+                            result.object_annotations = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ObjectTrackingAnnotation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__logo_recognition_annotations => {
+                            if !fields.insert(__FieldTag::__logo_recognition_annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for logo_recognition_annotations",
+                                ));
+                            }
+                            result.logo_recognition_annotations = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::LogoRecognitionAnnotation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__person_detection_annotations => {
+                            if !fields.insert(__FieldTag::__person_detection_annotations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for person_detection_annotations",
+                                ));
+                            }
+                            result.person_detection_annotations = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::PersonDetectionAnnotation>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__error => {
+                            if !fields.insert(__FieldTag::__error) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for error",
+                                ));
+                            }
+                            result.error =
+                                map.next_value::<std::option::Option<rpc::model::Status>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for VideoAnnotationResults {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.input_uri.is_empty() {
+            state.serialize_entry("inputUri", &self.input_uri)?;
+        }
+        if self.segment.is_some() {
+            state.serialize_entry("segment", &self.segment)?;
+        }
+        if !self.segment_label_annotations.is_empty() {
+            state.serialize_entry("segmentLabelAnnotations", &self.segment_label_annotations)?;
+        }
+        if !self.segment_presence_label_annotations.is_empty() {
+            state.serialize_entry(
+                "segmentPresenceLabelAnnotations",
+                &self.segment_presence_label_annotations,
+            )?;
+        }
+        if !self.shot_label_annotations.is_empty() {
+            state.serialize_entry("shotLabelAnnotations", &self.shot_label_annotations)?;
+        }
+        if !self.shot_presence_label_annotations.is_empty() {
+            state.serialize_entry(
+                "shotPresenceLabelAnnotations",
+                &self.shot_presence_label_annotations,
+            )?;
+        }
+        if !self.frame_label_annotations.is_empty() {
+            state.serialize_entry("frameLabelAnnotations", &self.frame_label_annotations)?;
+        }
+        if !self.face_annotations.is_empty() {
+            state.serialize_entry("faceAnnotations", &self.face_annotations)?;
+        }
+        if !self.face_detection_annotations.is_empty() {
+            state.serialize_entry("faceDetectionAnnotations", &self.face_detection_annotations)?;
+        }
+        if !self.shot_annotations.is_empty() {
+            state.serialize_entry("shotAnnotations", &self.shot_annotations)?;
+        }
+        if self.explicit_annotation.is_some() {
+            state.serialize_entry("explicitAnnotation", &self.explicit_annotation)?;
+        }
+        if !self.speech_transcriptions.is_empty() {
+            state.serialize_entry("speechTranscriptions", &self.speech_transcriptions)?;
+        }
+        if !self.text_annotations.is_empty() {
+            state.serialize_entry("textAnnotations", &self.text_annotations)?;
+        }
+        if !self.object_annotations.is_empty() {
+            state.serialize_entry("objectAnnotations", &self.object_annotations)?;
+        }
+        if !self.logo_recognition_annotations.is_empty() {
+            state.serialize_entry(
+                "logoRecognitionAnnotations",
+                &self.logo_recognition_annotations,
+            )?;
+        }
+        if !self.person_detection_annotations.is_empty() {
+            state.serialize_entry(
+                "personDetectionAnnotations",
+                &self.person_detection_annotations,
+            )?;
+        }
+        if self.error.is_some() {
+            state.serialize_entry("error", &self.error)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Video annotation response. Included in the `response`
 /// field of the `Operation` returned by the `GetOperation`
 /// call of the `google::longrunning::Operations` service.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateVideoResponse {
     /// Annotation results for all videos specified in `AnnotateVideoRequest`.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub annotation_results: std::vec::Vec<crate::model::VideoAnnotationResults>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2233,44 +6127,137 @@ impl wkt::message::Message for AnnotateVideoResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AnnotateVideoResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __annotation_results,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AnnotateVideoResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "annotationResults" => Ok(__FieldTag::__annotation_results),
+                            "annotation_results" => Ok(__FieldTag::__annotation_results),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AnnotateVideoResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AnnotateVideoResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__annotation_results => {
+                            if !fields.insert(__FieldTag::__annotation_results) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for annotation_results",
+                                ));
+                            }
+                            result.annotation_results = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::VideoAnnotationResults>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AnnotateVideoResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.annotation_results.is_empty() {
+            state.serialize_entry("annotationResults", &self.annotation_results)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Annotation progress for a single video.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct VideoAnnotationProgress {
     /// Video file location in
     /// [Cloud Storage](https://cloud.google.com/storage/).
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub input_uri: std::string::String,
 
     /// Approximate percentage processed thus far. Guaranteed to be
     /// 100 when fully processed.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub progress_percent: i32,
 
     /// Time when the request was received.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Timestamp>,
 
     /// Time of the most recent update.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Specifies which feature is being tracked if the request contains more than
     /// one feature.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub feature: crate::model::Feature,
 
     /// Specifies which segment is being tracked if the request contains more than
     /// one segment.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub segment: std::option::Option<crate::model::VideoSegment>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2358,20 +6345,212 @@ impl wkt::message::Message for VideoAnnotationProgress {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for VideoAnnotationProgress {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __input_uri,
+            __progress_percent,
+            __start_time,
+            __update_time,
+            __feature,
+            __segment,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for VideoAnnotationProgress")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "inputUri" => Ok(__FieldTag::__input_uri),
+                            "input_uri" => Ok(__FieldTag::__input_uri),
+                            "progressPercent" => Ok(__FieldTag::__progress_percent),
+                            "progress_percent" => Ok(__FieldTag::__progress_percent),
+                            "startTime" => Ok(__FieldTag::__start_time),
+                            "start_time" => Ok(__FieldTag::__start_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "feature" => Ok(__FieldTag::__feature),
+                            "segment" => Ok(__FieldTag::__segment),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = VideoAnnotationProgress;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct VideoAnnotationProgress")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__input_uri => {
+                            if !fields.insert(__FieldTag::__input_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for input_uri",
+                                ));
+                            }
+                            result.input_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__progress_percent => {
+                            if !fields.insert(__FieldTag::__progress_percent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for progress_percent",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.progress_percent =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__start_time => {
+                            if !fields.insert(__FieldTag::__start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_time",
+                                ));
+                            }
+                            result.start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__feature => {
+                            if !fields.insert(__FieldTag::__feature) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for feature",
+                                ));
+                            }
+                            result.feature = map
+                                .next_value::<std::option::Option<crate::model::Feature>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__segment => {
+                            if !fields.insert(__FieldTag::__segment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segment",
+                                ));
+                            }
+                            result.segment = map
+                                .next_value::<std::option::Option<crate::model::VideoSegment>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for VideoAnnotationProgress {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.input_uri.is_empty() {
+            state.serialize_entry("inputUri", &self.input_uri)?;
+        }
+        if !wkt::internal::is_default(&self.progress_percent) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("progressPercent", &__With(&self.progress_percent))?;
+        }
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !wkt::internal::is_default(&self.feature) {
+            state.serialize_entry("feature", &self.feature)?;
+        }
+        if self.segment.is_some() {
+            state.serialize_entry("segment", &self.segment)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Video annotation progress. Included in the `metadata`
 /// field of the `Operation` returned by the `GetOperation`
 /// call of the `google::longrunning::Operations` service.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AnnotateVideoProgress {
     /// Progress metadata for all videos specified in `AnnotateVideoRequest`.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub annotation_progress: std::vec::Vec<crate::model::VideoAnnotationProgress>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2398,10 +6577,113 @@ impl wkt::message::Message for AnnotateVideoProgress {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AnnotateVideoProgress {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __annotation_progress,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AnnotateVideoProgress")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "annotationProgress" => Ok(__FieldTag::__annotation_progress),
+                            "annotation_progress" => Ok(__FieldTag::__annotation_progress),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AnnotateVideoProgress;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AnnotateVideoProgress")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__annotation_progress => {
+                            if !fields.insert(__FieldTag::__annotation_progress) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for annotation_progress",
+                                ));
+                            }
+                            result.annotation_progress = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::VideoAnnotationProgress>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AnnotateVideoProgress {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.annotation_progress.is_empty() {
+            state.serialize_entry("annotationProgress", &self.annotation_progress)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Config for SPEECH_TRANSCRIPTION.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechTranscriptionConfig {
     /// Required. *Required* The language of the supplied audio as a
@@ -2409,8 +6691,6 @@ pub struct SpeechTranscriptionConfig {
     /// Example: "en-US".
     /// See [Language Support](https://cloud.google.com/speech/docs/languages)
     /// for a list of the currently supported language codes.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
     /// Optional. Maximum number of recognition hypotheses to be returned.
@@ -2418,21 +6698,15 @@ pub struct SpeechTranscriptionConfig {
     /// within each `SpeechTranscription`. The server may return fewer than
     /// `max_alternatives`. Valid values are `0`-`30`. A value of `0` or `1` will
     /// return a maximum of one. If omitted, will return a maximum of one.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub max_alternatives: i32,
 
     /// Optional. If set to `true`, the server will attempt to filter out
     /// profanities, replacing all but the initial character in each filtered word
     /// with asterisks, e.g. "f***". If set to `false` or omitted, profanities
     /// won't be filtered out.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub filter_profanity: bool,
 
     /// Optional. A means to provide context to assist the speech recognition.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub speech_contexts: std::vec::Vec<crate::model::SpeechContext>,
 
     /// Optional. If 'true', adds punctuation to recognition result hypotheses.
@@ -2441,14 +6715,10 @@ pub struct SpeechTranscriptionConfig {
     /// does not add punctuation to result hypotheses. NOTE: "This is currently
     /// offered as an experimental service, complimentary to all users. In the
     /// future this may be exclusively available as a premium feature."
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_automatic_punctuation: bool,
 
     /// Optional. For file formats, such as MXF or MKV, supporting multiple audio
     /// tracks, specify up to two tracks. Default: track 0.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub audio_tracks: std::vec::Vec<i32>,
 
     /// Optional. If 'true', enables speaker detection for each recognized word in
@@ -2458,25 +6728,18 @@ pub struct SpeechTranscriptionConfig {
     /// audio for the top alternative in every consecutive response.
     /// This is done in order to improve our speaker tags as our models learn to
     /// identify the speakers in the conversation over time.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_speaker_diarization: bool,
 
     /// Optional. If set, specifies the estimated number of speakers in the
     /// conversation. If not set, defaults to '2'. Ignored unless
     /// enable_speaker_diarization is set to true.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub diarization_speaker_count: i32,
 
     /// Optional. If `true`, the top result includes a list of words and the
     /// confidence for those words. If `false`, no word-level confidence
     /// information is returned. The default is `false`.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub enable_word_confidence: bool,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2556,11 +6819,317 @@ impl wkt::message::Message for SpeechTranscriptionConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SpeechTranscriptionConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __language_code,
+            __max_alternatives,
+            __filter_profanity,
+            __speech_contexts,
+            __enable_automatic_punctuation,
+            __audio_tracks,
+            __enable_speaker_diarization,
+            __diarization_speaker_count,
+            __enable_word_confidence,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SpeechTranscriptionConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "languageCode" => Ok(__FieldTag::__language_code),
+                            "language_code" => Ok(__FieldTag::__language_code),
+                            "maxAlternatives" => Ok(__FieldTag::__max_alternatives),
+                            "max_alternatives" => Ok(__FieldTag::__max_alternatives),
+                            "filterProfanity" => Ok(__FieldTag::__filter_profanity),
+                            "filter_profanity" => Ok(__FieldTag::__filter_profanity),
+                            "speechContexts" => Ok(__FieldTag::__speech_contexts),
+                            "speech_contexts" => Ok(__FieldTag::__speech_contexts),
+                            "enableAutomaticPunctuation" => {
+                                Ok(__FieldTag::__enable_automatic_punctuation)
+                            }
+                            "enable_automatic_punctuation" => {
+                                Ok(__FieldTag::__enable_automatic_punctuation)
+                            }
+                            "audioTracks" => Ok(__FieldTag::__audio_tracks),
+                            "audio_tracks" => Ok(__FieldTag::__audio_tracks),
+                            "enableSpeakerDiarization" => {
+                                Ok(__FieldTag::__enable_speaker_diarization)
+                            }
+                            "enable_speaker_diarization" => {
+                                Ok(__FieldTag::__enable_speaker_diarization)
+                            }
+                            "diarizationSpeakerCount" => {
+                                Ok(__FieldTag::__diarization_speaker_count)
+                            }
+                            "diarization_speaker_count" => {
+                                Ok(__FieldTag::__diarization_speaker_count)
+                            }
+                            "enableWordConfidence" => Ok(__FieldTag::__enable_word_confidence),
+                            "enable_word_confidence" => Ok(__FieldTag::__enable_word_confidence),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SpeechTranscriptionConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SpeechTranscriptionConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__language_code => {
+                            if !fields.insert(__FieldTag::__language_code) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for language_code",
+                                ));
+                            }
+                            result.language_code = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__max_alternatives => {
+                            if !fields.insert(__FieldTag::__max_alternatives) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_alternatives",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_alternatives =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__filter_profanity => {
+                            if !fields.insert(__FieldTag::__filter_profanity) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter_profanity",
+                                ));
+                            }
+                            result.filter_profanity = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__speech_contexts => {
+                            if !fields.insert(__FieldTag::__speech_contexts) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for speech_contexts",
+                                ));
+                            }
+                            result.speech_contexts = map.next_value::<std::option::Option<std::vec::Vec<crate::model::SpeechContext>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__enable_automatic_punctuation => {
+                            if !fields.insert(__FieldTag::__enable_automatic_punctuation) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_automatic_punctuation",
+                                ));
+                            }
+                            result.enable_automatic_punctuation = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__audio_tracks => {
+                            if !fields.insert(__FieldTag::__audio_tracks) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for audio_tracks",
+                                ));
+                            }
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.audio_tracks = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__enable_speaker_diarization => {
+                            if !fields.insert(__FieldTag::__enable_speaker_diarization) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_speaker_diarization",
+                                ));
+                            }
+                            result.enable_speaker_diarization = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__diarization_speaker_count => {
+                            if !fields.insert(__FieldTag::__diarization_speaker_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for diarization_speaker_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.diarization_speaker_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__enable_word_confidence => {
+                            if !fields.insert(__FieldTag::__enable_word_confidence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for enable_word_confidence",
+                                ));
+                            }
+                            result.enable_word_confidence = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SpeechTranscriptionConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.language_code.is_empty() {
+            state.serialize_entry("languageCode", &self.language_code)?;
+        }
+        if !wkt::internal::is_default(&self.max_alternatives) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("maxAlternatives", &__With(&self.max_alternatives))?;
+        }
+        if !wkt::internal::is_default(&self.filter_profanity) {
+            state.serialize_entry("filterProfanity", &self.filter_profanity)?;
+        }
+        if !self.speech_contexts.is_empty() {
+            state.serialize_entry("speechContexts", &self.speech_contexts)?;
+        }
+        if !wkt::internal::is_default(&self.enable_automatic_punctuation) {
+            state.serialize_entry(
+                "enableAutomaticPunctuation",
+                &self.enable_automatic_punctuation,
+            )?;
+        }
+        if !self.audio_tracks.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("audioTracks", &__With(&self.audio_tracks))?;
+        }
+        if !wkt::internal::is_default(&self.enable_speaker_diarization) {
+            state.serialize_entry("enableSpeakerDiarization", &self.enable_speaker_diarization)?;
+        }
+        if !wkt::internal::is_default(&self.diarization_speaker_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "diarizationSpeakerCount",
+                &__With(&self.diarization_speaker_count),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.enable_word_confidence) {
+            state.serialize_entry("enableWordConfidence", &self.enable_word_confidence)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Provides "hints" to the speech recognizer to favor specific words and phrases
 /// in the results.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechContext {
     /// Optional. A list of strings containing words and phrases "hints" so that
@@ -2569,11 +7138,8 @@ pub struct SpeechContext {
     /// specific commands are typically spoken by the user. This can also be used
     /// to add additional words to the vocabulary of the recognizer. See
     /// [usage limits](https://cloud.google.com/speech/limits#content).
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub phrases: std::vec::Vec<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2600,28 +7166,121 @@ impl wkt::message::Message for SpeechContext {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SpeechContext {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __phrases,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SpeechContext")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "phrases" => Ok(__FieldTag::__phrases),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SpeechContext;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SpeechContext")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__phrases => {
+                            if !fields.insert(__FieldTag::__phrases) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for phrases",
+                                ));
+                            }
+                            result.phrases = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SpeechContext {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.phrases.is_empty() {
+            state.serialize_entry("phrases", &self.phrases)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A speech recognition result corresponding to a portion of the audio.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechTranscription {
     /// May contain one or more recognition hypotheses (up to the maximum specified
     /// in `max_alternatives`).  These alternatives are ordered in terms of
     /// accuracy, with the top (first) alternative being the most probable, as
     /// ranked by the recognizer.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub alternatives: std::vec::Vec<crate::model::SpeechRecognitionAlternative>,
 
     /// Output only. The [BCP-47](https://www.rfc-editor.org/rfc/bcp/bcp47.txt)
     /// language tag of the language in this result. This language code was
     /// detected to have the most likelihood of being spoken in the audio.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub language_code: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2654,15 +7313,131 @@ impl wkt::message::Message for SpeechTranscription {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SpeechTranscription {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __alternatives,
+            __language_code,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SpeechTranscription")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "alternatives" => Ok(__FieldTag::__alternatives),
+                            "languageCode" => Ok(__FieldTag::__language_code),
+                            "language_code" => Ok(__FieldTag::__language_code),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SpeechTranscription;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SpeechTranscription")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__alternatives => {
+                            if !fields.insert(__FieldTag::__alternatives) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for alternatives",
+                                ));
+                            }
+                            result.alternatives = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::SpeechRecognitionAlternative>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__language_code => {
+                            if !fields.insert(__FieldTag::__language_code) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for language_code",
+                                ));
+                            }
+                            result.language_code = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SpeechTranscription {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.alternatives.is_empty() {
+            state.serialize_entry("alternatives", &self.alternatives)?;
+        }
+        if !self.language_code.is_empty() {
+            state.serialize_entry("languageCode", &self.language_code)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Alternative hypotheses (a.k.a. n-best list).
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SpeechRecognitionAlternative {
     /// Transcript text representing the words that the user spoke.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub transcript: std::string::String,
 
     /// Output only. The confidence estimate between 0.0 and 1.0. A higher number
@@ -2671,18 +7446,13 @@ pub struct SpeechRecognitionAlternative {
     /// This field is not guaranteed to be accurate and users should not rely on it
     /// to be always provided.
     /// The default of 0.0 is a sentinel value indicating `confidence` was not set.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// Output only. A list of word-specific information for each recognized word.
     /// Note: When `enable_speaker_diarization` is set to true, you will see all
     /// the words from the beginning of the audio.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub words: std::vec::Vec<crate::model::WordInfo>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2721,31 +7491,173 @@ impl wkt::message::Message for SpeechRecognitionAlternative {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SpeechRecognitionAlternative {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __transcript,
+            __confidence,
+            __words,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SpeechRecognitionAlternative")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "transcript" => Ok(__FieldTag::__transcript),
+                            "confidence" => Ok(__FieldTag::__confidence),
+                            "words" => Ok(__FieldTag::__words),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SpeechRecognitionAlternative;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SpeechRecognitionAlternative")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__transcript => {
+                            if !fields.insert(__FieldTag::__transcript) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for transcript",
+                                ));
+                            }
+                            result.transcript = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__confidence => {
+                            if !fields.insert(__FieldTag::__confidence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for confidence",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.confidence = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__words => {
+                            if !fields.insert(__FieldTag::__words) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for words",
+                                ));
+                            }
+                            result.words = map.next_value::<std::option::Option<std::vec::Vec<crate::model::WordInfo>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SpeechRecognitionAlternative {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.transcript.is_empty() {
+            state.serialize_entry("transcript", &self.transcript)?;
+        }
+        if !wkt::internal::is_default(&self.confidence) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("confidence", &__With(&self.confidence))?;
+        }
+        if !self.words.is_empty() {
+            state.serialize_entry("words", &self.words)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Word-specific information for recognized words. Word information is only
 /// included in the response when certain request parameters are set, such
 /// as `enable_word_time_offsets`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct WordInfo {
     /// Time offset relative to the beginning of the audio, and
     /// corresponding to the start of the spoken word. This field is only set if
     /// `enable_word_time_offsets=true` and only in the top hypothesis. This is an
     /// experimental feature and the accuracy of the time offset can vary.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Duration>,
 
     /// Time offset relative to the beginning of the audio, and
     /// corresponding to the end of the spoken word. This field is only set if
     /// `enable_word_time_offsets=true` and only in the top hypothesis. This is an
     /// experimental feature and the accuracy of the time offset can vary.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Duration>,
 
     /// The word corresponding to this set of information.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub word: std::string::String,
 
     /// Output only. The confidence estimate between 0.0 and 1.0. A higher number
@@ -2754,19 +7666,14 @@ pub struct WordInfo {
     /// This field is not guaranteed to be accurate and users should not rely on it
     /// to be always provided.
     /// The default of 0.0 is a sentinel value indicating `confidence` was not set.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// Output only. A distinct integer value is assigned for every speaker within
     /// the audio. This field specifies which one of those speakers was detected to
     /// have spoken this word. Value ranges from 1 up to diarization_speaker_count,
     /// and is only set if speaker diarization is enabled.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub speaker_tag: i32,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2836,25 +7743,217 @@ impl wkt::message::Message for WordInfo {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for WordInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __start_time,
+            __end_time,
+            __word,
+            __confidence,
+            __speaker_tag,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for WordInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "startTime" => Ok(__FieldTag::__start_time),
+                            "start_time" => Ok(__FieldTag::__start_time),
+                            "endTime" => Ok(__FieldTag::__end_time),
+                            "end_time" => Ok(__FieldTag::__end_time),
+                            "word" => Ok(__FieldTag::__word),
+                            "confidence" => Ok(__FieldTag::__confidence),
+                            "speakerTag" => Ok(__FieldTag::__speaker_tag),
+                            "speaker_tag" => Ok(__FieldTag::__speaker_tag),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = WordInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct WordInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__start_time => {
+                            if !fields.insert(__FieldTag::__start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_time",
+                                ));
+                            }
+                            result.start_time =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__end_time => {
+                            if !fields.insert(__FieldTag::__end_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_time",
+                                ));
+                            }
+                            result.end_time =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__word => {
+                            if !fields.insert(__FieldTag::__word) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for word",
+                                ));
+                            }
+                            result.word = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__confidence => {
+                            if !fields.insert(__FieldTag::__confidence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for confidence",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.confidence = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__speaker_tag => {
+                            if !fields.insert(__FieldTag::__speaker_tag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for speaker_tag",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.speaker_tag = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for WordInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if !self.word.is_empty() {
+            state.serialize_entry("word", &self.word)?;
+        }
+        if !wkt::internal::is_default(&self.confidence) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("confidence", &__With(&self.confidence))?;
+        }
+        if !wkt::internal::is_default(&self.speaker_tag) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("speakerTag", &__With(&self.speaker_tag))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A vertex represents a 2D point in the image.
 /// NOTE: the normalized vertex coordinates are relative to the original image
 /// and range from 0 to 1.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedVertex {
     /// X coordinate.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub x: f32,
 
     /// Y coordinate.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub y: f32,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2882,6 +7981,159 @@ impl wkt::message::Message for NormalizedVertex {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for NormalizedVertex {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __x,
+            __y,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for NormalizedVertex")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "x" => Ok(__FieldTag::__x),
+                            "y" => Ok(__FieldTag::__y),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = NormalizedVertex;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct NormalizedVertex")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__x => {
+                            if !fields.insert(__FieldTag::__x) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for x",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.x = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__y => {
+                            if !fields.insert(__FieldTag::__y) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for y",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.y = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for NormalizedVertex {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.x) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("x", &__With(&self.x))?;
+        }
+        if !wkt::internal::is_default(&self.y) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("y", &__With(&self.y))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Normalized bounding polygon for text (that might not be aligned with axis).
 /// Contains list of the corner points in clockwise order starting from
 /// top-left corner. For example, for a rectangular bounding box:
@@ -2899,17 +8151,12 @@ impl wkt::message::Message for NormalizedVertex {
 /// and the vertex order will still be (0, 1, 2, 3). Note that values can be less
 /// than 0, or greater than 1 due to trignometric calculations for location of
 /// the box.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct NormalizedBoundingPoly {
     /// Normalized vertices of the bounding polygon.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub vertices: std::vec::Vec<crate::model::NormalizedVertex>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2936,28 +8183,124 @@ impl wkt::message::Message for NormalizedBoundingPoly {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for NormalizedBoundingPoly {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __vertices,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for NormalizedBoundingPoly")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "vertices" => Ok(__FieldTag::__vertices),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = NormalizedBoundingPoly;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct NormalizedBoundingPoly")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__vertices => {
+                            if !fields.insert(__FieldTag::__vertices) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vertices",
+                                ));
+                            }
+                            result.vertices =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::NormalizedVertex>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for NormalizedBoundingPoly {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.vertices.is_empty() {
+            state.serialize_entry("vertices", &self.vertices)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Video segment level annotation results for text detection.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextSegment {
     /// Video segment where a text snippet was detected.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub segment: std::option::Option<crate::model::VideoSegment>,
 
     /// Confidence for the track of detected text. It is calculated as the highest
     /// over all frames where OCR detected text appears.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// Information related to the frames where OCR detected text appears.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frames: std::vec::Vec<crate::model::TextFrame>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3008,23 +8351,165 @@ impl wkt::message::Message for TextSegment {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for TextSegment {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __segment,
+            __confidence,
+            __frames,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TextSegment")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "segment" => Ok(__FieldTag::__segment),
+                            "confidence" => Ok(__FieldTag::__confidence),
+                            "frames" => Ok(__FieldTag::__frames),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = TextSegment;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TextSegment")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__segment => {
+                            if !fields.insert(__FieldTag::__segment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segment",
+                                ));
+                            }
+                            result.segment = map
+                                .next_value::<std::option::Option<crate::model::VideoSegment>>()?;
+                        }
+                        __FieldTag::__confidence => {
+                            if !fields.insert(__FieldTag::__confidence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for confidence",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.confidence = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__frames => {
+                            if !fields.insert(__FieldTag::__frames) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for frames",
+                                ));
+                            }
+                            result.frames = map.next_value::<std::option::Option<std::vec::Vec<crate::model::TextFrame>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for TextSegment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.segment.is_some() {
+            state.serialize_entry("segment", &self.segment)?;
+        }
+        if !wkt::internal::is_default(&self.confidence) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("confidence", &__With(&self.confidence))?;
+        }
+        if !self.frames.is_empty() {
+            state.serialize_entry("frames", &self.frames)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Video frame level annotation results for text annotation (OCR).
 /// Contains information regarding timestamp and bounding box locations for the
 /// frames containing detected OCR text snippets.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextFrame {
     /// Bounding polygon of the detected text for this frame.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rotated_bounding_box: std::option::Option<crate::model::NormalizedBoundingPoly>,
 
     /// Timestamp of this frame.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub time_offset: std::option::Option<wkt::Duration>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3076,30 +8561,138 @@ impl wkt::message::Message for TextFrame {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for TextFrame {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __rotated_bounding_box,
+            __time_offset,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TextFrame")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "rotatedBoundingBox" => Ok(__FieldTag::__rotated_bounding_box),
+                            "rotated_bounding_box" => Ok(__FieldTag::__rotated_bounding_box),
+                            "timeOffset" => Ok(__FieldTag::__time_offset),
+                            "time_offset" => Ok(__FieldTag::__time_offset),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = TextFrame;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TextFrame")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__rotated_bounding_box => {
+                            if !fields.insert(__FieldTag::__rotated_bounding_box) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for rotated_bounding_box",
+                                ));
+                            }
+                            result.rotated_bounding_box = map.next_value::<std::option::Option<crate::model::NormalizedBoundingPoly>>()?
+                                ;
+                        }
+                        __FieldTag::__time_offset => {
+                            if !fields.insert(__FieldTag::__time_offset) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for time_offset",
+                                ));
+                            }
+                            result.time_offset =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for TextFrame {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.rotated_bounding_box.is_some() {
+            state.serialize_entry("rotatedBoundingBox", &self.rotated_bounding_box)?;
+        }
+        if self.time_offset.is_some() {
+            state.serialize_entry("timeOffset", &self.time_offset)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Annotations related to one detected OCR text snippet. This will contain the
 /// corresponding text, confidence value, and frame level information for each
 /// detection.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TextAnnotation {
     /// The detected text.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub text: std::string::String,
 
     /// All video segments where OCR detected text appears.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segments: std::vec::Vec<crate::model::TextSegment>,
 
     /// Feature version.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3138,22 +8731,147 @@ impl wkt::message::Message for TextAnnotation {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for TextAnnotation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __text,
+            __segments,
+            __version,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TextAnnotation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "text" => Ok(__FieldTag::__text),
+                            "segments" => Ok(__FieldTag::__segments),
+                            "version" => Ok(__FieldTag::__version),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = TextAnnotation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TextAnnotation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__text => {
+                            if !fields.insert(__FieldTag::__text) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for text",
+                                ));
+                            }
+                            result.text = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__segments => {
+                            if !fields.insert(__FieldTag::__segments) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segments",
+                                ));
+                            }
+                            result.segments = map.next_value::<std::option::Option<std::vec::Vec<crate::model::TextSegment>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__version => {
+                            if !fields.insert(__FieldTag::__version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for version",
+                                ));
+                            }
+                            result.version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for TextAnnotation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.text.is_empty() {
+            state.serialize_entry("text", &self.text)?;
+        }
+        if !self.segments.is_empty() {
+            state.serialize_entry("segments", &self.segments)?;
+        }
+        if !self.version.is_empty() {
+            state.serialize_entry("version", &self.version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Video frame level annotations for object detection and tracking. This field
 /// stores per frame location, time offset, and confidence.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectTrackingFrame {
     /// The normalized bounding box location of this object track for the frame.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub normalized_bounding_box: std::option::Option<crate::model::NormalizedBoundingBox>,
 
     /// The timestamp of the frame in microseconds.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub time_offset: std::option::Option<wkt::Duration>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3205,40 +8923,146 @@ impl wkt::message::Message for ObjectTrackingFrame {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ObjectTrackingFrame {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __normalized_bounding_box,
+            __time_offset,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ObjectTrackingFrame")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "normalizedBoundingBox" => Ok(__FieldTag::__normalized_bounding_box),
+                            "normalized_bounding_box" => Ok(__FieldTag::__normalized_bounding_box),
+                            "timeOffset" => Ok(__FieldTag::__time_offset),
+                            "time_offset" => Ok(__FieldTag::__time_offset),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ObjectTrackingFrame;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ObjectTrackingFrame")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__normalized_bounding_box => {
+                            if !fields.insert(__FieldTag::__normalized_bounding_box) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for normalized_bounding_box",
+                                ));
+                            }
+                            result.normalized_bounding_box = map.next_value::<std::option::Option<crate::model::NormalizedBoundingBox>>()?
+                                ;
+                        }
+                        __FieldTag::__time_offset => {
+                            if !fields.insert(__FieldTag::__time_offset) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for time_offset",
+                                ));
+                            }
+                            result.time_offset =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ObjectTrackingFrame {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.normalized_bounding_box.is_some() {
+            state.serialize_entry("normalizedBoundingBox", &self.normalized_bounding_box)?;
+        }
+        if self.time_offset.is_some() {
+            state.serialize_entry("timeOffset", &self.time_offset)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Annotations corresponding to one tracked object.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ObjectTrackingAnnotation {
     /// Entity to specify the object category that this track is labeled as.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub entity: std::option::Option<crate::model::Entity>,
 
     /// Object category's labeling confidence of this track.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")]
     pub confidence: f32,
 
     /// Information corresponding to all frames where this object track appears.
     /// Non-streaming batch mode: it may be one or multiple ObjectTrackingFrame
     /// messages in frames.
     /// Streaming mode: it can only be one ObjectTrackingFrame message in frames.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frames: std::vec::Vec<crate::model::ObjectTrackingFrame>,
 
     /// Feature version.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub version: std::string::String,
 
     /// Different representation of tracking info in non-streaming batch
     /// and streaming modes.
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub track_info: std::option::Option<crate::model::object_tracking_annotation::TrackInfo>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3364,6 +9188,240 @@ impl wkt::message::Message for ObjectTrackingAnnotation {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ObjectTrackingAnnotation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __segment,
+            __track_id,
+            __entity,
+            __confidence,
+            __frames,
+            __version,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ObjectTrackingAnnotation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "segment" => Ok(__FieldTag::__segment),
+                            "trackId" => Ok(__FieldTag::__track_id),
+                            "track_id" => Ok(__FieldTag::__track_id),
+                            "entity" => Ok(__FieldTag::__entity),
+                            "confidence" => Ok(__FieldTag::__confidence),
+                            "frames" => Ok(__FieldTag::__frames),
+                            "version" => Ok(__FieldTag::__version),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ObjectTrackingAnnotation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ObjectTrackingAnnotation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__segment => {
+                            if !fields.insert(__FieldTag::__segment) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segment",
+                                ));
+                            }
+                            if result.track_info.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `track_info`, a oneof with full ID .google.cloud.videointelligence.v1.ObjectTrackingAnnotation.segment, latest field was segment",
+                                ));
+                            }
+                            result.track_info = std::option::Option::Some(
+                                crate::model::object_tracking_annotation::TrackInfo::Segment(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::VideoSegment>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__track_id => {
+                            if !fields.insert(__FieldTag::__track_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for track_id",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            if result.track_info.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `track_info`, a oneof with full ID .google.cloud.videointelligence.v1.ObjectTrackingAnnotation.track_id, latest field was trackId",
+                                ));
+                            }
+                            result.track_info = std::option::Option::Some(
+                                crate::model::object_tracking_annotation::TrackInfo::TrackId(
+                                    map.next_value::<__With>()?.0.unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__entity => {
+                            if !fields.insert(__FieldTag::__entity) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entity",
+                                ));
+                            }
+                            result.entity =
+                                map.next_value::<std::option::Option<crate::model::Entity>>()?;
+                        }
+                        __FieldTag::__confidence => {
+                            if !fields.insert(__FieldTag::__confidence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for confidence",
+                                ));
+                            }
+                            struct __With(std::option::Option<f32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.confidence = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__frames => {
+                            if !fields.insert(__FieldTag::__frames) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for frames",
+                                ));
+                            }
+                            result.frames = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ObjectTrackingFrame>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__version => {
+                            if !fields.insert(__FieldTag::__version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for version",
+                                ));
+                            }
+                            result.version = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ObjectTrackingAnnotation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.segment() {
+            state.serialize_entry("segment", value)?;
+        }
+        if let Some(value) = self.track_id() {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("trackId", &__With(value))?;
+        }
+        if self.entity.is_some() {
+            state.serialize_entry("entity", &self.entity)?;
+        }
+        if !wkt::internal::is_default(&self.confidence) {
+            struct __With<'a>(&'a f32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("confidence", &__With(&self.confidence))?;
+        }
+        if !self.frames.is_empty() {
+            state.serialize_entry("frames", &self.frames)?;
+        }
+        if !self.version.is_empty() {
+            state.serialize_entry("version", &self.version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [ObjectTrackingAnnotation].
 pub mod object_tracking_annotation {
     #[allow(unused_imports)]
@@ -3371,9 +9429,7 @@ pub mod object_tracking_annotation {
 
     /// Different representation of tracking info in non-streaming batch
     /// and streaming modes.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum TrackInfo {
         /// Non-streaming batch mode ONLY.
@@ -3385,34 +9441,26 @@ pub mod object_tracking_annotation {
         /// Instead, we provide a unique identifiable integer track_id so that
         /// the customers can correlate the results of the ongoing
         /// ObjectTrackAnnotation of the same track_id over time.
-        TrackId(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")] i64),
+        TrackId(i64),
     }
 }
 
 /// Annotation corresponding to one detected, tracked and recognized logo class.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct LogoRecognitionAnnotation {
     /// Entity category information to specify the logo class that all the logo
     /// tracks within this LogoRecognitionAnnotation are recognized as.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub entity: std::option::Option<crate::model::Entity>,
 
     /// All logo tracks where the recognized logo appears. Each track corresponds
     /// to one logo instance appearing in consecutive frames.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub tracks: std::vec::Vec<crate::model::Track>,
 
     /// All video segments where the recognized logo appears. There might be
     /// multiple instances of the same logo class appearing in one VideoSegment.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub segments: std::vec::Vec<crate::model::VideoSegment>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3465,6 +9513,133 @@ impl LogoRecognitionAnnotation {
 impl wkt::message::Message for LogoRecognitionAnnotation {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.videointelligence.v1.LogoRecognitionAnnotation"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for LogoRecognitionAnnotation {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __entity,
+            __tracks,
+            __segments,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for LogoRecognitionAnnotation")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "entity" => Ok(__FieldTag::__entity),
+                            "tracks" => Ok(__FieldTag::__tracks),
+                            "segments" => Ok(__FieldTag::__segments),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = LogoRecognitionAnnotation;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct LogoRecognitionAnnotation")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__entity => {
+                            if !fields.insert(__FieldTag::__entity) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entity",
+                                ));
+                            }
+                            result.entity =
+                                map.next_value::<std::option::Option<crate::model::Entity>>()?;
+                        }
+                        __FieldTag::__tracks => {
+                            if !fields.insert(__FieldTag::__tracks) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for tracks",
+                                ));
+                            }
+                            result.tracks = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Track>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__segments => {
+                            if !fields.insert(__FieldTag::__segments) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for segments",
+                                ));
+                            }
+                            result.segments = map.next_value::<std::option::Option<std::vec::Vec<crate::model::VideoSegment>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for LogoRecognitionAnnotation {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.entity.is_some() {
+            state.serialize_entry("entity", &self.entity)?;
+        }
+        if !self.tracks.is_empty() {
+            state.serialize_entry("tracks", &self.tracks)?;
+        }
+        if !self.segments.is_empty() {
+            state.serialize_entry("segments", &self.segments)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 

@@ -33,16 +33,12 @@ extern crate tracing;
 extern crate wkt;
 
 /// Describes an API diff request.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeThreatListDiffRequest {
     /// Required. The threat list to update. Only a single ThreatType should be
     /// specified per request. If you want to handle multiple ThreatTypes, you must
     /// make one request per ThreatType.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub threat_type: crate::model::ThreatType,
 
     /// The current version token of the client for the requested list (the
@@ -50,16 +46,12 @@ pub struct ComputeThreatListDiffRequest {
     /// If the client does not have a version token (this is the first time calling
     /// ComputeThreatListDiff), this may be left empty and a full database
     /// snapshot will be returned.
-    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub version_token: ::bytes::Bytes,
 
     /// Required. The constraints associated with this request.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub constraints:
         std::option::Option<crate::model::compute_threat_list_diff_request::Constraints>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -108,37 +100,181 @@ impl wkt::message::Message for ComputeThreatListDiffRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ComputeThreatListDiffRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __threat_type,
+            __version_token,
+            __constraints,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ComputeThreatListDiffRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "threatType" => Ok(__FieldTag::__threat_type),
+                            "threat_type" => Ok(__FieldTag::__threat_type),
+                            "versionToken" => Ok(__FieldTag::__version_token),
+                            "version_token" => Ok(__FieldTag::__version_token),
+                            "constraints" => Ok(__FieldTag::__constraints),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ComputeThreatListDiffRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ComputeThreatListDiffRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__threat_type => {
+                            if !fields.insert(__FieldTag::__threat_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for threat_type",
+                                ));
+                            }
+                            result.threat_type = map
+                                .next_value::<std::option::Option<crate::model::ThreatType>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__version_token => {
+                            if !fields.insert(__FieldTag::__version_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for version_token",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.version_token =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__constraints => {
+                            if !fields.insert(__FieldTag::__constraints) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for constraints",
+                                ));
+                            }
+                            result.constraints = map.next_value::<std::option::Option<
+                                crate::model::compute_threat_list_diff_request::Constraints,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ComputeThreatListDiffRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.threat_type) {
+            state.serialize_entry("threatType", &self.threat_type)?;
+        }
+        if !self.version_token.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("versionToken", &__With(&self.version_token))?;
+        }
+        if self.constraints.is_some() {
+            state.serialize_entry("constraints", &self.constraints)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [ComputeThreatListDiffRequest].
 pub mod compute_threat_list_diff_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// The constraints for this diff.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Constraints {
         /// The maximum size in number of entries. The diff will not contain more
         /// entries than this value.  This should be a power of 2 between 2**10 and
         /// 2**20.  If zero, no diff size limit is set.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub max_diff_entries: i32,
 
         /// Sets the maximum number of entries that the client is willing to have
         /// in the local database. This should be a power of 2 between 2**10 and
         /// 2**20. If zero, no database size limit is set.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub max_database_entries: i32,
 
         /// The compression types supported by the client.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub supported_compressions: std::vec::Vec<crate::model::CompressionType>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -176,50 +312,219 @@ pub mod compute_threat_list_diff_request {
             "type.googleapis.com/google.cloud.webrisk.v1.ComputeThreatListDiffRequest.Constraints"
         }
     }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Constraints {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __max_diff_entries,
+                __max_database_entries,
+                __supported_compressions,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Constraints")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "maxDiffEntries" => Ok(__FieldTag::__max_diff_entries),
+                                "max_diff_entries" => Ok(__FieldTag::__max_diff_entries),
+                                "maxDatabaseEntries" => Ok(__FieldTag::__max_database_entries),
+                                "max_database_entries" => Ok(__FieldTag::__max_database_entries),
+                                "supportedCompressions" => Ok(__FieldTag::__supported_compressions),
+                                "supported_compressions" => {
+                                    Ok(__FieldTag::__supported_compressions)
+                                }
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Constraints;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Constraints")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__max_diff_entries => {
+                                if !fields.insert(__FieldTag::__max_diff_entries) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for max_diff_entries",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.max_diff_entries =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__max_database_entries => {
+                                if !fields.insert(__FieldTag::__max_database_entries) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for max_database_entries",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.max_database_entries =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__supported_compressions => {
+                                if !fields.insert(__FieldTag::__supported_compressions) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for supported_compressions",
+                                    ));
+                                }
+                                result.supported_compressions = map
+                                    .next_value::<std::option::Option<
+                                        std::vec::Vec<crate::model::CompressionType>,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Constraints {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.max_diff_entries) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("maxDiffEntries", &__With(&self.max_diff_entries))?;
+            }
+            if !wkt::internal::is_default(&self.max_database_entries) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("maxDatabaseEntries", &__With(&self.max_database_entries))?;
+            }
+            if !self.supported_compressions.is_empty() {
+                state.serialize_entry("supportedCompressions", &self.supported_compressions)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
 }
 
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ComputeThreatListDiffResponse {
     /// The type of response. This may indicate that an action must be taken by the
     /// client when the response is received.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub response_type: crate::model::compute_threat_list_diff_response::ResponseType,
 
     /// A set of entries to add to a local threat type's list.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub additions: std::option::Option<crate::model::ThreatEntryAdditions>,
 
     /// A set of entries to remove from a local threat type's list.
     /// This field may be empty.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub removals: std::option::Option<crate::model::ThreatEntryRemovals>,
 
     /// The new opaque client version token. This should be retained by the client
     /// and passed into the next call of ComputeThreatListDiff as 'version_token'.
     /// A separate version token should be stored and used for each threatList.
-    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub new_version_token: ::bytes::Bytes,
 
     /// The expected SHA256 hash of the client state; that is, of the sorted list
     /// of all hashes present in the database after applying the provided diff.
     /// If the client state doesn't match the expected state, the client must
     /// discard this diff and retry later.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub checksum: std::option::Option<crate::model::compute_threat_list_diff_response::Checksum>,
 
     /// The soonest the client should wait before issuing any diff
     /// request. Querying sooner is unlikely to produce a meaningful diff.
     /// Waiting longer is acceptable considering the use case.
     /// If this field is not set clients may update as soon as they want.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub recommended_next_diff: std::option::Option<wkt::Timestamp>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -324,24 +629,217 @@ impl wkt::message::Message for ComputeThreatListDiffResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ComputeThreatListDiffResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __response_type,
+            __additions,
+            __removals,
+            __new_version_token,
+            __checksum,
+            __recommended_next_diff,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ComputeThreatListDiffResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "responseType" => Ok(__FieldTag::__response_type),
+                            "response_type" => Ok(__FieldTag::__response_type),
+                            "additions" => Ok(__FieldTag::__additions),
+                            "removals" => Ok(__FieldTag::__removals),
+                            "newVersionToken" => Ok(__FieldTag::__new_version_token),
+                            "new_version_token" => Ok(__FieldTag::__new_version_token),
+                            "checksum" => Ok(__FieldTag::__checksum),
+                            "recommendedNextDiff" => Ok(__FieldTag::__recommended_next_diff),
+                            "recommended_next_diff" => Ok(__FieldTag::__recommended_next_diff),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ComputeThreatListDiffResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ComputeThreatListDiffResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__response_type => {
+                            if !fields.insert(__FieldTag::__response_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for response_type",
+                                ));
+                            }
+                            result.response_type = map
+                                .next_value::<std::option::Option<
+                                    crate::model::compute_threat_list_diff_response::ResponseType,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__additions => {
+                            if !fields.insert(__FieldTag::__additions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for additions",
+                                ));
+                            }
+                            result.additions = map.next_value::<std::option::Option<crate::model::ThreatEntryAdditions>>()?
+                                ;
+                        }
+                        __FieldTag::__removals => {
+                            if !fields.insert(__FieldTag::__removals) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for removals",
+                                ));
+                            }
+                            result.removals = map.next_value::<std::option::Option<crate::model::ThreatEntryRemovals>>()?
+                                ;
+                        }
+                        __FieldTag::__new_version_token => {
+                            if !fields.insert(__FieldTag::__new_version_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for new_version_token",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.new_version_token =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__checksum => {
+                            if !fields.insert(__FieldTag::__checksum) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for checksum",
+                                ));
+                            }
+                            result.checksum = map.next_value::<std::option::Option<
+                                crate::model::compute_threat_list_diff_response::Checksum,
+                            >>()?;
+                        }
+                        __FieldTag::__recommended_next_diff => {
+                            if !fields.insert(__FieldTag::__recommended_next_diff) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for recommended_next_diff",
+                                ));
+                            }
+                            result.recommended_next_diff =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ComputeThreatListDiffResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.response_type) {
+            state.serialize_entry("responseType", &self.response_type)?;
+        }
+        if self.additions.is_some() {
+            state.serialize_entry("additions", &self.additions)?;
+        }
+        if self.removals.is_some() {
+            state.serialize_entry("removals", &self.removals)?;
+        }
+        if !self.new_version_token.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("newVersionToken", &__With(&self.new_version_token))?;
+        }
+        if self.checksum.is_some() {
+            state.serialize_entry("checksum", &self.checksum)?;
+        }
+        if self.recommended_next_diff.is_some() {
+            state.serialize_entry("recommendedNextDiff", &self.recommended_next_diff)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [ComputeThreatListDiffResponse].
 pub mod compute_threat_list_diff_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// The expected state of a client's local database.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Checksum {
         /// The SHA256 hash of the client state; that is, of the sorted list of all
         /// hashes present in the database.
-        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
         pub sha256: ::bytes::Bytes,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -360,6 +858,134 @@ pub mod compute_threat_list_diff_response {
     impl wkt::message::Message for Checksum {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.webrisk.v1.ComputeThreatListDiffResponse.Checksum"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Checksum {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __sha256,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Checksum")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "sha256" => Ok(__FieldTag::__sha256),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Checksum;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Checksum")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__sha256 => {
+                                if !fields.insert(__FieldTag::__sha256) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for sha256",
+                                    ));
+                                }
+                                struct __With(std::option::Option<::bytes::Bytes>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::<
+                                            std::option::Option<serde_with::base64::Base64>,
+                                        >::deserialize(
+                                            deserializer
+                                        )
+                                        .map(__With)
+                                    }
+                                }
+                                result.sha256 = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Checksum {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.sha256.is_empty() {
+                struct __With<'a>(&'a ::bytes::Bytes);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("sha256", &__With(&self.sha256))?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -499,23 +1125,16 @@ pub mod compute_threat_list_diff_response {
 }
 
 /// Request to check URI entries against threatLists.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchUrisRequest {
     /// Required. The URI to be checked for matches.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Required. The ThreatLists to search in. Multiple ThreatLists may be
     /// specified.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub threat_types: std::vec::Vec<crate::model::ThreatType>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -548,16 +1167,128 @@ impl wkt::message::Message for SearchUrisRequest {
     }
 }
 
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SearchUrisRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __uri,
+            __threat_types,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SearchUrisRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "uri" => Ok(__FieldTag::__uri),
+                            "threatTypes" => Ok(__FieldTag::__threat_types),
+                            "threat_types" => Ok(__FieldTag::__threat_types),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SearchUrisRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SearchUrisRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__uri => {
+                            if !fields.insert(__FieldTag::__uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uri",
+                                ));
+                            }
+                            result.uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__threat_types => {
+                            if !fields.insert(__FieldTag::__threat_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for threat_types",
+                                ));
+                            }
+                            result.threat_types = map.next_value::<std::option::Option<std::vec::Vec<crate::model::ThreatType>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SearchUrisRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.uri.is_empty() {
+            state.serialize_entry("uri", &self.uri)?;
+        }
+        if !self.threat_types.is_empty() {
+            state.serialize_entry("threatTypes", &self.threat_types)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchUrisResponse {
     /// The threat list matches. This might be empty if the URI is on no list.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub threat: std::option::Option<crate::model::search_uris_response::ThreatUri>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -591,28 +1322,124 @@ impl wkt::message::Message for SearchUrisResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SearchUrisResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __threat,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SearchUrisResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "threat" => Ok(__FieldTag::__threat),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SearchUrisResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SearchUrisResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__threat => {
+                            if !fields.insert(__FieldTag::__threat) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for threat",
+                                ));
+                            }
+                            result.threat = map.next_value::<std::option::Option<
+                                crate::model::search_uris_response::ThreatUri,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SearchUrisResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.threat.is_some() {
+            state.serialize_entry("threat", &self.threat)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [SearchUrisResponse].
 pub mod search_uris_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Contains threat information on a matching uri.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ThreatUri {
         /// The ThreatList this threat belongs to.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub threat_types: std::vec::Vec<crate::model::ThreatType>,
 
         /// The cache lifetime for the returned match. Clients must not cache this
         /// response past this timestamp to avoid false positives.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub expire_time: std::option::Option<wkt::Timestamp>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -656,29 +1483,145 @@ pub mod search_uris_response {
             "type.googleapis.com/google.cloud.webrisk.v1.SearchUrisResponse.ThreatUri"
         }
     }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for ThreatUri {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __threat_types,
+                __expire_time,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for ThreatUri")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "threatTypes" => Ok(__FieldTag::__threat_types),
+                                "threat_types" => Ok(__FieldTag::__threat_types),
+                                "expireTime" => Ok(__FieldTag::__expire_time),
+                                "expire_time" => Ok(__FieldTag::__expire_time),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = ThreatUri;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct ThreatUri")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__threat_types => {
+                                if !fields.insert(__FieldTag::__threat_types) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for threat_types",
+                                    ));
+                                }
+                                result.threat_types =
+                                    map.next_value::<std::option::Option<
+                                        std::vec::Vec<crate::model::ThreatType>,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__expire_time => {
+                                if !fields.insert(__FieldTag::__expire_time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for expire_time",
+                                    ));
+                                }
+                                result.expire_time =
+                                    map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for ThreatUri {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.threat_types.is_empty() {
+                state.serialize_entry("threatTypes", &self.threat_types)?;
+            }
+            if self.expire_time.is_some() {
+                state.serialize_entry("expireTime", &self.expire_time)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
 }
 
 /// Request to return full hashes matched by the provided hash prefixes.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchHashesRequest {
     /// A hash prefix, consisting of the most significant 4-32 bytes of a SHA256
     /// hash. For JSON requests, this field is base64-encoded.
     /// Note that if this parameter is provided by a URI, it must be encoded using
     /// the web safe base64 variant (RFC 4648).
-    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub hash_prefix: ::bytes::Bytes,
 
     /// Required. The ThreatLists to search in. Multiple ThreatLists may be
     /// specified.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub threat_types: std::vec::Vec<crate::model::ThreatType>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -711,23 +1654,152 @@ impl wkt::message::Message for SearchHashesRequest {
     }
 }
 
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SearchHashesRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __hash_prefix,
+            __threat_types,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SearchHashesRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "hashPrefix" => Ok(__FieldTag::__hash_prefix),
+                            "hash_prefix" => Ok(__FieldTag::__hash_prefix),
+                            "threatTypes" => Ok(__FieldTag::__threat_types),
+                            "threat_types" => Ok(__FieldTag::__threat_types),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SearchHashesRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SearchHashesRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__hash_prefix => {
+                            if !fields.insert(__FieldTag::__hash_prefix) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for hash_prefix",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.hash_prefix = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__threat_types => {
+                            if !fields.insert(__FieldTag::__threat_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for threat_types",
+                                ));
+                            }
+                            result.threat_types = map.next_value::<std::option::Option<std::vec::Vec<crate::model::ThreatType>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SearchHashesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.hash_prefix.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("hashPrefix", &__With(&self.hash_prefix))?;
+        }
+        if !self.threat_types.is_empty() {
+            state.serialize_entry("threatTypes", &self.threat_types)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SearchHashesResponse {
     /// The full hashes that matched the requested prefixes.
     /// The hash will be populated in the key.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub threats: std::vec::Vec<crate::model::search_hashes_response::ThreatHash>,
 
     /// For requested entities that did not match the threat list, how long to
     /// cache the response until.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub negative_expire_time: std::option::Option<wkt::Timestamp>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -772,35 +1844,146 @@ impl wkt::message::Message for SearchHashesResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SearchHashesResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __threats,
+            __negative_expire_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SearchHashesResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "threats" => Ok(__FieldTag::__threats),
+                            "negativeExpireTime" => Ok(__FieldTag::__negative_expire_time),
+                            "negative_expire_time" => Ok(__FieldTag::__negative_expire_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SearchHashesResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SearchHashesResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__threats => {
+                            if !fields.insert(__FieldTag::__threats) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for threats",
+                                ));
+                            }
+                            result.threats = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::search_hashes_response::ThreatHash>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__negative_expire_time => {
+                            if !fields.insert(__FieldTag::__negative_expire_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for negative_expire_time",
+                                ));
+                            }
+                            result.negative_expire_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SearchHashesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.threats.is_empty() {
+            state.serialize_entry("threats", &self.threats)?;
+        }
+        if self.negative_expire_time.is_some() {
+            state.serialize_entry("negativeExpireTime", &self.negative_expire_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [SearchHashesResponse].
 pub mod search_hashes_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Contains threat information on a matching hash.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ThreatHash {
         /// The ThreatList this threat belongs to.
         /// This must contain at least one entry.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub threat_types: std::vec::Vec<crate::model::ThreatType>,
 
         /// A 32 byte SHA256 hash. This field is in binary format. For JSON
         /// requests, hashes are base64-encoded.
-        #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
         pub hash: ::bytes::Bytes,
 
         /// The cache lifetime for the returned match. Clients must not cache this
         /// response past this timestamp to avoid false positives.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub expire_time: std::option::Option<wkt::Timestamp>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -850,28 +2033,183 @@ pub mod search_hashes_response {
             "type.googleapis.com/google.cloud.webrisk.v1.SearchHashesResponse.ThreatHash"
         }
     }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for ThreatHash {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __threat_types,
+                __hash,
+                __expire_time,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for ThreatHash")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "threatTypes" => Ok(__FieldTag::__threat_types),
+                                "threat_types" => Ok(__FieldTag::__threat_types),
+                                "hash" => Ok(__FieldTag::__hash),
+                                "expireTime" => Ok(__FieldTag::__expire_time),
+                                "expire_time" => Ok(__FieldTag::__expire_time),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = ThreatHash;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct ThreatHash")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__threat_types => {
+                                if !fields.insert(__FieldTag::__threat_types) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for threat_types",
+                                    ));
+                                }
+                                result.threat_types =
+                                    map.next_value::<std::option::Option<
+                                        std::vec::Vec<crate::model::ThreatType>,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__hash => {
+                                if !fields.insert(__FieldTag::__hash) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for hash",
+                                    ));
+                                }
+                                struct __With(std::option::Option<::bytes::Bytes>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::<
+                                            std::option::Option<serde_with::base64::Base64>,
+                                        >::deserialize(
+                                            deserializer
+                                        )
+                                        .map(__With)
+                                    }
+                                }
+                                result.hash = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__expire_time => {
+                                if !fields.insert(__FieldTag::__expire_time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for expire_time",
+                                    ));
+                                }
+                                result.expire_time =
+                                    map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for ThreatHash {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.threat_types.is_empty() {
+                state.serialize_entry("threatTypes", &self.threat_types)?;
+            }
+            if !self.hash.is_empty() {
+                struct __With<'a>(&'a ::bytes::Bytes);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("hash", &__With(&self.hash))?;
+            }
+            if self.expire_time.is_some() {
+                state.serialize_entry("expireTime", &self.expire_time)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
 }
 
 /// Contains the set of entries to add to a local database.
 /// May contain a combination of compressed and raw data in a single response.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ThreatEntryAdditions {
     /// The raw SHA256-formatted entries.
     /// Repeated to allow returning sets of hashes with different prefix sizes.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub raw_hashes: std::vec::Vec<crate::model::RawHashes>,
 
     /// The encoded 4-byte prefixes of SHA256-formatted entries, using a
     /// Golomb-Rice encoding. The hashes are converted to uint32, sorted in
     /// ascending order, then delta encoded and stored as encoded_data.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rice_hashes: std::option::Option<crate::model::RiceDeltaEncoding>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -916,24 +2254,136 @@ impl wkt::message::Message for ThreatEntryAdditions {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ThreatEntryAdditions {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __raw_hashes,
+            __rice_hashes,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ThreatEntryAdditions")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "rawHashes" => Ok(__FieldTag::__raw_hashes),
+                            "raw_hashes" => Ok(__FieldTag::__raw_hashes),
+                            "riceHashes" => Ok(__FieldTag::__rice_hashes),
+                            "rice_hashes" => Ok(__FieldTag::__rice_hashes),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ThreatEntryAdditions;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ThreatEntryAdditions")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__raw_hashes => {
+                            if !fields.insert(__FieldTag::__raw_hashes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for raw_hashes",
+                                ));
+                            }
+                            result.raw_hashes = map.next_value::<std::option::Option<std::vec::Vec<crate::model::RawHashes>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__rice_hashes => {
+                            if !fields.insert(__FieldTag::__rice_hashes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for rice_hashes",
+                                ));
+                            }
+                            result.rice_hashes = map
+                                .next_value::<std::option::Option<crate::model::RiceDeltaEncoding>>(
+                                )?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ThreatEntryAdditions {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.raw_hashes.is_empty() {
+            state.serialize_entry("rawHashes", &self.raw_hashes)?;
+        }
+        if self.rice_hashes.is_some() {
+            state.serialize_entry("riceHashes", &self.rice_hashes)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Contains the set of entries to remove from a local database.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ThreatEntryRemovals {
     /// The raw removal indices for a local list.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub raw_indices: std::option::Option<crate::model::RawIndices>,
 
     /// The encoded local, lexicographically-sorted list indices, using a
     /// Golomb-Rice encoding. Used for sending compressed removal indices. The
     /// removal indices (uint32) are sorted in ascending order, then delta encoded
     /// and stored as encoded_data.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub rice_indices: std::option::Option<crate::model::RiceDeltaEncoding>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -985,18 +2435,131 @@ impl wkt::message::Message for ThreatEntryRemovals {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ThreatEntryRemovals {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __raw_indices,
+            __rice_indices,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ThreatEntryRemovals")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "rawIndices" => Ok(__FieldTag::__raw_indices),
+                            "raw_indices" => Ok(__FieldTag::__raw_indices),
+                            "riceIndices" => Ok(__FieldTag::__rice_indices),
+                            "rice_indices" => Ok(__FieldTag::__rice_indices),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ThreatEntryRemovals;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ThreatEntryRemovals")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__raw_indices => {
+                            if !fields.insert(__FieldTag::__raw_indices) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for raw_indices",
+                                ));
+                            }
+                            result.raw_indices =
+                                map.next_value::<std::option::Option<crate::model::RawIndices>>()?;
+                        }
+                        __FieldTag::__rice_indices => {
+                            if !fields.insert(__FieldTag::__rice_indices) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for rice_indices",
+                                ));
+                            }
+                            result.rice_indices = map
+                                .next_value::<std::option::Option<crate::model::RiceDeltaEncoding>>(
+                                )?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ThreatEntryRemovals {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.raw_indices.is_some() {
+            state.serialize_entry("rawIndices", &self.raw_indices)?;
+        }
+        if self.rice_indices.is_some() {
+            state.serialize_entry("riceIndices", &self.rice_indices)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A set of raw indices to remove from a local list.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawIndices {
     /// The indices to remove from a lexicographically-sorted local list.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub indices: std::vec::Vec<i32>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1023,6 +2586,131 @@ impl wkt::message::Message for RawIndices {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for RawIndices {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __indices,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RawIndices")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "indices" => Ok(__FieldTag::__indices),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = RawIndices;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RawIndices")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__indices => {
+                            if !fields.insert(__FieldTag::__indices) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for indices",
+                                ));
+                            }
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.indices = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for RawIndices {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.indices.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("indices", &__With(&self.indices))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// The uncompressed threat entries in hash format.
 /// Hashes can be anywhere from 4 to 32 bytes in size. A large majority are 4
 /// bytes, but some hashes are lengthened if they collide with the hash of a
@@ -1031,26 +2719,19 @@ impl wkt::message::Message for RawIndices {
 /// Used for sending ThreatEntryAdditons to clients that do not support
 /// compression, or when sending non-4-byte hashes to clients that do support
 /// compression.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RawHashes {
     /// The number of bytes for each prefix encoded below.  This field can be
     /// anywhere from 4 (shortest prefix) to 32 (full SHA256 hash).
     /// In practice this is almost always 4, except in exceptional circumstances.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub prefix_size: i32,
 
     /// The hashes, in binary format, concatenated into one long string. Hashes are
     /// sorted in lexicographic order. For JSON API users, hashes are
     /// base64-encoded.
-    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub raw_hashes: ::bytes::Bytes,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1078,39 +2759,183 @@ impl wkt::message::Message for RawHashes {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for RawHashes {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __prefix_size,
+            __raw_hashes,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RawHashes")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "prefixSize" => Ok(__FieldTag::__prefix_size),
+                            "prefix_size" => Ok(__FieldTag::__prefix_size),
+                            "rawHashes" => Ok(__FieldTag::__raw_hashes),
+                            "raw_hashes" => Ok(__FieldTag::__raw_hashes),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = RawHashes;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RawHashes")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__prefix_size => {
+                            if !fields.insert(__FieldTag::__prefix_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for prefix_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.prefix_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__raw_hashes => {
+                            if !fields.insert(__FieldTag::__raw_hashes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for raw_hashes",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.raw_hashes = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for RawHashes {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.prefix_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("prefixSize", &__With(&self.prefix_size))?;
+        }
+        if !self.raw_hashes.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("rawHashes", &__With(&self.raw_hashes))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// The Rice-Golomb encoded data. Used for sending compressed 4-byte hashes or
 /// compressed removal indices.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RiceDeltaEncoding {
     /// The offset of the first entry in the encoded data, or, if only a single
     /// integer was encoded, that single integer's value. If the field is empty or
     /// missing, assume zero.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub first_value: i64,
 
     /// The Golomb-Rice parameter, which is a number between 2 and 28. This field
     /// is missing (that is, zero) if `num_entries` is zero.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub rice_parameter: i32,
 
     /// The number of entries that are delta encoded in the encoded data. If only a
     /// single integer was encoded, this will be zero and the single value will be
     /// stored in `first_value`.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub entry_count: i32,
 
     /// The encoded deltas that are encoded using the Golomb-Rice coder.
-    #[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
     pub encoded_data: ::bytes::Bytes,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1150,26 +2975,243 @@ impl wkt::message::Message for RiceDeltaEncoding {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for RiceDeltaEncoding {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __first_value,
+            __rice_parameter,
+            __entry_count,
+            __encoded_data,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RiceDeltaEncoding")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "firstValue" => Ok(__FieldTag::__first_value),
+                            "first_value" => Ok(__FieldTag::__first_value),
+                            "riceParameter" => Ok(__FieldTag::__rice_parameter),
+                            "rice_parameter" => Ok(__FieldTag::__rice_parameter),
+                            "entryCount" => Ok(__FieldTag::__entry_count),
+                            "entry_count" => Ok(__FieldTag::__entry_count),
+                            "encodedData" => Ok(__FieldTag::__encoded_data),
+                            "encoded_data" => Ok(__FieldTag::__encoded_data),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = RiceDeltaEncoding;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RiceDeltaEncoding")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__first_value => {
+                            if !fields.insert(__FieldTag::__first_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for first_value",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.first_value = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__rice_parameter => {
+                            if !fields.insert(__FieldTag::__rice_parameter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for rice_parameter",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.rice_parameter =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__entry_count => {
+                            if !fields.insert(__FieldTag::__entry_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for entry_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.entry_count = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__encoded_data => {
+                            if !fields.insert(__FieldTag::__encoded_data) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for encoded_data",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.encoded_data = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for RiceDeltaEncoding {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.first_value) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("firstValue", &__With(&self.first_value))?;
+        }
+        if !wkt::internal::is_default(&self.rice_parameter) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("riceParameter", &__With(&self.rice_parameter))?;
+        }
+        if !wkt::internal::is_default(&self.entry_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("entryCount", &__With(&self.entry_count))?;
+        }
+        if !self.encoded_data.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("encodedData", &__With(&self.encoded_data))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Wraps a URI that might be displaying malicious content.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Submission {
     /// Required. The URI that is being reported for malicious content to be
     /// analyzed.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
     /// Output only. ThreatTypes found to be associated with the submitted URI
     /// after reviewing it. This might be empty if the URI was not added to any
     /// list.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub threat_types: std::vec::Vec<crate::model::ThreatType>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1202,27 +3244,136 @@ impl wkt::message::Message for Submission {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Submission {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __uri,
+            __threat_types,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Submission")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "uri" => Ok(__FieldTag::__uri),
+                            "threatTypes" => Ok(__FieldTag::__threat_types),
+                            "threat_types" => Ok(__FieldTag::__threat_types),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Submission;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Submission")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__uri => {
+                            if !fields.insert(__FieldTag::__uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uri",
+                                ));
+                            }
+                            result.uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__threat_types => {
+                            if !fields.insert(__FieldTag::__threat_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for threat_types",
+                                ));
+                            }
+                            result.threat_types = map.next_value::<std::option::Option<std::vec::Vec<crate::model::ThreatType>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Submission {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.uri.is_empty() {
+            state.serialize_entry("uri", &self.uri)?;
+        }
+        if !self.threat_types.is_empty() {
+            state.serialize_entry("threatTypes", &self.threat_types)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Context about the submission including the type of abuse found on the URI and
 /// supporting details.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ThreatInfo {
     /// The type of abuse.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub abuse_type: crate::model::threat_info::AbuseType,
 
     /// Confidence that the URI is unsafe.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub threat_confidence: std::option::Option<crate::model::threat_info::Confidence>,
 
     /// Context about why the URI is unsafe.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub threat_justification: std::option::Option<crate::model::threat_info::ThreatJustification>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1283,21 +3434,149 @@ impl wkt::message::Message for ThreatInfo {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ThreatInfo {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __abuse_type,
+            __threat_confidence,
+            __threat_justification,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ThreatInfo")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "abuseType" => Ok(__FieldTag::__abuse_type),
+                            "abuse_type" => Ok(__FieldTag::__abuse_type),
+                            "threatConfidence" => Ok(__FieldTag::__threat_confidence),
+                            "threat_confidence" => Ok(__FieldTag::__threat_confidence),
+                            "threatJustification" => Ok(__FieldTag::__threat_justification),
+                            "threat_justification" => Ok(__FieldTag::__threat_justification),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ThreatInfo;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ThreatInfo")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__abuse_type => {
+                            if !fields.insert(__FieldTag::__abuse_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for abuse_type",
+                                ));
+                            }
+                            result.abuse_type = map.next_value::<std::option::Option<crate::model::threat_info::AbuseType>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__threat_confidence => {
+                            if !fields.insert(__FieldTag::__threat_confidence) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for threat_confidence",
+                                ));
+                            }
+                            result.threat_confidence = map.next_value::<std::option::Option<crate::model::threat_info::Confidence>>()?
+                                ;
+                        }
+                        __FieldTag::__threat_justification => {
+                            if !fields.insert(__FieldTag::__threat_justification) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for threat_justification",
+                                ));
+                            }
+                            result.threat_justification = map.next_value::<std::option::Option<
+                                crate::model::threat_info::ThreatJustification,
+                            >>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ThreatInfo {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.abuse_type) {
+            state.serialize_entry("abuseType", &self.abuse_type)?;
+        }
+        if self.threat_confidence.is_some() {
+            state.serialize_entry("threatConfidence", &self.threat_confidence)?;
+        }
+        if self.threat_justification.is_some() {
+            state.serialize_entry("threatJustification", &self.threat_justification)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [ThreatInfo].
 pub mod threat_info {
     #[allow(unused_imports)]
     use super::*;
 
     /// Confidence that a URI is unsafe.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Confidence {
-        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub value: std::option::Option<crate::model::threat_info::confidence::Value>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -1381,6 +3660,163 @@ pub mod threat_info {
     impl wkt::message::Message for Confidence {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.webrisk.v1.ThreatInfo.Confidence"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Confidence {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __score,
+                __level,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Confidence")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "score" => Ok(__FieldTag::__score),
+                                "level" => Ok(__FieldTag::__level),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Confidence;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Confidence")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__score => {
+                                if !fields.insert(__FieldTag::__score) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for score",
+                                    ));
+                                }
+                                struct __With(std::option::Option<f32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                if result.value.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `value`, a oneof with full ID .google.cloud.webrisk.v1.ThreatInfo.Confidence.score, latest field was score",
+                                    ));
+                                }
+                                result.value = std::option::Option::Some(
+                                    crate::model::threat_info::confidence::Value::Score(
+                                        map.next_value::<__With>()?.0.unwrap_or_default(),
+                                    ),
+                                );
+                            }
+                            __FieldTag::__level => {
+                                if !fields.insert(__FieldTag::__level) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for level",
+                                    ));
+                                }
+                                if result.value.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `value`, a oneof with full ID .google.cloud.webrisk.v1.ThreatInfo.Confidence.level, latest field was level",
+                                    ));
+                                }
+                                result.value = std::option::Option::Some(
+                                    crate::model::threat_info::confidence::Value::Level(
+                                        map.next_value::<std::option::Option<
+                                            crate::model::threat_info::confidence::ConfidenceLevel,
+                                        >>()?
+                                        .unwrap_or_default(),
+                                    ),
+                                );
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Confidence {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if let Some(value) = self.score() {
+                struct __With<'a>(&'a f32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("score", &__With(value))?;
+            }
+            if let Some(value) = self.level() {
+                state.serialize_entry("level", value)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -1531,41 +3967,29 @@ pub mod threat_info {
             }
         }
 
-        #[serde_with::serde_as]
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        #[serde(rename_all = "camelCase")]
+        #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum Value {
             /// A decimal representation of confidence in the range of 0
             /// to 1 where 0 indicates no confidence and 1 indicates
             /// complete confidence.
-            Score(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F32>")] f32),
+            Score(f32),
             /// Enum representation of confidence.
-            Level(
-                #[serde_as(as = "serde_with::DefaultOnNull<_>")]
-                crate::model::threat_info::confidence::ConfidenceLevel,
-            ),
+            Level(crate::model::threat_info::confidence::ConfidenceLevel),
         }
     }
 
     /// Context about why the URI is unsafe.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ThreatJustification {
         /// Labels associated with this URI that explain how it was classified.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub labels:
             std::vec::Vec<crate::model::threat_info::threat_justification::JustificationLabel>,
 
         /// Free-form context on why this URI is unsafe.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub comments: std::vec::Vec<std::string::String>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -1602,6 +4026,122 @@ pub mod threat_info {
     impl wkt::message::Message for ThreatJustification {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.webrisk.v1.ThreatInfo.ThreatJustification"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for ThreatJustification {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __labels,
+                __comments,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for ThreatJustification")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "labels" => Ok(__FieldTag::__labels),
+                                "comments" => Ok(__FieldTag::__comments),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = ThreatJustification;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct ThreatJustification")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__labels => {
+                                if !fields.insert(__FieldTag::__labels) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for labels",
+                                    ));
+                                }
+                                result.labels = map.next_value::<std::option::Option<std::vec::Vec<crate::model::threat_info::threat_justification::JustificationLabel>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::__comments => {
+                                if !fields.insert(__FieldTag::__comments) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for comments",
+                                    ));
+                                }
+                                result.comments = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for ThreatJustification {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.labels.is_empty() {
+                state.serialize_entry("labels", &self.labels)?;
+            }
+            if !self.comments.is_empty() {
+                state.serialize_entry("comments", &self.comments)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -1896,23 +4436,16 @@ pub mod threat_info {
 }
 
 /// Details about how the threat was discovered.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ThreatDiscovery {
     /// Platform on which the threat was discovered.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub platform: crate::model::threat_discovery::Platform,
 
     /// CLDR region code of the countries/regions the URI poses a threat ordered
     /// from most impact to least impact. Example: "US" for United States.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub region_codes: std::vec::Vec<std::string::String>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1945,6 +4478,120 @@ impl ThreatDiscovery {
 impl wkt::message::Message for ThreatDiscovery {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.webrisk.v1.ThreatDiscovery"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ThreatDiscovery {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __platform,
+            __region_codes,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ThreatDiscovery")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "platform" => Ok(__FieldTag::__platform),
+                            "regionCodes" => Ok(__FieldTag::__region_codes),
+                            "region_codes" => Ok(__FieldTag::__region_codes),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ThreatDiscovery;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ThreatDiscovery")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__platform => {
+                            if !fields.insert(__FieldTag::__platform) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for platform",
+                                ));
+                            }
+                            result.platform = map.next_value::<std::option::Option<crate::model::threat_discovery::Platform>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__region_codes => {
+                            if !fields.insert(__FieldTag::__region_codes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for region_codes",
+                                ));
+                            }
+                            result.region_codes = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ThreatDiscovery {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.platform) {
+            state.serialize_entry("platform", &self.platform)?;
+        }
+        if !self.region_codes.is_empty() {
+            state.serialize_entry("regionCodes", &self.region_codes)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -2101,22 +4748,16 @@ pub mod threat_discovery {
 }
 
 /// Request to send a potentially phishy URI to WebRisk.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateSubmissionRequest {
     /// Required. The name of the project that is making the submission. This
     /// string is in the format "projects/{project_number}".
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The submission that contains the content of the phishing report.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub submission: std::option::Option<crate::model::Submission>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2156,31 +4797,139 @@ impl wkt::message::Message for CreateSubmissionRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateSubmissionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __submission,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateSubmissionRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "submission" => Ok(__FieldTag::__submission),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateSubmissionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateSubmissionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__submission => {
+                            if !fields.insert(__FieldTag::__submission) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for submission",
+                                ));
+                            }
+                            result.submission =
+                                map.next_value::<std::option::Option<crate::model::Submission>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateSubmissionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.submission.is_some() {
+            state.serialize_entry("submission", &self.submission)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Request to send a potentially malicious URI to WebRisk.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitUriRequest {
     /// Required. The name of the project that is making the submission. This
     /// string is in the format "projects/{project_number}".
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. The submission that contains the URI to be scanned.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub submission: std::option::Option<crate::model::Submission>,
 
     /// Provides additional information about the submission.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub threat_info: std::option::Option<crate::model::ThreatInfo>,
 
     /// Provides additional information about how the submission was discovered.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub threat_discovery: std::option::Option<crate::model::ThreatDiscovery>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2256,26 +5005,166 @@ impl wkt::message::Message for SubmitUriRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SubmitUriRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __submission,
+            __threat_info,
+            __threat_discovery,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SubmitUriRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "submission" => Ok(__FieldTag::__submission),
+                            "threatInfo" => Ok(__FieldTag::__threat_info),
+                            "threat_info" => Ok(__FieldTag::__threat_info),
+                            "threatDiscovery" => Ok(__FieldTag::__threat_discovery),
+                            "threat_discovery" => Ok(__FieldTag::__threat_discovery),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SubmitUriRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SubmitUriRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__submission => {
+                            if !fields.insert(__FieldTag::__submission) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for submission",
+                                ));
+                            }
+                            result.submission =
+                                map.next_value::<std::option::Option<crate::model::Submission>>()?;
+                        }
+                        __FieldTag::__threat_info => {
+                            if !fields.insert(__FieldTag::__threat_info) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for threat_info",
+                                ));
+                            }
+                            result.threat_info =
+                                map.next_value::<std::option::Option<crate::model::ThreatInfo>>()?;
+                        }
+                        __FieldTag::__threat_discovery => {
+                            if !fields.insert(__FieldTag::__threat_discovery) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for threat_discovery",
+                                ));
+                            }
+                            result.threat_discovery = map
+                                .next_value::<std::option::Option<crate::model::ThreatDiscovery>>(
+                                )?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SubmitUriRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.submission.is_some() {
+            state.serialize_entry("submission", &self.submission)?;
+        }
+        if self.threat_info.is_some() {
+            state.serialize_entry("threatInfo", &self.threat_info)?;
+        }
+        if self.threat_discovery.is_some() {
+            state.serialize_entry("threatDiscovery", &self.threat_discovery)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Metadata for the Submit URI long-running operation.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SubmitUriMetadata {
     /// The state of the operation.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::submit_uri_metadata::State,
 
     /// Creation time of the operation.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Latest update time of the operation.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2333,6 +5222,136 @@ impl SubmitUriMetadata {
 impl wkt::message::Message for SubmitUriMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.webrisk.v1.SubmitUriMetadata"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SubmitUriMetadata {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __state,
+            __create_time,
+            __update_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SubmitUriMetadata")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "state" => Ok(__FieldTag::__state),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SubmitUriMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SubmitUriMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map.next_value::<std::option::Option<crate::model::submit_uri_metadata::State>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SubmitUriMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
