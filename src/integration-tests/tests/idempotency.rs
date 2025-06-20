@@ -32,7 +32,7 @@ mod default_idempotency {
         RetryPolicy {}
         impl RetryPolicy for RetryPolicy {
             fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> LoopState;
-            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error>;
+            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> LoopState;
             fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<std::time::Duration>;
         }
     }
