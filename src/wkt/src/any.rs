@@ -222,6 +222,7 @@ impl crate::message::Message for Any {
 }
 
 /// Implement [`serde`](::serde) serialization for [Any].
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl serde::ser::Serialize for Any {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -237,6 +238,7 @@ type ValueMap = serde_json::Map<String, serde_json::Value>;
 const EXPECTED: &str = "a valid type URL string in the @type field";
 
 /// Implement [`serde`](::serde) deserialization for [Any].
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl<'de> serde::de::Deserialize<'de> for Any {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where

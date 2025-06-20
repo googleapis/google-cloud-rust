@@ -243,6 +243,7 @@ impl crate::message::Message for Timestamp {
 const NS: i128 = 1_000_000_000;
 
 /// Implement [`serde`](::serde) serialization for timestamps.
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl serde::ser::Serialize for Timestamp {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -270,6 +271,7 @@ impl serde::de::Visitor<'_> for TimestampVisitor {
 }
 
 /// Implement [`serde`](::serde) deserialization for timestamps.
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl<'de> serde::de::Deserialize<'de> for Timestamp {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where

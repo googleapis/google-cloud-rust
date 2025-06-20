@@ -135,6 +135,7 @@ impl From<&NullValue> for serde_json::Value {
 }
 
 /// Implement [`serde`](::serde) serialization for [NullValue].
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl serde::ser::Serialize for NullValue {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -145,6 +146,7 @@ impl serde::ser::Serialize for NullValue {
 }
 
 /// Implement [`serde`](::serde) deserialization for [NullValue].
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl<'de> serde::de::Deserialize<'de> for NullValue {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where
