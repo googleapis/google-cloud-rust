@@ -15222,11 +15222,12 @@ pub mod human_agent_assistant_config {
         /// Version of current baseline model. It will be ignored if
         /// [model][google.cloud.dialogflow.v2.HumanAgentAssistantConfig.ConversationModelConfig.model]
         /// is set. Valid versions are:
-        /// Article Suggestion baseline model:
-        /// - 0.9
-        /// - 1.0 (default)
-        /// Summarization baseline model:
-        /// - 1.0
+        ///
+        /// - Article Suggestion baseline model:
+        ///   - 0.9
+        ///   - 1.0 (default)
+        /// - Summarization baseline model:
+        ///   - 1.0
         ///
         /// [google.cloud.dialogflow.v2.HumanAgentAssistantConfig.ConversationModelConfig.model]: crate::model::human_agent_assistant_config::ConversationModelConfig::model
         #[serde(skip_serializing_if = "std::string::String::is_empty")]
