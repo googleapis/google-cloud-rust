@@ -16,6 +16,7 @@ package api
 
 import (
 	"fmt"
+	"log/slog"
 	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/config"
@@ -113,6 +114,7 @@ func patchMethodDocs(svc *Service, name string, override *config.DocumentationOv
 func patchElementDocs(documentation *string, override *config.DocumentationOverride) error {
 	new := strings.Replace(*documentation, override.Match, override.Replace, -1)
 	if *documentation == new {
+		slog.Error("comment override mismatch", "id", override.ID, "want", override.Match, "text", *documentation)
 		return fmt.Errorf("comment override for %s did not match", override.ID)
 	}
 	*documentation = new

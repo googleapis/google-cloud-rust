@@ -18,7 +18,6 @@ service-config = 'google/api/servicecontrol/v2/servicecontrol.yaml'
 
 [codec]
 copyright-year       = '2025'
-with-generated-serde = 'true'
 
 [[documentation-overrides]]
 id      = '.google.api.servicecontrol.v2.ResourceInfo.container'

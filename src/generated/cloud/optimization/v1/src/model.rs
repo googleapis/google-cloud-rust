@@ -34,22 +34,16 @@ extern crate tracing;
 extern crate wkt;
 
 /// The desired input location information.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InputConfig {
     /// The input data format that used to store the model in Cloud Storage.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_format: crate::model::DataFormat,
 
     /// The location of the input model in cloud storage.
     /// Required.
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub source: std::option::Option<crate::model::input_config::Source>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -113,6 +107,135 @@ impl wkt::message::Message for InputConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for InputConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __gcs_source,
+            __data_format,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for InputConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "gcsSource" => Ok(__FieldTag::__gcs_source),
+                            "gcs_source" => Ok(__FieldTag::__gcs_source),
+                            "dataFormat" => Ok(__FieldTag::__data_format),
+                            "data_format" => Ok(__FieldTag::__data_format),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = InputConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct InputConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__gcs_source => {
+                            if !fields.insert(__FieldTag::__gcs_source) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gcs_source",
+                                ));
+                            }
+                            if result.source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `source`, a oneof with full ID .google.cloud.optimization.v1.InputConfig.gcs_source, latest field was gcsSource",
+                                ));
+                            }
+                            result.source = std::option::Option::Some(
+                                crate::model::input_config::Source::GcsSource(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::GcsSource>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__data_format => {
+                            if !fields.insert(__FieldTag::__data_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for data_format",
+                                ));
+                            }
+                            result.data_format = map
+                                .next_value::<std::option::Option<crate::model::DataFormat>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for InputConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.gcs_source() {
+            state.serialize_entry("gcsSource", value)?;
+        }
+        if !wkt::internal::is_default(&self.data_format) {
+            state.serialize_entry("dataFormat", &self.data_format)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [InputConfig].
 pub mod input_config {
     #[allow(unused_imports)]
@@ -120,9 +243,7 @@ pub mod input_config {
 
     /// The location of the input model in cloud storage.
     /// Required.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Source {
         /// The Google Cloud Storage location to read the input from. This must be a
@@ -132,22 +253,16 @@ pub mod input_config {
 }
 
 /// The desired output location.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OutputConfig {
     /// The output data format that used to store the results in Cloud Storage.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub data_format: crate::model::DataFormat,
 
     /// The location of the output result in cloud storage.
     /// Required.
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub destination: std::option::Option<crate::model::output_config::Destination>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -218,6 +333,135 @@ impl wkt::message::Message for OutputConfig {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for OutputConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __gcs_destination,
+            __data_format,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for OutputConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "gcsDestination" => Ok(__FieldTag::__gcs_destination),
+                            "gcs_destination" => Ok(__FieldTag::__gcs_destination),
+                            "dataFormat" => Ok(__FieldTag::__data_format),
+                            "data_format" => Ok(__FieldTag::__data_format),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = OutputConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct OutputConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__gcs_destination => {
+                            if !fields.insert(__FieldTag::__gcs_destination) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for gcs_destination",
+                                ));
+                            }
+                            if result.destination.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `destination`, a oneof with full ID .google.cloud.optimization.v1.OutputConfig.gcs_destination, latest field was gcsDestination",
+                                ));
+                            }
+                            result.destination = std::option::Option::Some(
+                                crate::model::output_config::Destination::GcsDestination(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::GcsDestination>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__data_format => {
+                            if !fields.insert(__FieldTag::__data_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for data_format",
+                                ));
+                            }
+                            result.data_format = map
+                                .next_value::<std::option::Option<crate::model::DataFormat>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for OutputConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.gcs_destination() {
+            state.serialize_entry("gcsDestination", value)?;
+        }
+        if !wkt::internal::is_default(&self.data_format) {
+            state.serialize_entry("dataFormat", &self.data_format)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [OutputConfig].
 pub mod output_config {
     #[allow(unused_imports)]
@@ -225,9 +469,7 @@ pub mod output_config {
 
     /// The location of the output result in cloud storage.
     /// Required.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Destination {
         /// The Google Cloud Storage location to write the output to.
@@ -236,17 +478,12 @@ pub mod output_config {
 }
 
 /// The Google Cloud Storage location where the input file will be read from.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsSource {
     /// Required. URI of the Google Cloud Storage location.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -268,18 +505,115 @@ impl wkt::message::Message for GcsSource {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GcsSource {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __uri,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GcsSource")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "uri" => Ok(__FieldTag::__uri),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GcsSource;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GcsSource")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__uri => {
+                            if !fields.insert(__FieldTag::__uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uri",
+                                ));
+                            }
+                            result.uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GcsSource {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.uri.is_empty() {
+            state.serialize_entry("uri", &self.uri)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// The Google Cloud Storage location where the output file will be written to.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct GcsDestination {
     /// Required. URI of the Google Cloud Storage location.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub uri: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -301,32 +635,125 @@ impl wkt::message::Message for GcsDestination {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GcsDestination {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __uri,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GcsDestination")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "uri" => Ok(__FieldTag::__uri),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GcsDestination;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GcsDestination")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__uri => {
+                            if !fields.insert(__FieldTag::__uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for uri",
+                                ));
+                            }
+                            result.uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GcsDestination {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.uri.is_empty() {
+            state.serialize_entry("uri", &self.uri)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// The long running operation metadata for async model related methods.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AsyncModelMetadata {
     /// The state of the current operation.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state: crate::model::async_model_metadata::State,
 
     /// A message providing more details about the current state of the operation.
     /// For example, the error message if the operation is failed.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub state_message: std::string::String,
 
     /// The creation time of the operation.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// The last update time of the operation.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub update_time: std::option::Option<wkt::Timestamp>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -390,6 +817,152 @@ impl AsyncModelMetadata {
 impl wkt::message::Message for AsyncModelMetadata {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.optimization.v1.AsyncModelMetadata"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AsyncModelMetadata {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __state,
+            __state_message,
+            __create_time,
+            __update_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AsyncModelMetadata")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "state" => Ok(__FieldTag::__state),
+                            "stateMessage" => Ok(__FieldTag::__state_message),
+                            "state_message" => Ok(__FieldTag::__state_message),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AsyncModelMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AsyncModelMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__state => {
+                            if !fields.insert(__FieldTag::__state) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state",
+                                ));
+                            }
+                            result.state = map.next_value::<std::option::Option<crate::model::async_model_metadata::State>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__state_message => {
+                            if !fields.insert(__FieldTag::__state_message) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for state_message",
+                                ));
+                            }
+                            result.state_message = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AsyncModelMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.state) {
+            state.serialize_entry("state", &self.state)?;
+        }
+        if !self.state_message.is_empty() {
+            state.serialize_entry("stateMessage", &self.state_message)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -547,9 +1120,7 @@ pub mod async_model_metadata {
 
 /// Request to be given to a tour optimization solver which defines the
 /// shipment model to solve as well as optimization parameters.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OptimizeToursRequest {
     /// Required. Target project and location to make a call.
@@ -557,8 +1128,6 @@ pub struct OptimizeToursRequest {
     /// Format: `projects/{project-id}/locations/{location-id}`.
     ///
     /// If no location is specified, a region will be chosen automatically.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// If this timeout is set, the server returns a response before the timeout
@@ -567,21 +1136,15 @@ pub struct OptimizeToursRequest {
     ///
     /// For asynchronous requests, the server will generate a solution (if
     /// possible) before the timeout has elapsed.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub timeout: std::option::Option<wkt::Duration>,
 
     /// Shipment model to solve.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub model: std::option::Option<crate::model::ShipmentModel>,
 
     /// By default, the solving mode is `DEFAULT_SOLVE` (0).
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub solving_mode: crate::model::optimize_tours_request::SolvingMode,
 
     /// Search mode used to solve the request.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub search_mode: crate::model::optimize_tours_request::SearchMode,
 
     /// Guide the optimization algorithm in finding a first solution that is
@@ -615,8 +1178,6 @@ pub struct OptimizeToursRequest {
     /// instead.
     ///
     /// [google.cloud.optimization.v1.Shipment.allowed_vehicle_indices]: crate::model::Shipment::allowed_vehicle_indices
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub injected_first_solution_routes: std::vec::Vec<crate::model::ShipmentRoute>,
 
     /// Constrain the optimization algorithm to find a final solution that is
@@ -627,7 +1188,6 @@ pub struct OptimizeToursRequest {
     /// If the injected solution is not feasible, a validation error is not
     /// necessarily returned and an error indicating infeasibility may be returned
     /// instead.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub injected_solution_constraint: std::option::Option<crate::model::InjectedSolutionConstraint>,
 
     /// If non-empty, the given routes will be refreshed, without modifying their
@@ -646,8 +1206,6 @@ pub struct OptimizeToursRequest {
     /// `Shipment.ignore` and `Vehicle.ignore` have no effect on the behavior.
     /// Polylines are still populated between all visits in all non-empty routes
     /// regardless of whether the related shipments or vehicles are ignored.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub refresh_details_routes: std::vec::Vec<crate::model::ShipmentRoute>,
 
     /// If true:
@@ -724,8 +1282,6 @@ pub struct OptimizeToursRequest {
     /// [google.cloud.optimization.v1.SkippedShipment.index]: crate::model::SkippedShipment::index
     /// [google.cloud.optimization.v1.SkippedShipment.label]: crate::model::SkippedShipment::label
     /// [google.cloud.optimization.v1.Vehicle.label]: crate::model::Vehicle::label
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub interpret_injected_solutions_using_labels: bool,
 
     /// Consider traffic estimation in calculating `ShipmentRoute` fields
@@ -741,13 +1297,9 @@ pub struct OptimizeToursRequest {
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition.travel_duration]: crate::model::shipment_route::Transition::travel_duration
     /// [google.cloud.optimization.v1.ShipmentRoute.Visit.start_time]: crate::model::shipment_route::Visit::start_time
     /// [google.cloud.optimization.v1.ShipmentRoute.has_traffic_infeasibilities]: crate::model::ShipmentRoute::has_traffic_infeasibilities
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub consider_road_traffic: bool,
 
     /// If true, polylines will be populated in response `ShipmentRoute`s.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub populate_polylines: bool,
 
     /// If true, polylines will be populated in response
@@ -756,8 +1308,6 @@ pub struct OptimizeToursRequest {
     /// deprecated `travel_steps`.
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub populate_transition_polylines: bool,
 
     /// If this is set, then the request can have a deadline
@@ -765,22 +1315,16 @@ pub struct OptimizeToursRequest {
     /// Otherwise, the maximum deadline is only 30 minutes.
     /// Note that long-lived requests have a significantly larger (but still small)
     /// risk of interruption.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub allow_large_deadline_despite_interruption_risk: bool,
 
     /// If true, travel distances will be computed using geodesic distances instead
     /// of Google Maps distances, and travel times will be computed using geodesic
     /// distances with a speed defined by `geodesic_meters_per_second`.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub use_geodesic_distances: bool,
 
     /// When `use_geodesic_distances` is true, this field must be set and defines
     /// the speed applied to compute travel times. Its value must be at least 1.0
     /// meters/seconds.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub geodesic_meters_per_second: std::option::Option<f64>,
 
     /// Truncates the number of validation errors returned. These errors are
@@ -792,16 +1336,12 @@ pub struct OptimizeToursRequest {
     /// This defaults to 100 and is capped at 10,000.
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.validation_errors]: crate::model::OptimizeToursResponse::validation_errors
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub max_validation_errors: std::option::Option<i32>,
 
     /// Label that may be used to identify this request, reported back in the
     /// [OptimizeToursResponse.request_label][google.cloud.optimization.v1.OptimizeToursResponse.request_label].
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.request_label]: crate::model::OptimizeToursResponse::request_label
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label: std::string::String,
 
     /// Deprecated: Use
@@ -813,12 +1353,9 @@ pub struct OptimizeToursRequest {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursRequest.populate_transition_polylines]: crate::model::OptimizeToursRequest::populate_transition_polylines
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     #[deprecated]
     pub populate_travel_step_polylines: bool,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1026,6 +1563,467 @@ impl OptimizeToursRequest {
 impl wkt::message::Message for OptimizeToursRequest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.optimization.v1.OptimizeToursRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for OptimizeToursRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __timeout,
+            __model,
+            __solving_mode,
+            __search_mode,
+            __injected_first_solution_routes,
+            __injected_solution_constraint,
+            __refresh_details_routes,
+            __interpret_injected_solutions_using_labels,
+            __consider_road_traffic,
+            __populate_polylines,
+            __populate_transition_polylines,
+            __allow_large_deadline_despite_interruption_risk,
+            __use_geodesic_distances,
+            __geodesic_meters_per_second,
+            __max_validation_errors,
+            __label,
+            __populate_travel_step_polylines,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for OptimizeToursRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "timeout" => Ok(__FieldTag::__timeout),
+                            "model" => Ok(__FieldTag::__model),
+                            "solvingMode" => Ok(__FieldTag::__solving_mode),
+                            "solving_mode" => Ok(__FieldTag::__solving_mode),
+                            "searchMode" => Ok(__FieldTag::__search_mode),
+                            "search_mode" => Ok(__FieldTag::__search_mode),
+                            "injectedFirstSolutionRoutes" => {
+                                Ok(__FieldTag::__injected_first_solution_routes)
+                            }
+                            "injected_first_solution_routes" => {
+                                Ok(__FieldTag::__injected_first_solution_routes)
+                            }
+                            "injectedSolutionConstraint" => {
+                                Ok(__FieldTag::__injected_solution_constraint)
+                            }
+                            "injected_solution_constraint" => {
+                                Ok(__FieldTag::__injected_solution_constraint)
+                            }
+                            "refreshDetailsRoutes" => Ok(__FieldTag::__refresh_details_routes),
+                            "refresh_details_routes" => Ok(__FieldTag::__refresh_details_routes),
+                            "interpretInjectedSolutionsUsingLabels" => {
+                                Ok(__FieldTag::__interpret_injected_solutions_using_labels)
+                            }
+                            "interpret_injected_solutions_using_labels" => {
+                                Ok(__FieldTag::__interpret_injected_solutions_using_labels)
+                            }
+                            "considerRoadTraffic" => Ok(__FieldTag::__consider_road_traffic),
+                            "consider_road_traffic" => Ok(__FieldTag::__consider_road_traffic),
+                            "populatePolylines" => Ok(__FieldTag::__populate_polylines),
+                            "populate_polylines" => Ok(__FieldTag::__populate_polylines),
+                            "populateTransitionPolylines" => {
+                                Ok(__FieldTag::__populate_transition_polylines)
+                            }
+                            "populate_transition_polylines" => {
+                                Ok(__FieldTag::__populate_transition_polylines)
+                            }
+                            "allowLargeDeadlineDespiteInterruptionRisk" => {
+                                Ok(__FieldTag::__allow_large_deadline_despite_interruption_risk)
+                            }
+                            "allow_large_deadline_despite_interruption_risk" => {
+                                Ok(__FieldTag::__allow_large_deadline_despite_interruption_risk)
+                            }
+                            "useGeodesicDistances" => Ok(__FieldTag::__use_geodesic_distances),
+                            "use_geodesic_distances" => Ok(__FieldTag::__use_geodesic_distances),
+                            "geodesicMetersPerSecond" => {
+                                Ok(__FieldTag::__geodesic_meters_per_second)
+                            }
+                            "geodesic_meters_per_second" => {
+                                Ok(__FieldTag::__geodesic_meters_per_second)
+                            }
+                            "maxValidationErrors" => Ok(__FieldTag::__max_validation_errors),
+                            "max_validation_errors" => Ok(__FieldTag::__max_validation_errors),
+                            "label" => Ok(__FieldTag::__label),
+                            "populateTravelStepPolylines" => {
+                                Ok(__FieldTag::__populate_travel_step_polylines)
+                            }
+                            "populate_travel_step_polylines" => {
+                                Ok(__FieldTag::__populate_travel_step_polylines)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = OptimizeToursRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct OptimizeToursRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__timeout => {
+                            if !fields.insert(__FieldTag::__timeout) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for timeout",
+                                ));
+                            }
+                            result.timeout =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__model => {
+                            if !fields.insert(__FieldTag::__model) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for model",
+                                ));
+                            }
+                            result.model = map
+                                .next_value::<std::option::Option<crate::model::ShipmentModel>>()?;
+                        }
+                        __FieldTag::__solving_mode => {
+                            if !fields.insert(__FieldTag::__solving_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for solving_mode",
+                                ));
+                            }
+                            result.solving_mode = map
+                                .next_value::<std::option::Option<
+                                    crate::model::optimize_tours_request::SolvingMode,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__search_mode => {
+                            if !fields.insert(__FieldTag::__search_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for search_mode",
+                                ));
+                            }
+                            result.search_mode = map
+                                .next_value::<std::option::Option<
+                                    crate::model::optimize_tours_request::SearchMode,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__injected_first_solution_routes => {
+                            if !fields.insert(__FieldTag::__injected_first_solution_routes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for injected_first_solution_routes",
+                                ));
+                            }
+                            result.injected_first_solution_routes = map.next_value::<std::option::Option<std::vec::Vec<crate::model::ShipmentRoute>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__injected_solution_constraint => {
+                            if !fields.insert(__FieldTag::__injected_solution_constraint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for injected_solution_constraint",
+                                ));
+                            }
+                            result.injected_solution_constraint = map.next_value::<std::option::Option<crate::model::InjectedSolutionConstraint>>()?
+                                ;
+                        }
+                        __FieldTag::__refresh_details_routes => {
+                            if !fields.insert(__FieldTag::__refresh_details_routes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for refresh_details_routes",
+                                ));
+                            }
+                            result.refresh_details_routes = map.next_value::<std::option::Option<std::vec::Vec<crate::model::ShipmentRoute>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__interpret_injected_solutions_using_labels => {
+                            if !fields
+                                .insert(__FieldTag::__interpret_injected_solutions_using_labels)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for interpret_injected_solutions_using_labels",
+                                ));
+                            }
+                            result.interpret_injected_solutions_using_labels = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__consider_road_traffic => {
+                            if !fields.insert(__FieldTag::__consider_road_traffic) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for consider_road_traffic",
+                                ));
+                            }
+                            result.consider_road_traffic = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__populate_polylines => {
+                            if !fields.insert(__FieldTag::__populate_polylines) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for populate_polylines",
+                                ));
+                            }
+                            result.populate_polylines = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__populate_transition_polylines => {
+                            if !fields.insert(__FieldTag::__populate_transition_polylines) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for populate_transition_polylines",
+                                ));
+                            }
+                            result.populate_transition_polylines = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__allow_large_deadline_despite_interruption_risk => {
+                            if !fields.insert(
+                                __FieldTag::__allow_large_deadline_despite_interruption_risk,
+                            ) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allow_large_deadline_despite_interruption_risk",
+                                ));
+                            }
+                            result.allow_large_deadline_despite_interruption_risk = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__use_geodesic_distances => {
+                            if !fields.insert(__FieldTag::__use_geodesic_distances) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for use_geodesic_distances",
+                                ));
+                            }
+                            result.use_geodesic_distances = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__geodesic_meters_per_second => {
+                            if !fields.insert(__FieldTag::__geodesic_meters_per_second) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for geodesic_meters_per_second",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.geodesic_meters_per_second = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__max_validation_errors => {
+                            if !fields.insert(__FieldTag::__max_validation_errors) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_validation_errors",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_validation_errors = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__label => {
+                            if !fields.insert(__FieldTag::__label) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for label",
+                                ));
+                            }
+                            result.label = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__populate_travel_step_polylines => {
+                            if !fields.insert(__FieldTag::__populate_travel_step_polylines) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for populate_travel_step_polylines",
+                                ));
+                            }
+                            result.populate_travel_step_polylines = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for OptimizeToursRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if self.timeout.is_some() {
+            state.serialize_entry("timeout", &self.timeout)?;
+        }
+        if self.model.is_some() {
+            state.serialize_entry("model", &self.model)?;
+        }
+        if !wkt::internal::is_default(&self.solving_mode) {
+            state.serialize_entry("solvingMode", &self.solving_mode)?;
+        }
+        if !wkt::internal::is_default(&self.search_mode) {
+            state.serialize_entry("searchMode", &self.search_mode)?;
+        }
+        if !self.injected_first_solution_routes.is_empty() {
+            state.serialize_entry(
+                "injectedFirstSolutionRoutes",
+                &self.injected_first_solution_routes,
+            )?;
+        }
+        if self.injected_solution_constraint.is_some() {
+            state.serialize_entry(
+                "injectedSolutionConstraint",
+                &self.injected_solution_constraint,
+            )?;
+        }
+        if !self.refresh_details_routes.is_empty() {
+            state.serialize_entry("refreshDetailsRoutes", &self.refresh_details_routes)?;
+        }
+        if !wkt::internal::is_default(&self.interpret_injected_solutions_using_labels) {
+            state.serialize_entry(
+                "interpretInjectedSolutionsUsingLabels",
+                &self.interpret_injected_solutions_using_labels,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.consider_road_traffic) {
+            state.serialize_entry("considerRoadTraffic", &self.consider_road_traffic)?;
+        }
+        if !wkt::internal::is_default(&self.populate_polylines) {
+            state.serialize_entry("populatePolylines", &self.populate_polylines)?;
+        }
+        if !wkt::internal::is_default(&self.populate_transition_polylines) {
+            state.serialize_entry(
+                "populateTransitionPolylines",
+                &self.populate_transition_polylines,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.allow_large_deadline_despite_interruption_risk) {
+            state.serialize_entry(
+                "allowLargeDeadlineDespiteInterruptionRisk",
+                &self.allow_large_deadline_despite_interruption_risk,
+            )?;
+        }
+        if !wkt::internal::is_default(&self.use_geodesic_distances) {
+            state.serialize_entry("useGeodesicDistances", &self.use_geodesic_distances)?;
+        }
+        if self.geodesic_meters_per_second.is_some() {
+            struct __With<'a>(&'a std::option::Option<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "geodesicMetersPerSecond",
+                &__With(&self.geodesic_meters_per_second),
+            )?;
+        }
+        if self.max_validation_errors.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("maxValidationErrors", &__With(&self.max_validation_errors))?;
+        }
+        if !self.label.is_empty() {
+            state.serialize_entry("label", &self.label)?;
+        }
+        if !wkt::internal::is_default(&self.populate_travel_step_polylines) {
+            state.serialize_entry(
+                "populateTravelStepPolylines",
+                &self.populate_travel_step_polylines,
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -1334,15 +2332,11 @@ pub mod optimize_tours_request {
 /// Response after solving a tour optimization problem containing the routes
 /// followed by each vehicle, the shipments which have been skipped and the
 /// overall cost of the solution.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OptimizeToursResponse {
     /// Routes computed for each vehicle; the i-th route corresponds to the i-th
     /// vehicle in the model.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub routes: std::vec::Vec<crate::model::ShipmentRoute>,
 
     /// Copy of the
@@ -1350,13 +2344,9 @@ pub struct OptimizeToursResponse {
     /// if a label was specified in the request.
     ///
     /// [google.cloud.optimization.v1.OptimizeToursRequest.label]: crate::model::OptimizeToursRequest::label
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub request_label: std::string::String,
 
     /// The list of all shipments skipped.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub skipped_shipments: std::vec::Vec<crate::model::SkippedShipment>,
 
     /// List of all the validation errors that we were able to detect
@@ -1365,12 +2355,9 @@ pub struct OptimizeToursResponse {
     /// message.
     ///
     /// [google.cloud.optimization.v1.OptimizeToursValidationError]: crate::model::OptimizeToursValidationError
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub validation_errors: std::vec::Vec<crate::model::OptimizeToursValidationError>,
 
     /// Duration, distance and usage metrics for this solution.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metrics: std::option::Option<crate::model::optimize_tours_response::Metrics>,
 
     /// Deprecated: Use
@@ -1380,12 +2367,9 @@ pub struct OptimizeToursResponse {
     /// shipment penalty costs, global duration cost, etc.
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     #[deprecated]
     pub total_cost: f64,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1465,15 +2449,214 @@ impl wkt::message::Message for OptimizeToursResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for OptimizeToursResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __routes,
+            __request_label,
+            __skipped_shipments,
+            __validation_errors,
+            __metrics,
+            __total_cost,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for OptimizeToursResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "routes" => Ok(__FieldTag::__routes),
+                            "requestLabel" => Ok(__FieldTag::__request_label),
+                            "request_label" => Ok(__FieldTag::__request_label),
+                            "skippedShipments" => Ok(__FieldTag::__skipped_shipments),
+                            "skipped_shipments" => Ok(__FieldTag::__skipped_shipments),
+                            "validationErrors" => Ok(__FieldTag::__validation_errors),
+                            "validation_errors" => Ok(__FieldTag::__validation_errors),
+                            "metrics" => Ok(__FieldTag::__metrics),
+                            "totalCost" => Ok(__FieldTag::__total_cost),
+                            "total_cost" => Ok(__FieldTag::__total_cost),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = OptimizeToursResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct OptimizeToursResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__routes => {
+                            if !fields.insert(__FieldTag::__routes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for routes",
+                                ));
+                            }
+                            result.routes = map.next_value::<std::option::Option<std::vec::Vec<crate::model::ShipmentRoute>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__request_label => {
+                            if !fields.insert(__FieldTag::__request_label) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_label",
+                                ));
+                            }
+                            result.request_label = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__skipped_shipments => {
+                            if !fields.insert(__FieldTag::__skipped_shipments) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for skipped_shipments",
+                                ));
+                            }
+                            result.skipped_shipments =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::SkippedShipment>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__validation_errors => {
+                            if !fields.insert(__FieldTag::__validation_errors) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for validation_errors",
+                                ));
+                            }
+                            result.validation_errors = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::OptimizeToursValidationError>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__metrics => {
+                            if !fields.insert(__FieldTag::__metrics) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for metrics",
+                                ));
+                            }
+                            result.metrics = map.next_value::<std::option::Option<
+                                crate::model::optimize_tours_response::Metrics,
+                            >>()?;
+                        }
+                        __FieldTag::__total_cost => {
+                            if !fields.insert(__FieldTag::__total_cost) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for total_cost",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.total_cost = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for OptimizeToursResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.routes.is_empty() {
+            state.serialize_entry("routes", &self.routes)?;
+        }
+        if !self.request_label.is_empty() {
+            state.serialize_entry("requestLabel", &self.request_label)?;
+        }
+        if !self.skipped_shipments.is_empty() {
+            state.serialize_entry("skippedShipments", &self.skipped_shipments)?;
+        }
+        if !self.validation_errors.is_empty() {
+            state.serialize_entry("validationErrors", &self.validation_errors)?;
+        }
+        if self.metrics.is_some() {
+            state.serialize_entry("metrics", &self.metrics)?;
+        }
+        if !wkt::internal::is_default(&self.total_cost) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("totalCost", &__With(&self.total_cost))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [OptimizeToursResponse].
 pub mod optimize_tours_response {
     #[allow(unused_imports)]
     use super::*;
 
     /// Overall metrics, aggregated over all routes.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Metrics {
         /// Aggregated over the routes. Each metric is the sum (or max, for loads)
@@ -1482,12 +2665,9 @@ pub mod optimize_tours_response {
         /// fields of the same name.
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.metrics]: crate::model::ShipmentRoute::metrics
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub aggregated_route_metrics: std::option::Option<crate::model::AggregatedMetrics>,
 
         /// Number of mandatory shipments skipped.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub skipped_mandatory_shipment_count: i32,
 
         /// Number of vehicles used. Note: if a vehicle route is empty and
@@ -1495,8 +2675,6 @@ pub mod optimize_tours_response {
         /// is true, the vehicle is considered used.
         ///
         /// [google.cloud.optimization.v1.Vehicle.used_if_route_is_empty]: crate::model::Vehicle::used_if_route_is_empty
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub used_vehicle_count: i32,
 
         /// The earliest start time for a used vehicle, computed as the minimum over
@@ -1504,7 +2682,6 @@ pub mod optimize_tours_response {
         /// [ShipmentRoute.vehicle_start_time][google.cloud.optimization.v1.ShipmentRoute.vehicle_start_time].
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.vehicle_start_time]: crate::model::ShipmentRoute::vehicle_start_time
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub earliest_vehicle_start_time: std::option::Option<wkt::Timestamp>,
 
         /// The latest end time for a used vehicle, computed as the maximum over all
@@ -1512,7 +2689,6 @@ pub mod optimize_tours_response {
         /// [ShipmentRoute.vehicle_end_time][google.cloud.optimization.v1.ShipmentRoute.vehicle_end_time].
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.vehicle_end_time]: crate::model::ShipmentRoute::vehicle_end_time
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub latest_vehicle_end_time: std::option::Option<wkt::Timestamp>,
 
         /// Cost of the solution, broken down by cost-related request fields.
@@ -1524,18 +2700,11 @@ pub mod optimize_tours_response {
         /// are reported in detail here with the exception of costs related to
         /// TransitionAttributes that are only reported in an aggregated way as of
         /// 2022/01.
-        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(
-            as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::F64>>"
-        )]
         pub costs: std::collections::HashMap<std::string::String, f64>,
 
         /// Total cost of the solution. The sum of all values in the costs map.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub total_cost: f64,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -1640,6 +2809,315 @@ pub mod optimize_tours_response {
             "type.googleapis.com/google.cloud.optimization.v1.OptimizeToursResponse.Metrics"
         }
     }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Metrics {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __aggregated_route_metrics,
+                __skipped_mandatory_shipment_count,
+                __used_vehicle_count,
+                __earliest_vehicle_start_time,
+                __latest_vehicle_end_time,
+                __costs,
+                __total_cost,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Metrics")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "aggregatedRouteMetrics" => {
+                                    Ok(__FieldTag::__aggregated_route_metrics)
+                                }
+                                "aggregated_route_metrics" => {
+                                    Ok(__FieldTag::__aggregated_route_metrics)
+                                }
+                                "skippedMandatoryShipmentCount" => {
+                                    Ok(__FieldTag::__skipped_mandatory_shipment_count)
+                                }
+                                "skipped_mandatory_shipment_count" => {
+                                    Ok(__FieldTag::__skipped_mandatory_shipment_count)
+                                }
+                                "usedVehicleCount" => Ok(__FieldTag::__used_vehicle_count),
+                                "used_vehicle_count" => Ok(__FieldTag::__used_vehicle_count),
+                                "earliestVehicleStartTime" => {
+                                    Ok(__FieldTag::__earliest_vehicle_start_time)
+                                }
+                                "earliest_vehicle_start_time" => {
+                                    Ok(__FieldTag::__earliest_vehicle_start_time)
+                                }
+                                "latestVehicleEndTime" => Ok(__FieldTag::__latest_vehicle_end_time),
+                                "latest_vehicle_end_time" => {
+                                    Ok(__FieldTag::__latest_vehicle_end_time)
+                                }
+                                "costs" => Ok(__FieldTag::__costs),
+                                "totalCost" => Ok(__FieldTag::__total_cost),
+                                "total_cost" => Ok(__FieldTag::__total_cost),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Metrics;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Metrics")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__aggregated_route_metrics => {
+                                if !fields.insert(__FieldTag::__aggregated_route_metrics) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for aggregated_route_metrics",
+                                    ));
+                                }
+                                result.aggregated_route_metrics = map.next_value::<std::option::Option<crate::model::AggregatedMetrics>>()?
+                                    ;
+                            }
+                            __FieldTag::__skipped_mandatory_shipment_count => {
+                                if !fields.insert(__FieldTag::__skipped_mandatory_shipment_count) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for skipped_mandatory_shipment_count",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.skipped_mandatory_shipment_count =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__used_vehicle_count => {
+                                if !fields.insert(__FieldTag::__used_vehicle_count) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for used_vehicle_count",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.used_vehicle_count =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__earliest_vehicle_start_time => {
+                                if !fields.insert(__FieldTag::__earliest_vehicle_start_time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for earliest_vehicle_start_time",
+                                    ));
+                                }
+                                result.earliest_vehicle_start_time =
+                                    map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                            }
+                            __FieldTag::__latest_vehicle_end_time => {
+                                if !fields.insert(__FieldTag::__latest_vehicle_end_time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for latest_vehicle_end_time",
+                                    ));
+                                }
+                                result.latest_vehicle_end_time =
+                                    map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                            }
+                            __FieldTag::__costs => {
+                                if !fields.insert(__FieldTag::__costs) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for costs",
+                                    ));
+                                }
+                                struct __With(
+                                    std::option::Option<
+                                        std::collections::HashMap<std::string::String, f64>,
+                                    >,
+                                );
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::<
+                                            std::option::Option<
+                                                std::collections::HashMap<
+                                                    serde_with::Same,
+                                                    wkt::internal::F64,
+                                                >,
+                                            >,
+                                        >::deserialize(
+                                            deserializer
+                                        )
+                                        .map(__With)
+                                    }
+                                }
+                                result.costs = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__total_cost => {
+                                if !fields.insert(__FieldTag::__total_cost) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for total_cost",
+                                    ));
+                                }
+                                struct __With(std::option::Option<f64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.total_cost =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Metrics {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.aggregated_route_metrics.is_some() {
+                state.serialize_entry("aggregatedRouteMetrics", &self.aggregated_route_metrics)?;
+            }
+            if !wkt::internal::is_default(&self.skipped_mandatory_shipment_count) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry(
+                    "skippedMandatoryShipmentCount",
+                    &__With(&self.skipped_mandatory_shipment_count),
+                )?;
+            }
+            if !wkt::internal::is_default(&self.used_vehicle_count) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("usedVehicleCount", &__With(&self.used_vehicle_count))?;
+            }
+            if self.earliest_vehicle_start_time.is_some() {
+                state.serialize_entry(
+                    "earliestVehicleStartTime",
+                    &self.earliest_vehicle_start_time,
+                )?;
+            }
+            if self.latest_vehicle_end_time.is_some() {
+                state.serialize_entry("latestVehicleEndTime", &self.latest_vehicle_end_time)?;
+            }
+            if !self.costs.is_empty() {
+                struct __With<'a>(&'a std::collections::HashMap<std::string::String, f64>);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<
+                            std::collections::HashMap<serde_with::Same, wkt::internal::F64>,
+                        >::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("costs", &__With(&self.costs))?;
+            }
+            if !wkt::internal::is_default(&self.total_cost) {
+                struct __With<'a>(&'a f64);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("totalCost", &__With(&self.total_cost))?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
 }
 
 /// Request to batch optimize tours as an asynchronous operation.
@@ -1647,9 +3125,7 @@ pub mod optimize_tours_response {
 /// file will contain one `OptimizeToursResponse`. The request contains
 /// information to read/write and parse the files. All the input and output files
 /// should be under the same project.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchOptimizeToursRequest {
     /// Required. Target project and location to make a call.
@@ -1657,17 +3133,12 @@ pub struct BatchOptimizeToursRequest {
     /// Format: `projects/{project-id}/locations/{location-id}`.
     ///
     /// If no location is specified, a region will be chosen automatically.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub parent: std::string::String,
 
     /// Required. Input/Output information each purchase model, such as file paths
     /// and data formats.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub model_configs: std::vec::Vec<crate::model::batch_optimize_tours_request::AsyncModelConfig>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1700,29 +3171,139 @@ impl wkt::message::Message for BatchOptimizeToursRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for BatchOptimizeToursRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __model_configs,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BatchOptimizeToursRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "modelConfigs" => Ok(__FieldTag::__model_configs),
+                            "model_configs" => Ok(__FieldTag::__model_configs),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = BatchOptimizeToursRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BatchOptimizeToursRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__model_configs => {
+                            if !fields.insert(__FieldTag::__model_configs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for model_configs",
+                                ));
+                            }
+                            result.model_configs = map.next_value::<std::option::Option<std::vec::Vec<crate::model::batch_optimize_tours_request::AsyncModelConfig>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for BatchOptimizeToursRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.model_configs.is_empty() {
+            state.serialize_entry("modelConfigs", &self.model_configs)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [BatchOptimizeToursRequest].
 pub mod batch_optimize_tours_request {
     #[allow(unused_imports)]
     use super::*;
 
     /// Information for solving one optimization model asynchronously.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct AsyncModelConfig {
         /// User defined model name, can be used as alias by users to keep track of
         /// models.
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub display_name: std::string::String,
 
         /// Required. Information about the input model.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub input_config: std::option::Option<crate::model::InputConfig>,
 
         /// Required. The desired output location information.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub output_config: std::option::Option<crate::model::OutputConfig>,
 
         /// If this is set, the model will be solved in the checkpoint mode. In this
@@ -1733,11 +3314,8 @@ pub mod batch_optimize_tours_request {
         /// mode should be preferred over
         /// allow_large_deadline_despite_interruption_risk since it prevents the risk
         /// of interruption.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub enable_checkpoints: bool,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -1803,16 +3381,167 @@ pub mod batch_optimize_tours_request {
             "type.googleapis.com/google.cloud.optimization.v1.BatchOptimizeToursRequest.AsyncModelConfig"
         }
     }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for AsyncModelConfig {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __display_name,
+                __input_config,
+                __output_config,
+                __enable_checkpoints,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for AsyncModelConfig")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "displayName" => Ok(__FieldTag::__display_name),
+                                "display_name" => Ok(__FieldTag::__display_name),
+                                "inputConfig" => Ok(__FieldTag::__input_config),
+                                "input_config" => Ok(__FieldTag::__input_config),
+                                "outputConfig" => Ok(__FieldTag::__output_config),
+                                "output_config" => Ok(__FieldTag::__output_config),
+                                "enableCheckpoints" => Ok(__FieldTag::__enable_checkpoints),
+                                "enable_checkpoints" => Ok(__FieldTag::__enable_checkpoints),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = AsyncModelConfig;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct AsyncModelConfig")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__display_name => {
+                                if !fields.insert(__FieldTag::__display_name) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for display_name",
+                                    ));
+                                }
+                                result.display_name = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__input_config => {
+                                if !fields.insert(__FieldTag::__input_config) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for input_config",
+                                    ));
+                                }
+                                result.input_config = map
+                                    .next_value::<std::option::Option<crate::model::InputConfig>>(
+                                    )?;
+                            }
+                            __FieldTag::__output_config => {
+                                if !fields.insert(__FieldTag::__output_config) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for output_config",
+                                    ));
+                                }
+                                result.output_config = map
+                                    .next_value::<std::option::Option<crate::model::OutputConfig>>(
+                                    )?;
+                            }
+                            __FieldTag::__enable_checkpoints => {
+                                if !fields.insert(__FieldTag::__enable_checkpoints) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for enable_checkpoints",
+                                    ));
+                                }
+                                result.enable_checkpoints = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for AsyncModelConfig {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.display_name.is_empty() {
+                state.serialize_entry("displayName", &self.display_name)?;
+            }
+            if self.input_config.is_some() {
+                state.serialize_entry("inputConfig", &self.input_config)?;
+            }
+            if self.output_config.is_some() {
+                state.serialize_entry("outputConfig", &self.output_config)?;
+            }
+            if !wkt::internal::is_default(&self.enable_checkpoints) {
+                state.serialize_entry("enableCheckpoints", &self.enable_checkpoints)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
 }
 
 /// Response to a `BatchOptimizeToursRequest`. This is returned in
 /// the LRO Operation after the operation is complete.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BatchOptimizeToursResponse {
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -1828,6 +3557,90 @@ impl wkt::message::Message for BatchOptimizeToursResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for BatchOptimizeToursResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BatchOptimizeToursResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        Ok(__FieldTag::Unknown(value.to_string()))
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = BatchOptimizeToursResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BatchOptimizeToursResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for BatchOptimizeToursResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A shipment model contains a set of shipments which must be performed by a
 /// set of vehicles, while minimizing the overall cost, which is the sum of:
 ///
@@ -1835,19 +3648,13 @@ impl wkt::message::Message for BatchOptimizeToursResponse {
 ///   travel time, and fixed cost over all vehicles).
 /// * the unperformed shipment penalties.
 /// * the cost of the global duration of the shipments
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShipmentModel {
     /// Set of shipments which must be performed in the model.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub shipments: std::vec::Vec<crate::model::Shipment>,
 
     /// Set of vehicles which can be used to perform visits.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub vehicles: std::vec::Vec<crate::model::Vehicle>,
 
     /// Constrains the maximum number of active vehicles. A vehicle is active if
@@ -1856,8 +3663,6 @@ pub struct ShipmentModel {
     /// vehicles and that the fleet of vehicles is heterogeneous. The optimization
     /// will then select the best subset of vehicles to use.
     /// Must be strictly positive.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub max_active_vehicles: std::option::Option<i32>,
 
     /// Global start and end time of the model: no times outside of this range
@@ -1871,12 +3676,10 @@ pub struct ShipmentModel {
     /// you should set the global time limits to that day).
     /// If unset, 00:00:00 UTC, January 1, 1970 (i.e. seconds: 0, nanos: 0) is used
     /// as default.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub global_start_time: std::option::Option<wkt::Timestamp>,
 
     /// If unset, 00:00:00 UTC, January 1, 1971 (i.e. seconds: 31536000, nanos: 0)
     /// is used as default.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub global_end_time: std::option::Option<wkt::Timestamp>,
 
     /// The "global duration" of the overall plan is the difference between the
@@ -1887,8 +3690,6 @@ pub struct ShipmentModel {
     /// [Shipment.penalty_cost][google.cloud.optimization.v1.Shipment.penalty_cost].
     ///
     /// [google.cloud.optimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub global_duration_cost_per_hour: f64,
 
     /// Specifies duration and distance matrices used in the model. If this field
@@ -1977,8 +3778,6 @@ pub struct ShipmentModel {
     ///   }
     /// }
     /// ```
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub duration_distance_matrices:
         std::vec::Vec<crate::model::shipment_model::DurationDistanceMatrix>,
 
@@ -1998,8 +3797,6 @@ pub struct ShipmentModel {
     ///
     /// [google.cloud.optimization.v1.Shipment.VisitRequest.tags]: crate::model::shipment::VisitRequest::tags
     /// [google.cloud.optimization.v1.Vehicle.start_tags]: crate::model::Vehicle::start_tags
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub duration_distance_matrix_src_tags: std::vec::Vec<std::string::String>,
 
     /// Tags defining the destinations of the duration and distance matrices;
@@ -2020,28 +3817,18 @@ pub struct ShipmentModel {
     ///
     /// [google.cloud.optimization.v1.Shipment.VisitRequest.tags]: crate::model::shipment::VisitRequest::tags
     /// [google.cloud.optimization.v1.Vehicle.start_tags]: crate::model::Vehicle::start_tags
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub duration_distance_matrix_dst_tags: std::vec::Vec<std::string::String>,
 
     /// Transition attributes added to the model.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transition_attributes: std::vec::Vec<crate::model::TransitionAttributes>,
 
     /// Sets of incompatible shipment_types (see `ShipmentTypeIncompatibility`).
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub shipment_type_incompatibilities: std::vec::Vec<crate::model::ShipmentTypeIncompatibility>,
 
     /// Sets of `shipment_type` requirements (see `ShipmentTypeRequirement`).
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub shipment_type_requirements: std::vec::Vec<crate::model::ShipmentTypeRequirement>,
 
     /// Set of precedence rules which must be enforced in the model.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub precedence_rules: std::vec::Vec<crate::model::shipment_model::PrecedenceRule>,
 
     /// Deprecated: No longer used.
@@ -2051,12 +3838,9 @@ pub struct ShipmentModel {
     /// field (which must be a singleton).
     ///
     /// [google.cloud.optimization.v1.Vehicle.break_rule_indices]: crate::model::Vehicle::break_rule_indices
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub break_rules: std::vec::Vec<crate::model::shipment_model::BreakRule>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -2243,6 +4027,394 @@ impl wkt::message::Message for ShipmentModel {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ShipmentModel {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __shipments,
+            __vehicles,
+            __max_active_vehicles,
+            __global_start_time,
+            __global_end_time,
+            __global_duration_cost_per_hour,
+            __duration_distance_matrices,
+            __duration_distance_matrix_src_tags,
+            __duration_distance_matrix_dst_tags,
+            __transition_attributes,
+            __shipment_type_incompatibilities,
+            __shipment_type_requirements,
+            __precedence_rules,
+            __break_rules,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ShipmentModel")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "shipments" => Ok(__FieldTag::__shipments),
+                            "vehicles" => Ok(__FieldTag::__vehicles),
+                            "maxActiveVehicles" => Ok(__FieldTag::__max_active_vehicles),
+                            "max_active_vehicles" => Ok(__FieldTag::__max_active_vehicles),
+                            "globalStartTime" => Ok(__FieldTag::__global_start_time),
+                            "global_start_time" => Ok(__FieldTag::__global_start_time),
+                            "globalEndTime" => Ok(__FieldTag::__global_end_time),
+                            "global_end_time" => Ok(__FieldTag::__global_end_time),
+                            "globalDurationCostPerHour" => {
+                                Ok(__FieldTag::__global_duration_cost_per_hour)
+                            }
+                            "global_duration_cost_per_hour" => {
+                                Ok(__FieldTag::__global_duration_cost_per_hour)
+                            }
+                            "durationDistanceMatrices" => {
+                                Ok(__FieldTag::__duration_distance_matrices)
+                            }
+                            "duration_distance_matrices" => {
+                                Ok(__FieldTag::__duration_distance_matrices)
+                            }
+                            "durationDistanceMatrixSrcTags" => {
+                                Ok(__FieldTag::__duration_distance_matrix_src_tags)
+                            }
+                            "duration_distance_matrix_src_tags" => {
+                                Ok(__FieldTag::__duration_distance_matrix_src_tags)
+                            }
+                            "durationDistanceMatrixDstTags" => {
+                                Ok(__FieldTag::__duration_distance_matrix_dst_tags)
+                            }
+                            "duration_distance_matrix_dst_tags" => {
+                                Ok(__FieldTag::__duration_distance_matrix_dst_tags)
+                            }
+                            "transitionAttributes" => Ok(__FieldTag::__transition_attributes),
+                            "transition_attributes" => Ok(__FieldTag::__transition_attributes),
+                            "shipmentTypeIncompatibilities" => {
+                                Ok(__FieldTag::__shipment_type_incompatibilities)
+                            }
+                            "shipment_type_incompatibilities" => {
+                                Ok(__FieldTag::__shipment_type_incompatibilities)
+                            }
+                            "shipmentTypeRequirements" => {
+                                Ok(__FieldTag::__shipment_type_requirements)
+                            }
+                            "shipment_type_requirements" => {
+                                Ok(__FieldTag::__shipment_type_requirements)
+                            }
+                            "precedenceRules" => Ok(__FieldTag::__precedence_rules),
+                            "precedence_rules" => Ok(__FieldTag::__precedence_rules),
+                            "breakRules" => Ok(__FieldTag::__break_rules),
+                            "break_rules" => Ok(__FieldTag::__break_rules),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ShipmentModel;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ShipmentModel")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__shipments => {
+                            if !fields.insert(__FieldTag::__shipments) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shipments",
+                                ));
+                            }
+                            result.shipments = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Shipment>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__vehicles => {
+                            if !fields.insert(__FieldTag::__vehicles) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vehicles",
+                                ));
+                            }
+                            result.vehicles = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Vehicle>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__max_active_vehicles => {
+                            if !fields.insert(__FieldTag::__max_active_vehicles) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_active_vehicles",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_active_vehicles = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__global_start_time => {
+                            if !fields.insert(__FieldTag::__global_start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for global_start_time",
+                                ));
+                            }
+                            result.global_start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__global_end_time => {
+                            if !fields.insert(__FieldTag::__global_end_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for global_end_time",
+                                ));
+                            }
+                            result.global_end_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__global_duration_cost_per_hour => {
+                            if !fields.insert(__FieldTag::__global_duration_cost_per_hour) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for global_duration_cost_per_hour",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.global_duration_cost_per_hour =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__duration_distance_matrices => {
+                            if !fields.insert(__FieldTag::__duration_distance_matrices) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for duration_distance_matrices",
+                                ));
+                            }
+                            result.duration_distance_matrices = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<
+                                        crate::model::shipment_model::DurationDistanceMatrix,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__duration_distance_matrix_src_tags => {
+                            if !fields.insert(__FieldTag::__duration_distance_matrix_src_tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for duration_distance_matrix_src_tags",
+                                ));
+                            }
+                            result.duration_distance_matrix_src_tags = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__duration_distance_matrix_dst_tags => {
+                            if !fields.insert(__FieldTag::__duration_distance_matrix_dst_tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for duration_distance_matrix_dst_tags",
+                                ));
+                            }
+                            result.duration_distance_matrix_dst_tags = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__transition_attributes => {
+                            if !fields.insert(__FieldTag::__transition_attributes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for transition_attributes",
+                                ));
+                            }
+                            result.transition_attributes = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::TransitionAttributes>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__shipment_type_incompatibilities => {
+                            if !fields.insert(__FieldTag::__shipment_type_incompatibilities) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shipment_type_incompatibilities",
+                                ));
+                            }
+                            result.shipment_type_incompatibilities = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ShipmentTypeIncompatibility>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__shipment_type_requirements => {
+                            if !fields.insert(__FieldTag::__shipment_type_requirements) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shipment_type_requirements",
+                                ));
+                            }
+                            result.shipment_type_requirements = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ShipmentTypeRequirement>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__precedence_rules => {
+                            if !fields.insert(__FieldTag::__precedence_rules) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for precedence_rules",
+                                ));
+                            }
+                            result.precedence_rules = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::shipment_model::PrecedenceRule>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__break_rules => {
+                            if !fields.insert(__FieldTag::__break_rules) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for break_rules",
+                                ));
+                            }
+                            result.break_rules = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::shipment_model::BreakRule>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ShipmentModel {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.shipments.is_empty() {
+            state.serialize_entry("shipments", &self.shipments)?;
+        }
+        if !self.vehicles.is_empty() {
+            state.serialize_entry("vehicles", &self.vehicles)?;
+        }
+        if self.max_active_vehicles.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("maxActiveVehicles", &__With(&self.max_active_vehicles))?;
+        }
+        if self.global_start_time.is_some() {
+            state.serialize_entry("globalStartTime", &self.global_start_time)?;
+        }
+        if self.global_end_time.is_some() {
+            state.serialize_entry("globalEndTime", &self.global_end_time)?;
+        }
+        if !wkt::internal::is_default(&self.global_duration_cost_per_hour) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "globalDurationCostPerHour",
+                &__With(&self.global_duration_cost_per_hour),
+            )?;
+        }
+        if !self.duration_distance_matrices.is_empty() {
+            state.serialize_entry("durationDistanceMatrices", &self.duration_distance_matrices)?;
+        }
+        if !self.duration_distance_matrix_src_tags.is_empty() {
+            state.serialize_entry(
+                "durationDistanceMatrixSrcTags",
+                &self.duration_distance_matrix_src_tags,
+            )?;
+        }
+        if !self.duration_distance_matrix_dst_tags.is_empty() {
+            state.serialize_entry(
+                "durationDistanceMatrixDstTags",
+                &self.duration_distance_matrix_dst_tags,
+            )?;
+        }
+        if !self.transition_attributes.is_empty() {
+            state.serialize_entry("transitionAttributes", &self.transition_attributes)?;
+        }
+        if !self.shipment_type_incompatibilities.is_empty() {
+            state.serialize_entry(
+                "shipmentTypeIncompatibilities",
+                &self.shipment_type_incompatibilities,
+            )?;
+        }
+        if !self.shipment_type_requirements.is_empty() {
+            state.serialize_entry("shipmentTypeRequirements", &self.shipment_type_requirements)?;
+        }
+        if !self.precedence_rules.is_empty() {
+            state.serialize_entry("precedenceRules", &self.precedence_rules)?;
+        }
+        if !self.break_rules.is_empty() {
+            state.serialize_entry("breakRules", &self.break_rules)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [ShipmentModel].
 pub mod shipment_model {
     #[allow(unused_imports)]
@@ -2250,9 +4422,7 @@ pub mod shipment_model {
 
     /// Specifies a duration and distance matrix from visit and vehicle start
     /// locations to visit and vehicle end locations.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DurationDistanceMatrix {
         /// Specifies the rows of the duration and distance matrix. It must have as
@@ -2260,8 +4430,6 @@ pub mod shipment_model {
         /// [ShipmentModel.duration_distance_matrix_src_tags][google.cloud.optimization.v1.ShipmentModel.duration_distance_matrix_src_tags].
         ///
         /// [google.cloud.optimization.v1.ShipmentModel.duration_distance_matrix_src_tags]: crate::model::ShipmentModel::duration_distance_matrix_src_tags
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub rows: std::vec::Vec<crate::model::shipment_model::duration_distance_matrix::Row>,
 
         /// Tag defining to which vehicles this duration and distance matrix applies.
@@ -2273,11 +4441,8 @@ pub mod shipment_model {
         /// (and of that matrix only).
         ///
         /// All matrices must have a different `vehicle_start_tag`.
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub vehicle_start_tag: std::string::String,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -2313,33 +4478,145 @@ pub mod shipment_model {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for DurationDistanceMatrix {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __rows,
+                __vehicle_start_tag,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for DurationDistanceMatrix")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "rows" => Ok(__FieldTag::__rows),
+                                "vehicleStartTag" => Ok(__FieldTag::__vehicle_start_tag),
+                                "vehicle_start_tag" => Ok(__FieldTag::__vehicle_start_tag),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = DurationDistanceMatrix;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct DurationDistanceMatrix")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__rows => {
+                                if !fields.insert(__FieldTag::__rows) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for rows",
+                                    ));
+                                }
+                                result.rows = map.next_value::<std::option::Option<std::vec::Vec<crate::model::shipment_model::duration_distance_matrix::Row>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::__vehicle_start_tag => {
+                                if !fields.insert(__FieldTag::__vehicle_start_tag) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for vehicle_start_tag",
+                                    ));
+                                }
+                                result.vehicle_start_tag = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for DurationDistanceMatrix {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.rows.is_empty() {
+                state.serialize_entry("rows", &self.rows)?;
+            }
+            if !self.vehicle_start_tag.is_empty() {
+                state.serialize_entry("vehicleStartTag", &self.vehicle_start_tag)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Defines additional types related to [DurationDistanceMatrix].
     pub mod duration_distance_matrix {
         #[allow(unused_imports)]
         use super::*;
 
         /// Specifies a row of the duration and distance matrix.
-        #[serde_with::serde_as]
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        #[serde(default, rename_all = "camelCase")]
+        #[derive(Clone, Debug, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Row {
             /// Duration values for a given row. It must have as many elements as
             /// [ShipmentModel.duration_distance_matrix_dst_tags][google.cloud.optimization.v1.ShipmentModel.duration_distance_matrix_dst_tags].
             ///
             /// [google.cloud.optimization.v1.ShipmentModel.duration_distance_matrix_dst_tags]: crate::model::ShipmentModel::duration_distance_matrix_dst_tags
-            #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
             pub durations: std::vec::Vec<wkt::Duration>,
 
             /// Distance values for a given row. If no costs or constraints refer to
             /// distances in the model, this can be left empty; otherwise it must have
             /// as many elements as `durations`.
-            #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-            #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::F64>>")]
             pub meters: std::vec::Vec<f64>,
 
-            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -2376,6 +4653,160 @@ pub mod shipment_model {
                 "type.googleapis.com/google.cloud.optimization.v1.ShipmentModel.DurationDistanceMatrix.Row"
             }
         }
+
+        #[doc(hidden)]
+        impl<'de> serde::de::Deserialize<'de> for Row {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                #[allow(non_camel_case_types)]
+                #[doc(hidden)]
+                #[derive(PartialEq, Eq, Hash)]
+                enum __FieldTag {
+                    __durations,
+                    __meters,
+                    Unknown(std::string::String),
+                }
+                impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        struct Visitor;
+                        impl<'de> serde::de::Visitor<'de> for Visitor {
+                            type Value = __FieldTag;
+                            fn expecting(
+                                &self,
+                                formatter: &mut std::fmt::Formatter,
+                            ) -> std::fmt::Result {
+                                formatter.write_str("a field name for Row")
+                            }
+                            fn visit_str<E>(
+                                self,
+                                value: &str,
+                            ) -> std::result::Result<Self::Value, E>
+                            where
+                                E: serde::de::Error,
+                            {
+                                use std::result::Result::Ok;
+                                use std::string::ToString;
+                                match value {
+                                    "durations" => Ok(__FieldTag::__durations),
+                                    "meters" => Ok(__FieldTag::__meters),
+                                    _ => Ok(__FieldTag::Unknown(value.to_string())),
+                                }
+                            }
+                        }
+                        deserializer.deserialize_identifier(Visitor)
+                    }
+                }
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = Row;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("struct Row")
+                    }
+                    fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                    where
+                        A: serde::de::MapAccess<'de>,
+                    {
+                        #[allow(unused_imports)]
+                        use serde::de::Error;
+                        use std::option::Option::Some;
+                        let mut fields = std::collections::HashSet::new();
+                        let mut result = Self::Value::new();
+                        while let Some(tag) = map.next_key::<__FieldTag>()? {
+                            #[allow(clippy::match_single_binding)]
+                            match tag {
+                                __FieldTag::__durations => {
+                                    if !fields.insert(__FieldTag::__durations) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for durations",
+                                            ),
+                                        );
+                                    }
+                                    result.durations = map.next_value::<std::option::Option<std::vec::Vec<wkt::Duration>>>()?.unwrap_or_default();
+                                }
+                                __FieldTag::__meters => {
+                                    if !fields.insert(__FieldTag::__meters) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field("multiple values for meters"),
+                                        );
+                                    }
+                                    struct __With(std::option::Option<std::vec::Vec<f64>>);
+                                    impl<'de> serde::de::Deserialize<'de> for __With {
+                                        fn deserialize<D>(
+                                            deserializer: D,
+                                        ) -> std::result::Result<Self, D::Error>
+                                        where
+                                            D: serde::de::Deserializer<'de>,
+                                        {
+                                            serde_with::As::<
+                                                std::option::Option<
+                                                    std::vec::Vec<wkt::internal::F64>,
+                                                >,
+                                            >::deserialize(
+                                                deserializer
+                                            )
+                                            .map(__With)
+                                        }
+                                    }
+                                    result.meters =
+                                        map.next_value::<__With>()?.0.unwrap_or_default();
+                                }
+                                __FieldTag::Unknown(key) => {
+                                    let value = map.next_value::<serde_json::Value>()?;
+                                    result._unknown_fields.insert(key, value);
+                                }
+                            }
+                        }
+                        std::result::Result::Ok(result)
+                    }
+                }
+                deserializer.deserialize_any(Visitor)
+            }
+        }
+
+        #[doc(hidden)]
+        impl serde::ser::Serialize for Row {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                use serde::ser::SerializeMap;
+                #[allow(unused_imports)]
+                use std::option::Option::Some;
+                let mut state = serializer.serialize_map(std::option::Option::None)?;
+                if !self.durations.is_empty() {
+                    state.serialize_entry("durations", &self.durations)?;
+                }
+                if !self.meters.is_empty() {
+                    struct __With<'a>(&'a std::vec::Vec<f64>);
+                    impl<'a> serde::ser::Serialize for __With<'a> {
+                        fn serialize<S>(
+                            &self,
+                            serializer: S,
+                        ) -> std::result::Result<S::Ok, S::Error>
+                        where
+                            S: serde::ser::Serializer,
+                        {
+                            serde_with::As::<std::vec::Vec<wkt::internal::F64>>::serialize(
+                                self.0, serializer,
+                            )
+                        }
+                    }
+                    state.serialize_entry("meters", &__With(&self.meters))?;
+                }
+                if !self._unknown_fields.is_empty() {
+                    for (key, value) in self._unknown_fields.iter() {
+                        state.serialize_entry(key, &value)?;
+                    }
+                }
+                state.end()
+            }
+        }
     }
 
     /// A precedence rule between two events (each event is the pickup or the
@@ -2388,36 +4819,24 @@ pub mod shipment_model {
     ///
     /// Furthermore, precedences only apply when both shipments are performed and
     /// are otherwise ignored.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct PrecedenceRule {
         /// Shipment index of the "first" event. This field must be specified.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub first_index: std::option::Option<i32>,
 
         /// Indicates if the "first" event is a delivery.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub first_is_delivery: bool,
 
         /// Shipment index of the "second" event. This field must be specified.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub second_index: std::option::Option<i32>,
 
         /// Indicates if the "second" event is a delivery.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub second_is_delivery: bool,
 
         /// The offset between the "first" and "second" event. It can be negative.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub offset_duration: std::option::Option<wkt::Duration>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -2499,6 +4918,215 @@ pub mod shipment_model {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for PrecedenceRule {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __first_index,
+                __first_is_delivery,
+                __second_index,
+                __second_is_delivery,
+                __offset_duration,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for PrecedenceRule")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "firstIndex" => Ok(__FieldTag::__first_index),
+                                "first_index" => Ok(__FieldTag::__first_index),
+                                "firstIsDelivery" => Ok(__FieldTag::__first_is_delivery),
+                                "first_is_delivery" => Ok(__FieldTag::__first_is_delivery),
+                                "secondIndex" => Ok(__FieldTag::__second_index),
+                                "second_index" => Ok(__FieldTag::__second_index),
+                                "secondIsDelivery" => Ok(__FieldTag::__second_is_delivery),
+                                "second_is_delivery" => Ok(__FieldTag::__second_is_delivery),
+                                "offsetDuration" => Ok(__FieldTag::__offset_duration),
+                                "offset_duration" => Ok(__FieldTag::__offset_duration),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = PrecedenceRule;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct PrecedenceRule")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__first_index => {
+                                if !fields.insert(__FieldTag::__first_index) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for first_index",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.first_index = map.next_value::<__With>()?.0;
+                            }
+                            __FieldTag::__first_is_delivery => {
+                                if !fields.insert(__FieldTag::__first_is_delivery) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for first_is_delivery",
+                                    ));
+                                }
+                                result.first_is_delivery = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__second_index => {
+                                if !fields.insert(__FieldTag::__second_index) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for second_index",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.second_index = map.next_value::<__With>()?.0;
+                            }
+                            __FieldTag::__second_is_delivery => {
+                                if !fields.insert(__FieldTag::__second_is_delivery) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for second_is_delivery",
+                                    ));
+                                }
+                                result.second_is_delivery = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__offset_duration => {
+                                if !fields.insert(__FieldTag::__offset_duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for offset_duration",
+                                    ));
+                                }
+                                result.offset_duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for PrecedenceRule {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.first_index.is_some() {
+                struct __With<'a>(&'a std::option::Option<i32>);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                            self.0, serializer,
+                        )
+                    }
+                }
+                state.serialize_entry("firstIndex", &__With(&self.first_index))?;
+            }
+            if !wkt::internal::is_default(&self.first_is_delivery) {
+                state.serialize_entry("firstIsDelivery", &self.first_is_delivery)?;
+            }
+            if self.second_index.is_some() {
+                struct __With<'a>(&'a std::option::Option<i32>);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                            self.0, serializer,
+                        )
+                    }
+                }
+                state.serialize_entry("secondIndex", &__With(&self.second_index))?;
+            }
+            if !wkt::internal::is_default(&self.second_is_delivery) {
+                state.serialize_entry("secondIsDelivery", &self.second_is_delivery)?;
+            }
+            if self.offset_duration.is_some() {
+                state.serialize_entry("offsetDuration", &self.offset_duration)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Deprecated: Use top level
     /// [BreakRule][google.cloud.optimization.v1.ShipmentModel.BreakRule] instead.
     /// Rules to generate time breaks for a vehicle (e.g. lunch
@@ -2514,25 +5142,18 @@ pub mod shipment_model {
     /// * after the vehicle end (ditto, with the vehicle end time).
     ///
     /// [google.cloud.optimization.v1.ShipmentModel.BreakRule]: crate::model::shipment_model::BreakRule
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     #[deprecated]
     pub struct BreakRule {
         /// Sequence of breaks. See the `BreakRequest` message.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub break_requests: std::vec::Vec<crate::model::shipment_model::break_rule::BreakRequest>,
 
         /// Several `FrequencyConstraint` may apply. They must all be satisfied by
         /// the `BreakRequest`s of this `BreakRule`. See `FrequencyConstraint`.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub frequency_constraints:
             std::vec::Vec<crate::model::shipment_model::break_rule::FrequencyConstraint>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -2570,6 +5191,130 @@ pub mod shipment_model {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for BreakRule {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __break_requests,
+                __frequency_constraints,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for BreakRule")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "breakRequests" => Ok(__FieldTag::__break_requests),
+                                "break_requests" => Ok(__FieldTag::__break_requests),
+                                "frequencyConstraints" => Ok(__FieldTag::__frequency_constraints),
+                                "frequency_constraints" => Ok(__FieldTag::__frequency_constraints),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = BreakRule;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct BreakRule")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__break_requests => {
+                                if !fields.insert(__FieldTag::__break_requests) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for break_requests",
+                                    ));
+                                }
+                                result.break_requests = map
+                                    .next_value::<std::option::Option<
+                                        std::vec::Vec<
+                                            crate::model::shipment_model::break_rule::BreakRequest,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__frequency_constraints => {
+                                if !fields.insert(__FieldTag::__frequency_constraints) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for frequency_constraints",
+                                    ));
+                                }
+                                result.frequency_constraints = map.next_value::<std::option::Option<std::vec::Vec<crate::model::shipment_model::break_rule::FrequencyConstraint>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for BreakRule {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.break_requests.is_empty() {
+                state.serialize_entry("breakRequests", &self.break_requests)?;
+            }
+            if !self.frequency_constraints.is_empty() {
+                state.serialize_entry("frequencyConstraints", &self.frequency_constraints)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Defines additional types related to [BreakRule].
     pub mod break_rule {
         #[allow(unused_imports)]
@@ -2580,24 +5325,18 @@ pub mod shipment_model {
         /// that sequence, in the order in which they must occur. Their time windows
         /// (`earliest_start_time` / `latest_start_time`) may overlap, but they must
         /// be compatible with the order (this is checked).
-        #[serde_with::serde_as]
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        #[serde(default, rename_all = "camelCase")]
+        #[derive(Clone, Debug, Default, PartialEq)]
         #[non_exhaustive]
         pub struct BreakRequest {
             /// Required. Lower bound (inclusive) on the start of the break.
-            #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub earliest_start_time: std::option::Option<wkt::Timestamp>,
 
             /// Required. Upper bound (inclusive) on the start of the break.
-            #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub latest_start_time: std::option::Option<wkt::Timestamp>,
 
             /// Required. Minimum duration of the break. Must be positive.
-            #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub min_duration: std::option::Option<wkt::Duration>,
 
-            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -2667,6 +5406,150 @@ pub mod shipment_model {
             }
         }
 
+        #[doc(hidden)]
+        impl<'de> serde::de::Deserialize<'de> for BreakRequest {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                #[allow(non_camel_case_types)]
+                #[doc(hidden)]
+                #[derive(PartialEq, Eq, Hash)]
+                enum __FieldTag {
+                    __earliest_start_time,
+                    __latest_start_time,
+                    __min_duration,
+                    Unknown(std::string::String),
+                }
+                impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        struct Visitor;
+                        impl<'de> serde::de::Visitor<'de> for Visitor {
+                            type Value = __FieldTag;
+                            fn expecting(
+                                &self,
+                                formatter: &mut std::fmt::Formatter,
+                            ) -> std::fmt::Result {
+                                formatter.write_str("a field name for BreakRequest")
+                            }
+                            fn visit_str<E>(
+                                self,
+                                value: &str,
+                            ) -> std::result::Result<Self::Value, E>
+                            where
+                                E: serde::de::Error,
+                            {
+                                use std::result::Result::Ok;
+                                use std::string::ToString;
+                                match value {
+                                    "earliestStartTime" => Ok(__FieldTag::__earliest_start_time),
+                                    "earliest_start_time" => Ok(__FieldTag::__earliest_start_time),
+                                    "latestStartTime" => Ok(__FieldTag::__latest_start_time),
+                                    "latest_start_time" => Ok(__FieldTag::__latest_start_time),
+                                    "minDuration" => Ok(__FieldTag::__min_duration),
+                                    "min_duration" => Ok(__FieldTag::__min_duration),
+                                    _ => Ok(__FieldTag::Unknown(value.to_string())),
+                                }
+                            }
+                        }
+                        deserializer.deserialize_identifier(Visitor)
+                    }
+                }
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = BreakRequest;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("struct BreakRequest")
+                    }
+                    fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                    where
+                        A: serde::de::MapAccess<'de>,
+                    {
+                        #[allow(unused_imports)]
+                        use serde::de::Error;
+                        use std::option::Option::Some;
+                        let mut fields = std::collections::HashSet::new();
+                        let mut result = Self::Value::new();
+                        while let Some(tag) = map.next_key::<__FieldTag>()? {
+                            #[allow(clippy::match_single_binding)]
+                            match tag {
+                                __FieldTag::__earliest_start_time => {
+                                    if !fields.insert(__FieldTag::__earliest_start_time) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for earliest_start_time",
+                                            ),
+                                        );
+                                    }
+                                    result.earliest_start_time =
+                                        map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                                }
+                                __FieldTag::__latest_start_time => {
+                                    if !fields.insert(__FieldTag::__latest_start_time) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for latest_start_time",
+                                            ),
+                                        );
+                                    }
+                                    result.latest_start_time =
+                                        map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                                }
+                                __FieldTag::__min_duration => {
+                                    if !fields.insert(__FieldTag::__min_duration) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for min_duration",
+                                            ),
+                                        );
+                                    }
+                                    result.min_duration =
+                                        map.next_value::<std::option::Option<wkt::Duration>>()?;
+                                }
+                                __FieldTag::Unknown(key) => {
+                                    let value = map.next_value::<serde_json::Value>()?;
+                                    result._unknown_fields.insert(key, value);
+                                }
+                            }
+                        }
+                        std::result::Result::Ok(result)
+                    }
+                }
+                deserializer.deserialize_any(Visitor)
+            }
+        }
+
+        #[doc(hidden)]
+        impl serde::ser::Serialize for BreakRequest {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                use serde::ser::SerializeMap;
+                #[allow(unused_imports)]
+                use std::option::Option::Some;
+                let mut state = serializer.serialize_map(std::option::Option::None)?;
+                if self.earliest_start_time.is_some() {
+                    state.serialize_entry("earliestStartTime", &self.earliest_start_time)?;
+                }
+                if self.latest_start_time.is_some() {
+                    state.serialize_entry("latestStartTime", &self.latest_start_time)?;
+                }
+                if self.min_duration.is_some() {
+                    state.serialize_entry("minDuration", &self.min_duration)?;
+                }
+                if !self._unknown_fields.is_empty() {
+                    for (key, value) in self._unknown_fields.iter() {
+                        state.serialize_entry(key, &value)?;
+                    }
+                }
+                state.end()
+            }
+        }
+
         /// One may further constrain the frequency and duration of the breaks
         /// specified above, by enforcing a minimum break frequency, such as
         /// "There must be a break of at least 1 hour every 12 hours". Assuming that
@@ -2702,23 +5585,18 @@ pub mod shipment_model {
         ///    .. performing travel and visits ..
         ///   23:59 vehicle end
         /// ```
-        #[serde_with::serde_as]
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        #[serde(default, rename_all = "camelCase")]
+        #[derive(Clone, Debug, Default, PartialEq)]
         #[non_exhaustive]
         pub struct FrequencyConstraint {
             /// Required. Minimum break duration for this constraint. Nonnegative.
             /// See description of `FrequencyConstraint`.
-            #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub min_break_duration: std::option::Option<wkt::Duration>,
 
             /// Required. Maximum allowed span of any interval of time in the route
             /// that does not include at least partially a break of `duration >=
             /// min_break_duration`. Must be positive.
-            #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub max_inter_break_duration: std::option::Option<wkt::Duration>,
 
-            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -2772,6 +5650,138 @@ pub mod shipment_model {
                 "type.googleapis.com/google.cloud.optimization.v1.ShipmentModel.BreakRule.FrequencyConstraint"
             }
         }
+
+        #[doc(hidden)]
+        impl<'de> serde::de::Deserialize<'de> for FrequencyConstraint {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                #[allow(non_camel_case_types)]
+                #[doc(hidden)]
+                #[derive(PartialEq, Eq, Hash)]
+                enum __FieldTag {
+                    __min_break_duration,
+                    __max_inter_break_duration,
+                    Unknown(std::string::String),
+                }
+                impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        struct Visitor;
+                        impl<'de> serde::de::Visitor<'de> for Visitor {
+                            type Value = __FieldTag;
+                            fn expecting(
+                                &self,
+                                formatter: &mut std::fmt::Formatter,
+                            ) -> std::fmt::Result {
+                                formatter.write_str("a field name for FrequencyConstraint")
+                            }
+                            fn visit_str<E>(
+                                self,
+                                value: &str,
+                            ) -> std::result::Result<Self::Value, E>
+                            where
+                                E: serde::de::Error,
+                            {
+                                use std::result::Result::Ok;
+                                use std::string::ToString;
+                                match value {
+                                    "minBreakDuration" => Ok(__FieldTag::__min_break_duration),
+                                    "min_break_duration" => Ok(__FieldTag::__min_break_duration),
+                                    "maxInterBreakDuration" => {
+                                        Ok(__FieldTag::__max_inter_break_duration)
+                                    }
+                                    "max_inter_break_duration" => {
+                                        Ok(__FieldTag::__max_inter_break_duration)
+                                    }
+                                    _ => Ok(__FieldTag::Unknown(value.to_string())),
+                                }
+                            }
+                        }
+                        deserializer.deserialize_identifier(Visitor)
+                    }
+                }
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = FrequencyConstraint;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("struct FrequencyConstraint")
+                    }
+                    fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                    where
+                        A: serde::de::MapAccess<'de>,
+                    {
+                        #[allow(unused_imports)]
+                        use serde::de::Error;
+                        use std::option::Option::Some;
+                        let mut fields = std::collections::HashSet::new();
+                        let mut result = Self::Value::new();
+                        while let Some(tag) = map.next_key::<__FieldTag>()? {
+                            #[allow(clippy::match_single_binding)]
+                            match tag {
+                                __FieldTag::__min_break_duration => {
+                                    if !fields.insert(__FieldTag::__min_break_duration) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for min_break_duration",
+                                            ),
+                                        );
+                                    }
+                                    result.min_break_duration =
+                                        map.next_value::<std::option::Option<wkt::Duration>>()?;
+                                }
+                                __FieldTag::__max_inter_break_duration => {
+                                    if !fields.insert(__FieldTag::__max_inter_break_duration) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for max_inter_break_duration",
+                                            ),
+                                        );
+                                    }
+                                    result.max_inter_break_duration =
+                                        map.next_value::<std::option::Option<wkt::Duration>>()?;
+                                }
+                                __FieldTag::Unknown(key) => {
+                                    let value = map.next_value::<serde_json::Value>()?;
+                                    result._unknown_fields.insert(key, value);
+                                }
+                            }
+                        }
+                        std::result::Result::Ok(result)
+                    }
+                }
+                deserializer.deserialize_any(Visitor)
+            }
+        }
+
+        #[doc(hidden)]
+        impl serde::ser::Serialize for FrequencyConstraint {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                use serde::ser::SerializeMap;
+                #[allow(unused_imports)]
+                use std::option::Option::Some;
+                let mut state = serializer.serialize_map(std::option::Option::None)?;
+                if self.min_break_duration.is_some() {
+                    state.serialize_entry("minBreakDuration", &self.min_break_duration)?;
+                }
+                if self.max_inter_break_duration.is_some() {
+                    state
+                        .serialize_entry("maxInterBreakDuration", &self.max_inter_break_duration)?;
+                }
+                if !self._unknown_fields.is_empty() {
+                    for (key, value) in self._unknown_fields.iter() {
+                        state.serialize_entry(key, &value)?;
+                    }
+                }
+                state.end()
+            }
+        }
     }
 }
 
@@ -2780,21 +5790,15 @@ pub mod shipment_model {
 /// must visit one of its pickup locations (and decrease its spare capacities
 /// accordingly), then visit one of its delivery locations later on (and
 /// therefore re-increase its spare capacities accordingly).
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Shipment {
     /// Set of pickup alternatives associated to the shipment. If not specified,
     /// the vehicle only needs to visit a location corresponding to the deliveries.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub pickups: std::vec::Vec<crate::model::shipment::VisitRequest>,
 
     /// Set of delivery alternatives associated to the shipment. If not specified,
     /// the vehicle only needs to visit a location corresponding to the pickups.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub deliveries: std::vec::Vec<crate::model::shipment::VisitRequest>,
 
     /// Load demands of the shipment (for example weight, volume, number of
@@ -2803,8 +5807,6 @@ pub struct Shipment {
     /// For example: "weight_kg", "volume_gallons", "pallet_count", etc.
     /// If a given key does not appear in the map, the corresponding load is
     /// considered as null.
-    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub load_demands: std::collections::HashMap<std::string::String, crate::model::shipment::Load>,
 
     /// If the shipment is not completed, this penalty is added to the overall
@@ -2815,15 +5817,11 @@ pub struct Shipment {
     ///
     /// *IMPORTANT*: If this penalty is not specified, it is considered infinite,
     /// i.e. the shipment must be completed.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub penalty_cost: std::option::Option<f64>,
 
     /// The set of vehicles that may perform this shipment. If empty, all vehicles
     /// may perform it. Vehicles are given by their index in the `ShipmentModel`'s
     /// `vehicles` list.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub allowed_vehicle_indices: std::vec::Vec<i32>,
 
     /// Specifies the cost that is incurred when this shipment is delivered by each
@@ -2837,16 +5835,12 @@ pub struct Shipment {
     ///
     /// These costs must be in the same unit as `penalty_cost` and must not be
     /// negative. Leave this field empty, if there are no such costs.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::F64>>")]
     pub costs_per_vehicle: std::vec::Vec<f64>,
 
     /// Indices of the vehicles to which `costs_per_vehicle` applies. If non-empty,
     /// it must have the same number of elements as `costs_per_vehicle`. A vehicle
     /// index may not be specified more than once. If a vehicle is excluded from
     /// `costs_per_vehicle_indices`, its cost is zero.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     pub costs_per_vehicle_indices: std::vec::Vec<i32>,
 
     /// Specifies the maximum relative detour time compared to the shortest path
@@ -2866,8 +5860,6 @@ pub struct Shipment {
     /// the more constraining limit is used for each possible pickup/delivery pair.
     /// As of 2017/10, detours are only supported when travel durations do not
     /// depend on vehicles.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub pickup_to_delivery_relative_detour_limit: std::option::Option<f64>,
 
     /// Specifies the maximum absolute detour time compared to the shortest path
@@ -2887,7 +5879,6 @@ pub struct Shipment {
     /// the more constraining limit is used for each possible pickup/delivery pair.
     /// As of 2017/10, detours are only supported when travel durations do not
     /// depend on vehicles.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub pickup_to_delivery_absolute_detour_limit: std::option::Option<wkt::Duration>,
 
     /// Specifies the maximum duration from start of pickup to start of delivery of
@@ -2896,7 +5887,6 @@ pub struct Shipment {
     /// alternatives are selected for pickup and delivery, nor on vehicle speed.
     /// This can be specified alongside maximum detour constraints: the solution
     /// will respect both specifications.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub pickup_to_delivery_time_limit: std::option::Option<wkt::Duration>,
 
     /// Non-empty string specifying a "type" for this shipment.
@@ -2907,8 +5897,6 @@ pub struct Shipment {
     /// Differs from `visit_types` which is specified for a single visit: All
     /// pickup/deliveries belonging to the same shipment share the same
     /// `shipment_type`.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub shipment_type: std::string::String,
 
     /// Specifies a label for this shipment. This label is reported in the response
@@ -2916,8 +5904,6 @@ pub struct Shipment {
     /// [ShipmentRoute.Visit][google.cloud.optimization.v1.ShipmentRoute.Visit].
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.Visit]: crate::model::shipment_route::Visit
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label: std::string::String,
 
     /// If true, skip this shipment, but don't apply a `penalty_cost`.
@@ -2929,8 +5915,6 @@ pub struct Shipment {
     /// or `injected_solution_constraint` is permitted; the solver removes the
     /// related pickup/delivery visits from the performing route.
     /// `precedence_rules` that reference ignored shipments will also be ignored.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ignore: bool,
 
     /// Deprecated: Use
@@ -2938,12 +5922,9 @@ pub struct Shipment {
     /// instead.
     ///
     /// [google.cloud.optimization.v1.Shipment.load_demands]: crate::model::Shipment::load_demands
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub demands: std::vec::Vec<crate::model::CapacityQuantity>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3137,6 +6118,467 @@ impl wkt::message::Message for Shipment {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Shipment {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __pickups,
+            __deliveries,
+            __load_demands,
+            __penalty_cost,
+            __allowed_vehicle_indices,
+            __costs_per_vehicle,
+            __costs_per_vehicle_indices,
+            __pickup_to_delivery_relative_detour_limit,
+            __pickup_to_delivery_absolute_detour_limit,
+            __pickup_to_delivery_time_limit,
+            __shipment_type,
+            __label,
+            __ignore,
+            __demands,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Shipment")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "pickups" => Ok(__FieldTag::__pickups),
+                            "deliveries" => Ok(__FieldTag::__deliveries),
+                            "loadDemands" => Ok(__FieldTag::__load_demands),
+                            "load_demands" => Ok(__FieldTag::__load_demands),
+                            "penaltyCost" => Ok(__FieldTag::__penalty_cost),
+                            "penalty_cost" => Ok(__FieldTag::__penalty_cost),
+                            "allowedVehicleIndices" => Ok(__FieldTag::__allowed_vehicle_indices),
+                            "allowed_vehicle_indices" => Ok(__FieldTag::__allowed_vehicle_indices),
+                            "costsPerVehicle" => Ok(__FieldTag::__costs_per_vehicle),
+                            "costs_per_vehicle" => Ok(__FieldTag::__costs_per_vehicle),
+                            "costsPerVehicleIndices" => Ok(__FieldTag::__costs_per_vehicle_indices),
+                            "costs_per_vehicle_indices" => {
+                                Ok(__FieldTag::__costs_per_vehicle_indices)
+                            }
+                            "pickupToDeliveryRelativeDetourLimit" => {
+                                Ok(__FieldTag::__pickup_to_delivery_relative_detour_limit)
+                            }
+                            "pickup_to_delivery_relative_detour_limit" => {
+                                Ok(__FieldTag::__pickup_to_delivery_relative_detour_limit)
+                            }
+                            "pickupToDeliveryAbsoluteDetourLimit" => {
+                                Ok(__FieldTag::__pickup_to_delivery_absolute_detour_limit)
+                            }
+                            "pickup_to_delivery_absolute_detour_limit" => {
+                                Ok(__FieldTag::__pickup_to_delivery_absolute_detour_limit)
+                            }
+                            "pickupToDeliveryTimeLimit" => {
+                                Ok(__FieldTag::__pickup_to_delivery_time_limit)
+                            }
+                            "pickup_to_delivery_time_limit" => {
+                                Ok(__FieldTag::__pickup_to_delivery_time_limit)
+                            }
+                            "shipmentType" => Ok(__FieldTag::__shipment_type),
+                            "shipment_type" => Ok(__FieldTag::__shipment_type),
+                            "label" => Ok(__FieldTag::__label),
+                            "ignore" => Ok(__FieldTag::__ignore),
+                            "demands" => Ok(__FieldTag::__demands),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Shipment;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Shipment")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__pickups => {
+                            if !fields.insert(__FieldTag::__pickups) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pickups",
+                                ));
+                            }
+                            result.pickups = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::shipment::VisitRequest>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__deliveries => {
+                            if !fields.insert(__FieldTag::__deliveries) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deliveries",
+                                ));
+                            }
+                            result.deliveries = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::shipment::VisitRequest>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__load_demands => {
+                            if !fields.insert(__FieldTag::__load_demands) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for load_demands",
+                                ));
+                            }
+                            result.load_demands = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::model::shipment::Load,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__penalty_cost => {
+                            if !fields.insert(__FieldTag::__penalty_cost) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for penalty_cost",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.penalty_cost = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__allowed_vehicle_indices => {
+                            if !fields.insert(__FieldTag::__allowed_vehicle_indices) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for allowed_vehicle_indices",
+                                ));
+                            }
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.allowed_vehicle_indices =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__costs_per_vehicle => {
+                            if !fields.insert(__FieldTag::__costs_per_vehicle) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for costs_per_vehicle",
+                                ));
+                            }
+                            struct __With(std::option::Option<std::vec::Vec<f64>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::F64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.costs_per_vehicle =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__costs_per_vehicle_indices => {
+                            if !fields.insert(__FieldTag::__costs_per_vehicle_indices) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for costs_per_vehicle_indices",
+                                ));
+                            }
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.costs_per_vehicle_indices =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__pickup_to_delivery_relative_detour_limit => {
+                            if !fields
+                                .insert(__FieldTag::__pickup_to_delivery_relative_detour_limit)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pickup_to_delivery_relative_detour_limit",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.pickup_to_delivery_relative_detour_limit =
+                                map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__pickup_to_delivery_absolute_detour_limit => {
+                            if !fields
+                                .insert(__FieldTag::__pickup_to_delivery_absolute_detour_limit)
+                            {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pickup_to_delivery_absolute_detour_limit",
+                                ));
+                            }
+                            result.pickup_to_delivery_absolute_detour_limit =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__pickup_to_delivery_time_limit => {
+                            if !fields.insert(__FieldTag::__pickup_to_delivery_time_limit) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for pickup_to_delivery_time_limit",
+                                ));
+                            }
+                            result.pickup_to_delivery_time_limit =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__shipment_type => {
+                            if !fields.insert(__FieldTag::__shipment_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for shipment_type",
+                                ));
+                            }
+                            result.shipment_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__label => {
+                            if !fields.insert(__FieldTag::__label) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for label",
+                                ));
+                            }
+                            result.label = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ignore => {
+                            if !fields.insert(__FieldTag::__ignore) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ignore",
+                                ));
+                            }
+                            result.ignore = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__demands => {
+                            if !fields.insert(__FieldTag::__demands) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for demands",
+                                ));
+                            }
+                            result.demands =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::CapacityQuantity>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Shipment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.pickups.is_empty() {
+            state.serialize_entry("pickups", &self.pickups)?;
+        }
+        if !self.deliveries.is_empty() {
+            state.serialize_entry("deliveries", &self.deliveries)?;
+        }
+        if !self.load_demands.is_empty() {
+            state.serialize_entry("loadDemands", &self.load_demands)?;
+        }
+        if self.penalty_cost.is_some() {
+            struct __With<'a>(&'a std::option::Option<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("penaltyCost", &__With(&self.penalty_cost))?;
+        }
+        if !self.allowed_vehicle_indices.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "allowedVehicleIndices",
+                &__With(&self.allowed_vehicle_indices),
+            )?;
+        }
+        if !self.costs_per_vehicle.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("costsPerVehicle", &__With(&self.costs_per_vehicle))?;
+        }
+        if !self.costs_per_vehicle_indices.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "costsPerVehicleIndices",
+                &__With(&self.costs_per_vehicle_indices),
+            )?;
+        }
+        if self.pickup_to_delivery_relative_detour_limit.is_some() {
+            struct __With<'a>(&'a std::option::Option<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "pickupToDeliveryRelativeDetourLimit",
+                &__With(&self.pickup_to_delivery_relative_detour_limit),
+            )?;
+        }
+        if self.pickup_to_delivery_absolute_detour_limit.is_some() {
+            state.serialize_entry(
+                "pickupToDeliveryAbsoluteDetourLimit",
+                &self.pickup_to_delivery_absolute_detour_limit,
+            )?;
+        }
+        if self.pickup_to_delivery_time_limit.is_some() {
+            state.serialize_entry(
+                "pickupToDeliveryTimeLimit",
+                &self.pickup_to_delivery_time_limit,
+            )?;
+        }
+        if !self.shipment_type.is_empty() {
+            state.serialize_entry("shipmentType", &self.shipment_type)?;
+        }
+        if !self.label.is_empty() {
+            state.serialize_entry("label", &self.label)?;
+        }
+        if !wkt::internal::is_default(&self.ignore) {
+            state.serialize_entry("ignore", &self.ignore)?;
+        }
+        if !self.demands.is_empty() {
+            state.serialize_entry("demands", &self.demands)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [Shipment].
 pub mod shipment {
     #[allow(unused_imports)]
@@ -3146,41 +6588,33 @@ pub mod shipment {
     /// (or two, see below), opening and closing times represented by time windows,
     /// and a service duration time (time spent by the vehicle once it has arrived
     /// to pickup or drop off goods).
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VisitRequest {
         /// The geo-location where the vehicle arrives when performing this
         /// `VisitRequest`. If the shipment model has duration distance matrices,
         /// `arrival_location` must not be specified.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub arrival_location: std::option::Option<gtype::model::LatLng>,
 
         /// The waypoint where the vehicle arrives when performing this
         /// `VisitRequest`. If the shipment model has duration distance matrices,
         /// `arrival_waypoint` must not be specified.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub arrival_waypoint: std::option::Option<crate::model::Waypoint>,
 
         /// The geo-location where the vehicle departs after completing this
         /// `VisitRequest`. Can be omitted if it is the same as `arrival_location`.
         /// If the shipment model has duration distance matrices,
         /// `departure_location` must not be specified.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub departure_location: std::option::Option<gtype::model::LatLng>,
 
         /// The waypoint where the vehicle departs after completing this
         /// `VisitRequest`. Can be omitted if it is the same as `arrival_waypoint`.
         /// If the shipment model has duration distance matrices,
         /// `departure_waypoint` must not be specified.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub departure_waypoint: std::option::Option<crate::model::Waypoint>,
 
         /// Specifies tags attached to the visit request.
         /// Empty or duplicate strings are not allowed.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub tags: std::vec::Vec<std::string::String>,
 
         /// Time windows which constrain the arrival time at a visit.
@@ -3199,22 +6633,17 @@ pub mod shipment {
         /// be set if there is a single time window.
         ///
         /// [google.cloud.optimization.v1.TimeWindow.start_time]: crate::model::TimeWindow::start_time
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub time_windows: std::vec::Vec<crate::model::TimeWindow>,
 
         /// Duration of the visit, i.e. time spent by the vehicle between arrival
         /// and departure (to be added to the possible waiting time; see
         /// `time_windows`).
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub duration: std::option::Option<wkt::Duration>,
 
         /// Cost to service this visit request on a vehicle route. This can be used
         /// to pay different costs for each alternative pickup or delivery of a
         /// shipment. This cost must be in the same unit as `Shipment.penalty_cost`
         /// and must not be negative.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub cost: f64,
 
         /// Load demands of this visit request. This is just like
@@ -3228,8 +6657,6 @@ pub mod shipment {
         /// [google.cloud.optimization.v1.Shipment]: crate::model::Shipment
         /// [google.cloud.optimization.v1.Shipment.VisitRequest]: crate::model::shipment::VisitRequest
         /// [google.cloud.optimization.v1.Shipment.load_demands]: crate::model::Shipment::load_demands
-        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub load_demands:
             std::collections::HashMap<std::string::String, crate::model::shipment::Load>,
 
@@ -3240,8 +6667,6 @@ pub mod shipment {
         /// A type can only appear once.
         ///
         /// [google.cloud.optimization.v1.Vehicle.extra_visit_duration_for_visit_type]: crate::model::Vehicle::extra_visit_duration_for_visit_type
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub visit_types: std::vec::Vec<std::string::String>,
 
         /// Specifies a label for this `VisitRequest`. This label is reported in the
@@ -3249,8 +6674,6 @@ pub mod shipment {
         /// [ShipmentRoute.Visit][google.cloud.optimization.v1.ShipmentRoute.Visit].
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Visit]: crate::model::shipment_route::Visit
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub label: std::string::String,
 
         /// Deprecated: Use
@@ -3258,12 +6681,9 @@ pub mod shipment {
         /// instead.
         ///
         /// [google.cloud.optimization.v1.Shipment.VisitRequest.load_demands]: crate::model::shipment::VisitRequest::load_demands
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         #[deprecated]
         pub demands: std::vec::Vec<crate::model::CapacityQuantity>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3438,25 +6858,315 @@ pub mod shipment {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for VisitRequest {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __arrival_location,
+                __arrival_waypoint,
+                __departure_location,
+                __departure_waypoint,
+                __tags,
+                __time_windows,
+                __duration,
+                __cost,
+                __load_demands,
+                __visit_types,
+                __label,
+                __demands,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for VisitRequest")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "arrivalLocation" => Ok(__FieldTag::__arrival_location),
+                                "arrival_location" => Ok(__FieldTag::__arrival_location),
+                                "arrivalWaypoint" => Ok(__FieldTag::__arrival_waypoint),
+                                "arrival_waypoint" => Ok(__FieldTag::__arrival_waypoint),
+                                "departureLocation" => Ok(__FieldTag::__departure_location),
+                                "departure_location" => Ok(__FieldTag::__departure_location),
+                                "departureWaypoint" => Ok(__FieldTag::__departure_waypoint),
+                                "departure_waypoint" => Ok(__FieldTag::__departure_waypoint),
+                                "tags" => Ok(__FieldTag::__tags),
+                                "timeWindows" => Ok(__FieldTag::__time_windows),
+                                "time_windows" => Ok(__FieldTag::__time_windows),
+                                "duration" => Ok(__FieldTag::__duration),
+                                "cost" => Ok(__FieldTag::__cost),
+                                "loadDemands" => Ok(__FieldTag::__load_demands),
+                                "load_demands" => Ok(__FieldTag::__load_demands),
+                                "visitTypes" => Ok(__FieldTag::__visit_types),
+                                "visit_types" => Ok(__FieldTag::__visit_types),
+                                "label" => Ok(__FieldTag::__label),
+                                "demands" => Ok(__FieldTag::__demands),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = VisitRequest;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct VisitRequest")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__arrival_location => {
+                                if !fields.insert(__FieldTag::__arrival_location) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for arrival_location",
+                                    ));
+                                }
+                                result.arrival_location =
+                                    map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            }
+                            __FieldTag::__arrival_waypoint => {
+                                if !fields.insert(__FieldTag::__arrival_waypoint) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for arrival_waypoint",
+                                    ));
+                                }
+                                result.arrival_waypoint = map
+                                    .next_value::<std::option::Option<crate::model::Waypoint>>()?;
+                            }
+                            __FieldTag::__departure_location => {
+                                if !fields.insert(__FieldTag::__departure_location) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for departure_location",
+                                    ));
+                                }
+                                result.departure_location =
+                                    map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                            }
+                            __FieldTag::__departure_waypoint => {
+                                if !fields.insert(__FieldTag::__departure_waypoint) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for departure_waypoint",
+                                    ));
+                                }
+                                result.departure_waypoint = map
+                                    .next_value::<std::option::Option<crate::model::Waypoint>>()?;
+                            }
+                            __FieldTag::__tags => {
+                                if !fields.insert(__FieldTag::__tags) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for tags",
+                                    ));
+                                }
+                                result.tags = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::__time_windows => {
+                                if !fields.insert(__FieldTag::__time_windows) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for time_windows",
+                                    ));
+                                }
+                                result.time_windows =
+                                    map.next_value::<std::option::Option<
+                                        std::vec::Vec<crate::model::TimeWindow>,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__duration => {
+                                if !fields.insert(__FieldTag::__duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for duration",
+                                    ));
+                                }
+                                result.duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::__cost => {
+                                if !fields.insert(__FieldTag::__cost) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for cost",
+                                    ));
+                                }
+                                struct __With(std::option::Option<f64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.cost = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__load_demands => {
+                                if !fields.insert(__FieldTag::__load_demands) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for load_demands",
+                                    ));
+                                }
+                                result.load_demands = map
+                                    .next_value::<std::option::Option<
+                                        std::collections::HashMap<
+                                            std::string::String,
+                                            crate::model::shipment::Load,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__visit_types => {
+                                if !fields.insert(__FieldTag::__visit_types) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for visit_types",
+                                    ));
+                                }
+                                result.visit_types = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::__label => {
+                                if !fields.insert(__FieldTag::__label) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for label",
+                                    ));
+                                }
+                                result.label = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__demands => {
+                                if !fields.insert(__FieldTag::__demands) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for demands",
+                                    ));
+                                }
+                                result.demands = map
+                                    .next_value::<std::option::Option<
+                                        std::vec::Vec<crate::model::CapacityQuantity>,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for VisitRequest {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.arrival_location.is_some() {
+                state.serialize_entry("arrivalLocation", &self.arrival_location)?;
+            }
+            if self.arrival_waypoint.is_some() {
+                state.serialize_entry("arrivalWaypoint", &self.arrival_waypoint)?;
+            }
+            if self.departure_location.is_some() {
+                state.serialize_entry("departureLocation", &self.departure_location)?;
+            }
+            if self.departure_waypoint.is_some() {
+                state.serialize_entry("departureWaypoint", &self.departure_waypoint)?;
+            }
+            if !self.tags.is_empty() {
+                state.serialize_entry("tags", &self.tags)?;
+            }
+            if !self.time_windows.is_empty() {
+                state.serialize_entry("timeWindows", &self.time_windows)?;
+            }
+            if self.duration.is_some() {
+                state.serialize_entry("duration", &self.duration)?;
+            }
+            if !wkt::internal::is_default(&self.cost) {
+                struct __With<'a>(&'a f64);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("cost", &__With(&self.cost))?;
+            }
+            if !self.load_demands.is_empty() {
+                state.serialize_entry("loadDemands", &self.load_demands)?;
+            }
+            if !self.visit_types.is_empty() {
+                state.serialize_entry("visitTypes", &self.visit_types)?;
+            }
+            if !self.label.is_empty() {
+                state.serialize_entry("label", &self.label)?;
+            }
+            if !self.demands.is_empty() {
+                state.serialize_entry("demands", &self.demands)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// When performing a visit, a predefined amount may be added to the vehicle
     /// load if it's a pickup, or subtracted if it's a delivery. This message
     /// defines such amount. See
     /// [load_demands][google.cloud.optimization.v1.Shipment.load_demands].
     ///
     /// [google.cloud.optimization.v1.Shipment.load_demands]: crate::model::Shipment::load_demands
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Load {
         /// The amount by which the load of the vehicle performing the corresponding
         /// visit will vary. Since it is an integer, users are advised to choose an
         /// appropriate unit to avoid loss of precision. Must be ≥ 0.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub amount: i64,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -3477,28 +7187,144 @@ pub mod shipment {
             "type.googleapis.com/google.cloud.optimization.v1.Shipment.Load"
         }
     }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Load {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __amount,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Load")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "amount" => Ok(__FieldTag::__amount),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Load;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Load")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__amount => {
+                                if !fields.insert(__FieldTag::__amount) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for amount",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.amount = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Load {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.amount) {
+                struct __With<'a>(&'a i64);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("amount", &__With(&self.amount))?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
 }
 
 /// Specifies incompatibilties between shipments depending on their
 /// shipment_type. The appearance of incompatible shipments on the same route is
 /// restricted based on the incompatibility mode.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShipmentTypeIncompatibility {
     /// List of incompatible types. Two shipments having different `shipment_types`
     /// among those listed are "incompatible".
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub types: std::vec::Vec<std::string::String>,
 
     /// Mode applied to the incompatibility.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub incompatibility_mode: crate::model::shipment_type_incompatibility::IncompatibilityMode,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3533,6 +7359,120 @@ impl ShipmentTypeIncompatibility {
 impl wkt::message::Message for ShipmentTypeIncompatibility {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.optimization.v1.ShipmentTypeIncompatibility"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ShipmentTypeIncompatibility {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __types,
+            __incompatibility_mode,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ShipmentTypeIncompatibility")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "types" => Ok(__FieldTag::__types),
+                            "incompatibilityMode" => Ok(__FieldTag::__incompatibility_mode),
+                            "incompatibility_mode" => Ok(__FieldTag::__incompatibility_mode),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ShipmentTypeIncompatibility;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ShipmentTypeIncompatibility")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__types => {
+                            if !fields.insert(__FieldTag::__types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for types",
+                                ));
+                            }
+                            result.types = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__incompatibility_mode => {
+                            if !fields.insert(__FieldTag::__incompatibility_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for incompatibility_mode",
+                                ));
+                            }
+                            result.incompatibility_mode = map.next_value::<std::option::Option<crate::model::shipment_type_incompatibility::IncompatibilityMode>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ShipmentTypeIncompatibility {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.types.is_empty() {
+            state.serialize_entry("types", &self.types)?;
+        }
+        if !wkt::internal::is_default(&self.incompatibility_mode) {
+            state.serialize_entry("incompatibilityMode", &self.incompatibility_mode)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -3689,15 +7629,11 @@ pub mod shipment_type_incompatibility {
 
 /// Specifies requirements between shipments based on their shipment_type.
 /// The specifics of the requirement are defined by the requirement mode.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShipmentTypeRequirement {
     /// List of alternative shipment types required by the
     /// `dependent_shipment_types`.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub required_shipment_type_alternatives: std::vec::Vec<std::string::String>,
 
     /// All shipments with a type in the `dependent_shipment_types` field require
@@ -3706,16 +7642,11 @@ pub struct ShipmentTypeRequirement {
     ///
     /// NOTE: Chains of requirements such that a `shipment_type` depends on itself
     /// are not allowed.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub dependent_shipment_types: std::vec::Vec<std::string::String>,
 
     /// Mode applied to the requirement.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requirement_mode: crate::model::shipment_type_requirement::RequirementMode,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -3761,6 +7692,148 @@ impl ShipmentTypeRequirement {
 impl wkt::message::Message for ShipmentTypeRequirement {
     fn typename() -> &'static str {
         "type.googleapis.com/google.cloud.optimization.v1.ShipmentTypeRequirement"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ShipmentTypeRequirement {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __required_shipment_type_alternatives,
+            __dependent_shipment_types,
+            __requirement_mode,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ShipmentTypeRequirement")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "requiredShipmentTypeAlternatives" => {
+                                Ok(__FieldTag::__required_shipment_type_alternatives)
+                            }
+                            "required_shipment_type_alternatives" => {
+                                Ok(__FieldTag::__required_shipment_type_alternatives)
+                            }
+                            "dependentShipmentTypes" => Ok(__FieldTag::__dependent_shipment_types),
+                            "dependent_shipment_types" => {
+                                Ok(__FieldTag::__dependent_shipment_types)
+                            }
+                            "requirementMode" => Ok(__FieldTag::__requirement_mode),
+                            "requirement_mode" => Ok(__FieldTag::__requirement_mode),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ShipmentTypeRequirement;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ShipmentTypeRequirement")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__required_shipment_type_alternatives => {
+                            if !fields.insert(__FieldTag::__required_shipment_type_alternatives) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for required_shipment_type_alternatives",
+                                ));
+                            }
+                            result.required_shipment_type_alternatives = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__dependent_shipment_types => {
+                            if !fields.insert(__FieldTag::__dependent_shipment_types) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dependent_shipment_types",
+                                ));
+                            }
+                            result.dependent_shipment_types = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__requirement_mode => {
+                            if !fields.insert(__FieldTag::__requirement_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for requirement_mode",
+                                ));
+                            }
+                            result.requirement_mode = map
+                                .next_value::<std::option::Option<
+                                    crate::model::shipment_type_requirement::RequirementMode,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ShipmentTypeRequirement {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.required_shipment_type_alternatives.is_empty() {
+            state.serialize_entry(
+                "requiredShipmentTypeAlternatives",
+                &self.required_shipment_type_alternatives,
+            )?;
+        }
+        if !self.dependent_shipment_types.is_empty() {
+            state.serialize_entry("dependentShipmentTypes", &self.dependent_shipment_types)?;
+        }
+        if !wkt::internal::is_default(&self.requirement_mode) {
+            state.serialize_entry("requirementMode", &self.requirement_mode)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -3930,40 +8003,29 @@ pub mod shipment_type_requirement {
 /// vehicle routes. This is similar to `RouteModifiers` in the Google Maps
 /// Platform API; see:
 /// <https://developers.google.com/maps/documentation/routes/reference/rest/v2/RouteModifiers>.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RouteModifiers {
     /// Specifies whether to avoid toll roads where reasonable. Preference will be
     /// given to routes not containing toll roads. Applies only to motorized travel
     /// modes.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub avoid_tolls: bool,
 
     /// Specifies whether to avoid highways where reasonable. Preference will be
     /// given to routes not containing highways. Applies only to motorized travel
     /// modes.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub avoid_highways: bool,
 
     /// Specifies whether to avoid ferries where reasonable. Preference will be
     /// given to routes not containing travel by ferries. Applies only to motorized
     /// travel modes.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub avoid_ferries: bool,
 
     /// Optional. Specifies whether to avoid navigating indoors where reasonable.
     /// Preference will be given to routes not containing indoor navigation.
     /// Applies only to the `WALKING` travel mode.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub avoid_indoor: bool,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4003,30 +8065,175 @@ impl wkt::message::Message for RouteModifiers {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for RouteModifiers {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __avoid_tolls,
+            __avoid_highways,
+            __avoid_ferries,
+            __avoid_indoor,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for RouteModifiers")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "avoidTolls" => Ok(__FieldTag::__avoid_tolls),
+                            "avoid_tolls" => Ok(__FieldTag::__avoid_tolls),
+                            "avoidHighways" => Ok(__FieldTag::__avoid_highways),
+                            "avoid_highways" => Ok(__FieldTag::__avoid_highways),
+                            "avoidFerries" => Ok(__FieldTag::__avoid_ferries),
+                            "avoid_ferries" => Ok(__FieldTag::__avoid_ferries),
+                            "avoidIndoor" => Ok(__FieldTag::__avoid_indoor),
+                            "avoid_indoor" => Ok(__FieldTag::__avoid_indoor),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = RouteModifiers;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct RouteModifiers")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__avoid_tolls => {
+                            if !fields.insert(__FieldTag::__avoid_tolls) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for avoid_tolls",
+                                ));
+                            }
+                            result.avoid_tolls = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__avoid_highways => {
+                            if !fields.insert(__FieldTag::__avoid_highways) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for avoid_highways",
+                                ));
+                            }
+                            result.avoid_highways = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__avoid_ferries => {
+                            if !fields.insert(__FieldTag::__avoid_ferries) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for avoid_ferries",
+                                ));
+                            }
+                            result.avoid_ferries = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__avoid_indoor => {
+                            if !fields.insert(__FieldTag::__avoid_indoor) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for avoid_indoor",
+                                ));
+                            }
+                            result.avoid_indoor = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for RouteModifiers {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.avoid_tolls) {
+            state.serialize_entry("avoidTolls", &self.avoid_tolls)?;
+        }
+        if !wkt::internal::is_default(&self.avoid_highways) {
+            state.serialize_entry("avoidHighways", &self.avoid_highways)?;
+        }
+        if !wkt::internal::is_default(&self.avoid_ferries) {
+            state.serialize_entry("avoidFerries", &self.avoid_ferries)?;
+        }
+        if !wkt::internal::is_default(&self.avoid_indoor) {
+            state.serialize_entry("avoidIndoor", &self.avoid_indoor)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Models a vehicle in a shipment problem. Solving a shipment problem will
 /// build a route starting from `start_location` and ending at `end_location`
 /// for this vehicle. A route is a sequence of visits (see `ShipmentRoute`).
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Vehicle {
     /// The travel mode which affects the roads usable by the vehicle and its
     /// speed. See also `travel_duration_multiple`.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub travel_mode: crate::model::vehicle::TravelMode,
 
     /// Optional. A set of conditions to satisfy that affect the way routes are
     /// calculated for the given vehicle.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub route_modifiers: std::option::Option<crate::model::RouteModifiers>,
 
     /// Geographic location where the vehicle starts before picking up any
     /// shipments. If not specified, the vehicle starts at its first pickup.
     /// If the shipment model has duration and distance matrices, `start_location`
     /// must not be specified.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_location: std::option::Option<gtype::model::LatLng>,
 
     /// Waypoint representing a geographic location where the vehicle starts before
@@ -4034,7 +8241,6 @@ pub struct Vehicle {
     /// is specified, the vehicle starts at its first pickup.
     /// If the shipment model has duration and distance matrices, `start_waypoint`
     /// must not be specified.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_waypoint: std::option::Option<crate::model::Waypoint>,
 
     /// Geographic location where the vehicle ends after it has completed its last
@@ -4042,7 +8248,6 @@ pub struct Vehicle {
     /// immediately when it completes its last `VisitRequest`.
     /// If the shipment model has duration and distance matrices, `end_location`
     /// must not be specified.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_location: std::option::Option<gtype::model::LatLng>,
 
     /// Waypoint representing a geographic location where the vehicle ends after
@@ -4051,21 +8256,16 @@ pub struct Vehicle {
     /// when it completes its last `VisitRequest`.
     /// If the shipment model has duration and distance matrices, `end_waypoint`
     /// must not be specified.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_waypoint: std::option::Option<crate::model::Waypoint>,
 
     /// Specifies tags attached to the start of the vehicle's route.
     ///
     /// Empty or duplicate strings are not allowed.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub start_tags: std::vec::Vec<std::string::String>,
 
     /// Specifies tags attached to the end of the vehicle's route.
     ///
     /// Empty or duplicate strings are not allowed.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub end_tags: std::vec::Vec<std::string::String>,
 
     /// Time windows during which the vehicle may depart its start location.
@@ -4082,8 +8282,6 @@ pub struct Vehicle {
     /// there is a single time window.
     ///
     /// [google.cloud.optimization.v1.ShipmentModel.global_start_time]: crate::model::ShipmentModel::global_start_time
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub start_time_windows: std::vec::Vec<crate::model::TimeWindow>,
 
     /// Time windows during which the vehicle may arrive at its end location.
@@ -4100,8 +8298,6 @@ pub struct Vehicle {
     /// there is a single time window.
     ///
     /// [google.cloud.optimization.v1.ShipmentModel.global_start_time]: crate::model::ShipmentModel::global_start_time
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub end_time_windows: std::vec::Vec<crate::model::TimeWindow>,
 
     /// Specifies a multiplicative factor that can be used to increase or decrease
@@ -4117,13 +8313,9 @@ pub struct Vehicle {
     /// a small multiple may result in a loss of precision.
     ///
     /// See also `extra_visit_duration_for_visit_type` below.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub travel_duration_multiple: std::option::Option<f64>,
 
     /// Unloading policy enforced on the vehicle.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub unloading_policy: crate::model::vehicle::UnloadingPolicy,
 
     /// Capacities of the vehicle (weight, volume, # of pallets for example).
@@ -4134,8 +8326,6 @@ pub struct Vehicle {
     /// is considered to be limitless.
     ///
     /// [google.cloud.optimization.v1.Shipment.load_demands]: crate::model::Shipment::load_demands
-    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub load_limits:
         std::collections::HashMap<std::string::String, crate::model::vehicle::LoadLimit>,
 
@@ -4148,8 +8338,6 @@ pub struct Vehicle {
     /// in additional latency.
     ///
     /// [google.cloud.optimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub cost_per_hour: f64,
 
     /// Cost per traveled hour of the vehicle route. This cost is applied only to
@@ -4158,8 +8346,6 @@ pub struct Vehicle {
     /// and excludes waiting time and visit time.
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub cost_per_traveled_hour: f64,
 
     /// Cost per kilometer of the vehicle route. This cost is applied to the
@@ -4169,13 +8355,9 @@ pub struct Vehicle {
     /// `arrival_location` to the `departure_location` of a single `VisitRequest`.
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub cost_per_kilometer: f64,
 
     /// Fixed cost applied if this vehicle is used to handle a shipment.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub fixed_cost: f64,
 
     /// This field only applies to vehicles when their route does not serve any
@@ -4190,14 +8372,11 @@ pub struct Vehicle {
     /// `break_rule` or delay (from `TransitionAttributes`) are scheduled for this
     /// vehicle. In this case, the vehicle's `ShipmentRoute` doesn't contain any
     /// information except for the vehicle index and label.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub used_if_route_is_empty: bool,
 
     /// Limit applied to the total duration of the vehicle's route. In a given
     /// `OptimizeToursResponse`, the route duration of a vehicle is the
     /// difference between its `vehicle_end_time` and `vehicle_start_time`.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub route_duration_limit: std::option::Option<crate::model::vehicle::DurationLimit>,
 
     /// Limit applied to the travel duration of the vehicle's route. In a given
@@ -4205,7 +8384,6 @@ pub struct Vehicle {
     /// [transitions.travel_duration][google.cloud.optimization.v1.ShipmentRoute.Transition.travel_duration].
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition.travel_duration]: crate::model::shipment_route::Transition::travel_duration
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub travel_duration_limit: std::option::Option<crate::model::vehicle::DurationLimit>,
 
     /// Limit applied to the total distance of the vehicle's route. In a given
@@ -4213,7 +8391,6 @@ pub struct Vehicle {
     /// [transitions.travel_distance_meters][google.cloud.optimization.v1.ShipmentRoute.Transition.travel_distance_meters].
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition.travel_distance_meters]: crate::model::shipment_route::Transition::travel_distance_meters
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub route_distance_limit: std::option::Option<crate::model::DistanceLimit>,
 
     /// Specifies a map from visit_types strings to durations. The duration is time
@@ -4227,14 +8404,11 @@ pub struct Vehicle {
     /// type in the map.
     ///
     /// [google.cloud.optimization.v1.Shipment.VisitRequest.duration]: crate::model::shipment::VisitRequest::duration
-    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub extra_visit_duration_for_visit_type:
         std::collections::HashMap<std::string::String, wkt::Duration>,
 
     /// Describes the break schedule to be enforced on this vehicle.
     /// If empty, no breaks will be scheduled for this vehicle.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub break_rule: std::option::Option<crate::model::BreakRule>,
 
     /// Specifies a label for this vehicle. This label is reported in the response
@@ -4242,8 +8416,6 @@ pub struct Vehicle {
     /// [ShipmentRoute][google.cloud.optimization.v1.ShipmentRoute].
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute]: crate::model::ShipmentRoute
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label: std::string::String,
 
     /// If true, `used_if_route_is_empty` must be false, and this vehicle will
@@ -4259,8 +8431,6 @@ pub struct Vehicle {
     /// `RELAX_ALL_AFTER_THRESHOLD`), it is skipped in the response.
     /// If a shipment has a non-empty `allowed_vehicle_indices` field and all of
     /// the allowed vehicles are ignored, it is skipped in the response.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub ignore: bool,
 
     /// Deprecated: No longer used.
@@ -4271,8 +8441,6 @@ pub struct Vehicle {
     /// As of 2018/03, at most one rule index per vehicle can be specified.
     ///
     /// [google.cloud.optimization.v1.ShipmentModel]: crate::model::ShipmentModel
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
     #[deprecated]
     pub break_rule_indices: std::vec::Vec<i32>,
 
@@ -4281,8 +8449,6 @@ pub struct Vehicle {
     /// instead.
     ///
     /// [google.cloud.optimization.v1.Vehicle.load_limits]: crate::model::Vehicle::load_limits
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub capacities: std::vec::Vec<crate::model::CapacityQuantity>,
 
@@ -4291,8 +8457,6 @@ pub struct Vehicle {
     /// instead.
     ///
     /// [google.cloud.optimization.v1.Vehicle.LoadLimit.start_load_interval]: crate::model::vehicle::LoadLimit::start_load_interval
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub start_load_intervals: std::vec::Vec<crate::model::CapacityQuantityInterval>,
 
@@ -4301,12 +8465,9 @@ pub struct Vehicle {
     /// instead.
     ///
     /// [google.cloud.optimization.v1.Vehicle.LoadLimit.end_load_interval]: crate::model::vehicle::LoadLimit::end_load_interval
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub end_load_intervals: std::vec::Vec<crate::model::CapacityQuantityInterval>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4679,6 +8840,678 @@ impl wkt::message::Message for Vehicle {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Vehicle {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __travel_mode,
+            __route_modifiers,
+            __start_location,
+            __start_waypoint,
+            __end_location,
+            __end_waypoint,
+            __start_tags,
+            __end_tags,
+            __start_time_windows,
+            __end_time_windows,
+            __travel_duration_multiple,
+            __unloading_policy,
+            __load_limits,
+            __cost_per_hour,
+            __cost_per_traveled_hour,
+            __cost_per_kilometer,
+            __fixed_cost,
+            __used_if_route_is_empty,
+            __route_duration_limit,
+            __travel_duration_limit,
+            __route_distance_limit,
+            __extra_visit_duration_for_visit_type,
+            __break_rule,
+            __label,
+            __ignore,
+            __break_rule_indices,
+            __capacities,
+            __start_load_intervals,
+            __end_load_intervals,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Vehicle")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "travelMode" => Ok(__FieldTag::__travel_mode),
+                            "travel_mode" => Ok(__FieldTag::__travel_mode),
+                            "routeModifiers" => Ok(__FieldTag::__route_modifiers),
+                            "route_modifiers" => Ok(__FieldTag::__route_modifiers),
+                            "startLocation" => Ok(__FieldTag::__start_location),
+                            "start_location" => Ok(__FieldTag::__start_location),
+                            "startWaypoint" => Ok(__FieldTag::__start_waypoint),
+                            "start_waypoint" => Ok(__FieldTag::__start_waypoint),
+                            "endLocation" => Ok(__FieldTag::__end_location),
+                            "end_location" => Ok(__FieldTag::__end_location),
+                            "endWaypoint" => Ok(__FieldTag::__end_waypoint),
+                            "end_waypoint" => Ok(__FieldTag::__end_waypoint),
+                            "startTags" => Ok(__FieldTag::__start_tags),
+                            "start_tags" => Ok(__FieldTag::__start_tags),
+                            "endTags" => Ok(__FieldTag::__end_tags),
+                            "end_tags" => Ok(__FieldTag::__end_tags),
+                            "startTimeWindows" => Ok(__FieldTag::__start_time_windows),
+                            "start_time_windows" => Ok(__FieldTag::__start_time_windows),
+                            "endTimeWindows" => Ok(__FieldTag::__end_time_windows),
+                            "end_time_windows" => Ok(__FieldTag::__end_time_windows),
+                            "travelDurationMultiple" => Ok(__FieldTag::__travel_duration_multiple),
+                            "travel_duration_multiple" => {
+                                Ok(__FieldTag::__travel_duration_multiple)
+                            }
+                            "unloadingPolicy" => Ok(__FieldTag::__unloading_policy),
+                            "unloading_policy" => Ok(__FieldTag::__unloading_policy),
+                            "loadLimits" => Ok(__FieldTag::__load_limits),
+                            "load_limits" => Ok(__FieldTag::__load_limits),
+                            "costPerHour" => Ok(__FieldTag::__cost_per_hour),
+                            "cost_per_hour" => Ok(__FieldTag::__cost_per_hour),
+                            "costPerTraveledHour" => Ok(__FieldTag::__cost_per_traveled_hour),
+                            "cost_per_traveled_hour" => Ok(__FieldTag::__cost_per_traveled_hour),
+                            "costPerKilometer" => Ok(__FieldTag::__cost_per_kilometer),
+                            "cost_per_kilometer" => Ok(__FieldTag::__cost_per_kilometer),
+                            "fixedCost" => Ok(__FieldTag::__fixed_cost),
+                            "fixed_cost" => Ok(__FieldTag::__fixed_cost),
+                            "usedIfRouteIsEmpty" => Ok(__FieldTag::__used_if_route_is_empty),
+                            "used_if_route_is_empty" => Ok(__FieldTag::__used_if_route_is_empty),
+                            "routeDurationLimit" => Ok(__FieldTag::__route_duration_limit),
+                            "route_duration_limit" => Ok(__FieldTag::__route_duration_limit),
+                            "travelDurationLimit" => Ok(__FieldTag::__travel_duration_limit),
+                            "travel_duration_limit" => Ok(__FieldTag::__travel_duration_limit),
+                            "routeDistanceLimit" => Ok(__FieldTag::__route_distance_limit),
+                            "route_distance_limit" => Ok(__FieldTag::__route_distance_limit),
+                            "extraVisitDurationForVisitType" => {
+                                Ok(__FieldTag::__extra_visit_duration_for_visit_type)
+                            }
+                            "extra_visit_duration_for_visit_type" => {
+                                Ok(__FieldTag::__extra_visit_duration_for_visit_type)
+                            }
+                            "breakRule" => Ok(__FieldTag::__break_rule),
+                            "break_rule" => Ok(__FieldTag::__break_rule),
+                            "label" => Ok(__FieldTag::__label),
+                            "ignore" => Ok(__FieldTag::__ignore),
+                            "breakRuleIndices" => Ok(__FieldTag::__break_rule_indices),
+                            "break_rule_indices" => Ok(__FieldTag::__break_rule_indices),
+                            "capacities" => Ok(__FieldTag::__capacities),
+                            "startLoadIntervals" => Ok(__FieldTag::__start_load_intervals),
+                            "start_load_intervals" => Ok(__FieldTag::__start_load_intervals),
+                            "endLoadIntervals" => Ok(__FieldTag::__end_load_intervals),
+                            "end_load_intervals" => Ok(__FieldTag::__end_load_intervals),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Vehicle;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Vehicle")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__travel_mode => {
+                            if !fields.insert(__FieldTag::__travel_mode) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for travel_mode",
+                                ));
+                            }
+                            result.travel_mode = map.next_value::<std::option::Option<crate::model::vehicle::TravelMode>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__route_modifiers => {
+                            if !fields.insert(__FieldTag::__route_modifiers) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for route_modifiers",
+                                ));
+                            }
+                            result.route_modifiers = map
+                                .next_value::<std::option::Option<crate::model::RouteModifiers>>(
+                                )?;
+                        }
+                        __FieldTag::__start_location => {
+                            if !fields.insert(__FieldTag::__start_location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_location",
+                                ));
+                            }
+                            result.start_location =
+                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                        }
+                        __FieldTag::__start_waypoint => {
+                            if !fields.insert(__FieldTag::__start_waypoint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_waypoint",
+                                ));
+                            }
+                            result.start_waypoint =
+                                map.next_value::<std::option::Option<crate::model::Waypoint>>()?;
+                        }
+                        __FieldTag::__end_location => {
+                            if !fields.insert(__FieldTag::__end_location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_location",
+                                ));
+                            }
+                            result.end_location =
+                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                        }
+                        __FieldTag::__end_waypoint => {
+                            if !fields.insert(__FieldTag::__end_waypoint) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_waypoint",
+                                ));
+                            }
+                            result.end_waypoint =
+                                map.next_value::<std::option::Option<crate::model::Waypoint>>()?;
+                        }
+                        __FieldTag::__start_tags => {
+                            if !fields.insert(__FieldTag::__start_tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_tags",
+                                ));
+                            }
+                            result.start_tags = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__end_tags => {
+                            if !fields.insert(__FieldTag::__end_tags) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_tags",
+                                ));
+                            }
+                            result.end_tags = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__start_time_windows => {
+                            if !fields.insert(__FieldTag::__start_time_windows) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_time_windows",
+                                ));
+                            }
+                            result.start_time_windows = map.next_value::<std::option::Option<std::vec::Vec<crate::model::TimeWindow>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__end_time_windows => {
+                            if !fields.insert(__FieldTag::__end_time_windows) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_time_windows",
+                                ));
+                            }
+                            result.end_time_windows = map.next_value::<std::option::Option<std::vec::Vec<crate::model::TimeWindow>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__travel_duration_multiple => {
+                            if !fields.insert(__FieldTag::__travel_duration_multiple) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for travel_duration_multiple",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.travel_duration_multiple = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__unloading_policy => {
+                            if !fields.insert(__FieldTag::__unloading_policy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unloading_policy",
+                                ));
+                            }
+                            result.unloading_policy = map.next_value::<std::option::Option<crate::model::vehicle::UnloadingPolicy>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__load_limits => {
+                            if !fields.insert(__FieldTag::__load_limits) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for load_limits",
+                                ));
+                            }
+                            result.load_limits = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::model::vehicle::LoadLimit,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cost_per_hour => {
+                            if !fields.insert(__FieldTag::__cost_per_hour) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cost_per_hour",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cost_per_hour =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__cost_per_traveled_hour => {
+                            if !fields.insert(__FieldTag::__cost_per_traveled_hour) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cost_per_traveled_hour",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cost_per_traveled_hour =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__cost_per_kilometer => {
+                            if !fields.insert(__FieldTag::__cost_per_kilometer) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cost_per_kilometer",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cost_per_kilometer =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__fixed_cost => {
+                            if !fields.insert(__FieldTag::__fixed_cost) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fixed_cost",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.fixed_cost = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__used_if_route_is_empty => {
+                            if !fields.insert(__FieldTag::__used_if_route_is_empty) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for used_if_route_is_empty",
+                                ));
+                            }
+                            result.used_if_route_is_empty = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__route_duration_limit => {
+                            if !fields.insert(__FieldTag::__route_duration_limit) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for route_duration_limit",
+                                ));
+                            }
+                            result.route_duration_limit = map.next_value::<std::option::Option<crate::model::vehicle::DurationLimit>>()?
+                                ;
+                        }
+                        __FieldTag::__travel_duration_limit => {
+                            if !fields.insert(__FieldTag::__travel_duration_limit) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for travel_duration_limit",
+                                ));
+                            }
+                            result.travel_duration_limit = map.next_value::<std::option::Option<crate::model::vehicle::DurationLimit>>()?
+                                ;
+                        }
+                        __FieldTag::__route_distance_limit => {
+                            if !fields.insert(__FieldTag::__route_distance_limit) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for route_distance_limit",
+                                ));
+                            }
+                            result.route_distance_limit = map
+                                .next_value::<std::option::Option<crate::model::DistanceLimit>>()?;
+                        }
+                        __FieldTag::__extra_visit_duration_for_visit_type => {
+                            if !fields.insert(__FieldTag::__extra_visit_duration_for_visit_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for extra_visit_duration_for_visit_type",
+                                ));
+                            }
+                            result.extra_visit_duration_for_visit_type = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<std::string::String, wkt::Duration>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__break_rule => {
+                            if !fields.insert(__FieldTag::__break_rule) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for break_rule",
+                                ));
+                            }
+                            result.break_rule =
+                                map.next_value::<std::option::Option<crate::model::BreakRule>>()?;
+                        }
+                        __FieldTag::__label => {
+                            if !fields.insert(__FieldTag::__label) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for label",
+                                ));
+                            }
+                            result.label = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__ignore => {
+                            if !fields.insert(__FieldTag::__ignore) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ignore",
+                                ));
+                            }
+                            result.ignore = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__break_rule_indices => {
+                            if !fields.insert(__FieldTag::__break_rule_indices) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for break_rule_indices",
+                                ));
+                            }
+                            struct __With(std::option::Option<std::vec::Vec<i32>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.break_rule_indices =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__capacities => {
+                            if !fields.insert(__FieldTag::__capacities) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for capacities",
+                                ));
+                            }
+                            result.capacities =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::CapacityQuantity>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__start_load_intervals => {
+                            if !fields.insert(__FieldTag::__start_load_intervals) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_load_intervals",
+                                ));
+                            }
+                            result.start_load_intervals = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::CapacityQuantityInterval>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__end_load_intervals => {
+                            if !fields.insert(__FieldTag::__end_load_intervals) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_load_intervals",
+                                ));
+                            }
+                            result.end_load_intervals = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::CapacityQuantityInterval>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Vehicle {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.travel_mode) {
+            state.serialize_entry("travelMode", &self.travel_mode)?;
+        }
+        if self.route_modifiers.is_some() {
+            state.serialize_entry("routeModifiers", &self.route_modifiers)?;
+        }
+        if self.start_location.is_some() {
+            state.serialize_entry("startLocation", &self.start_location)?;
+        }
+        if self.start_waypoint.is_some() {
+            state.serialize_entry("startWaypoint", &self.start_waypoint)?;
+        }
+        if self.end_location.is_some() {
+            state.serialize_entry("endLocation", &self.end_location)?;
+        }
+        if self.end_waypoint.is_some() {
+            state.serialize_entry("endWaypoint", &self.end_waypoint)?;
+        }
+        if !self.start_tags.is_empty() {
+            state.serialize_entry("startTags", &self.start_tags)?;
+        }
+        if !self.end_tags.is_empty() {
+            state.serialize_entry("endTags", &self.end_tags)?;
+        }
+        if !self.start_time_windows.is_empty() {
+            state.serialize_entry("startTimeWindows", &self.start_time_windows)?;
+        }
+        if !self.end_time_windows.is_empty() {
+            state.serialize_entry("endTimeWindows", &self.end_time_windows)?;
+        }
+        if self.travel_duration_multiple.is_some() {
+            struct __With<'a>(&'a std::option::Option<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "travelDurationMultiple",
+                &__With(&self.travel_duration_multiple),
+            )?;
+        }
+        if !wkt::internal::is_default(&self.unloading_policy) {
+            state.serialize_entry("unloadingPolicy", &self.unloading_policy)?;
+        }
+        if !self.load_limits.is_empty() {
+            state.serialize_entry("loadLimits", &self.load_limits)?;
+        }
+        if !wkt::internal::is_default(&self.cost_per_hour) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("costPerHour", &__With(&self.cost_per_hour))?;
+        }
+        if !wkt::internal::is_default(&self.cost_per_traveled_hour) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("costPerTraveledHour", &__With(&self.cost_per_traveled_hour))?;
+        }
+        if !wkt::internal::is_default(&self.cost_per_kilometer) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("costPerKilometer", &__With(&self.cost_per_kilometer))?;
+        }
+        if !wkt::internal::is_default(&self.fixed_cost) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("fixedCost", &__With(&self.fixed_cost))?;
+        }
+        if !wkt::internal::is_default(&self.used_if_route_is_empty) {
+            state.serialize_entry("usedIfRouteIsEmpty", &self.used_if_route_is_empty)?;
+        }
+        if self.route_duration_limit.is_some() {
+            state.serialize_entry("routeDurationLimit", &self.route_duration_limit)?;
+        }
+        if self.travel_duration_limit.is_some() {
+            state.serialize_entry("travelDurationLimit", &self.travel_duration_limit)?;
+        }
+        if self.route_distance_limit.is_some() {
+            state.serialize_entry("routeDistanceLimit", &self.route_distance_limit)?;
+        }
+        if !self.extra_visit_duration_for_visit_type.is_empty() {
+            state.serialize_entry(
+                "extraVisitDurationForVisitType",
+                &self.extra_visit_duration_for_visit_type,
+            )?;
+        }
+        if self.break_rule.is_some() {
+            state.serialize_entry("breakRule", &self.break_rule)?;
+        }
+        if !self.label.is_empty() {
+            state.serialize_entry("label", &self.label)?;
+        }
+        if !wkt::internal::is_default(&self.ignore) {
+            state.serialize_entry("ignore", &self.ignore)?;
+        }
+        if !self.break_rule_indices.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("breakRuleIndices", &__With(&self.break_rule_indices))?;
+        }
+        if !self.capacities.is_empty() {
+            state.serialize_entry("capacities", &self.capacities)?;
+        }
+        if !self.start_load_intervals.is_empty() {
+            state.serialize_entry("startLoadIntervals", &self.start_load_intervals)?;
+        }
+        if !self.end_load_intervals.is_empty() {
+            state.serialize_entry("endLoadIntervals", &self.end_load_intervals)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [Vehicle].
 pub mod vehicle {
     #[allow(unused_imports)]
@@ -4689,22 +9522,16 @@ pub mod vehicle {
     /// [load_limits][google.cloud.optimization.v1.Vehicle.load_limits].
     ///
     /// [google.cloud.optimization.v1.Vehicle.load_limits]: crate::model::Vehicle::load_limits
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct LoadLimit {
         /// The maximum acceptable amount of load.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
         pub max_load: std::option::Option<i64>,
 
         /// A soft limit of the load. See
         /// [cost_per_unit_above_soft_max][google.cloud.optimization.v1.Vehicle.LoadLimit.cost_per_unit_above_soft_max].
         ///
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.cost_per_unit_above_soft_max]: crate::model::vehicle::LoadLimit::cost_per_unit_above_soft_max
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub soft_max_load: i64,
 
         /// If the load ever exceeds
@@ -4720,19 +9547,14 @@ pub mod vehicle {
         /// [google.cloud.optimization.v1.Shipment.penalty_cost]: crate::model::Shipment::penalty_cost
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.cost_per_unit_above_soft_max]: crate::model::vehicle::LoadLimit::cost_per_unit_above_soft_max
         /// [google.cloud.optimization.v1.Vehicle.LoadLimit.soft_max_load]: crate::model::vehicle::LoadLimit::soft_max_load
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub cost_per_unit_above_soft_max: f64,
 
         /// The acceptable load interval of the vehicle at the start of the route.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub start_load_interval: std::option::Option<crate::model::vehicle::load_limit::Interval>,
 
         /// The acceptable load interval of the vehicle at the end of the route.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub end_load_interval: std::option::Option<crate::model::vehicle::load_limit::Interval>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -4817,15 +9639,250 @@ pub mod vehicle {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for LoadLimit {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __max_load,
+                __soft_max_load,
+                __cost_per_unit_above_soft_max,
+                __start_load_interval,
+                __end_load_interval,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for LoadLimit")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "maxLoad" => Ok(__FieldTag::__max_load),
+                                "max_load" => Ok(__FieldTag::__max_load),
+                                "softMaxLoad" => Ok(__FieldTag::__soft_max_load),
+                                "soft_max_load" => Ok(__FieldTag::__soft_max_load),
+                                "costPerUnitAboveSoftMax" => {
+                                    Ok(__FieldTag::__cost_per_unit_above_soft_max)
+                                }
+                                "cost_per_unit_above_soft_max" => {
+                                    Ok(__FieldTag::__cost_per_unit_above_soft_max)
+                                }
+                                "startLoadInterval" => Ok(__FieldTag::__start_load_interval),
+                                "start_load_interval" => Ok(__FieldTag::__start_load_interval),
+                                "endLoadInterval" => Ok(__FieldTag::__end_load_interval),
+                                "end_load_interval" => Ok(__FieldTag::__end_load_interval),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = LoadLimit;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct LoadLimit")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__max_load => {
+                                if !fields.insert(__FieldTag::__max_load) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for max_load",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.max_load = map.next_value::<__With>()?.0;
+                            }
+                            __FieldTag::__soft_max_load => {
+                                if !fields.insert(__FieldTag::__soft_max_load) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for soft_max_load",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.soft_max_load =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__cost_per_unit_above_soft_max => {
+                                if !fields.insert(__FieldTag::__cost_per_unit_above_soft_max) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for cost_per_unit_above_soft_max",
+                                    ));
+                                }
+                                struct __With(std::option::Option<f64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.cost_per_unit_above_soft_max =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__start_load_interval => {
+                                if !fields.insert(__FieldTag::__start_load_interval) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for start_load_interval",
+                                    ));
+                                }
+                                result.start_load_interval = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::vehicle::load_limit::Interval,
+                                    >>()?;
+                            }
+                            __FieldTag::__end_load_interval => {
+                                if !fields.insert(__FieldTag::__end_load_interval) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for end_load_interval",
+                                    ));
+                                }
+                                result.end_load_interval = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::vehicle::load_limit::Interval,
+                                    >>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for LoadLimit {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.max_load.is_some() {
+                struct __With<'a>(&'a std::option::Option<i64>);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                            self.0, serializer,
+                        )
+                    }
+                }
+                state.serialize_entry("maxLoad", &__With(&self.max_load))?;
+            }
+            if !wkt::internal::is_default(&self.soft_max_load) {
+                struct __With<'a>(&'a i64);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("softMaxLoad", &__With(&self.soft_max_load))?;
+            }
+            if !wkt::internal::is_default(&self.cost_per_unit_above_soft_max) {
+                struct __With<'a>(&'a f64);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry(
+                    "costPerUnitAboveSoftMax",
+                    &__With(&self.cost_per_unit_above_soft_max),
+                )?;
+            }
+            if self.start_load_interval.is_some() {
+                state.serialize_entry("startLoadInterval", &self.start_load_interval)?;
+            }
+            if self.end_load_interval.is_some() {
+                state.serialize_entry("endLoadInterval", &self.end_load_interval)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Defines additional types related to [LoadLimit].
     pub mod load_limit {
         #[allow(unused_imports)]
         use super::*;
 
         /// Interval of acceptable load amounts.
-        #[serde_with::serde_as]
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        #[serde(default, rename_all = "camelCase")]
+        #[derive(Clone, Debug, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Interval {
             /// A minimum acceptable load. Must be ≥ 0.
@@ -4836,8 +9893,6 @@ pub mod vehicle {
             ///
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.max]: crate::model::vehicle::load_limit::Interval::max
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.min]: crate::model::vehicle::load_limit::Interval::min
-            #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
             pub min: i64,
 
             /// A maximum acceptable load. Must be ≥ 0. If unspecified, the maximum
@@ -4849,11 +9904,8 @@ pub mod vehicle {
             ///
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.max]: crate::model::vehicle::load_limit::Interval::max
             /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval.min]: crate::model::vehicle::load_limit::Interval::min
-            #[serde(skip_serializing_if = "std::option::Option::is_none")]
-            #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
             pub max: std::option::Option<i64>,
 
-            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -4892,6 +9944,173 @@ pub mod vehicle {
                 "type.googleapis.com/google.cloud.optimization.v1.Vehicle.LoadLimit.Interval"
             }
         }
+
+        #[doc(hidden)]
+        impl<'de> serde::de::Deserialize<'de> for Interval {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                #[allow(non_camel_case_types)]
+                #[doc(hidden)]
+                #[derive(PartialEq, Eq, Hash)]
+                enum __FieldTag {
+                    __min,
+                    __max,
+                    Unknown(std::string::String),
+                }
+                impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        struct Visitor;
+                        impl<'de> serde::de::Visitor<'de> for Visitor {
+                            type Value = __FieldTag;
+                            fn expecting(
+                                &self,
+                                formatter: &mut std::fmt::Formatter,
+                            ) -> std::fmt::Result {
+                                formatter.write_str("a field name for Interval")
+                            }
+                            fn visit_str<E>(
+                                self,
+                                value: &str,
+                            ) -> std::result::Result<Self::Value, E>
+                            where
+                                E: serde::de::Error,
+                            {
+                                use std::result::Result::Ok;
+                                use std::string::ToString;
+                                match value {
+                                    "min" => Ok(__FieldTag::__min),
+                                    "max" => Ok(__FieldTag::__max),
+                                    _ => Ok(__FieldTag::Unknown(value.to_string())),
+                                }
+                            }
+                        }
+                        deserializer.deserialize_identifier(Visitor)
+                    }
+                }
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = Interval;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("struct Interval")
+                    }
+                    fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                    where
+                        A: serde::de::MapAccess<'de>,
+                    {
+                        #[allow(unused_imports)]
+                        use serde::de::Error;
+                        use std::option::Option::Some;
+                        let mut fields = std::collections::HashSet::new();
+                        let mut result = Self::Value::new();
+                        while let Some(tag) = map.next_key::<__FieldTag>()? {
+                            #[allow(clippy::match_single_binding)]
+                            match tag {
+                                __FieldTag::__min => {
+                                    if !fields.insert(__FieldTag::__min) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field("multiple values for min"),
+                                        );
+                                    }
+                                    struct __With(std::option::Option<i64>);
+                                    impl<'de> serde::de::Deserialize<'de> for __With {
+                                        fn deserialize<D>(
+                                            deserializer: D,
+                                        ) -> std::result::Result<Self, D::Error>
+                                        where
+                                            D: serde::de::Deserializer<'de>,
+                                        {
+                                            serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                        }
+                                    }
+                                    result.min = map.next_value::<__With>()?.0.unwrap_or_default();
+                                }
+                                __FieldTag::__max => {
+                                    if !fields.insert(__FieldTag::__max) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field("multiple values for max"),
+                                        );
+                                    }
+                                    struct __With(std::option::Option<i64>);
+                                    impl<'de> serde::de::Deserialize<'de> for __With {
+                                        fn deserialize<D>(
+                                            deserializer: D,
+                                        ) -> std::result::Result<Self, D::Error>
+                                        where
+                                            D: serde::de::Deserializer<'de>,
+                                        {
+                                            serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                        }
+                                    }
+                                    result.max = map.next_value::<__With>()?.0;
+                                }
+                                __FieldTag::Unknown(key) => {
+                                    let value = map.next_value::<serde_json::Value>()?;
+                                    result._unknown_fields.insert(key, value);
+                                }
+                            }
+                        }
+                        std::result::Result::Ok(result)
+                    }
+                }
+                deserializer.deserialize_any(Visitor)
+            }
+        }
+
+        #[doc(hidden)]
+        impl serde::ser::Serialize for Interval {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                use serde::ser::SerializeMap;
+                #[allow(unused_imports)]
+                use std::option::Option::Some;
+                let mut state = serializer.serialize_map(std::option::Option::None)?;
+                if !wkt::internal::is_default(&self.min) {
+                    struct __With<'a>(&'a i64);
+                    impl<'a> serde::ser::Serialize for __With<'a> {
+                        fn serialize<S>(
+                            &self,
+                            serializer: S,
+                        ) -> std::result::Result<S::Ok, S::Error>
+                        where
+                            S: serde::ser::Serializer,
+                        {
+                            serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                        }
+                    }
+                    state.serialize_entry("min", &__With(&self.min))?;
+                }
+                if self.max.is_some() {
+                    struct __With<'a>(&'a std::option::Option<i64>);
+                    impl<'a> serde::ser::Serialize for __With<'a> {
+                        fn serialize<S>(
+                            &self,
+                            serializer: S,
+                        ) -> std::result::Result<S::Ok, S::Error>
+                        where
+                            S: serde::ser::Serializer,
+                        {
+                            serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                                self.0, serializer,
+                            )
+                        }
+                    }
+                    state.serialize_entry("max", &__With(&self.max))?;
+                }
+                if !self._unknown_fields.is_empty() {
+                    for (key, value) in self._unknown_fields.iter() {
+                        state.serialize_entry(key, &value)?;
+                    }
+                }
+                state.end()
+            }
+        }
     }
 
     /// A limit defining a maximum duration of the route of a vehicle. It can be
@@ -4899,13 +10118,10 @@ pub mod vehicle {
     ///
     /// When a soft limit field is defined, both the soft max threshold and its
     /// associated cost must be defined together.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct DurationLimit {
         /// A hard limit constraining the duration to be at most max_duration.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub max_duration: std::option::Option<wkt::Duration>,
 
         /// A soft limit not enforcing a maximum duration limit, but when violated
@@ -4914,7 +10130,6 @@ pub mod vehicle {
         ///
         /// If defined, `soft_max_duration` must be nonnegative. If max_duration is
         /// also defined, `soft_max_duration` must be less than max_duration.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub soft_max_duration: std::option::Option<wkt::Duration>,
 
         /// Cost per hour incurred if the `soft_max_duration` threshold is violated.
@@ -4926,8 +10141,6 @@ pub mod vehicle {
         /// ```
         ///
         /// The cost must be nonnegative.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub cost_per_hour_after_soft_max: std::option::Option<f64>,
 
         /// A soft limit not enforcing a maximum duration limit, but when violated
@@ -4940,7 +10153,6 @@ pub mod vehicle {
         /// day:
         ///
         /// `max_duration - quadratic_soft_max_duration <= 86400 seconds`
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub quadratic_soft_max_duration: std::option::Option<wkt::Duration>,
 
         /// Cost per square hour incurred if the
@@ -4955,11 +10167,8 @@ pub mod vehicle {
         /// ```
         ///
         /// The cost must be nonnegative.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
         pub cost_per_square_hour_after_quadratic_soft_max: std::option::Option<f64>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -5072,6 +10281,237 @@ pub mod vehicle {
     impl wkt::message::Message for DurationLimit {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.optimization.v1.Vehicle.DurationLimit"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for DurationLimit {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __max_duration,
+                __soft_max_duration,
+                __cost_per_hour_after_soft_max,
+                __quadratic_soft_max_duration,
+                __cost_per_square_hour_after_quadratic_soft_max,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for DurationLimit")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "maxDuration" => Ok(__FieldTag::__max_duration),
+                                "max_duration" => Ok(__FieldTag::__max_duration),
+                                "softMaxDuration" => Ok(__FieldTag::__soft_max_duration),
+                                "soft_max_duration" => Ok(__FieldTag::__soft_max_duration),
+                                "costPerHourAfterSoftMax" => {
+                                    Ok(__FieldTag::__cost_per_hour_after_soft_max)
+                                }
+                                "cost_per_hour_after_soft_max" => {
+                                    Ok(__FieldTag::__cost_per_hour_after_soft_max)
+                                }
+                                "quadraticSoftMaxDuration" => {
+                                    Ok(__FieldTag::__quadratic_soft_max_duration)
+                                }
+                                "quadratic_soft_max_duration" => {
+                                    Ok(__FieldTag::__quadratic_soft_max_duration)
+                                }
+                                "costPerSquareHourAfterQuadraticSoftMax" => {
+                                    Ok(__FieldTag::__cost_per_square_hour_after_quadratic_soft_max)
+                                }
+                                "cost_per_square_hour_after_quadratic_soft_max" => {
+                                    Ok(__FieldTag::__cost_per_square_hour_after_quadratic_soft_max)
+                                }
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = DurationLimit;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct DurationLimit")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__max_duration => {
+                                if !fields.insert(__FieldTag::__max_duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for max_duration",
+                                    ));
+                                }
+                                result.max_duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::__soft_max_duration => {
+                                if !fields.insert(__FieldTag::__soft_max_duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for soft_max_duration",
+                                    ));
+                                }
+                                result.soft_max_duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::__cost_per_hour_after_soft_max => {
+                                if !fields.insert(__FieldTag::__cost_per_hour_after_soft_max) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for cost_per_hour_after_soft_max",
+                                    ));
+                                }
+                                struct __With(std::option::Option<f64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.cost_per_hour_after_soft_max = map.next_value::<__With>()?.0;
+                            }
+                            __FieldTag::__quadratic_soft_max_duration => {
+                                if !fields.insert(__FieldTag::__quadratic_soft_max_duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for quadratic_soft_max_duration",
+                                    ));
+                                }
+                                result.quadratic_soft_max_duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::__cost_per_square_hour_after_quadratic_soft_max => {
+                                if !fields.insert(
+                                    __FieldTag::__cost_per_square_hour_after_quadratic_soft_max,
+                                ) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for cost_per_square_hour_after_quadratic_soft_max",
+                                    ));
+                                }
+                                struct __With(std::option::Option<f64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.cost_per_square_hour_after_quadratic_soft_max =
+                                    map.next_value::<__With>()?.0;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for DurationLimit {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.max_duration.is_some() {
+                state.serialize_entry("maxDuration", &self.max_duration)?;
+            }
+            if self.soft_max_duration.is_some() {
+                state.serialize_entry("softMaxDuration", &self.soft_max_duration)?;
+            }
+            if self.cost_per_hour_after_soft_max.is_some() {
+                struct __With<'a>(&'a std::option::Option<f64>);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                            self.0, serializer,
+                        )
+                    }
+                }
+                state.serialize_entry(
+                    "costPerHourAfterSoftMax",
+                    &__With(&self.cost_per_hour_after_soft_max),
+                )?;
+            }
+            if self.quadratic_soft_max_duration.is_some() {
+                state.serialize_entry(
+                    "quadraticSoftMaxDuration",
+                    &self.quadratic_soft_max_duration,
+                )?;
+            }
+            if self.cost_per_square_hour_after_quadratic_soft_max.is_some() {
+                struct __With<'a>(&'a std::option::Option<f64>);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                            self.0, serializer,
+                        )
+                    }
+                }
+                state.serialize_entry(
+                    "costPerSquareHourAfterQuadraticSoftMax",
+                    &__With(&self.cost_per_square_hour_after_quadratic_soft_max),
+                )?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -5374,27 +10814,21 @@ pub mod vehicle {
 ///
 /// [google.cloud.optimization.v1.ShipmentModel.global_end_time]: crate::model::ShipmentModel::global_end_time
 /// [google.cloud.optimization.v1.ShipmentModel.global_start_time]: crate::model::ShipmentModel::global_start_time
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TimeWindow {
     /// The hard time window start time. If unspecified it will be set to
     /// `ShipmentModel.global_start_time`.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub start_time: std::option::Option<wkt::Timestamp>,
 
     /// The hard time window end time. If unspecified it will be set to
     /// `ShipmentModel.global_end_time`.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub end_time: std::option::Option<wkt::Timestamp>,
 
     /// The soft start time of the time window.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub soft_start_time: std::option::Option<wkt::Timestamp>,
 
     /// The soft end time of the time window.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub soft_end_time: std::option::Option<wkt::Timestamp>,
 
     /// A cost per hour added to other costs in the model if the event occurs
@@ -5408,8 +10842,6 @@ pub struct TimeWindow {
     ///
     /// This cost must be positive, and the field can only be set if
     /// soft_start_time has been set.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub cost_per_hour_before_soft_start_time: std::option::Option<f64>,
 
     /// A cost per hour added to other costs in the model if the event occurs after
@@ -5423,11 +10855,8 @@ pub struct TimeWindow {
     ///
     /// This cost must be positive, and the field can only be set if
     /// `soft_end_time` has been set.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub cost_per_hour_after_soft_end_time: std::option::Option<f64>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5557,27 +10986,254 @@ impl wkt::message::Message for TimeWindow {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for TimeWindow {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __start_time,
+            __end_time,
+            __soft_start_time,
+            __soft_end_time,
+            __cost_per_hour_before_soft_start_time,
+            __cost_per_hour_after_soft_end_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TimeWindow")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "startTime" => Ok(__FieldTag::__start_time),
+                            "start_time" => Ok(__FieldTag::__start_time),
+                            "endTime" => Ok(__FieldTag::__end_time),
+                            "end_time" => Ok(__FieldTag::__end_time),
+                            "softStartTime" => Ok(__FieldTag::__soft_start_time),
+                            "soft_start_time" => Ok(__FieldTag::__soft_start_time),
+                            "softEndTime" => Ok(__FieldTag::__soft_end_time),
+                            "soft_end_time" => Ok(__FieldTag::__soft_end_time),
+                            "costPerHourBeforeSoftStartTime" => {
+                                Ok(__FieldTag::__cost_per_hour_before_soft_start_time)
+                            }
+                            "cost_per_hour_before_soft_start_time" => {
+                                Ok(__FieldTag::__cost_per_hour_before_soft_start_time)
+                            }
+                            "costPerHourAfterSoftEndTime" => {
+                                Ok(__FieldTag::__cost_per_hour_after_soft_end_time)
+                            }
+                            "cost_per_hour_after_soft_end_time" => {
+                                Ok(__FieldTag::__cost_per_hour_after_soft_end_time)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = TimeWindow;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TimeWindow")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__start_time => {
+                            if !fields.insert(__FieldTag::__start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_time",
+                                ));
+                            }
+                            result.start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__end_time => {
+                            if !fields.insert(__FieldTag::__end_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_time",
+                                ));
+                            }
+                            result.end_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__soft_start_time => {
+                            if !fields.insert(__FieldTag::__soft_start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for soft_start_time",
+                                ));
+                            }
+                            result.soft_start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__soft_end_time => {
+                            if !fields.insert(__FieldTag::__soft_end_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for soft_end_time",
+                                ));
+                            }
+                            result.soft_end_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__cost_per_hour_before_soft_start_time => {
+                            if !fields.insert(__FieldTag::__cost_per_hour_before_soft_start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cost_per_hour_before_soft_start_time",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cost_per_hour_before_soft_start_time =
+                                map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__cost_per_hour_after_soft_end_time => {
+                            if !fields.insert(__FieldTag::__cost_per_hour_after_soft_end_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cost_per_hour_after_soft_end_time",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cost_per_hour_after_soft_end_time =
+                                map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for TimeWindow {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if self.soft_start_time.is_some() {
+            state.serialize_entry("softStartTime", &self.soft_start_time)?;
+        }
+        if self.soft_end_time.is_some() {
+            state.serialize_entry("softEndTime", &self.soft_end_time)?;
+        }
+        if self.cost_per_hour_before_soft_start_time.is_some() {
+            struct __With<'a>(&'a std::option::Option<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "costPerHourBeforeSoftStartTime",
+                &__With(&self.cost_per_hour_before_soft_start_time),
+            )?;
+        }
+        if self.cost_per_hour_after_soft_end_time.is_some() {
+            struct __With<'a>(&'a std::option::Option<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "costPerHourAfterSoftEndTime",
+                &__With(&self.cost_per_hour_after_soft_end_time),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Deprecated: Use
 /// [Vehicle.LoadLimit.Interval][google.cloud.optimization.v1.Vehicle.LoadLimit.Interval]
 /// instead.
 ///
 /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval]: crate::model::vehicle::load_limit::Interval
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 #[deprecated]
 pub struct CapacityQuantity {
-    #[serde(rename = "type")]
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
     pub value: i64,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5605,31 +11261,156 @@ impl wkt::message::Message for CapacityQuantity {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CapacityQuantity {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __type,
+            __value,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CapacityQuantity")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "type" => Ok(__FieldTag::__type),
+                            "value" => Ok(__FieldTag::__value),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CapacityQuantity;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CapacityQuantity")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__value => {
+                            if !fields.insert(__FieldTag::__value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for value",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.value = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CapacityQuantity {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.r#type.is_empty() {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if !wkt::internal::is_default(&self.value) {
+            struct __With<'a>(&'a i64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("value", &__With(&self.value))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Deprecated: Use
 /// [Vehicle.LoadLimit.Interval][google.cloud.optimization.v1.Vehicle.LoadLimit.Interval]
 /// instead.
 ///
 /// [google.cloud.optimization.v1.Vehicle.LoadLimit.Interval]: crate::model::vehicle::load_limit::Interval
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 #[deprecated]
 pub struct CapacityQuantityInterval {
-    #[serde(rename = "type")]
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub r#type: std::string::String,
 
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub min_value: std::option::Option<i64>,
 
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub max_value: std::option::Option<i64>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5687,20 +11468,190 @@ impl wkt::message::Message for CapacityQuantityInterval {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CapacityQuantityInterval {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __type,
+            __min_value,
+            __max_value,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CapacityQuantityInterval")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "type" => Ok(__FieldTag::__type),
+                            "minValue" => Ok(__FieldTag::__min_value),
+                            "min_value" => Ok(__FieldTag::__min_value),
+                            "maxValue" => Ok(__FieldTag::__max_value),
+                            "max_value" => Ok(__FieldTag::__max_value),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CapacityQuantityInterval;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CapacityQuantityInterval")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__type => {
+                            if !fields.insert(__FieldTag::__type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for type",
+                                ));
+                            }
+                            result.r#type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__min_value => {
+                            if !fields.insert(__FieldTag::__min_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for min_value",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.min_value = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__max_value => {
+                            if !fields.insert(__FieldTag::__max_value) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_value",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_value = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CapacityQuantityInterval {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.r#type.is_empty() {
+            state.serialize_entry("type", &self.r#type)?;
+        }
+        if self.min_value.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("minValue", &__With(&self.min_value))?;
+        }
+        if self.max_value.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("maxValue", &__With(&self.max_value))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// A limit defining a maximum distance which can be traveled. It can be either
 /// hard or soft.
 ///
 /// If a soft limit is defined, both `soft_max_meters` and
 /// `cost_per_kilometer_above_soft_max` must be defined and be nonnegative.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct DistanceLimit {
     /// A hard limit constraining the distance to be at most max_meters. The limit
     /// must be nonnegative.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub max_meters: std::option::Option<i64>,
 
     /// A soft limit not enforcing a maximum distance limit, but when violated
@@ -5709,8 +11660,6 @@ pub struct DistanceLimit {
     ///
     /// If defined soft_max_meters must be less than max_meters and must be
     /// nonnegative.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::I64>")]
     pub soft_max_meters: std::option::Option<i64>,
 
     /// Cost per kilometer incurred, increasing up to `soft_max_meters`, with
@@ -5722,8 +11671,6 @@ pub struct DistanceLimit {
     /// ```
     ///
     /// This cost is not supported in `route_distance_limit`.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub cost_per_kilometer_below_soft_max: std::option::Option<f64>,
 
     /// Cost per kilometer incurred if distance is above `soft_max_meters` limit.
@@ -5736,11 +11683,8 @@ pub struct DistanceLimit {
     /// ```
     ///
     /// The cost must be nonnegative.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::F64>")]
     pub cost_per_kilometer_above_soft_max: std::option::Option<f64>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -5834,13 +11778,258 @@ impl wkt::message::Message for DistanceLimit {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DistanceLimit {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __max_meters,
+            __soft_max_meters,
+            __cost_per_kilometer_below_soft_max,
+            __cost_per_kilometer_above_soft_max,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DistanceLimit")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "maxMeters" => Ok(__FieldTag::__max_meters),
+                            "max_meters" => Ok(__FieldTag::__max_meters),
+                            "softMaxMeters" => Ok(__FieldTag::__soft_max_meters),
+                            "soft_max_meters" => Ok(__FieldTag::__soft_max_meters),
+                            "costPerKilometerBelowSoftMax" => {
+                                Ok(__FieldTag::__cost_per_kilometer_below_soft_max)
+                            }
+                            "cost_per_kilometer_below_soft_max" => {
+                                Ok(__FieldTag::__cost_per_kilometer_below_soft_max)
+                            }
+                            "costPerKilometerAboveSoftMax" => {
+                                Ok(__FieldTag::__cost_per_kilometer_above_soft_max)
+                            }
+                            "cost_per_kilometer_above_soft_max" => {
+                                Ok(__FieldTag::__cost_per_kilometer_above_soft_max)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DistanceLimit;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DistanceLimit")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__max_meters => {
+                            if !fields.insert(__FieldTag::__max_meters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_meters",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.max_meters = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__soft_max_meters => {
+                            if !fields.insert(__FieldTag::__soft_max_meters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for soft_max_meters",
+                                ));
+                            }
+                            struct __With(std::option::Option<i64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.soft_max_meters = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__cost_per_kilometer_below_soft_max => {
+                            if !fields.insert(__FieldTag::__cost_per_kilometer_below_soft_max) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cost_per_kilometer_below_soft_max",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cost_per_kilometer_below_soft_max =
+                                map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::__cost_per_kilometer_above_soft_max => {
+                            if !fields.insert(__FieldTag::__cost_per_kilometer_above_soft_max) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cost_per_kilometer_above_soft_max",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cost_per_kilometer_above_soft_max =
+                                map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DistanceLimit {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.max_meters.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("maxMeters", &__With(&self.max_meters))?;
+        }
+        if self.soft_max_meters.is_some() {
+            struct __With<'a>(&'a std::option::Option<i64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("softMaxMeters", &__With(&self.soft_max_meters))?;
+        }
+        if self.cost_per_kilometer_below_soft_max.is_some() {
+            struct __With<'a>(&'a std::option::Option<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "costPerKilometerBelowSoftMax",
+                &__With(&self.cost_per_kilometer_below_soft_max),
+            )?;
+        }
+        if self.cost_per_kilometer_above_soft_max.is_some() {
+            struct __With<'a>(&'a std::option::Option<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry(
+                "costPerKilometerAboveSoftMax",
+                &__With(&self.cost_per_kilometer_above_soft_max),
+            )?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Specifies attributes of transitions between two consecutive visits on a
 /// route. Several `TransitionAttributes` may apply to the same transition: in
 /// that case, all extra costs add up and the strictest constraint or limit
 /// applies (following natural "AND" semantics).
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TransitionAttributes {
     /// Tags defining the set of (src->dst) transitions these attributes apply to.
@@ -5853,14 +12042,10 @@ pub struct TransitionAttributes {
     ///
     /// [google.cloud.optimization.v1.Shipment.VisitRequest.tags]: crate::model::shipment::VisitRequest::tags
     /// [google.cloud.optimization.v1.Vehicle.start_tags]: crate::model::Vehicle::start_tags
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub src_tag: std::string::String,
 
     /// See `src_tag`. Exactly one of `src_tag` and `excluded_src_tag` must be
     /// non-empty.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub excluded_src_tag: std::string::String,
 
     /// A destination visit or vehicle end matches iff its
@@ -5871,21 +12056,15 @@ pub struct TransitionAttributes {
     ///
     /// [google.cloud.optimization.v1.Shipment.VisitRequest.tags]: crate::model::shipment::VisitRequest::tags
     /// [google.cloud.optimization.v1.Vehicle.end_tags]: crate::model::Vehicle::end_tags
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub dst_tag: std::string::String,
 
     /// See `dst_tag`. Exactly one of `dst_tag` and `excluded_dst_tag` must be
     /// non-empty.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub excluded_dst_tag: std::string::String,
 
     /// Specifies a cost for performing this transition. This is in the same unit
     /// as all other costs in the model and must not be negative. It is applied on
     /// top of all other existing costs.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub cost: f64,
 
     /// Specifies a cost per kilometer applied to the distance traveled while
@@ -5894,25 +12073,20 @@ pub struct TransitionAttributes {
     /// specified on vehicles.
     ///
     /// [google.cloud.optimization.v1.Vehicle.cost_per_kilometer]: crate::model::Vehicle::cost_per_kilometer
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub cost_per_kilometer: f64,
 
     /// Specifies a limit on the distance traveled while performing this
     /// transition.
     ///
     /// As of 2021/06, only soft limits are supported.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub distance_limit: std::option::Option<crate::model::DistanceLimit>,
 
     /// Specifies a delay incurred when performing this transition.
     ///
     /// This delay always occurs *after* finishing the source visit and *before*
     /// starting the destination visit.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub delay: std::option::Option<wkt::Duration>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6006,11 +12180,257 @@ impl wkt::message::Message for TransitionAttributes {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for TransitionAttributes {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __src_tag,
+            __excluded_src_tag,
+            __dst_tag,
+            __excluded_dst_tag,
+            __cost,
+            __cost_per_kilometer,
+            __distance_limit,
+            __delay,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TransitionAttributes")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "srcTag" => Ok(__FieldTag::__src_tag),
+                            "src_tag" => Ok(__FieldTag::__src_tag),
+                            "excludedSrcTag" => Ok(__FieldTag::__excluded_src_tag),
+                            "excluded_src_tag" => Ok(__FieldTag::__excluded_src_tag),
+                            "dstTag" => Ok(__FieldTag::__dst_tag),
+                            "dst_tag" => Ok(__FieldTag::__dst_tag),
+                            "excludedDstTag" => Ok(__FieldTag::__excluded_dst_tag),
+                            "excluded_dst_tag" => Ok(__FieldTag::__excluded_dst_tag),
+                            "cost" => Ok(__FieldTag::__cost),
+                            "costPerKilometer" => Ok(__FieldTag::__cost_per_kilometer),
+                            "cost_per_kilometer" => Ok(__FieldTag::__cost_per_kilometer),
+                            "distanceLimit" => Ok(__FieldTag::__distance_limit),
+                            "distance_limit" => Ok(__FieldTag::__distance_limit),
+                            "delay" => Ok(__FieldTag::__delay),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = TransitionAttributes;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TransitionAttributes")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__src_tag => {
+                            if !fields.insert(__FieldTag::__src_tag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for src_tag",
+                                ));
+                            }
+                            result.src_tag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__excluded_src_tag => {
+                            if !fields.insert(__FieldTag::__excluded_src_tag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for excluded_src_tag",
+                                ));
+                            }
+                            result.excluded_src_tag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__dst_tag => {
+                            if !fields.insert(__FieldTag::__dst_tag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for dst_tag",
+                                ));
+                            }
+                            result.dst_tag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__excluded_dst_tag => {
+                            if !fields.insert(__FieldTag::__excluded_dst_tag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for excluded_dst_tag",
+                                ));
+                            }
+                            result.excluded_dst_tag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__cost => {
+                            if !fields.insert(__FieldTag::__cost) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cost",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cost = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__cost_per_kilometer => {
+                            if !fields.insert(__FieldTag::__cost_per_kilometer) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cost_per_kilometer",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.cost_per_kilometer =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__distance_limit => {
+                            if !fields.insert(__FieldTag::__distance_limit) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for distance_limit",
+                                ));
+                            }
+                            result.distance_limit = map
+                                .next_value::<std::option::Option<crate::model::DistanceLimit>>()?;
+                        }
+                        __FieldTag::__delay => {
+                            if !fields.insert(__FieldTag::__delay) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for delay",
+                                ));
+                            }
+                            result.delay =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for TransitionAttributes {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.src_tag.is_empty() {
+            state.serialize_entry("srcTag", &self.src_tag)?;
+        }
+        if !self.excluded_src_tag.is_empty() {
+            state.serialize_entry("excludedSrcTag", &self.excluded_src_tag)?;
+        }
+        if !self.dst_tag.is_empty() {
+            state.serialize_entry("dstTag", &self.dst_tag)?;
+        }
+        if !self.excluded_dst_tag.is_empty() {
+            state.serialize_entry("excludedDstTag", &self.excluded_dst_tag)?;
+        }
+        if !wkt::internal::is_default(&self.cost) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("cost", &__With(&self.cost))?;
+        }
+        if !wkt::internal::is_default(&self.cost_per_kilometer) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("costPerKilometer", &__With(&self.cost_per_kilometer))?;
+        }
+        if self.distance_limit.is_some() {
+            state.serialize_entry("distanceLimit", &self.distance_limit)?;
+        }
+        if self.delay.is_some() {
+            state.serialize_entry("delay", &self.delay)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Encapsulates a waypoint. Waypoints mark arrival and departure locations of
 /// VisitRequests, and start and end locations of Vehicles.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Waypoint {
     /// Indicates that the location of this waypoint is meant to have a preference
@@ -6019,15 +12439,11 @@ pub struct Waypoint {
     /// stop at the side of road that the location is biased towards from the
     /// center of the road. This option works only for the 'DRIVING' travel mode,
     /// and when the 'location_type' is set to 'location'.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub side_of_road: bool,
 
     /// Different ways to represent a location.
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub location_type: std::option::Option<crate::model::waypoint::LocationType>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6110,44 +12526,188 @@ impl wkt::message::Message for Waypoint {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Waypoint {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __location,
+            __place_id,
+            __side_of_road,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Waypoint")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "location" => Ok(__FieldTag::__location),
+                            "placeId" => Ok(__FieldTag::__place_id),
+                            "place_id" => Ok(__FieldTag::__place_id),
+                            "sideOfRoad" => Ok(__FieldTag::__side_of_road),
+                            "side_of_road" => Ok(__FieldTag::__side_of_road),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Waypoint;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Waypoint")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__location => {
+                            if !fields.insert(__FieldTag::__location) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for location",
+                                ));
+                            }
+                            if result.location_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `location_type`, a oneof with full ID .google.cloud.optimization.v1.Waypoint.location, latest field was location",
+                                ));
+                            }
+                            result.location_type = std::option::Option::Some(
+                                crate::model::waypoint::LocationType::Location(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::Location>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__place_id => {
+                            if !fields.insert(__FieldTag::__place_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for place_id",
+                                ));
+                            }
+                            if result.location_type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `location_type`, a oneof with full ID .google.cloud.optimization.v1.Waypoint.place_id, latest field was placeId",
+                                ));
+                            }
+                            result.location_type = std::option::Option::Some(
+                                crate::model::waypoint::LocationType::PlaceId(
+                                    map.next_value::<std::option::Option<std::string::String>>()?
+                                        .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__side_of_road => {
+                            if !fields.insert(__FieldTag::__side_of_road) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for side_of_road",
+                                ));
+                            }
+                            result.side_of_road = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Waypoint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.location() {
+            state.serialize_entry("location", value)?;
+        }
+        if let Some(value) = self.place_id() {
+            state.serialize_entry("placeId", value)?;
+        }
+        if !wkt::internal::is_default(&self.side_of_road) {
+            state.serialize_entry("sideOfRoad", &self.side_of_road)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [Waypoint].
 pub mod waypoint {
     #[allow(unused_imports)]
     use super::*;
 
     /// Different ways to represent a location.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum LocationType {
         /// A point specified using geographic coordinates, including an optional
         /// heading.
         Location(std::boxed::Box<crate::model::Location>),
         /// The POI Place ID associated with the waypoint.
-        PlaceId(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        PlaceId(std::string::String),
     }
 }
 
 /// Encapsulates a location (a geographic point, and an optional heading).
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct Location {
     /// The waypoint's geographic coordinates.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub lat_lng: std::option::Option<gtype::model::LatLng>,
 
     /// The compass heading associated with the direction of the flow of traffic.
     /// This value is used to specify the side of the road to use for pickup and
     /// drop-off. Heading values can be from 0 to 360, where 0 specifies a heading
     /// of due North, 90 specifies a heading of due East, etc.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
-    #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
     pub heading: std::option::Option<i32>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6199,6 +12759,143 @@ impl wkt::message::Message for Location {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for Location {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __lat_lng,
+            __heading,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for Location")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "latLng" => Ok(__FieldTag::__lat_lng),
+                            "lat_lng" => Ok(__FieldTag::__lat_lng),
+                            "heading" => Ok(__FieldTag::__heading),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = Location;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct Location")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__lat_lng => {
+                            if !fields.insert(__FieldTag::__lat_lng) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for lat_lng",
+                                ));
+                            }
+                            result.lat_lng =
+                                map.next_value::<std::option::Option<gtype::model::LatLng>>()?;
+                        }
+                        __FieldTag::__heading => {
+                            if !fields.insert(__FieldTag::__heading) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for heading",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.heading = map.next_value::<__With>()?.0;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for Location {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.lat_lng.is_some() {
+            state.serialize_entry("latLng", &self.lat_lng)?;
+        }
+        if self.heading.is_some() {
+            struct __With<'a>(&'a std::option::Option<i32>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("heading", &__With(&self.heading))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Rules to generate time breaks for a vehicle (e.g. lunch breaks). A break
 /// is a contiguous period of time during which the vehicle remains idle at its
 /// current position and cannot perform any visit. A break may occur:
@@ -6209,23 +12906,16 @@ impl wkt::message::Message for Location {
 /// * or before the vehicle start (the vehicle may not start in the middle of
 ///   a break), in which case it does not affect the vehicle start time.
 /// * or after the vehicle end (ditto, with the vehicle end time).
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct BreakRule {
     /// Sequence of breaks. See the `BreakRequest` message.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub break_requests: std::vec::Vec<crate::model::break_rule::BreakRequest>,
 
     /// Several `FrequencyConstraint` may apply. They must all be satisfied by
     /// the `BreakRequest`s of this `BreakRule`. See `FrequencyConstraint`.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub frequency_constraints: std::vec::Vec<crate::model::break_rule::FrequencyConstraint>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6263,6 +12953,129 @@ impl wkt::message::Message for BreakRule {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for BreakRule {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __break_requests,
+            __frequency_constraints,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for BreakRule")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "breakRequests" => Ok(__FieldTag::__break_requests),
+                            "break_requests" => Ok(__FieldTag::__break_requests),
+                            "frequencyConstraints" => Ok(__FieldTag::__frequency_constraints),
+                            "frequency_constraints" => Ok(__FieldTag::__frequency_constraints),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = BreakRule;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct BreakRule")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__break_requests => {
+                            if !fields.insert(__FieldTag::__break_requests) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for break_requests",
+                                ));
+                            }
+                            result.break_requests = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::break_rule::BreakRequest>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__frequency_constraints => {
+                            if !fields.insert(__FieldTag::__frequency_constraints) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for frequency_constraints",
+                                ));
+                            }
+                            result.frequency_constraints = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::break_rule::FrequencyConstraint>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for BreakRule {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.break_requests.is_empty() {
+            state.serialize_entry("breakRequests", &self.break_requests)?;
+        }
+        if !self.frequency_constraints.is_empty() {
+            state.serialize_entry("frequencyConstraints", &self.frequency_constraints)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [BreakRule].
 pub mod break_rule {
     #[allow(unused_imports)]
@@ -6273,24 +13086,18 @@ pub mod break_rule {
     /// that sequence, in the order in which they must occur. Their time windows
     /// (`earliest_start_time` / `latest_start_time`) may overlap, but they must
     /// be compatible with the order (this is checked).
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct BreakRequest {
         /// Required. Lower bound (inclusive) on the start of the break.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub earliest_start_time: std::option::Option<wkt::Timestamp>,
 
         /// Required. Upper bound (inclusive) on the start of the break.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub latest_start_time: std::option::Option<wkt::Timestamp>,
 
         /// Required. Minimum duration of the break. Must be positive.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub min_duration: std::option::Option<wkt::Duration>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -6360,6 +13167,141 @@ pub mod break_rule {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for BreakRequest {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __earliest_start_time,
+                __latest_start_time,
+                __min_duration,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for BreakRequest")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "earliestStartTime" => Ok(__FieldTag::__earliest_start_time),
+                                "earliest_start_time" => Ok(__FieldTag::__earliest_start_time),
+                                "latestStartTime" => Ok(__FieldTag::__latest_start_time),
+                                "latest_start_time" => Ok(__FieldTag::__latest_start_time),
+                                "minDuration" => Ok(__FieldTag::__min_duration),
+                                "min_duration" => Ok(__FieldTag::__min_duration),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = BreakRequest;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct BreakRequest")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__earliest_start_time => {
+                                if !fields.insert(__FieldTag::__earliest_start_time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for earliest_start_time",
+                                    ));
+                                }
+                                result.earliest_start_time =
+                                    map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                            }
+                            __FieldTag::__latest_start_time => {
+                                if !fields.insert(__FieldTag::__latest_start_time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for latest_start_time",
+                                    ));
+                                }
+                                result.latest_start_time =
+                                    map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                            }
+                            __FieldTag::__min_duration => {
+                                if !fields.insert(__FieldTag::__min_duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for min_duration",
+                                    ));
+                                }
+                                result.min_duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for BreakRequest {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.earliest_start_time.is_some() {
+                state.serialize_entry("earliestStartTime", &self.earliest_start_time)?;
+            }
+            if self.latest_start_time.is_some() {
+                state.serialize_entry("latestStartTime", &self.latest_start_time)?;
+            }
+            if self.min_duration.is_some() {
+                state.serialize_entry("minDuration", &self.min_duration)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// One may further constrain the frequency and duration of the breaks
     /// specified above, by enforcing a minimum break frequency, such as
     /// "There must be a break of at least 1 hour every 12 hours". Assuming that
@@ -6395,23 +13337,18 @@ pub mod break_rule {
     ///    .. performing travel and visits ..
     ///   23:59 vehicle end
     /// ```
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FrequencyConstraint {
         /// Required. Minimum break duration for this constraint. Nonnegative.
         /// See description of `FrequencyConstraint`.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub min_break_duration: std::option::Option<wkt::Duration>,
 
         /// Required. Maximum allowed span of any interval of time in the route that
         /// does not include at least partially a break of `duration >=
         /// min_break_duration`. Must be positive.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub max_inter_break_duration: std::option::Option<wkt::Duration>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -6460,6 +13397,130 @@ pub mod break_rule {
     impl wkt::message::Message for FrequencyConstraint {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.optimization.v1.BreakRule.FrequencyConstraint"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for FrequencyConstraint {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __min_break_duration,
+                __max_inter_break_duration,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for FrequencyConstraint")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "minBreakDuration" => Ok(__FieldTag::__min_break_duration),
+                                "min_break_duration" => Ok(__FieldTag::__min_break_duration),
+                                "maxInterBreakDuration" => {
+                                    Ok(__FieldTag::__max_inter_break_duration)
+                                }
+                                "max_inter_break_duration" => {
+                                    Ok(__FieldTag::__max_inter_break_duration)
+                                }
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = FrequencyConstraint;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct FrequencyConstraint")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__min_break_duration => {
+                                if !fields.insert(__FieldTag::__min_break_duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for min_break_duration",
+                                    ));
+                                }
+                                result.min_break_duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::__max_inter_break_duration => {
+                                if !fields.insert(__FieldTag::__max_inter_break_duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for max_inter_break_duration",
+                                    ));
+                                }
+                                result.max_inter_break_duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for FrequencyConstraint {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.min_break_duration.is_some() {
+                state.serialize_entry("minBreakDuration", &self.min_break_duration)?;
+            }
+            if self.max_inter_break_duration.is_some() {
+                state.serialize_entry("maxInterBreakDuration", &self.max_inter_break_duration)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 }
@@ -6553,41 +13614,29 @@ pub mod break_rule {
 ///   ||     |       |           |       |           |         |         ||
 /// --++-----------------------------------------------------------------++-->
 /// ```
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ShipmentRoute {
     /// Vehicle performing the route, identified by its index in the source
     /// `ShipmentModel`.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub vehicle_index: i32,
 
     /// Label of the vehicle performing this route, equal to
     /// `ShipmentModel.vehicles(vehicle_index).label`, if specified.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub vehicle_label: std::string::String,
 
     /// Time at which the vehicle starts its route.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub vehicle_start_time: std::option::Option<wkt::Timestamp>,
 
     /// Time at which the vehicle finishes its route.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub vehicle_end_time: std::option::Option<wkt::Timestamp>,
 
     /// Ordered sequence of visits representing a route.
     /// visits[i] is the i-th visit in the route.
     /// If this field is empty, the vehicle is considered as unused.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub visits: std::vec::Vec<crate::model::shipment_route::Visit>,
 
     /// Ordered list of transitions for the route.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub transitions: std::vec::Vec<crate::model::shipment_route::Transition>,
 
     /// When
@@ -6610,8 +13659,6 @@ pub struct ShipmentRoute {
     /// estimates and visit or break time window restrictions.
     ///
     /// [google.cloud.optimization.v1.OptimizeToursRequest.consider_road_traffic]: crate::model::OptimizeToursRequest::consider_road_traffic
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub has_traffic_infeasibilities: bool,
 
     /// The encoded polyline representation of the route.
@@ -6620,14 +13667,11 @@ pub struct ShipmentRoute {
     /// is set to true.
     ///
     /// [google.cloud.optimization.v1.OptimizeToursRequest.populate_polylines]: crate::model::OptimizeToursRequest::populate_polylines
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub route_polyline: std::option::Option<crate::model::shipment_route::EncodedPolyline>,
 
     /// Breaks scheduled for the vehicle performing this route.
     /// The `breaks` sequence represents time intervals, each starting at the
     /// corresponding `start_time` and lasting `duration` seconds.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub breaks: std::vec::Vec<crate::model::shipment_route::Break>,
 
     /// Duration, distance and load metrics for this route. The fields of
@@ -6641,7 +13685,6 @@ pub struct ShipmentRoute {
     /// [google.cloud.optimization.v1.AggregatedMetrics]: crate::model::AggregatedMetrics
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
     /// [google.cloud.optimization.v1.ShipmentRoute.visits]: crate::model::ShipmentRoute::visits
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub metrics: std::option::Option<crate::model::AggregatedMetrics>,
 
     /// Cost of the route, broken down by cost-related request fields.
@@ -6652,13 +13695,9 @@ pub struct ShipmentRoute {
     /// pickup costs over the route. All costs defined in the model are reported in
     /// detail here with the exception of costs related to TransitionAttributes
     /// that are only reported in an aggregated way as of 2022/01.
-    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::F64>>")]
     pub route_costs: std::collections::HashMap<std::string::String, f64>,
 
     /// Total cost of the route. The sum of all costs in the cost map.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub route_total_cost: f64,
 
     /// Deprecated: Use
@@ -6672,8 +13711,6 @@ pub struct ShipmentRoute {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
     /// [google.cloud.optimization.v1.Vehicle.capacities]: crate::model::Vehicle::capacities
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub end_loads: std::vec::Vec<crate::model::CapacityQuantity>,
 
@@ -6682,8 +13719,6 @@ pub struct ShipmentRoute {
     /// instead. Ordered list of travel steps for the route.
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.transitions]: crate::model::ShipmentRoute::transitions
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     #[deprecated]
     pub travel_steps: std::vec::Vec<crate::model::shipment_route::TravelStep>,
 
@@ -6699,7 +13734,6 @@ pub struct ShipmentRoute {
     /// from the vehicle's start_location to its `end_location`.
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.Visit]: crate::model::shipment_route::Visit
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[deprecated]
     pub vehicle_detour: std::option::Option<wkt::Duration>,
 
@@ -6707,11 +13741,9 @@ pub struct ShipmentRoute {
     /// [TransitionAttributes.delay][google.cloud.optimization.v1.TransitionAttributes.delay].
     ///
     /// [google.cloud.optimization.v1.TransitionAttributes.delay]: crate::model::TransitionAttributes::delay
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     #[deprecated]
     pub delay_before_vehicle_end: std::option::Option<crate::model::shipment_route::Delay>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -6932,6 +13964,428 @@ impl wkt::message::Message for ShipmentRoute {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ShipmentRoute {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __vehicle_index,
+            __vehicle_label,
+            __vehicle_start_time,
+            __vehicle_end_time,
+            __visits,
+            __transitions,
+            __has_traffic_infeasibilities,
+            __route_polyline,
+            __breaks,
+            __metrics,
+            __route_costs,
+            __route_total_cost,
+            __end_loads,
+            __travel_steps,
+            __vehicle_detour,
+            __delay_before_vehicle_end,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ShipmentRoute")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "vehicleIndex" => Ok(__FieldTag::__vehicle_index),
+                            "vehicle_index" => Ok(__FieldTag::__vehicle_index),
+                            "vehicleLabel" => Ok(__FieldTag::__vehicle_label),
+                            "vehicle_label" => Ok(__FieldTag::__vehicle_label),
+                            "vehicleStartTime" => Ok(__FieldTag::__vehicle_start_time),
+                            "vehicle_start_time" => Ok(__FieldTag::__vehicle_start_time),
+                            "vehicleEndTime" => Ok(__FieldTag::__vehicle_end_time),
+                            "vehicle_end_time" => Ok(__FieldTag::__vehicle_end_time),
+                            "visits" => Ok(__FieldTag::__visits),
+                            "transitions" => Ok(__FieldTag::__transitions),
+                            "hasTrafficInfeasibilities" => {
+                                Ok(__FieldTag::__has_traffic_infeasibilities)
+                            }
+                            "has_traffic_infeasibilities" => {
+                                Ok(__FieldTag::__has_traffic_infeasibilities)
+                            }
+                            "routePolyline" => Ok(__FieldTag::__route_polyline),
+                            "route_polyline" => Ok(__FieldTag::__route_polyline),
+                            "breaks" => Ok(__FieldTag::__breaks),
+                            "metrics" => Ok(__FieldTag::__metrics),
+                            "routeCosts" => Ok(__FieldTag::__route_costs),
+                            "route_costs" => Ok(__FieldTag::__route_costs),
+                            "routeTotalCost" => Ok(__FieldTag::__route_total_cost),
+                            "route_total_cost" => Ok(__FieldTag::__route_total_cost),
+                            "endLoads" => Ok(__FieldTag::__end_loads),
+                            "end_loads" => Ok(__FieldTag::__end_loads),
+                            "travelSteps" => Ok(__FieldTag::__travel_steps),
+                            "travel_steps" => Ok(__FieldTag::__travel_steps),
+                            "vehicleDetour" => Ok(__FieldTag::__vehicle_detour),
+                            "vehicle_detour" => Ok(__FieldTag::__vehicle_detour),
+                            "delayBeforeVehicleEnd" => Ok(__FieldTag::__delay_before_vehicle_end),
+                            "delay_before_vehicle_end" => {
+                                Ok(__FieldTag::__delay_before_vehicle_end)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ShipmentRoute;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ShipmentRoute")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__vehicle_index => {
+                            if !fields.insert(__FieldTag::__vehicle_index) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vehicle_index",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.vehicle_index =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__vehicle_label => {
+                            if !fields.insert(__FieldTag::__vehicle_label) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vehicle_label",
+                                ));
+                            }
+                            result.vehicle_label = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__vehicle_start_time => {
+                            if !fields.insert(__FieldTag::__vehicle_start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vehicle_start_time",
+                                ));
+                            }
+                            result.vehicle_start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__vehicle_end_time => {
+                            if !fields.insert(__FieldTag::__vehicle_end_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vehicle_end_time",
+                                ));
+                            }
+                            result.vehicle_end_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__visits => {
+                            if !fields.insert(__FieldTag::__visits) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for visits",
+                                ));
+                            }
+                            result.visits = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::shipment_route::Visit>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__transitions => {
+                            if !fields.insert(__FieldTag::__transitions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for transitions",
+                                ));
+                            }
+                            result.transitions = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::shipment_route::Transition>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__has_traffic_infeasibilities => {
+                            if !fields.insert(__FieldTag::__has_traffic_infeasibilities) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for has_traffic_infeasibilities",
+                                ));
+                            }
+                            result.has_traffic_infeasibilities = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__route_polyline => {
+                            if !fields.insert(__FieldTag::__route_polyline) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for route_polyline",
+                                ));
+                            }
+                            result.route_polyline = map.next_value::<std::option::Option<
+                                crate::model::shipment_route::EncodedPolyline,
+                            >>()?;
+                        }
+                        __FieldTag::__breaks => {
+                            if !fields.insert(__FieldTag::__breaks) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for breaks",
+                                ));
+                            }
+                            result.breaks = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::shipment_route::Break>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__metrics => {
+                            if !fields.insert(__FieldTag::__metrics) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for metrics",
+                                ));
+                            }
+                            result.metrics = map
+                                .next_value::<std::option::Option<crate::model::AggregatedMetrics>>(
+                                )?;
+                        }
+                        __FieldTag::__route_costs => {
+                            if !fields.insert(__FieldTag::__route_costs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for route_costs",
+                                ));
+                            }
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<std::string::String, f64>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                serde_with::Same,
+                                                wkt::internal::F64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.route_costs = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__route_total_cost => {
+                            if !fields.insert(__FieldTag::__route_total_cost) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for route_total_cost",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.route_total_cost =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__end_loads => {
+                            if !fields.insert(__FieldTag::__end_loads) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_loads",
+                                ));
+                            }
+                            result.end_loads =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::CapacityQuantity>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__travel_steps => {
+                            if !fields.insert(__FieldTag::__travel_steps) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for travel_steps",
+                                ));
+                            }
+                            result.travel_steps = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::shipment_route::TravelStep>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__vehicle_detour => {
+                            if !fields.insert(__FieldTag::__vehicle_detour) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for vehicle_detour",
+                                ));
+                            }
+                            result.vehicle_detour =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__delay_before_vehicle_end => {
+                            if !fields.insert(__FieldTag::__delay_before_vehicle_end) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for delay_before_vehicle_end",
+                                ));
+                            }
+                            result.delay_before_vehicle_end = map.next_value::<std::option::Option<crate::model::shipment_route::Delay>>()?
+                                ;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ShipmentRoute {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.vehicle_index) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("vehicleIndex", &__With(&self.vehicle_index))?;
+        }
+        if !self.vehicle_label.is_empty() {
+            state.serialize_entry("vehicleLabel", &self.vehicle_label)?;
+        }
+        if self.vehicle_start_time.is_some() {
+            state.serialize_entry("vehicleStartTime", &self.vehicle_start_time)?;
+        }
+        if self.vehicle_end_time.is_some() {
+            state.serialize_entry("vehicleEndTime", &self.vehicle_end_time)?;
+        }
+        if !self.visits.is_empty() {
+            state.serialize_entry("visits", &self.visits)?;
+        }
+        if !self.transitions.is_empty() {
+            state.serialize_entry("transitions", &self.transitions)?;
+        }
+        if !wkt::internal::is_default(&self.has_traffic_infeasibilities) {
+            state.serialize_entry(
+                "hasTrafficInfeasibilities",
+                &self.has_traffic_infeasibilities,
+            )?;
+        }
+        if self.route_polyline.is_some() {
+            state.serialize_entry("routePolyline", &self.route_polyline)?;
+        }
+        if !self.breaks.is_empty() {
+            state.serialize_entry("breaks", &self.breaks)?;
+        }
+        if self.metrics.is_some() {
+            state.serialize_entry("metrics", &self.metrics)?;
+        }
+        if !self.route_costs.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<serde_with::Same, wkt::internal::F64> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("routeCosts", &__With(&self.route_costs))?;
+        }
+        if !wkt::internal::is_default(&self.route_total_cost) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("routeTotalCost", &__With(&self.route_total_cost))?;
+        }
+        if !self.end_loads.is_empty() {
+            state.serialize_entry("endLoads", &self.end_loads)?;
+        }
+        if !self.travel_steps.is_empty() {
+            state.serialize_entry("travelSteps", &self.travel_steps)?;
+        }
+        if self.vehicle_detour.is_some() {
+            state.serialize_entry("vehicleDetour", &self.vehicle_detour)?;
+        }
+        if self.delay_before_vehicle_end.is_some() {
+            state.serialize_entry("delayBeforeVehicleEnd", &self.delay_before_vehicle_end)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [ShipmentRoute].
 pub mod shipment_route {
     #[allow(unused_imports)]
@@ -6944,21 +14398,16 @@ pub mod shipment_route {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition.delay_duration]: crate::model::shipment_route::Transition::delay_duration
     /// [google.cloud.optimization.v1.TransitionAttributes.delay]: crate::model::TransitionAttributes::delay
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     #[deprecated]
     pub struct Delay {
         /// Start of the delay.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub start_time: std::option::Option<wkt::Timestamp>,
 
         /// Duration of the delay.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub duration: std::option::Option<wkt::Duration>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7010,37 +14459,147 @@ pub mod shipment_route {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Delay {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __start_time,
+                __duration,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Delay")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "startTime" => Ok(__FieldTag::__start_time),
+                                "start_time" => Ok(__FieldTag::__start_time),
+                                "duration" => Ok(__FieldTag::__duration),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Delay;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Delay")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__start_time => {
+                                if !fields.insert(__FieldTag::__start_time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for start_time",
+                                    ));
+                                }
+                                result.start_time =
+                                    map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                            }
+                            __FieldTag::__duration => {
+                                if !fields.insert(__FieldTag::__duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for duration",
+                                    ));
+                                }
+                                result.duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Delay {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.start_time.is_some() {
+                state.serialize_entry("startTime", &self.start_time)?;
+            }
+            if self.duration.is_some() {
+                state.serialize_entry("duration", &self.duration)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// A visit performed during a route. This visit corresponds to a pickup or a
     /// delivery of a `Shipment`.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Visit {
         /// Index of the `shipments` field in the source
         /// [ShipmentModel][google.cloud.optimization.v1.ShipmentModel].
         ///
         /// [google.cloud.optimization.v1.ShipmentModel]: crate::model::ShipmentModel
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub shipment_index: i32,
 
         /// If true the visit corresponds to a pickup of a `Shipment`. Otherwise, it
         /// corresponds to a delivery.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub is_pickup: bool,
 
         /// Index of `VisitRequest` in either the pickup or delivery field of the
         /// `Shipment` (see `is_pickup`).
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
         pub visit_request_index: i32,
 
         /// Time at which the visit starts. Note that the vehicle may arrive earlier
         /// than this at the visit location. Times are consistent with the
         /// `ShipmentModel`.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub start_time: std::option::Option<wkt::Timestamp>,
 
         /// Total visit load demand as the sum of the shipment and the visit request
@@ -7050,8 +14609,6 @@ pub mod shipment_route {
         /// (see this field).
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition]: crate::model::shipment_route::Transition
-        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub load_demands:
             std::collections::HashMap<std::string::String, crate::model::shipment::Load>,
 
@@ -7073,13 +14630,10 @@ pub mod shipment_route {
         /// start_time - vehicle_start_time - travel duration from
         /// the vehicle's `start_location` to the visit.
         /// ```
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub detour: std::option::Option<wkt::Duration>,
 
         /// Copy of the corresponding `Shipment.label`, if specified in the
         /// `Shipment`.
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub shipment_label: std::string::String,
 
         /// Copy of the corresponding
@@ -7087,8 +14641,6 @@ pub mod shipment_route {
         /// if specified in the `VisitRequest`.
         ///
         /// [google.cloud.optimization.v1.Shipment.VisitRequest.label]: crate::model::shipment::VisitRequest::label
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub visit_label: std::string::String,
 
         /// Deprecated: Use
@@ -7103,8 +14655,6 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
         /// [google.cloud.optimization.v1.Vehicle.capacities]: crate::model::Vehicle::capacities
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         #[deprecated]
         pub arrival_loads: std::vec::Vec<crate::model::CapacityQuantity>,
 
@@ -7113,7 +14663,6 @@ pub mod shipment_route {
         /// instead. Delay occurring before the visit starts.
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.delay_duration]: crate::model::shipment_route::Transition::delay_duration
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         #[deprecated]
         pub delay_before_start: std::option::Option<crate::model::shipment_route::Delay>,
 
@@ -7122,12 +14671,9 @@ pub mod shipment_route {
         /// instead.
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Visit.load_demands]: crate::model::shipment_route::Visit::load_demands
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         #[deprecated]
         pub demands: std::vec::Vec<crate::model::CapacityQuantity>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7268,6 +14814,314 @@ pub mod shipment_route {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Visit {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __shipment_index,
+                __is_pickup,
+                __visit_request_index,
+                __start_time,
+                __load_demands,
+                __detour,
+                __shipment_label,
+                __visit_label,
+                __arrival_loads,
+                __delay_before_start,
+                __demands,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Visit")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "shipmentIndex" => Ok(__FieldTag::__shipment_index),
+                                "shipment_index" => Ok(__FieldTag::__shipment_index),
+                                "isPickup" => Ok(__FieldTag::__is_pickup),
+                                "is_pickup" => Ok(__FieldTag::__is_pickup),
+                                "visitRequestIndex" => Ok(__FieldTag::__visit_request_index),
+                                "visit_request_index" => Ok(__FieldTag::__visit_request_index),
+                                "startTime" => Ok(__FieldTag::__start_time),
+                                "start_time" => Ok(__FieldTag::__start_time),
+                                "loadDemands" => Ok(__FieldTag::__load_demands),
+                                "load_demands" => Ok(__FieldTag::__load_demands),
+                                "detour" => Ok(__FieldTag::__detour),
+                                "shipmentLabel" => Ok(__FieldTag::__shipment_label),
+                                "shipment_label" => Ok(__FieldTag::__shipment_label),
+                                "visitLabel" => Ok(__FieldTag::__visit_label),
+                                "visit_label" => Ok(__FieldTag::__visit_label),
+                                "arrivalLoads" => Ok(__FieldTag::__arrival_loads),
+                                "arrival_loads" => Ok(__FieldTag::__arrival_loads),
+                                "delayBeforeStart" => Ok(__FieldTag::__delay_before_start),
+                                "delay_before_start" => Ok(__FieldTag::__delay_before_start),
+                                "demands" => Ok(__FieldTag::__demands),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Visit;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Visit")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__shipment_index => {
+                                if !fields.insert(__FieldTag::__shipment_index) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for shipment_index",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.shipment_index =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__is_pickup => {
+                                if !fields.insert(__FieldTag::__is_pickup) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for is_pickup",
+                                    ));
+                                }
+                                result.is_pickup = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__visit_request_index => {
+                                if !fields.insert(__FieldTag::__visit_request_index) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for visit_request_index",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.visit_request_index =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__start_time => {
+                                if !fields.insert(__FieldTag::__start_time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for start_time",
+                                    ));
+                                }
+                                result.start_time =
+                                    map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                            }
+                            __FieldTag::__load_demands => {
+                                if !fields.insert(__FieldTag::__load_demands) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for load_demands",
+                                    ));
+                                }
+                                result.load_demands = map
+                                    .next_value::<std::option::Option<
+                                        std::collections::HashMap<
+                                            std::string::String,
+                                            crate::model::shipment::Load,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__detour => {
+                                if !fields.insert(__FieldTag::__detour) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for detour",
+                                    ));
+                                }
+                                result.detour =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::__shipment_label => {
+                                if !fields.insert(__FieldTag::__shipment_label) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for shipment_label",
+                                    ));
+                                }
+                                result.shipment_label = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__visit_label => {
+                                if !fields.insert(__FieldTag::__visit_label) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for visit_label",
+                                    ));
+                                }
+                                result.visit_label = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__arrival_loads => {
+                                if !fields.insert(__FieldTag::__arrival_loads) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for arrival_loads",
+                                    ));
+                                }
+                                result.arrival_loads = map
+                                    .next_value::<std::option::Option<
+                                        std::vec::Vec<crate::model::CapacityQuantity>,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__delay_before_start => {
+                                if !fields.insert(__FieldTag::__delay_before_start) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for delay_before_start",
+                                    ));
+                                }
+                                result.delay_before_start = map.next_value::<std::option::Option<crate::model::shipment_route::Delay>>()?
+                                    ;
+                            }
+                            __FieldTag::__demands => {
+                                if !fields.insert(__FieldTag::__demands) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for demands",
+                                    ));
+                                }
+                                result.demands = map
+                                    .next_value::<std::option::Option<
+                                        std::vec::Vec<crate::model::CapacityQuantity>,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Visit {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.shipment_index) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("shipmentIndex", &__With(&self.shipment_index))?;
+            }
+            if !wkt::internal::is_default(&self.is_pickup) {
+                state.serialize_entry("isPickup", &self.is_pickup)?;
+            }
+            if !wkt::internal::is_default(&self.visit_request_index) {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("visitRequestIndex", &__With(&self.visit_request_index))?;
+            }
+            if self.start_time.is_some() {
+                state.serialize_entry("startTime", &self.start_time)?;
+            }
+            if !self.load_demands.is_empty() {
+                state.serialize_entry("loadDemands", &self.load_demands)?;
+            }
+            if self.detour.is_some() {
+                state.serialize_entry("detour", &self.detour)?;
+            }
+            if !self.shipment_label.is_empty() {
+                state.serialize_entry("shipmentLabel", &self.shipment_label)?;
+            }
+            if !self.visit_label.is_empty() {
+                state.serialize_entry("visitLabel", &self.visit_label)?;
+            }
+            if !self.arrival_loads.is_empty() {
+                state.serialize_entry("arrivalLoads", &self.arrival_loads)?;
+            }
+            if self.delay_before_start.is_some() {
+                state.serialize_entry("delayBeforeStart", &self.delay_before_start)?;
+            }
+            if !self.demands.is_empty() {
+                state.serialize_entry("demands", &self.demands)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Transition between two events on the route. See the description of
     /// [ShipmentRoute][google.cloud.optimization.v1.ShipmentRoute].
     ///
@@ -7275,18 +15129,13 @@ pub mod shipment_route {
     /// corresponding travel metrics are 0.
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute]: crate::model::ShipmentRoute
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Transition {
         /// Travel duration during this transition.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub travel_duration: std::option::Option<wkt::Duration>,
 
         /// Distance traveled during the transition.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub travel_distance_meters: f64,
 
         /// When traffic is requested via
@@ -7295,8 +15144,6 @@ pub mod shipment_route {
         /// and the traffic info couldn't be retrieved for a `Transition`, this
         /// boolean is set to true. This may be temporary (rare hiccup in the
         /// realtime traffic servers) or permanent (no data for this location).
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub traffic_info_unavailable: bool,
 
         /// Sum of the delay durations applied to this transition. If any, the delay
@@ -7305,7 +15152,6 @@ pub mod shipment_route {
         /// [TransitionAttributes.delay][google.cloud.optimization.v1.TransitionAttributes.delay].
         ///
         /// [google.cloud.optimization.v1.TransitionAttributes.delay]: crate::model::TransitionAttributes::delay
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub delay_duration: std::option::Option<wkt::Duration>,
 
         /// Sum of the duration of the breaks occurring during this transition, if
@@ -7313,13 +15159,11 @@ pub mod shipment_route {
         /// [ShipmentRoute.breaks][google.cloud.optimization.v1.ShipmentRoute.breaks].
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.breaks]: crate::model::ShipmentRoute::breaks
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub break_duration: std::option::Option<wkt::Duration>,
 
         /// Time spent waiting during this transition. Wait duration corresponds to
         /// idle time and does not include break time. Also note that this wait time
         /// may be split into several non-contiguous intervals.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub wait_duration: std::option::Option<wkt::Duration>,
 
         /// Total duration of the transition, provided for convenience. It is equal
@@ -7331,11 +15175,9 @@ pub mod shipment_route {
         ///   additionally holds: `total_duration = travel_duration + delay_duration
         ///
         /// + break_duration + wait_duration`.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub total_duration: std::option::Option<wkt::Duration>,
 
         /// Start time of this transition.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub start_time: std::option::Option<wkt::Timestamp>,
 
         /// The encoded polyline representation of the route followed during the
@@ -7343,7 +15185,6 @@ pub mod shipment_route {
         /// This field is only populated if [populate_transition_polylines]
         /// [google.cloud.optimization.v1.OptimizeToursRequest.populate_transition_polylines]
         /// is set to true.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub route_polyline: std::option::Option<crate::model::shipment_route::EncodedPolyline>,
 
         /// Vehicle loads during this transition, for each type that either appears
@@ -7360,8 +15201,6 @@ pub mod shipment_route {
         ///
         /// [google.cloud.optimization.v1.Shipment.load_demands]: crate::model::Shipment::load_demands
         /// [google.cloud.optimization.v1.Vehicle.load_limits]: crate::model::Vehicle::load_limits
-        #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
         pub vehicle_loads: std::collections::HashMap<
             std::string::String,
             crate::model::shipment_route::VehicleLoad,
@@ -7372,12 +15211,9 @@ pub mod shipment_route {
         /// instead.
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         #[deprecated]
         pub loads: std::vec::Vec<crate::model::CapacityQuantity>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7555,14 +15391,306 @@ pub mod shipment_route {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Transition {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __travel_duration,
+                __travel_distance_meters,
+                __traffic_info_unavailable,
+                __delay_duration,
+                __break_duration,
+                __wait_duration,
+                __total_duration,
+                __start_time,
+                __route_polyline,
+                __vehicle_loads,
+                __loads,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Transition")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "travelDuration" => Ok(__FieldTag::__travel_duration),
+                                "travel_duration" => Ok(__FieldTag::__travel_duration),
+                                "travelDistanceMeters" => Ok(__FieldTag::__travel_distance_meters),
+                                "travel_distance_meters" => {
+                                    Ok(__FieldTag::__travel_distance_meters)
+                                }
+                                "trafficInfoUnavailable" => {
+                                    Ok(__FieldTag::__traffic_info_unavailable)
+                                }
+                                "traffic_info_unavailable" => {
+                                    Ok(__FieldTag::__traffic_info_unavailable)
+                                }
+                                "delayDuration" => Ok(__FieldTag::__delay_duration),
+                                "delay_duration" => Ok(__FieldTag::__delay_duration),
+                                "breakDuration" => Ok(__FieldTag::__break_duration),
+                                "break_duration" => Ok(__FieldTag::__break_duration),
+                                "waitDuration" => Ok(__FieldTag::__wait_duration),
+                                "wait_duration" => Ok(__FieldTag::__wait_duration),
+                                "totalDuration" => Ok(__FieldTag::__total_duration),
+                                "total_duration" => Ok(__FieldTag::__total_duration),
+                                "startTime" => Ok(__FieldTag::__start_time),
+                                "start_time" => Ok(__FieldTag::__start_time),
+                                "routePolyline" => Ok(__FieldTag::__route_polyline),
+                                "route_polyline" => Ok(__FieldTag::__route_polyline),
+                                "vehicleLoads" => Ok(__FieldTag::__vehicle_loads),
+                                "vehicle_loads" => Ok(__FieldTag::__vehicle_loads),
+                                "loads" => Ok(__FieldTag::__loads),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Transition;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Transition")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__travel_duration => {
+                                if !fields.insert(__FieldTag::__travel_duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for travel_duration",
+                                    ));
+                                }
+                                result.travel_duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::__travel_distance_meters => {
+                                if !fields.insert(__FieldTag::__travel_distance_meters) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for travel_distance_meters",
+                                    ));
+                                }
+                                struct __With(std::option::Option<f64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.travel_distance_meters =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__traffic_info_unavailable => {
+                                if !fields.insert(__FieldTag::__traffic_info_unavailable) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for traffic_info_unavailable",
+                                    ));
+                                }
+                                result.traffic_info_unavailable = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__delay_duration => {
+                                if !fields.insert(__FieldTag::__delay_duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for delay_duration",
+                                    ));
+                                }
+                                result.delay_duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::__break_duration => {
+                                if !fields.insert(__FieldTag::__break_duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for break_duration",
+                                    ));
+                                }
+                                result.break_duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::__wait_duration => {
+                                if !fields.insert(__FieldTag::__wait_duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for wait_duration",
+                                    ));
+                                }
+                                result.wait_duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::__total_duration => {
+                                if !fields.insert(__FieldTag::__total_duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for total_duration",
+                                    ));
+                                }
+                                result.total_duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::__start_time => {
+                                if !fields.insert(__FieldTag::__start_time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for start_time",
+                                    ));
+                                }
+                                result.start_time =
+                                    map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                            }
+                            __FieldTag::__route_polyline => {
+                                if !fields.insert(__FieldTag::__route_polyline) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for route_polyline",
+                                    ));
+                                }
+                                result.route_polyline = map.next_value::<std::option::Option<
+                                    crate::model::shipment_route::EncodedPolyline,
+                                >>()?;
+                            }
+                            __FieldTag::__vehicle_loads => {
+                                if !fields.insert(__FieldTag::__vehicle_loads) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for vehicle_loads",
+                                    ));
+                                }
+                                result.vehicle_loads = map
+                                    .next_value::<std::option::Option<
+                                        std::collections::HashMap<
+                                            std::string::String,
+                                            crate::model::shipment_route::VehicleLoad,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__loads => {
+                                if !fields.insert(__FieldTag::__loads) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for loads",
+                                    ));
+                                }
+                                result.loads = map
+                                    .next_value::<std::option::Option<
+                                        std::vec::Vec<crate::model::CapacityQuantity>,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Transition {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.travel_duration.is_some() {
+                state.serialize_entry("travelDuration", &self.travel_duration)?;
+            }
+            if !wkt::internal::is_default(&self.travel_distance_meters) {
+                struct __With<'a>(&'a f64);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry(
+                    "travelDistanceMeters",
+                    &__With(&self.travel_distance_meters),
+                )?;
+            }
+            if !wkt::internal::is_default(&self.traffic_info_unavailable) {
+                state.serialize_entry("trafficInfoUnavailable", &self.traffic_info_unavailable)?;
+            }
+            if self.delay_duration.is_some() {
+                state.serialize_entry("delayDuration", &self.delay_duration)?;
+            }
+            if self.break_duration.is_some() {
+                state.serialize_entry("breakDuration", &self.break_duration)?;
+            }
+            if self.wait_duration.is_some() {
+                state.serialize_entry("waitDuration", &self.wait_duration)?;
+            }
+            if self.total_duration.is_some() {
+                state.serialize_entry("totalDuration", &self.total_duration)?;
+            }
+            if self.start_time.is_some() {
+                state.serialize_entry("startTime", &self.start_time)?;
+            }
+            if self.route_polyline.is_some() {
+                state.serialize_entry("routePolyline", &self.route_polyline)?;
+            }
+            if !self.vehicle_loads.is_empty() {
+                state.serialize_entry("vehicleLoads", &self.vehicle_loads)?;
+            }
+            if !self.loads.is_empty() {
+                state.serialize_entry("loads", &self.loads)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Reports the actual load of the vehicle at some point along the route,
     /// for a given type (see
     /// [Transition.vehicle_loads][google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]).
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct VehicleLoad {
         /// The amount of load on the vehicle, for the given type. The unit of load
@@ -7570,11 +15698,8 @@ pub mod shipment_route {
         /// [Transition.vehicle_loads][google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads].
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]
         pub amount: i64,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7596,21 +15721,139 @@ pub mod shipment_route {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for VehicleLoad {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __amount,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for VehicleLoad")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "amount" => Ok(__FieldTag::__amount),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = VehicleLoad;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct VehicleLoad")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__amount => {
+                                if !fields.insert(__FieldTag::__amount) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for amount",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.amount = map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for VehicleLoad {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.amount) {
+                struct __With<'a>(&'a i64);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("amount", &__With(&self.amount))?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// The encoded representation of a polyline. More information on polyline
     /// encoding can be found here:
     /// <https://developers.google.com/maps/documentation/utilities/polylinealgorithm>
     /// <https://developers.google.com/maps/documentation/javascript/reference/geometry#encoding>.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct EncodedPolyline {
         /// String representing encoded points of the polyline.
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub points: std::string::String,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7632,21 +15875,121 @@ pub mod shipment_route {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for EncodedPolyline {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __points,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for EncodedPolyline")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "points" => Ok(__FieldTag::__points),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = EncodedPolyline;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct EncodedPolyline")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__points => {
+                                if !fields.insert(__FieldTag::__points) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for points",
+                                    ));
+                                }
+                                result.points = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for EncodedPolyline {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.points.is_empty() {
+                state.serialize_entry("points", &self.points)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Data representing the execution of a break.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Break {
         /// Start time of a break.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub start_time: std::option::Option<wkt::Timestamp>,
 
         /// Duration of a break.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub duration: std::option::Option<wkt::Duration>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7698,6 +16041,125 @@ pub mod shipment_route {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Break {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __start_time,
+                __duration,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Break")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "startTime" => Ok(__FieldTag::__start_time),
+                                "start_time" => Ok(__FieldTag::__start_time),
+                                "duration" => Ok(__FieldTag::__duration),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Break;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Break")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__start_time => {
+                                if !fields.insert(__FieldTag::__start_time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for start_time",
+                                    ));
+                                }
+                                result.start_time =
+                                    map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                            }
+                            __FieldTag::__duration => {
+                                if !fields.insert(__FieldTag::__duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for duration",
+                                    ));
+                                }
+                                result.duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Break {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.start_time.is_some() {
+                state.serialize_entry("startTime", &self.start_time)?;
+            }
+            if self.duration.is_some() {
+                state.serialize_entry("duration", &self.duration)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Deprecated: Use
     /// [ShipmentRoute.Transition][google.cloud.optimization.v1.ShipmentRoute.Transition]
     /// instead. Travel between each visit along the route: from the vehicle's
@@ -7714,19 +16176,14 @@ pub mod shipment_route {
     /// corresponding travel metrics are 0 and/or empty.
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition]: crate::model::shipment_route::Transition
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     #[deprecated]
     pub struct TravelStep {
         /// Duration of the travel step.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub duration: std::option::Option<wkt::Duration>,
 
         /// Distance traveled during the step.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
         pub distance_meters: f64,
 
         /// When traffic is requested via
@@ -7736,8 +16193,6 @@ pub mod shipment_route {
         /// traffic servers) or permanent (no data for this location).
         ///
         /// [google.cloud.optimization.v1.OptimizeToursRequest.consider_road_traffic]: crate::model::OptimizeToursRequest::consider_road_traffic
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub traffic_info_unavailable: bool,
 
         /// The encoded polyline representation of the route followed during the
@@ -7748,10 +16203,8 @@ pub mod shipment_route {
         /// is set to true.
         ///
         /// [google.cloud.optimization.v1.OptimizeToursRequest.populate_travel_step_polylines]: crate::model::OptimizeToursRequest::populate_travel_step_polylines
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub route_polyline: std::option::Option<crate::model::shipment_route::EncodedPolyline>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7814,20 +16267,191 @@ pub mod shipment_route {
             "type.googleapis.com/google.cloud.optimization.v1.ShipmentRoute.TravelStep"
         }
     }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for TravelStep {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __duration,
+                __distance_meters,
+                __traffic_info_unavailable,
+                __route_polyline,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for TravelStep")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "duration" => Ok(__FieldTag::__duration),
+                                "distanceMeters" => Ok(__FieldTag::__distance_meters),
+                                "distance_meters" => Ok(__FieldTag::__distance_meters),
+                                "trafficInfoUnavailable" => {
+                                    Ok(__FieldTag::__traffic_info_unavailable)
+                                }
+                                "traffic_info_unavailable" => {
+                                    Ok(__FieldTag::__traffic_info_unavailable)
+                                }
+                                "routePolyline" => Ok(__FieldTag::__route_polyline),
+                                "route_polyline" => Ok(__FieldTag::__route_polyline),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = TravelStep;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct TravelStep")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__duration => {
+                                if !fields.insert(__FieldTag::__duration) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for duration",
+                                    ));
+                                }
+                                result.duration =
+                                    map.next_value::<std::option::Option<wkt::Duration>>()?;
+                            }
+                            __FieldTag::__distance_meters => {
+                                if !fields.insert(__FieldTag::__distance_meters) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for distance_meters",
+                                    ));
+                                }
+                                struct __With(std::option::Option<f64>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.distance_meters =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__traffic_info_unavailable => {
+                                if !fields.insert(__FieldTag::__traffic_info_unavailable) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for traffic_info_unavailable",
+                                    ));
+                                }
+                                result.traffic_info_unavailable = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__route_polyline => {
+                                if !fields.insert(__FieldTag::__route_polyline) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for route_polyline",
+                                    ));
+                                }
+                                result.route_polyline = map.next_value::<std::option::Option<
+                                    crate::model::shipment_route::EncodedPolyline,
+                                >>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for TravelStep {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.duration.is_some() {
+                state.serialize_entry("duration", &self.duration)?;
+            }
+            if !wkt::internal::is_default(&self.distance_meters) {
+                struct __With<'a>(&'a f64);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("distanceMeters", &__With(&self.distance_meters))?;
+            }
+            if !wkt::internal::is_default(&self.traffic_info_unavailable) {
+                state.serialize_entry("trafficInfoUnavailable", &self.traffic_info_unavailable)?;
+            }
+            if self.route_polyline.is_some() {
+                state.serialize_entry("routePolyline", &self.route_polyline)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
 }
 
 /// Specifies details of unperformed shipments in a solution. For trivial cases
 /// and/or if we are able to identify the cause for skipping, we report the
 /// reason here.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct SkippedShipment {
     /// The index corresponds to the index of the shipment in the source
     /// `ShipmentModel`.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub index: i32,
 
     /// Copy of the corresponding
@@ -7835,17 +16459,12 @@ pub struct SkippedShipment {
     /// in the `Shipment`.
     ///
     /// [google.cloud.optimization.v1.Shipment.label]: crate::model::Shipment::label
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub label: std::string::String,
 
     /// A list of reasons that explain why the shipment was skipped. See comment
     /// above `Reason`.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub reasons: std::vec::Vec<crate::model::skipped_shipment::Reason>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7884,6 +16503,158 @@ impl wkt::message::Message for SkippedShipment {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SkippedShipment {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __index,
+            __label,
+            __reasons,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SkippedShipment")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "index" => Ok(__FieldTag::__index),
+                            "label" => Ok(__FieldTag::__label),
+                            "reasons" => Ok(__FieldTag::__reasons),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SkippedShipment;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SkippedShipment")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__index => {
+                            if !fields.insert(__FieldTag::__index) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for index",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.index = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__label => {
+                            if !fields.insert(__FieldTag::__label) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for label",
+                                ));
+                            }
+                            result.label = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__reasons => {
+                            if !fields.insert(__FieldTag::__reasons) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for reasons",
+                                ));
+                            }
+                            result.reasons = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::skipped_shipment::Reason>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SkippedShipment {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.index) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("index", &__With(&self.index))?;
+        }
+        if !self.label.is_empty() {
+            state.serialize_entry("label", &self.label)?;
+        }
+        if !self.reasons.is_empty() {
+            state.serialize_entry("reasons", &self.reasons)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [SkippedShipment].
 pub mod skipped_shipment {
     #[allow(unused_imports)]
@@ -7917,29 +16688,20 @@ pub mod skipped_shipment {
     /// capacity would be exceeded (including vehicle 1), at least one vehicle's
     /// "Pears" capacity would be exceeded (including vehicle 3) and at least one
     /// vehicle's distance limit would be exceeded (including vehicle 1).
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct Reason {
         /// Refer to the comments of Code.
-        #[serde(skip_serializing_if = "wkt::internal::is_default")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub code: crate::model::skipped_shipment::reason::Code,
 
         /// If the reason is related to a shipment-vehicle incompatibility, this
         /// field provides the index of one relevant vehicle.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
-        #[serde_as(as = "std::option::Option<wkt::internal::I32>")]
         pub example_vehicle_index: std::option::Option<i32>,
 
         /// If the reason code is `DEMAND_EXCEEDS_VEHICLE_CAPACITY`, documents one
         /// capacity type that is exceeded.
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub example_exceeded_capacity_type: std::string::String,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -7988,6 +16750,173 @@ pub mod skipped_shipment {
     impl wkt::message::Message for Reason {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.optimization.v1.SkippedShipment.Reason"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for Reason {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __code,
+                __example_vehicle_index,
+                __example_exceeded_capacity_type,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for Reason")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "code" => Ok(__FieldTag::__code),
+                                "exampleVehicleIndex" => Ok(__FieldTag::__example_vehicle_index),
+                                "example_vehicle_index" => Ok(__FieldTag::__example_vehicle_index),
+                                "exampleExceededCapacityType" => {
+                                    Ok(__FieldTag::__example_exceeded_capacity_type)
+                                }
+                                "example_exceeded_capacity_type" => {
+                                    Ok(__FieldTag::__example_exceeded_capacity_type)
+                                }
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = Reason;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct Reason")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__code => {
+                                if !fields.insert(__FieldTag::__code) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for code",
+                                    ));
+                                }
+                                result.code = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::skipped_shipment::reason::Code,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__example_vehicle_index => {
+                                if !fields.insert(__FieldTag::__example_vehicle_index) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for example_vehicle_index",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.example_vehicle_index = map.next_value::<__With>()?.0;
+                            }
+                            __FieldTag::__example_exceeded_capacity_type => {
+                                if !fields.insert(__FieldTag::__example_exceeded_capacity_type) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for example_exceeded_capacity_type",
+                                    ));
+                                }
+                                result.example_exceeded_capacity_type = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for Reason {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.code) {
+                state.serialize_entry("code", &self.code)?;
+            }
+            if self.example_vehicle_index.is_some() {
+                struct __With<'a>(&'a std::option::Option<i32>);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<std::option::Option<wkt::internal::I32>>::serialize(
+                            self.0, serializer,
+                        )
+                    }
+                }
+                state
+                    .serialize_entry("exampleVehicleIndex", &__With(&self.example_vehicle_index))?;
+            }
+            if !self.example_exceeded_capacity_type.is_empty() {
+                state.serialize_entry(
+                    "exampleExceededCapacityType",
+                    &self.example_exceeded_capacity_type,
+                )?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -8230,35 +17159,26 @@ pub mod skipped_shipment {
 /// [google.cloud.optimization.v1.ShipmentRoute]: crate::model::ShipmentRoute
 /// [google.cloud.optimization.v1.ShipmentRoute.Transition]: crate::model::shipment_route::Transition
 /// [google.cloud.optimization.v1.ShipmentRoute.Visit]: crate::model::shipment_route::Visit
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct AggregatedMetrics {
     /// Number of shipments performed. Note that a pickup and delivery pair only
     /// counts once.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub performed_shipment_count: i32,
 
     /// Total travel duration for a route or a solution.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub travel_duration: std::option::Option<wkt::Duration>,
 
     /// Total wait duration for a route or a solution.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub wait_duration: std::option::Option<wkt::Duration>,
 
     /// Total delay duration for a route or a solution.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub delay_duration: std::option::Option<wkt::Duration>,
 
     /// Total break duration for a route or a solution.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub break_duration: std::option::Option<wkt::Duration>,
 
     /// Total visit duration for a route or a solution.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub visit_duration: std::option::Option<wkt::Duration>,
 
     /// The total duration should be equal to the sum of all durations above.
@@ -8269,12 +17189,9 @@ pub struct AggregatedMetrics {
     ///
     /// [google.cloud.optimization.v1.ShipmentRoute.vehicle_end_time]: crate::model::ShipmentRoute::vehicle_end_time
     /// [google.cloud.optimization.v1.ShipmentRoute.vehicle_start_time]: crate::model::ShipmentRoute::vehicle_start_time
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub total_duration: std::option::Option<wkt::Duration>,
 
     /// Total travel distance for a route or a solution.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     pub travel_distance_meters: f64,
 
     /// Maximum load achieved over the entire route (resp. solution), for each of
@@ -8286,8 +17203,6 @@ pub struct AggregatedMetrics {
     ///
     /// [google.cloud.optimization.v1.AggregatedMetrics.max_loads]: crate::model::AggregatedMetrics::max_loads
     /// [google.cloud.optimization.v1.ShipmentRoute.Transition.vehicle_loads]: crate::model::shipment_route::Transition::vehicle_loads
-    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]
     pub max_loads:
         std::collections::HashMap<std::string::String, crate::model::shipment_route::VehicleLoad>,
 
@@ -8299,8 +17214,6 @@ pub struct AggregatedMetrics {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.costs]: crate::model::optimize_tours_response::Metrics::costs
     /// [google.cloud.optimization.v1.ShipmentRoute.route_costs]: crate::model::ShipmentRoute::route_costs
-    #[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::F64>>")]
     #[deprecated]
     pub costs: std::collections::HashMap<std::string::String, f64>,
 
@@ -8312,12 +17225,9 @@ pub struct AggregatedMetrics {
     ///
     /// [google.cloud.optimization.v1.OptimizeToursResponse.Metrics.total_cost]: crate::model::optimize_tours_response::Metrics::total_cost
     /// [google.cloud.optimization.v1.ShipmentRoute.route_total_cost]: crate::model::ShipmentRoute::route_total_cost
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::F64>")]
     #[deprecated]
     pub total_cost: f64,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8485,35 +17395,381 @@ impl wkt::message::Message for AggregatedMetrics {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AggregatedMetrics {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __performed_shipment_count,
+            __travel_duration,
+            __wait_duration,
+            __delay_duration,
+            __break_duration,
+            __visit_duration,
+            __total_duration,
+            __travel_distance_meters,
+            __max_loads,
+            __costs,
+            __total_cost,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AggregatedMetrics")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "performedShipmentCount" => Ok(__FieldTag::__performed_shipment_count),
+                            "performed_shipment_count" => {
+                                Ok(__FieldTag::__performed_shipment_count)
+                            }
+                            "travelDuration" => Ok(__FieldTag::__travel_duration),
+                            "travel_duration" => Ok(__FieldTag::__travel_duration),
+                            "waitDuration" => Ok(__FieldTag::__wait_duration),
+                            "wait_duration" => Ok(__FieldTag::__wait_duration),
+                            "delayDuration" => Ok(__FieldTag::__delay_duration),
+                            "delay_duration" => Ok(__FieldTag::__delay_duration),
+                            "breakDuration" => Ok(__FieldTag::__break_duration),
+                            "break_duration" => Ok(__FieldTag::__break_duration),
+                            "visitDuration" => Ok(__FieldTag::__visit_duration),
+                            "visit_duration" => Ok(__FieldTag::__visit_duration),
+                            "totalDuration" => Ok(__FieldTag::__total_duration),
+                            "total_duration" => Ok(__FieldTag::__total_duration),
+                            "travelDistanceMeters" => Ok(__FieldTag::__travel_distance_meters),
+                            "travel_distance_meters" => Ok(__FieldTag::__travel_distance_meters),
+                            "maxLoads" => Ok(__FieldTag::__max_loads),
+                            "max_loads" => Ok(__FieldTag::__max_loads),
+                            "costs" => Ok(__FieldTag::__costs),
+                            "totalCost" => Ok(__FieldTag::__total_cost),
+                            "total_cost" => Ok(__FieldTag::__total_cost),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AggregatedMetrics;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AggregatedMetrics")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__performed_shipment_count => {
+                            if !fields.insert(__FieldTag::__performed_shipment_count) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for performed_shipment_count",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.performed_shipment_count =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__travel_duration => {
+                            if !fields.insert(__FieldTag::__travel_duration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for travel_duration",
+                                ));
+                            }
+                            result.travel_duration =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__wait_duration => {
+                            if !fields.insert(__FieldTag::__wait_duration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wait_duration",
+                                ));
+                            }
+                            result.wait_duration =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__delay_duration => {
+                            if !fields.insert(__FieldTag::__delay_duration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for delay_duration",
+                                ));
+                            }
+                            result.delay_duration =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__break_duration => {
+                            if !fields.insert(__FieldTag::__break_duration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for break_duration",
+                                ));
+                            }
+                            result.break_duration =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__visit_duration => {
+                            if !fields.insert(__FieldTag::__visit_duration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for visit_duration",
+                                ));
+                            }
+                            result.visit_duration =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__total_duration => {
+                            if !fields.insert(__FieldTag::__total_duration) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for total_duration",
+                                ));
+                            }
+                            result.total_duration =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__travel_distance_meters => {
+                            if !fields.insert(__FieldTag::__travel_distance_meters) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for travel_distance_meters",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.travel_distance_meters =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__max_loads => {
+                            if !fields.insert(__FieldTag::__max_loads) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for max_loads",
+                                ));
+                            }
+                            result.max_loads = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::model::shipment_route::VehicleLoad,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__costs => {
+                            if !fields.insert(__FieldTag::__costs) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for costs",
+                                ));
+                            }
+                            struct __With(
+                                std::option::Option<
+                                    std::collections::HashMap<std::string::String, f64>,
+                                >,
+                            );
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<
+                                            std::collections::HashMap<
+                                                serde_with::Same,
+                                                wkt::internal::F64,
+                                            >,
+                                        >,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.costs = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__total_cost => {
+                            if !fields.insert(__FieldTag::__total_cost) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for total_cost",
+                                ));
+                            }
+                            struct __With(std::option::Option<f64>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::F64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.total_cost = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AggregatedMetrics {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.performed_shipment_count) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "performedShipmentCount",
+                &__With(&self.performed_shipment_count),
+            )?;
+        }
+        if self.travel_duration.is_some() {
+            state.serialize_entry("travelDuration", &self.travel_duration)?;
+        }
+        if self.wait_duration.is_some() {
+            state.serialize_entry("waitDuration", &self.wait_duration)?;
+        }
+        if self.delay_duration.is_some() {
+            state.serialize_entry("delayDuration", &self.delay_duration)?;
+        }
+        if self.break_duration.is_some() {
+            state.serialize_entry("breakDuration", &self.break_duration)?;
+        }
+        if self.visit_duration.is_some() {
+            state.serialize_entry("visitDuration", &self.visit_duration)?;
+        }
+        if self.total_duration.is_some() {
+            state.serialize_entry("totalDuration", &self.total_duration)?;
+        }
+        if !wkt::internal::is_default(&self.travel_distance_meters) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry(
+                "travelDistanceMeters",
+                &__With(&self.travel_distance_meters),
+            )?;
+        }
+        if !self.max_loads.is_empty() {
+            state.serialize_entry("maxLoads", &self.max_loads)?;
+        }
+        if !self.costs.is_empty() {
+            struct __With<'a>(&'a std::collections::HashMap<std::string::String, f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::< std::collections::HashMap<serde_with::Same, wkt::internal::F64> >::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("costs", &__With(&self.costs))?;
+        }
+        if !wkt::internal::is_default(&self.total_cost) {
+            struct __With<'a>(&'a f64);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::F64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("totalCost", &__With(&self.total_cost))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Solution injected in the request including information about which visits
 /// must be constrained and how they must be constrained.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct InjectedSolutionConstraint {
     /// Routes of the solution to inject. Some routes may be omitted from the
     /// original solution. The routes and skipped shipments must satisfy the basic
     /// validity assumptions listed for `injected_first_solution_routes`.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub routes: std::vec::Vec<crate::model::ShipmentRoute>,
 
     /// Skipped shipments of the solution to inject. Some may be omitted from the
     /// original solution. See the `routes` field.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub skipped_shipments: std::vec::Vec<crate::model::SkippedShipment>,
 
     /// For zero or more groups of vehicles, specifies when and how much to relax
     /// constraints. If this field is empty, all non-empty vehicle routes are
     /// fully constrained.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub constraint_relaxations:
         std::vec::Vec<crate::model::injected_solution_constraint::ConstraintRelaxation>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -8562,6 +17818,138 @@ impl wkt::message::Message for InjectedSolutionConstraint {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for InjectedSolutionConstraint {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __routes,
+            __skipped_shipments,
+            __constraint_relaxations,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for InjectedSolutionConstraint")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "routes" => Ok(__FieldTag::__routes),
+                            "skippedShipments" => Ok(__FieldTag::__skipped_shipments),
+                            "skipped_shipments" => Ok(__FieldTag::__skipped_shipments),
+                            "constraintRelaxations" => Ok(__FieldTag::__constraint_relaxations),
+                            "constraint_relaxations" => Ok(__FieldTag::__constraint_relaxations),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = InjectedSolutionConstraint;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct InjectedSolutionConstraint")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__routes => {
+                            if !fields.insert(__FieldTag::__routes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for routes",
+                                ));
+                            }
+                            result.routes = map.next_value::<std::option::Option<std::vec::Vec<crate::model::ShipmentRoute>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__skipped_shipments => {
+                            if !fields.insert(__FieldTag::__skipped_shipments) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for skipped_shipments",
+                                ));
+                            }
+                            result.skipped_shipments =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::SkippedShipment>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__constraint_relaxations => {
+                            if !fields.insert(__FieldTag::__constraint_relaxations) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for constraint_relaxations",
+                                ));
+                            }
+                            result.constraint_relaxations = map.next_value::<std::option::Option<std::vec::Vec<crate::model::injected_solution_constraint::ConstraintRelaxation>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for InjectedSolutionConstraint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.routes.is_empty() {
+            state.serialize_entry("routes", &self.routes)?;
+        }
+        if !self.skipped_shipments.is_empty() {
+            state.serialize_entry("skippedShipments", &self.skipped_shipments)?;
+        }
+        if !self.constraint_relaxations.is_empty() {
+            state.serialize_entry("constraintRelaxations", &self.constraint_relaxations)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [InjectedSolutionConstraint].
 pub mod injected_solution_constraint {
     #[allow(unused_imports)]
@@ -8571,15 +17959,11 @@ pub mod injected_solution_constraint {
     /// visits will be relaxed and to which level. Shipments listed in
     /// the `skipped_shipment` field are constrained to be skipped; i.e., they
     /// cannot be performed.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct ConstraintRelaxation {
         /// All the visit constraint relaxations that will apply to visits on
         /// routes with vehicles in `vehicle_indices`.
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
         pub relaxations: std::vec::Vec<
             crate::model::injected_solution_constraint::constraint_relaxation::Relaxation,
         >,
@@ -8598,11 +17982,8 @@ pub mod injected_solution_constraint {
         /// comment).
         ///
         /// [google.cloud.optimization.v1.ShipmentRoute.vehicle_index]: crate::model::ShipmentRoute::vehicle_index
-        #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I32>>")]
         pub vehicle_indices: std::vec::Vec<i32>,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -8639,6 +18020,151 @@ pub mod injected_solution_constraint {
     impl wkt::message::Message for ConstraintRelaxation {
         fn typename() -> &'static str {
             "type.googleapis.com/google.cloud.optimization.v1.InjectedSolutionConstraint.ConstraintRelaxation"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for ConstraintRelaxation {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __relaxations,
+                __vehicle_indices,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for ConstraintRelaxation")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "relaxations" => Ok(__FieldTag::__relaxations),
+                                "vehicleIndices" => Ok(__FieldTag::__vehicle_indices),
+                                "vehicle_indices" => Ok(__FieldTag::__vehicle_indices),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = ConstraintRelaxation;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct ConstraintRelaxation")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__relaxations => {
+                                if !fields.insert(__FieldTag::__relaxations) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for relaxations",
+                                    ));
+                                }
+                                result.relaxations = map.next_value::<std::option::Option<std::vec::Vec<crate::model::injected_solution_constraint::constraint_relaxation::Relaxation>>>()?.unwrap_or_default();
+                            }
+                            __FieldTag::__vehicle_indices => {
+                                if !fields.insert(__FieldTag::__vehicle_indices) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for vehicle_indices",
+                                    ));
+                                }
+                                struct __With(std::option::Option<std::vec::Vec<i32>>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::<
+                                            std::option::Option<std::vec::Vec<wkt::internal::I32>>,
+                                        >::deserialize(
+                                            deserializer
+                                        )
+                                        .map(__With)
+                                    }
+                                }
+                                result.vehicle_indices =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for ConstraintRelaxation {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.relaxations.is_empty() {
+                state.serialize_entry("relaxations", &self.relaxations)?;
+            }
+            if !self.vehicle_indices.is_empty() {
+                struct __With<'a>(&'a std::vec::Vec<i32>);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<std::vec::Vec<wkt::internal::I32>>::serialize(
+                            self.0, serializer,
+                        )
+                    }
+                }
+                state.serialize_entry("vehicleIndices", &__With(&self.vehicle_indices))?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
         }
     }
 
@@ -8682,21 +18208,16 @@ pub mod injected_solution_constraint {
         /// and no visits may be inserted into these sequences. Also, if a
         /// vehicle start or end does not satisfy the conditions of any
         /// relaxation the time is fixed, unless the vehicle is empty.
-        #[serde_with::serde_as]
-        #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-        #[serde(default, rename_all = "camelCase")]
+        #[derive(Clone, Debug, Default, PartialEq)]
         #[non_exhaustive]
         pub struct Relaxation {
 
             /// The constraint relaxation level that applies when the conditions
             /// at or after `threshold_time` AND at least `threshold_visit_count` are
             /// satisfied.
-            #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DefaultOnNull<_>")]
             pub level: crate::model::injected_solution_constraint::constraint_relaxation::relaxation::Level,
 
             /// The time at or after which the relaxation `level` may be applied.
-            #[serde(skip_serializing_if = "std::option::Option::is_none")]
             pub threshold_time: std::option::Option<wkt::Timestamp>,
 
             /// The number of visits at or after which the relaxation `level` may be
@@ -8706,11 +18227,8 @@ pub mod injected_solution_constraint {
             /// If it is `route.visits_size() + 1`, the `level` may only be applied to
             /// the vehicle end. If it is more than `route.visits_size() + 1`,
             /// `level` is not applied at all for that route.
-            #[serde(skip_serializing_if = "wkt::internal::is_default")]
-            #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
             pub threshold_visit_count: i32,
 
-            #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
             _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
         }
 
@@ -8753,6 +18271,176 @@ pub mod injected_solution_constraint {
         impl wkt::message::Message for Relaxation {
             fn typename() -> &'static str {
                 "type.googleapis.com/google.cloud.optimization.v1.InjectedSolutionConstraint.ConstraintRelaxation.Relaxation"
+            }
+        }
+
+        #[doc(hidden)]
+        impl<'de> serde::de::Deserialize<'de> for Relaxation {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                #[allow(non_camel_case_types)]
+                #[doc(hidden)]
+                #[derive(PartialEq, Eq, Hash)]
+                enum __FieldTag {
+                    __level,
+                    __threshold_time,
+                    __threshold_visit_count,
+                    Unknown(std::string::String),
+                }
+                impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                    where
+                        D: serde::Deserializer<'de>,
+                    {
+                        struct Visitor;
+                        impl<'de> serde::de::Visitor<'de> for Visitor {
+                            type Value = __FieldTag;
+                            fn expecting(
+                                &self,
+                                formatter: &mut std::fmt::Formatter,
+                            ) -> std::fmt::Result {
+                                formatter.write_str("a field name for Relaxation")
+                            }
+                            fn visit_str<E>(
+                                self,
+                                value: &str,
+                            ) -> std::result::Result<Self::Value, E>
+                            where
+                                E: serde::de::Error,
+                            {
+                                use std::result::Result::Ok;
+                                use std::string::ToString;
+                                match value {
+                                    "level" => Ok(__FieldTag::__level),
+                                    "thresholdTime" => Ok(__FieldTag::__threshold_time),
+                                    "threshold_time" => Ok(__FieldTag::__threshold_time),
+                                    "thresholdVisitCount" => {
+                                        Ok(__FieldTag::__threshold_visit_count)
+                                    }
+                                    "threshold_visit_count" => {
+                                        Ok(__FieldTag::__threshold_visit_count)
+                                    }
+                                    _ => Ok(__FieldTag::Unknown(value.to_string())),
+                                }
+                            }
+                        }
+                        deserializer.deserialize_identifier(Visitor)
+                    }
+                }
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = Relaxation;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("struct Relaxation")
+                    }
+                    fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                    where
+                        A: serde::de::MapAccess<'de>,
+                    {
+                        #[allow(unused_imports)]
+                        use serde::de::Error;
+                        use std::option::Option::Some;
+                        let mut fields = std::collections::HashSet::new();
+                        let mut result = Self::Value::new();
+                        while let Some(tag) = map.next_key::<__FieldTag>()? {
+                            #[allow(clippy::match_single_binding)]
+                            match tag {
+                                __FieldTag::__level => {
+                                    if !fields.insert(__FieldTag::__level) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field("multiple values for level"),
+                                        );
+                                    }
+                                    result.level = map.next_value::<std::option::Option<crate::model::injected_solution_constraint::constraint_relaxation::relaxation::Level>>()?.unwrap_or_default();
+                                }
+                                __FieldTag::__threshold_time => {
+                                    if !fields.insert(__FieldTag::__threshold_time) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for threshold_time",
+                                            ),
+                                        );
+                                    }
+                                    result.threshold_time =
+                                        map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                                }
+                                __FieldTag::__threshold_visit_count => {
+                                    if !fields.insert(__FieldTag::__threshold_visit_count) {
+                                        return std::result::Result::Err(
+                                            A::Error::duplicate_field(
+                                                "multiple values for threshold_visit_count",
+                                            ),
+                                        );
+                                    }
+                                    struct __With(std::option::Option<i32>);
+                                    impl<'de> serde::de::Deserialize<'de> for __With {
+                                        fn deserialize<D>(
+                                            deserializer: D,
+                                        ) -> std::result::Result<Self, D::Error>
+                                        where
+                                            D: serde::de::Deserializer<'de>,
+                                        {
+                                            serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                        }
+                                    }
+                                    result.threshold_visit_count =
+                                        map.next_value::<__With>()?.0.unwrap_or_default();
+                                }
+                                __FieldTag::Unknown(key) => {
+                                    let value = map.next_value::<serde_json::Value>()?;
+                                    result._unknown_fields.insert(key, value);
+                                }
+                            }
+                        }
+                        std::result::Result::Ok(result)
+                    }
+                }
+                deserializer.deserialize_any(Visitor)
+            }
+        }
+
+        #[doc(hidden)]
+        impl serde::ser::Serialize for Relaxation {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::ser::Serializer,
+            {
+                use serde::ser::SerializeMap;
+                #[allow(unused_imports)]
+                use std::option::Option::Some;
+                let mut state = serializer.serialize_map(std::option::Option::None)?;
+                if !wkt::internal::is_default(&self.level) {
+                    state.serialize_entry("level", &self.level)?;
+                }
+                if self.threshold_time.is_some() {
+                    state.serialize_entry("thresholdTime", &self.threshold_time)?;
+                }
+                if !wkt::internal::is_default(&self.threshold_visit_count) {
+                    struct __With<'a>(&'a i32);
+                    impl<'a> serde::ser::Serialize for __With<'a> {
+                        fn serialize<S>(
+                            &self,
+                            serializer: S,
+                        ) -> std::result::Result<S::Ok, S::Error>
+                        where
+                            S: serde::ser::Serializer,
+                        {
+                            serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                        }
+                    }
+                    state.serialize_entry(
+                        "thresholdVisitCount",
+                        &__With(&self.threshold_visit_count),
+                    )?;
+                }
+                if !self._unknown_fields.is_empty() {
+                    for (key, value) in self._unknown_fields.iter() {
+                        state.serialize_entry(key, &value)?;
+                    }
+                }
+                state.end()
             }
         }
 
@@ -8934,9 +18622,7 @@ pub mod injected_solution_constraint {
 }
 
 /// Describes an error encountered when validating an `OptimizeToursRequest`.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct OptimizeToursValidationError {
     /// A validation error is defined by the pair (`code`, `display_name`) which
@@ -9204,13 +18890,9 @@ pub struct OptimizeToursValidationError {
     ///
     ///   * DURATION_SECONDS_MATRIX_DURATION_NEGATIVE_OR_NAN = 5600;
     ///   * DURATION_SECONDS_MATRIX_DURATION_EXCEEDS_GLOBAL_DURATION = 5601;
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")]
     pub code: i32,
 
     /// The error display name.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub display_name: std::string::String,
 
     /// An error context may involve 0, 1 (most of the time) or more fields. For
@@ -9224,8 +18906,6 @@ pub struct OptimizeToursValidationError {
     ///
     /// Note, however, that the cardinality of `fields` should not change for a
     /// given error code.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub fields: std::vec::Vec<crate::model::optimize_tours_validation_error::FieldReference>,
 
     /// Human-readable string describing the error. There is a 1:1 mapping
@@ -9234,18 +18914,13 @@ pub struct OptimizeToursValidationError {
     /// *STABILITY*: Not stable: the error message associated to a given `code` may
     /// change (hopefully to clarify it) over time. Please rely on the
     /// `display_name` and `code` instead.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub error_message: std::string::String,
 
     /// May contain the value(s) of the field(s). This is not always available. You
     /// should absolutely not rely on it and use it only for manual model
     /// debugging.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub offending_values: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -9299,6 +18974,187 @@ impl wkt::message::Message for OptimizeToursValidationError {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for OptimizeToursValidationError {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __code,
+            __display_name,
+            __fields,
+            __error_message,
+            __offending_values,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for OptimizeToursValidationError")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "code" => Ok(__FieldTag::__code),
+                            "displayName" => Ok(__FieldTag::__display_name),
+                            "display_name" => Ok(__FieldTag::__display_name),
+                            "fields" => Ok(__FieldTag::__fields),
+                            "errorMessage" => Ok(__FieldTag::__error_message),
+                            "error_message" => Ok(__FieldTag::__error_message),
+                            "offendingValues" => Ok(__FieldTag::__offending_values),
+                            "offending_values" => Ok(__FieldTag::__offending_values),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = OptimizeToursValidationError;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct OptimizeToursValidationError")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__code => {
+                            if !fields.insert(__FieldTag::__code) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for code",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.code = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__display_name => {
+                            if !fields.insert(__FieldTag::__display_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for display_name",
+                                ));
+                            }
+                            result.display_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__fields => {
+                            if !fields.insert(__FieldTag::__fields) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fields",
+                                ));
+                            }
+                            result.fields = map.next_value::<std::option::Option<std::vec::Vec<crate::model::optimize_tours_validation_error::FieldReference>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__error_message => {
+                            if !fields.insert(__FieldTag::__error_message) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for error_message",
+                                ));
+                            }
+                            result.error_message = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__offending_values => {
+                            if !fields.insert(__FieldTag::__offending_values) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for offending_values",
+                                ));
+                            }
+                            result.offending_values = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for OptimizeToursValidationError {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.code) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("code", &__With(&self.code))?;
+        }
+        if !self.display_name.is_empty() {
+            state.serialize_entry("displayName", &self.display_name)?;
+        }
+        if !self.fields.is_empty() {
+            state.serialize_entry("fields", &self.fields)?;
+        }
+        if !self.error_message.is_empty() {
+            state.serialize_entry("errorMessage", &self.error_message)?;
+        }
+        if !self.offending_values.is_empty() {
+            state.serialize_entry("offendingValues", &self.offending_values)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [OptimizeToursValidationError].
 pub mod optimize_tours_validation_error {
     #[allow(unused_imports)]
@@ -9315,28 +19171,21 @@ pub mod optimize_tours_validation_error {
     ///
     /// We however omit top-level entities such as `OptimizeToursRequest` or
     /// `ShipmentModel` to avoid crowding the message.
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(default, rename_all = "camelCase")]
+    #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct FieldReference {
         /// Name of the field, e.g., "vehicles".
-        #[serde(skip_serializing_if = "std::string::String::is_empty")]
-        #[serde_as(as = "serde_with::DefaultOnNull<_>")]
         pub name: std::string::String,
 
         /// Recursively nested sub-field, if needed.
-        #[serde(skip_serializing_if = "std::option::Option::is_none")]
         pub sub_field: std::option::Option<
             std::boxed::Box<crate::model::optimize_tours_validation_error::FieldReference>,
         >,
 
-        #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
         pub index_or_key: std::option::Option<
             crate::model::optimize_tours_validation_error::field_reference::IndexOrKey,
         >,
 
-        #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -9446,20 +19295,202 @@ pub mod optimize_tours_validation_error {
         }
     }
 
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for FieldReference {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __name,
+                __index,
+                __key,
+                __sub_field,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for FieldReference")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "name" => Ok(__FieldTag::__name),
+                                "index" => Ok(__FieldTag::__index),
+                                "key" => Ok(__FieldTag::__key),
+                                "subField" => Ok(__FieldTag::__sub_field),
+                                "sub_field" => Ok(__FieldTag::__sub_field),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = FieldReference;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct FieldReference")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__name => {
+                                if !fields.insert(__FieldTag::__name) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for name",
+                                    ));
+                                }
+                                result.name = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__index => {
+                                if !fields.insert(__FieldTag::__index) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for index",
+                                    ));
+                                }
+                                struct __With(std::option::Option<i32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                if result.index_or_key.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `index_or_key`, a oneof with full ID .google.cloud.optimization.v1.OptimizeToursValidationError.FieldReference.index, latest field was index",
+                                    ));
+                                }
+                                result.index_or_key = std::option::Option::Some(
+                                    crate::model::optimize_tours_validation_error::field_reference::IndexOrKey::Index(
+                                        map.next_value::<__With>()?.0.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::__key => {
+                                if !fields.insert(__FieldTag::__key) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for key",
+                                    ));
+                                }
+                                if result.index_or_key.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `index_or_key`, a oneof with full ID .google.cloud.optimization.v1.OptimizeToursValidationError.FieldReference.key, latest field was key",
+                                    ));
+                                }
+                                result.index_or_key = std::option::Option::Some(
+                                    crate::model::optimize_tours_validation_error::field_reference::IndexOrKey::Key(
+                                        map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::__sub_field => {
+                                if !fields.insert(__FieldTag::__sub_field) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for sub_field",
+                                    ));
+                                }
+                                result.sub_field = map.next_value::<std::option::Option<std::boxed::Box<crate::model::optimize_tours_validation_error::FieldReference>>>()?
+                                    ;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for FieldReference {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.name.is_empty() {
+                state.serialize_entry("name", &self.name)?;
+            }
+            if let Some(value) = self.index() {
+                struct __With<'a>(&'a i32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("index", &__With(value))?;
+            }
+            if let Some(value) = self.key() {
+                state.serialize_entry("key", value)?;
+            }
+            if self.sub_field.is_some() {
+                state.serialize_entry("subField", &self.sub_field)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
     /// Defines additional types related to [FieldReference].
     pub mod field_reference {
         #[allow(unused_imports)]
         use super::*;
 
-        #[serde_with::serde_as]
-        #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-        #[serde(rename_all = "camelCase")]
+        #[derive(Clone, Debug, PartialEq)]
         #[non_exhaustive]
         pub enum IndexOrKey {
             /// Index of the field if repeated.
-            Index(#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I32>")] i32),
+            Index(i32),
             /// Key if the field is a map.
-            Key(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+            Key(std::string::String),
         }
     }
 }
