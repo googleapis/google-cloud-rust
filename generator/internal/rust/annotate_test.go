@@ -217,9 +217,9 @@ func TestServiceAnnotationsLROTypes(t *testing.T) {
 	// The default binding we use when services do not have HTTP path
 	// annotations.
 	binding := &api.PathBinding{
-		Verb:                     "POST",
+		Verb:               "POST",
 		LegacyPathTemplate: []api.LegacyPathSegment{},
-		QueryParameters:          map[string]bool{},
+		QueryParameters:    map[string]bool{},
 	}
 	pathInfo := &api.PathInfo{
 		BodyFieldPath: "*",
