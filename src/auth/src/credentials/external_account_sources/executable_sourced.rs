@@ -15,7 +15,10 @@
 use crate::{
     Result,
     constants::{ACCESS_TOKEN_TYPE, JWT_TOKEN_TYPE, SAML2_TOKEN_TYPE},
-    credentials::external_account::{ExecutableConfig, SubjectTokenProvider},
+    credentials::external_account::ExecutableConfig,
+    credentials::subject_token::{
+        Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
+    },
 };
 use gax::error::CredentialsError;
 use serde::{Deserialize, Serialize};
@@ -94,13 +97,14 @@ const MSG: &str = "failed to read subject token";
 const DEFAULT_TIMEOUT_SECS: Duration = Duration::from_secs(30);
 const ALLOW_EXECUTABLE_ENV: &str = "GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES";
 
-#[async_trait::async_trait]
 impl SubjectTokenProvider for ExecutableSourcedCredentials {
-    async fn subject_token(&self) -> Result<String> {
+    type Error = CredentialsError;
+
+    async fn subject_token(&self) -> Result<SubjectToken> {
         if let Some(output_file) = self.output_file.clone() {
             let token = Self::from_output_file(output_file).await;
-            if token.is_ok() {
-                return token;
+            if let Ok(token) = token {
+                return Ok(SubjectTokenBuilder::new(token).build());
             }
         }
         let token =
@@ -110,7 +114,7 @@ impl SubjectTokenProvider for ExecutableSourcedCredentials {
             return Err(CredentialsError::from_msg(false, msg));
         }
 
-        Ok(token)
+        Ok(SubjectTokenBuilder::new(token).build())
     }
 }
 
@@ -283,7 +287,7 @@ mod test {
         let token_provider = ExecutableSourcedCredentials::new(config);
         let resp = token_provider.subject_token().await?;
 
-        assert_eq!(resp, "an_example_token".to_string());
+        assert_eq!(resp.token, "an_example_token".to_string());
 
         Ok(())
     }
@@ -345,7 +349,7 @@ mod test {
         let token_provider = ExecutableSourcedCredentials::new(config);
         let resp = token_provider.subject_token().await?;
 
-        assert_eq!(resp, "an_example_token");
+        assert_eq!(resp.token, "an_example_token");
 
         Ok(())
     }
@@ -391,7 +395,7 @@ mod test {
         let token_provider = ExecutableSourcedCredentials::new(config);
         let resp = token_provider.subject_token().await?;
 
-        assert_eq!(resp, "a_valid_token");
+        assert_eq!(resp.token, "a_valid_token");
 
         Ok(())
     }

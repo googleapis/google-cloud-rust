@@ -12,55 +12,28 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::credentials::errors::SubjectTokenProviderError;
+
 pub struct Builder {
-  token: String,
+    token: String,
 }
 
 impl Builder {
-    fn new(token: String) -> Self {
+    pub fn new(token: String) -> Self {
         Self { token }
     }
-    
-    fn build(self) -> SubjectToken {
+
+    pub fn build(self) -> SubjectToken {
         SubjectToken { token: self.token }
     }
 }
 
+#[derive(Debug)]
 pub struct SubjectToken {
-  token: String,
+    pub(crate) token: String,
 }
-
-pub trait SubjectTokenProviderError: std::error::Error {
-    /// Return true if the error is transient and the call may succeed in the future.
-    ///
-    /// Applicatiosn should only return true if the error automatically 
-    /// recovers, without the need for any human action.
-    ///
-    /// Timeouts and network problems are good candidates for `is_transient() == true`.
-    /// Configuration errors that require changing a file, or installing an executable are not.
-    fn is_transient(&self) -> bool;
-}
-
 
 pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
-       type Error: SubjectTokenProviderError;
-fn subject_token(&self) -> impl Future<Output = Result<SubjectToken, Self::Error>> + Send;
-}
-
-pub(crate) mod dynamic {
-    use super::*;
-    #[async_trait::async_trait]
-    pub trait SubjectTokenProvider<E>: std::fmt::Debug + Send + Sync {
-        async fn subject_token(&self) -> Result<SubjectToken, E>;
-    }
-
-    #[async_trait::async_trait]
-    impl<T> SubjectTokenProvider<T::Error> for T
-    where
-        T: super::SubjectTokenProvider,
-    {
-        async fn subject_token(&self) -> Result<SubjectToken, T::Error> {
-            T::subject_token(self).await
-        }
-    }
+    type Error: SubjectTokenProviderError;
+    fn subject_token(&self) -> impl Future<Output = Result<SubjectToken, Self::Error>> + Send;
 }

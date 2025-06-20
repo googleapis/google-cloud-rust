@@ -19,6 +19,23 @@ use std::error::Error;
 
 pub use gax::error::CredentialsError;
 
+pub trait SubjectTokenProviderError: Error + Send + Sync + 'static {
+    /// Return true if the error is transient and the call may succeed in the future.
+    ///
+    /// Applicatiosn should only return true if the error automatically
+    /// recovers, without the need for any human action.
+    ///
+    /// Timeouts and network problems are good candidates for `is_transient() == true`.
+    /// Configuration errors that require changing a file, or installing an executable are not.
+    fn is_transient(&self) -> bool;
+}
+
+impl SubjectTokenProviderError for CredentialsError {
+    fn is_transient(&self) -> bool {
+        self.is_transient()
+    }
+}
+
 pub(crate) fn from_http_error(err: reqwest::Error, msg: &str) -> CredentialsError {
     let transient = self::is_retryable(&err);
     CredentialsError::new(transient, msg, err)
