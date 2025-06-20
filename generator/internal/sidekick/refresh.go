@@ -79,6 +79,9 @@ func refreshDir(rootConfig *config.Config, cmdLine *CommandLine, output string) 
 		return err
 	}
 	api.SkipModelElements(model, config.Source)
+	if err := api.PatchDocumentation(model, config); err != nil {
+		return err
+	}
 	// Verify all the services, messages and enums are in the same package.
 	if err := api.Validate(model); err != nil {
 		return err
