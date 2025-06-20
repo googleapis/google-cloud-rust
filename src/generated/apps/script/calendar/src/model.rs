@@ -26,9 +26,7 @@ extern crate std;
 extern crate wkt;
 
 /// Calendar add-on manifest.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CalendarAddOnManifest {
     /// Defines an endpoint that will be executed contexts that don't
@@ -38,33 +36,23 @@ pub struct CalendarAddOnManifest {
     ///
     /// If present, this overrides the configuration from
     /// `addOns.common.homepageTrigger`.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub homepage_trigger: std::option::Option<apps_script_type::model::HomepageExtensionPoint>,
 
     /// Defines conference solutions provided by this add-on.
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub conference_solution: std::vec::Vec<crate::model::ConferenceSolution>,
 
     /// An endpoint to execute that creates a URL to the add-on's settings page.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub create_settings_url_function: std::string::String,
 
     /// An endpoint to trigger when an event is opened (viewed/edited).
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub event_open_trigger: std::option::Option<crate::model::CalendarExtensionPoint>,
 
     /// An endpoint to trigger when the open event is updated.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub event_update_trigger: std::option::Option<crate::model::CalendarExtensionPoint>,
 
     /// Define the level of data access when an event addon is triggered.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub current_event_access: crate::model::calendar_add_on_manifest::EventAccess,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -162,6 +150,198 @@ impl CalendarAddOnManifest {
 impl wkt::message::Message for CalendarAddOnManifest {
     fn typename() -> &'static str {
         "type.googleapis.com/google.apps.script.type.calendar.CalendarAddOnManifest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CalendarAddOnManifest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __homepage_trigger,
+            __conference_solution,
+            __create_settings_url_function,
+            __event_open_trigger,
+            __event_update_trigger,
+            __current_event_access,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CalendarAddOnManifest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "homepageTrigger" => Ok(__FieldTag::__homepage_trigger),
+                            "homepage_trigger" => Ok(__FieldTag::__homepage_trigger),
+                            "conferenceSolution" => Ok(__FieldTag::__conference_solution),
+                            "conference_solution" => Ok(__FieldTag::__conference_solution),
+                            "createSettingsUrlFunction" => {
+                                Ok(__FieldTag::__create_settings_url_function)
+                            }
+                            "create_settings_url_function" => {
+                                Ok(__FieldTag::__create_settings_url_function)
+                            }
+                            "eventOpenTrigger" => Ok(__FieldTag::__event_open_trigger),
+                            "event_open_trigger" => Ok(__FieldTag::__event_open_trigger),
+                            "eventUpdateTrigger" => Ok(__FieldTag::__event_update_trigger),
+                            "event_update_trigger" => Ok(__FieldTag::__event_update_trigger),
+                            "currentEventAccess" => Ok(__FieldTag::__current_event_access),
+                            "current_event_access" => Ok(__FieldTag::__current_event_access),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CalendarAddOnManifest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CalendarAddOnManifest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__homepage_trigger => {
+                            if !fields.insert(__FieldTag::__homepage_trigger) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for homepage_trigger",
+                                ));
+                            }
+                            result.homepage_trigger = map.next_value::<std::option::Option<
+                                apps_script_type::model::HomepageExtensionPoint,
+                            >>()?;
+                        }
+                        __FieldTag::__conference_solution => {
+                            if !fields.insert(__FieldTag::__conference_solution) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for conference_solution",
+                                ));
+                            }
+                            result.conference_solution = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::ConferenceSolution>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_settings_url_function => {
+                            if !fields.insert(__FieldTag::__create_settings_url_function) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_settings_url_function",
+                                ));
+                            }
+                            result.create_settings_url_function = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__event_open_trigger => {
+                            if !fields.insert(__FieldTag::__event_open_trigger) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for event_open_trigger",
+                                ));
+                            }
+                            result.event_open_trigger = map.next_value::<std::option::Option<crate::model::CalendarExtensionPoint>>()?
+                                ;
+                        }
+                        __FieldTag::__event_update_trigger => {
+                            if !fields.insert(__FieldTag::__event_update_trigger) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for event_update_trigger",
+                                ));
+                            }
+                            result.event_update_trigger = map.next_value::<std::option::Option<crate::model::CalendarExtensionPoint>>()?
+                                ;
+                        }
+                        __FieldTag::__current_event_access => {
+                            if !fields.insert(__FieldTag::__current_event_access) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for current_event_access",
+                                ));
+                            }
+                            result.current_event_access = map
+                                .next_value::<std::option::Option<
+                                    crate::model::calendar_add_on_manifest::EventAccess,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CalendarAddOnManifest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.homepage_trigger.is_some() {
+            state.serialize_entry("homepageTrigger", &self.homepage_trigger)?;
+        }
+        if !self.conference_solution.is_empty() {
+            state.serialize_entry("conferenceSolution", &self.conference_solution)?;
+        }
+        if !self.create_settings_url_function.is_empty() {
+            state.serialize_entry(
+                "createSettingsUrlFunction",
+                &self.create_settings_url_function,
+            )?;
+        }
+        if self.event_open_trigger.is_some() {
+            state.serialize_entry("eventOpenTrigger", &self.event_open_trigger)?;
+        }
+        if self.event_update_trigger.is_some() {
+            state.serialize_entry("eventUpdateTrigger", &self.event_update_trigger)?;
+        }
+        if !wkt::internal::is_default(&self.current_event_access) {
+            state.serialize_entry("currentEventAccess", &self.current_event_access)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 
@@ -324,14 +504,10 @@ pub mod calendar_add_on_manifest {
 }
 
 /// Defines conference related values.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConferenceSolution {
     /// Required. The endpoint to call when ConferenceData should be created.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub on_create_function: std::string::String,
 
     /// Required. IDs should be unique across ConferenceSolutions within one
@@ -339,21 +515,14 @@ pub struct ConferenceSolution {
     /// to assign them uniquely, otherwise the wrong ConferenceSolution may be
     /// used when the add-on is triggered. While the developer may change the
     /// display name of an add-on, the ID should not be changed.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub id: std::string::String,
 
     /// Required. The display name of the ConferenceSolution.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
     /// Required. The URL for the logo image of the ConferenceSolution.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub logo_url: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -396,19 +565,163 @@ impl wkt::message::Message for ConferenceSolution {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ConferenceSolution {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __on_create_function,
+            __id,
+            __name,
+            __logo_url,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ConferenceSolution")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "onCreateFunction" => Ok(__FieldTag::__on_create_function),
+                            "on_create_function" => Ok(__FieldTag::__on_create_function),
+                            "id" => Ok(__FieldTag::__id),
+                            "name" => Ok(__FieldTag::__name),
+                            "logoUrl" => Ok(__FieldTag::__logo_url),
+                            "logo_url" => Ok(__FieldTag::__logo_url),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ConferenceSolution;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ConferenceSolution")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__on_create_function => {
+                            if !fields.insert(__FieldTag::__on_create_function) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for on_create_function",
+                                ));
+                            }
+                            result.on_create_function = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__id => {
+                            if !fields.insert(__FieldTag::__id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for id",
+                                ));
+                            }
+                            result.id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__logo_url => {
+                            if !fields.insert(__FieldTag::__logo_url) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for logo_url",
+                                ));
+                            }
+                            result.logo_url = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ConferenceSolution {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.on_create_function.is_empty() {
+            state.serialize_entry("onCreateFunction", &self.on_create_function)?;
+        }
+        if !self.id.is_empty() {
+            state.serialize_entry("id", &self.id)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.logo_url.is_empty() {
+            state.serialize_entry("logoUrl", &self.logo_url)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Common format for declaring a calendar add-on's triggers.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CalendarExtensionPoint {
     /// Required. The endpoint to execute when this extension point is
     /// activated.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub run_function: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -427,5 +740,108 @@ impl CalendarExtensionPoint {
 impl wkt::message::Message for CalendarExtensionPoint {
     fn typename() -> &'static str {
         "type.googleapis.com/google.apps.script.type.calendar.CalendarExtensionPoint"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CalendarExtensionPoint {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __run_function,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CalendarExtensionPoint")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "runFunction" => Ok(__FieldTag::__run_function),
+                            "run_function" => Ok(__FieldTag::__run_function),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CalendarExtensionPoint;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CalendarExtensionPoint")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__run_function => {
+                            if !fields.insert(__FieldTag::__run_function) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for run_function",
+                                ));
+                            }
+                            result.run_function = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CalendarExtensionPoint {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.run_function.is_empty() {
+            state.serialize_entry("runFunction", &self.run_function)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }

@@ -316,11 +316,14 @@ type enumValueAnnotation struct {
 // tags. For example, the Mustache tag {{#Services}} uses the
 // [Template.Services] field.
 func annotateModel(model *api.API, codec *codec) *modelAnnotations {
+	packageName := PackageName(model, codec.packageNameOverride)
+
 	codec.hasServices = len(model.State.ServiceByID) > 0
+	// TODO(#2376) - slowly introduce generated serialization by default
+	codec.withGeneratedSerde = codec.withGeneratedSerde || packageName < "google-cloud-b"
 
 	loadWellKnownTypes(model.State)
 	resolveUsedPackages(model, codec.extraPackages)
-	packageName := PackageName(model, codec.packageNameOverride)
 	packageNamespace := strings.ReplaceAll(packageName, "-", "_")
 	// Only annotate enums and messages that we intend to generate. In the
 	// process we discover the external dependencies and trim the list of
