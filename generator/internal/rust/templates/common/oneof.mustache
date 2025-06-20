@@ -18,16 +18,8 @@ limitations under the License.
 {{{.}}}
 {{/Codec.DocLines}}
 {{> /templates/common/feature_gate}}
-{{^Codec.WithGeneratedSerde}}
-#[serde_with::serde_as]
-#[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(rename_all = "camelCase")]
-#[non_exhaustive]
-{{/Codec.WithGeneratedSerde}}
-{{#Codec.WithGeneratedSerde}}
 #[derive(Clone, Debug, PartialEq)]
 #[non_exhaustive]
-{{/Codec.WithGeneratedSerde}}
 pub enum {{Codec.EnumName}} {
     {{#Fields}}
     {{#Codec.DocLines}}
@@ -36,6 +28,6 @@ pub enum {{Codec.EnumName}} {
     {{#Deprecated}}
     #[deprecated]
     {{/Deprecated}}
-    {{Codec.BranchName}}({{^Codec.WithGeneratedSerde}}{{#Codec.Attributes}}{{{.}}}{{/Codec.Attributes}}{{/Codec.WithGeneratedSerde}}{{{Codec.FieldType}}}),
+    {{Codec.BranchName}}({{{Codec.FieldType}}}),
     {{/Fields}}
 }

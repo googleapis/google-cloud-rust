@@ -134,10 +134,9 @@ type messageAnnotation struct {
 	// becomes `google::service::v1`.
 	PackageModuleName string
 	// The FQN is the source specification
-	SourceFQN         string
-	MessageAttributes []string
-	DocLines          []string
-	HasNestedTypes    bool
+	SourceFQN      string
+	DocLines       []string
+	HasNestedTypes bool
 	// All the fields except OneOfs.
 	BasicFields []*api.Field
 	// If true, this is a synthetic message, some generation is skipped for
@@ -146,10 +145,6 @@ type messageAnnotation struct {
 	// If set, this message is only enabled when some features are enabled.
 	FeatureGates   []string
 	FeatureGatesOp string
-}
-
-func (*messageAnnotation) WithGeneratedSerde() bool {
-	return true
 }
 
 type methodAnnotation struct {
@@ -238,10 +233,6 @@ type oneOfAnnotation struct {
 	FeatureGatesOp string
 }
 
-func (*oneOfAnnotation) WithGeneratedSerde() bool {
-	return true
-}
-
 type fieldAnnotations struct {
 	// In Rust, message fields are fields inside a struct. These must be
 	// `snake_case`. Possibly mangled with `r#` if the name is a Rust reserved
@@ -256,7 +247,6 @@ type fieldAnnotations struct {
 	// The fully qualified name of the containing message.
 	FQMessageName      string
 	DocLines           []string
-	Attributes         []string
 	FieldType          string
 	PrimitiveFieldType string
 	AddQueryParameter  string
@@ -278,10 +268,6 @@ type fieldAnnotations struct {
 	// If true, this is a `wkt::NullValue` field, and also requires super-extra
 	// custom deserialization.
 	IsWktNullValue bool
-}
-
-func (a *fieldAnnotations) WithGeneratedSerde() bool {
-	return true
 }
 
 func (a *fieldAnnotations) SkipIfIsEmpty() bool {
@@ -564,7 +550,6 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 		PackageModuleName:  packageToModuleName(m.Package),
 		SourceFQN:          strings.TrimPrefix(m.ID, "."),
 		DocLines:           c.formatDocComments(m.Documentation, m.ID, state, m.Scopes()),
-		MessageAttributes:  c.messageAttributes(),
 		HasNestedTypes:     language.HasNestedTypes(m),
 		BasicFields:        basicFields,
 		HasSyntheticFields: hasSyntheticFields,
@@ -775,7 +760,6 @@ func (c *codec) annotateField(field *api.Field, message *api.Message, state *api
 		FQMessageName:      fullyQualifiedMessageName(message, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		BranchName:         toPascal(field.Name),
 		DocLines:           c.formatDocComments(field.Documentation, field.ID, state, message.Scopes()),
-		Attributes:         fieldAttributes(field, state),
 		FieldType:          fieldType(field, state, false, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		PrimitiveFieldType: fieldType(field, state, true, c.modulePath, sourceSpecificationPackageName, c.packageMapping),
 		AddQueryParameter:  addQueryParameter(field),

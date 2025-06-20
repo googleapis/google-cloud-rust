@@ -19,9 +19,8 @@ limitations under the License.
 {{{.}}}
 {{/Codec.DocLines}}
 {{> /templates/common/feature_gate}}
-{{#Codec.MessageAttributes}}
-{{{.}}}
-{{/Codec.MessageAttributes}}
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
 {{#Deprecated}}
 #[deprecated]
 {{/Deprecated}}
@@ -31,11 +30,6 @@ pub struct {{Codec.Name}} {
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
-    {{^Codec.WithGeneratedSerde}}
-    {{#Codec.Attributes}}
-    {{{.}}}
-    {{/Codec.Attributes}}
-    {{/Codec.WithGeneratedSerde}}
     {{#Deprecated}}
     #[deprecated]
     {{/Deprecated}}
@@ -46,15 +40,9 @@ pub struct {{Codec.Name}} {
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
-    {{^Codec.WithGeneratedSerde}}
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
-    {{/Codec.WithGeneratedSerde}}
     pub {{Codec.FieldName}}: std::option::Option<{{{Codec.FieldType}}}>,
     {{/OneOfs}}
 
-    {{^Codec.WithGeneratedSerde}}
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
-    {{/Codec.WithGeneratedSerde}}
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -256,7 +244,6 @@ impl gax::paginator::internal::PageableResponse for {{Codec.Name}} {
     {{/NextPageToken}}
 }
 {{/Pagination}}
-{{#Codec.WithGeneratedSerde}}
 
 {{!
     We will grow this code over multiple PRs to complete the serialization and
@@ -346,7 +333,6 @@ impl serde::ser::Serialize for {{Codec.Name}} {
         state.end()
     }
 }
-{{/Codec.WithGeneratedSerde}}
 {{#Codec.HasNestedTypes}}
 
 /// Defines additional types related to [{{Name}}].
