@@ -155,7 +155,6 @@ type methodAnnotation struct {
 	BuilderName         string
 	DocLines            []string
 	PathInfo            *api.PathInfo
-	PathParams          []*api.Field
 	QueryParams         []*api.Field
 	BodyAccessor        string
 	ServiceNameToPascal string
@@ -602,7 +601,6 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		BodyAccessor:        bodyAccessor(m),
 		DocLines:            c.formatDocComments(m.Documentation, m.ID, state, s.Scopes()),
 		PathInfo:            m.PathInfo,
-		PathParams:          language.PathParams(m, state),
 		QueryParams:         language.QueryParams(m, state),
 		ServiceNameToPascal: toPascal(serviceName),
 		ServiceNameToCamel:  toCamel(serviceName),
