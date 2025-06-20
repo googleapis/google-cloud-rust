@@ -76,27 +76,25 @@ import (
 //
 // LITERAL     = unreserved | pct-encoded { unreserved | pct-encoded }
 //
-//
 // [RFC 3986]: https://datatracker.ietf.org/doc/html/rfc3986#section-3.3
 // [Backus-Naur Form]: https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
 // [C++ HTTP Annotation parser]: https://github.com/googleapis/google-cloud-cpp/blob/4174d656136f4b849c8a3d327237f3a96be3e003/generator/internal/http_annotation_parser.h#L49-L58
 // [google.api.http annotation]: https://github.com/googleapis/google-cloud-rust/blob/61b9d3bbac5530e4321ac19fe7d2760db82e31db/generator/testdata/googleapis/google/api/http.proto
-
 func Parse(pathTemplate string) (*PathTemplate, error) {
 	return parsePathTemplate(pathTemplate)
 }
 
-// ParseSegments flattens the result of Parse into a slice of api.PathSegment,
+// ParseSegments flattens the result of Parse into a slice of api.LegacyPathSegment,
 // ignoring variable values and match (* and **) segments.
 // TODO(#557): This function is a temporary shim to allow the existing tests to pass.
-func ParseSegments(pathTemplate string) ([]api.PathSegment, error) {
+func ParseSegments(pathTemplate string) ([]api.LegacyPathSegment, error) {
 	path, err := parsePathTemplate(pathTemplate)
 	if err != nil {
 		return nil, err
 	}
-	var segments []api.PathSegment
+	var segments []api.LegacyPathSegment
 	for _, s := range path.Segments {
-		segment := api.PathSegment{}
+		segment := api.LegacyPathSegment{}
 		if s.Literal != nil {
 			literal := string(*s.Literal)
 			segment.Literal = &literal
@@ -113,7 +111,7 @@ func ParseSegments(pathTemplate string) ([]api.PathSegment, error) {
 
 	if path.Verb != nil {
 		verb := string(*path.Verb)
-		segments = append(segments, api.PathSegment{
+		segments = append(segments, api.LegacyPathSegment{
 			Verb: &verb,
 		})
 	}

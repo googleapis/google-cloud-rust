@@ -73,7 +73,7 @@ func serviceAnnotationsModel() *api.API {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
-					PathTemplate: []api.PathSegment{
+					LegacyPathTemplate: []api.LegacyPathSegment{
 						api.NewLiteralPathSegment("/v1/resource"),
 					},
 				},
@@ -89,7 +89,7 @@ func serviceAnnotationsModel() *api.API {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "DELETE",
-					PathTemplate: []api.PathSegment{
+					LegacyPathTemplate: []api.LegacyPathSegment{
 						api.NewLiteralPathSegment("/v1/resource"),
 					},
 				},
@@ -217,9 +217,9 @@ func TestServiceAnnotationsLROTypes(t *testing.T) {
 	// The default binding we use when services do not have HTTP path
 	// annotations.
 	binding := &api.PathBinding{
-		Verb:            "POST",
-		PathTemplate:    []api.PathSegment{},
-		QueryParameters: map[string]bool{},
+		Verb:                     "POST",
+		LegacyLegacyPathTemplate: []api.LegacyPathSegment{},
+		QueryParameters:          map[string]bool{},
 	}
 	pathInfo := &api.PathInfo{
 		BodyFieldPath: "*",
@@ -1315,7 +1315,7 @@ func TestPathInfoAnnotations(t *testing.T) {
 				Bindings: []*api.PathBinding{
 					{
 						Verb: testCase.Verb,
-						PathTemplate: []api.PathSegment{
+						LegacyPathTemplate: []api.LegacyPathSegment{
 							api.NewLiteralPathSegment("/v1/resource"),
 						},
 					},

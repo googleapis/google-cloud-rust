@@ -168,7 +168,7 @@ func bodyAccessor(m *api.Method) string {
 
 func httpPathFmt(m *api.PathInfo) string {
 	fmt := ""
-	for _, segment := range m.Bindings[0].PathTemplate {
+	for _, segment := range m.Bindings[0].LegacyPathTemplate {
 		if segment.Literal != nil {
 			fmt = fmt + "/" + *segment.Literal
 		} else if segment.FieldPath != nil {
@@ -183,7 +183,7 @@ func httpPathFmt(m *api.PathInfo) string {
 func httpPathArgs(h *api.PathInfo) []string {
 	var args []string
 	// TODO(codyoss): https://github.com/googleapis/google-cloud-rust/issues/34
-	for _, segment := range h.Bindings[0].PathTemplate {
+	for _, segment := range h.Bindings[0].LegacyPathTemplate {
 		if segment.FieldPath != nil {
 			// TODO(#34) - handle nested path params
 			args = append(args, fmt.Sprintf(", req.%s", strcase.ToCamel(*segment.FieldPath)))
@@ -230,7 +230,7 @@ func generateMethod(m *api.Method) bool {
 	if len(m.PathInfo.Bindings) == 0 {
 		return false
 	}
-	return len(m.PathInfo.Bindings[0].PathTemplate) != 0
+	return len(m.PathInfo.Bindings[0].LegacyPathTemplate) != 0
 }
 
 // The list of Golang keywords and reserved words can be found at:
