@@ -19,6 +19,8 @@ use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, 
 use super::{CacheableResource, Credentials};
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
+use crate::credentials::subject_token::SubjectTokenProvider;
+use crate::errors::{CredentialsError, SubjectTokenProviderError};
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -29,12 +31,6 @@ use serde_json::Value;
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
-
-#[async_trait::async_trait]
-pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
-    /// Generate subject token that will be used on STS exchange.
-    async fn subject_token(&self) -> Result<String>;
-}
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub(crate) struct CredentialSourceFormat {
@@ -197,7 +193,11 @@ where
     T: SubjectTokenProvider,
 {
     async fn token(&self) -> Result<Token> {
-        let subject_token = self.subject_token_provider.subject_token().await?;
+        let subject_token = self
+            .subject_token_provider
+            .subject_token()
+            .await
+            .map_err(|e| CredentialsError::from_source(e.is_transient(), e))?;
 
         let audience = self.config.audience.clone();
         let subject_token_type = self.config.subject_token_type.clone();
@@ -206,7 +206,7 @@ where
         let req = ExchangeTokenRequest {
             url,
             audience: Some(audience),
-            subject_token,
+            subject_token: subject_token.token,
             subject_token_type,
             scope,
             authentication: ClientAuthentication {
