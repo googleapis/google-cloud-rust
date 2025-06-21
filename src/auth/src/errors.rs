@@ -32,8 +32,9 @@ pub use gax::error::CredentialsError;
 /// # Example
 ///
 /// ```
-/// use std::error::Error;
-/// use std::fmt;
+/// # use std::error::Error;
+/// # use std::fmt;
+/// # use google_cloud_auth::errors::SubjectTokenProviderError;
 ///
 /// #[derive(Debug)]
 /// struct CustomTokenError {

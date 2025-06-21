@@ -84,8 +84,10 @@ pub struct Builder {
 
 impl Builder {
     /// Creates a new builder using the string token.
-    pub fn new(token: String) -> Self {
-        Self { token }
+    pub fn new<S: Into<String>>(token: S) -> Self {
+        Self {
+            token: token.into(),
+        }
     }
 
     /// Returns a [SubjectToken] instance.
