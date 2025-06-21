@@ -129,10 +129,5 @@ pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
     /// authentication client to know whether the error is transient and can be retried.
     type Error: SubjectTokenProviderError;
     /// Asynchronously fetches the third-party subject token.
-    ///
-    /// # Returns
-    ///
-    /// - `Ok(SubjectToken)`: On a successful token fetch.
-    /// - `Err(Self::Error)`: On a failure, returning the custom error type.
     fn subject_token(&self) -> impl Future<Output = Result<SubjectToken, Self::Error>> + Send;
 }

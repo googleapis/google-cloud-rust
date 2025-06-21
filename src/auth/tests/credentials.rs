@@ -14,6 +14,8 @@
 
 #[cfg(test)]
 mod test {
+    use std::error::Error;
+
     use google_cloud_auth::credentials::EntityTag;
     use google_cloud_auth::credentials::mds::Builder as MdsBuilder;
     use google_cloud_auth::credentials::service_account::Builder as ServiceAccountBuilder;
@@ -268,6 +270,57 @@ mod test {
                 unreachable!("Expecting a header to be present");
             }
         };
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn create_external_account_access_token_fail() -> TestResult {
+        let source_token_response_body = json!({
+            "error":"invalid_token",
+        })
+        .to_string();
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "/source_token"),
+                request::headers(contains(("metadata", "True",))),
+            ])
+            .respond_with(status_code(429).body(source_token_response_body)),
+        );
+
+        let contents = json!({
+          "type": "external_account",
+          "audience": "some-audience",
+          "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+          "token_url": server.url("/token").to_string(),
+          "credential_source": {
+            "url": server.url("/source_token").to_string(),
+            "headers": {
+              "Metadata": "True"
+            },
+            "format": {
+              "type": "json",
+              "subject_token_field_name": "access_token"
+            }
+          }
+        })
+        .to_string();
+
+        let creds =
+            AccessTokenCredentialBuilder::new(serde_json::from_str(contents.as_str()).unwrap())
+                .build()
+                .unwrap();
+
+        let error = creds.headers(Extensions::new()).await.unwrap_err();
+        let original_error = error
+            .source()
+            .expect("should have a source")
+            .downcast_ref::<CredentialsError>()
+            .expect("source should be a CredentialsError");
+        assert!(original_error.to_string().contains("invalid_token"));
+        assert!(error.is_transient());
 
         Ok(())
     }
