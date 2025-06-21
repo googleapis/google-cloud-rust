@@ -19,6 +19,30 @@
 //! The generator needs to return an error when the parameter is missing, and
 //! a small helper function makes the generated code easier to read.
 
+use crate::routing_parameter::Segment;
+
+/// Checks if a string field matches a given path template
+///
+/// If it matches, it returns `Some(value)`. (Having a composable function
+/// simplifies the generated code).
+///
+/// # Example
+/// ```
+/// # use google_cloud_gax_internal::path_parameter::try_match;
+/// # use google_cloud_gax_internal::routing_parameter::Segment;
+/// use Segment::{Literal, SingleWildcard};
+/// let p = try_match("projects/my-project",
+///     &[Literal("projects/"), SingleWildcard]);
+/// assert_eq!(p, Some("projects/my-project"));
+/// ```
+///
+/// # Parameters
+/// - `value` - the value of the string field
+/// - `template` - segments to match the `value` against
+pub fn try_match<'a>(value: &'a str, template: &[Segment]) -> Option<&'a str> {
+    crate::routing_parameter::value(Some(value), &[], template, &[])
+}
+
 #[derive(thiserror::Error, Debug)]
 #[non_exhaustive]
 pub enum Error {
@@ -32,8 +56,22 @@ pub fn missing(name: &str) -> gax::error::Error {
 
 #[cfg(test)]
 mod tests {
-    use super::Error;
+    use super::{Error, Segment};
     use std::error::Error as _;
+    use test_case::test_case;
+
+    #[test_case("projects/my-project", Some("projects/my-project"))]
+    #[test_case("", None)]
+    #[test_case("projects/", None)]
+    #[test_case("projects/my-project/", None)]
+    #[test_case("projects/my-project/locations/my-location", None)]
+    fn try_match(input: &str, expected: Option<&str>) {
+        let p = super::try_match(
+            input,
+            &[Segment::Literal("projects/"), Segment::SingleWildcard],
+        );
+        assert_eq!(p, expected);
+    }
 
     #[test]
     fn missing() {
