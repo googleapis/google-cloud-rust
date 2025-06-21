@@ -153,9 +153,9 @@ impl Policies {
     ///
     /// To update a policy, you should use a read-modify-write loop:
     ///
-    /// . Use [GetPolicy][google.iam.v2.Policies.GetPolicy] to read the current version of the policy.
-    /// . Modify the policy as needed.
-    /// . Use `UpdatePolicy` to write the updated policy.
+    /// 1. Use [GetPolicy][google.iam.v2.Policies.GetPolicy] to read the current version of the policy.
+    /// 1. Modify the policy as needed.
+    /// 1. Use `UpdatePolicy` to write the updated policy.
     ///
     /// This pattern helps prevent conflicts between concurrent updates.
     ///

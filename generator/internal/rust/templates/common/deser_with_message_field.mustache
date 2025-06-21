@@ -43,21 +43,28 @@ result.{{Codec.FieldName}} = map.next_value::< __With >()?.0.unwrap_or_default()
 {{/Optional}}
 {{/IsOneOf}}
 {{#IsOneOf}}
-struct __With( {{{Codec.FieldType}}} );
+struct __With( std::option::Option<{{{Codec.FieldType}}}> );
 impl<'de> serde::de::Deserialize<'de> for __With {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::de::Deserializer<'de>,
     {
-        serde_with::As::< {{{Codec.SerdeAs}}} >::deserialize(deserializer).map(__With)
+        {{#Codec.IsBoxed}}
+        serde_with::As::< std::option::Option<std::boxed::Box<{{{Codec.SerdeAs}}}>> >::deserialize(deserializer).map(__With)
+        {{/Codec.IsBoxed}}
+        {{^Codec.IsBoxed}}
+        serde_with::As::< std::option::Option<{{{Codec.SerdeAs}}}> >::deserialize(deserializer).map(__With)
+        {{/Codec.IsBoxed}}
     }
 }
 if result.{{Group.Codec.FieldName}}.is_some() {
-    return Err(A::Error::duplicate_field("multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}"))
+    return std::result::Result::Err(A::Error::duplicate_field(
+        "multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}",
+    ));
 }
 result.{{Group.Codec.FieldName}} = std::option::Option::Some(
     {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
-        map.next_value::<__With>()?.0,
+        map.next_value::<__With>()?.0.unwrap_or_default()
     ),
 );
 {{/IsOneOf}}

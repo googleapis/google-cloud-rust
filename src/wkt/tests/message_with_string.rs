@@ -14,7 +14,7 @@
 
 #[cfg(test)]
 mod test {
-    use common::{__MessageWithString, MessageWithString};
+    use common::MessageWithString;
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
@@ -28,7 +28,7 @@ mod test {
     #[test_case(MessageWithString::new().set_repeated(["a", "b", "c"]), json!({"repeated": ["a", "b", "c"]}))]
     #[test_case(MessageWithString::new().set_map_key_value([("a", "1"), ("b", "2")]), json!({"mapKeyValue": {"a": "1", "b": "2"}}))]
     fn test_ser(input: MessageWithString, want: Value) -> Result {
-        let got = serde_json::to_value(__MessageWithString(input))?;
+        let got = serde_json::to_value(input)?;
         assert_eq!(got, want);
         Ok(())
     }
@@ -43,8 +43,20 @@ mod test {
     #[test_case(MessageWithString::new().set_map_key_value([("a", "1"), ("b", "2")]), json!({"mapKeyValue": {"a": "1", "b": "2"}}))]
     #[test_case(MessageWithString::new().set_map_key_value([("a", "1"), ("b", "2")]), json!({"map_key_value": {"a": "1", "b": "2"}}))]
     fn test_de(want: MessageWithString, input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithString>(input)?;
-        assert_eq!(got.0, want);
+        let got = serde_json::from_value::<MessageWithString>(input)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(r#"{"singular":      null}"#)]
+    #[test_case(r#"{"optional":      null}"#)]
+    #[test_case(r#"{"repeated":      null}"#)]
+    #[test_case(r#"{"map_key":       null}"#)]
+    #[test_case(r#"{"map_value":     null}"#)]
+    #[test_case(r#"{"map_key_value": null}"#)]
+    fn test_null_is_default(input: &str) -> Result {
+        let got = serde_json::from_str::<MessageWithString>(input)?;
+        assert_eq!(got, MessageWithString::default());
         Ok(())
     }
 
@@ -58,7 +70,7 @@ mod test {
     #[test_case(r#"{"mapKeyValue": {}, "mapKeyValue":   {}}"#)]
     #[test_case(r#"{"mapKeyValue": {}, "map_key_value": {}}"#)]
     fn reject_duplicate_fields(input: &str) -> Result {
-        let err = serde_json::from_str::<__MessageWithString>(input).unwrap_err();
+        let err = serde_json::from_str::<MessageWithString>(input).unwrap_err();
         assert!(err.is_data(), "{err:?}");
         Ok(())
     }
@@ -66,7 +78,7 @@ mod test {
     #[test_case(json!({"unknown": "test-value"}))]
     #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
     fn test_unknown(input: Value) -> Result {
-        let deser = serde_json::from_value::<__MessageWithString>(input.clone())?;
+        let deser = serde_json::from_value::<MessageWithString>(input.clone())?;
         let got = serde_json::to_value(deser)?;
         assert_eq!(got, input);
         Ok(())

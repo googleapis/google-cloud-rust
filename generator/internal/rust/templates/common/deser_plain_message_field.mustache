@@ -17,42 +17,37 @@ limitations under the License.
 {{#Singular}}
 {{! First deal with all the fields that are not part of a oneof }}
 {{^IsOneOf}}
-{{^Codec.IsWktNullValue}}
+{{#Optional}}
 result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?
+    {{#Codec.IsWktNullValue}}
+    .or(Some(wkt::NullValue))
+    {{/Codec.IsWktNullValue}}
     {{#Codec.IsWktValue}}
-    {{! If Codec.IsWktValue, then the field is always optional, as it is a message }}
     .or(Some(wkt::Value::Null))
     {{/Codec.IsWktValue}}
     ;
-{{/Codec.IsWktNullValue}}
-{{#Codec.IsWktNullValue}}
-{{#Optional}}
-result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?.or(Some(wkt::NullValue));
 {{/Optional}}
 {{^Optional}}
-result.{{Codec.FieldName}} =
-    map.next_value::<std::option::Option<
-        {{{Codec.PrimitiveFieldType}}}
-    >>()?
-    .unwrap_or_default();
+result.{{Codec.FieldName}} = map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()?.unwrap_or_default();
 {{/Optional}}
-{{/Codec.IsWktNullValue}}
 {{/IsOneOf}}
 {{#IsOneOf}}
 if result.{{Group.Codec.FieldName}}.is_some() {
-    return Err(A::Error::duplicate_field("multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}"))
+    return std::result::Result::Err(A::Error::duplicate_field(
+        "multiple values for `{{Group.Codec.FieldName}}`, a oneof with full ID {{ID}}, latest field was {{JSONName}}",
+    ));
 }
 result.{{Group.Codec.FieldName}} = std::option::Option::Some(
     {{Group.Codec.QualifiedName}}::{{Codec.BranchName}}(
-        map.next_value::<{{{Codec.FieldType}}}>()?
+        map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()?.unwrap_or_default()
     ),
 );
 {{/IsOneOf}}
 {{/Singular}}
 {{! repeated and map fields are never part of a oneof }}
 {{#Repeated}}
-result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?;
+result.{{Codec.FieldName}} = map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()?.unwrap_or_default();
 {{/Repeated}}
 {{#Map}}
-result.{{Codec.FieldName}} = map.next_value::<{{{Codec.FieldType}}}>()?;
+result.{{Codec.FieldName}} = map.next_value::<std::option::Option<{{{Codec.FieldType}}}>>()?.unwrap_or_default();
 {{/Map}}

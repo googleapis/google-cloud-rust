@@ -169,7 +169,7 @@ impl Any {
     /// ```
     pub fn from_msg<T>(message: &T) -> Result<Self, Error>
     where
-        T: crate::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+        T: crate::message::Message,
     {
         let serializer = T::serializer();
         let value = serializer.serialize_to_map(message)?;
@@ -188,7 +188,7 @@ impl Any {
     /// ```
     pub fn to_msg<T>(&self) -> Result<T, Error>
     where
-        T: crate::message::Message + serde::ser::Serialize + serde::de::DeserializeOwned,
+        T: crate::message::Message,
     {
         let map = &self.0;
         let r#type = map
@@ -222,6 +222,7 @@ impl crate::message::Message for Any {
 }
 
 /// Implement [`serde`](::serde) serialization for [Any].
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl serde::ser::Serialize for Any {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -237,6 +238,7 @@ type ValueMap = serde_json::Map<String, serde_json::Value>;
 const EXPECTED: &str = "a valid type URL string in the @type field";
 
 /// Implement [`serde`](::serde) deserialization for [Any].
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl<'de> serde::de::Deserialize<'de> for Any {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where

@@ -14,10 +14,10 @@
 
 [general]
 specification-source = 'google/cloud/aiplatform/v1'
-service-config = 'google/cloud/aiplatform/v1/aiplatform_v1.yaml'
+service-config       = 'google/cloud/aiplatform/v1/aiplatform_v1.yaml'
 
 [codec]
 copyright-year = '2025'
 # TODO(#893) - handle the bad HTML tags in this library.
 disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links,invalid_html_tags"
-per-service-features = 'true'
+per-service-features      = 'true'

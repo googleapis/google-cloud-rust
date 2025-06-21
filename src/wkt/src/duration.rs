@@ -469,6 +469,7 @@ impl From<Duration> for chrono::Duration {
 }
 
 /// Implement [`serde`](::serde) serialization for [Duration].
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl serde::ser::Serialize for Duration {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -498,6 +499,7 @@ impl serde::de::Visitor<'_> for DurationVisitor {
 }
 
 /// Implement [`serde`](::serde) deserialization for [`Duration`].
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl<'de> serde::de::Deserialize<'de> for Duration {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where

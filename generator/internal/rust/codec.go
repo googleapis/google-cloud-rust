@@ -136,12 +136,6 @@ func newCodec(protobufSource bool, options map[string]string) (*codec, error) {
 				return nil, fmt.Errorf("cannot convert `has-veneer` value %q to boolean: %w", definition, err)
 			}
 			codec.hasVeneer = value
-		case key == "with-generated-serde":
-			value, err := strconv.ParseBool(definition)
-			if err != nil {
-				return nil, fmt.Errorf("cannot convert `with-generated-serde` value %q to boolean: %w", definition, err)
-			}
-			codec.withGeneratedSerde = value
 		default:
 			return nil, fmt.Errorf("unknown Rust codec option %q", key)
 		}
@@ -254,8 +248,6 @@ type codec struct {
 	perServiceFeatures bool
 	// If true, there is a handwritten client surface.
 	hasVeneer bool
-	// If true, enable helper types for generated serde serialization
-	withGeneratedSerde bool
 }
 
 type systemParameter struct {
@@ -415,218 +407,6 @@ func scalarFieldType(f *api.Field) string {
 	return out
 }
 
-func fieldFormatter(typez api.Typez) string {
-	switch typez {
-	case api.INT64_TYPE, api.SINT64_TYPE, api.SFIXED64_TYPE:
-		return "wkt::internal::I64"
-	case api.UINT64_TYPE, api.FIXED64_TYPE:
-		return "wkt::internal::U64"
-	case api.INT32_TYPE, api.SINT32_TYPE, api.SFIXED32_TYPE:
-		return "wkt::internal::I32"
-	case api.UINT32_TYPE, api.FIXED32_TYPE:
-		return "wkt::internal::U32"
-	case api.FLOAT_TYPE:
-		return "wkt::internal::F32"
-	case api.DOUBLE_TYPE:
-		return "wkt::internal::F64"
-	case api.BYTES_TYPE:
-		return "serde_with::base64::Base64"
-	default:
-		return "_"
-	}
-}
-
-func keyFieldFormatter(typez api.Typez) string {
-	if typez == api.BOOL_TYPE {
-		return "serde_with::DisplayFromStr"
-	}
-	return fieldFormatter(typez)
-}
-
-func fieldSkipAttributes(f *api.Field) []string {
-	// oneofs have explicit presence, and default values should be serialized:
-	// https://protobuf.dev/programming-guides/field_presence/.
-	if f.IsOneOf {
-		return []string{}
-	}
-	if f.Optional {
-		return []string{`#[serde(skip_serializing_if = "std::option::Option::is_none")]`}
-	}
-	if f.Repeated {
-		return []string{`#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`}
-	}
-	switch f.Typez {
-	case api.STRING_TYPE:
-		return []string{`#[serde(skip_serializing_if = "std::string::String::is_empty")]`}
-	case api.BYTES_TYPE:
-		return []string{`#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]`}
-	case api.DOUBLE_TYPE,
-		api.FLOAT_TYPE,
-		api.INT64_TYPE,
-		api.UINT64_TYPE,
-		api.INT32_TYPE,
-		api.FIXED64_TYPE,
-		api.FIXED32_TYPE,
-		api.BOOL_TYPE,
-		api.UINT32_TYPE,
-		api.SFIXED32_TYPE,
-		api.SFIXED64_TYPE,
-		api.SINT32_TYPE,
-		api.SINT64_TYPE,
-		api.ENUM_TYPE:
-		return []string{`#[serde(skip_serializing_if = "wkt::internal::is_default")]`}
-	default:
-		return []string{}
-	}
-}
-
-func fieldBaseAttributes(f *api.Field) []string {
-	// Names starting with `_` are not handled quite right by serde.
-	if toCamel(f.Name) != f.JSONName || strings.HasPrefix(f.Name, "_") {
-		return []string{fmt.Sprintf(`#[serde(rename = "%s")]`, f.JSONName)}
-	}
-	return []string{}
-}
-
-func messageFieldAttributes(f *api.Field, attributes []string) []string {
-	// Message fields could be `Vec<..>`, and are always optional:
-	attributes = messageFieldSkipAttributes(f, attributes)
-	var formatter string
-	switch f.TypezID {
-	case ".google.protobuf.BytesValue":
-		formatter = fieldFormatter(api.BYTES_TYPE)
-	case ".google.protobuf.UInt64Value":
-		formatter = fieldFormatter(api.UINT64_TYPE)
-	case ".google.protobuf.Int64Value":
-		formatter = fieldFormatter(api.INT64_TYPE)
-	case ".google.protobuf.UInt32Value":
-		formatter = fieldFormatter(api.UINT32_TYPE)
-	case ".google.protobuf.Int32Value":
-		formatter = fieldFormatter(api.INT32_TYPE)
-	case ".google.protobuf.FloatValue":
-		formatter = fieldFormatter(api.FLOAT_TYPE)
-	case ".google.protobuf.DoubleValue":
-		formatter = fieldFormatter(api.DOUBLE_TYPE)
-	default:
-		formatter = "_"
-	}
-	if f.IsOneOf {
-		if formatter == "_" {
-			return attributes
-		}
-		return append(attributes, fmt.Sprintf(`#[serde_as(as = "%s")]`, oneOfFieldTypeFormatter(f, false, formatter)))
-	}
-	if f.Optional {
-		if f.TypezID == ".google.protobuf.Value" {
-			return append(attributes, `#[serde_as(as = "wkt::internal::OptionalValue")]`)
-		}
-		if formatter == "_" {
-			return attributes
-		}
-		return append(
-			attributes,
-			fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
-	}
-	if f.Repeated {
-		return append(
-			attributes,
-			fmt.Sprintf(`#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<%s>>")]`, formatter))
-	}
-	return append(
-		attributes,
-		fmt.Sprintf(`#[serde_as(as = "serde_with::DefaultOnNull<%s>")]`, formatter))
-}
-
-func messageFieldSkipAttributes(f *api.Field, attributes []string) []string {
-	// oneofs have explicit presence, and default values should be serialized:
-	// https://protobuf.dev/programming-guides/field_presence/.
-	if f.IsOneOf {
-		return attributes
-	}
-	if f.Optional {
-		attributes = append(attributes, `#[serde(skip_serializing_if = "std::option::Option::is_none")]`)
-	}
-	if f.Repeated && !f.IsOneOf {
-		attributes = append(attributes, `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]`)
-	}
-	return attributes
-}
-
-func mapFieldAttributes(f *api.Field, message *api.Message, attributes []string) []string {
-	// map<> field types require special treatment.
-	if !f.IsOneOf {
-		attributes = append(attributes, `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]`)
-	}
-	var key, value *api.Field
-	for _, f := range message.Fields {
-		switch f.Name {
-		case "key":
-			key = f
-		case "value":
-			value = f
-		default:
-		}
-	}
-	if key == nil || value == nil {
-		slog.Error("missing key or value in map field")
-		return attributes
-	}
-	keyFormat := keyFieldFormatter(key.Typez)
-	valFormat := fieldFormatter(value.Typez)
-	return append(attributes, fmt.Sprintf(`#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<%s, %s>>")]`, keyFormat, valFormat))
-
-}
-
-func fieldAttributes(f *api.Field, state *api.APIState) []string {
-	if f.Synthetic {
-		return []string{`#[serde(skip)]`}
-	}
-	attributes := fieldBaseAttributes(f)
-	switch f.Typez {
-	case api.GROUP_TYPE:
-		return append(attributes, fieldSkipAttributes(f)...)
-
-	case api.BOOL_TYPE,
-		api.STRING_TYPE,
-		api.ENUM_TYPE,
-		api.INT32_TYPE,
-		api.SFIXED32_TYPE,
-		api.SINT32_TYPE,
-		api.UINT32_TYPE,
-		api.FIXED32_TYPE,
-		api.INT64_TYPE,
-		api.UINT64_TYPE,
-		api.FIXED64_TYPE,
-		api.SFIXED64_TYPE,
-		api.SINT64_TYPE,
-		api.BYTES_TYPE,
-		api.FLOAT_TYPE,
-		api.DOUBLE_TYPE:
-		formatter := fieldFormatter(f.Typez)
-		attributes = append(attributes, fieldSkipAttributes(f)...)
-		if f.Optional {
-			if formatter != "_" {
-				attributes = append(attributes, fmt.Sprintf(`#[serde_as(as = "std::option::Option<%s>")]`, formatter))
-			}
-			return attributes
-		}
-		if f.Repeated {
-			return append(attributes, fmt.Sprintf(`#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<%s>>")]`, formatter))
-		}
-		return append(attributes, fmt.Sprintf(`#[serde_as(as = "serde_with::DefaultOnNull<%s>")]`, formatter))
-
-	case api.MESSAGE_TYPE:
-		if message, ok := state.MessageByID[f.TypezID]; ok && message.IsMap {
-			return mapFieldAttributes(f, message, attributes)
-		}
-		return messageFieldAttributes(f, attributes)
-
-	default:
-		slog.Error("unexpected field type", "field", *f)
-		return attributes
-	}
-}
-
 func oneOfFieldType(f *api.Field, state *api.APIState, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) string {
 	baseType := baseFieldType(f, state, modulePath, sourceSpecificationPackageName, packageMapping)
 	return oneOfFieldTypeFormatter(f, language.FieldIsMap(f, state), baseType)
@@ -781,15 +561,6 @@ func (c *codec) methodInOutTypeName(id string, state *api.APIState, sourceSpecif
 	return fullyQualifiedMessageName(m, c.modulePath, sourceSpecificationPackageName, c.packageMapping)
 }
 
-func messageAttributes() []string {
-	return []string{
-		`#[serde_with::serde_as]`,
-		`#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]`,
-		`#[serde(default, rename_all = "camelCase")]`,
-		`#[non_exhaustive]`,
-	}
-}
-
 func messageScopeName(m *api.Message, childPackageName, modulePath, sourceSpecificationPackageName string, packageMapping map[string]*packagez) string {
 	rustPkg := func(packageName string) string {
 		if packageName == sourceSpecificationPackageName {
@@ -908,7 +679,7 @@ func bodyAccessor(m *api.Method) string {
 func httpPathFmt(m *api.PathInfo) string {
 	binding := m.Bindings[0]
 	fmt := ""
-	for _, segment := range binding.PathTemplate {
+	for _, segment := range binding.LegacyPathTemplate {
 		if segment.Literal != nil {
 			fmt = fmt + "/" + *segment.Literal
 		} else if segment.FieldPath != nil {
@@ -997,7 +768,7 @@ func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []pa
 		return []pathArg{}
 	}
 	var params []pathArg
-	for _, arg := range h.Bindings[0].PathTemplate {
+	for _, arg := range h.Bindings[0].LegacyPathTemplate {
 		if arg.FieldPath != nil {
 			leafTypez := leafFieldTypez(*arg.FieldPath, message, state)
 			params = append(params, pathArg{
@@ -1335,6 +1106,9 @@ func isLinkDestination(line string, matchStart, matchEnd int) bool {
 func processList(list *ast.List, indentLevel int, documentationBytes []byte, elementID string) []string {
 	var results []string
 	listMarker := string(list.Marker)
+	if list.IsOrdered() {
+		listMarker = "1."
+	}
 	for child := list.FirstChild(); child != nil; child = child.NextSibling() {
 		if child.Kind() == ast.KindListItem {
 			listItems := processListItem(child.(*ast.ListItem), indentLevel, listMarker, documentationBytes, elementID)
@@ -1345,13 +1119,27 @@ func processList(list *ast.List, indentLevel int, documentationBytes []byte, ele
 }
 
 func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string, documentationBytes []byte, elementID string) []string {
+	var markerIndent int
+	switch len(listMarker) {
+	case 1:
+		markerIndent = 2
+	case 2:
+		markerIndent = 3
+	default:
+		markerIndent = 2
+	}
 	var results []string
+	paragraphStart := listMarker
 	for child := listItem.FirstChild(); child != nil; child = child.NextSibling() {
+		if child.Kind() == ast.KindListItem {
+			paragraphStart = listMarker
+		}
 		if child.Kind() == ast.KindList {
-			nestedListItems := processList(child.(*ast.List), indentLevel+1, documentationBytes, elementID)
+			nestedListItems := processList(child.(*ast.List), indentLevel+markerIndent, documentationBytes, elementID)
 			results = append(results, nestedListItems...)
 			break
-		} else if child.Kind() == ast.KindParagraph || child.Kind() == ast.KindTextBlock {
+		}
+		if child.Kind() == ast.KindParagraph || child.Kind() == ast.KindTextBlock {
 			if child.Lines().Len() == 0 {
 				// This indicates a bug in the documentation that should be
 				// fixed upstream. We continue despite the error because missing
@@ -1361,11 +1149,8 @@ func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string,
 			}
 			for i := 0; i < child.Lines().Len(); i++ {
 				line := child.Lines().At(i)
-				if i == 0 {
-					results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), listMarker, processCommentLine(child, line, documentationBytes)))
-				} else {
-					results = append(results, fmt.Sprintf("%s%s", indent(indentLevel+1), processCommentLine(child, line, documentationBytes)))
-				}
+				results = append(results, fmt.Sprintf("%s%s %s\n", indent(indentLevel), paragraphStart, processCommentLine(child, line, documentationBytes)))
+				paragraphStart = fmt.Sprintf("%*s", len(listMarker), "")
 			}
 			if child.Kind() == ast.KindParagraph {
 				results = append(results, "\n")
@@ -1376,7 +1161,7 @@ func processListItem(listItem *ast.ListItem, indentLevel int, listMarker string,
 }
 
 func indent(level int) string {
-	return fmt.Sprintf("%*s", level*2, "")
+	return fmt.Sprintf("%*s", level, "")
 }
 
 func annotateCodeBlock(node ast.Node, documentationBytes []byte) []string {
@@ -1722,7 +1507,7 @@ func (c *codec) generateMethod(m *api.Method) bool {
 	if m.PathInfo == nil || len(m.PathInfo.Bindings) == 0 {
 		return false
 	}
-	return len(m.PathInfo.Bindings[0].PathTemplate) != 0
+	return len(m.PathInfo.Bindings[0].LegacyPathTemplate) != 0
 }
 
 // The list of Rust keywords and reserved words can be found at:

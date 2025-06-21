@@ -393,484 +393,6 @@ func TestMethodInOut(t *testing.T) {
 	}
 }
 
-func TestFieldAttributes(t *testing.T) {
-	enum := &api.Enum{
-		Name: "FakeEnum",
-		ID:   "..FakeNum",
-	}
-	message := &api.Message{
-		Name: "Fake",
-		ID:   "..Fake",
-		Fields: []*api.Field{
-			{
-				Name:     "f_int64",
-				JSONName: "fInt64",
-				Typez:    api.INT64_TYPE,
-				Optional: false,
-				Repeated: false,
-			},
-			{
-				Name:     "f_int64_optional",
-				JSONName: "fInt64Optional",
-				Typez:    api.INT64_TYPE,
-				Optional: true,
-				Repeated: false,
-			},
-			{
-				Name:     "f_int64_repeated",
-				JSONName: "fInt64Repeated",
-				Typez:    api.INT64_TYPE,
-				Optional: false,
-				Repeated: true,
-			},
-
-			{
-				Name:     "f_bytes",
-				JSONName: "fBytes",
-				Typez:    api.BYTES_TYPE,
-				Optional: false,
-				Repeated: false,
-			},
-			{
-				Name:     "f_bytes_optional",
-				JSONName: "fBytesOptional",
-				Typez:    api.BYTES_TYPE,
-				Optional: true,
-				Repeated: false,
-			},
-			{
-				Name:     "f_bytes_repeated",
-				JSONName: "fBytesRepeated",
-				Typez:    api.BYTES_TYPE,
-				Optional: false,
-				Repeated: true,
-			},
-
-			{
-				Name:     "f_string",
-				JSONName: "fString",
-				Typez:    api.STRING_TYPE,
-				Optional: false,
-				Repeated: false,
-			},
-			{
-				Name:     "f_string_optional",
-				JSONName: "fStringOptional",
-				Typez:    api.STRING_TYPE,
-				Optional: true,
-				Repeated: false,
-			},
-			{
-				Name:     "f_string_repeated",
-				JSONName: "fStringRepeated",
-				Typez:    api.STRING_TYPE,
-				Optional: false,
-				Repeated: true,
-			},
-			{
-				Name:     "f_enum",
-				JSONName: "fEnum",
-				Typez:    api.ENUM_TYPE,
-				TypezID:  "..FakeEnum",
-				Optional: false,
-				Repeated: false,
-			},
-			{
-				Name:     "f_enum_optional",
-				JSONName: "fEnumOptional",
-				Typez:    api.ENUM_TYPE,
-				TypezID:  "..FakeEnum",
-				Optional: true,
-				Repeated: false,
-			},
-			{
-				Name:     "f_enum_repeated",
-				JSONName: "fEnumRepeated",
-				Typez:    api.ENUM_TYPE,
-				TypezID:  "..FakeEnum",
-				Optional: false,
-				Repeated: true,
-			},
-		},
-	}
-	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{enum}, []*api.Service{})
-
-	expectedAttributes := map[string]string{
-		"f_int64":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<wkt::internal::I64>")]`,
-		"f_int64_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<wkt::internal::I64>")]`,
-		"f_int64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I64>>")]`,
-
-		"f_bytes":          `#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]`,
-		"f_bytes_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
-		"f_bytes_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<serde_with::base64::Base64>>")]`,
-
-		"f_string":          `#[serde(skip_serializing_if = "std::string::String::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<_>")]`,
-		"f_string_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"f_string_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]`,
-
-		"f_enum":          `#[serde(skip_serializing_if = "wkt::internal::is_default")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<_>")]`,
-		"f_enum_optional": `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"f_enum_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]`,
-	}
-	loadWellKnownTypes(model.State)
-	for _, field := range message.Fields {
-		want, ok := expectedAttributes[field.Name]
-		if !ok {
-			t.Fatalf("missing expected value for %s", field.Name)
-		}
-		got := strings.Join(fieldAttributes(field, model.State), "\n")
-		if got != want {
-			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
-		}
-	}
-}
-
-func TestMapFieldAttributes(t *testing.T) {
-	target := &api.Message{
-		Name: "Target",
-		ID:   "..Target",
-	}
-	map1 := &api.Message{
-		Name:  "$map<string, string>",
-		ID:    "$map<string, string>",
-		IsMap: true,
-		Fields: []*api.Field{
-			{
-				Name:  "key",
-				Typez: api.STRING_TYPE,
-			},
-			{
-				Name:  "value",
-				Typez: api.STRING_TYPE,
-			},
-		},
-	}
-	map2 := &api.Message{
-		Name:  "$map<string, int64>",
-		ID:    "$map<string, int64>",
-		IsMap: true,
-		Fields: []*api.Field{
-			{
-				Name:     "key",
-				JSONName: "key",
-				Typez:    api.STRING_TYPE,
-			},
-			{
-				Name:     "value",
-				JSONName: "value",
-				Typez:    api.INT64_TYPE,
-			},
-		},
-	}
-	map3 := &api.Message{
-		Name:  "$map<int64, string>",
-		ID:    "$map<int64, string>",
-		IsMap: true,
-		Fields: []*api.Field{
-			{
-				Name:  "key",
-				Typez: api.INT64_TYPE,
-			},
-			{
-				Name:  "value",
-				Typez: api.STRING_TYPE,
-			},
-		},
-	}
-	map4 := &api.Message{
-		Name:  "$map<string, bytes>",
-		ID:    "$map<string, bytes>",
-		IsMap: true,
-		Fields: []*api.Field{
-			{
-				Name:  "key",
-				Typez: api.STRING_TYPE,
-			},
-			{
-				Name:  "value",
-				Typez: api.BYTES_TYPE,
-			},
-		},
-	}
-	map5 := &api.Message{
-		Name:  "$map<bool, string>",
-		ID:    "$map<bool, string>",
-		IsMap: true,
-		Fields: []*api.Field{
-			{
-				Name:  "key",
-				Typez: api.BOOL_TYPE,
-			},
-			{
-				Name:  "value",
-				Typez: api.STRING_TYPE,
-			},
-		},
-	}
-	message := &api.Message{
-		Name: "Fake",
-		ID:   "..Fake",
-		Fields: []*api.Field{
-			{
-				Name:     "target",
-				JSONName: "target",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  target.ID,
-				Optional: true,
-				Repeated: false,
-			},
-			{
-				Name:     "map",
-				JSONName: "map",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  map1.ID,
-			},
-			{
-				Name:     "map_i64",
-				JSONName: "mapI64",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  map2.ID,
-			},
-			{
-				Name:     "map_i64_key",
-				JSONName: "mapI64Key",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  map3.ID,
-			},
-			{
-				Name:     "map_bytes",
-				JSONName: "mapBytes",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  map4.ID,
-			},
-			{
-				Name:     "map_bool",
-				JSONName: "mapBool",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  map5.ID,
-			},
-		},
-	}
-	model := api.NewTestAPI([]*api.Message{target, map1, map2, map3, map4, map5, message}, []*api.Enum{}, []*api.Service{})
-
-	expectedAttributes := map[string]string{
-		"target":      `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"map":         `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, _>>")]`,
-		"map_i64":     `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, wkt::internal::I64>>")]`,
-		"map_i64_key": `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<wkt::internal::I64, _>>")]`,
-		"map_bytes":   `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<_, serde_with::base64::Base64>>")]`,
-		"map_bool":    `#[serde(skip_serializing_if = "std::collections::HashMap::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::collections::HashMap<serde_with::DisplayFromStr, _>>")]`,
-	}
-	loadWellKnownTypes(model.State)
-	for _, field := range message.Fields {
-		want, ok := expectedAttributes[field.Name]
-		if !ok {
-			t.Fatalf("missing expected value for %s", field.Name)
-		}
-		got := strings.Join(fieldAttributes(field, model.State), "\n")
-		if got != want {
-			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
-		}
-	}
-}
-
-func TestWktFieldAttributes(t *testing.T) {
-	message := &api.Message{
-		Name: "Fake",
-		ID:   "..Fake",
-		Fields: []*api.Field{
-			{
-				Name:     "f_int64",
-				JSONName: "fInt64",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.Int64Value",
-				Optional: true,
-			},
-			{
-				Name:     "f_int64_repeated",
-				JSONName: "fInt64Repeated",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.Int64Value",
-				Repeated: true,
-			},
-			{
-				Name:     "f_uint64",
-				JSONName: "fUint64",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.UInt64Value",
-				Optional: true,
-			},
-			{
-				Name:     "f_uint64_repeated",
-				JSONName: "fUint64Repeated",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.UInt64Value",
-				Repeated: true,
-			},
-			{
-				Name:     "f_bytes",
-				JSONName: "fBytes",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.BytesValue",
-				Optional: true,
-			},
-			{
-				Name:     "f_bytes_repeated",
-				JSONName: "fBytesRepeated",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.BytesValue",
-				Repeated: true,
-			},
-			{
-				Name:     "f_string",
-				JSONName: "fString",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.StringValue",
-				Optional: true,
-			},
-			{
-				Name:     "f_string_repeated",
-				JSONName: "fStringRepeated",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.StringValue",
-				Repeated: true,
-			},
-			{
-				Name:     "f_any",
-				JSONName: "fAny",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.Any",
-				Optional: true,
-			},
-			{
-				Name:     "f_any_repeated",
-				JSONName: "fAnyRepeated",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.Any",
-				Repeated: true,
-			},
-		},
-	}
-	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
-
-	expectedAttributes := map[string]string{
-		"f_int64":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<wkt::internal::I64>")]`,
-		"f_int64_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::I64>>")]`,
-		"f_uint64":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<wkt::internal::U64>")]`,
-		"f_uint64_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<wkt::internal::U64>>")]`,
-		"f_bytes":           `#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" + `#[serde_as(as = "std::option::Option<serde_with::base64::Base64>")]`,
-		"f_bytes_repeated":  `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<serde_with::base64::Base64>>")]`,
-		"f_string":          `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"f_string_repeated": `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]`,
-		"f_any":             `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"f_any_repeated":    `#[serde(skip_serializing_if = "std::vec::Vec::is_empty")]` + "\n" + `#[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]`,
-	}
-	loadWellKnownTypes(model.State)
-	for _, field := range message.Fields {
-		want, ok := expectedAttributes[field.Name]
-		if !ok {
-			t.Fatalf("missing expected value for %s", field.Name)
-		}
-		got := strings.Join(fieldAttributes(field, model.State), "\n")
-		if got != want {
-			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
-		}
-	}
-}
-
-func TestFieldLossyName(t *testing.T) {
-	message := &api.Message{
-		Name:          "SecretPayload",
-		ID:            "..SecretPayload",
-		Documentation: "A secret payload resource in the Secret Manager API.",
-		Fields: []*api.Field{
-			{
-				Name:          "data",
-				JSONName:      "data",
-				Documentation: "The secret data. Must be no larger than 64KiB.",
-				Typez:         api.BYTES_TYPE,
-				TypezID:       "bytes",
-			},
-			{
-				Name:          "dataCrc32c",
-				JSONName:      "dataCrc32c",
-				Documentation: "Optional. If specified, SecretManagerService will verify the integrity of the received data.",
-				Typez:         api.INT64_TYPE,
-				TypezID:       "int64",
-				Optional:      true,
-			},
-		},
-	}
-	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
-
-	expectedAttributes := map[string]string{
-		"data": `#[serde(skip_serializing_if = "::bytes::Bytes::is_empty")]` + "\n" +
-			`#[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]`,
-		"dataCrc32c": `#[serde(rename = "dataCrc32c")]` + "\n" +
-			`#[serde(skip_serializing_if = "std::option::Option::is_none")]` + "\n" +
-			`#[serde_as(as = "std::option::Option<wkt::internal::I64>")]`,
-	}
-	loadWellKnownTypes(model.State)
-	for _, field := range message.Fields {
-		want, ok := expectedAttributes[field.Name]
-		if !ok {
-			t.Fatalf("missing expected value for %s", field.Name)
-		}
-		got := strings.Join(fieldAttributes(field, model.State), "\n")
-		if got != want {
-			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
-		}
-	}
-}
-
-func TestSyntheticField(t *testing.T) {
-	message := &api.Message{
-		Name: "Unused",
-		ID:   "..Unused",
-		Fields: []*api.Field{
-			{
-				Name:     "updateMask",
-				JSONName: "updateMask",
-				Typez:    api.MESSAGE_TYPE,
-				TypezID:  ".google.protobuf.FieldMask",
-				Optional: true,
-			},
-			{
-				Name:      "project",
-				JSONName:  "project",
-				Typez:     api.STRING_TYPE,
-				TypezID:   "string",
-				Synthetic: true,
-			},
-			{
-				Name:      "data_crc32c",
-				JSONName:  "dataCrc32c",
-				Typez:     api.STRING_TYPE,
-				TypezID:   "string",
-				Synthetic: true,
-			},
-		},
-	}
-	model := api.NewTestAPI([]*api.Message{message}, []*api.Enum{}, []*api.Service{})
-
-	expectedAttributes := map[string]string{
-		"updateMask":  `#[serde(skip_serializing_if = "std::option::Option::is_none")]`,
-		"project":     `#[serde(skip)]`,
-		"data_crc32c": `#[serde(skip)]`,
-	}
-	loadWellKnownTypes(model.State)
-	for _, field := range message.Fields {
-		want, ok := expectedAttributes[field.Name]
-		if !ok {
-			t.Fatalf("missing expected value for %s", field.Name)
-		}
-		got := strings.Join(fieldAttributes(field, model.State), "\n")
-		if got != want {
-			t.Errorf("mismatched field type for %s, got=%s, want=%s", field.Name, got, want)
-		}
-	}
-}
-
 func rustFieldTypesCases() *api.API {
 	target := &api.Message{
 		Name: "Target",
@@ -1539,6 +1061,59 @@ func TestFormatDocCommentsBullets(t *testing.T) {
 	}
 }
 
+func TestFormatDocCommentsNumbers(t *testing.T) {
+	input := `Numbered lists are different:
+
+1.   A simple list item
+2.   A number list item
+     continued in the next line
+3.   A second list item
+
+     with a second paragraph
+4.   A third list item
+
+     also with a second paragraph
+
+	 * And some nested list items
+	 * and some more
+	   even split ones
+	 * and more
+5.   A fourth list item
+    with some bad indentation
+`
+	want := []string{
+		"/// Numbered lists are different:",
+		"///",
+		"/// 1. A simple list item",
+		"///",
+		"/// 1. A number list item",
+		"///    continued in the next line",
+		"///",
+		"/// 1. A second list item",
+		"///",
+		"///    with a second paragraph",
+		"///",
+		"/// 1. A third list item",
+		"///",
+		"///    also with a second paragraph",
+		"///",
+		"///    * And some nested list items",
+		"///    * and some more",
+		"///      even split ones",
+		"///    * and more",
+		"/// 1. A fourth list item",
+		"///    with some bad indentation",
+		"///",
+	}
+
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
+	c := createRustCodec()
+	got := c.formatDocComments(input, "test-only-ID", model.State, []string{})
+	if diff := cmp.Diff(want, got); diff != "" {
+		t.Errorf("mismatch in FormatDocComments (-want, +got)\n:%s", diff)
+	}
+}
+
 func TestFormatDocCommentsImplicitBlockQuote(t *testing.T) {
 	input := `
 Blockquotes come in many forms. They can start with a leading '> ', as in:
@@ -1960,7 +1535,7 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							PathTemplate: []api.PathSegment{
+							LegacyPathTemplate: []api.LegacyPathSegment{
 								api.NewLiteralPathSegment("/v1/foo"),
 							},
 						},
@@ -1982,7 +1557,7 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							PathTemplate: []api.PathSegment{
+							LegacyPathTemplate: []api.LegacyPathSegment{
 								api.NewLiteralPathSegment("/v1/thing"),
 							},
 						},
@@ -2218,7 +1793,7 @@ func TestPathFmt(t *testing.T) {
 			"/v1/fixed",
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
-					{PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewLiteralPathSegment("fixed")}},
+					{LegacyPathTemplate: []api.LegacyPathSegment{api.NewLiteralPathSegment("v1"), api.NewLiteralPathSegment("fixed")}},
 				},
 			},
 		},
@@ -2226,7 +1801,7 @@ func TestPathFmt(t *testing.T) {
 			"/v1/{}",
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
-					{PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent")}},
+					{LegacyPathTemplate: []api.LegacyPathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent")}},
 				},
 			},
 		},
@@ -2234,7 +1809,7 @@ func TestPathFmt(t *testing.T) {
 			"/v1/{}:action",
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
-					{PathTemplate: []api.PathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent"), api.NewVerbPathSegment("action")}},
+					{LegacyPathTemplate: []api.LegacyPathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent"), api.NewVerbPathSegment("action")}},
 				},
 			},
 		},
@@ -2243,7 +1818,7 @@ func TestPathFmt(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						PathTemplate: []api.PathSegment{
+						LegacyPathTemplate: []api.LegacyPathSegment{
 							api.NewLiteralPathSegment("v1"),
 							api.NewLiteralPathSegment("projects"),
 							api.NewFieldPathPathSegment("project"),
@@ -2316,7 +1891,7 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						PathTemplate: []api.PathSegment{
+						LegacyPathTemplate: []api.LegacyPathSegment{
 							api.NewLiteralPathSegment("v1"),
 							api.NewFieldPathPathSegment("v"),
 						},
@@ -2335,7 +1910,7 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						PathTemplate: []api.PathSegment{
+						LegacyPathTemplate: []api.LegacyPathSegment{
 							api.NewLiteralPathSegment("v1"),
 							api.NewFieldPathPathSegment("w"),
 						},
@@ -2348,7 +1923,7 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						PathTemplate: []api.PathSegment{
+						LegacyPathTemplate: []api.LegacyPathSegment{
 							api.NewLiteralPathSegment("v1"),
 							api.NewFieldPathPathSegment("x"),
 						},
@@ -2366,7 +1941,7 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						PathTemplate: []api.PathSegment{
+						LegacyPathTemplate: []api.LegacyPathSegment{
 							api.NewLiteralPathSegment("v1"),
 							api.NewFieldPathPathSegment("y"),
 						},
@@ -2385,7 +1960,7 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						PathTemplate: []api.PathSegment{
+						LegacyPathTemplate: []api.LegacyPathSegment{
 							api.NewLiteralPathSegment("v1"),
 							api.NewFieldPathPathSegment("z.a"),
 						},
@@ -2405,7 +1980,7 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						PathTemplate: []api.PathSegment{
+						LegacyPathTemplate: []api.LegacyPathSegment{
 							api.NewLiteralPathSegment("v1"),
 							api.NewFieldPathPathSegment("z.b"),
 						},
@@ -2423,7 +1998,7 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						PathTemplate: []api.PathSegment{
+						LegacyPathTemplate: []api.LegacyPathSegment{
 							api.NewLiteralPathSegment("v1"),
 							api.NewFieldPathPathSegment("z.c"),
 						},
@@ -2442,7 +2017,7 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						PathTemplate: []api.PathSegment{
+						LegacyPathTemplate: []api.LegacyPathSegment{
 							api.NewLiteralPathSegment("v1"),
 							api.NewFieldPathPathSegment("z.d"),
 						},
@@ -2466,7 +2041,7 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						PathTemplate: []api.PathSegment{
+						LegacyPathTemplate: []api.LegacyPathSegment{
 							api.NewLiteralPathSegment("v1"),
 							api.NewFieldPathPathSegment("v"),
 							api.NewFieldPathPathSegment("w"),

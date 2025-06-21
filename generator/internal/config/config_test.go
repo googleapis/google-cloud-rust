@@ -133,6 +133,58 @@ func TestMergeLocalForGeneral(t *testing.T) {
 	}
 }
 
+func TestMergeLocalForDocumentationOverrides(t *testing.T) {
+	root := Config{
+		General: GeneralConfig{
+			Language:            "root-language",
+			SpecificationFormat: "root-specification-format",
+		},
+		CommentOverrides: []DocumentationOverride{
+			{
+				ID: "root.Override",
+			},
+		},
+	}
+
+	local := Config{
+		General: GeneralConfig{
+			Language:            "local-language",
+			SpecificationFormat: "local-specification-format",
+			SpecificationSource: "local-specification-source",
+			ServiceConfig:       "local-service-config",
+		},
+		CommentOverrides: []DocumentationOverride{
+			{
+				ID: "local.Override",
+			},
+		},
+	}
+
+	got, err := mergeTestConfigs(t, &root, &local)
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := &Config{
+		General: GeneralConfig{
+			Language:            "local-language",
+			SpecificationFormat: "local-specification-format",
+			SpecificationSource: "local-specification-source",
+			ServiceConfig:       "local-service-config",
+		},
+		Codec:  map[string]string{},
+		Source: map[string]string{},
+		CommentOverrides: []DocumentationOverride{
+			{
+				ID: "local.Override",
+			},
+		},
+	}
+
+	if diff := cmp.Diff(want, got); len(diff) != 0 {
+		t.Errorf("mismatched merged config (-want, +got):\n%s", diff)
+	}
+}
+
 func TestMergeIgnoreRootSourceAndServiceConfig(t *testing.T) {
 	root := Config{
 		General: GeneralConfig{

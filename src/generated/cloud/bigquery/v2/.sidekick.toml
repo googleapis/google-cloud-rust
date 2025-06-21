@@ -14,7 +14,7 @@
 
 [general]
 specification-source = 'google/cloud/bigquery/v2'
-service-config = 'google/cloud/bigquery/v2/bigquery_v2.yaml'
+service-config       = 'google/cloud/bigquery/v2/bigquery_v2.yaml'
 
 [source]
 exclude-list = """\
@@ -30,6 +30,6 @@ session_info.proto,\
 """
 
 [codec]
-copyright-year = '2025'
+copyright-year        = '2025'
 package-name-override = 'google-cloud-bigquery-v2'
-not-for-publication = 'true'
+not-for-publication   = 'true'

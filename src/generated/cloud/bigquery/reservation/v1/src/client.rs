@@ -327,10 +327,10 @@ impl ReservationService {
     /// Deprecated: Looks up assignments for a specified resource for a particular
     /// region. If the request is about a project:
     ///
-    /// . Assignments created on the project will be returned if they exist.
-    /// . Otherwise assignments created on the closest ancestor will be
-    ///   returned.
-    /// . Assignments for different JobTypes will all be returned.
+    /// 1. Assignments created on the project will be returned if they exist.
+    /// 1. Otherwise assignments created on the closest ancestor will be
+    ///    returned.
+    /// 1. Assignments for different JobTypes will all be returned.
     ///
     /// The same logic applies if the request is about a folder.
     ///
@@ -340,10 +340,10 @@ impl ReservationService {
     /// Comparing to ListAssignments, there are some behavior
     /// differences:
     ///
-    /// . permission on the assignee will be verified in this API.
-    /// . Hierarchy lookup (project->folder->organization) happens in this API.
-    /// . Parent here is `projects/*/locations/*`, instead of
-    ///   `projects/*/locations/*reservations/*`.
+    /// 1. permission on the assignee will be verified in this API.
+    /// 1. Hierarchy lookup (project->folder->organization) happens in this API.
+    /// 1. Parent here is `projects/*/locations/*`, instead of
+    ///    `projects/*/locations/*reservations/*`.
     ///
     /// **Note** "-" cannot be used for projects
     /// nor locations.
@@ -355,10 +355,10 @@ impl ReservationService {
     /// Looks up assignments for a specified resource for a particular region.
     /// If the request is about a project:
     ///
-    /// . Assignments created on the project will be returned if they exist.
-    /// . Otherwise assignments created on the closest ancestor will be
-    ///   returned.
-    /// . Assignments for different JobTypes will all be returned.
+    /// 1. Assignments created on the project will be returned if they exist.
+    /// 1. Otherwise assignments created on the closest ancestor will be
+    ///    returned.
+    /// 1. Assignments for different JobTypes will all be returned.
     ///
     /// The same logic applies if the request is about a folder.
     ///
@@ -368,10 +368,10 @@ impl ReservationService {
     /// Comparing to ListAssignments, there are some behavior
     /// differences:
     ///
-    /// . permission on the assignee will be verified in this API.
-    /// . Hierarchy lookup (project->folder->organization) happens in this API.
-    /// . Parent here is `projects/*/locations/*`, instead of
-    ///   `projects/*/locations/*reservations/*`.
+    /// 1. permission on the assignee will be verified in this API.
+    /// 1. Hierarchy lookup (project->folder->organization) happens in this API.
+    /// 1. Parent here is `projects/*/locations/*`, instead of
+    ///    `projects/*/locations/*reservations/*`.
     pub fn search_all_assignments(
         &self,
     ) -> super::builder::reservation_service::SearchAllAssignments {

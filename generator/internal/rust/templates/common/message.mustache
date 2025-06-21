@@ -19,9 +19,8 @@ limitations under the License.
 {{{.}}}
 {{/Codec.DocLines}}
 {{> /templates/common/feature_gate}}
-{{#Codec.MessageAttributes}}
-{{{.}}}
-{{/Codec.MessageAttributes}}
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
 {{#Deprecated}}
 #[deprecated]
 {{/Deprecated}}
@@ -31,9 +30,6 @@ pub struct {{Codec.Name}} {
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
-    {{#Codec.Attributes}}
-    {{{.}}}
-    {{/Codec.Attributes}}
     {{#Deprecated}}
     #[deprecated]
     {{/Deprecated}}
@@ -44,11 +40,9 @@ pub struct {{Codec.Name}} {
     {{#Codec.DocLines}}
     {{{.}}}
     {{/Codec.DocLines}}
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub {{Codec.FieldName}}: std::option::Option<{{{Codec.FieldType}}}>,
     {{/OneOfs}}
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -250,20 +244,14 @@ impl gax::paginator::internal::PageableResponse for {{Codec.Name}} {
     {{/NextPageToken}}
 }
 {{/Pagination}}
-{{#Codec.WithGeneratedSerde}}
 
 {{!
     We will grow this code over multiple PRs to complete the serialization and
     deserialization of message types via code generation.
-
-    TODO(#2376) - remove the helper type and all the serde annotations once
-    this is functional.
 }}
+{{> /templates/common/feature_gate}}
 #[doc(hidden)]
-#[derive(Clone, Debug, PartialEq)]
-pub struct __{{Codec.Name}}(pub {{Codec.Name}});
-
-impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
+impl<'de> serde::de::Deserialize<'de> for {{Codec.Name}} {
     fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
     where
         D: serde::Deserializer<'de>,
@@ -280,9 +268,12 @@ impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
             where
                 A: serde::de::MapAccess<'de>,
             {
+                use std::option::Option::Some;
                 #[allow(unused_imports)]
                 use serde::de::Error;
+                {{#HasFields}}
                 let mut fields = std::collections::HashSet::new();
+                {{/HasFields}}
                 let mut result = Self::Value::new();
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
@@ -306,37 +297,42 @@ impl<'de> serde::de::Deserialize<'de> for __{{Codec.Name}} {
                         },
                     }
                 }
-                Ok(result)
+                std::result::Result::Ok(result)
             }
         }
-        deserializer.deserialize_any(Visitor).map(__{{Codec.Name}})
+        deserializer.deserialize_any(Visitor)
     }
 }
 
-impl serde::ser::Serialize for __{{Codec.Name}} {
+{{> /templates/common/feature_gate}}
+#[doc(hidden)]
+impl serde::ser::Serialize for {{Codec.Name}} {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
     {
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
         use serde::ser::SerializeMap;
-        let mut state = serializer.serialize_map(None)?;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
         {{#Fields}}
+        {{^Synthetic}}
         {{^Codec.RequiresSerdeAs}}
         {{> /templates/common/ser_plain_message_field}}
         {{/Codec.RequiresSerdeAs}}
         {{#Codec.RequiresSerdeAs}}
         {{> /templates/common/ser_with_message_field}}
         {{/Codec.RequiresSerdeAs}}
+        {{/Synthetic}}
         {{/Fields}}
-        if !self.0._unknown_fields.is_empty() {
-            for (key, value) in self.0._unknown_fields.iter() {
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
                 state.serialize_entry(key, &value)?;
             }
         }
         state.end()
     }
 }
-{{/Codec.WithGeneratedSerde}}
 {{#Codec.HasNestedTypes}}
 
 /// Defines additional types related to [{{Name}}].

@@ -14,7 +14,7 @@
 
 #[cfg(test)]
 mod test {
-    use common::{__MessageWithF64, MessageWithF64};
+    use common::MessageWithF64;
     use serde_json::{Value, json};
     use test_case::test_case;
     type Result = anyhow::Result<()>;
@@ -38,7 +38,7 @@ mod test {
     #[test_case(MessageWithF64::new().set_map([("a", 0_f64), ("b", 1_f64)]), json!({"map": {"a": 0.0, "b": 1.0}}))]
     #[test_case(MessageWithF64::new().set_map([("a", f64::NAN), ("b", f64::INFINITY)]), json!({"map": {"a": "NaN", "b": "Infinity"}}))]
     fn test_ser(input: MessageWithF64, want: Value) -> Result {
-        let got = serde_json::to_value(__MessageWithF64(input))?;
+        let got = serde_json::to_value(input)?;
         assert_eq!(got, want);
         Ok(())
     }
@@ -56,8 +56,8 @@ mod test {
     #[test_case(MessageWithF64::new().set_map([("", 0_f64);0]), json!({}))]
     #[test_case(MessageWithF64::new().set_map([("a", 0_f64), ("b", 1_f64)]), json!({"map": {"a": 0.0, "b": 1.0}}))]
     fn test_de(want: MessageWithF64, input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithF64>(input)?;
-        assert_eq!(got.0, want);
+        let got = serde_json::from_value::<MessageWithF64>(input)?;
+        assert_eq!(got, want);
         Ok(())
     }
 
@@ -68,13 +68,13 @@ mod test {
     #[test_case(MessageWithF64::new().set_optional(-f64::INFINITY), json!({"optional": "-Infinity"}); "optional minus inf")]
     #[test_case(MessageWithF64::new().set_optional(f64::NAN), json!({"optional": "NaN"}))]
     fn test_de_exceptional(want: MessageWithF64, input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithF64>(input)?;
+        let got = serde_json::from_value::<MessageWithF64>(input)?;
         assert_eq!(
-            want.singular.total_cmp(&got.0.singular),
+            want.singular.total_cmp(&got.singular),
             std::cmp::Ordering::Equal,
             "{got:?} != {want:?})"
         );
-        match (&want.optional, &got.0.optional) {
+        match (&want.optional, &got.optional) {
             (None, None) => {}
             (Some(l), Some(r)) => {
                 assert_eq!(
@@ -88,12 +88,22 @@ mod test {
         Ok(())
     }
 
+    #[test_case(r#"{"singular":  null}"#)]
+    #[test_case(r#"{"optional":  null}"#)]
+    #[test_case(r#"{"repeated":  null}"#)]
+    #[test_case(r#"{"map":       null}"#)]
+    fn test_null_is_default(input: &str) -> Result {
+        let got = serde_json::from_str::<MessageWithF64>(input)?;
+        assert_eq!(got, MessageWithF64::default());
+        Ok(())
+    }
+
     #[test_case(r#"{"singular": 0,  "singular": 0}"#)]
     #[test_case(r#"{"optional": 0,  "optional": 0}"#)]
     #[test_case(r#"{"repeated": [], "repeated": []}"#)]
     #[test_case(r#"{"map":      {}, "map":      {}}"#)]
     fn reject_duplicate_fields(input: &str) -> Result {
-        let err = serde_json::from_str::<__MessageWithF64>(input).unwrap_err();
+        let err = serde_json::from_str::<MessageWithF64>(input).unwrap_err();
         assert!(err.is_data(), "{err:?}");
         Ok(())
     }
@@ -101,7 +111,7 @@ mod test {
     #[test_case(json!({"unknown": "test-value"}))]
     #[test_case(json!({"unknown": "test-value", "moreUnknown": {"a": 1, "b": 2}}))]
     fn test_unknown(input: Value) -> Result {
-        let deser = serde_json::from_value::<__MessageWithF64>(input.clone())?;
+        let deser = serde_json::from_value::<MessageWithF64>(input.clone())?;
         let got = serde_json::to_value(deser)?;
         assert_eq!(got, input);
         Ok(())

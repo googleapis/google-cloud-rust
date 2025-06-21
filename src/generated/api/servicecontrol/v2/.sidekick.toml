@@ -17,4 +17,18 @@ specification-source = 'google/api/servicecontrol/v2'
 service-config = 'google/api/servicecontrol/v2/servicecontrol.yaml'
 
 [codec]
-copyright-year = '2025'
+copyright-year       = '2025'
+
+[[documentation-overrides]]
+id      = '.google.api.servicecontrol.v2.ResourceInfo.container'
+match   = """
+    - `projects/<project-id or project-number>`
+    - `folders/<folder-id>`
+    - `organizations/<organization-id>`
+"""
+replace = """
+- `projects/<project-id or project-number>`
+- `folders/<folder-id>`
+- `organizations/<organization-id>`
+
+"""

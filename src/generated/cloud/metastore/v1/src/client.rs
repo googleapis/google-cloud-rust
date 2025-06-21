@@ -48,7 +48,7 @@
 ///
 /// * Dataproc Metastore services are resources with names of the form:
 ///
-/// * `/projects/{project_number}/locations/{location_id}/services/{service_id}`.
+///   `/projects/{project_number}/locations/{location_id}/services/{service_id}`.
 ///
 ///
 /// # Configuration

@@ -20,26 +20,17 @@
 /// Meant to encapsulate all types of tests: successes, skips, failures, etc.
 /// Therefore, this may or may not have a failure message. Failure messages
 /// may be truncated for our failure lists.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct TestStatus {
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub name: std::string::String,
 
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub failure_message: std::string::String,
 
     /// What an actual test name matched to in a failure list. Can be wildcarded or
     /// an exact match without wildcards.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub matched_name: std::string::String,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -73,19 +64,148 @@ impl wkt::message::Message for TestStatus {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for TestStatus {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __failure_message,
+            __matched_name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for TestStatus")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "failureMessage" => Ok(__FieldTag::__failure_message),
+                            "failure_message" => Ok(__FieldTag::__failure_message),
+                            "matchedName" => Ok(__FieldTag::__matched_name),
+                            "matched_name" => Ok(__FieldTag::__matched_name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = TestStatus;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct TestStatus")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__failure_message => {
+                            if !fields.insert(__FieldTag::__failure_message) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for failure_message",
+                                ));
+                            }
+                            result.failure_message = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__matched_name => {
+                            if !fields.insert(__FieldTag::__matched_name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for matched_name",
+                                ));
+                            }
+                            result.matched_name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for TestStatus {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.failure_message.is_empty() {
+            state.serialize_entry("failureMessage", &self.failure_message)?;
+        }
+        if !self.matched_name.is_empty() {
+            state.serialize_entry("matchedName", &self.matched_name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// The conformance runner will request a list of failures as the first request.
 /// This will be known by message_type == "conformance.FailureSet", a conformance
 /// test should return a serialized FailureSet in protobuf_payload.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FailureSet {
-    #[serde(skip_serializing_if = "std::vec::Vec::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<std::vec::Vec<_>>")]
     pub test: std::vec::Vec<crate::generated::gapic::model::TestStatus>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -112,19 +232,119 @@ impl wkt::message::Message for FailureSet {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for FailureSet {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __test,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for FailureSet")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "test" => Ok(__FieldTag::__test),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = FailureSet;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct FailureSet")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__test => {
+                            if !fields.insert(__FieldTag::__test) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for test",
+                                ));
+                            }
+                            result.test = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::generated::gapic::model::TestStatus>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for FailureSet {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.test.is_empty() {
+            state.serialize_entry("test", &self.test)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Represents a single test case's input.  The testee should:
 ///
-/// . parse this proto (which should always succeed)
-/// . parse the protobuf or JSON payload in "payload" (which may fail)
-/// . if the parse succeeded, serialize the message in the requested format.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+/// 1. parse this proto (which should always succeed)
+/// 1. parse the protobuf or JSON payload in "payload" (which may fail)
+/// 1. if the parse succeeded, serialize the message in the requested format.
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConformanceRequest {
     /// Which format should the testee serialize its message to?
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub requested_output_format: crate::generated::gapic::model::WireFormat,
 
     /// The full name for the test message to use; for the moment, either:
@@ -133,35 +353,26 @@ pub struct ConformanceRequest {
     /// protobuf_test_messages.editions.proto2.TestAllTypesProto2 or
     /// protobuf_test_messages.editions.proto3.TestAllTypesProto3 or
     /// protobuf_test_messages.editions.TestAllTypesEdition2023.
-    #[serde(skip_serializing_if = "std::string::String::is_empty")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub message_type: std::string::String,
 
     /// Each test is given a specific test category. Some category may need
     /// specific support in testee programs. Refer to the definition of
     /// TestCategory for more information.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub test_category: crate::generated::gapic::model::TestCategory,
 
     /// Specify details for how to encode jspb.
-    #[serde(skip_serializing_if = "std::option::Option::is_none")]
     pub jspb_encoding_options:
         std::option::Option<crate::generated::gapic::model::JspbEncodingConfig>,
 
     /// This can be used in json and text format. If true, testee should print
     /// unknown fields instead of ignore. This feature is optional.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub print_unknown_fields: bool,
 
     /// The payload (whether protobuf of JSON) is always for a
     /// protobuf_test_messages.proto3.TestAllTypes proto (as defined in
     /// src/google/protobuf/proto3_test_messages.proto).
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub payload: std::option::Option<crate::generated::gapic::model::conformance_request::Payload>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -345,6 +556,285 @@ impl wkt::message::Message for ConformanceRequest {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ConformanceRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __protobuf_payload,
+            __json_payload,
+            __jspb_payload,
+            __text_payload,
+            __requested_output_format,
+            __message_type,
+            __test_category,
+            __jspb_encoding_options,
+            __print_unknown_fields,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ConformanceRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "protobufPayload" => Ok(__FieldTag::__protobuf_payload),
+                            "protobuf_payload" => Ok(__FieldTag::__protobuf_payload),
+                            "jsonPayload" => Ok(__FieldTag::__json_payload),
+                            "json_payload" => Ok(__FieldTag::__json_payload),
+                            "jspbPayload" => Ok(__FieldTag::__jspb_payload),
+                            "jspb_payload" => Ok(__FieldTag::__jspb_payload),
+                            "textPayload" => Ok(__FieldTag::__text_payload),
+                            "text_payload" => Ok(__FieldTag::__text_payload),
+                            "requestedOutputFormat" => Ok(__FieldTag::__requested_output_format),
+                            "requested_output_format" => Ok(__FieldTag::__requested_output_format),
+                            "messageType" => Ok(__FieldTag::__message_type),
+                            "message_type" => Ok(__FieldTag::__message_type),
+                            "testCategory" => Ok(__FieldTag::__test_category),
+                            "test_category" => Ok(__FieldTag::__test_category),
+                            "jspbEncodingOptions" => Ok(__FieldTag::__jspb_encoding_options),
+                            "jspb_encoding_options" => Ok(__FieldTag::__jspb_encoding_options),
+                            "printUnknownFields" => Ok(__FieldTag::__print_unknown_fields),
+                            "print_unknown_fields" => Ok(__FieldTag::__print_unknown_fields),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ConformanceRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ConformanceRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__protobuf_payload => {
+                            if !fields.insert(__FieldTag::__protobuf_payload) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for protobuf_payload",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            if result.payload.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `payload`, a oneof with full ID .conformance.ConformanceRequest.protobuf_payload, latest field was protobufPayload",
+                                ));
+                            }
+                            result.payload = std::option::Option::Some(
+                                crate::generated::gapic::model::conformance_request::Payload::ProtobufPayload(
+                                    map.next_value::<__With>()?.0.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__json_payload => {
+                            if !fields.insert(__FieldTag::__json_payload) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for json_payload",
+                                ));
+                            }
+                            if result.payload.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `payload`, a oneof with full ID .conformance.ConformanceRequest.json_payload, latest field was jsonPayload",
+                                ));
+                            }
+                            result.payload = std::option::Option::Some(
+                                crate::generated::gapic::model::conformance_request::Payload::JsonPayload(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__jspb_payload => {
+                            if !fields.insert(__FieldTag::__jspb_payload) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for jspb_payload",
+                                ));
+                            }
+                            if result.payload.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `payload`, a oneof with full ID .conformance.ConformanceRequest.jspb_payload, latest field was jspbPayload",
+                                ));
+                            }
+                            result.payload = std::option::Option::Some(
+                                crate::generated::gapic::model::conformance_request::Payload::JspbPayload(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__text_payload => {
+                            if !fields.insert(__FieldTag::__text_payload) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for text_payload",
+                                ));
+                            }
+                            if result.payload.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `payload`, a oneof with full ID .conformance.ConformanceRequest.text_payload, latest field was textPayload",
+                                ));
+                            }
+                            result.payload = std::option::Option::Some(
+                                crate::generated::gapic::model::conformance_request::Payload::TextPayload(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__requested_output_format => {
+                            if !fields.insert(__FieldTag::__requested_output_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for requested_output_format",
+                                ));
+                            }
+                            result.requested_output_format = map.next_value::<std::option::Option<crate::generated::gapic::model::WireFormat>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__message_type => {
+                            if !fields.insert(__FieldTag::__message_type) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for message_type",
+                                ));
+                            }
+                            result.message_type = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__test_category => {
+                            if !fields.insert(__FieldTag::__test_category) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for test_category",
+                                ));
+                            }
+                            result.test_category =
+                                map.next_value::<std::option::Option<
+                                    crate::generated::gapic::model::TestCategory,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__jspb_encoding_options => {
+                            if !fields.insert(__FieldTag::__jspb_encoding_options) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for jspb_encoding_options",
+                                ));
+                            }
+                            result.jspb_encoding_options = map.next_value::<std::option::Option<
+                                crate::generated::gapic::model::JspbEncodingConfig,
+                            >>()?;
+                        }
+                        __FieldTag::__print_unknown_fields => {
+                            if !fields.insert(__FieldTag::__print_unknown_fields) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for print_unknown_fields",
+                                ));
+                            }
+                            result.print_unknown_fields = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ConformanceRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.protobuf_payload() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("protobufPayload", &__With(value))?;
+        }
+        if let Some(value) = self.json_payload() {
+            state.serialize_entry("jsonPayload", value)?;
+        }
+        if let Some(value) = self.jspb_payload() {
+            state.serialize_entry("jspbPayload", value)?;
+        }
+        if let Some(value) = self.text_payload() {
+            state.serialize_entry("textPayload", value)?;
+        }
+        if !wkt::internal::is_default(&self.requested_output_format) {
+            state.serialize_entry("requestedOutputFormat", &self.requested_output_format)?;
+        }
+        if !self.message_type.is_empty() {
+            state.serialize_entry("messageType", &self.message_type)?;
+        }
+        if !wkt::internal::is_default(&self.test_category) {
+            state.serialize_entry("testCategory", &self.test_category)?;
+        }
+        if self.jspb_encoding_options.is_some() {
+            state.serialize_entry("jspbEncodingOptions", &self.jspb_encoding_options)?;
+        }
+        if !wkt::internal::is_default(&self.print_unknown_fields) {
+            state.serialize_entry("printUnknownFields", &self.print_unknown_fields)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [ConformanceRequest].
 pub mod conformance_request {
     #[allow(unused_imports)]
@@ -353,19 +843,14 @@ pub mod conformance_request {
     /// The payload (whether protobuf of JSON) is always for a
     /// protobuf_test_messages.proto3.TestAllTypes proto (as defined in
     /// src/google/protobuf/proto3_test_messages.proto).
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Payload {
-        ProtobufPayload(
-            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
-            ::bytes::Bytes,
-        ),
-        JsonPayload(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        ProtobufPayload(::bytes::Bytes),
+        JsonPayload(std::string::String),
         /// Only used inside Google.  Opensource testees just skip it.
-        JspbPayload(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
-        TextPayload(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        JspbPayload(std::string::String),
+        TextPayload(std::string::String),
     }
 
     impl Payload {
@@ -389,15 +874,11 @@ pub mod conformance_request {
 }
 
 /// Represents a single test case's output.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ConformanceResponse {
-    #[serde(flatten, skip_serializing_if = "std::option::Option::is_none")]
     pub result: std::option::Option<crate::generated::gapic::model::conformance_response::Result>,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -654,14 +1135,325 @@ impl wkt::message::Message for ConformanceResponse {
     }
 }
 
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ConformanceResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parse_error,
+            __serialize_error,
+            __timeout_error,
+            __runtime_error,
+            __protobuf_payload,
+            __json_payload,
+            __skipped,
+            __jspb_payload,
+            __text_payload,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ConformanceResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parseError" => Ok(__FieldTag::__parse_error),
+                            "parse_error" => Ok(__FieldTag::__parse_error),
+                            "serializeError" => Ok(__FieldTag::__serialize_error),
+                            "serialize_error" => Ok(__FieldTag::__serialize_error),
+                            "timeoutError" => Ok(__FieldTag::__timeout_error),
+                            "timeout_error" => Ok(__FieldTag::__timeout_error),
+                            "runtimeError" => Ok(__FieldTag::__runtime_error),
+                            "runtime_error" => Ok(__FieldTag::__runtime_error),
+                            "protobufPayload" => Ok(__FieldTag::__protobuf_payload),
+                            "protobuf_payload" => Ok(__FieldTag::__protobuf_payload),
+                            "jsonPayload" => Ok(__FieldTag::__json_payload),
+                            "json_payload" => Ok(__FieldTag::__json_payload),
+                            "skipped" => Ok(__FieldTag::__skipped),
+                            "jspbPayload" => Ok(__FieldTag::__jspb_payload),
+                            "jspb_payload" => Ok(__FieldTag::__jspb_payload),
+                            "textPayload" => Ok(__FieldTag::__text_payload),
+                            "text_payload" => Ok(__FieldTag::__text_payload),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ConformanceResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ConformanceResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parse_error => {
+                            if !fields.insert(__FieldTag::__parse_error) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parse_error",
+                                ));
+                            }
+                            if result.result.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `result`, a oneof with full ID .conformance.ConformanceResponse.parse_error, latest field was parseError",
+                                ));
+                            }
+                            result.result = std::option::Option::Some(
+                                crate::generated::gapic::model::conformance_response::Result::ParseError(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__serialize_error => {
+                            if !fields.insert(__FieldTag::__serialize_error) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for serialize_error",
+                                ));
+                            }
+                            if result.result.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `result`, a oneof with full ID .conformance.ConformanceResponse.serialize_error, latest field was serializeError",
+                                ));
+                            }
+                            result.result = std::option::Option::Some(
+                                crate::generated::gapic::model::conformance_response::Result::SerializeError(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__timeout_error => {
+                            if !fields.insert(__FieldTag::__timeout_error) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for timeout_error",
+                                ));
+                            }
+                            if result.result.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `result`, a oneof with full ID .conformance.ConformanceResponse.timeout_error, latest field was timeoutError",
+                                ));
+                            }
+                            result.result = std::option::Option::Some(
+                                crate::generated::gapic::model::conformance_response::Result::TimeoutError(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__runtime_error => {
+                            if !fields.insert(__FieldTag::__runtime_error) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for runtime_error",
+                                ));
+                            }
+                            if result.result.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `result`, a oneof with full ID .conformance.ConformanceResponse.runtime_error, latest field was runtimeError",
+                                ));
+                            }
+                            result.result = std::option::Option::Some(
+                                crate::generated::gapic::model::conformance_response::Result::RuntimeError(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__protobuf_payload => {
+                            if !fields.insert(__FieldTag::__protobuf_payload) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for protobuf_payload",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            if result.result.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `result`, a oneof with full ID .conformance.ConformanceResponse.protobuf_payload, latest field was protobufPayload",
+                                ));
+                            }
+                            result.result = std::option::Option::Some(
+                                crate::generated::gapic::model::conformance_response::Result::ProtobufPayload(
+                                    map.next_value::<__With>()?.0.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__json_payload => {
+                            if !fields.insert(__FieldTag::__json_payload) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for json_payload",
+                                ));
+                            }
+                            if result.result.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `result`, a oneof with full ID .conformance.ConformanceResponse.json_payload, latest field was jsonPayload",
+                                ));
+                            }
+                            result.result = std::option::Option::Some(
+                                crate::generated::gapic::model::conformance_response::Result::JsonPayload(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__skipped => {
+                            if !fields.insert(__FieldTag::__skipped) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for skipped",
+                                ));
+                            }
+                            if result.result.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `result`, a oneof with full ID .conformance.ConformanceResponse.skipped, latest field was skipped",
+                                ));
+                            }
+                            result.result = std::option::Option::Some(
+                                crate::generated::gapic::model::conformance_response::Result::Skipped(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__jspb_payload => {
+                            if !fields.insert(__FieldTag::__jspb_payload) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for jspb_payload",
+                                ));
+                            }
+                            if result.result.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `result`, a oneof with full ID .conformance.ConformanceResponse.jspb_payload, latest field was jspbPayload",
+                                ));
+                            }
+                            result.result = std::option::Option::Some(
+                                crate::generated::gapic::model::conformance_response::Result::JspbPayload(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__text_payload => {
+                            if !fields.insert(__FieldTag::__text_payload) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for text_payload",
+                                ));
+                            }
+                            if result.result.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `result`, a oneof with full ID .conformance.ConformanceResponse.text_payload, latest field was textPayload",
+                                ));
+                            }
+                            result.result = std::option::Option::Some(
+                                crate::generated::gapic::model::conformance_response::Result::TextPayload(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ConformanceResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.parse_error() {
+            state.serialize_entry("parseError", value)?;
+        }
+        if let Some(value) = self.serialize_error() {
+            state.serialize_entry("serializeError", value)?;
+        }
+        if let Some(value) = self.timeout_error() {
+            state.serialize_entry("timeoutError", value)?;
+        }
+        if let Some(value) = self.runtime_error() {
+            state.serialize_entry("runtimeError", value)?;
+        }
+        if let Some(value) = self.protobuf_payload() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("protobufPayload", &__With(value))?;
+        }
+        if let Some(value) = self.json_payload() {
+            state.serialize_entry("jsonPayload", value)?;
+        }
+        if let Some(value) = self.skipped() {
+            state.serialize_entry("skipped", value)?;
+        }
+        if let Some(value) = self.jspb_payload() {
+            state.serialize_entry("jspbPayload", value)?;
+        }
+        if let Some(value) = self.text_payload() {
+            state.serialize_entry("textPayload", value)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Defines additional types related to [ConformanceResponse].
 pub mod conformance_response {
     #[allow(unused_imports)]
     use super::*;
 
-    #[serde_with::serde_as]
-    #[derive(Clone, Debug, PartialEq, serde::Deserialize, serde::Serialize)]
-    #[serde(rename_all = "camelCase")]
+    #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Result {
         /// This string should be set to indicate parsing failed.  The string can
@@ -669,38 +1461,35 @@ pub mod conformance_response {
         ///
         /// Setting this string does not necessarily mean the testee failed the
         /// test.  Some of the test cases are intentionally invalid input.
-        ParseError(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        ParseError(std::string::String),
         /// If the input was successfully parsed but errors occurred when
         /// serializing it to the requested output format, set the error message in
         /// this field.
-        SerializeError(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        SerializeError(std::string::String),
         /// This should be set if the test program timed out.  The string should
         /// provide more information about what the child process was doing when it
         /// was killed.
-        TimeoutError(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        TimeoutError(std::string::String),
         /// This should be set if some other error occurred.  This will always
         /// indicate that the test failed.  The string can provide more information
         /// about the failure.
-        RuntimeError(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        RuntimeError(std::string::String),
         /// If the input was successfully parsed and the requested output was
         /// protobuf, serialize it to protobuf and set it in this field.
-        ProtobufPayload(
-            #[serde_as(as = "serde_with::DefaultOnNull<serde_with::base64::Base64>")]
-            ::bytes::Bytes,
-        ),
+        ProtobufPayload(::bytes::Bytes),
         /// If the input was successfully parsed and the requested output was JSON,
         /// serialize to JSON and set it in this field.
-        JsonPayload(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        JsonPayload(std::string::String),
         /// For when the testee skipped the test, likely because a certain feature
         /// wasn't supported, like JSON input/output.
-        Skipped(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        Skipped(std::string::String),
         /// If the input was successfully parsed and the requested output was JSPB,
         /// serialize to JSPB and set it in this field. JSPB is only used inside
         /// Google. Opensource testees can just skip it.
-        JspbPayload(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        JspbPayload(std::string::String),
         /// If the input was successfully parsed and the requested output was
         /// TEXT_FORMAT, serialize to TEXT_FORMAT and set it in this field.
-        TextPayload(#[serde_as(as = "serde_with::DefaultOnNull<_>")] std::string::String),
+        TextPayload(std::string::String),
     }
 
     impl Result {
@@ -744,17 +1533,12 @@ pub mod conformance_response {
 }
 
 /// Encoding options for jspb format.
-#[serde_with::serde_as]
-#[derive(Clone, Debug, Default, PartialEq, serde::Deserialize, serde::Serialize)]
-#[serde(default, rename_all = "camelCase")]
+#[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct JspbEncodingConfig {
     /// Encode the value field of Any as jspb array if true, otherwise binary.
-    #[serde(skip_serializing_if = "wkt::internal::is_default")]
-    #[serde_as(as = "serde_with::DefaultOnNull<_>")]
     pub use_jspb_array_any_format: bool,
 
-    #[serde(flatten, skip_serializing_if = "serde_json::Map::is_empty")]
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -773,6 +1557,111 @@ impl JspbEncodingConfig {
 impl wkt::message::Message for JspbEncodingConfig {
     fn typename() -> &'static str {
         "type.googleapis.com/conformance.JspbEncodingConfig"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for JspbEncodingConfig {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __use_jspb_array_any_format,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for JspbEncodingConfig")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "useJspbArrayAnyFormat" => Ok(__FieldTag::__use_jspb_array_any_format),
+                            "use_jspb_array_any_format" => {
+                                Ok(__FieldTag::__use_jspb_array_any_format)
+                            }
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = JspbEncodingConfig;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct JspbEncodingConfig")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__use_jspb_array_any_format => {
+                            if !fields.insert(__FieldTag::__use_jspb_array_any_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for use_jspb_array_any_format",
+                                ));
+                            }
+                            result.use_jspb_array_any_format = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for JspbEncodingConfig {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.use_jspb_array_any_format) {
+            state.serialize_entry("useJspbArrayAnyFormat", &self.use_jspb_array_any_format)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 

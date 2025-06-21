@@ -15,7 +15,7 @@
 #[cfg(test)]
 mod test {
     use common::{
-        __MessageWithComplexOneOf, MessageWithComplexOneOf,
+        MessageWithComplexOneOf,
         message_with_complex_one_of::{Inner, TestEnum},
     };
     use google_cloud_wkt as wkt;
@@ -55,8 +55,9 @@ mod test {
     #[test_case(MessageWithComplexOneOf::new().set_duration(Duration::clamp(-1, -750_000_000)), json!({"duration": "-1.75s"}))]
     #[test_case(MessageWithComplexOneOf::new().set_value(json!({"a": 1})), json!({"value": {"a": 1}}))]
     #[test_case(MessageWithComplexOneOf::new().set_value(wkt::Value::Null), json!({"value": null}))]
+    #[test_case(MessageWithComplexOneOf::new().set_optional_double(7.0), json!({"optionalDouble": 7.0}))]
     fn test_ser(input: MessageWithComplexOneOf, want: Value) -> Result {
-        let got = serde_json::to_value(__MessageWithComplexOneOf(input))?;
+        let got = serde_json::to_value(input)?;
         assert_eq!(got, want);
         Ok(())
     }
@@ -93,37 +94,59 @@ mod test {
     #[test_case(MessageWithComplexOneOf::new().set_double_value(2.5), json!({"double_value": 2.5}))]
     #[test_case(MessageWithComplexOneOf::new().set_value(json!({"a": 1})), json!({"value": {"a": 1}}))]
     #[test_case(MessageWithComplexOneOf::new().set_value(wkt::Value::Null), json!({"value": null}))]
+    #[test_case(MessageWithComplexOneOf::new().set_optional_double(7.0), json!({"optionalDouble": 7.0}))]
     fn test_de(want: MessageWithComplexOneOf, input: Value) -> Result {
-        let got = serde_json::from_value::<__MessageWithComplexOneOf>(input)?;
-        assert_eq!(got.0, want);
+        let got = serde_json::from_value::<MessageWithComplexOneOf>(input)?;
+        assert_eq!(got, want);
         Ok(())
     }
 
-    #[test_case(r#"{"null":        null,         "null":        null}"#)]
-    #[test_case(r#"{"null":        null,         "boolValue":   true}"#)]
-    #[test_case(r#"{"boolValue":   true,         "boolValue":   true}"#)]
-    #[test_case(r#"{"null":        null,         "bytesValue":  ""}"#)]
-    #[test_case(r#"{"bytesValue":  "",           "bytesValue":  ""}"#)]
-    #[test_case(r#"{"null":        null,         "stringValue": ""}"#)]
-    #[test_case(r#"{"stringValue": "",           "stringValue": ""}"#)]
-    #[test_case(r#"{"null":        null,         "floatValue":  0}"#)]
-    #[test_case(r#"{"floatValue":  0,            "floatValue":  0}"#)]
-    #[test_case(r#"{"null":        null,         "doubleValue": 0}"#)]
-    #[test_case(r#"{"doubleValue": 0,            "doubleValue": 0}"#)]
-    #[test_case(r#"{"null":        null,         "int":         0}"#)]
-    #[test_case(r#"{"int":         0,            "int":         0}"#)]
-    #[test_case(r#"{"null":        null,         "long":        0}"#)]
-    #[test_case(r#"{"long":        0,            "long":        0}"#)]
-    #[test_case(r#"{"null":        null,         "enum":        "BLACK"}"#)]
-    #[test_case(r#"{"enum":        "BLACK",      "enum":        "BLACK"}"#)]
-    #[test_case(r#"{"null":        null,         "inner":       {}}"#)]
-    #[test_case(r#"{"inner":       {},           "inner":       {}}"#)]
-    #[test_case(r#"{"null":        null,         "duration":    "2.0s"}"#)]
-    #[test_case(r#"{"duration":    "2.0s",       "duration":    "2.0s"}"#)]
-    #[test_case(r#"{"null":        null,         "value":       "abc"}"#)]
-    #[test_case(r#"{"value":       "abc",        "value":       "abc"}"#)]
+    #[test_case(r#"{"null":         null}"#, MessageWithComplexOneOf::new().set_null(wkt::NullValue))]
+    #[test_case(r#"{"bool_value":   null}"#, MessageWithComplexOneOf::new().set_bool_value(false))]
+    #[test_case(r#"{"bytes_value":  null}"#, MessageWithComplexOneOf::new().set_bytes_value(""))]
+    #[test_case(r#"{"string_value": null}"#, MessageWithComplexOneOf::new().set_string_value(""))]
+    #[test_case(r#"{"float_value":  null}"#, MessageWithComplexOneOf::new().set_float_value(0_f32))]
+    #[test_case(r#"{"double_value": null}"#, MessageWithComplexOneOf::new().set_double_value(0_f64))]
+    #[test_case(r#"{"int":          null}"#, MessageWithComplexOneOf::new().set_int(0))]
+    #[test_case(r#"{"long":         null}"#, MessageWithComplexOneOf::new().set_long(0_i64))]
+    #[test_case(r#"{"enum":         null}"#, MessageWithComplexOneOf::new().set_enum(TestEnum::default()))]
+    #[test_case(r#"{"inner":        null}"#, MessageWithComplexOneOf::new().set_inner(Inner::default()))]
+    #[test_case(r#"{"duration":     null}"#, MessageWithComplexOneOf::new().set_duration(Duration::default()))]
+    // wkt::Value is special #[test_case(r#"{"value": null}"#, MessageWithComplexOneOf::new().set_value(/* no default */))]
+    #[test_case(r#"{"optionalDouble": null}"#, MessageWithComplexOneOf::new().set_optional_double(0.0))]
+    fn test_null_is_default(input: &str, want: MessageWithComplexOneOf) -> Result {
+        let got = serde_json::from_str::<MessageWithComplexOneOf>(input)?;
+        assert_eq!(got, want);
+        Ok(())
+    }
+
+    #[test_case(r#"{"null":           null,      "null":           null}"#)]
+    #[test_case(r#"{"null":           null,      "boolValue":      true}"#)]
+    #[test_case(r#"{"boolValue":      true,      "boolValue":      true}"#)]
+    #[test_case(r#"{"null":           null,      "bytesValue":     ""}"#)]
+    #[test_case(r#"{"bytesValue":     "",        "bytesValue":     ""}"#)]
+    #[test_case(r#"{"null":           null,      "stringValue":    ""}"#)]
+    #[test_case(r#"{"stringValue":    "",        "stringValue":    ""}"#)]
+    #[test_case(r#"{"null":           null,      "floatValue":     0}"#)]
+    #[test_case(r#"{"floatValue":     0,         "floatValue":     0}"#)]
+    #[test_case(r#"{"null":           null,      "doubleValue":    0}"#)]
+    #[test_case(r#"{"doubleValue":    0,         "doubleValue":    0}"#)]
+    #[test_case(r#"{"null":           null,      "int":            0}"#)]
+    #[test_case(r#"{"int":            0,         "int":            0}"#)]
+    #[test_case(r#"{"null":           null,      "long":           0}"#)]
+    #[test_case(r#"{"long":           0,         "long":           0}"#)]
+    #[test_case(r#"{"null":           null,      "enum":           "BLACK"}"#)]
+    #[test_case(r#"{"enum":           "BLACK",   "enum":           "BLACK"}"#)]
+    #[test_case(r#"{"null":           null,      "inner":          {}}"#)]
+    #[test_case(r#"{"inner":          {},        "inner":          {}}"#)]
+    #[test_case(r#"{"null":           null,      "duration":       "2.0s"}"#)]
+    #[test_case(r#"{"duration":       "2.0s",    "duration":       "2.0s"}"#)]
+    #[test_case(r#"{"null":           null,      "value":          "abc"}"#)]
+    #[test_case(r#"{"value":          "abc",     "value":          "abc"}"#)]
+    #[test_case(r#"{"null":           null,      "optionalDouble": 1.0}"#)]
+    #[test_case(r#"{"optionalDouble": 1.0,       "optionalDouble": 1.0}"#)]
     fn reject_duplicate_fields(input: &str) -> Result {
-        let got = serde_json::from_str::<__MessageWithComplexOneOf>(input).unwrap_err();
+        let got = serde_json::from_str::<MessageWithComplexOneOf>(input).unwrap_err();
         assert!(got.is_data(), "{got:?}");
         Ok(())
     }

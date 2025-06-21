@@ -136,6 +136,55 @@ mod test {
 
     #[tokio::test]
     #[serial_test::serial]
+    async fn create_access_token_credentials_adc_impersonated_service_account() {
+        let contents = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token"
+            }
+        }).to_string();
+
+        let file = tempfile::NamedTempFile::new().unwrap();
+        let path = file.into_temp_path();
+        std::fs::write(&path, contents).expect("Unable to write to temporary file.");
+        let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
+
+        let ic = AccessTokenCredentialBuilder::default().build().unwrap();
+        let fmt = format!("{:?}", ic);
+        assert!(fmt.contains("ImpersonatedServiceAccount"));
+    }
+
+    #[tokio::test]
+    async fn create_access_token_credentials_json_impersonated_service_account() {
+        let contents = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token"
+            }
+        });
+
+        let quota_project = "test-quota-project";
+
+        let ic = AccessTokenCredentialBuilder::new(contents)
+            .with_quota_project_id(quota_project)
+            .build()
+            .unwrap();
+
+        let fmt = format!("{:?}", ic);
+        assert!(fmt.contains("ImpersonatedServiceAccount"));
+        assert!(fmt.contains(quota_project));
+    }
+
+    #[tokio::test]
+    #[serial_test::serial]
     async fn create_access_token_credentials_adc_service_account_credentials() {
         let contents = r#"{
             "type": "service_account",

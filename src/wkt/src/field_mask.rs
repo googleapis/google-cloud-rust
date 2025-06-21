@@ -288,6 +288,7 @@ impl crate::message::Message for FieldMask {
 }
 
 /// Implement [serde] serialization for [FieldMask]
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl serde::ser::Serialize for FieldMask {
     fn serialize<S>(&self, serializer: S) -> Result<S::Ok, S::Error>
     where
@@ -298,6 +299,7 @@ impl serde::ser::Serialize for FieldMask {
 }
 
 /// Implement [serde] deserialization for [FieldMask].
+#[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 impl<'de> serde::de::Deserialize<'de> for FieldMask {
     fn deserialize<D>(deserializer: D) -> Result<Self, D::Error>
     where

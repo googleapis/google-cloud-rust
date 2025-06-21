@@ -37,11 +37,24 @@ const (
 	branch           = "master"
 )
 
+// Describe overrides for the documentation of a single element.
+//
+// This should be used sparingly. Generally we should prefer updating the
+// comments upstream, and then getting a new version of the services
+// specification. The exception may be when the fixes take a long time, or are
+// specific to one language.
+type DocumentationOverride struct {
+	ID      string `toml:"id"`
+	Match   string `toml:"match"`
+	Replace string `toml:"replace"`
+}
+
 type Config struct {
 	General GeneralConfig `toml:"general"`
 
-	Source map[string]string `toml:"source,omitempty"`
-	Codec  map[string]string `toml:"codec,omitempty"`
+	Source           map[string]string       `toml:"source,omitempty"`
+	Codec            map[string]string       `toml:"codec,omitempty"`
+	CommentOverrides []DocumentationOverride `toml:"documentation-overrides,omitempty"`
 }
 
 // Configuration parameters that affect Parsers and Codecs, including the
@@ -110,8 +123,9 @@ func mergeConfigs(rootConfig, local *Config) (*Config, error) {
 			Language:            rootConfig.General.Language,
 			SpecificationFormat: rootConfig.General.SpecificationFormat,
 		},
-		Source: map[string]string{},
-		Codec:  map[string]string{},
+		Source:           map[string]string{},
+		Codec:            map[string]string{},
+		CommentOverrides: local.CommentOverrides,
 	}
 	for k, v := range rootConfig.Codec {
 		merged.Codec[k] = v
