@@ -54,18 +54,20 @@ pub fn try_match<'a>(value: &'a str, template: &[Segment]) -> Option<&'a str> {
 ///
 /// Example:
 /// ```
+/// # use google_cloud_gax_internal::path_parameter::PathMismatchBuilder;
+/// # use google_cloud_gax_internal::routing_parameter::Segment;
 /// # // These are fields in the request.
 /// # let parent: Option<&str> = None;
 /// # let id: Option<&i32> = None;
 ///
 /// // Make the builder
 /// let builder = PathMismatchBuilder::default();
-/// let builder = builder.maybe_add_match_error(
+/// let builder = builder.maybe_add_error_string(
 ///     parent,
 ///     "parent",
 ///     &[Segment::Literal("projects/"), Segment::SingleWildcard],
 ///     "projects/*");
-/// let builder = builder.maybe_add_unset_error(id, "id");
+/// let builder = builder.maybe_add_error_other(id, "id");
 /// // etc.
 ///
 /// // Create the `PathMismatch`
