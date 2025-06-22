@@ -88,7 +88,7 @@ type serviceAnnotations struct {
 	PerServiceFeatures bool
 	// If true, there is a handwritten client surface.
 	HasVeneer bool
-	// If true, at lease one service has a method we cannot wrap (yet).
+	// If true, the service has a method we cannot wrap (yet).
 	Incomplete bool
 }
 
