@@ -141,6 +141,7 @@ func TestServiceAnnotations(t *testing.T) {
 		Name:              "ResourceService",
 		PackageModuleName: "test::v1",
 		ModuleName:        "resource_service",
+		Incomplete:        true,
 	}
 	if diff := cmp.Diff(wantService, service.Codec, cmpopts.IgnoreFields(serviceAnnotations{}, "Methods")); diff != "" {
 		t.Errorf("mismatch in service annotations (-want, +got)\n:%s", diff)
@@ -207,6 +208,7 @@ func TestServiceAnnotationsPerServiceFeatures(t *testing.T) {
 		PackageModuleName:  "test::v1",
 		ModuleName:         "resource_service",
 		PerServiceFeatures: true,
+		Incomplete:         true,
 	}
 	if diff := cmp.Diff(wantService, service.Codec, cmpopts.IgnoreFields(serviceAnnotations{}, "Methods")); diff != "" {
 		t.Errorf("mismatch in service annotations (-want, +got)\n:%s", diff)
@@ -331,6 +333,7 @@ func TestServiceAnnotationsNameOverrides(t *testing.T) {
 	wantService := &serviceAnnotations{
 		Name:       "Renamed",
 		ModuleName: "renamed",
+		Incomplete: true,
 	}
 	if diff := cmp.Diff(wantService, service.Codec, serviceFilter); diff != "" {
 		t.Errorf("mismatch in service annotations (-want, +got)\n:%s", diff)
