@@ -121,8 +121,10 @@ pub struct SubjectToken {
 
 /// Trait for providing a third-party subject token.
 ///
-/// This trait can be used for advanced use cases where a custom mechanism is
-/// needed to fetch a third-party subject token.
+/// The Google Cloud client libraries for Rust will automatically implement this
+/// trait for external account credentials. You might need to implement this trait
+/// for advanced authentication scenarios where you want to integrate a custom
+/// subject token fetching mechanism.
 ///
 /// # Example
 ///
