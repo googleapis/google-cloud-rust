@@ -218,7 +218,7 @@ func annotateMethod(m *api.Method, s *api.Service, state *api.APIState) {
 		Name:              strcase.ToCamel(m.Name),
 		NameToPascal:      toPascal(m.Name),
 		PathParams:        language.PathParams(m, state),
-		QueryParams:       language.QueryParams(m, state),
+		QueryParams:       language.QueryParams(m, m.PathInfo.Bindings[0]),
 		ServiceStructName: s.Name,
 	}
 	if m.OperationInfo != nil {

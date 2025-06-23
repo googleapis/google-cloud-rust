@@ -67,6 +67,7 @@ func serviceAnnotationsModel() *api.API {
 	method := &api.Method{
 		Name:         "GetResource",
 		ID:           ".test.v1.ResourceService.GetResource",
+		InputType:    request,
 		InputTypeID:  ".test.v1.Request",
 		OutputTypeID: ".test.v1.Response",
 		PathInfo: &api.PathInfo{
@@ -83,6 +84,7 @@ func serviceAnnotationsModel() *api.API {
 	emptyMethod := &api.Method{
 		Name:         "DeleteResource",
 		ID:           ".test.v1.ResourceService.DeleteResource",
+		InputType:    request,
 		InputTypeID:  ".test.v1.Request",
 		OutputTypeID: ".google.protobuf.Empty",
 		PathInfo: &api.PathInfo{
@@ -226,35 +228,6 @@ func TestServiceAnnotationsLROTypes(t *testing.T) {
 		Bindings:      []*api.PathBinding{binding},
 	}
 
-	service := &api.Service{
-		Name:    "LroService",
-		ID:      ".test.LroService",
-		Package: "test",
-		Methods: []*api.Method{
-			{
-				Name:         "CreateResource",
-				ID:           ".test.LroService.CreateResource",
-				PathInfo:     pathInfo,
-				InputTypeID:  ".test.CreateResourceRequest",
-				OutputTypeID: ".google.longrunning.Operation",
-				OperationInfo: &api.OperationInfo{
-					MetadataTypeID: ".test.OperationMetadata",
-					ResponseTypeID: ".test.Resource",
-				},
-			},
-			{
-				Name:         "DeleteResource",
-				ID:           ".test.LroService.DeleteResource",
-				PathInfo:     pathInfo,
-				InputTypeID:  ".test.DeleteResourceRequest",
-				OutputTypeID: ".google.longrunning.Operation",
-				OperationInfo: &api.OperationInfo{
-					MetadataTypeID: ".test.OperationMetadata",
-					ResponseTypeID: ".google.protobuf.Empty",
-				},
-			},
-		},
-	}
 	create := &api.Message{
 		Name:    "CreateResourceRequest",
 		ID:      ".test.CreateResourceRequest",
@@ -279,6 +252,37 @@ func TestServiceAnnotationsLROTypes(t *testing.T) {
 		Name:    "Empty",
 		ID:      ".google.protobuf.Empty",
 		Package: "google.protobuf",
+	}
+	service := &api.Service{
+		Name:    "LroService",
+		ID:      ".test.LroService",
+		Package: "test",
+		Methods: []*api.Method{
+			{
+				Name:         "CreateResource",
+				ID:           ".test.LroService.CreateResource",
+				PathInfo:     pathInfo,
+				InputType:    create,
+				InputTypeID:  ".test.CreateResourceRequest",
+				OutputTypeID: ".google.longrunning.Operation",
+				OperationInfo: &api.OperationInfo{
+					MetadataTypeID: ".test.OperationMetadata",
+					ResponseTypeID: ".test.Resource",
+				},
+			},
+			{
+				Name:         "DeleteResource",
+				ID:           ".test.LroService.DeleteResource",
+				PathInfo:     pathInfo,
+				InputType:    delete,
+				InputTypeID:  ".test.DeleteResourceRequest",
+				OutputTypeID: ".google.longrunning.Operation",
+				OperationInfo: &api.OperationInfo{
+					MetadataTypeID: ".test.OperationMetadata",
+					ResponseTypeID: ".google.protobuf.Empty",
+				},
+			},
+		},
 	}
 	model := api.NewTestAPI([]*api.Message{create, delete, resource, metadata}, []*api.Enum{}, []*api.Service{service})
 	api.CrossReference(model)
