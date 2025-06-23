@@ -26,13 +26,14 @@ mod default_idempotency {
     use gax::loop_state::LoopState;
     use gax::options::RequestOptionsBuilder;
     use gax::retry_policy::RetryPolicy;
+    use gax::throttle_result::ThrottleResult;
 
     mockall::mock! {
         #[derive(Debug)]
         RetryPolicy {}
         impl RetryPolicy for RetryPolicy {
             fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> LoopState;
-            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error>;
+            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> ThrottleResult;
             fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<std::time::Duration>;
         }
     }

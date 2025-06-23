@@ -12,6 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::throttle_result::ThrottleResult;
+
 use super::Result;
 use super::backoff_policy::BackoffPolicy;
 use super::error::Error;
@@ -75,11 +77,14 @@ where
                 .throttle_retry_attempt()
             {
                 // This counts as an error for the purposes of the retry policy.
-                if let Some(error) = retry_policy.on_throttle(loop_start, attempt_count) {
-                    return Err(error);
-                }
+                let error = match retry_policy.on_throttle(loop_start, attempt_count, prev_error) {
+                    ThrottleResult::Exhausted(e) => {
+                        return Err(e);
+                    }
+                    ThrottleResult::Continue(e) => e,
+                };
                 let delay = backoff_policy.on_failure(loop_start, attempt_count);
-                attempt = RetryLoopAttempt::Retry(attempt_count, delay, prev_error);
+                attempt = RetryLoopAttempt::Retry(attempt_count, delay, error);
                 continue;
             }
         }
@@ -552,7 +557,7 @@ mod test {
             .expect_on_throttle()
             .once()
             .in_sequence(&mut retry_seq)
-            .returning(|_, _| None);
+            .returning(|_, _, e| ThrottleResult::Continue(e));
 
         let mut backoff_policy = MockBackoffPolicy::new();
         backoff_policy
@@ -618,7 +623,7 @@ mod test {
             .expect_on_throttle()
             .once()
             .in_sequence(&mut retry_seq)
-            .returning(|_, _| Some(permanent().unwrap_err()));
+            .returning(|_, _, e| ThrottleResult::Exhausted(e));
 
         let mut backoff_policy = MockBackoffPolicy::new();
         backoff_policy
@@ -643,7 +648,7 @@ mod test {
         )
         .await;
         assert!(
-            matches!(&response, Err(e) if matches!(e.status(), Some(s) if s.message == "uh-oh")),
+            matches!(&response, Err(e) if e.status() == transient().unwrap_err().status()),
             "{response:?}"
         );
         Ok(())
@@ -807,7 +812,7 @@ mod test {
             .expect_on_throttle()
             .once()
             .in_sequence(&mut seq)
-            .returning(|_, _| None);
+            .returning(|_, _, e| ThrottleResult::Continue(e));
 
         // The backoff policy wants to sleep for longer than the overall timeout.
         backoff_policy
@@ -909,7 +914,7 @@ mod test {
         RetryPolicy {}
         impl RetryPolicy for RetryPolicy {
             fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> LoopState;
-            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error>;
+            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> ThrottleResult;
             fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Duration>;
         }
         impl std::clone::Clone for RetryPolicy {
