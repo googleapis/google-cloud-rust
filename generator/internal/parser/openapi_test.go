@@ -750,12 +750,6 @@ func TestOpenAPI_MakeAPI(t *testing.T) {
 	})
 
 	cs := sample.MethodCreate()
-	cs.PathInfo.Bindings[0].LegacyPathTemplate = []api.LegacyPathSegment{
-		api.NewLiteralPathSegment("v1"),
-		api.NewLiteralPathSegment("projects"),
-		api.NewFieldPathPathSegment("project"),
-		api.NewLiteralPathSegment("secrets"),
-	}
 	checkMethod(t, service, cs.Name, cs)
 
 	asv := sample.MethodAddSecretVersion()

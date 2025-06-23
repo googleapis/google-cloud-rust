@@ -75,9 +75,9 @@ func MethodCreate() *api.Method {
 					Verb: http.MethodPost,
 					LegacyPathTemplate: []api.LegacyPathSegment{
 						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("parent"),
+						api.NewLiteralPathSegment("projects"),
+						api.NewFieldPathPathSegment("project"),
 						api.NewLiteralPathSegment("secrets"),
-						api.NewFieldPathPathSegment("secret_id"),
 					},
 					QueryParameters: map[string]bool{"secretId": true},
 				},
@@ -175,13 +175,13 @@ func CreateRequest() *api.Message {
 		Package:       Package,
 		Fields: []*api.Field{
 			{
-				Name:     "parent",
-				JSONName: "parent",
+				Name:     "project",
+				JSONName: "project",
 				Typez:    api.STRING_TYPE,
 			},
 			{
 				Name:     "secret_id",
-				JSONName: "secret_id",
+				JSONName: "secretId",
 				Typez:    api.STRING_TYPE,
 			},
 		},
