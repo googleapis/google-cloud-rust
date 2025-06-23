@@ -35893,6 +35893,203 @@ pub mod model_garden_service {
         }
     }
 
+    /// The request builder for [ModelGardenService::deploy][crate::client::ModelGardenService::deploy] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_aiplatform_v1::builder;
+    /// use builder::model_garden_service::Deploy;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> Deploy {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct Deploy(RequestBuilder<crate::model::DeployRequest>);
+
+    impl Deploy {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::ModelGardenService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeployRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [deploy][crate::client::ModelGardenService::deploy].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .deploy(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `deploy`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::DeployResponse, crate::model::DeployOperationMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::DeployResponse,
+                crate::model::DeployOperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [destination][crate::model::DeployRequest::destination].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_destination<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.destination = v.into();
+            self
+        }
+
+        /// Sets the value of [model_config][crate::model::DeployRequest::model_config].
+        pub fn set_model_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::deploy_request::ModelConfig>,
+        {
+            self.0.request.model_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [model_config][crate::model::DeployRequest::model_config].
+        pub fn set_or_clear_model_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::deploy_request::ModelConfig>,
+        {
+            self.0.request.model_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [endpoint_config][crate::model::DeployRequest::endpoint_config].
+        pub fn set_endpoint_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::deploy_request::EndpointConfig>,
+        {
+            self.0.request.endpoint_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [endpoint_config][crate::model::DeployRequest::endpoint_config].
+        pub fn set_or_clear_endpoint_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::deploy_request::EndpointConfig>,
+        {
+            self.0.request.endpoint_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [deploy_config][crate::model::DeployRequest::deploy_config].
+        pub fn set_deploy_config<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::deploy_request::DeployConfig>,
+        {
+            self.0.request.deploy_config = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [deploy_config][crate::model::DeployRequest::deploy_config].
+        pub fn set_or_clear_deploy_config<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::deploy_request::DeployConfig>,
+        {
+            self.0.request.deploy_config = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [artifacts][crate::model::DeployRequest::artifacts].
+        ///
+        /// Note that all the setters affecting `artifacts` are
+        /// mutually exclusive.
+        pub fn set_artifacts<T: Into<Option<crate::model::deploy_request::Artifacts>>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request.artifacts = v.into();
+            self
+        }
+
+        /// Sets the value of [artifacts][crate::model::DeployRequest::artifacts]
+        /// to hold a `PublisherModelName`.
+        ///
+        /// Note that all the setters affecting `artifacts` are
+        /// mutually exclusive.
+        pub fn set_publisher_model_name<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_publisher_model_name(v);
+            self
+        }
+
+        /// Sets the value of [artifacts][crate::model::DeployRequest::artifacts]
+        /// to hold a `HuggingFaceModelId`.
+        ///
+        /// Note that all the setters affecting `artifacts` are
+        /// mutually exclusive.
+        pub fn set_hugging_face_model_id<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.0.request = self.0.request.set_hugging_face_model_id(v);
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for Deploy {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [ModelGardenService::list_locations][crate::client::ModelGardenService::list_locations] calls.
     ///
     /// # Example

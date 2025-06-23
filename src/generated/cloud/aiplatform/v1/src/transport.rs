@@ -11423,6 +11423,30 @@ impl super::stub::ModelGardenService for ModelGardenService {
             .await
     }
 
+    async fn deploy(
+        &self,
+        req: crate::model::DeployRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        let options = gax::options::internal::set_default_idempotency(options, false);
+        let path = format!("/v1/{}:deploy", {
+            let arg = &req.destination;
+            if arg.is_empty() {
+                return Err(gaxi::path_parameter::missing("destination"));
+            }
+            arg
+        },);
+        let builder = self
+            .inner
+            .builder(reqwest::Method::POST, path)
+            .query(&[("$alt", "json;enum-encoding=int")])
+            .header(
+                "x-goog-api-client",
+                reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
+            );
+        self.inner.execute(builder, Some(req), options).await
+    }
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -11717,6 +11741,20 @@ impl super::stub::ModelGardenService for ModelGardenService {
         self.inner
             .execute(builder, Some(gaxi::http::NoBody), options)
             .await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
     }
 }
 

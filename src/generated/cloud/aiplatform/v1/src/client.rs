@@ -5363,6 +5363,21 @@ impl ModelGardenService {
         super::builder::model_garden_service::GetPublisherModel::new(self.inner.clone())
     }
 
+    /// Deploys a model to a new endpoint.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn deploy(&self) -> super::builder::model_garden_service::Deploy {
+        super::builder::model_garden_service::Deploy::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     pub fn list_locations(&self) -> super::builder::model_garden_service::ListLocations {
         super::builder::model_garden_service::ListLocations::new(self.inner.clone())
