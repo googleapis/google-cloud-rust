@@ -56,6 +56,8 @@ type modelAnnotations struct {
 	DefaultSystemParameters []systemParameter
 	// Enables per-service features
 	PerServiceFeatures bool
+	// If true, at lease one service has a method we cannot wrap (yet).
+	Incomplete bool
 }
 
 // HasServices returns true if there are any services in the model
@@ -86,6 +88,8 @@ type serviceAnnotations struct {
 	PerServiceFeatures bool
 	// If true, there is a handwritten client surface.
 	HasVeneer bool
+	// If true, the service has a method we cannot wrap (yet).
+	Incomplete bool
 }
 
 // If true, this service includes methods that return long-running operations.
@@ -343,12 +347,7 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 	}
 
 	servicesSubset := language.FilterSlice(model.Services, func(s *api.Service) bool {
-		for _, m := range s.Methods {
-			if codec.generateMethod(m) {
-				return true
-			}
-		}
-		return false
+		return slices.ContainsFunc(s.Methods, func(m *api.Method) bool { return codec.generateMethod(m) })
 	})
 	// The maximum (15) was chosen more or less arbitrarily circa 2025-06. At
 	// the time, only a handful of services exceeded this number of services.
@@ -392,6 +391,9 @@ func annotateModel(model *api.API, codec *codec) *modelAnnotations {
 		IsWktCrate:              model.PackageName == "google.protobuf",
 		DisabledRustdocWarnings: codec.disabledRustdocWarnings,
 		PerServiceFeatures:      codec.perServiceFeatures && len(servicesSubset) > 0,
+		Incomplete: slices.ContainsFunc(model.Services, func(s *api.Service) bool {
+			return slices.ContainsFunc(s.Methods, func(m *api.Method) bool { return !codec.generateMethod(m) })
+		}),
 	}
 
 	codec.addFeatureAnnotations(model, ann)
@@ -511,6 +513,7 @@ func (c *codec) annotateService(s *api.Service, model *api.API) {
 		APITitle:           model.Title,
 		PerServiceFeatures: c.perServiceFeatures,
 		HasVeneer:          c.hasVeneer,
+		Incomplete:         slices.ContainsFunc(s.Methods, func(m *api.Method) bool { return !c.generateMethod(m) }),
 	}
 	s.Codec = ann
 }
