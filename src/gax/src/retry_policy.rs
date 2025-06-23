@@ -54,7 +54,7 @@
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
 use crate::error::Error;
-use crate::loop_state::LoopState;
+use crate::retry_result::RetryResult;
 use crate::throttle_result::ThrottleResult;
 use std::sync::Arc;
 use std::time::Duration;
@@ -81,13 +81,13 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
         attempt_count: u32,
         idempotent: bool,
         error: Error,
-    ) -> LoopState;
+    ) -> RetryResult;
 
     /// Query the retry policy after a retry attempt is throttled.
     ///
     /// Retry attempts may be throttled before they are even sent out. The retry
     /// policy may choose to treat these as normal errors, consuming attempts,
-    /// or may prefer to ignore them and always return [LoopState::Continue].
+    /// or may prefer to ignore them and always return [RetryResult::Continue].
     ///
     /// # Parameters
     /// * `loop_start` - when the retry loop started.
@@ -152,8 +152,8 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// While the time spent in the retry loop (including time in backoff) is
     /// less than the prescribed duration the `on_error()` method returns the
     /// results of the inner policy. After that time it returns
-    /// [Exhausted][LoopState::Exhausted] if the inner policy returns
-    /// [Continue][LoopState::Continue].
+    /// [Exhausted][RetryResult::Exhausted] if the inner policy returns
+    /// [Continue][RetryResult::Continue].
     ///
     /// The `remaining_time()` function returns the remaining time. This is
     /// always [Duration::ZERO] once or after the policy's expiration time is
@@ -179,8 +179,8 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     ///
     /// The policy passes through the results from the inner policy as long as
     /// `attempt_count < maximum_attempts`. Once the maximum number of attempts
-    /// is reached, the policy returns [Exhausted][LoopState::Exhausted] if the
-    /// inner policy returns [Continue][LoopState::Continue].
+    /// is reached, the policy returns [Exhausted][RetryResult::Exhausted] if the
+    /// inner policy returns [Continue][RetryResult::Continue].
     ///
     /// # Example
     /// ```
@@ -236,29 +236,29 @@ impl RetryPolicy for Aip194Strict {
         _attempt_count: u32,
         idempotent: bool,
         error: Error,
-    ) -> LoopState {
+    ) -> RetryResult {
         if error.is_transient_and_before_rpc() {
-            return LoopState::Continue(error);
+            return RetryResult::Continue(error);
         }
         if !idempotent {
-            return LoopState::Permanent(error);
+            return RetryResult::Permanent(error);
         }
         if error.is_io() {
-            return LoopState::Continue(error);
+            return RetryResult::Continue(error);
         }
         if let Some(status) = error.status() {
             return if status.code == crate::error::rpc::Code::Unavailable {
-                LoopState::Continue(error)
+                RetryResult::Continue(error)
             } else {
-                LoopState::Permanent(error)
+                RetryResult::Permanent(error)
             };
         }
 
         match error.http_status_code() {
             Some(code) if code == http::StatusCode::SERVICE_UNAVAILABLE.as_u16() => {
-                LoopState::Continue(error)
+                RetryResult::Continue(error)
             }
-            _ => LoopState::Permanent(error),
+            _ => RetryResult::Permanent(error),
         }
     }
 }
@@ -293,8 +293,8 @@ impl RetryPolicy for AlwaysRetry {
         _attempt_count: u32,
         _idempotent: bool,
         error: Error,
-    ) -> LoopState {
-        LoopState::Continue(error)
+    ) -> RetryResult {
+        RetryResult::Continue(error)
     }
 }
 
@@ -325,8 +325,8 @@ impl RetryPolicy for NeverRetry {
         _attempt_count: u32,
         _idempotent: bool,
         error: Error,
-    ) -> LoopState {
-        LoopState::Exhausted(error)
+    ) -> RetryResult {
+        RetryResult::Exhausted(error)
     }
 }
 
@@ -367,8 +367,8 @@ impl std::fmt::Display for LimitedElapsedTimeError {
 /// loops. While the time spent in the retry loop (including time in backoff)
 /// is less than the prescribed duration the `on_error()` method returns the
 /// results of the inner policy. After that time it returns
-/// [Exhausted][LoopState::Exhausted] if the inner policy returns
-/// [Continue][LoopState::Continue].
+/// [Exhausted][RetryResult::Exhausted] if the inner policy returns
+/// [Continue][RetryResult::Continue].
 ///
 /// The `remaining_time()` function returns the remaining time. This is always
 /// [Duration::ZERO] once or after the policy's deadline is reached.
@@ -453,15 +453,15 @@ where
         count: u32,
         idempotent: bool,
         error: Error,
-    ) -> LoopState {
+    ) -> RetryResult {
         match self.inner.on_error(start, count, idempotent, error) {
-            LoopState::Permanent(e) => LoopState::Permanent(e),
-            LoopState::Exhausted(e) => LoopState::Exhausted(e),
-            LoopState::Continue(e) => {
+            RetryResult::Permanent(e) => RetryResult::Permanent(e),
+            RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
+            RetryResult::Continue(e) => {
                 if tokio::time::Instant::now().into_std() >= start + self.maximum_duration {
-                    LoopState::Exhausted(e)
+                    RetryResult::Exhausted(e)
                 } else {
-                    LoopState::Continue(e)
+                    RetryResult::Continue(e)
                 }
             }
         }
@@ -502,8 +502,8 @@ where
 ///
 /// The policy passes through the results from the inner policy as long as
 /// `attempt_count < maximum_attempts`. However, once the maximum number of
-/// attempts is reached, the policy replaces any [Continue][LoopState::Continue]
-/// result with [Exhausted][LoopState::Exhausted].
+/// attempts is reached, the policy replaces any [Continue][RetryResult::Continue]
+/// result with [Exhausted][RetryResult::Exhausted].
 ///
 /// # Parameters
 /// * `P` - the inner retry policy.
@@ -567,15 +567,15 @@ where
         count: u32,
         idempotent: bool,
         error: Error,
-    ) -> LoopState {
+    ) -> RetryResult {
         match self.inner.on_error(start, count, idempotent, error) {
-            LoopState::Permanent(e) => LoopState::Permanent(e),
-            LoopState::Exhausted(e) => LoopState::Exhausted(e),
-            LoopState::Continue(e) => {
+            RetryResult::Permanent(e) => RetryResult::Permanent(e),
+            RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
+            RetryResult::Continue(e) => {
                 if count >= self.maximum_attempts {
-                    LoopState::Exhausted(e)
+                    RetryResult::Exhausted(e)
                 } else {
-                    LoopState::Continue(e)
+                    RetryResult::Continue(e)
                 }
             }
         }
@@ -783,7 +783,7 @@ mod tests {
         #[derive(Debug)]
         Policy {}
         impl RetryPolicy for Policy {
-            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> LoopState;
+            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> RetryResult;
             fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> ThrottleResult;
             fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Duration>;
         }
@@ -804,7 +804,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, _, e| LoopState::Continue(e));
+            .returning(|_, _, _, e| RetryResult::Continue(e));
         mock.expect_on_throttle()
             .times(1..)
             .returning(|_, _, e| ThrottleResult::Continue(e));
@@ -861,7 +861,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, _, e| LoopState::Continue(e));
+            .returning(|_, _, _, e| RetryResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
@@ -877,7 +877,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, _, e| LoopState::Permanent(e));
+            .returning(|_, _, _, e| RetryResult::Permanent(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
@@ -894,7 +894,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, _, e| LoopState::Exhausted(e));
+            .returning(|_, _, _, e| RetryResult::Exhausted(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
@@ -949,7 +949,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, _, e| LoopState::Continue(e));
+            .returning(|_, _, _, e| RetryResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
@@ -1030,7 +1030,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, _, e| LoopState::Permanent(e));
+            .returning(|_, _, _, e| RetryResult::Permanent(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
         let now = std::time::Instant::now();
 
@@ -1046,7 +1046,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, _, e| LoopState::Exhausted(e));
+            .returning(|_, _, _, e| RetryResult::Exhausted(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
         let now = std::time::Instant::now();
 

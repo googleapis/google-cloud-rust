@@ -17,8 +17,8 @@
 #[cfg(test)]
 mod tests {
     use google_cloud_gax::error::Error;
-    use google_cloud_gax::loop_state::LoopState;
     use google_cloud_gax::retry_policy::*;
+    use google_cloud_gax::retry_result::RetryResult;
     use std::time::Duration;
 
     #[derive(Debug)]
@@ -30,11 +30,11 @@ mod tests {
             _attempt_count: u32,
             idempotent: bool,
             error: Error,
-        ) -> LoopState {
+        ) -> RetryResult {
             if idempotent {
-                LoopState::Continue(error)
+                RetryResult::Continue(error)
             } else {
-                LoopState::Permanent(error)
+                RetryResult::Permanent(error)
             }
         }
 

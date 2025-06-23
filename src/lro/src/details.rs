@@ -15,8 +15,8 @@
 //! Simplifies the implementation of `PollerImpl`
 
 use super::*;
-use gax::loop_state::LoopState;
 use gax::polling_error_policy::PollingErrorPolicy;
+use gax::retry_result::RetryResult;
 use std::marker::PhantomData;
 use std::sync::Arc;
 use std::time::Instant;
@@ -115,7 +115,7 @@ where
 }
 
 fn handle_polling_error<R, M>(
-    state: gax::loop_state::LoopState,
+    state: gax::retry_result::RetryResult,
     operation_name: String,
 ) -> (Option<String>, PollingResult<R, M>)
 where
@@ -123,8 +123,8 @@ where
     M: wkt::message::Message + serde::de::DeserializeOwned,
 {
     match state {
-        LoopState::Continue(e) => (Some(operation_name), PollingResult::PollingError(e)),
-        LoopState::Exhausted(e) | LoopState::Permanent(e) => {
+        RetryResult::Continue(e) => (Some(operation_name), PollingResult::PollingError(e)),
+        RetryResult::Exhausted(e) | RetryResult::Permanent(e) => {
             (None, PollingResult::Completed(Err(e)))
         }
     }
