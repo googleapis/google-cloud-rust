@@ -53,6 +53,7 @@ pub mod polling_backoff_policy;
 pub mod polling_error_policy;
 pub mod retry_policy;
 pub mod retry_throttler;
+pub mod throttle_result;
 
 #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
 pub mod retry_loop_internal;
