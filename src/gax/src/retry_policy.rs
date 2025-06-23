@@ -493,38 +493,6 @@ where
     }
 }
 
-/// An error type created when the [LimitedAttemptCount] policy is exhausted.
-#[derive(thiserror::Error, Debug)]
-pub struct LimitedAttemptCountError {
-    maximum_attempts: u32,
-    #[source]
-    source: Error,
-}
-
-impl LimitedAttemptCountError {
-    pub(crate) fn new(maximum_attempts: u32, source: Error) -> Self {
-        Self {
-            maximum_attempts,
-            source,
-        }
-    }
-
-    /// Returns the maximum number of attempts in the exhausted policy.
-    pub fn maximum_attempts(&self) -> u32 {
-        self.maximum_attempts
-    }
-}
-
-impl std::fmt::Display for LimitedAttemptCountError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "retry policy exhausted after {} attempts, the last retry attempt was throttled",
-            self.maximum_attempts
-        )
-    }
-}
-
 /// A retry policy decorator that limits the number of attempts.
 ///
 /// This policy decorates an inner policy and limits the total number of
@@ -587,17 +555,6 @@ where
             maximum_attempts,
         }
     }
-
-    fn stop_if_exhausted(&self, attempt_count: u32, error: Error) -> ThrottleResult {
-        if attempt_count < self.maximum_attempts {
-            ThrottleResult::Continue(error)
-        } else {
-            ThrottleResult::Exhausted(Error::exhausted(LimitedAttemptCountError::new(
-                self.maximum_attempts,
-                error,
-            )))
-        }
-    }
 }
 
 impl<P> RetryPolicy for LimitedAttemptCount<P>
@@ -630,10 +587,10 @@ where
         attempt_count: u32,
         error: Error,
     ) -> ThrottleResult {
-        match self.inner.on_throttle(loop_start, attempt_count, error) {
-            ThrottleResult::Continue(e) => self.stop_if_exhausted(attempt_count, e),
-            ThrottleResult::Exhausted(e) => ThrottleResult::Exhausted(e),
-        }
+        // The retry loop only calls `on_throttle()` if the policy has not
+        // been exhausted.
+        assert!(attempt_count < self.maximum_attempts);
+        self.inner.on_throttle(loop_start, attempt_count, error)
     }
 
     fn remaining_time(
@@ -988,16 +945,6 @@ mod tests {
     }
 
     #[test]
-    fn limited_attempt_count_error() {
-        let limit = 1234_u32;
-        let err = LimitedAttemptCountError::new(limit, unavailable());
-        assert_eq!(err.maximum_attempts(), limit);
-        let fmt = err.to_string();
-        assert!(fmt.contains("1234"), "display={fmt}, debug={err:?}");
-        assert!(err.source().is_some(), "{err:?}");
-    }
-
-    #[test]
     fn test_limited_attempt_count_on_error() {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
@@ -1024,7 +971,7 @@ mod tests {
     }
 
     #[test]
-    fn test_limited_attempt_count_on_throttle_none() {
+    fn test_limited_attempt_count_on_throttle_continue() {
         let mut mock = MockPolicy::new();
         mock.expect_on_throttle()
             .times(1..)
@@ -1033,16 +980,8 @@ mod tests {
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
         assert!(matches!(
-            policy.on_throttle(now, 1, unavailable()),
-            ThrottleResult::Continue(_)
-        ));
-        assert!(matches!(
             policy.on_throttle(now, 2, unavailable()),
             ThrottleResult::Continue(_)
-        ));
-        assert!(matches!(
-            policy.on_throttle(now, 3, unavailable()),
-            ThrottleResult::Exhausted(_)
         ));
     }
 
