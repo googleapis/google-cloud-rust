@@ -133,7 +133,7 @@ pub fn effective_timeout(
 #[cfg(test)]
 mod test {
     use super::*;
-    use crate::error::{Error, rpc::Code, rpc::Status};
+    use crate::error::{Error, rpc::Code, rpc::Status, rpc::StatusDetails};
     use std::error::Error as _;
     use test_case::test_case;
 
@@ -351,15 +351,15 @@ mod test {
     async fn too_many_transients() -> anyhow::Result<()> {
         // This test simulates a server responding with two transient errors
         // and the retry policy stops after the second attempt.
-        const ERRORS: usize = 2;
+        const ERRORS: usize = 3;
         let mut call_seq = mockall::Sequence::new();
         let mut call = MockCall::new();
-        for _ in 0..ERRORS {
+        for i in 0..ERRORS {
             call.expect_call()
                 .once()
                 .withf(|d| d.is_none())
                 .in_sequence(&mut call_seq)
-                .returning(|_| transient());
+                .returning(move |_| numbered_transient(i));
         }
         let inner = async move |d| call.call(d);
 
@@ -421,7 +421,13 @@ mod test {
             to_backoff_policy(backoff_policy),
         )
         .await;
-        assert!(response.is_err(), "{response:?}");
+        let err = response.unwrap_err();
+        let status = err.status().unwrap();
+        let detail = status.details.first().unwrap();
+        assert!(
+            matches!(detail, StatusDetails::DebugInfo(e) if e.detail == format!("count={}", ERRORS - 1) ),
+            "{status:?}"
+        );
         Ok(())
     }
 
@@ -866,6 +872,12 @@ mod test {
 
     fn transient() -> Result<String> {
         Err(Error::service(transient_status()))
+    }
+
+    fn numbered_transient(i: usize) -> Result<String> {
+        Err(Error::service(transient_status().set_details([
+            StatusDetails::DebugInfo(rpc::model::DebugInfo::new().set_detail(format!("count={i}"))),
+        ])))
     }
 
     fn permanent() -> Result<String> {

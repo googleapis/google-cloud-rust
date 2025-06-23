@@ -13,6 +13,7 @@
 // limitations under the License.
 
 use crate::Result;
+use gax::retry_policy::{AlwaysRetry, RetryPolicyExt};
 
 pub async fn run(builder: ta::builder::telco_automation::ClientBuilder) -> Result<()> {
     // Enable a basic subscriber. Useful to troubleshoot problems and visually
@@ -31,7 +32,10 @@ pub async fn run(builder: ta::builder::telco_automation::ClientBuilder) -> Resul
 
     let project_id = crate::project_id()?;
     let region_id = crate::region_id();
-    let client = builder.build().await?;
+    let client = builder
+        .with_retry_policy(AlwaysRetry.with_attempt_limit(2))
+        .build()
+        .await?;
 
     let response = client
         .list_orchestration_clusters()
