@@ -3794,12 +3794,19 @@ pub struct ContinuousBackupInfo {
     /// if ContinuousBackup is not enabled.
     pub enabled_time: std::option::Option<wkt::Timestamp>,
 
-    /// Output only. Days of the week on which a continuous backup is taken. Output
-    /// only field. Ignored if passed into the request.
+    /// Output only. Days of the week on which a continuous backup is taken.
     pub schedule: std::vec::Vec<gtype::model::DayOfWeek>,
 
-    /// Output only. The earliest restorable time that can be restored to. Output
-    /// only field.
+    /// Output only. The earliest restorable time that can be restored to. If
+    /// continuous backups and recovery was recently enabled, the earliest
+    /// restorable time is the creation time of the earliest eligible backup within
+    /// this cluster's continuous backup recovery window. After a cluster has had
+    /// continuous backups enabled for the duration of its recovery window, the
+    /// earliest restorable time becomes "now minus the recovery window". For
+    /// example, assuming a point in time recovery is attempted at 04/16/2025
+    /// 3:23:00PM with a 14d recovery window, the earliest restorable time would be
+    /// 04/02/2025 3:23:00PM. This field is only visible if the
+    /// CLUSTER_VIEW_CONTINUOUS_BACKUP cluster view is provided.
     pub earliest_restorable_time: std::option::Option<wkt::Timestamp>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4366,6 +4373,10 @@ pub struct MaintenanceUpdatePolicy {
     pub maintenance_windows:
         std::vec::Vec<crate::model::maintenance_update_policy::MaintenanceWindow>,
 
+    /// Periods to deny maintenance. Currently limited to 1.
+    pub deny_maintenance_periods:
+        std::vec::Vec<crate::model::maintenance_update_policy::DenyMaintenancePeriod>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -4382,6 +4393,17 @@ impl MaintenanceUpdatePolicy {
     {
         use std::iter::Iterator;
         self.maintenance_windows = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [deny_maintenance_periods][crate::model::MaintenanceUpdatePolicy::deny_maintenance_periods].
+    pub fn set_deny_maintenance_periods<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::maintenance_update_policy::DenyMaintenancePeriod>,
+    {
+        use std::iter::Iterator;
+        self.deny_maintenance_periods = v.into_iter().map(|i| i.into()).collect();
         self
     }
 }
@@ -4403,6 +4425,7 @@ impl<'de> serde::de::Deserialize<'de> for MaintenanceUpdatePolicy {
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
             __maintenance_windows,
+            __deny_maintenance_periods,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -4425,6 +4448,10 @@ impl<'de> serde::de::Deserialize<'de> for MaintenanceUpdatePolicy {
                         match value {
                             "maintenanceWindows" => Ok(__FieldTag::__maintenance_windows),
                             "maintenance_windows" => Ok(__FieldTag::__maintenance_windows),
+                            "denyMaintenancePeriods" => Ok(__FieldTag::__deny_maintenance_periods),
+                            "deny_maintenance_periods" => {
+                                Ok(__FieldTag::__deny_maintenance_periods)
+                            }
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -4464,6 +4491,14 @@ impl<'de> serde::de::Deserialize<'de> for MaintenanceUpdatePolicy {
                                 >>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__deny_maintenance_periods => {
+                            if !fields.insert(__FieldTag::__deny_maintenance_periods) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for deny_maintenance_periods",
+                                ));
+                            }
+                            result.deny_maintenance_periods = map.next_value::<std::option::Option<std::vec::Vec<crate::model::maintenance_update_policy::DenyMaintenancePeriod>>>()?.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -4489,6 +4524,9 @@ impl serde::ser::Serialize for MaintenanceUpdatePolicy {
         let mut state = serializer.serialize_map(std::option::Option::None)?;
         if !self.maintenance_windows.is_empty() {
             state.serialize_entry("maintenanceWindows", &self.maintenance_windows)?;
+        }
+        if !self.deny_maintenance_periods.is_empty() {
+            state.serialize_entry("denyMaintenancePeriods", &self.deny_maintenance_periods)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -4664,6 +4702,236 @@ pub mod maintenance_update_policy {
             }
             if self.start_time.is_some() {
                 state.serialize_entry("startTime", &self.start_time)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    /// DenyMaintenancePeriod definition. Excepting emergencies, maintenance
+    /// will not be scheduled to start within this deny period. The start_date must
+    /// be less than the end_date.
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct DenyMaintenancePeriod {
+        /// Deny period start date.
+        /// This can be:
+        ///
+        /// * A full date, with non-zero year, month and day values OR
+        /// * A month and day value, with a zero year for recurring
+        pub start_date: std::option::Option<gtype::model::Date>,
+
+        /// Deny period end date.
+        /// This can be:
+        ///
+        /// * A full date, with non-zero year, month and day values OR
+        /// * A month and day value, with a zero year for recurring
+        pub end_date: std::option::Option<gtype::model::Date>,
+
+        /// Time in UTC when the deny period starts on start_date and ends on
+        /// end_date. This can be:
+        ///
+        /// * Full time OR
+        /// * All zeros for 00:00:00 UTC
+        pub time: std::option::Option<gtype::model::TimeOfDay>,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl DenyMaintenancePeriod {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [start_date][crate::model::maintenance_update_policy::DenyMaintenancePeriod::start_date].
+        pub fn set_start_date<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Date>,
+        {
+            self.start_date = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [start_date][crate::model::maintenance_update_policy::DenyMaintenancePeriod::start_date].
+        pub fn set_or_clear_start_date<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Date>,
+        {
+            self.start_date = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [end_date][crate::model::maintenance_update_policy::DenyMaintenancePeriod::end_date].
+        pub fn set_end_date<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::Date>,
+        {
+            self.end_date = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [end_date][crate::model::maintenance_update_policy::DenyMaintenancePeriod::end_date].
+        pub fn set_or_clear_end_date<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::Date>,
+        {
+            self.end_date = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [time][crate::model::maintenance_update_policy::DenyMaintenancePeriod::time].
+        pub fn set_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<gtype::model::TimeOfDay>,
+        {
+            self.time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [time][crate::model::maintenance_update_policy::DenyMaintenancePeriod::time].
+        pub fn set_or_clear_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<gtype::model::TimeOfDay>,
+        {
+            self.time = v.map(|x| x.into());
+            self
+        }
+    }
+
+    impl wkt::message::Message for DenyMaintenancePeriod {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.alloydb.v1.MaintenanceUpdatePolicy.DenyMaintenancePeriod"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for DenyMaintenancePeriod {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __start_date,
+                __end_date,
+                __time,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for DenyMaintenancePeriod")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "startDate" => Ok(__FieldTag::__start_date),
+                                "start_date" => Ok(__FieldTag::__start_date),
+                                "endDate" => Ok(__FieldTag::__end_date),
+                                "end_date" => Ok(__FieldTag::__end_date),
+                                "time" => Ok(__FieldTag::__time),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = DenyMaintenancePeriod;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct DenyMaintenancePeriod")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__start_date => {
+                                if !fields.insert(__FieldTag::__start_date) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for start_date",
+                                    ));
+                                }
+                                result.start_date =
+                                    map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            }
+                            __FieldTag::__end_date => {
+                                if !fields.insert(__FieldTag::__end_date) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for end_date",
+                                    ));
+                                }
+                                result.end_date =
+                                    map.next_value::<std::option::Option<gtype::model::Date>>()?;
+                            }
+                            __FieldTag::__time => {
+                                if !fields.insert(__FieldTag::__time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for time",
+                                    ));
+                                }
+                                result.time = map
+                                    .next_value::<std::option::Option<gtype::model::TimeOfDay>>()?;
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for DenyMaintenancePeriod {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if self.start_date.is_some() {
+                state.serialize_entry("startDate", &self.start_date)?;
+            }
+            if self.end_date.is_some() {
+                state.serialize_entry("endDate", &self.end_date)?;
+            }
+            if self.time.is_some() {
+                state.serialize_entry("time", &self.time)?;
             }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
@@ -7544,6 +7812,15 @@ pub struct Instance {
     /// Output only. All outbound public IP addresses configured for the instance.
     pub outbound_public_ip_addresses: std::vec::Vec<std::string::String>,
 
+    /// Optional. Specifies whether an instance needs to spin up. Once the instance
+    /// is active, the activation policy can be updated to the `NEVER` to stop the
+    /// instance. Likewise, the activation policy can be updated to `ALWAYS` to
+    /// start the instance.
+    /// There are restrictions around when an instance can/cannot be activated (for
+    /// example, a read pool instance should be stopped before stopping primary
+    /// etc.). Please refer to the API documentation for more details.
+    pub activation_policy: crate::model::instance::ActivationPolicy,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -7890,6 +8167,17 @@ impl Instance {
         self.outbound_public_ip_addresses = v.into_iter().map(|i| i.into()).collect();
         self
     }
+
+    /// Sets the value of [activation_policy][crate::model::Instance::activation_policy].
+    pub fn set_activation_policy<
+        T: std::convert::Into<crate::model::instance::ActivationPolicy>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.activation_policy = v.into();
+        self
+    }
 }
 
 impl wkt::message::Message for Instance {
@@ -7936,6 +8224,7 @@ impl<'de> serde::de::Deserialize<'de> for Instance {
             __psc_instance_config,
             __network_config,
             __outbound_public_ip_addresses,
+            __activation_policy,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -8010,6 +8299,8 @@ impl<'de> serde::de::Deserialize<'de> for Instance {
                             "outbound_public_ip_addresses" => {
                                 Ok(__FieldTag::__outbound_public_ip_addresses)
                             }
+                            "activationPolicy" => Ok(__FieldTag::__activation_policy),
+                            "activation_policy" => Ok(__FieldTag::__activation_policy),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -8321,6 +8612,14 @@ impl<'de> serde::de::Deserialize<'de> for Instance {
                             }
                             result.outbound_public_ip_addresses = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                         }
+                        __FieldTag::__activation_policy => {
+                            if !fields.insert(__FieldTag::__activation_policy) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for activation_policy",
+                                ));
+                            }
+                            result.activation_policy = map.next_value::<std::option::Option<crate::model::instance::ActivationPolicy>>()?.unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -8430,6 +8729,9 @@ impl serde::ser::Serialize for Instance {
                 "outboundPublicIpAddresses",
                 &self.outbound_public_ip_addresses,
             )?;
+        }
+        if !wkt::internal::is_default(&self.activation_policy) {
+            state.serialize_entry("activationPolicy", &self.activation_policy)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -10091,9 +10393,33 @@ pub mod instance {
         pub ip_address: std::string::String,
 
         /// Output only. The status of the PSC service automation connection.
+        /// Possible values:
+        /// "STATE_UNSPECIFIED" - An invalid state as the default case.
+        /// "ACTIVE" - The connection has been created successfully.
+        /// "FAILED" - The connection is not functional since some resources on the
+        /// connection fail to be created.
+        /// "CREATING" - The connection is being created.
+        /// "DELETING" - The connection is being deleted.
+        /// "CREATE_REPAIRING" - The connection is being repaired to complete
+        /// creation.
+        /// "DELETE_REPAIRING" - The connection is being repaired to complete
+        /// deletion.
         pub status: std::string::String,
 
         /// Output only. The status of the service connection policy.
+        /// Possible values:
+        /// "STATE_UNSPECIFIED" - Default state, when Connection Map is created
+        /// initially.
+        /// "VALID" - Set when policy and map configuration is valid, and their
+        /// matching can lead to allowing creation of PSC Connections subject to
+        /// other constraints like connections limit.
+        /// "CONNECTION_POLICY_MISSING" - No Service Connection Policy found for
+        /// this network and Service Class
+        /// "POLICY_LIMIT_REACHED" - Service Connection Policy limit reached for
+        /// this network and Service Class
+        /// "CONSUMER_INSTANCE_PROJECT_NOT_ALLOWLISTED" - The consumer instance
+        /// project is not in AllowedGoogleProducersResourceHierarchyLevels of the
+        /// matching ServiceConnectionPolicy.
         pub consumer_network_status: std::string::String,
 
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -10615,6 +10941,22 @@ pub mod instance {
         /// server sending requests out into the internet.
         pub enable_outbound_public_ip: bool,
 
+        /// Output only. The resource link for the VPC network in which instance
+        /// resources are created and from which they are accessible via Private IP.
+        /// This will be the same value as the parent cluster's network. It is
+        /// specified in the form: //
+        /// `projects/{project_number}/global/networks/{network_id}`.
+        pub network: std::string::String,
+
+        /// Optional. Name of the allocated IP range for the private IP AlloyDB
+        /// instance, for example: "google-managed-services-default". If set, the
+        /// instance IPs will be created from this allocated range and will override
+        /// the IP range used by the parent cluster. The range name must comply with
+        /// [RFC 1035](http://datatracker.ietf.org/doc/html/rfc1035). Specifically,
+        /// the name must be 1-63 characters long and match the regular expression
+        /// [a-z]([-a-z0-9]*[a-z0-9])?.
+        pub allocated_ip_range_override: std::string::String,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -10647,6 +10989,21 @@ pub mod instance {
             self.enable_outbound_public_ip = v.into();
             self
         }
+
+        /// Sets the value of [network][crate::model::instance::InstanceNetworkConfig::network].
+        pub fn set_network<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.network = v.into();
+            self
+        }
+
+        /// Sets the value of [allocated_ip_range_override][crate::model::instance::InstanceNetworkConfig::allocated_ip_range_override].
+        pub fn set_allocated_ip_range_override<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.allocated_ip_range_override = v.into();
+            self
+        }
     }
 
     impl wkt::message::Message for InstanceNetworkConfig {
@@ -10668,6 +11025,8 @@ pub mod instance {
                 __authorized_external_networks,
                 __enable_public_ip,
                 __enable_outbound_public_ip,
+                __network,
+                __allocated_ip_range_override,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -10704,6 +11063,13 @@ pub mod instance {
                                 }
                                 "enable_outbound_public_ip" => {
                                     Ok(__FieldTag::__enable_outbound_public_ip)
+                                }
+                                "network" => Ok(__FieldTag::__network),
+                                "allocatedIpRangeOverride" => {
+                                    Ok(__FieldTag::__allocated_ip_range_override)
+                                }
+                                "allocated_ip_range_override" => {
+                                    Ok(__FieldTag::__allocated_ip_range_override)
                                 }
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
@@ -10758,6 +11124,26 @@ pub mod instance {
                                     .next_value::<std::option::Option<bool>>()?
                                     .unwrap_or_default();
                             }
+                            __FieldTag::__network => {
+                                if !fields.insert(__FieldTag::__network) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for network",
+                                    ));
+                                }
+                                result.network = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__allocated_ip_range_override => {
+                                if !fields.insert(__FieldTag::__allocated_ip_range_override) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for allocated_ip_range_override",
+                                    ));
+                                }
+                                result.allocated_ip_range_override = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -10792,6 +11178,15 @@ pub mod instance {
             }
             if !wkt::internal::is_default(&self.enable_outbound_public_ip) {
                 state.serialize_entry("enableOutboundPublicIp", &self.enable_outbound_public_ip)?;
+            }
+            if !self.network.is_empty() {
+                state.serialize_entry("network", &self.network)?;
+            }
+            if !self.allocated_ip_range_override.is_empty() {
+                state.serialize_entry(
+                    "allocatedIpRangeOverride",
+                    &self.allocated_ip_range_override,
+                )?;
             }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
@@ -11411,6 +11806,138 @@ pub mod instance {
             ))
         }
     }
+
+    /// Specifies whether an instance needs to spin up.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ActivationPolicy {
+        /// The policy is not specified.
+        Unspecified,
+        /// The instance is running.
+        Always,
+        /// The instance is not running.
+        Never,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ActivationPolicy::value] or
+        /// [ActivationPolicy::name].
+        UnknownValue(activation_policy::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod activation_policy {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ActivationPolicy {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Always => std::option::Option::Some(1),
+                Self::Never => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("ACTIVATION_POLICY_UNSPECIFIED"),
+                Self::Always => std::option::Option::Some("ALWAYS"),
+                Self::Never => std::option::Option::Some("NEVER"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ActivationPolicy {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ActivationPolicy {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ActivationPolicy {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Always,
+                2 => Self::Never,
+                _ => Self::UnknownValue(activation_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ActivationPolicy {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "ACTIVATION_POLICY_UNSPECIFIED" => Self::Unspecified,
+                "ALWAYS" => Self::Always,
+                "NEVER" => Self::Never,
+                _ => Self::UnknownValue(activation_policy::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ActivationPolicy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Always => serializer.serialize_i32(1),
+                Self::Never => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ActivationPolicy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ActivationPolicy>::new(
+                ".google.cloud.alloydb.v1.Instance.ActivationPolicy",
+            ))
+        }
+    }
 }
 
 /// ConnectionInfo singleton resource.
@@ -11655,10 +12182,16 @@ pub struct Backup {
     pub create_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Update time stamp
+    ///
+    /// Users should not infer any meaning from this field. Its value is generally
+    /// unrelated to the timing of the backup creation operation.
     pub update_time: std::option::Option<wkt::Timestamp>,
 
     /// Output only. Delete time stamp
     pub delete_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. Timestamp when the resource finished being created.
+    pub create_completion_time: std::option::Option<wkt::Timestamp>,
 
     /// Labels as key value pairs
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
@@ -11810,6 +12343,24 @@ impl Backup {
         T: std::convert::Into<wkt::Timestamp>,
     {
         self.delete_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [create_completion_time][crate::model::Backup::create_completion_time].
+    pub fn set_create_completion_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_completion_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_completion_time][crate::model::Backup::create_completion_time].
+    pub fn set_or_clear_create_completion_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_completion_time = v.map(|x| x.into());
         self
     }
 
@@ -12007,6 +12558,7 @@ impl<'de> serde::de::Deserialize<'de> for Backup {
             __create_time,
             __update_time,
             __delete_time,
+            __create_completion_time,
             __labels,
             __state,
             __type,
@@ -12054,6 +12606,8 @@ impl<'de> serde::de::Deserialize<'de> for Backup {
                             "update_time" => Ok(__FieldTag::__update_time),
                             "deleteTime" => Ok(__FieldTag::__delete_time),
                             "delete_time" => Ok(__FieldTag::__delete_time),
+                            "createCompletionTime" => Ok(__FieldTag::__create_completion_time),
+                            "create_completion_time" => Ok(__FieldTag::__create_completion_time),
                             "labels" => Ok(__FieldTag::__labels),
                             "state" => Ok(__FieldTag::__state),
                             "type" => Ok(__FieldTag::__type),
@@ -12160,6 +12714,15 @@ impl<'de> serde::de::Deserialize<'de> for Backup {
                                 ));
                             }
                             result.delete_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__create_completion_time => {
+                            if !fields.insert(__FieldTag::__create_completion_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_completion_time",
+                                ));
+                            }
+                            result.create_completion_time =
                                 map.next_value::<std::option::Option<wkt::Timestamp>>()?;
                         }
                         __FieldTag::__labels => {
@@ -12394,6 +12957,9 @@ impl serde::ser::Serialize for Backup {
         }
         if self.delete_time.is_some() {
             state.serialize_entry("deleteTime", &self.delete_time)?;
+        }
+        if self.create_completion_time.is_some() {
+            state.serialize_entry("createCompletionTime", &self.create_completion_time)?;
         }
         if !self.labels.is_empty() {
             state.serialize_entry("labels", &self.labels)?;
@@ -18885,7 +19451,7 @@ pub mod upgrade_cluster_response {
         }
     }
 
-    /// Details regarding the upgrade of instaces associated with a cluster.
+    /// Details regarding the upgrade of instances associated with a cluster.
     #[derive(Clone, Debug, Default, PartialEq)]
     #[non_exhaustive]
     pub struct InstanceUpgradeDetails {
@@ -20364,6 +20930,7 @@ impl serde::ser::Serialize for PromoteClusterRequest {
 
 /// Message for restoring a Cluster from a backup or another cluster at a given
 /// point in time.
+/// NEXT_ID: 11
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct RestoreClusterRequest {

@@ -5941,6 +5941,12 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::PublisherModel>>;
 
+    async fn deploy(
+        &self,
+        req: crate::model::DeployRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -6000,6 +6006,16 @@ pub trait ModelGardenService: std::fmt::Debug + Send + Sync {
         req: longrunning::model::WaitOperationRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy>;
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy>;
 }
 
 /// All implementations of [super::ModelGardenService] also implement [ModelGardenService].
@@ -6013,6 +6029,15 @@ impl<T: super::ModelGardenService> ModelGardenService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<crate::model::PublisherModel>> {
         T::get_publisher_model(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn deploy(
+        &self,
+        req: crate::model::DeployRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::deploy(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
@@ -6103,6 +6128,20 @@ impl<T: super::ModelGardenService> ModelGardenService for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::wait_operation(self, req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        T::get_polling_error_policy(self, options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        T::get_polling_backoff_policy(self, options)
     }
 }
 
