@@ -80,6 +80,10 @@ Manager API, do the following:
    [APIs and services](https://console.cloud.google.com/apis), if you haven't
    already done so.
 
+   ```shell
+   gcloud services enable secretmanager.googleapis.com
+   ```
+
 1. Add the [google-cloud-gax] crate to the new project
 
    ```shell
