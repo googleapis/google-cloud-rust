@@ -16,8 +16,9 @@ package httprule
 
 import (
 	"fmt"
-	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 	"strings"
+
+	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
 
 // The following documentation was copied and adapted from the [C++ HTTP Annotation parser]
@@ -84,35 +85,85 @@ func Parse(pathTemplate string) (*PathTemplate, error) {
 	return parsePathTemplate(pathTemplate)
 }
 
-// ParseSegments flattens the result of Parse into a slice of api.LegacyPathSegment,
-// ignoring variable values and match (* and **) segments.
-// TODO(#557): This function is a temporary shim to allow the existing tests to pass.
-func ParseSegments(pathTemplate string) ([]api.LegacyPathSegment, error) {
+// Converts from this package's representation of an HTTP path template to the
+// representation in `package api`.
+//
+// TODO(#557): The parser could/should use the representation in `package api`.
+func ParseSegments(pathTemplate string) (*api.PathTemplate, error) {
 	path, err := parsePathTemplate(pathTemplate)
 	if err != nil {
 		return nil, err
 	}
+	var template api.PathTemplate
+	var segments []api.PathSegment
+	for _, s := range path.Segments {
+		if s.Literal != nil {
+			literal := string(*s.Literal)
+			segments = append(segments, api.PathSegment{Literal: &literal})
+		} else if s.Variable != nil {
+			fields := make([]string, len(s.Variable.FieldPath))
+			for i, field := range s.Variable.FieldPath {
+				fields[i] = string(*field)
+			}
+
+			var var_segments []api.PathVariableSegment
+			for _, vs := range s.Variable.Segments {
+				if vs.Variable != nil {
+					return nil, fmt.Errorf("variable fields cannot be nested")
+				} else if vs.Literal != nil {
+					literal := string(*vs.Literal)
+					var_segments = append(var_segments, api.PathVariableSegment{Literal: &literal})
+				} else if vs.Match != nil {
+					var_segments = append(var_segments, api.PathVariableSegment{Match: &api.PathMatch{}})
+				} else if vs.MatchRecursive != nil {
+					var_segments = append(var_segments, api.PathVariableSegment{MatchRecursive: &api.PathMatchRecursive{}})
+				}
+			}
+			if len(s.Variable.Segments) == 0 {
+				// When there are no variable segments, a single "*" match is implied.
+				var_segments = append(var_segments, api.PathVariableSegment{Match: &api.PathMatch{}})
+			}
+			segments = append(segments, api.PathSegment{Variable: &api.PathVariable{
+				FieldPath: fields,
+				Segments:  var_segments,
+			}})
+		} else {
+			return nil, fmt.Errorf("top level path segments can only be literals or variables")
+		}
+	}
+	template.Segments = segments
+	template.Verb = (*string)(path.Verb)
+	return &template, nil
+}
+
+// Flattens the result of `ParseSegments`, ignoring variable patterns.
+//
+// The variable patterns are used to validate path bindings. We need them, but
+// did not realize when we initially wrote the model. We keep this thing around
+// because some languages (dart, golang) still use the legacy representation.
+//
+// TODO(#557): Remove this when we stop using `api.LegacyPathSegment`
+func LegacyParseSegments(pathTemplate string) ([]api.LegacyPathSegment, error) {
+	path, err := ParseSegments(pathTemplate)
+	if err != nil {
+		return nil, err
+	}
+
 	var segments []api.LegacyPathSegment
 	for _, s := range path.Segments {
 		segment := api.LegacyPathSegment{}
 		if s.Literal != nil {
-			literal := string(*s.Literal)
-			segment.Literal = &literal
+			segment.Literal = s.Literal
 		} else if s.Variable != nil {
-			ids := make([]string, len(s.Variable.FieldPath))
-			for i, id := range s.Variable.FieldPath {
-				ids[i] = string(*id)
-			}
-			fieldPath := strings.Join(ids, ".")
+			fieldPath := strings.Join(s.Variable.FieldPath, ".")
 			segment.FieldPath = &fieldPath
 		}
 		segments = append(segments, segment)
 	}
 
 	if path.Verb != nil {
-		verb := string(*path.Verb)
 		segments = append(segments, api.LegacyPathSegment{
-			Verb: &verb,
+			Verb: path.Verb,
 		})
 	}
 	return segments, nil

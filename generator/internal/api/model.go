@@ -346,6 +346,77 @@ const (
 	RoutingMultiSegmentWildcard = "**"
 )
 
+type PathTemplate struct {
+	Segments []PathSegment
+	Verb     *string
+}
+
+type PathSegment struct {
+	Literal  *string
+	Variable *PathVariable
+}
+
+type PathVariable struct {
+	FieldPath []string
+	Segments  []PathVariableSegment
+}
+
+type PathVariableSegment struct {
+	Literal        *string
+	Match          *PathMatch
+	MatchRecursive *PathMatchRecursive
+}
+
+// PathMatch represents a single '*' match.
+type PathMatch struct{}
+
+// MatchRecursive represents a '**' match.
+type PathMatchRecursive struct{}
+
+func NewPathTemplate() *PathTemplate {
+	return &PathTemplate{}
+}
+
+func NewPathVariable(fields ...string) *PathVariable {
+	return &PathVariable{FieldPath: fields}
+}
+
+func (p *PathTemplate) WithLiteral(l string) *PathTemplate {
+	p.Segments = append(p.Segments, PathSegment{Literal: &l})
+	return p
+}
+
+func (p *PathTemplate) WithVariable(v *PathVariable) *PathTemplate {
+	p.Segments = append(p.Segments, PathSegment{Variable: v})
+	return p
+}
+
+func (p *PathTemplate) WithVariableNamed(fields ...string) *PathTemplate {
+	v := PathVariable{FieldPath: fields}
+	p.Segments = append(p.Segments, PathSegment{Variable: v.WithMatch()})
+	return p
+}
+
+func (p *PathTemplate) WithVerb(v string) *PathTemplate {
+	p.Verb = &v
+	return p
+}
+
+func (v *PathVariable) WithLiteral(l string) *PathVariable {
+	v.Segments = append(v.Segments, PathVariableSegment{Literal: &l})
+	return v
+}
+
+func (v *PathVariable) WithMatchRecursive() *PathVariable {
+	v.Segments = append(v.Segments, PathVariableSegment{MatchRecursive: &PathMatchRecursive{}})
+	return v
+}
+
+func (v *PathVariable) WithMatch() *PathVariable {
+	v.Segments = append(v.Segments, PathVariableSegment{Match: &PathMatch{}})
+	return v
+}
+
 // A path segment is either a string literal (such as "projects") or a field
 // path (such as "options.version").
 //

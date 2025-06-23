@@ -181,7 +181,7 @@ func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packa
 		return methods, nil
 	}
 	for pattern, item := range model.Model.Paths.PathItems.FromOldest() {
-		pathTemplate, err := httprule.ParseSegments(pattern)
+		pathTemplate, err := httprule.LegacyParseSegments(pattern)
 		if err != nil {
 			return nil, err
 		}

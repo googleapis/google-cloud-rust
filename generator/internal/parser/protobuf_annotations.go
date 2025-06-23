@@ -112,7 +112,7 @@ func processRuleShallow(httpRule *annotations.HttpRule, state *api.APIState, mID
 			QueryParameters:    map[string]bool{},
 		}, "*", nil
 	}
-	pathTemplate, err := httprule.ParseSegments(rawPath)
+	pathTemplate, err := httprule.LegacyParseSegments(rawPath)
 	if err != nil {
 		return nil, "", err
 	}
