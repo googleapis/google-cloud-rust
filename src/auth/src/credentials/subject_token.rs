@@ -12,16 +12,19 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Provides functionality for creating a custom subject token provider.
+//! Subject Token Credential Type.
 //!
-//! This module is intended for advanced authentication scenarios where developers
-//! need to integrate a custom token fetching mechanism into the Google Cloud
-//! authentication flow.
+//! A **subject token** is a credential that asserts the identity of a workload,
+//! application, or a user. In the case of the [Workload Identity Federation] flow,
+//! this allows applications to authenticate to Google Cloud. The process involves
+//! exchanging this subject token for a short-lived Google Cloud access token via
+//! the [Security Token Service (STS)].
 //!
-//! The typical workflow involves a client implementing the [SubjectTokenProvider]
-//! trait to fetch a token from their identity provider. This provider is then used
-//! to configure `ExternalAccount` credentials, which handles the exchange of this
-//! subject token for a Google Cloud access token via the Security Token Service (STS).
+//! This module provides the [`SubjectTokenProvider`] trait, which is used to
+//! fetch subject tokens. The Google Cloud client libraries for Rust will typically
+//! use the [`SubjectTokenProvider`] automatically for external account credentials.
+//! You might need to implement this trait for advanced authentication scenarios where
+//! you want to integrate a custom subject token fetching mechanism.
 //!
 //! # Example
 //!
@@ -67,7 +70,9 @@
 //!     }
 //! }
 //! ```
-
+//!
+//! [Workload Identity Federation]: https://cloud.google.com/iam/docs/workload-identity-federation
+//! [Security Token Service (STS)]: https://cloud.google.com/iam/docs/reference/sts/rest
 use crate::credentials::errors::SubjectTokenProviderError;
 
 /// A builder for [SubjectToken] instances.
@@ -99,9 +104,9 @@ impl Builder {
 /// Represents a third-party subject token used for authentication.
 ///
 /// This token is typically obtained from an external identity provider and is
-/// exchanged for a Google Cloud access token via the Security Token Service (STS)
+/// exchanged for a Google Cloud access token via the Security Token Service (STS).
 ///
-/// [SubjectToken] should be constructed using it's corresponding [Builder].
+/// A `SubjectToken` should be constructed using its corresponding [`Builder`].
 ///
 /// # Example
 ///
@@ -116,12 +121,11 @@ pub struct SubjectToken {
     pub(crate) token: String,
 }
 
-///  Trait for providing a third-party subject token.
+/// Trait for providing a third-party subject token.
 ///
-/// This trait is designed for advanced use cases where a custom mechanism is needed
-/// to fetch a third-party subject token for `ExternalAccount` authentication.
-/// The provided token is then exchanged for a Google Cloud access token via the
-/// Security Token Service (STS).
+/// This trait is designed for advanced use cases where a custom mechanism is
+/// needed to fetch a third-party subject token for `ExternalAccount`
+/// authentication.
 pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
     /// The error type that can be returned by this provider.
     ///
