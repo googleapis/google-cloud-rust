@@ -76,6 +76,9 @@ Manager API, do the following:
    cargo add google-cloud-secretmanager-v1
    ```
 
+   You'll need to enable the Secret Manager API in [APIs and services](https://console.cloud.google.com/apis),
+   if you haven't already done so. 
+
 1. Add the [google-cloud-gax] crate to the new project
 
    ```shell
