@@ -119,7 +119,7 @@ func processRuleShallow(httpRule *annotations.HttpRule, state *api.APIState, mID
 	if err != nil {
 		return nil, "", err
 	}
-	queryParameters, err := queryParameters(mID, legacyPathTemplate, httpRule.GetBody(), state)
+	queryParameters, err := queryParameters(mID, pathTemplate, httpRule.GetBody(), state)
 	if err != nil {
 		return nil, "", err
 	}
@@ -132,8 +132,7 @@ func processRuleShallow(httpRule *annotations.HttpRule, state *api.APIState, mID
 	}, httpRule.GetBody(), nil
 }
 
-// TODO(#2499) - Write this in terms of `api.PathTemplate`
-func queryParameters(msgID string, legacyPathTemplate []api.LegacyPathSegment, body string, state *api.APIState) (map[string]bool, error) {
+func queryParameters(msgID string, pathTemplate *api.PathTemplate, body string, state *api.APIState) (map[string]bool, error) {
 	msg, ok := state.MessageByID[msgID]
 	if !ok {
 		return nil, fmt.Errorf("unable to lookup type %s", msgID)
@@ -147,9 +146,10 @@ func queryParameters(msgID string, legacyPathTemplate []api.LegacyPathSegment, b
 	for _, field := range msg.Fields {
 		params[field.Name] = true
 	}
-	for _, s := range legacyPathTemplate {
-		if s.FieldPath != nil {
-			delete(params, *s.FieldPath)
+	for _, s := range pathTemplate.Segments {
+		if s.Variable != nil {
+			// TODO(#2508) - Note that nested fields are not excluded
+			delete(params, strings.Join(s.Variable.FieldPath, "."))
 		}
 	}
 	if body != "" {
