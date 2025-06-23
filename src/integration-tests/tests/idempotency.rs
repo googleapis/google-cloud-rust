@@ -23,16 +23,16 @@ mod default_idempotency {
 
     type Result = anyhow::Result<()>;
     use gax::error::Error;
-    use gax::loop_state::LoopState;
     use gax::options::RequestOptionsBuilder;
     use gax::retry_policy::RetryPolicy;
+    use gax::retry_result::RetryResult;
     use gax::throttle_result::ThrottleResult;
 
     mockall::mock! {
         #[derive(Debug)]
         RetryPolicy {}
         impl RetryPolicy for RetryPolicy {
-            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> LoopState;
+            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> RetryResult;
             fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> ThrottleResult;
             fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<std::time::Duration>;
         }
@@ -53,7 +53,7 @@ mod default_idempotency {
             .withf(move |_, _, idempotent, _| *idempotent == expected_idempotency)
             .once()
             .in_sequence(&mut seq)
-            .returning(move |_, _, _, e| LoopState::Permanent(e));
+            .returning(move |_, _, _, e| RetryResult::Permanent(e));
 
         retry_policy
     }

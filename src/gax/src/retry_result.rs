@@ -21,8 +21,39 @@
 use crate::error::Error;
 
 /// The result of a loop control decision.
+///
+/// # Example
+///
+/// ```
+/// # use google_cloud_gax::{error::Error, retry_policy::RetryPolicy};
+/// # use google_cloud_gax::{retry_result::RetryResult, throttle_result::ThrottleResult};
+/// #[derive(Debug)]
+/// struct MyRetryPolicy;
+/// impl google_cloud_gax::retry_policy::RetryPolicy for MyRetryPolicy {
+///     fn on_error(
+///         &self,
+///         _loop_start: std::time::Instant,
+///         attempt_count: u32,
+///         _idempotent: bool,
+///         error: Error) -> RetryResult
+///     {
+///         if attempt_count > 42 {
+///             return RetryResult::Exhausted(error);
+///         }
+///         RetryResult::Continue(error)
+///     }
+///     fn on_throttle(
+///         &self,
+///        loop_start: std::time::Instant,
+///        attempt_count: u32,
+///        error: Error,
+///     ) -> ThrottleResult {
+///         # panic!();
+///     }
+/// }
+/// ```
 #[derive(Debug)]
-pub enum LoopState {
+pub enum RetryResult {
     /// The error is non-retryable, stop the loop.
     Permanent(Error),
 
@@ -36,7 +67,7 @@ pub enum LoopState {
     Continue(Error),
 }
 
-impl LoopState {
+impl RetryResult {
     pub fn is_permanent(&self) -> bool {
         match &self {
             Self::Permanent(_) => true,
@@ -63,17 +94,17 @@ mod tests {
 
     #[test]
     fn loop_state() {
-        let flow = LoopState::Permanent(permanent_error());
+        let flow = RetryResult::Permanent(permanent_error());
         assert!(flow.is_permanent(), "{flow:?}");
         assert!(!flow.is_exhausted(), "{flow:?}");
         assert!(!flow.is_continue(), "{flow:?}");
 
-        let flow = LoopState::Exhausted(transient_error());
+        let flow = RetryResult::Exhausted(transient_error());
         assert!(!flow.is_permanent(), "{flow:?}");
         assert!(flow.is_exhausted(), "{flow:?}");
         assert!(!flow.is_continue(), "{flow:?}");
 
-        let flow = LoopState::Continue(transient_error());
+        let flow = RetryResult::Continue(transient_error());
         assert!(!flow.is_permanent(), "{flow:?}");
         assert!(!flow.is_exhausted(), "{flow:?}");
         assert!(flow.is_continue(), "{flow:?}");
