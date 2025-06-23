@@ -18,7 +18,10 @@ use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 pub use control::model::Object;
+use control::model::compose_object_request;
 use http::Extensions;
+use http::request;
+use serde_with::DeserializeAs;
 use sha2::{Digest, Sha256};
 
 mod v1;
@@ -599,6 +602,8 @@ impl ReadObject {
 
     /// Sends the request.
     pub async fn send(self) -> crate::Result<bytes::Bytes> {
+        let checksum_check_enabled = self.request.read_offset == 0 && self.request.read_limit == 0;
+
         let builder = self.http_request_builder().await?;
 
         tracing::info!("builder={builder:?}");
@@ -607,8 +612,17 @@ impl ReadObject {
         if !response.status().is_success() {
             return gaxi::http::to_http_error(response).await;
         }
+        let object = response_to_storage_object(&response);
         let response = response.bytes().await.map_err(Error::io)?;
-
+        if checksum_check_enabled {
+            if let Some(computed_hash) = object.checksums {
+                if let Some(computed_hash) = computed_hash.crc32c {
+                    if computed_hash != crc32c::crc32c(&response) {
+                        return Err(Error::deser("crc32c does not match"));
+                    }
+                }
+            }
+        }
         Ok(response)
     }
 
@@ -694,6 +708,39 @@ impl ReadObject {
         let builder = self.inner.apply_auth_headers(builder).await?;
         Ok(builder)
     }
+}
+
+fn response_to_storage_object(resp: &reqwest::Response) -> control::model::Object {
+    // TODO(#TODO): Use x-goog-generation, x-goog-metageneration, x-goog-stored-content-length and x-goog-stored-content-encoding.
+    let headers = resp.headers();
+    let object = control::model::Object::new();
+    let object = headers
+        .get("x-goog-generation")
+        .and_then(|h| h.to_str().ok())
+        .map(|s| s.parse::<i64>().ok())
+        .unwrap_or(None)
+        .iter()
+        .fold(object, |o, g| o.set_generation(*g));
+    let object = headers
+        .get("x-goog-generation")
+        .and_then(|h| h.to_str().ok())
+        .map(|s| s.parse::<i64>().ok())
+        .unwrap_or(None)
+        .iter()
+        .fold(object, |o, g| o.set_generation(*g));
+    let object = headers
+        .get("x-goog-hash")
+        .and_then(|hash| hash.to_str().ok())
+        .and_then(|hash| hash.split(",").find(|v| v.starts_with("crc32c")))
+        .and_then(|hash| {
+            let hash = hash.trim_start_matches("crc32c=");
+            v1::Crc32c::deserialize_as(serde_json::json!(hash)).ok()
+        })
+        .iter()
+        .fold(object, |object, hash| {
+            object.set_checksums(control::model::ObjectChecksums::new().set_crc32c(*hash))
+        });
+    object
 }
 
 /// Represents an error that can occur with invalid range is specified.

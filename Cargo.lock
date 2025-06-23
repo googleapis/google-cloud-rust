@@ -4158,6 +4158,7 @@ dependencies = [
  "anyhow",
  "base64",
  "bytes",
+ "crc32c",
  "google-cloud-auth",
  "google-cloud-gax",
  "google-cloud-gax-internal",

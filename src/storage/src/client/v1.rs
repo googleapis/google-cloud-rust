@@ -72,7 +72,7 @@ struct Retention {
 }
 
 // CRC32c checksum is a unsigned 32-bit int encoded using base64 in big-endian byte order.
-struct Crc32c;
+pub(super) struct Crc32c;
 
 impl<'de> serde_with::DeserializeAs<'de, u32> for Crc32c {
     fn deserialize_as<D>(deserializer: D) -> Result<u32, D::Error>
