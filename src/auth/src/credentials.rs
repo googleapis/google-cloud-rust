@@ -30,7 +30,7 @@ pub mod impersonated;
 pub(crate) mod internal;
 pub mod mds;
 pub mod service_account;
-pub mod subject_token;
+pub(crate) mod subject_token;
 pub mod user_account;
 
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";

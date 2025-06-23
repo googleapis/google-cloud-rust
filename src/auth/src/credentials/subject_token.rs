@@ -84,7 +84,7 @@ use crate::credentials::errors::SubjectTokenProviderError;
 /// let subject_token = Builder::new("test-token")
 ///     .build();
 ///
-pub struct Builder {
+pub(crate) struct Builder {
     token: String,
 }
 
@@ -115,7 +115,7 @@ impl Builder {
 ///
 /// ```
 #[derive(Debug)]
-pub struct SubjectToken {
+pub(crate) struct SubjectToken {
     pub(crate) token: String,
 }
 
@@ -170,7 +170,7 @@ pub struct SubjectToken {
 ///     }
 /// }
 /// ```
-pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
+pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
     /// The error type that can be returned by this provider.
     ///
     /// The error must implement the [`SubjectTokenProviderError`] trait to allow the
