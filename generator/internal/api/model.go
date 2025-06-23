@@ -265,7 +265,10 @@ type PathBinding struct {
 	// - PATCH
 	Verb string
 	// The path broken by components.
+	// TODO(#2499) - Remove this.
 	LegacyPathTemplate []LegacyPathSegment
+	// The path broken by components.
+	PathTemplate *PathTemplate
 	// Query parameter fields.
 	QueryParameters map[string]bool
 }
@@ -439,20 +442,24 @@ func (v *PathVariable) WithMatch() *PathVariable {
 // ```
 //
 // The Codec interpret these elements as needed.
+// TODO(#2499) - Remove this.
 type LegacyPathSegment struct {
 	Literal   *string
 	FieldPath *string
 	Verb      *string
 }
 
+// TODO(#2499) - Remove this.
 func NewLiteralPathSegment(s string) LegacyPathSegment {
 	return LegacyPathSegment{Literal: &s}
 }
 
+// TODO(#2499) - Remove this.
 func NewFieldPathPathSegment(s string) LegacyPathSegment {
 	return LegacyPathSegment{FieldPath: &s}
 }
 
+// TODO(#2499) - Remove this.
 func NewVerbPathSegment(s string) LegacyPathSegment {
 	return LegacyPathSegment{Verb: &s}
 }
