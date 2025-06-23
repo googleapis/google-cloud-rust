@@ -24,63 +24,43 @@ import (
 )
 
 func TestQueryParams(t *testing.T) {
-	options := &api.Message{
-		Name:   "Options",
-		ID:     "..Options",
-		Fields: []*api.Field{},
+	field1 := &api.Field{
+		Name: "field1",
 	}
-	optionsField := &api.Field{
-		Name:     "options_field",
-		JSONName: "optionsField",
-		Typez:    api.MESSAGE_TYPE,
-		TypezID:  options.ID,
-	}
-	anotherField := &api.Field{
-		Name:     "another_field",
-		JSONName: "anotherField",
-		Typez:    api.STRING_TYPE,
-		TypezID:  options.ID,
+	field2 := &api.Field{
+		Name: "field2",
 	}
 	request := &api.Message{
 		Name: "TestRequest",
 		ID:   "..TestRequest",
 		Fields: []*api.Field{
-			optionsField, anotherField,
+			field1, field2,
 			{
-				Name: "unused",
+				Name: "used_in_path",
 			},
+			{
+				Name: "used_in_body",
+			},
+		},
+	}
+	binding := &api.PathBinding{
+		Verb: "GET",
+		QueryParameters: map[string]bool{
+			"field1": true,
+			"field2": true,
 		},
 	}
 	method := &api.Method{
-		Name:         "Test",
-		ID:           "..TestService.Test",
-		InputTypeID:  request.ID,
-		OutputTypeID: ".google.protobuf.Empty",
+		Name:      "Test",
+		ID:        "..TestService.Test",
+		InputType: request,
 		PathInfo: &api.PathInfo{
-			Bindings: []*api.PathBinding{
-				{
-					Verb: "GET",
-					QueryParameters: map[string]bool{
-						"options_field": true,
-						"another_field": true,
-					},
-				},
-			},
+			Bindings: []*api.PathBinding{binding},
 		},
 	}
-	test := api.NewTestAPI(
-		[]*api.Message{options, request},
-		[]*api.Enum{},
-		[]*api.Service{
-			{
-				Name:    "TestService",
-				ID:      "..TestService",
-				Methods: []*api.Method{method},
-			},
-		})
 
-	got := QueryParams(method, test.State)
-	want := []*api.Field{optionsField, anotherField}
+	got := QueryParams(method, binding)
+	want := []*api.Field{field1, field2}
 	less := func(a, b *api.Field) bool { return a.Name < b.Name }
 	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
