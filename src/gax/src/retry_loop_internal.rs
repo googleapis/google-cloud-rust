@@ -423,7 +423,7 @@ mod test {
         .await;
         let err = response.unwrap_err();
         let status = err.status().unwrap();
-        let detail = status.details.get(0).unwrap();
+        let detail = status.details.first().unwrap();
         assert!(
             matches!(detail, StatusDetails::DebugInfo(e) if e.detail == format!("count={}", ERRORS - 1) ),
             "{status:?}"
