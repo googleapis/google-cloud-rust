@@ -64,16 +64,10 @@ func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 	return params
 }
 
-func QueryParams(m *api.Method, state *api.APIState) []*api.Field {
-	msg, ok := state.MessageByID[m.InputTypeID]
-	if !ok {
-		slog.Error("unable to lookup request type", "id", m.InputTypeID)
-		return nil
-	}
-
+func QueryParams(m *api.Method, b *api.PathBinding) []*api.Field {
 	var queryParams []*api.Field
-	for _, field := range msg.Fields {
-		if !m.PathInfo.Bindings[0].QueryParameters[field.Name] {
+	for _, field := range m.InputType.Fields {
+		if !b.QueryParameters[field.Name] {
 			continue
 		}
 		queryParams = append(queryParams, field)
