@@ -515,7 +515,7 @@ func (annotate *annotateModel) annotateMethod(method *api.Method) {
 		annotate.annotateOperationInfo(method.OperationInfo)
 	}
 
-	queryParams := language.QueryParams(method, state)
+	queryParams := language.QueryParams(method, method.PathInfo.Bindings[0])
 	queryLines := []string{}
 	for _, field := range queryParams {
 		queryLines = buildQueryLines(queryLines, "request.", "", field, state)

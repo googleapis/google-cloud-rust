@@ -591,7 +591,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		BodyAccessor:        bodyAccessor(m),
 		DocLines:            c.formatDocComments(m.Documentation, m.ID, state, s.Scopes()),
 		PathInfo:            m.PathInfo,
-		QueryParams:         language.QueryParams(m, state),
+		QueryParams:         language.QueryParams(m, m.PathInfo.Bindings[0]),
 		ServiceNameToPascal: toPascal(serviceName),
 		ServiceNameToCamel:  toCamel(serviceName),
 		ServiceNameToSnake:  toSnake(serviceName),
