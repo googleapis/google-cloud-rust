@@ -147,7 +147,7 @@ mod tests {
     #[test_case("projects/", None)]
     #[test_case("projects/my-project/", None)]
     #[test_case("projects/my-project/locations/my-location", None)]
-    fn test_try_match(input: &str, expected: Option<&str>) {
+    fn try_match_basic(input: &str, expected: Option<&str>) {
         let p = try_match(
             input,
             &[Segment::Literal("projects/"), Segment::SingleWildcard],
@@ -214,7 +214,7 @@ mod tests {
     }
 
     #[test]
-    fn test_missing() {
+    fn missing_error() {
         let e = missing("abc123");
         let fmt = format!("{e}");
         assert!(fmt.contains("abc123"), "{e:?}");
