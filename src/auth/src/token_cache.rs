@@ -33,12 +33,7 @@ pub(crate) struct TokenCache<T: TokenProvider> {
     token_provider: Arc<T>,
 }
 
-// We are implementing Clone instead of using the Default implementation
-// because the default implementation requires all the members of the struct
-// to be Clone as well. TokenProvider is not Clone currently. Adding Clone to
-// TokenProvider will create a cascade of changes and will also need the
-// MockTokenProvider in token.rs to be Clone and it is not straightforward
-// to implement Clone for a mockall.
+// The default implementation requires `T` to implement `Clone`, which is not always the case.
 impl<T: TokenProvider> Clone for TokenCache<T> {
     fn clone(&self) -> Self {
         Self {
