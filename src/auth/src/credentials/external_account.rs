@@ -459,10 +459,11 @@ where
     /// Returns a [CredentialsError] if the provided `external_account_config`
     /// cannot be successfully deserialized into the expected format for an external
     /// account configuration. This typically happens if the JSON value is malformed
-    /// or missing required fields. For more information, on the expected format,
+    /// or missing required fields. For more information on the expected format,
     /// consult the relevant section in the [external_account_credentials] guide.
-    /// As a subject token provider is explicly provided, therefore the provided
-    /// JSON value, doesn't require `credential_source`.
+    ///
+    /// Since a subject token provider is supplied programmatically, the
+    /// `credential_source` field is not required in the JSON configuration.
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> BuildResult<Credentials> {
