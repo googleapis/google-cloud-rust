@@ -565,7 +565,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		pathInfoAnnotation := &pathInfoAnnotation{
 			Method:        m.PathInfo.Bindings[0].Verb,
 			MethodToLower: strings.ToLower(m.PathInfo.Bindings[0].Verb),
-			PathFmt:       httpPathFmt(m.PathInfo),
+			PathFmt:       httpPathFmt(m.PathInfo.Bindings[0].PathTemplate),
 			PathArgs:      httpPathArgs(m.PathInfo, m, state),
 			HasBody:       m.PathInfo.BodyFieldPath != "",
 		}

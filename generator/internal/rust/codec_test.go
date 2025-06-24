@@ -1793,55 +1793,53 @@ func TestEnumValueVariantName(t *testing.T) {
 func TestPathFmt(t *testing.T) {
 	for _, test := range []struct {
 		want     string
-		pathInfo *api.PathInfo
+		template *api.PathTemplate
 	}{
 		{
 			"/v1/fixed",
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{LegacyPathTemplate: []api.LegacyPathSegment{api.NewLiteralPathSegment("v1"), api.NewLiteralPathSegment("fixed")}},
-				},
-			},
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithLiteral("fixed"),
 		},
 		{
 			"/v1/{}",
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{LegacyPathTemplate: []api.LegacyPathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent")}},
-				},
-			},
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithVariableNamed("parent"),
+		},
+		{
+			"/v1/{}",
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithVariable(api.NewPathVariable("parent").
+					WithLiteral("projects").
+					WithMatch().
+					WithLiteral("locations").
+					WithMatch()),
 		},
 		{
 			"/v1/{}:action",
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{LegacyPathTemplate: []api.LegacyPathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent"), api.NewVerbPathSegment("action")}},
-				},
-			},
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithVariableNamed("parent").
+				WithVerb("action"),
 		},
 		{
 			"/v1/projects/{}/locations/{}/secrets/{}:action",
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{
-						LegacyPathTemplate: []api.LegacyPathSegment{
-							api.NewLiteralPathSegment("v1"),
-							api.NewLiteralPathSegment("projects"),
-							api.NewFieldPathPathSegment("project"),
-							api.NewLiteralPathSegment("locations"),
-							api.NewFieldPathPathSegment("location"),
-							api.NewLiteralPathSegment("secrets"),
-							api.NewFieldPathPathSegment("secret"),
-							api.NewVerbPathSegment("action"),
-						},
-					},
-				},
-			},
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithLiteral("projects").
+				WithVariableNamed("project").
+				WithLiteral("locations").
+				WithVariableNamed("location").
+				WithLiteral("secrets").
+				WithVariableNamed("secret").
+				WithVerb("action"),
 		},
 	} {
-		got := httpPathFmt(test.pathInfo)
+		got := httpPathFmt(test.template)
 		if test.want != got {
-			t.Errorf("mismatched path info fmt for %v\nwant=%s\n got=%s", test.pathInfo, test.want, got)
+			t.Errorf("mismatched path fmt for %v\nwant=%s\n got=%s", test.template, test.want, got)
 		}
 	}
 
