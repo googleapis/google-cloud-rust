@@ -451,6 +451,12 @@ func TestProtobuf_Comments(t *testing.T) {
 								api.NewFieldPathPathSegment("parent"),
 								api.NewLiteralPathSegment("foos"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("parent").
+									WithLiteral("projects").
+									WithMatch()).
+								WithLiteral("foos"),
 							QueryParameters: map[string]bool{}},
 					},
 					BodyFieldPath: "*",
@@ -834,6 +840,13 @@ func TestProtobuf_Service(t *testing.T) {
 								api.NewLiteralPathSegment("v1"),
 								api.NewFieldPathPathSegment("name"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("name").
+									WithLiteral("projects").
+									WithMatch().
+									WithLiteral("foos").
+									WithMatch()),
 							QueryParameters: map[string]bool{},
 						},
 					},
@@ -855,6 +868,12 @@ func TestProtobuf_Service(t *testing.T) {
 								api.NewFieldPathPathSegment("parent"),
 								api.NewLiteralPathSegment("foos"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("parent").
+									WithLiteral("projects").
+									WithMatch()).
+								WithLiteral("foos"),
 							QueryParameters: map[string]bool{"foo_id": true},
 						},
 					},
@@ -875,6 +894,13 @@ func TestProtobuf_Service(t *testing.T) {
 								api.NewLiteralPathSegment("v1"),
 								api.NewFieldPathPathSegment("name"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("name").
+									WithLiteral("projects").
+									WithMatch().
+									WithLiteral("foos").
+									WithMatch()),
 							QueryParameters: map[string]bool{},
 						},
 					},
@@ -914,6 +940,14 @@ func TestProtobuf_Service(t *testing.T) {
 								api.NewFieldPathPathSegment("name"),
 								api.NewVerbPathSegment("Download"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("name").
+									WithLiteral("projects").
+									WithMatch().
+									WithLiteral("foos").
+									WithMatch()).
+								WithVerb("Download"),
 							QueryParameters: map[string]bool{},
 						},
 					},
@@ -972,6 +1006,12 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 								api.NewFieldPathPathSegment("parent"),
 								api.NewLiteralPathSegment("foos"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("parent").
+									WithLiteral("projects").
+									WithMatch()).
+								WithLiteral("foos"),
 							QueryParameters: map[string]bool{"foo_id": true},
 						},
 					},
@@ -993,6 +1033,14 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 								api.NewFieldPathPathSegment("parent"),
 								api.NewVerbPathSegment("addFoo"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("parent").
+									WithLiteral("projects").
+									WithMatch().
+									WithLiteral("foos").
+									WithMatch()).
+								WithVerb("addFoo"),
 							QueryParameters: map[string]bool{},
 						},
 					},
@@ -1078,6 +1126,12 @@ func TestProtobuf_Pagination(t *testing.T) {
 								api.NewFieldPathPathSegment("parent"),
 								api.NewLiteralPathSegment("foos"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("parent").
+									WithLiteral("projects").
+									WithMatch()).
+								WithLiteral("foos"),
 							QueryParameters: map[string]bool{"page_size": true, "page_token": true},
 						},
 					},
@@ -1104,6 +1158,12 @@ func TestProtobuf_Pagination(t *testing.T) {
 								api.NewFieldPathPathSegment("parent"),
 								api.NewLiteralPathSegment("foos"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("parent").
+									WithLiteral("projects").
+									WithMatch()).
+								WithLiteral("foos"),
 							QueryParameters: map[string]bool{"max_results": true, "page_token": true},
 						},
 					},
@@ -1130,6 +1190,12 @@ func TestProtobuf_Pagination(t *testing.T) {
 								api.NewFieldPathPathSegment("parent"),
 								api.NewLiteralPathSegment("foos"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("parent").
+									WithLiteral("projects").
+									WithMatch()).
+								WithLiteral("foos"),
 							QueryParameters: map[string]bool{"max_results": true, "page_token": true},
 						},
 					},
@@ -1156,6 +1222,12 @@ func TestProtobuf_Pagination(t *testing.T) {
 								api.NewFieldPathPathSegment("parent"),
 								api.NewLiteralPathSegment("foos"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("parent").
+									WithLiteral("projects").
+									WithMatch()).
+								WithLiteral("foos"),
 							QueryParameters: map[string]bool{"page_size": true, "page_token": true},
 						},
 					},
@@ -1175,6 +1247,12 @@ func TestProtobuf_Pagination(t *testing.T) {
 								api.NewFieldPathPathSegment("parent"),
 								api.NewLiteralPathSegment("foos"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("parent").
+									WithLiteral("projects").
+									WithMatch()).
+								WithLiteral("foos"),
 							QueryParameters: map[string]bool{"page_token": true},
 						},
 					},
@@ -1194,6 +1272,12 @@ func TestProtobuf_Pagination(t *testing.T) {
 								api.NewFieldPathPathSegment("parent"),
 								api.NewLiteralPathSegment("foos"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("parent").
+									WithLiteral("projects").
+									WithMatch()).
+								WithLiteral("foos"),
 							QueryParameters: map[string]bool{"page_size": true},
 						},
 					},
@@ -1213,6 +1297,12 @@ func TestProtobuf_Pagination(t *testing.T) {
 								api.NewFieldPathPathSegment("parent"),
 								api.NewLiteralPathSegment("foos"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("parent").
+									WithLiteral("projects").
+									WithMatch()).
+								WithLiteral("foos"),
 							QueryParameters: map[string]bool{"page_size": true, "page_token": true},
 						},
 					},
@@ -1332,6 +1422,12 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 								api.NewFieldPathPathSegment("parent"),
 								api.NewLiteralPathSegment("foos"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("parent").
+									WithLiteral("projects").
+									WithMatch()).
+								WithLiteral("foos"),
 							QueryParameters: map[string]bool{},
 						},
 					},
@@ -1357,6 +1453,12 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 								api.NewFieldPathPathSegment("parent"),
 								api.NewLiteralPathSegment("foos"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithVariable(api.NewPathVariable("parent").
+									WithLiteral("projects").
+									WithMatch()).
+								WithLiteral("foos"),
 							QueryParameters: map[string]bool{},
 						},
 					},
@@ -1381,6 +1483,11 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 								api.NewLiteralPathSegment("v2"),
 								api.NewFieldPathPathSegment("name"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v2").
+								WithVariable(api.NewPathVariable("name").
+									WithLiteral("operations").
+									WithMatch()),
 							QueryParameters: map[string]bool{},
 						},
 					},
