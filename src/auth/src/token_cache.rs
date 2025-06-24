@@ -27,26 +27,24 @@ use tokio::time::{Duration, Instant, sleep};
 const NORMAL_REFRESH_SLACK: Duration = Duration::from_secs(240);
 const SHORT_REFRESH_SLACK: Duration = Duration::from_secs(10);
 
+#[derive(Debug)]
 pub(crate) struct TokenCache<T: TokenProvider> {
     rx_token: watch::Receiver<Option<Result<(Token, EntityTag)>>>,
     token_provider: Arc<T>,
 }
 
+// We are implementing Clone instead of using the Default implementation
+// because the default implementation requires all the members of the struct
+// to be Clone as well. TokenProvider is not Clone currently. Adding Clone to
+// TokenProvider will create a cascade of changes and will also need the 
+// MockTokenProvider in token.rs to be Clone and it is not straightforward
+// to implement Clone for a mockall. 
 impl<T: TokenProvider> Clone for TokenCache<T> {
     fn clone(&self) -> Self {
         Self {
             rx_token: self.rx_token.clone(),
             token_provider: self.token_provider.clone(),
         }
-    }
-}
-
-impl<T: TokenProvider> std::fmt::Debug for TokenCache<T> {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        f.debug_struct("TokenCache")
-            .field("rx_token", &self.rx_token)
-            .field("token_provider", &self.token_provider)
-            .finish()
     }
 }
 
