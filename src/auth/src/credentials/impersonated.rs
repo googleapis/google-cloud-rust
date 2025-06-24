@@ -793,6 +793,9 @@ mod test {
         };
         let fmt = format!("{expected:?}");
         assert!(fmt.contains("UserCredentials"), "{fmt}");
+        assert!(fmt.contains("test-client-id"), "{fmt}");
+        assert!(!fmt.contains("test-client-secret"), "{fmt}");
+        assert!(!fmt.contains("test-refresh-token"), "{fmt}");
         assert!(fmt.contains("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"), "{fmt}");
         assert!(fmt.contains("delegate1"), "{fmt}");
         assert!(fmt.contains("scope1"), "{fmt}");
