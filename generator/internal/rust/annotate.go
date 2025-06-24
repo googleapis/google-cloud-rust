@@ -560,7 +560,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 }
 
 func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIState, sourceSpecificationPackageName string, packageNamespace string) {
-        // TODO(#2317) - move to pathBindingAnnotation
+	// TODO(#2317) - move to pathBindingAnnotation
 	if len(m.PathInfo.Bindings) != 0 {
 		pathInfoAnnotation := &pathInfoAnnotation{
 			Method:        m.PathInfo.Bindings[0].Verb,
