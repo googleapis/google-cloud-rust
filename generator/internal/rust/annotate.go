@@ -560,14 +560,23 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 }
 
 func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIState, sourceSpecificationPackageName string, packageNamespace string) {
-	pathInfoAnnotation := &pathInfoAnnotation{
-		Method:        m.PathInfo.Bindings[0].Verb,
-		MethodToLower: strings.ToLower(m.PathInfo.Bindings[0].Verb),
-		PathFmt:       httpPathFmt(m.PathInfo),
-		PathArgs:      httpPathArgs(m.PathInfo, m, state),
-		HasBody:       m.PathInfo.BodyFieldPath != "",
+	// TODO(#2317) - move to pathBindingAnnotation
+	if len(m.PathInfo.Bindings) != 0 {
+		pathInfoAnnotation := &pathInfoAnnotation{
+			Method:        m.PathInfo.Bindings[0].Verb,
+			MethodToLower: strings.ToLower(m.PathInfo.Bindings[0].Verb),
+			PathFmt:       httpPathFmt(m.PathInfo),
+			PathArgs:      httpPathArgs(m.PathInfo, m, state),
+			HasBody:       m.PathInfo.BodyFieldPath != "",
+		}
+		pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
+		m.PathInfo.Codec = pathInfoAnnotation
+	} else {
+		// Even when there are no bindings, we still want a concrete
+		// annotation, which we use to determine the default idempotency
+		// of the method. An empty annotation yields `false`.
+		m.PathInfo.Codec = &pathInfoAnnotation{}
 	}
-	pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
 
 	for _, routing := range m.Routing {
 		for index, variant := range routing.Variants {
@@ -582,19 +591,23 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		}
 	}
 
-	m.PathInfo.Codec = pathInfoAnnotation
 	returnType := c.methodInOutTypeName(m.OutputTypeID, state, sourceSpecificationPackageName)
 	if m.ReturnsEmpty {
 		returnType = "()"
 	}
 	serviceName := c.ServiceName(s)
+	// TODO(#2317) - move query params into pathBindingAnnotation
+	var query_params []*api.Field
+	if len(m.PathInfo.Bindings) != 0 {
+		query_params = language.QueryParams(m, m.PathInfo.Bindings[0])
+	}
 	annotation := &methodAnnotation{
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
 		BodyAccessor:        bodyAccessor(m),
 		DocLines:            c.formatDocComments(m.Documentation, m.ID, state, s.Scopes()),
 		PathInfo:            m.PathInfo,
-		QueryParams:         language.QueryParams(m, m.PathInfo.Bindings[0]),
+		QueryParams:         query_params,
 		ServiceNameToPascal: toPascal(serviceName),
 		ServiceNameToCamel:  toCamel(serviceName),
 		ServiceNameToSnake:  toSnake(serviceName),

@@ -77,6 +77,9 @@ func serviceAnnotationsModel() *api.API {
 					LegacyPathTemplate: []api.LegacyPathSegment{
 						api.NewLiteralPathSegment("/v1/resource"),
 					},
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v1").
+						WithLiteral("resource"),
 				},
 			},
 		},
@@ -94,6 +97,9 @@ func serviceAnnotationsModel() *api.API {
 					LegacyPathTemplate: []api.LegacyPathSegment{
 						api.NewLiteralPathSegment("/v1/resource"),
 					},
+					PathTemplate: api.NewPathTemplate().
+						WithLiteral("v1").
+						WithLiteral("resource"),
 				},
 			},
 		},
@@ -218,18 +224,6 @@ func TestServiceAnnotationsPerServiceFeatures(t *testing.T) {
 }
 
 func TestServiceAnnotationsLROTypes(t *testing.T) {
-	// The default binding we use when services do not have HTTP path
-	// annotations.
-	binding := &api.PathBinding{
-		Verb:               "POST",
-		LegacyPathTemplate: []api.LegacyPathSegment{},
-		QueryParameters:    map[string]bool{},
-	}
-	pathInfo := &api.PathInfo{
-		BodyFieldPath: "*",
-		Bindings:      []*api.PathBinding{binding},
-	}
-
 	create := &api.Message{
 		Name:    "CreateResourceRequest",
 		ID:      ".test.CreateResourceRequest",
@@ -263,7 +257,7 @@ func TestServiceAnnotationsLROTypes(t *testing.T) {
 			{
 				Name:         "CreateResource",
 				ID:           ".test.LroService.CreateResource",
-				PathInfo:     pathInfo,
+				PathInfo:     &api.PathInfo{},
 				InputType:    create,
 				InputTypeID:  ".test.CreateResourceRequest",
 				OutputTypeID: ".google.longrunning.Operation",
@@ -275,7 +269,7 @@ func TestServiceAnnotationsLROTypes(t *testing.T) {
 			{
 				Name:         "DeleteResource",
 				ID:           ".test.LroService.DeleteResource",
-				PathInfo:     pathInfo,
+				PathInfo:     &api.PathInfo{},
 				InputType:    delete,
 				InputTypeID:  ".test.DeleteResourceRequest",
 				OutputTypeID: ".google.longrunning.Operation",
@@ -1247,6 +1241,9 @@ func TestPathInfoAnnotations(t *testing.T) {
 						LegacyPathTemplate: []api.LegacyPathSegment{
 							api.NewLiteralPathSegment("/v1/resource"),
 						},
+						PathTemplate: api.NewPathTemplate().
+							WithLiteral("v1").
+							WithLiteral("resource"),
 					},
 				},
 			},

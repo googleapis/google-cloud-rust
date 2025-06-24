@@ -65,10 +65,13 @@ func processRule(httpRule *annotations.HttpRule, state *api.APIState, mID string
 	if err != nil {
 		return nil, err
 	}
+	if binding == nil {
+		return &api.PathInfo{}, nil
+	}
 	pathInfo := &api.PathInfo{
 		BodyFieldPath: body,
+		Bindings:      []*api.PathBinding{binding},
 	}
-	pathInfo.Bindings = []*api.PathBinding{binding}
 
 	for _, binding := range httpRule.GetAdditionalBindings() {
 		binding, body, err := processRuleShallow(binding, state, mID)
@@ -78,7 +81,11 @@ func processRule(httpRule *annotations.HttpRule, state *api.APIState, mID string
 		if pathInfo.BodyFieldPath != "" && body != "" && body != pathInfo.BodyFieldPath {
 			slog.Warn("mismatched body in additional binding (see AIP-127)", "message", mID, "topLevelBody", pathInfo.BodyFieldPath, "additionalBindingBody", body)
 		}
-		pathInfo.Bindings = append(pathInfo.Bindings, binding)
+		if binding != nil {
+			pathInfo.Bindings = append(pathInfo.Bindings, binding)
+		} else {
+			slog.Warn("additional binding without a pattern", "message", mID)
+		}
 	}
 	return pathInfo, nil
 }
@@ -103,13 +110,10 @@ func processRuleShallow(httpRule *annotations.HttpRule, state *api.APIState, mID
 		verb = "PATCH"
 		rawPath = httpRule.GetPatch()
 	default:
-		// Most often this happens with streaming RPCs. We will handle any
-		/// errors later in the code generation, maybe by ignoring the RPC.
-		return &api.PathBinding{
-			Verb:               "POST",
-			LegacyPathTemplate: []api.LegacyPathSegment{},
-			QueryParameters:    map[string]bool{},
-		}, "*", nil
+		// Most often this happens with streaming RPCs. Also some
+		// services (e.g. `storagecontrol`) have RPCs without any HTTP
+		// annotations.
+		return nil, "", nil
 	}
 	pathTemplate, err := httprule.ParseSegments(rawPath)
 	if err != nil {
