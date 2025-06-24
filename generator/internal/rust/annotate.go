@@ -655,9 +655,19 @@ func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api
 
 func annotateSegments(segments []string) []string {
 	var ann []string
+	// The model may have multiple consecutive literal segments. We use this
+	// buffer to consolidate them into a single literal segment.
+	literalBuffer := ""
+	flushBuffer := func() {
+		if literalBuffer != "" {
+			ann = append(ann, fmt.Sprintf(`Segment::Literal("%s")`, literalBuffer))
+		}
+		literalBuffer = ""
+	}
 	for index, segment := range segments {
 		switch {
 		case segment == api.RoutingMultiSegmentWildcard:
+			flushBuffer()
 			if len(segments) == 1 {
 				ann = append(ann, "Segment::MultiWildcard")
 			} else if len(segments) != index+1 {
@@ -667,16 +677,18 @@ func annotateSegments(segments []string) []string {
 			}
 		case segment == api.RoutingSingleSegmentWildcard:
 			if index != 0 {
-				ann = append(ann, `Segment::Literal("/")`)
+				literalBuffer += "/"
 			}
+			flushBuffer()
 			ann = append(ann, "Segment::SingleWildcard")
 		default:
 			if index != 0 {
-				ann = append(ann, `Segment::Literal("/")`)
+				literalBuffer += "/"
 			}
-			ann = append(ann, fmt.Sprintf(`Segment::Literal("%s")`, segment))
+			literalBuffer += segment
 		}
 	}
+	flushBuffer()
 	return ann
 }
 
