@@ -908,21 +908,12 @@ func TestProtobuf_Service(t *testing.T) {
 				ReturnsEmpty: true,
 			},
 			{
-				Name:          "UploadFoos",
-				ID:            ".test.TestService.UploadFoos",
-				Documentation: "A client-side streaming RPC.",
-				InputTypeID:   ".test.CreateFooRequest",
-				OutputTypeID:  ".test.Foo",
-				PathInfo: &api.PathInfo{
-					Bindings: []*api.PathBinding{
-						{
-							Verb:               "POST",
-							LegacyPathTemplate: []api.LegacyPathSegment{},
-							QueryParameters:    map[string]bool{},
-						},
-					},
-					BodyFieldPath: "*",
-				},
+				Name:                "UploadFoos",
+				ID:                  ".test.TestService.UploadFoos",
+				Documentation:       "A client-side streaming RPC.",
+				InputTypeID:         ".test.CreateFooRequest",
+				OutputTypeID:        ".test.Foo",
+				PathInfo:            &api.PathInfo{},
 				ClientSideStreaming: true,
 			},
 			{
@@ -956,21 +947,12 @@ func TestProtobuf_Service(t *testing.T) {
 				ServerSideStreaming: true,
 			},
 			{
-				Name:          "ChatLike",
-				ID:            ".test.TestService.ChatLike",
-				Documentation: "A bidi streaming RPC.",
-				InputTypeID:   ".test.Foo",
-				OutputTypeID:  ".test.Foo",
-				PathInfo: &api.PathInfo{
-					Bindings: []*api.PathBinding{
-						{
-							Verb:               "POST",
-							LegacyPathTemplate: []api.LegacyPathSegment{},
-							QueryParameters:    map[string]bool{},
-						},
-					},
-					BodyFieldPath: "*",
-				},
+				Name:                "ChatLike",
+				ID:                  ".test.TestService.ChatLike",
+				Documentation:       "A bidi streaming RPC.",
+				InputTypeID:         ".test.Foo",
+				OutputTypeID:        ".test.Foo",
+				PathInfo:            &api.PathInfo{},
 				ClientSideStreaming: true,
 				ServerSideStreaming: true,
 			},
@@ -1678,16 +1660,7 @@ func TestProtobuf_Deprecated(t *testing.T) {
 				Deprecated:   true,
 				InputTypeID:  ".test.Request",
 				OutputTypeID: ".test.Response",
-				PathInfo: &api.PathInfo{
-					Bindings: []*api.PathBinding{
-						{
-							Verb:               "POST",
-							LegacyPathTemplate: []api.LegacyPathSegment{},
-							QueryParameters:    map[string]bool{},
-						},
-					},
-					BodyFieldPath: "*",
-				},
+				PathInfo:     &api.PathInfo{},
 			},
 		},
 	})

@@ -1538,6 +1538,9 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 							LegacyPathTemplate: []api.LegacyPathSegment{
 								api.NewLiteralPathSegment("/v1/foo"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithLiteral("foo"),
 						},
 					},
 				},
@@ -1560,6 +1563,9 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 							LegacyPathTemplate: []api.LegacyPathSegment{
 								api.NewLiteralPathSegment("/v1/thing"),
 							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithLiteral("thing"),
 						},
 					},
 				},

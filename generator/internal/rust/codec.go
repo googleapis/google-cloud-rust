@@ -1507,7 +1507,7 @@ func (c *codec) generateMethod(m *api.Method) bool {
 	if m.PathInfo == nil || len(m.PathInfo.Bindings) == 0 {
 		return false
 	}
-	return len(m.PathInfo.Bindings[0].LegacyPathTemplate) != 0
+	return m.PathInfo.Bindings[0].PathTemplate != nil
 }
 
 // The list of Rust keywords and reserved words can be found at:
