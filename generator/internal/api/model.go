@@ -271,6 +271,8 @@ type PathBinding struct {
 	PathTemplate *PathTemplate
 	// Query parameter fields.
 	QueryParameters map[string]bool
+	// Language specific annotations
+	Codec any
 }
 
 // Normalized long running operation info

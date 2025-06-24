@@ -213,6 +213,16 @@ type routingVariantAnnotations struct {
 	SuffixSegments   []string
 }
 
+type pathBindingAnnotation struct {
+	// The path format string for this binding
+	//
+	// e.g. "/v1/projects/{}/locations/{}"
+	PathFmt string
+
+	// The fields to be sent as query parameters for this binding
+	QueryParams []*api.Field
+}
+
 type oneOfAnnotation struct {
 	// In Rust, `oneof` fields are fields inside a struct. These must be
 	// `snake_case`. Possibly mangled with `r#` if the name is a Rust reserved
@@ -591,6 +601,9 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		}
 	}
 
+	for _, b := range m.PathInfo.Bindings {
+		annotatePathBinding(b, m, state)
+	}
 	returnType := c.methodInOutTypeName(m.OutputTypeID, state, sourceSpecificationPackageName)
 	if m.ReturnsEmpty {
 		returnType = "()"
@@ -703,6 +716,13 @@ func annotateSegments(segments []string) []string {
 	}
 	flushBuffer()
 	return ann
+}
+
+func annotatePathBinding(b *api.PathBinding, m *api.Method, _state *api.APIState) {
+	b.Codec = &pathBindingAnnotation{
+		PathFmt:     httpPathFmt(b.PathTemplate),
+		QueryParams: language.QueryParams(m, b),
+	}
 }
 
 func (c *codec) annotateOneOf(oneof *api.OneOf, message *api.Message, state *api.APIState, sourceSpecificationPackageName string) {

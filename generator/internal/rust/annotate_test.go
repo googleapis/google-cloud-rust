@@ -1272,3 +1272,177 @@ func TestPathInfoAnnotations(t *testing.T) {
 		}
 	}
 }
+
+func TestPathBindingAnnotations(t *testing.T) {
+	f_name := &api.Field{
+		Name:     "name",
+		JSONName: "name",
+		ID:       ".test.Request.name",
+		Typez:    api.STRING_TYPE,
+	}
+
+	f_project := &api.Field{
+		Name:     "project",
+		JSONName: "project",
+		ID:       ".test.Request.project",
+		Typez:    api.STRING_TYPE,
+	}
+	f_location := &api.Field{
+		Name:     "location",
+		JSONName: "location",
+		ID:       ".test.Request.location",
+		Typez:    api.STRING_TYPE,
+	}
+	f_id := &api.Field{
+		Name:     "id",
+		JSONName: "id",
+		ID:       ".test.Request.id",
+		Typez:    api.UINT64_TYPE,
+	}
+	f_optional := &api.Field{
+		Name:     "optional",
+		JSONName: "optional",
+		ID:       ".test.Request.optional",
+		Typez:    api.STRING_TYPE,
+		Optional: true,
+	}
+
+	// A field also of type `Request`. We want to test nested path
+	// parameters, and this saves us from having to define a new
+	// `api.Message`, with all of its fields.
+	f_child := &api.Field{
+		Name:     "child",
+		JSONName: "child",
+		ID:       ".test.Request.child",
+		Typez:    api.MESSAGE_TYPE,
+		TypezID:  ".test.Request",
+		Optional: true,
+	}
+
+	request := &api.Message{
+		Name:    "Request",
+		Package: "test",
+		ID:      ".test.Request",
+		Fields: []*api.Field{
+			f_name,
+			f_project,
+			f_location,
+			f_id,
+			f_optional,
+			f_child,
+		},
+	}
+	response := &api.Message{
+		Name:    "Response",
+		Package: "test",
+		ID:      ".test.Response",
+	}
+
+	b0 := &api.PathBinding{
+		Verb: "POST",
+		PathTemplate: api.NewPathTemplate().
+			WithLiteral("v2").
+			WithVariable(api.NewPathVariable("name").
+				WithLiteral("projects").
+				WithMatch().
+				WithLiteral("locations").
+				WithMatch()).
+			WithVerb("create"),
+		QueryParameters: map[string]bool{
+			"id": true,
+		},
+	}
+	want_b0 := &pathBindingAnnotation{
+		PathFmt:     "/v2/{}:create",
+		QueryParams: []*api.Field{f_id},
+	}
+
+	b1 := &api.PathBinding{
+		Verb: "POST",
+		PathTemplate: api.NewPathTemplate().
+			WithLiteral("v1").
+			WithLiteral("projects").
+			WithVariableNamed("project").
+			WithLiteral("locations").
+			WithVariableNamed("location").
+			WithLiteral("ids").
+			WithVariableNamed("id").
+			WithVerb("action"),
+	}
+	want_b1 := &pathBindingAnnotation{
+		PathFmt: "/v1/projects/{}/locations/{}/ids/{}:action",
+	}
+
+	b2 := &api.PathBinding{
+		Verb: "POST",
+		PathTemplate: api.NewPathTemplate().
+			WithLiteral("v1").
+			WithLiteral("projects").
+			WithVariableNamed("child", "project").
+			WithLiteral("locations").
+			WithVariableNamed("child", "location").
+			WithLiteral("ids").
+			WithVariableNamed("child", "id").
+			WithVerb("actionOnChild"),
+	}
+	want_b2 := &pathBindingAnnotation{
+		PathFmt: "/v1/projects/{}/locations/{}/ids/{}:actionOnChild",
+	}
+
+	b3 := &api.PathBinding{
+		Verb: "GET",
+		PathTemplate: api.NewPathTemplate().
+			WithLiteral("v2").
+			WithLiteral("foos"),
+		QueryParameters: map[string]bool{
+			"name":     true,
+			"optional": true,
+			"child":    true,
+		},
+	}
+	want_b3 := &pathBindingAnnotation{
+		PathFmt:     "/v2/foos",
+		QueryParams: []*api.Field{f_name, f_optional, f_child},
+	}
+
+	method := &api.Method{
+		Name:         "DoFoo",
+		ID:           ".test.Service.DoFoo",
+		InputType:    request,
+		InputTypeID:  ".test.Request",
+		OutputTypeID: ".test.Response",
+		PathInfo: &api.PathInfo{
+			Bindings: []*api.PathBinding{b0, b1, b2, b3},
+		},
+	}
+	service := &api.Service{
+		Name:    "FooService",
+		ID:      ".test.FooService",
+		Package: "test",
+		Methods: []*api.Method{method},
+	}
+
+	model := api.NewTestAPI(
+		[]*api.Message{request, response},
+		[]*api.Enum{},
+		[]*api.Service{service})
+	api.CrossReference(model)
+	codec, err := newCodec(true, map[string]string{})
+	if err != nil {
+		t.Fatal(err)
+	}
+	annotateModel(model, codec)
+
+	if diff := cmp.Diff(want_b0, b0.Codec); diff != "" {
+		t.Errorf("mismatch in path binding annotations (-want, +got)\n:%s", diff)
+	}
+	if diff := cmp.Diff(want_b1, b1.Codec); diff != "" {
+		t.Errorf("mismatch in path binding annotations (-want, +got)\n:%s", diff)
+	}
+	if diff := cmp.Diff(want_b2, b2.Codec); diff != "" {
+		t.Errorf("mismatch in path binding annotations (-want, +got)\n:%s", diff)
+	}
+	if diff := cmp.Diff(want_b3, b3.Codec); diff != "" {
+		t.Errorf("mismatch in path binding annotations (-want, +got)\n:%s", diff)
+	}
+}
