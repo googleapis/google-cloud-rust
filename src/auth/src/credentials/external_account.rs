@@ -126,7 +126,7 @@ struct ExternalAccountConfig {
     scopes: Vec<String>,
 }
 
-#[derive(Debug, Clone, Serialize)]
+#[derive(Debug, Clone)]
 #[allow(dead_code)]
 enum CredentialSource {
     Url(UrlSourcedCredentials),
@@ -328,9 +328,12 @@ impl Builder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialsError] if the `external_account_config` provided to
-    /// [`Builder::new`] cannot be successfully deserialized. This typically happens
-    /// if the JSON value is malformed or missing required fields.
+    /// Returns a [CredentialsError] if the `external_account_config`
+    /// provided to [`Builder::new`] cannot be successfully deserialized into the
+    /// expected format for an external account configuration. This typically happens if the
+    /// JSON value is malformed or missing required fields. For more information,
+    /// on the expected format, consult the relevant section in the
+    /// [external_account_credentials] guide.
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> BuildResult<Credentials> {
@@ -361,7 +364,7 @@ impl Builder {
 /// # Example
 ///
 /// ```
-/// # use google_cloud_auth::credentials::external_account::ExternalAccountProgrammaticBuilder;
+/// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
 /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
 /// # use google_cloud_auth::errors::SubjectTokenProviderError;
 /// # use std::error::Error;
@@ -389,13 +392,13 @@ impl Builder {
 ///
 /// let provider = MyTokenProvider;
 ///
-/// let credentials = ExternalAccountProgrammaticBuilder::new_with_external_account_config(provider, config)
+/// let credentials = ProgrammaticBuilder::new_with_external_account_config(provider, config)
 ///     .with_quota_project_id("my-quota-project")
 ///     .build()
 ///     .unwrap();
 /// # });
 /// ```
-pub struct ExternalAccountProgrammaticBuilder<T>
+pub struct ProgrammaticBuilder<T>
 where
     T: SubjectTokenProvider + 'static,
 {
@@ -405,7 +408,7 @@ where
     subject_token_provider: T,
 }
 
-impl<T> ExternalAccountProgrammaticBuilder<T>
+impl<T> ProgrammaticBuilder<T>
 where
     T: SubjectTokenProvider + 'static,
 {
@@ -587,15 +590,92 @@ mod test {
 
         let provider = TestSubjectTokenProvider;
 
-        let creds = ExternalAccountProgrammaticBuilder::new_with_external_account_config(
-            provider, contents,
-        )
-        .with_quota_project_id("test_project")
-        .with_scopes(["a", "b"])
-        .build()
-        .unwrap();
+        let creds = ProgrammaticBuilder::new_with_external_account_config(provider, contents)
+            .with_quota_project_id("test_project")
+            .with_scopes(["a", "b"])
+            .build()
+            .unwrap();
 
         let fmt = format!("{:?}", creds);
         assert!(fmt.contains("ExternalAccountCredentials"));
+    }
+
+    #[tokio::test]
+    async fn create_external_account_detect_url_sourced() {
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "https://sts.googleapis.com/v1beta/token",
+            "credential_source": {
+                "url": "https://example.com/token",
+                "headers": {
+                  "Metadata": "True"
+                },
+                "format": {
+                  "type": "json",
+                  "subject_token_field_name": "access_token"
+                }
+            }
+        });
+
+        let file: ExternalAccountFile =
+            serde_json::from_value(contents).expect("failed to parse external account config");
+        let source = file.credential_source.unwrap();
+
+        match source {
+            CredentialSourceFile::Url {
+                url,
+                headers,
+                format,
+            } => {
+                assert_eq!(url, "https://example.com/token");
+                assert_eq!(
+                    headers,
+                    Some(HashMap::from([(
+                        "Metadata".to_string(),
+                        "True".to_string()
+                    ),]))
+                );
+                let format = format.unwrap();
+                assert_eq!(format.format_type, "json");
+                assert_eq!(format.subject_token_field_name, "access_token");
+            }
+            _ => {
+                unreachable!("expected Url Sourced credential")
+            }
+        }
+    }
+
+    #[tokio::test]
+    async fn create_external_account_detect_executable_sourced() {
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": "https://sts.googleapis.com/v1beta/token",
+            "credential_source": {
+                "executable": {
+                    "command": "cat /some/file",
+                    "output_file": "/some/file",
+                    "timeout_millis": 5000
+                }
+            }
+        });
+
+        let file: ExternalAccountFile =
+            serde_json::from_value(contents).expect("failed to parse external account config");
+        let source = file.credential_source.unwrap();
+
+        match source {
+            CredentialSourceFile::Executable { executable } => {
+                assert_eq!(executable.command, "cat /some/file");
+                assert_eq!(executable.output_file.as_deref(), Some("/some/file"));
+                assert_eq!(executable.timeout_millis, Some(5000));
+            }
+            _ => {
+                unreachable!("expected Executable Sourced credential")
+            }
+        }
     }
 }

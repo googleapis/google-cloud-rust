@@ -17,7 +17,7 @@ mod test {
     use std::error::Error;
     use std::fmt;
 
-    use google_cloud_auth::credentials::external_account::ExternalAccountProgrammaticBuilder;
+    use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
     use google_cloud_auth::credentials::subject_token::{
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     };
@@ -605,11 +605,9 @@ mod test {
         });
 
         let provider = TestSubjectTokenProvider;
-        let creds = ExternalAccountProgrammaticBuilder::new_with_external_account_config(
-            provider, contents,
-        )
-        .build()
-        .unwrap();
+        let creds = ProgrammaticBuilder::new_with_external_account_config(provider, contents)
+            .build()
+            .unwrap();
 
         let cached_headers = creds.headers(Extensions::new()).await?;
         match cached_headers {
