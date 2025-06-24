@@ -47,7 +47,7 @@ pub struct PathMismatch {
 /// Ways substituting a variable from a request into a [URI] can fail.
 ///
 /// [uri]: https://clouddocs.f5.com/api/irules/HTTP__uri.html
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum SubstitutionFail {
     /// A required field was not set
     Unset,
@@ -65,7 +65,7 @@ pub enum SubstitutionFail {
 /// A failure to substitute a variable from a request into a [URI].
 ///
 /// [uri]: https://clouddocs.f5.com/api/irules/HTTP__uri.html
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct SubstitutionMismatch {
     /// The name of the field that was not substituted.
     ///

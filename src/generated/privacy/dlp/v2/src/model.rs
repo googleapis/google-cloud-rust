@@ -53128,12 +53128,12 @@ pub mod discovery_cloud_storage_filter {
     }
 }
 
-/// Match file stores (e.g. buckets) using regex filters.
+/// Match file stores (e.g. buckets) using filters.
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct FileStoreCollection {
-    /// The first filter containing a pattern that matches a file store will
-    /// be used.
+    /// The first filter containing a pattern that matches a file store will be
+    /// used.
     pub pattern: std::option::Option<crate::model::file_store_collection::Pattern>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -53315,8 +53315,8 @@ pub mod file_store_collection {
     #[allow(unused_imports)]
     use super::*;
 
-    /// The first filter containing a pattern that matches a file store will
-    /// be used.
+    /// The first filter containing a pattern that matches a file store will be
+    /// used.
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum Pattern {
@@ -80250,6 +80250,141 @@ pub mod processing_location {
             }
             state.end()
         }
+    }
+}
+
+/// Collection of findings saved to a Cloud Storage bucket. This is used as the
+/// proto schema for textproto files created when specifying a cloud storage
+/// path to save inspection findings.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SaveToGcsFindingsOutput {
+    /// List of findings.
+    pub findings: std::vec::Vec<crate::model::Finding>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SaveToGcsFindingsOutput {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [findings][crate::model::SaveToGcsFindingsOutput::findings].
+    pub fn set_findings<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::Finding>,
+    {
+        use std::iter::Iterator;
+        self.findings = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for SaveToGcsFindingsOutput {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.privacy.dlp.v2.SaveToGcsFindingsOutput"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SaveToGcsFindingsOutput {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __findings,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SaveToGcsFindingsOutput")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "findings" => Ok(__FieldTag::__findings),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SaveToGcsFindingsOutput;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SaveToGcsFindingsOutput")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__findings => {
+                            if !fields.insert(__FieldTag::__findings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for findings",
+                                ));
+                            }
+                            result.findings = map.next_value::<std::option::Option<std::vec::Vec<crate::model::Finding>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SaveToGcsFindingsOutput {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.findings.is_empty() {
+            state.serialize_entry("findings", &self.findings)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
     }
 }
 

@@ -54,7 +54,8 @@
 //! [idempotent]: https://en.wikipedia.org/wiki/Idempotence
 
 use crate::error::Error;
-use crate::loop_state::LoopState;
+use crate::retry_result::RetryResult;
+use crate::throttle_result::ThrottleResult;
 use std::sync::Arc;
 use std::time::Duration;
 
@@ -80,21 +81,29 @@ pub trait RetryPolicy: Send + Sync + std::fmt::Debug {
         attempt_count: u32,
         idempotent: bool,
         error: Error,
-    ) -> LoopState;
+    ) -> RetryResult;
 
     /// Query the retry policy after a retry attempt is throttled.
     ///
     /// Retry attempts may be throttled before they are even sent out. The retry
     /// policy may choose to treat these as normal errors, consuming attempts,
-    /// or may prefer to ignore them and always return [LoopState::Continue].
+    /// or may prefer to ignore them and always return [RetryResult::Continue].
     ///
     /// # Parameters
     /// * `loop_start` - when the retry loop started.
     /// * `attempt_count` - the number of attempts. This method is never called
     ///   before the first attempt.
+    /// * `error` - the previous error that caused the retry attempt. Throttling
+    ///   only applies to retry attempts, and a retry attempt implies that a
+    ///   previous attempt failed. The retry policy should preserve this error.
     #[cfg_attr(not(feature = "_internal-semver"), doc(hidden))]
-    fn on_throttle(&self, _loop_start: std::time::Instant, _attempt_count: u32) -> Option<Error> {
-        None
+    fn on_throttle(
+        &self,
+        _loop_start: std::time::Instant,
+        _attempt_count: u32,
+        error: Error,
+    ) -> ThrottleResult {
+        ThrottleResult::Continue(error)
     }
 
     /// The remaining time in the retry policy.
@@ -143,8 +152,8 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     /// While the time spent in the retry loop (including time in backoff) is
     /// less than the prescribed duration the `on_error()` method returns the
     /// results of the inner policy. After that time it returns
-    /// [Exhausted][LoopState::Exhausted] if the inner policy returns
-    /// [Continue][LoopState::Continue].
+    /// [Exhausted][RetryResult::Exhausted] if the inner policy returns
+    /// [Continue][RetryResult::Continue].
     ///
     /// The `remaining_time()` function returns the remaining time. This is
     /// always [Duration::ZERO] once or after the policy's expiration time is
@@ -170,8 +179,8 @@ pub trait RetryPolicyExt: RetryPolicy + Sized {
     ///
     /// The policy passes through the results from the inner policy as long as
     /// `attempt_count < maximum_attempts`. Once the maximum number of attempts
-    /// is reached, the policy returns [Exhausted][LoopState::Exhausted] if the
-    /// inner policy returns [Continue][LoopState::Continue].
+    /// is reached, the policy returns [Exhausted][RetryResult::Exhausted] if the
+    /// inner policy returns [Continue][RetryResult::Continue].
     ///
     /// # Example
     /// ```
@@ -227,29 +236,29 @@ impl RetryPolicy for Aip194Strict {
         _attempt_count: u32,
         idempotent: bool,
         error: Error,
-    ) -> LoopState {
+    ) -> RetryResult {
         if error.is_transient_and_before_rpc() {
-            return LoopState::Continue(error);
+            return RetryResult::Continue(error);
         }
         if !idempotent {
-            return LoopState::Permanent(error);
+            return RetryResult::Permanent(error);
         }
         if error.is_io() {
-            return LoopState::Continue(error);
+            return RetryResult::Continue(error);
         }
         if let Some(status) = error.status() {
             return if status.code == crate::error::rpc::Code::Unavailable {
-                LoopState::Continue(error)
+                RetryResult::Continue(error)
             } else {
-                LoopState::Permanent(error)
+                RetryResult::Permanent(error)
             };
         }
 
         match error.http_status_code() {
             Some(code) if code == http::StatusCode::SERVICE_UNAVAILABLE.as_u16() => {
-                LoopState::Continue(error)
+                RetryResult::Continue(error)
             }
-            _ => LoopState::Permanent(error),
+            _ => RetryResult::Permanent(error),
         }
     }
 }
@@ -284,8 +293,8 @@ impl RetryPolicy for AlwaysRetry {
         _attempt_count: u32,
         _idempotent: bool,
         error: Error,
-    ) -> LoopState {
-        LoopState::Continue(error)
+    ) -> RetryResult {
+        RetryResult::Continue(error)
     }
 }
 
@@ -316,19 +325,24 @@ impl RetryPolicy for NeverRetry {
         _attempt_count: u32,
         _idempotent: bool,
         error: Error,
-    ) -> LoopState {
-        LoopState::Exhausted(error)
+    ) -> RetryResult {
+        RetryResult::Exhausted(error)
     }
 }
 
 #[derive(thiserror::Error, Debug)]
 pub struct LimitedElapsedTimeError {
     maximum_duration: Duration,
+    #[source]
+    source: Error,
 }
 
 impl LimitedElapsedTimeError {
-    pub(crate) fn new(maximum_duration: Duration) -> Self {
-        Self { maximum_duration }
+    pub(crate) fn new(maximum_duration: Duration, source: Error) -> Self {
+        Self {
+            maximum_duration,
+            source,
+        }
     }
 
     /// Returns the maximum number of attempts in the exhausted policy.
@@ -353,8 +367,8 @@ impl std::fmt::Display for LimitedElapsedTimeError {
 /// loops. While the time spent in the retry loop (including time in backoff)
 /// is less than the prescribed duration the `on_error()` method returns the
 /// results of the inner policy. After that time it returns
-/// [Exhausted][LoopState::Exhausted] if the inner policy returns
-/// [Continue][LoopState::Continue].
+/// [Exhausted][RetryResult::Exhausted] if the inner policy returns
+/// [Continue][RetryResult::Continue].
 ///
 /// The `remaining_time()` function returns the remaining time. This is always
 /// [Duration::ZERO] once or after the policy's deadline is reached.
@@ -415,14 +429,15 @@ where
         }
     }
 
-    fn error_if_expired(&self, loop_start: std::time::Instant) -> Option<Error> {
+    fn error_if_exhausted(&self, loop_start: std::time::Instant, error: Error) -> ThrottleResult {
         let deadline = loop_start + self.maximum_duration;
         let now = tokio::time::Instant::now().into_std();
         if now < deadline {
-            None
+            ThrottleResult::Continue(error)
         } else {
-            Some(Error::exhausted(LimitedElapsedTimeError::new(
+            ThrottleResult::Exhausted(Error::exhausted(LimitedElapsedTimeError::new(
                 self.maximum_duration,
+                error,
             )))
         }
     }
@@ -438,24 +453,30 @@ where
         count: u32,
         idempotent: bool,
         error: Error,
-    ) -> LoopState {
+    ) -> RetryResult {
         match self.inner.on_error(start, count, idempotent, error) {
-            LoopState::Permanent(e) => LoopState::Permanent(e),
-            LoopState::Exhausted(e) => LoopState::Exhausted(e),
-            LoopState::Continue(e) => {
+            RetryResult::Permanent(e) => RetryResult::Permanent(e),
+            RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
+            RetryResult::Continue(e) => {
                 if tokio::time::Instant::now().into_std() >= start + self.maximum_duration {
-                    LoopState::Exhausted(e)
+                    RetryResult::Exhausted(e)
                 } else {
-                    LoopState::Continue(e)
+                    RetryResult::Continue(e)
                 }
             }
         }
     }
 
-    fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error> {
-        self.inner
-            .on_throttle(loop_start, attempt_count)
-            .or(self.error_if_expired(loop_start))
+    fn on_throttle(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+        error: Error,
+    ) -> ThrottleResult {
+        match self.inner.on_throttle(loop_start, attempt_count, error) {
+            ThrottleResult::Continue(e) => self.error_if_exhausted(loop_start, e),
+            ThrottleResult::Exhausted(e) => ThrottleResult::Exhausted(e),
+        }
     }
 
     fn remaining_time(
@@ -472,33 +493,6 @@ where
     }
 }
 
-/// An error type created when the [LimitedAttemptCount] policy is exhausted.
-#[derive(thiserror::Error, Debug)]
-pub struct LimitedAttemptCountError {
-    maximum_attempts: u32,
-}
-
-impl LimitedAttemptCountError {
-    pub(crate) fn new(maximum_attempts: u32) -> Self {
-        Self { maximum_attempts }
-    }
-
-    /// Returns the maximum number of attempts in the exhausted policy.
-    pub fn maximum_attempts(&self) -> u32 {
-        self.maximum_attempts
-    }
-}
-
-impl std::fmt::Display for LimitedAttemptCountError {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(
-            f,
-            "retry policy exhausted after {} attempts, the last retry attempt was throttled",
-            self.maximum_attempts
-        )
-    }
-}
-
 /// A retry policy decorator that limits the number of attempts.
 ///
 /// This policy decorates an inner policy and limits the total number of
@@ -508,8 +502,8 @@ impl std::fmt::Display for LimitedAttemptCountError {
 ///
 /// The policy passes through the results from the inner policy as long as
 /// `attempt_count < maximum_attempts`. However, once the maximum number of
-/// attempts is reached, the policy replaces any [Continue][LoopState::Continue]
-/// result with [Exhausted][LoopState::Exhausted].
+/// attempts is reached, the policy replaces any [Continue][RetryResult::Continue]
+/// result with [Exhausted][RetryResult::Exhausted].
 ///
 /// # Parameters
 /// * `P` - the inner retry policy.
@@ -573,31 +567,30 @@ where
         count: u32,
         idempotent: bool,
         error: Error,
-    ) -> LoopState {
+    ) -> RetryResult {
         match self.inner.on_error(start, count, idempotent, error) {
-            LoopState::Permanent(e) => LoopState::Permanent(e),
-            LoopState::Exhausted(e) => LoopState::Exhausted(e),
-            LoopState::Continue(e) => {
+            RetryResult::Permanent(e) => RetryResult::Permanent(e),
+            RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
+            RetryResult::Continue(e) => {
                 if count >= self.maximum_attempts {
-                    LoopState::Exhausted(e)
+                    RetryResult::Exhausted(e)
                 } else {
-                    LoopState::Continue(e)
+                    RetryResult::Continue(e)
                 }
             }
         }
     }
 
-    fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error> {
-        if let Some(e) = self.inner.on_throttle(loop_start, attempt_count) {
-            return Some(e);
-        }
-        if attempt_count < self.maximum_attempts {
-            None
-        } else {
-            Some(Error::exhausted(LimitedAttemptCountError::new(
-                self.maximum_attempts,
-            )))
-        }
+    fn on_throttle(
+        &self,
+        loop_start: std::time::Instant,
+        attempt_count: u32,
+        error: Error,
+    ) -> ThrottleResult {
+        // The retry loop only calls `on_throttle()` if the policy has not
+        // been exhausted.
+        assert!(attempt_count < self.maximum_attempts);
+        self.inner.on_throttle(loop_start, attempt_count, error)
     }
 
     fn remaining_time(
@@ -613,6 +606,7 @@ where
 mod tests {
     use super::*;
     use http::HeaderMap;
+    use std::error::Error as StdError;
 
     // Verify `RetryPolicyArg` can be converted from the desired types.
     #[test]
@@ -631,7 +625,10 @@ mod tests {
         let now = std::time::Instant::now();
         assert!(p.on_error(now, 0, true, unavailable()).is_continue());
         assert!(p.on_error(now, 0, false, unavailable()).is_permanent());
-        assert!(p.on_throttle(now, 0).is_none());
+        assert!(matches!(
+            p.on_throttle(now, 0, unavailable()),
+            ThrottleResult::Continue(_)
+        ));
 
         assert!(p.on_error(now, 0, true, permission_denied()).is_permanent());
         assert!(
@@ -641,7 +638,10 @@ mod tests {
 
         assert!(p.on_error(now, 0, true, http_unavailable()).is_continue());
         assert!(p.on_error(now, 0, false, http_unavailable()).is_permanent());
-        assert!(p.on_throttle(now, 0).is_none());
+        assert!(matches!(
+            p.on_throttle(now, 0, http_unavailable()),
+            ThrottleResult::Continue(_)
+        ));
 
         assert!(
             p.on_error(now, 0, true, http_permission_denied())
@@ -683,7 +683,10 @@ mod tests {
         assert!(p.remaining_time(now, 0).is_none());
         assert!(p.on_error(now, 0, true, http_unavailable()).is_continue());
         assert!(p.on_error(now, 0, false, http_unavailable()).is_continue());
-        assert!(p.on_throttle(now, 0).is_none());
+        assert!(matches!(
+            p.on_throttle(now, 0, http_unavailable()),
+            ThrottleResult::Continue(_)
+        ));
 
         assert!(p.on_error(now, 0, true, unavailable()).is_continue());
         assert!(p.on_error(now, 0, false, unavailable()).is_continue());
@@ -709,7 +712,10 @@ mod tests {
         assert!(p.remaining_time(now, 0).is_none());
         assert!(p.on_error(now, 0, true, http_unavailable()).is_exhausted());
         assert!(p.on_error(now, 0, false, http_unavailable()).is_exhausted());
-        assert!(p.on_throttle(now, 0).is_none());
+        assert!(matches!(
+            p.on_throttle(now, 0, http_unavailable()),
+            ThrottleResult::Continue(_)
+        ));
 
         assert!(p.on_error(now, 0, true, unavailable()).is_exhausted());
         assert!(p.on_error(now, 0, false, unavailable()).is_exhausted());
@@ -777,8 +783,8 @@ mod tests {
         #[derive(Debug)]
         Policy {}
         impl RetryPolicy for Policy {
-            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> LoopState;
-            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Error>;
+            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, idempotent: bool, error: Error) -> RetryResult;
+            fn on_throttle(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> ThrottleResult;
             fn remaining_time(&self, loop_start: std::time::Instant, attempt_count: u32) -> Option<Duration>;
         }
     }
@@ -786,10 +792,11 @@ mod tests {
     #[test]
     fn limited_elapsed_time_error() {
         let limit = Duration::from_secs(123) + Duration::from_millis(567);
-        let err = LimitedElapsedTimeError::new(limit);
+        let err = LimitedElapsedTimeError::new(limit, unavailable());
         assert_eq!(err.maximum_duration(), limit);
         let fmt = err.to_string();
         assert!(fmt.contains("123.567s"), "display={fmt}, debug={err:?}");
+        assert!(err.source().is_some(), "{err:?}");
     }
 
     #[test]
@@ -797,8 +804,10 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, _, e| LoopState::Continue(e));
-        mock.expect_on_throttle().times(1..).returning(|_, _| None);
+            .returning(|_, _, _, e| RetryResult::Continue(e));
+        mock.expect_on_throttle()
+            .times(1..)
+            .returning(|_, _, e| ThrottleResult::Continue(e));
         mock.expect_remaining_time().times(1).returning(|_, _| None);
 
         let now = std::time::Instant::now();
@@ -809,44 +818,42 @@ mod tests {
         let rt = policy.remaining_time(now, 0);
         assert!(rt.is_some());
 
-        let e = policy.on_throttle(now, 0);
-        assert!(e.is_none());
+        let e = policy.on_throttle(now, 0, transient_error());
+        assert!(matches!(e, ThrottleResult::Continue(_)));
     }
 
     #[test]
-    fn test_limited_time_on_throttle_none() {
-        let mut mock = MockPolicy::new();
-        mock.expect_on_throttle().times(1..).returning(|_, _| None);
-
-        let now = std::time::Instant::now();
-        let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-
-        // Before the policy expires the inner result is returned verbatim.
-        let rf = policy.on_throttle(now - Duration::from_secs(50), 1);
-        assert!(rf.is_none());
-
-        // After the policy expires the innter result is always "exhausted".
-        let rf = policy.on_throttle(now - Duration::from_secs(70), 1);
-        assert!(rf.is_some());
-    }
-
-    #[test]
-    fn test_limited_time_on_throttle_error() {
+    fn test_limited_time_on_throttle_continue() {
         let mut mock = MockPolicy::new();
         mock.expect_on_throttle()
             .times(1..)
-            .returning(|_, _| Some(transient_error()));
+            .returning(|_, _, e| ThrottleResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
 
         // Before the policy expires the inner result is returned verbatim.
-        let rf = policy.on_throttle(now - Duration::from_secs(50), 1);
-        assert!(rf.is_some());
+        let rf = policy.on_throttle(now - Duration::from_secs(50), 1, unavailable());
+        assert!(matches!(rf, ThrottleResult::Continue(_)), "{rf:?}");
 
         // After the policy expires the innter result is always "exhausted".
-        let rf = policy.on_throttle(now - Duration::from_secs(70), 1);
-        assert!(rf.is_some());
+        let rf = policy.on_throttle(now - Duration::from_secs(70), 1, unavailable());
+        assert!(matches!(rf, ThrottleResult::Exhausted(_)), "{rf:?}");
+    }
+
+    #[test]
+    fn test_limited_time_on_throttle_exhausted() {
+        let mut mock = MockPolicy::new();
+        mock.expect_on_throttle()
+            .times(1..)
+            .returning(|_, _, e| ThrottleResult::Exhausted(e));
+
+        let now = std::time::Instant::now();
+        let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
+
+        // Before the policy expires the inner result is returned verbatim.
+        let rf = policy.on_throttle(now - Duration::from_secs(50), 1, unavailable());
+        assert!(matches!(rf, ThrottleResult::Exhausted(_)), "{rf:?}");
     }
 
     #[test]
@@ -854,7 +861,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, _, e| LoopState::Continue(e));
+            .returning(|_, _, _, e| RetryResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
@@ -870,7 +877,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, _, e| LoopState::Permanent(e));
+            .returning(|_, _, _, e| RetryResult::Permanent(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
@@ -887,7 +894,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, _, e| LoopState::Exhausted(e));
+            .returning(|_, _, _, e| RetryResult::Exhausted(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
@@ -938,20 +945,11 @@ mod tests {
     }
 
     #[test]
-    fn limited_attempt_count_error() {
-        let limit = 1234_u32;
-        let err = LimitedAttemptCountError::new(limit);
-        assert_eq!(err.maximum_attempts(), limit);
-        let fmt = err.to_string();
-        assert!(fmt.contains("1234"), "display={fmt}, debug={err:?}");
-    }
-
-    #[test]
     fn test_limited_attempt_count_on_error() {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, _, e| LoopState::Continue(e));
+            .returning(|_, _, _, e| RetryResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
@@ -973,29 +971,18 @@ mod tests {
     }
 
     #[test]
-    fn test_limited_attempt_count_on_throttle_none() {
-        let mut mock = MockPolicy::new();
-        mock.expect_on_throttle().times(1..).returning(|_, _| None);
-
-        let now = std::time::Instant::now();
-        let policy = LimitedAttemptCount::custom(mock, 3);
-        assert!(policy.on_throttle(now, 1).is_none());
-        assert!(policy.on_throttle(now, 2).is_none());
-        assert!(policy.on_throttle(now, 3).is_some());
-    }
-
-    #[test]
-    fn test_limited_attempt_count_on_throttle_some() {
+    fn test_limited_attempt_count_on_throttle_continue() {
         let mut mock = MockPolicy::new();
         mock.expect_on_throttle()
             .times(1..)
-            .returning(|_, _| Some(transient_error()));
+            .returning(|_, _, e| ThrottleResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
-        assert!(policy.on_throttle(now, 1).is_some());
-        assert!(policy.on_throttle(now, 2).is_some());
-        assert!(policy.on_throttle(now, 3).is_some());
+        assert!(matches!(
+            policy.on_throttle(now, 2, unavailable()),
+            ThrottleResult::Continue(_)
+        ));
     }
 
     #[test]
@@ -1003,13 +990,14 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_throttle()
             .times(1..)
-            .returning(|_, _| Some(transient_error()));
+            .returning(|_, _, e| ThrottleResult::Exhausted(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
-        assert!(policy.on_throttle(now, 1).is_some());
-        assert!(policy.on_throttle(now, 2).is_some());
-        assert!(policy.on_throttle(now, 3).is_some());
+        assert!(matches!(
+            policy.on_throttle(now, 1, unavailable()),
+            ThrottleResult::Exhausted(_)
+        ));
     }
 
     #[test]
@@ -1042,7 +1030,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, _, e| LoopState::Permanent(e));
+            .returning(|_, _, _, e| RetryResult::Permanent(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
         let now = std::time::Instant::now();
 
@@ -1058,7 +1046,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, _, e| LoopState::Exhausted(e));
+            .returning(|_, _, _, e| RetryResult::Exhausted(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
         let now = std::time::Instant::now();
 
