@@ -23,14 +23,14 @@ use std::sync::Arc;
 use std::sync::atomic::{AtomicU64, Ordering};
 
 pub mod api_key_credentials;
-#[doc(hidden)]
+// #[doc(hidden)]
 pub mod external_account;
 pub(crate) mod external_account_sources;
 pub mod impersonated;
 pub(crate) mod internal;
 pub mod mds;
 pub mod service_account;
-pub(crate) mod subject_token;
+pub mod subject_token;
 pub mod user_account;
 
 pub(crate) const QUOTA_PROJECT_KEY: &str = "x-goog-user-project";

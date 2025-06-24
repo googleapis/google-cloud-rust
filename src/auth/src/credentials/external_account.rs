@@ -72,7 +72,7 @@ struct ExternalAccountFile {
     client_id: Option<String>,
     client_secret: Option<String>,
     scopes: Option<Vec<String>>,
-    credential_source: CredentialSourceFile,
+    credential_source: Option<CredentialSourceFile>,
 }
 
 impl From<ExternalAccountFile> for ExternalAccountConfig {
@@ -90,7 +90,6 @@ impl From<ExternalAccountFile> for ExternalAccountConfig {
             client_secret: config.client_secret,
             subject_token_type: config.subject_token_type,
             token_url: config.token_url,
-            credential_source: config.credential_source.into(),
             scopes: scope,
         }
     }
@@ -125,10 +124,9 @@ struct ExternalAccountConfig {
     client_id: Option<String>,
     client_secret: Option<String>,
     scopes: Vec<String>,
-    credential_source: CredentialSource,
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Serialize)]
 #[allow(dead_code)]
 enum CredentialSource {
     Url(UrlSourcedCredentials),
@@ -138,24 +136,6 @@ enum CredentialSource {
 }
 
 impl ExternalAccountConfig {
-    fn make_credentials(self, quota_project_id: Option<String>) -> Credentials {
-        let config = self.clone();
-        match self.credential_source {
-            CredentialSource::Url(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id)
-            }
-            CredentialSource::Executable(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id)
-            }
-            CredentialSource::File { .. } => {
-                unimplemented!("file sourced credential not supported yet")
-            }
-            CredentialSource::Aws { .. } => {
-                unimplemented!("AWS sourced credential not supported yet")
-            }
-        }
-    }
-
     fn make_credentials_from_source<T>(
         subject_token_provider: T,
         config: ExternalAccountConfig,
@@ -235,6 +215,27 @@ where
 {
     token_provider: T,
     quota_project_id: Option<String>,
+}
+
+fn make_credentials(
+    credential_source: CredentialSourceFile,
+    config: ExternalAccountConfig,
+    quota_project_id: Option<String>,
+) -> BuildResult<Credentials> {
+    match credential_source.into() {
+        CredentialSource::Url(source) => Ok(ExternalAccountConfig::make_credentials_from_source(
+            source,
+            config,
+            quota_project_id,
+        )),
+        CredentialSource::Executable(source) => Ok(
+            ExternalAccountConfig::make_credentials_from_source(source, config, quota_project_id),
+        ),
+        CredentialSource::File { .. } => {
+            unimplemented!("file sourced credential not supported yet")
+        }
+        CredentialSource::Aws { .. } => unimplemented!("AWS sourced credential not supported yet"),
+    }
 }
 
 /// A builder for external account [Credentials] instances.
@@ -327,12 +328,138 @@ impl Builder {
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialsError] if the `external_account_config`
-    /// provided to [`Builder::new`] cannot be successfully deserialized into the
-    /// expected format for an external account configuration. This typically happens if the
-    /// JSON value is malformed or missing required fields. For more information,
-    /// on the expected format, consult the relevant section in the
-    /// [external_account_credentials] guide.
+    /// Returns a [CredentialsError] if the `external_account_config` provided to
+    /// [`Builder::new`] cannot be successfully deserialized. This typically happens
+    /// if the JSON value is malformed or missing required fields.
+    ///
+    /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
+    pub fn build(self) -> BuildResult<Credentials> {
+        let mut file: ExternalAccountFile =
+            serde_json::from_value(self.external_account_config).map_err(BuilderError::parsing)?;
+
+        let credential_source = file.credential_source.take().ok_or_else(|| {
+            BuilderError::parsing("the `credential_source` field is missing from the configuration")
+        })?;
+
+        if let Some(scopes) = self.scopes {
+            file.scopes = Some(scopes);
+        }
+
+        let config: ExternalAccountConfig = file.into();
+
+        make_credentials(credential_source, config, self.quota_project_id)
+    }
+}
+
+/// A builder for external account [Credentials] that uses a user provided subject
+/// token provider.
+///
+/// This builder is designed for advanced use cases where the subject token is
+/// provided directly by the application through a custom implementation of the
+/// [`SubjectTokenProvider`] trait.
+///
+/// # Example
+///
+/// ```
+/// # use google_cloud_auth::credentials::external_account::ExternalAccountProgrammaticBuilder;
+/// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+/// # use google_cloud_auth::errors::SubjectTokenProviderError;
+/// # use std::error::Error;
+/// # use std::fmt;
+/// # #[derive(Debug)]
+/// # struct MyTokenProvider;
+/// # #[derive(Debug)]
+/// # struct MyProviderError;
+/// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
+/// # impl Error for MyProviderError {}
+/// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+/// # impl SubjectTokenProvider for MyTokenProvider {
+/// #     type Error = MyProviderError;
+/// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
+/// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
+/// #     }
+/// # }
+/// # tokio_test::block_on(async {
+/// let config = serde_json::json!({
+///     "type": "external_account",
+///     "audience": "//iam.googleapis.com/projects/123/locations/global/workloadIdentityPools/my-pool/providers/my-provider",
+///     "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+///     "token_url": "https://sts.googleapis.com/v1beta/token"
+/// });
+///
+/// let provider = MyTokenProvider;
+///
+/// let credentials = ExternalAccountProgrammaticBuilder::new_with_external_account_config(provider, config)
+///     .with_quota_project_id("my-quota-project")
+///     .build()
+///     .unwrap();
+/// # });
+/// ```
+pub struct ExternalAccountProgrammaticBuilder<T>
+where
+    T: SubjectTokenProvider + 'static,
+{
+    external_account_config: Value,
+    quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
+    subject_token_provider: T,
+}
+
+impl<T> ExternalAccountProgrammaticBuilder<T>
+where
+    T: SubjectTokenProvider + 'static,
+{
+    /// Creates a new builder with a custom [`SubjectTokenProvider`] and [external_account_credentials] JSON value.
+    ///
+    /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
+    pub fn new_with_external_account_config<S: Into<Value>>(
+        subject_token_provider: T,
+        external_account_config: S,
+    ) -> Self {
+        Self {
+            subject_token_provider,
+            external_account_config: external_account_config.into(),
+            quota_project_id: None,
+            scopes: None,
+        }
+    }
+
+    /// Sets the [quota project] for this credentials.
+    ///
+    /// In some services, you can use a service account in
+    /// one project for authentication and authorization, and charge
+    /// the usage to a different project. This requires that the
+    /// service account has `serviceusage.services.use` permissions on the quota project.
+    ///
+    /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
+    pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+        self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    /// Overrides the [scopes] for this credentials.
+    ///
+    /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
+    pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
+        self
+    }
+
+    /// Returns a [Credentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [CredentialsError] if the provided `external_account_config`
+    /// cannot be successfully deserialized into the expected format for an external
+    /// account configuration. This typically happens if the JSON value is malformed
+    /// or missing required fields. For more information, on the expected format,
+    /// consult the relevant section in the [external_account_credentials] guide.
+    /// As a subject token provider is explicly provided, therefore the provided
+    /// JSON value, doesn't require `credential_source`.
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> BuildResult<Credentials> {
@@ -345,7 +472,11 @@ impl Builder {
 
         let config: ExternalAccountConfig = file.into();
 
-        Ok(config.make_credentials(self.quota_project_id))
+        Ok(ExternalAccountConfig::make_credentials_from_source(
+            self.subject_token_provider,
+            config,
+            self.quota_project_id,
+        ))
     }
 }
 
@@ -363,8 +494,14 @@ where
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::credentials::subject_token::{
+        Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
+    };
+    use crate::errors::SubjectTokenProviderError;
     use serde_json::*;
     use std::collections::HashMap;
+    use std::error::Error;
+    use std::fmt;
 
     #[tokio::test]
     async fn create_external_account_builder() {
@@ -395,76 +532,70 @@ mod test {
     }
 
     #[tokio::test]
-    async fn create_external_account_detect_url_sourced() {
+    async fn create_external_account_builder_missing_credential_source_is_error() {
         let contents = json!({
             "type": "external_account",
             "audience": "audience",
             "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
-            "token_url": "https://sts.googleapis.com/v1beta/token",
-            "credential_source": {
-                "url": "https://example.com/token",
-                "headers": {
-                  "Metadata": "True"
-                },
-                "format": {
-                  "type": "json",
-                  "subject_token_field_name": "access_token"
-                }
-            }
+            "token_url": "https://sts.googleapis.com/v1beta/token"
         });
 
-        let file: ExternalAccountFile =
-            serde_json::from_value(contents).expect("failed to parse external account config");
-        let config: ExternalAccountConfig = file.into();
-        let source = config.credential_source;
+        let err = Builder::new(contents).build().unwrap_err();
+        assert!(err.is_parsing());
+        assert!(
+            err.to_string()
+                .contains("the `credential_source` field is missing from the configuration")
+        );
+    }
 
-        match source {
-            CredentialSource::Url(source) => {
-                assert_eq!(source.url, "https://example.com/token");
-                assert_eq!(
-                    source.headers,
-                    HashMap::from([("Metadata".to_string(), "True".to_string()),]),
-                );
-                assert_eq!(source.format, "json");
-                assert_eq!(source.subject_token_field_name, "access_token");
-            }
-            _ => {
-                unreachable!("expected Url Sourced credential")
-            }
+    #[derive(Debug)]
+    struct TestProviderError;
+
+    impl fmt::Display for TestProviderError {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            write!(f, "TestProviderError")
+        }
+    }
+
+    impl Error for TestProviderError {}
+
+    impl SubjectTokenProviderError for TestProviderError {
+        fn is_transient(&self) -> bool {
+            false
+        }
+    }
+
+    #[derive(Debug)]
+    struct TestSubjectTokenProvider;
+
+    impl SubjectTokenProvider for TestSubjectTokenProvider {
+        type Error = TestProviderError;
+
+        async fn subject_token(&self) -> std::result::Result<SubjectToken, Self::Error> {
+            Ok(SubjectTokenBuilder::new("test-token".to_string()).build())
         }
     }
 
     #[tokio::test]
-    async fn create_external_account_detect_executable_sourced() {
+    async fn create_programmatic_subject_token_external_account_builder() {
         let contents = json!({
             "type": "external_account",
             "audience": "audience",
             "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
-            "token_url": "https://sts.googleapis.com/v1beta/token",
-            "credential_source": {
-                "executable": {
-                    "command": "cat /some/file",
-                    "output_file": "/some/file",
-                    "timeout_millis": 5000
-                }
-            }
+            "token_url": "https://sts.googleapis.com/v1beta/token"
         });
 
-        let file: ExternalAccountFile =
-            serde_json::from_value(contents).expect("failed to parse external account config");
-        let config: ExternalAccountConfig = file.into();
-        let source = config.credential_source;
+        let provider = TestSubjectTokenProvider;
 
-        match source {
-            CredentialSource::Executable(source) => {
-                assert_eq!(source.command, "cat");
-                assert_eq!(source.args, vec!["/some/file"]);
-                assert_eq!(source.output_file.as_deref(), Some("/some/file"));
-                assert_eq!(source.timeout, Duration::from_secs(5));
-            }
-            _ => {
-                unreachable!("expected Executable Sourced credential")
-            }
-        }
+        let creds = ExternalAccountProgrammaticBuilder::new_with_external_account_config(
+            provider, contents,
+        )
+        .with_quota_project_id("test_project")
+        .with_scopes(["a", "b"])
+        .build()
+        .unwrap();
+
+        let fmt = format!("{:?}", creds);
+        assert!(fmt.contains("ExternalAccountCredentials"));
     }
 }
