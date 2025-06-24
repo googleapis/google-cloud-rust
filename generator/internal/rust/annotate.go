@@ -655,8 +655,8 @@ func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api
 
 func annotateSegments(segments []string) []string {
 	var ann []string
-        // The model may have multiple consecutive literal segments. We use this
-        // buffer to consolidate them into a single literal segment.
+	// The model may have multiple consecutive literal segments. We use this
+	// buffer to consolidate them into a single literal segment.
 	literalBuffer := ""
 	flushBuffer := func() {
 		if literalBuffer != "" {
