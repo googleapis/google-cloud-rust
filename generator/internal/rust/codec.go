@@ -717,11 +717,10 @@ func derefFieldSingle(name string, message *api.Message, state *api.APIState) (s
 	return "", nil
 }
 
-func derefFieldPath(fieldPath string, message *api.Message, state *api.APIState) string {
+func derefFieldPath(fieldPath []string, message *api.Message, state *api.APIState) string {
 	var expression strings.Builder
-	components := strings.Split(fieldPath, ".")
 	msg := message
-	for _, name := range components {
+	for _, name := range fieldPath {
 		if msg == nil {
 			slog.Error("cannot build full expression", "fieldPath", fieldPath, "message", msg)
 		}
@@ -732,11 +731,10 @@ func derefFieldPath(fieldPath string, message *api.Message, state *api.APIState)
 	return expression.String()
 }
 
-func leafFieldTypez(fieldPath string, message *api.Message, state *api.APIState) api.Typez {
+func leafFieldTypez(fieldPath []string, message *api.Message, state *api.APIState) api.Typez {
 	typez := api.UNDEFINED_TYPE
-	components := strings.Split(fieldPath, ".")
 	msg := message
-	for _, name := range components {
+	for _, name := range fieldPath {
 		if msg == nil {
 			slog.Error("cannot find leaf field type", "fieldPath", fieldPath, "message", msg)
 			return typez
@@ -768,12 +766,12 @@ func httpPathArgs(h *api.PathInfo, method *api.Method, state *api.APIState) []pa
 		return []pathArg{}
 	}
 	var params []pathArg
-	for _, arg := range h.Bindings[0].LegacyPathTemplate {
-		if arg.FieldPath != nil {
-			leafTypez := leafFieldTypez(*arg.FieldPath, message, state)
+	for _, arg := range h.Bindings[0].PathTemplate.Segments {
+		if arg.Variable != nil {
+			leafTypez := leafFieldTypez(arg.Variable.FieldPath, message, state)
 			params = append(params, pathArg{
-				Name:          *arg.FieldPath,
-				Accessor:      derefFieldPath(*arg.FieldPath, message, state),
+				Name:          strings.Join(arg.Variable.FieldPath, "."),
+				Accessor:      derefFieldPath(arg.Variable.FieldPath, message, state),
 				CheckForEmpty: leafTypez == api.STRING_TYPE,
 			})
 		}
