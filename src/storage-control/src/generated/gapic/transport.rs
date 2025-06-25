@@ -76,7 +76,7 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.name.as_str()),
+                Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                 &[],
                 &[Segment::MultiWildcard],
                 &[],
@@ -117,7 +117,7 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.name.as_str()),
+                Some(&req).map(|m| &m.name).map(|s| s.as_str()),
                 &[],
                 &[Segment::MultiWildcard],
                 &[],
@@ -159,15 +159,16 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
                 Some(&req)
-                    .and_then(|v| v.bucket.as_ref())
-                    .map(|v| v.project.as_str()),
+                    .and_then(|m| m.bucket.as_ref())
+                    .map(|m| &m.project)
+                    .map(|s| s.as_str()),
                 &[],
                 &[Segment::MultiWildcard],
                 &[],
             )
             .or_else(|| {
                 gaxi::routing_parameter::value(
-                    Some(&req).map(|v| v.parent.as_str()),
+                    Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                     &[],
                     &[Segment::MultiWildcard],
                     &[],
@@ -209,7 +210,7 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.parent.as_str()),
+                Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                 &[],
                 &[Segment::MultiWildcard],
                 &[],
@@ -252,7 +253,7 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.bucket.as_str()),
+                Some(&req).map(|m| &m.bucket).map(|s| s.as_str()),
                 &[],
                 &[Segment::MultiWildcard],
                 &[],
@@ -293,7 +294,7 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.resource.as_str()),
+                Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                 &[],
                 &[
                     Segment::Literal("projects/"),
@@ -305,7 +306,7 @@ impl super::stub::StorageControl for StorageControl {
             )
             .or_else(|| {
                 gaxi::routing_parameter::value(
-                    Some(&req).map(|v| v.resource.as_str()),
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[],
                     &[Segment::MultiWildcard],
                     &[],
@@ -347,7 +348,7 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.resource.as_str()),
+                Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                 &[],
                 &[
                     Segment::Literal("projects/"),
@@ -359,7 +360,7 @@ impl super::stub::StorageControl for StorageControl {
             )
             .or_else(|| {
                 gaxi::routing_parameter::value(
-                    Some(&req).map(|v| v.resource.as_str()),
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[],
                     &[Segment::MultiWildcard],
                     &[],
@@ -402,7 +403,7 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.resource.as_str()),
+                Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                 &[],
                 &[
                     Segment::Literal("projects/"),
@@ -417,7 +418,7 @@ impl super::stub::StorageControl for StorageControl {
             )
             .or_else(|| {
                 gaxi::routing_parameter::value(
-                    Some(&req).map(|v| v.resource.as_str()),
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[],
                     &[
                         Segment::Literal("projects/"),
@@ -430,7 +431,7 @@ impl super::stub::StorageControl for StorageControl {
             })
             .or_else(|| {
                 gaxi::routing_parameter::value(
-                    Some(&req).map(|v| v.resource.as_str()),
+                    Some(&req).map(|m| &m.resource).map(|s| s.as_str()),
                     &[],
                     &[Segment::MultiWildcard],
                     &[],
@@ -473,8 +474,9 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
                 Some(&req)
-                    .and_then(|v| v.bucket.as_ref())
-                    .map(|v| v.name.as_str()),
+                    .and_then(|m| m.bucket.as_ref())
+                    .map(|m| &m.name)
+                    .map(|s| s.as_str()),
                 &[],
                 &[Segment::MultiWildcard],
                 &[],
@@ -516,8 +518,9 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
                 Some(&req)
-                    .and_then(|v| v.destination.as_ref())
-                    .map(|v| v.bucket.as_str()),
+                    .and_then(|m| m.destination.as_ref())
+                    .map(|m| &m.bucket)
+                    .map(|s| s.as_str()),
                 &[],
                 &[Segment::MultiWildcard],
                 &[],
@@ -558,7 +561,7 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.bucket.as_str()),
+                Some(&req).map(|m| &m.bucket).map(|s| s.as_str()),
                 &[],
                 &[Segment::MultiWildcard],
                 &[],
@@ -599,7 +602,7 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.bucket.as_str()),
+                Some(&req).map(|m| &m.bucket).map(|s| s.as_str()),
                 &[],
                 &[Segment::MultiWildcard],
                 &[],
@@ -640,7 +643,7 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.bucket.as_str()),
+                Some(&req).map(|m| &m.bucket).map(|s| s.as_str()),
                 &[],
                 &[Segment::MultiWildcard],
                 &[],
@@ -682,8 +685,9 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
                 Some(&req)
-                    .and_then(|v| v.object.as_ref())
-                    .map(|v| v.bucket.as_str()),
+                    .and_then(|m| m.object.as_ref())
+                    .map(|m| &m.bucket)
+                    .map(|s| s.as_str()),
                 &[],
                 &[Segment::MultiWildcard],
                 &[],
@@ -724,7 +728,7 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.parent.as_str()),
+                Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
                 &[],
                 &[Segment::MultiWildcard],
                 &[],
@@ -766,14 +770,16 @@ impl super::stub::StorageControl for StorageControl {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[
                 gaxi::routing_parameter::value(
-                    Some(&req).map(|v| v.destination_bucket.as_str()),
+                    Some(&req)
+                        .map(|m| &m.destination_bucket)
+                        .map(|s| s.as_str()),
                     &[],
                     &[Segment::MultiWildcard],
                     &[],
                 )
                 .map(|v| ("bucket", v)),
                 gaxi::routing_parameter::value(
-                    Some(&req).map(|v| v.source_bucket.as_str()),
+                    Some(&req).map(|m| &m.source_bucket).map(|s| s.as_str()),
                     &[],
                     &[Segment::MultiWildcard],
                     &[],
@@ -815,7 +821,7 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
             gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.bucket.as_str()),
+                Some(&req).map(|m| &m.bucket).map(|s| s.as_str()),
                 &[],
                 &[Segment::MultiWildcard],
                 &[],

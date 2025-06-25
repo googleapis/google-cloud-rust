@@ -662,13 +662,13 @@ func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api
 			slog.Error("invalid routing field for request message", "field", name, "message ID", message.ID)
 			continue
 		}
-		switch {
-		case field.Optional:
-			accessors = append(accessors, fmt.Sprintf(".and_then(|v| v.%s.as_ref())", name))
-		case field.Typez == api.STRING_TYPE:
-			accessors = append(accessors, fmt.Sprintf(".map(|v| v.%s.as_str())", name))
-		default:
-			accessors = append(accessors, fmt.Sprintf(".map(|v| &v.%s)", name))
+		if field.Optional {
+			accessors = append(accessors, fmt.Sprintf(".and_then(|m| m.%s.as_ref())", name))
+		} else {
+			accessors = append(accessors, fmt.Sprintf(".map(|m| &m.%s)", name))
+		}
+		if field.Typez == api.STRING_TYPE {
+			accessors = append(accessors, ".map(|s| s.as_str())")
 		}
 		if field.Typez == api.MESSAGE_TYPE {
 			if fieldMessage, ok := state.MessageByID[field.TypezID]; ok {
