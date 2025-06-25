@@ -137,7 +137,7 @@ Note: The source of the Cloud Client Libraries for Rust is
 
    The program will print the secrets associated with your project ID. If you
    don't see any secrets, you might not have any in Secret Manager. You can
-   [create a secret] and rerun the program, and you should see the secret 
+   [create a secret] and rerun the program, and you should see the secret
    printed in the output.
 
 ## What's next
