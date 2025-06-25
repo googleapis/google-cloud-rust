@@ -401,7 +401,7 @@ impl InsertObject {
 /// #   .with_endpoint("https://storage.googleapis.com")
 /// #    .build().await?;
 /// let builder: ReadObject = client.read_object("projects/_/buckets/my-bucket", "my-object");
-/// let contents = builder.send().await?;
+/// let contents = builder.send().await?.all_bytes().await?;
 /// println!("object contents={contents:?}");
 /// # Ok::<(), anyhow::Error>(()) });
 /// ```
@@ -697,6 +697,7 @@ impl ReadObject {
 }
 
 /// A response to a [Storage::read_object] request.
+#[derive(Debug)]
 pub struct ReadObjectResponse {
     inner: reqwest::Response,
 }
