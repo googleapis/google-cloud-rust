@@ -56,7 +56,21 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     let contents = client
         .read_object(&bucket.name, &insert.name)
         .send()
+        .await?
+        .all_bytes()
         .await?;
+    assert_eq!(contents, CONTENTS.as_bytes());
+    tracing::info!("success with contents={contents:?}");
+
+    tracing::info!("testing read_object() streaming");
+    let mut contents = bytes::BytesMut::new();
+    let mut resp = client
+        .read_object(&bucket.name, &insert.name)
+        .send()
+        .await?;
+    while let Some(chunk) = resp.next().await? {
+        contents.extend_from_slice(&chunk);
+    }
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
@@ -113,6 +127,8 @@ pub async fn objects_customer_supplied_encryption(
         .read_object(&bucket.name, &insert.name)
         .with_key(storage::client::KeyAes256::new(&key)?)
         .send()
+        .await?
+        .all_bytes()
         .await?;
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
