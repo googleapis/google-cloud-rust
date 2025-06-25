@@ -130,8 +130,8 @@ pub fn try_match<T: PathField>(value: T, template: &[Segment]) -> T {
 ///     "projects/*");
 /// let builder = builder.maybe_add(
 ///     id,
-///     "id",
 ///     &[Segment::SingleWildcard],
+///     "id",
 ///     "*");
 /// // etc.
 ///
