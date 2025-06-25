@@ -102,8 +102,8 @@ where
                 PollingResult::Completed(_) => (name, result),
                 PollingResult::InProgress(_) => {
                     match error_policy.on_in_progress(loop_start, attempt_count, &operation_name) {
-                        None => (name, result),
-                        Some(e) => (None, PollingResult::Completed(Err(e))),
+                        Ok(()) => (name, result),
+                        Err(e) => (None, PollingResult::Completed(Err(e))),
                     }
                 }
                 PollingResult::PollingError(_) => {
