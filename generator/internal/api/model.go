@@ -265,9 +265,6 @@ type PathBinding struct {
 	// - PATCH
 	Verb string
 	// The path broken by components.
-	// TODO(#2499) - Remove this.
-	LegacyPathTemplate []LegacyPathSegment
-	// The path broken by components.
 	PathTemplate *PathTemplate
 	// Query parameter fields.
 	QueryParameters map[string]bool
@@ -420,50 +417,6 @@ func (v *PathVariable) WithMatchRecursive() *PathVariable {
 func (v *PathVariable) WithMatch() *PathVariable {
 	v.Segments = append(v.Segments, PathVariableSegment{Match: &PathMatch{}})
 	return v
-}
-
-// A path segment is either a string literal (such as "projects") or a field
-// path (such as "options.version").
-//
-// For OpenAPI these are formed by breaking the path string. Something like
-//
-//	`/v1/projects/{project}/secrets/{secret}:getIamPolicy`
-//
-// should produce:
-// ```
-//
-//	[]LegacyPathSegment{
-//	  {Literal:   &"v1"},
-//	  {Literal:   &"projects"},
-//	  {FieldPath: &"project"},
-//	  {Literal:   &"secrets"},
-//	  {FieldPath: &"secret"},
-//	  {Verb:      &"getIamPolicy"},
-//	}
-//
-// ```
-//
-// The Codec interpret these elements as needed.
-// TODO(#2499) - Remove this.
-type LegacyPathSegment struct {
-	Literal   *string
-	FieldPath *string
-	Verb      *string
-}
-
-// TODO(#2499) - Remove this.
-func NewLiteralPathSegment(s string) LegacyPathSegment {
-	return LegacyPathSegment{Literal: &s}
-}
-
-// TODO(#2499) - Remove this.
-func NewFieldPathPathSegment(s string) LegacyPathSegment {
-	return LegacyPathSegment{FieldPath: &s}
-}
-
-// TODO(#2499) - Remove this.
-func NewVerbPathSegment(s string) LegacyPathSegment {
-	return LegacyPathSegment{Verb: &s}
 }
 
 // Message defines a message used in request/response handling.

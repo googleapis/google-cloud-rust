@@ -185,10 +185,6 @@ func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packa
 		if err != nil {
 			return nil, err
 		}
-		legacyPathTemplate, err := httprule.LegacyParseSegments(pattern)
-		if err != nil {
-			return nil, err
-		}
 
 		type NamedOperation struct {
 			Verb      string
@@ -220,10 +216,9 @@ func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packa
 			pathInfo := &api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						Verb:               op.Verb,
-						LegacyPathTemplate: legacyPathTemplate,
-						PathTemplate:       pathTemplate,
-						QueryParameters:    queryParameters,
+						Verb:            op.Verb,
+						PathTemplate:    pathTemplate,
+						QueryParameters: queryParameters,
 					},
 				},
 				BodyFieldPath: bodyFieldPath,

@@ -74,10 +74,6 @@ func TestProtobuf_LocationMixin(t *testing.T) {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
-					LegacyPathTemplate: []api.LegacyPathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("name"),
-					},
 					PathTemplate: api.NewPathTemplate().
 						WithLiteral("v1").
 						WithVariable(api.NewPathVariable("name").
@@ -144,11 +140,6 @@ func TestProtobuf_IAMMixin(t *testing.T) {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "POST",
-					LegacyPathTemplate: []api.LegacyPathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("resource"),
-						api.NewVerbPathSegment("getIamPolicy"),
-					},
 					PathTemplate: api.NewPathTemplate().
 						WithLiteral("v1").
 						WithVariable(api.NewPathVariable("resource").
@@ -221,10 +212,6 @@ func TestProtobuf_OperationMixin(t *testing.T) {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
-					LegacyPathTemplate: []api.LegacyPathSegment{
-						api.NewLiteralPathSegment("v2"),
-						api.NewFieldPathPathSegment("name"),
-					},
 					PathTemplate: api.NewPathTemplate().
 						WithLiteral("v2").
 						WithVariable(api.NewPathVariable("name").
@@ -308,10 +295,6 @@ func TestProtobuf_OperationMixinNoEmpty(t *testing.T) {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "DELETE",
-					LegacyPathTemplate: []api.LegacyPathSegment{
-						api.NewLiteralPathSegment("v2"),
-						api.NewFieldPathPathSegment("name"),
-					},
 					PathTemplate: api.NewPathTemplate().
 						WithLiteral("v2").
 						WithVariable(api.NewPathVariable("name").
@@ -392,10 +375,6 @@ func TestProtobuf_DuplicateMixin(t *testing.T) {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
-					LegacyPathTemplate: []api.LegacyPathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("name"),
-					},
 					PathTemplate: api.NewPathTemplate().
 						WithLiteral("v1").
 						WithVariable(api.NewPathVariable("name").
