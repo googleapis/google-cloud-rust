@@ -676,17 +676,17 @@ func bodyAccessor(m *api.Method) string {
 	return "." + toSnake(m.PathInfo.BodyFieldPath)
 }
 
-func httpPathFmt(m *api.PathInfo) string {
-	binding := m.Bindings[0]
+func httpPathFmt(t *api.PathTemplate) string {
 	fmt := ""
-	for _, segment := range binding.LegacyPathTemplate {
+	for _, segment := range t.Segments {
 		if segment.Literal != nil {
 			fmt = fmt + "/" + *segment.Literal
-		} else if segment.FieldPath != nil {
+		} else if segment.Variable != nil {
 			fmt = fmt + "/{}"
-		} else if segment.Verb != nil {
-			fmt = fmt + ":" + *segment.Verb
 		}
+	}
+	if t.Verb != nil {
+		fmt = fmt + ":" + *t.Verb
 	}
 	return fmt
 }
