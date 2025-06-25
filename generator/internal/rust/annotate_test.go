@@ -74,9 +74,6 @@ func serviceAnnotationsModel() *api.API {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "GET",
-					LegacyPathTemplate: []api.LegacyPathSegment{
-						api.NewLiteralPathSegment("/v1/resource"),
-					},
 					PathTemplate: api.NewPathTemplate().
 						WithLiteral("v1").
 						WithLiteral("resource"),
@@ -94,9 +91,6 @@ func serviceAnnotationsModel() *api.API {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: "DELETE",
-					LegacyPathTemplate: []api.LegacyPathSegment{
-						api.NewLiteralPathSegment("/v1/resource"),
-					},
 					PathTemplate: api.NewPathTemplate().
 						WithLiteral("v1").
 						WithLiteral("resource"),
@@ -1238,9 +1232,6 @@ func TestPathInfoAnnotations(t *testing.T) {
 				Bindings: []*api.PathBinding{
 					{
 						Verb: testCase.Verb,
-						LegacyPathTemplate: []api.LegacyPathSegment{
-							api.NewLiteralPathSegment("/v1/resource"),
-						},
 						PathTemplate: api.NewPathTemplate().
 							WithLiteral("v1").
 							WithLiteral("resource"),

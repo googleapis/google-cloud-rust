@@ -85,39 +85,6 @@ func ParseSegments(pathTemplate string) (*api.PathTemplate, error) {
 	return parsePathTemplate(pathTemplate)
 }
 
-// Flattens the result of `ParseSegments`, ignoring variable patterns.
-//
-// The variable patterns are used to validate path bindings. We need them, but
-// did not realize when we initially wrote the model. We keep this thing around
-// because some languages (dart, golang) still use the legacy representation.
-//
-// TODO(#557): Remove this when we stop using `api.LegacyPathSegment`
-func LegacyParseSegments(pathTemplate string) ([]api.LegacyPathSegment, error) {
-	path, err := ParseSegments(pathTemplate)
-	if err != nil {
-		return nil, err
-	}
-
-	var segments []api.LegacyPathSegment
-	for _, s := range path.Segments {
-		segment := api.LegacyPathSegment{}
-		if s.Literal != nil {
-			segment.Literal = s.Literal
-		} else if s.Variable != nil {
-			fieldPath := strings.Join(s.Variable.FieldPath, ".")
-			segment.FieldPath = &fieldPath
-		}
-		segments = append(segments, segment)
-	}
-
-	if path.Verb != nil {
-		segments = append(segments, api.LegacyPathSegment{
-			Verb: path.Verb,
-		})
-	}
-	return segments, nil
-}
-
 type Literal string
 type Identifier string
 

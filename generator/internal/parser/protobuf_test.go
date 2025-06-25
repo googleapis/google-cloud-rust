@@ -446,11 +446,6 @@ func TestProtobuf_Comments(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "POST",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("parent"),
-								api.NewLiteralPathSegment("foos"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("parent").
@@ -836,10 +831,6 @@ func TestProtobuf_Service(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("name"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("name").
@@ -863,11 +854,6 @@ func TestProtobuf_Service(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "POST",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("parent"),
-								api.NewLiteralPathSegment("foos"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("parent").
@@ -890,10 +876,6 @@ func TestProtobuf_Service(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "DELETE",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("name"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("name").
@@ -926,11 +908,6 @@ func TestProtobuf_Service(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("name"),
-								api.NewVerbPathSegment("Download"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("name").
@@ -983,11 +960,6 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "POST",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("parent"),
-								api.NewLiteralPathSegment("foos"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("parent").
@@ -1010,11 +982,6 @@ func TestProtobuf_QueryParameters(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "POST",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("parent"),
-								api.NewVerbPathSegment("addFoo"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("parent").
@@ -1103,11 +1070,6 @@ func TestProtobuf_Pagination(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("parent"),
-								api.NewLiteralPathSegment("foos"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("parent").
@@ -1135,11 +1097,6 @@ func TestProtobuf_Pagination(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("parent"),
-								api.NewLiteralPathSegment("foos"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("parent").
@@ -1167,11 +1124,6 @@ func TestProtobuf_Pagination(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("parent"),
-								api.NewLiteralPathSegment("foos"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("parent").
@@ -1199,11 +1151,6 @@ func TestProtobuf_Pagination(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("parent"),
-								api.NewLiteralPathSegment("foos"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("parent").
@@ -1224,11 +1171,6 @@ func TestProtobuf_Pagination(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("parent"),
-								api.NewLiteralPathSegment("foos"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("parent").
@@ -1249,11 +1191,6 @@ func TestProtobuf_Pagination(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("parent"),
-								api.NewLiteralPathSegment("foos"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("parent").
@@ -1274,11 +1211,6 @@ func TestProtobuf_Pagination(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("parent"),
-								api.NewLiteralPathSegment("foos"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("parent").
@@ -1399,11 +1331,6 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "POST",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("parent"),
-								api.NewLiteralPathSegment("foos"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("parent").
@@ -1430,11 +1357,6 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "POST",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v1"),
-								api.NewFieldPathPathSegment("parent"),
-								api.NewLiteralPathSegment("foos"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v1").
 								WithVariable(api.NewPathVariable("parent").
@@ -1461,10 +1383,6 @@ func TestProtobuf_OperationInfo(t *testing.T) {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("v2"),
-								api.NewFieldPathPathSegment("name"),
-							},
 							PathTemplate: api.NewPathTemplate().
 								WithLiteral("v2").
 								WithVariable(api.NewPathVariable("name").
