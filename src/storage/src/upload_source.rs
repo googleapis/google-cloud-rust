@@ -255,6 +255,8 @@ mod test {
     async fn empty_stream() -> Result {
         let source = VecStream::new(vec![]);
         let payload = InsertPayload::from(source);
+        let range = payload.size_hint();
+        assert_eq!(range, (0, Some(0)));
         let got = collect(payload).await?;
         assert!(got.is_empty(), "{got:?}");
 
