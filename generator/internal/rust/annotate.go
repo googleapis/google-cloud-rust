@@ -691,7 +691,7 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		query_params = language.QueryParams(m, m.PathInfo.Bindings[0])
 	}
 	// TODO(#2317) - remove when this is on by default
-	additionalBindings := sourceSpecificationPackageName == "google.showcase.v1beta1"
+	additionalBindings := sourceSpecificationPackageName == "google.cloud.secretmanager.v1" || sourceSpecificationPackageName == "google.cloud.sql.v1" || sourceSpecificationPackageName == "google.cloud.workflows.v1" || sourceSpecificationPackageName == "google.cloud.workflows.executions.v1" || sourceSpecificationPackageName == "google.showcase.v1beta1"
 	annotation := &methodAnnotation{
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
