@@ -388,9 +388,8 @@ mod test {
             .build()
             .unwrap();
 
-        let fmt = format!("{:?}", creds);
         // Use the debug output to verify the right kind of credentials are created.
-        print!("{:?}", creds);
+        let fmt = format!("{creds:?}");
         assert!(fmt.contains("ExternalAccountCredentials"));
     }
 

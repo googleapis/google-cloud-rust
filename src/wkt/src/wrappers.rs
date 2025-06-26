@@ -376,7 +376,7 @@ mod test {
         let any = Any::from_msg(&input)?;
         let got = serde_json::to_value(&any)?;
         let want = serde_json::json!({
-            "@type": format!("type.googleapis.com/google.protobuf.{}", typename),
+            "@type": format!("type.googleapis.com/google.protobuf.{typename}"),
             "value": value,
         });
         assert_eq!(got, want);
@@ -461,7 +461,7 @@ mod test {
         T: Message + std::fmt::Debug + serde::ser::Serialize + serde::de::DeserializeOwned,
     {
         let map = serde_json::json!({
-            "@type": format!("type.googleapis.com/google.protobuf.{}", typename),
+            "@type": format!("type.googleapis.com/google.protobuf.{typename}"),
             "value": 0,
         });
 
@@ -469,7 +469,7 @@ mod test {
         let e = serializer.deserialize_from_map(map.as_object().unwrap());
 
         assert!(e.is_err());
-        let fmt = format!("{:?}", e);
+        let fmt = format!("{e:?}");
         assert!(fmt.contains("expected value field to be a string"), "{fmt}");
         Ok(())
     }

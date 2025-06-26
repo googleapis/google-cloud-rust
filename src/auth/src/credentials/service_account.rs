@@ -744,10 +744,7 @@ mod test {
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let token = get_token_from_headers(headers).unwrap();
         let captures = re.captures(&token).ok_or_else(|| {
-            format!(
-                r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
-                token
-            )
+            format!(r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {token}"#)
         })?;
         let token_header = b64_decode_to_json(captures["header"].to_string());
         assert_eq!(token_header["alg"], "RS256");
@@ -796,10 +793,7 @@ mod test {
         let re = regex::Regex::new(SSJ_REGEX).unwrap();
         let token = get_token_from_headers(headers).unwrap();
         let captures = re.captures(&token).ok_or_else(|| {
-            format!(
-                r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {}"#,
-                token
-            )
+            format!(r#"Expected token in form: "<header>.<claims>.<sig>". Found token: {token}"#)
         })?;
         let token_header = b64_decode_to_json(captures["header"].to_string());
         assert_eq!(token_header["alg"], "RS256");
