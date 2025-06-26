@@ -45,12 +45,11 @@ impl super::stub::IAMCredentials for IAMCredentials {
         req: crate::model::GenerateAccessTokenRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateAccessTokenResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:generateAccessToken",
@@ -66,7 +65,8 @@ impl super::stub::IAMCredentials for IAMCredentials {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -91,6 +91,7 @@ impl super::stub::IAMCredentials for IAMCredentials {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -99,12 +100,11 @@ impl super::stub::IAMCredentials for IAMCredentials {
         req: crate::model::GenerateIdTokenRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateIdTokenResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:generateIdToken",
@@ -120,7 +120,8 @@ impl super::stub::IAMCredentials for IAMCredentials {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -145,6 +146,7 @@ impl super::stub::IAMCredentials for IAMCredentials {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -153,12 +155,11 @@ impl super::stub::IAMCredentials for IAMCredentials {
         req: crate::model::SignBlobRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SignBlobResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:signBlob",
@@ -174,7 +175,8 @@ impl super::stub::IAMCredentials for IAMCredentials {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -199,6 +201,7 @@ impl super::stub::IAMCredentials for IAMCredentials {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -207,12 +210,11 @@ impl super::stub::IAMCredentials for IAMCredentials {
         req: crate::model::SignJwtRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SignJwtResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:signJwt",
@@ -228,7 +230,8 @@ impl super::stub::IAMCredentials for IAMCredentials {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -253,6 +256,7 @@ impl super::stub::IAMCredentials for IAMCredentials {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 }

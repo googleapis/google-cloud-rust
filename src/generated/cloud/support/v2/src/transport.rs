@@ -45,12 +45,11 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
         req: crate::model::ListAttachmentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAttachmentsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}/attachments",
@@ -68,7 +67,8 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -87,7 +87,8 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -127,6 +128,7 @@ impl super::stub::CaseAttachmentService for CaseAttachmentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -160,12 +162,11 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::GetCaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}",
@@ -181,7 +182,8 @@ impl super::stub::CaseService for CaseService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -198,7 +200,8 @@ impl super::stub::CaseService for CaseService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -238,6 +241,7 @@ impl super::stub::CaseService for CaseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -248,12 +252,11 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::ListCasesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCasesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}/cases",
@@ -267,7 +270,8 @@ impl super::stub::CaseService for CaseService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -282,7 +286,8 @@ impl super::stub::CaseService for CaseService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -312,6 +317,7 @@ impl super::stub::CaseService for CaseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -322,12 +328,11 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::SearchCasesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchCasesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}/cases:search",
@@ -341,7 +346,8 @@ impl super::stub::CaseService for CaseService {
                 let builder = builder.query(&[("query", &req.query)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -356,7 +362,8 @@ impl super::stub::CaseService for CaseService {
                 let builder = builder.query(&[("query", &req.query)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -386,6 +393,7 @@ impl super::stub::CaseService for CaseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -396,12 +404,11 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::CreateCaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}/cases",
@@ -412,7 +419,8 @@ impl super::stub::CaseService for CaseService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -424,7 +432,8 @@ impl super::stub::CaseService for CaseService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -454,6 +463,7 @@ impl super::stub::CaseService for CaseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.case), options).await
     }
 
@@ -462,12 +472,11 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::UpdateCaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}",
@@ -499,7 +508,7 @@ impl super::stub::CaseService for CaseService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -532,7 +541,7 @@ impl super::stub::CaseService for CaseService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -578,6 +587,7 @@ impl super::stub::CaseService for CaseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.case), options).await
     }
 
@@ -586,12 +596,11 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::EscalateCaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}:escalate",
@@ -607,7 +616,8 @@ impl super::stub::CaseService for CaseService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -624,7 +634,8 @@ impl super::stub::CaseService for CaseService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -664,6 +675,7 @@ impl super::stub::CaseService for CaseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -672,12 +684,11 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::CloseCaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Case>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}:close",
@@ -693,7 +704,8 @@ impl super::stub::CaseService for CaseService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -710,7 +722,8 @@ impl super::stub::CaseService for CaseService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -750,6 +763,7 @@ impl super::stub::CaseService for CaseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -758,10 +772,9 @@ impl super::stub::CaseService for CaseService {
         req: crate::model::SearchCaseClassificationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchCaseClassificationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = "/v2/caseClassifications:search".to_string();
 
@@ -769,7 +782,8 @@ impl super::stub::CaseService for CaseService {
                 let builder = builder.query(&[("query", &req.query)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -783,6 +797,7 @@ impl super::stub::CaseService for CaseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -816,12 +831,11 @@ impl super::stub::CommentService for CommentService {
         req: crate::model::ListCommentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCommentsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}/comments",
@@ -839,7 +853,8 @@ impl super::stub::CommentService for CommentService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -858,7 +873,8 @@ impl super::stub::CommentService for CommentService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -898,6 +914,7 @@ impl super::stub::CommentService for CommentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -908,12 +925,11 @@ impl super::stub::CommentService for CommentService {
         req: crate::model::CreateCommentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Comment>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}/comments",
@@ -929,7 +945,8 @@ impl super::stub::CommentService for CommentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -946,7 +963,8 @@ impl super::stub::CommentService for CommentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -986,6 +1004,7 @@ impl super::stub::CommentService for CommentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.comment), options)
             .await

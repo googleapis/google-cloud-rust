@@ -45,12 +45,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::CheckOnboardingStatusRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CheckOnboardingStatusResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:checkOnboardingStatus",
@@ -66,7 +65,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -83,7 +83,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -100,7 +101,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -155,6 +157,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -165,12 +168,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::ListEntitlementsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListEntitlementsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/entitlements",
@@ -190,7 +192,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -211,7 +214,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -232,7 +236,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -287,6 +292,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -297,12 +303,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::SearchEntitlementsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchEntitlementsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/entitlements:search",
@@ -322,7 +327,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -343,7 +349,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -364,7 +371,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -419,6 +427,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -429,12 +438,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::GetEntitlementRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Entitlement>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -452,7 +460,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -471,7 +480,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -490,7 +500,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -551,6 +562,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -561,12 +573,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::CreateEntitlementRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/entitlements",
@@ -584,7 +595,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("entitlementId", &req.entitlement_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -603,7 +615,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("entitlementId", &req.entitlement_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -622,7 +635,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("entitlementId", &req.entitlement_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -677,6 +691,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.entitlement), options)
             .await
@@ -687,12 +702,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::DeleteEntitlementRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -712,7 +726,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("force", &req.force)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -733,7 +748,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("force", &req.force)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -754,7 +770,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
                 let builder = builder.query(&[("force", &req.force)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -815,6 +832,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -825,12 +843,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::UpdateEntitlementRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -864,7 +881,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -899,7 +916,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -934,7 +951,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1004,6 +1021,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.entitlement), options)
             .await
@@ -1014,12 +1032,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::ListGrantsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListGrantsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/grants",
@@ -1041,7 +1058,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1064,7 +1082,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1087,7 +1106,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1148,6 +1168,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1158,12 +1179,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::SearchGrantsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchGrantsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/grants:search",
@@ -1185,7 +1205,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1208,7 +1229,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1231,7 +1253,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1292,6 +1315,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1302,12 +1326,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::GetGrantRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Grant>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -1327,7 +1350,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1348,7 +1372,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1369,7 +1394,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1436,6 +1462,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1446,12 +1473,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::CreateGrantRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Grant>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/grants",
@@ -1470,7 +1496,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1490,7 +1517,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1510,7 +1538,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1571,6 +1600,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.grant), options).await
     }
 
@@ -1579,12 +1609,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::ApproveGrantRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Grant>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:approve",
@@ -1604,7 +1633,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1625,7 +1655,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1646,7 +1677,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1713,6 +1745,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1721,12 +1754,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::DenyGrantRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Grant>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:deny",
@@ -1746,7 +1778,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1767,7 +1800,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1788,7 +1822,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1855,6 +1890,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1863,12 +1899,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: crate::model::RevokeGrantRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:revoke",
@@ -1888,7 +1923,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1909,7 +1945,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1930,7 +1967,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1997,6 +2035,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -2005,12 +2044,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/locations",
@@ -2024,7 +2062,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2039,7 +2078,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2054,7 +2094,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2094,6 +2135,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -2104,12 +2146,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -2125,7 +2166,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2142,7 +2184,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2159,7 +2202,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2214,6 +2258,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -2224,12 +2269,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/operations",
@@ -2248,7 +2292,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2268,7 +2313,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2288,7 +2334,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2343,6 +2390,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -2353,12 +2401,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -2376,7 +2423,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2395,7 +2443,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2414,7 +2463,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2475,6 +2525,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -2485,12 +2536,11 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -2508,7 +2558,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2527,7 +2578,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2546,7 +2598,8 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2607,6 +2660,7 @@ impl super::stub::PrivilegedAccessManager for PrivilegedAccessManager {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await

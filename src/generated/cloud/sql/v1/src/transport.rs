@@ -45,12 +45,11 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         req: crate::model::SqlBackupRunsDeleteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/backupRuns/{}",
@@ -66,7 +65,8 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -98,6 +98,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -108,12 +109,11 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         req: crate::model::SqlBackupRunsGetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BackupRun>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/backupRuns/{}",
@@ -129,7 +129,8 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -161,6 +162,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -171,12 +173,11 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         req: crate::model::SqlBackupRunsInsertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/backupRuns",
@@ -191,7 +192,8 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -217,6 +219,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -225,12 +228,11 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
         req: crate::model::SqlBackupRunsListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BackupRunsListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/backupRuns",
@@ -247,7 +249,8 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("maxResults", &req.max_results)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -273,6 +276,7 @@ impl super::stub::SqlBackupRunsService for SqlBackupRunsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -306,12 +310,11 @@ impl super::stub::SqlConnectService for SqlConnectService {
         req: crate::model::GetConnectSettingsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ConnectSettings>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/connectSettings",
@@ -339,7 +342,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -365,6 +368,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -375,12 +379,11 @@ impl super::stub::SqlConnectService for SqlConnectService {
         req: crate::model::GenerateEphemeralCertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateEphemeralCertResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}:generateEphemeralCert",
@@ -395,7 +398,8 @@ impl super::stub::SqlConnectService for SqlConnectService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -421,6 +425,7 @@ impl super::stub::SqlConnectService for SqlConnectService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 }
@@ -452,12 +457,11 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         req: crate::model::SqlDatabasesDeleteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
@@ -476,7 +480,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -508,6 +513,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -518,12 +524,11 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         req: crate::model::SqlDatabasesGetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Database>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
@@ -542,7 +547,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -574,6 +580,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -584,12 +591,11 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         req: crate::model::SqlDatabasesInsertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases",
@@ -604,7 +610,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -630,6 +637,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -638,12 +646,11 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         req: crate::model::SqlDatabasesListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DatabasesListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases",
@@ -658,7 +665,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -684,6 +692,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -694,12 +703,11 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         req: crate::model::SqlDatabasesUpdateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
@@ -718,7 +726,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -750,6 +759,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -758,12 +768,11 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
         req: crate::model::SqlDatabasesUpdateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/databases/{}",
@@ -782,7 +791,8 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::PUT, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -814,6 +824,7 @@ impl super::stub::SqlDatabasesService for SqlDatabasesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 }
@@ -845,16 +856,16 @@ impl super::stub::SqlFlagsService for SqlFlagsService {
         req: crate::model::SqlFlagsListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FlagsListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = "/v1/flags".to_string();
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("databaseVersion", &req.database_version)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -868,6 +879,7 @@ impl super::stub::SqlFlagsService for SqlFlagsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -901,12 +913,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesAddServerCaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/addServerCa",
@@ -921,7 +932,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -947,6 +959,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(gaxi::http::NoBody), options)
             .await
@@ -957,12 +970,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesCloneRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/clone",
@@ -977,7 +989,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1003,6 +1016,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -1011,12 +1025,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesDeleteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}",
@@ -1031,7 +1044,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1057,6 +1071,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1067,12 +1082,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesDemoteMasterRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/demoteMaster",
@@ -1087,7 +1101,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1113,6 +1128,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -1121,12 +1137,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesDemoteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/demote",
@@ -1141,7 +1156,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1167,6 +1183,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -1175,12 +1192,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesExportRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/export",
@@ -1195,7 +1211,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1221,6 +1238,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -1229,12 +1247,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesFailoverRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/failover",
@@ -1249,7 +1266,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1275,6 +1293,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -1283,12 +1302,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesReencryptRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/reencrypt",
@@ -1303,7 +1321,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1329,6 +1348,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -1337,12 +1357,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesGetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DatabaseInstance>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}",
@@ -1357,7 +1376,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1383,6 +1403,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1393,12 +1414,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesImportRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/import",
@@ -1413,7 +1433,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1439,6 +1460,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -1447,12 +1469,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesInsertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances",
@@ -1463,7 +1484,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1483,6 +1505,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -1491,12 +1514,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InstancesListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances",
@@ -1510,7 +1532,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("maxResults", &req.max_results)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1530,6 +1553,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1540,12 +1564,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesListServerCasRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InstancesListServerCasResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/listServerCas",
@@ -1560,7 +1583,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1586,6 +1610,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1596,12 +1621,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesPatchRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}",
@@ -1616,7 +1640,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1642,6 +1667,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -1650,12 +1676,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesPromoteReplicaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/promoteReplica",
@@ -1671,7 +1696,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("failover", &req.failover)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1697,6 +1723,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(gaxi::http::NoBody), options)
             .await
@@ -1707,12 +1734,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesSwitchoverRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/switchover",
@@ -1740,7 +1766,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1766,6 +1792,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(gaxi::http::NoBody), options)
             .await
@@ -1776,12 +1803,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesResetSslConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/resetSslConfig",
@@ -1796,7 +1822,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1822,6 +1849,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(gaxi::http::NoBody), options)
             .await
@@ -1832,12 +1860,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesRestartRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/restart",
@@ -1852,7 +1879,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1878,6 +1906,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(gaxi::http::NoBody), options)
             .await
@@ -1888,12 +1917,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesRestoreBackupRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/restoreBackup",
@@ -1908,7 +1936,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1934,6 +1963,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -1942,12 +1972,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesRotateServerCaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/rotateServerCa",
@@ -1962,7 +1991,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1988,6 +2018,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -1996,12 +2027,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesStartReplicaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/startReplica",
@@ -2016,7 +2046,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2042,6 +2073,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(gaxi::http::NoBody), options)
             .await
@@ -2052,12 +2084,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesStopReplicaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/stopReplica",
@@ -2072,7 +2103,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2098,6 +2130,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(gaxi::http::NoBody), options)
             .await
@@ -2108,12 +2141,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesTruncateLogRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/truncateLog",
@@ -2128,7 +2160,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2154,6 +2187,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -2162,12 +2196,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesUpdateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}",
@@ -2182,7 +2215,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::PUT, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2208,6 +2242,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -2216,12 +2251,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesCreateEphemeralCertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCert>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/createEphemeral",
@@ -2236,7 +2270,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2262,6 +2297,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -2270,12 +2306,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesRescheduleMaintenanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/rescheduleMaintenance",
@@ -2290,7 +2325,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2316,6 +2352,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -2325,12 +2362,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SqlInstancesVerifyExternalSyncSettingsResponse>>
     {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/verifyExternalSyncSettings",
@@ -2345,7 +2381,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2371,6 +2408,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -2379,12 +2417,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesStartExternalSyncRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/startExternalSync",
@@ -2399,7 +2436,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2425,6 +2463,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -2433,12 +2472,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesPerformDiskShrinkRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/performDiskShrink",
@@ -2453,7 +2491,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2479,6 +2518,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -2488,12 +2528,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SqlInstancesGetDiskShrinkConfigResponse>>
     {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/getDiskShrinkConfig",
@@ -2508,7 +2547,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2534,6 +2574,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -2544,12 +2585,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesResetReplicaSizeRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/resetReplicaSize",
@@ -2564,7 +2604,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2590,6 +2631,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -2599,12 +2641,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SqlInstancesGetLatestRecoveryTimeResponse>>
     {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/getLatestRecoveryTime",
@@ -2619,7 +2660,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2645,6 +2687,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -2655,12 +2698,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesAcquireSsrsLeaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SqlInstancesAcquireSsrsLeaseResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/acquireSsrsLease",
@@ -2675,7 +2717,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2701,6 +2744,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -2709,12 +2753,11 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
         req: crate::model::SqlInstancesReleaseSsrsLeaseRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SqlInstancesReleaseSsrsLeaseResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/releaseSsrsLease",
@@ -2729,7 +2772,8 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2755,6 +2799,7 @@ impl super::stub::SqlInstancesService for SqlInstancesService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(gaxi::http::NoBody), options)
             .await
@@ -2788,12 +2833,11 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         req: crate::model::SqlOperationsGetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/operations/{}",
@@ -2808,7 +2852,8 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2834,6 +2879,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -2844,12 +2890,11 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         req: crate::model::SqlOperationsListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::OperationsListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/operations",
@@ -2863,7 +2908,8 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                 let builder = builder.query(&[("instance", &req.instance)]);
                 let builder = builder.query(&[("maxResults", &req.max_results)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2883,6 +2929,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -2893,12 +2940,11 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
         req: crate::model::SqlOperationsCancelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/operations/{}/cancel",
@@ -2913,7 +2959,8 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2939,6 +2986,7 @@ impl super::stub::SqlOperationsService for SqlOperationsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(gaxi::http::NoBody), options)
             .await
@@ -2976,12 +3024,11 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         req: crate::model::SqlSslCertsDeleteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/sslCerts/{}",
@@ -3000,7 +3047,8 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3032,6 +3080,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -3042,12 +3091,11 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         req: crate::model::SqlSslCertsGetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCert>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/sslCerts/{}",
@@ -3066,7 +3114,8 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3098,6 +3147,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -3108,12 +3158,11 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         req: crate::model::SqlSslCertsInsertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCertsInsertResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/sslCerts",
@@ -3128,7 +3177,8 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3154,6 +3204,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -3162,12 +3213,11 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
         req: crate::model::SqlSslCertsListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SslCertsListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/sslCerts",
@@ -3182,7 +3232,8 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3208,6 +3259,7 @@ impl super::stub::SqlSslCertsService for SqlSslCertsService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -3241,12 +3293,11 @@ impl super::stub::SqlTiersService for SqlTiersService {
         req: crate::model::SqlTiersListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TiersListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/tiers",
@@ -3257,7 +3308,8 @@ impl super::stub::SqlTiersService for SqlTiersService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3277,6 +3329,7 @@ impl super::stub::SqlTiersService for SqlTiersService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -3310,12 +3363,11 @@ impl super::stub::SqlUsersService for SqlUsersService {
         req: crate::model::SqlUsersDeleteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users",
@@ -3332,7 +3384,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("host", &req.host)]);
                 let builder = builder.query(&[("name", &req.name)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3358,6 +3411,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -3368,12 +3422,11 @@ impl super::stub::SqlUsersService for SqlUsersService {
         req: crate::model::SqlUsersGetRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::User>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users/{}",
@@ -3393,7 +3446,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("host", &req.host)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3425,6 +3479,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -3435,12 +3490,11 @@ impl super::stub::SqlUsersService for SqlUsersService {
         req: crate::model::SqlUsersInsertRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users",
@@ -3455,7 +3509,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3481,6 +3536,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 
@@ -3489,12 +3545,11 @@ impl super::stub::SqlUsersService for SqlUsersService {
         req: crate::model::SqlUsersListRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UsersListResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users",
@@ -3509,7 +3564,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3535,6 +3591,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -3545,12 +3602,11 @@ impl super::stub::SqlUsersService for SqlUsersService {
         req: crate::model::SqlUsersUpdateRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/projects/{}/instances/{}/users",
@@ -3567,7 +3623,8 @@ impl super::stub::SqlUsersService for SqlUsersService {
                 let builder = self.inner.builder(reqwest::Method::PUT, path);
                 let builder = builder.query(&[("host", &req.host)]);
                 let builder = builder.query(&[("name", &req.name)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3593,6 +3650,7 @@ impl super::stub::SqlUsersService for SqlUsersService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.body), options).await
     }
 }

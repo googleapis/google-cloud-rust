@@ -45,12 +45,11 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::ListInsightsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListInsightsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/insights",
@@ -71,7 +70,8 @@ impl super::stub::Recommender for Recommender {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -93,7 +93,8 @@ impl super::stub::Recommender for Recommender {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -115,7 +116,8 @@ impl super::stub::Recommender for Recommender {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -137,7 +139,8 @@ impl super::stub::Recommender for Recommender {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -215,6 +218,7 @@ impl super::stub::Recommender for Recommender {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -225,12 +229,11 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::GetInsightRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Insight>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -250,7 +253,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -271,7 +275,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -292,7 +297,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -313,7 +319,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -399,6 +406,7 @@ impl super::stub::Recommender for Recommender {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -409,12 +417,11 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::MarkInsightAcceptedRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Insight>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:markAccepted",
@@ -434,7 +441,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -455,7 +463,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -476,7 +485,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -497,7 +507,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -583,6 +594,7 @@ impl super::stub::Recommender for Recommender {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -591,12 +603,11 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::ListRecommendationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRecommendationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/recommendations",
@@ -617,7 +628,8 @@ impl super::stub::Recommender for Recommender {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -639,7 +651,8 @@ impl super::stub::Recommender for Recommender {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -661,7 +674,8 @@ impl super::stub::Recommender for Recommender {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -683,7 +697,8 @@ impl super::stub::Recommender for Recommender {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -761,6 +776,7 @@ impl super::stub::Recommender for Recommender {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -771,12 +787,11 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::GetRecommendationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -796,7 +811,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -817,7 +833,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -838,7 +855,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -859,7 +877,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -945,6 +964,7 @@ impl super::stub::Recommender for Recommender {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -955,12 +975,11 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::MarkRecommendationDismissedRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:markDismissed",
@@ -980,7 +999,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1001,7 +1021,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1022,7 +1043,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1043,7 +1065,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1129,6 +1152,7 @@ impl super::stub::Recommender for Recommender {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1137,12 +1161,11 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::MarkRecommendationClaimedRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:markClaimed",
@@ -1162,7 +1185,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1183,7 +1207,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1204,7 +1229,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1225,7 +1251,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1311,6 +1338,7 @@ impl super::stub::Recommender for Recommender {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1319,12 +1347,11 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::MarkRecommendationSucceededRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:markSucceeded",
@@ -1344,7 +1371,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1365,7 +1393,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1386,7 +1415,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1407,7 +1437,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1493,6 +1524,7 @@ impl super::stub::Recommender for Recommender {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1501,12 +1533,11 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::MarkRecommendationFailedRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Recommendation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:markFailed",
@@ -1526,7 +1557,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1547,7 +1579,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1568,7 +1601,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1589,7 +1623,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1675,6 +1710,7 @@ impl super::stub::Recommender for Recommender {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1683,12 +1719,11 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::GetRecommenderConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -1707,7 +1742,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1727,7 +1763,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1747,7 +1784,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1811,6 +1849,7 @@ impl super::stub::Recommender for Recommender {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1821,12 +1860,11 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::UpdateRecommenderConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RecommenderConfig>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -1862,7 +1900,7 @@ impl super::stub::Recommender for Recommender {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1899,7 +1937,7 @@ impl super::stub::Recommender for Recommender {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1936,7 +1974,7 @@ impl super::stub::Recommender for Recommender {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2009,6 +2047,7 @@ impl super::stub::Recommender for Recommender {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.recommender_config), options)
             .await
@@ -2019,12 +2058,11 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::GetInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -2043,7 +2081,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2063,7 +2102,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2083,7 +2123,8 @@ impl super::stub::Recommender for Recommender {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2147,6 +2188,7 @@ impl super::stub::Recommender for Recommender {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -2157,12 +2199,11 @@ impl super::stub::Recommender for Recommender {
         req: crate::model::UpdateInsightTypeConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::InsightTypeConfig>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -2198,7 +2239,7 @@ impl super::stub::Recommender for Recommender {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2235,7 +2276,7 @@ impl super::stub::Recommender for Recommender {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2272,7 +2313,7 @@ impl super::stub::Recommender for Recommender {
                     let builder = builder.query(&[("validateOnly", &req.validate_only)]);
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2345,6 +2386,7 @@ impl super::stub::Recommender for Recommender {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.insight_type_config), options)
             .await

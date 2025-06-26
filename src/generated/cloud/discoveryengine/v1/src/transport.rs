@@ -70,12 +70,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
         req: crate::model::UpdateCmekConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -96,7 +95,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = builder.query(&[("setDefault", &req.set_default)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -119,7 +119,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = builder.query(&[("setDefault", &req.set_default)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -168,6 +169,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.config), options).await
     }
 
@@ -176,12 +178,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
         req: crate::model::GetCmekConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CmekConfig>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -198,7 +199,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -217,7 +219,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -260,6 +263,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -270,12 +274,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
         req: crate::model::ListCmekConfigsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCmekConfigsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/cmekConfigs",
@@ -291,7 +294,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -316,6 +320,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -326,12 +331,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
         req: crate::model::DeleteCmekConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -349,7 +353,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -376,6 +381,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -386,12 +392,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -404,7 +409,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -418,7 +424,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -432,7 +439,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -446,7 +454,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -460,7 +469,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -474,7 +484,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -488,7 +499,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -502,7 +514,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -516,7 +529,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -530,7 +544,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -544,7 +559,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -558,7 +574,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -572,7 +589,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -586,7 +604,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -600,7 +619,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -614,7 +634,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -768,6 +789,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -778,12 +800,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -793,7 +814,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -804,7 +826,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -815,7 +838,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -826,7 +850,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -837,7 +862,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -848,7 +874,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -859,7 +886,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -870,7 +898,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -881,7 +910,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -892,7 +922,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -903,7 +934,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -914,7 +946,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -925,7 +958,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -936,7 +970,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -947,7 +982,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -958,7 +994,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -1112,6 +1149,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1122,12 +1160,11 @@ impl super::stub::CmekConfigService for CmekConfigService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -1143,7 +1180,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1168,7 +1206,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1191,7 +1230,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1214,7 +1254,8 @@ impl super::stub::CmekConfigService for CmekConfigService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1304,6 +1345,7 @@ impl super::stub::CmekConfigService for CmekConfigService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -1358,12 +1400,11 @@ impl super::stub::CompletionService for CompletionService {
         req: crate::model::CompleteQueryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CompleteQueryResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:completeQuery",
@@ -1386,7 +1427,8 @@ impl super::stub::CompletionService for CompletionService {
                 let builder = builder.query(&[("userPseudoId", &req.user_pseudo_id)]);
                 let builder =
                     builder.query(&[("includeTailSuggestions", &req.include_tail_suggestions)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1412,7 +1454,8 @@ impl super::stub::CompletionService for CompletionService {
                 let builder = builder.query(&[("userPseudoId", &req.user_pseudo_id)]);
                 let builder =
                     builder.query(&[("includeTailSuggestions", &req.include_tail_suggestions)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1458,6 +1501,7 @@ impl super::stub::CompletionService for CompletionService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -1468,12 +1512,11 @@ impl super::stub::CompletionService for CompletionService {
         req: crate::model::ImportSuggestionDenyListEntriesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/suggestionDenyListEntries:import",
@@ -1493,7 +1536,8 @@ impl super::stub::CompletionService for CompletionService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1512,7 +1556,8 @@ impl super::stub::CompletionService for CompletionService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1558,6 +1603,7 @@ impl super::stub::CompletionService for CompletionService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1566,12 +1612,11 @@ impl super::stub::CompletionService for CompletionService {
         req: crate::model::PurgeSuggestionDenyListEntriesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/suggestionDenyListEntries:purge",
@@ -1591,7 +1636,8 @@ impl super::stub::CompletionService for CompletionService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1610,7 +1656,8 @@ impl super::stub::CompletionService for CompletionService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1656,6 +1703,7 @@ impl super::stub::CompletionService for CompletionService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1664,12 +1712,11 @@ impl super::stub::CompletionService for CompletionService {
         req: crate::model::ImportCompletionSuggestionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/completionSuggestions:import",
@@ -1689,7 +1736,8 @@ impl super::stub::CompletionService for CompletionService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1708,7 +1756,8 @@ impl super::stub::CompletionService for CompletionService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1754,6 +1803,7 @@ impl super::stub::CompletionService for CompletionService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1762,12 +1812,11 @@ impl super::stub::CompletionService for CompletionService {
         req: crate::model::PurgeCompletionSuggestionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/completionSuggestions:purge",
@@ -1787,7 +1836,8 @@ impl super::stub::CompletionService for CompletionService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1806,7 +1856,8 @@ impl super::stub::CompletionService for CompletionService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1852,6 +1903,7 @@ impl super::stub::CompletionService for CompletionService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -1860,12 +1912,11 @@ impl super::stub::CompletionService for CompletionService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -1878,7 +1929,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -1892,7 +1944,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -1906,7 +1959,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -1920,7 +1974,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -1934,7 +1989,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -1948,7 +2004,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -1962,7 +2019,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -1976,7 +2034,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -1990,7 +2049,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2004,7 +2064,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2018,7 +2079,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2032,7 +2094,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2046,7 +2109,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2060,7 +2124,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2074,7 +2139,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2088,7 +2154,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2242,6 +2309,7 @@ impl super::stub::CompletionService for CompletionService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -2252,12 +2320,11 @@ impl super::stub::CompletionService for CompletionService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -2267,7 +2334,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2278,7 +2346,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2289,7 +2358,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2300,7 +2370,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2311,7 +2382,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2322,7 +2394,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2333,7 +2406,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2344,7 +2418,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2355,7 +2430,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2366,7 +2442,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2377,7 +2454,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2388,7 +2466,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2399,7 +2478,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2410,7 +2490,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2421,7 +2502,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -2432,7 +2514,8 @@ impl super::stub::CompletionService for CompletionService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -2586,6 +2669,7 @@ impl super::stub::CompletionService for CompletionService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -2596,12 +2680,11 @@ impl super::stub::CompletionService for CompletionService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -2617,7 +2700,8 @@ impl super::stub::CompletionService for CompletionService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2642,7 +2726,8 @@ impl super::stub::CompletionService for CompletionService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2665,7 +2750,8 @@ impl super::stub::CompletionService for CompletionService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2688,7 +2774,8 @@ impl super::stub::CompletionService for CompletionService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2778,6 +2865,7 @@ impl super::stub::CompletionService for CompletionService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -2832,12 +2920,11 @@ impl super::stub::ControlService for ControlService {
         req: crate::model::CreateControlRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Control>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/controls",
@@ -2856,7 +2943,8 @@ impl super::stub::ControlService for ControlService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("controlId", &req.control_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2878,7 +2966,8 @@ impl super::stub::ControlService for ControlService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("controlId", &req.control_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -2900,7 +2989,8 @@ impl super::stub::ControlService for ControlService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("controlId", &req.control_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2965,6 +3055,7 @@ impl super::stub::ControlService for ControlService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.control), options)
             .await
@@ -2975,12 +3066,11 @@ impl super::stub::ControlService for ControlService {
         req: crate::model::DeleteControlRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -3000,7 +3090,8 @@ impl super::stub::ControlService for ControlService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3023,7 +3114,8 @@ impl super::stub::ControlService for ControlService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3046,7 +3138,8 @@ impl super::stub::ControlService for ControlService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3117,6 +3210,7 @@ impl super::stub::ControlService for ControlService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -3131,12 +3225,11 @@ impl super::stub::ControlService for ControlService {
         req: crate::model::UpdateControlRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Control>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -3172,7 +3265,7 @@ impl super::stub::ControlService for ControlService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3211,7 +3304,7 @@ impl super::stub::ControlService for ControlService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3250,7 +3343,7 @@ impl super::stub::ControlService for ControlService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3330,6 +3423,7 @@ impl super::stub::ControlService for ControlService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.control), options)
             .await
@@ -3340,12 +3434,11 @@ impl super::stub::ControlService for ControlService {
         req: crate::model::GetControlRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Control>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -3365,7 +3458,8 @@ impl super::stub::ControlService for ControlService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3388,7 +3482,8 @@ impl super::stub::ControlService for ControlService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3411,7 +3506,8 @@ impl super::stub::ControlService for ControlService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3482,6 +3578,7 @@ impl super::stub::ControlService for ControlService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -3492,12 +3589,11 @@ impl super::stub::ControlService for ControlService {
         req: crate::model::ListControlsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListControlsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/controls",
@@ -3518,7 +3614,8 @@ impl super::stub::ControlService for ControlService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3542,7 +3639,8 @@ impl super::stub::ControlService for ControlService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -3566,7 +3664,8 @@ impl super::stub::ControlService for ControlService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3631,6 +3730,7 @@ impl super::stub::ControlService for ControlService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -3641,12 +3741,11 @@ impl super::stub::ControlService for ControlService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -3659,7 +3758,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3673,7 +3773,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3687,7 +3788,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3701,7 +3803,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3715,7 +3818,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3729,7 +3833,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3743,7 +3848,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3757,7 +3863,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3771,7 +3878,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3785,7 +3893,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3799,7 +3908,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3813,7 +3923,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3827,7 +3938,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3841,7 +3953,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3855,7 +3968,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -3869,7 +3983,8 @@ impl super::stub::ControlService for ControlService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -4023,6 +4138,7 @@ impl super::stub::ControlService for ControlService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -4033,12 +4149,11 @@ impl super::stub::ControlService for ControlService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -4048,7 +4163,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4059,7 +4175,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4070,7 +4187,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4081,7 +4199,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4092,7 +4211,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4103,7 +4223,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4114,7 +4235,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4125,7 +4247,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4136,7 +4259,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4147,7 +4271,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4158,7 +4283,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4169,7 +4295,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4180,7 +4307,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4191,7 +4319,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4202,7 +4331,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -4213,7 +4343,8 @@ impl super::stub::ControlService for ControlService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -4367,6 +4498,7 @@ impl super::stub::ControlService for ControlService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -4377,12 +4509,11 @@ impl super::stub::ControlService for ControlService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -4398,7 +4529,8 @@ impl super::stub::ControlService for ControlService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4423,7 +4555,8 @@ impl super::stub::ControlService for ControlService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4446,7 +4579,8 @@ impl super::stub::ControlService for ControlService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4469,7 +4603,8 @@ impl super::stub::ControlService for ControlService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4559,6 +4694,7 @@ impl super::stub::ControlService for ControlService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -4599,12 +4735,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::ConverseConversationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ConverseConversationResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:converse",
@@ -4624,7 +4759,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4647,7 +4783,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4670,7 +4807,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4741,6 +4879,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -4749,12 +4888,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::CreateConversationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/conversations",
@@ -4772,7 +4910,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4793,7 +4932,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4814,7 +4954,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4879,6 +5020,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.conversation), options)
             .await
@@ -4889,12 +5031,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::DeleteConversationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -4914,7 +5055,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4937,7 +5079,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -4960,7 +5103,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5031,6 +5175,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -5045,12 +5190,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::UpdateConversationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -5086,7 +5230,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5125,7 +5269,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5164,7 +5308,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5244,6 +5388,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.conversation), options)
             .await
@@ -5254,12 +5399,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::GetConversationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Conversation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -5279,7 +5423,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5302,7 +5447,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5325,7 +5471,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5396,6 +5543,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -5406,12 +5554,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::ListConversationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListConversationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/conversations",
@@ -5433,7 +5580,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5458,7 +5606,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5483,7 +5632,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5548,6 +5698,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -5558,12 +5709,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::AnswerQueryRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnswerQueryResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:answer",
@@ -5583,7 +5733,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5606,7 +5757,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5629,7 +5781,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5700,6 +5853,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -5708,12 +5862,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::GetAnswerRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Answer>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -5735,7 +5888,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5760,7 +5914,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5785,7 +5940,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5862,6 +6018,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -5872,12 +6029,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::CreateSessionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Session>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/sessions",
@@ -5895,7 +6051,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5916,7 +6073,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -5937,7 +6095,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6002,6 +6161,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.session), options)
             .await
@@ -6012,12 +6172,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::DeleteSessionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -6037,7 +6196,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6060,7 +6220,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6083,7 +6244,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6154,6 +6316,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -6168,12 +6331,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::UpdateSessionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Session>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -6209,7 +6371,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6248,7 +6410,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6287,7 +6449,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6367,6 +6529,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.session), options)
             .await
@@ -6377,12 +6540,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::GetSessionRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Session>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -6404,7 +6566,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6429,7 +6592,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6454,7 +6618,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder =
                     builder.query(&[("includeAnswerDetails", &req.include_answer_details)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6525,6 +6690,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -6535,12 +6701,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: crate::model::ListSessionsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSessionsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/sessions",
@@ -6562,7 +6727,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6587,7 +6753,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -6612,7 +6779,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6677,6 +6845,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -6687,12 +6856,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -6705,7 +6873,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6719,7 +6888,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6733,7 +6903,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6747,7 +6918,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6761,7 +6933,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6775,7 +6948,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6789,7 +6963,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6803,7 +6978,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6817,7 +6993,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6831,7 +7008,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6845,7 +7023,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6859,7 +7038,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6873,7 +7053,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6887,7 +7068,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6901,7 +7083,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -6915,7 +7098,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -7069,6 +7253,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -7079,12 +7264,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -7094,7 +7278,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7105,7 +7290,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7116,7 +7302,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7127,7 +7314,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7138,7 +7326,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7149,7 +7338,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7160,7 +7350,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7171,7 +7362,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7182,7 +7374,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7193,7 +7386,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7204,7 +7398,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7215,7 +7410,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7226,7 +7422,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7237,7 +7434,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7248,7 +7446,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -7259,7 +7458,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -7413,6 +7613,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -7423,12 +7624,11 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -7444,7 +7644,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7469,7 +7670,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7492,7 +7694,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7515,7 +7718,8 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7605,6 +7809,7 @@ impl super::stub::ConversationalSearchService for ConversationalSearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -7645,12 +7850,11 @@ impl super::stub::DataStoreService for DataStoreService {
         req: crate::model::CreateDataStoreRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/dataStores",
@@ -7680,7 +7884,8 @@ impl super::stub::DataStoreService for DataStoreService {
                     "skipDefaultSchemaCreation",
                     &req.skip_default_schema_creation,
                 )]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7713,7 +7918,8 @@ impl super::stub::DataStoreService for DataStoreService {
                     "skipDefaultSchemaCreation",
                     &req.skip_default_schema_creation,
                 )]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7755,6 +7961,7 @@ impl super::stub::DataStoreService for DataStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.data_store), options)
             .await
@@ -7765,12 +7972,11 @@ impl super::stub::DataStoreService for DataStoreService {
         req: crate::model::GetDataStoreRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DataStore>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -7788,7 +7994,8 @@ impl super::stub::DataStoreService for DataStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7809,7 +8016,8 @@ impl super::stub::DataStoreService for DataStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7855,6 +8063,7 @@ impl super::stub::DataStoreService for DataStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -7865,12 +8074,11 @@ impl super::stub::DataStoreService for DataStoreService {
         req: crate::model::ListDataStoresRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDataStoresResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/dataStores",
@@ -7889,7 +8097,8 @@ impl super::stub::DataStoreService for DataStoreService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -7911,7 +8120,8 @@ impl super::stub::DataStoreService for DataStoreService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7953,6 +8163,7 @@ impl super::stub::DataStoreService for DataStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -7963,12 +8174,11 @@ impl super::stub::DataStoreService for DataStoreService {
         req: crate::model::DeleteDataStoreRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -7986,7 +8196,8 @@ impl super::stub::DataStoreService for DataStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8007,7 +8218,8 @@ impl super::stub::DataStoreService for DataStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8053,6 +8265,7 @@ impl super::stub::DataStoreService for DataStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -8063,12 +8276,11 @@ impl super::stub::DataStoreService for DataStoreService {
         req: crate::model::UpdateDataStoreRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::DataStore>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -8102,7 +8314,7 @@ impl super::stub::DataStoreService for DataStoreService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8139,7 +8351,7 @@ impl super::stub::DataStoreService for DataStoreService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -8191,6 +8403,7 @@ impl super::stub::DataStoreService for DataStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.data_store), options)
             .await
@@ -8201,12 +8414,11 @@ impl super::stub::DataStoreService for DataStoreService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -8219,7 +8431,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8233,7 +8446,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8247,7 +8461,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8261,7 +8476,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8275,7 +8491,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8289,7 +8506,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8303,7 +8521,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8317,7 +8536,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8331,7 +8551,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8345,7 +8566,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8359,7 +8581,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8373,7 +8596,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8387,7 +8611,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8401,7 +8626,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8415,7 +8641,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8429,7 +8656,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -8583,6 +8811,7 @@ impl super::stub::DataStoreService for DataStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -8593,12 +8822,11 @@ impl super::stub::DataStoreService for DataStoreService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -8608,7 +8836,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8619,7 +8848,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8630,7 +8860,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8641,7 +8872,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8652,7 +8884,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8663,7 +8896,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8674,7 +8908,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8685,7 +8920,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8696,7 +8932,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8707,7 +8944,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8718,7 +8956,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8729,7 +8968,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8740,7 +8980,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8751,7 +8992,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8762,7 +9004,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -8773,7 +9016,8 @@ impl super::stub::DataStoreService for DataStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -8927,6 +9171,7 @@ impl super::stub::DataStoreService for DataStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -8937,12 +9182,11 @@ impl super::stub::DataStoreService for DataStoreService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -8958,7 +9202,8 @@ impl super::stub::DataStoreService for DataStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -8983,7 +9228,8 @@ impl super::stub::DataStoreService for DataStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9006,7 +9252,8 @@ impl super::stub::DataStoreService for DataStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9029,7 +9276,8 @@ impl super::stub::DataStoreService for DataStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9119,6 +9367,7 @@ impl super::stub::DataStoreService for DataStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -9173,12 +9422,11 @@ impl super::stub::DocumentService for DocumentService {
         req: crate::model::GetDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -9200,7 +9448,8 @@ impl super::stub::DocumentService for DocumentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9225,7 +9474,8 @@ impl super::stub::DocumentService for DocumentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9279,6 +9529,7 @@ impl super::stub::DocumentService for DocumentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -9289,12 +9540,11 @@ impl super::stub::DocumentService for DocumentService {
         req: crate::model::ListDocumentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListDocumentsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/documents",
@@ -9316,7 +9566,8 @@ impl super::stub::DocumentService for DocumentService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9341,7 +9592,8 @@ impl super::stub::DocumentService for DocumentService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9391,6 +9643,7 @@ impl super::stub::DocumentService for DocumentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -9401,12 +9654,11 @@ impl super::stub::DocumentService for DocumentService {
         req: crate::model::CreateDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/documents",
@@ -9427,7 +9679,8 @@ impl super::stub::DocumentService for DocumentService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("documentId", &req.document_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9451,7 +9704,8 @@ impl super::stub::DocumentService for DocumentService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("documentId", &req.document_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9501,6 +9755,7 @@ impl super::stub::DocumentService for DocumentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.document), options)
             .await
@@ -9511,12 +9766,11 @@ impl super::stub::DocumentService for DocumentService {
         req: crate::model::UpdateDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Document>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -9555,7 +9809,7 @@ impl super::stub::DocumentService for DocumentService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9597,7 +9851,7 @@ impl super::stub::DocumentService for DocumentService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9657,6 +9911,7 @@ impl super::stub::DocumentService for DocumentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.document), options)
             .await
@@ -9667,12 +9922,11 @@ impl super::stub::DocumentService for DocumentService {
         req: crate::model::DeleteDocumentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -9694,7 +9948,8 @@ impl super::stub::DocumentService for DocumentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9719,7 +9974,8 @@ impl super::stub::DocumentService for DocumentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9773,6 +10029,7 @@ impl super::stub::DocumentService for DocumentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -9787,12 +10044,11 @@ impl super::stub::DocumentService for DocumentService {
         req: crate::model::ImportDocumentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/documents:import",
@@ -9812,7 +10068,8 @@ impl super::stub::DocumentService for DocumentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9835,7 +10092,8 @@ impl super::stub::DocumentService for DocumentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9885,6 +10143,7 @@ impl super::stub::DocumentService for DocumentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -9893,12 +10152,11 @@ impl super::stub::DocumentService for DocumentService {
         req: crate::model::PurgeDocumentsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/documents:purge",
@@ -9918,7 +10176,8 @@ impl super::stub::DocumentService for DocumentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -9941,7 +10200,8 @@ impl super::stub::DocumentService for DocumentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -9991,6 +10251,7 @@ impl super::stub::DocumentService for DocumentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -9999,12 +10260,11 @@ impl super::stub::DocumentService for DocumentService {
         req: crate::model::BatchGetDocumentsMetadataRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchGetDocumentsMetadataResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/batchGetDocumentsMetadata",
@@ -10037,7 +10297,7 @@ impl super::stub::DocumentService for DocumentService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10073,7 +10333,7 @@ impl super::stub::DocumentService for DocumentService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -10123,6 +10383,7 @@ impl super::stub::DocumentService for DocumentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -10133,12 +10394,11 @@ impl super::stub::DocumentService for DocumentService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -10151,7 +10411,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10165,7 +10426,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10179,7 +10441,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10193,7 +10456,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10207,7 +10471,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10221,7 +10486,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10235,7 +10501,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10249,7 +10516,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10263,7 +10531,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10277,7 +10546,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10291,7 +10561,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10305,7 +10576,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10319,7 +10591,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10333,7 +10606,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10347,7 +10621,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10361,7 +10636,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -10515,6 +10791,7 @@ impl super::stub::DocumentService for DocumentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -10525,12 +10802,11 @@ impl super::stub::DocumentService for DocumentService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -10540,7 +10816,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10551,7 +10828,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10562,7 +10840,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10573,7 +10852,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10584,7 +10864,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10595,7 +10876,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10606,7 +10888,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10617,7 +10900,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10628,7 +10912,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10639,7 +10924,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10650,7 +10936,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10661,7 +10948,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10672,7 +10960,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10683,7 +10972,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10694,7 +10984,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -10705,7 +10996,8 @@ impl super::stub::DocumentService for DocumentService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -10859,6 +11151,7 @@ impl super::stub::DocumentService for DocumentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -10869,12 +11162,11 @@ impl super::stub::DocumentService for DocumentService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -10890,7 +11182,8 @@ impl super::stub::DocumentService for DocumentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10915,7 +11208,8 @@ impl super::stub::DocumentService for DocumentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10938,7 +11232,8 @@ impl super::stub::DocumentService for DocumentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -10961,7 +11256,8 @@ impl super::stub::DocumentService for DocumentService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11051,6 +11347,7 @@ impl super::stub::DocumentService for DocumentService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -11105,12 +11402,11 @@ impl super::stub::EngineService for EngineService {
         req: crate::model::CreateEngineRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/engines",
@@ -11129,7 +11425,8 @@ impl super::stub::EngineService for EngineService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("engineId", &req.engine_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11156,6 +11453,7 @@ impl super::stub::EngineService for EngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.engine), options).await
     }
 
@@ -11164,12 +11462,11 @@ impl super::stub::EngineService for EngineService {
         req: crate::model::DeleteEngineRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -11189,7 +11486,8 @@ impl super::stub::EngineService for EngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11218,6 +11516,7 @@ impl super::stub::EngineService for EngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -11228,12 +11527,11 @@ impl super::stub::EngineService for EngineService {
         req: crate::model::UpdateEngineRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Engine>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -11269,7 +11567,7 @@ impl super::stub::EngineService for EngineService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11301,6 +11599,7 @@ impl super::stub::EngineService for EngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.engine), options).await
     }
 
@@ -11309,12 +11608,11 @@ impl super::stub::EngineService for EngineService {
         req: crate::model::GetEngineRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Engine>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -11334,7 +11632,8 @@ impl super::stub::EngineService for EngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11363,6 +11662,7 @@ impl super::stub::EngineService for EngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -11373,12 +11673,11 @@ impl super::stub::EngineService for EngineService {
         req: crate::model::ListEnginesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListEnginesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/engines",
@@ -11399,7 +11698,8 @@ impl super::stub::EngineService for EngineService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -11426,6 +11726,7 @@ impl super::stub::EngineService for EngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -11436,12 +11737,11 @@ impl super::stub::EngineService for EngineService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -11454,7 +11754,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11468,7 +11769,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11482,7 +11784,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11496,7 +11799,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11510,7 +11814,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11524,7 +11829,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11538,7 +11844,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11552,7 +11859,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11566,7 +11874,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11580,7 +11889,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11594,7 +11904,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11608,7 +11919,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11622,7 +11934,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11636,7 +11949,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11650,7 +11964,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11664,7 +11979,8 @@ impl super::stub::EngineService for EngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -11818,6 +12134,7 @@ impl super::stub::EngineService for EngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -11828,12 +12145,11 @@ impl super::stub::EngineService for EngineService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -11843,7 +12159,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11854,7 +12171,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11865,7 +12183,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11876,7 +12195,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11887,7 +12207,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11898,7 +12219,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11909,7 +12231,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11920,7 +12243,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11931,7 +12255,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11942,7 +12267,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11953,7 +12279,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11964,7 +12291,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11975,7 +12303,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11986,7 +12315,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -11997,7 +12327,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12008,7 +12339,8 @@ impl super::stub::EngineService for EngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -12162,6 +12494,7 @@ impl super::stub::EngineService for EngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -12172,12 +12505,11 @@ impl super::stub::EngineService for EngineService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -12193,7 +12525,8 @@ impl super::stub::EngineService for EngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12218,7 +12551,8 @@ impl super::stub::EngineService for EngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12241,7 +12575,8 @@ impl super::stub::EngineService for EngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -12264,7 +12599,8 @@ impl super::stub::EngineService for EngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12354,6 +12690,7 @@ impl super::stub::EngineService for EngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -12408,12 +12745,11 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         req: crate::model::GenerateGroundedContentRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GenerateGroundedContentResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:generateGroundedContent",
@@ -12429,7 +12765,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12454,6 +12791,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -12462,12 +12800,11 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         req: crate::model::CheckGroundingRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::CheckGroundingResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:check",
@@ -12485,7 +12822,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -12512,6 +12850,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -12520,12 +12859,11 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -12538,7 +12876,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12552,7 +12891,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12566,7 +12906,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12580,7 +12921,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12594,7 +12936,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12608,7 +12951,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12622,7 +12966,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12636,7 +12981,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12650,7 +12996,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12664,7 +13011,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12678,7 +13026,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12692,7 +13041,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12706,7 +13056,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12720,7 +13071,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12734,7 +13086,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12748,7 +13101,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -12902,6 +13256,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -12912,12 +13267,11 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -12927,7 +13281,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12938,7 +13293,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12949,7 +13305,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12960,7 +13317,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12971,7 +13329,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12982,7 +13341,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -12993,7 +13353,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13004,7 +13365,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13015,7 +13377,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13026,7 +13389,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13037,7 +13401,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13048,7 +13413,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13059,7 +13425,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13070,7 +13437,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13081,7 +13449,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13092,7 +13461,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -13246,6 +13616,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -13256,12 +13627,11 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -13277,7 +13647,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -13302,7 +13673,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -13325,7 +13697,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -13348,7 +13721,8 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13438,6 +13812,7 @@ impl super::stub::GroundedGenerationService for GroundedGenerationService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -13478,12 +13853,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         req: crate::model::CreateIdentityMappingStoreRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IdentityMappingStore>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/identityMappingStores",
@@ -13508,7 +13882,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                     .fold(builder, |builder, p| builder.query(&[("disableCmek", p)]));
                 let builder =
                     builder.query(&[("identityMappingStoreId", &req.identity_mapping_store_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13533,6 +13908,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.identity_mapping_store), options)
             .await
@@ -13543,12 +13919,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         req: crate::model::GetIdentityMappingStoreRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::IdentityMappingStore>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -13566,7 +13941,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13593,6 +13969,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -13603,12 +13980,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         req: crate::model::DeleteIdentityMappingStoreRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -13626,7 +14002,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13653,6 +14030,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -13663,12 +14041,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         req: crate::model::ImportIdentityMappingsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:importIdentityMappings",
@@ -13688,7 +14065,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13717,6 +14095,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -13725,12 +14104,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         req: crate::model::PurgeIdentityMappingsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:purgeIdentityMappings",
@@ -13750,7 +14128,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13779,6 +14158,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -13787,12 +14167,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         req: crate::model::ListIdentityMappingsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListIdentityMappingsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:listIdentityMappings",
@@ -13814,7 +14193,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13843,6 +14223,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -13853,12 +14234,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         req: crate::model::ListIdentityMappingStoresRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListIdentityMappingStoresResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/identityMappingStores",
@@ -13876,7 +14256,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -13901,6 +14282,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -13911,12 +14293,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -13929,7 +14310,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13943,7 +14325,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13957,7 +14340,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13971,7 +14355,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13985,7 +14370,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -13999,7 +14385,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14013,7 +14400,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14027,7 +14415,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14041,7 +14430,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14055,7 +14445,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14069,7 +14460,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14083,7 +14475,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14097,7 +14490,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14111,7 +14505,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14125,7 +14520,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14139,7 +14535,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -14293,6 +14690,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -14303,12 +14701,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -14318,7 +14715,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14329,7 +14727,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14340,7 +14739,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14351,7 +14751,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14362,7 +14763,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14373,7 +14775,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14384,7 +14787,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14395,7 +14799,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14406,7 +14811,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14417,7 +14823,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14428,7 +14835,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14439,7 +14847,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14450,7 +14859,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14461,7 +14871,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14472,7 +14883,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14483,7 +14895,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -14637,6 +15050,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -14647,12 +15061,11 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -14668,7 +15081,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -14693,7 +15107,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -14716,7 +15131,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -14739,7 +15155,8 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14829,6 +15246,7 @@ impl super::stub::IdentityMappingStoreService for IdentityMappingStoreService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -14883,12 +15301,11 @@ impl super::stub::ProjectService for ProjectService {
         req: crate::model::ProvisionProjectRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:provision",
@@ -14899,7 +15316,8 @@ impl super::stub::ProjectService for ProjectService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -14919,6 +15337,7 @@ impl super::stub::ProjectService for ProjectService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -14927,12 +15346,11 @@ impl super::stub::ProjectService for ProjectService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -14945,7 +15363,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14959,7 +15378,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14973,7 +15393,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -14987,7 +15408,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15001,7 +15423,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15015,7 +15438,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15029,7 +15453,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15043,7 +15468,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15057,7 +15483,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15071,7 +15498,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15085,7 +15513,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15099,7 +15528,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15113,7 +15543,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15127,7 +15558,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15141,7 +15573,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15155,7 +15588,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -15309,6 +15743,7 @@ impl super::stub::ProjectService for ProjectService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -15319,12 +15754,11 @@ impl super::stub::ProjectService for ProjectService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -15334,7 +15768,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15345,7 +15780,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15356,7 +15792,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15367,7 +15804,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15378,7 +15816,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15389,7 +15828,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15400,7 +15840,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15411,7 +15852,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15422,7 +15864,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15433,7 +15876,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15444,7 +15888,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15455,7 +15900,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15466,7 +15912,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15477,7 +15924,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15488,7 +15936,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15499,7 +15948,8 @@ impl super::stub::ProjectService for ProjectService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -15653,6 +16103,7 @@ impl super::stub::ProjectService for ProjectService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -15663,12 +16114,11 @@ impl super::stub::ProjectService for ProjectService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -15684,7 +16134,8 @@ impl super::stub::ProjectService for ProjectService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15709,7 +16160,8 @@ impl super::stub::ProjectService for ProjectService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15732,7 +16184,8 @@ impl super::stub::ProjectService for ProjectService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -15755,7 +16208,8 @@ impl super::stub::ProjectService for ProjectService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15845,6 +16299,7 @@ impl super::stub::ProjectService for ProjectService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -15899,12 +16354,11 @@ impl super::stub::RankService for RankService {
         req: crate::model::RankRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RankResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:rank",
@@ -15922,7 +16376,8 @@ impl super::stub::RankService for RankService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -15949,6 +16404,7 @@ impl super::stub::RankService for RankService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -15957,12 +16413,11 @@ impl super::stub::RankService for RankService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -15975,7 +16430,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -15989,7 +16445,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16003,7 +16460,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16017,7 +16475,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16031,7 +16490,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16045,7 +16505,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16059,7 +16520,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16073,7 +16535,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16087,7 +16550,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16101,7 +16565,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16115,7 +16580,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16129,7 +16595,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16143,7 +16610,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16157,7 +16625,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16171,7 +16640,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16185,7 +16655,8 @@ impl super::stub::RankService for RankService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -16339,6 +16810,7 @@ impl super::stub::RankService for RankService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -16349,12 +16821,11 @@ impl super::stub::RankService for RankService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -16364,7 +16835,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16375,7 +16847,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16386,7 +16859,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16397,7 +16871,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16408,7 +16883,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16419,7 +16895,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16430,7 +16907,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16441,7 +16919,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16452,7 +16931,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16463,7 +16943,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16474,7 +16955,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16485,7 +16967,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16496,7 +16979,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16507,7 +16991,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16518,7 +17003,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -16529,7 +17015,8 @@ impl super::stub::RankService for RankService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -16683,6 +17170,7 @@ impl super::stub::RankService for RankService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -16693,12 +17181,11 @@ impl super::stub::RankService for RankService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -16714,7 +17201,8 @@ impl super::stub::RankService for RankService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16739,7 +17227,8 @@ impl super::stub::RankService for RankService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16762,7 +17251,8 @@ impl super::stub::RankService for RankService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16785,7 +17275,8 @@ impl super::stub::RankService for RankService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -16875,6 +17366,7 @@ impl super::stub::RankService for RankService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -16915,12 +17407,11 @@ impl super::stub::RecommendationService for RecommendationService {
         req: crate::model::RecommendRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RecommendResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:recommend",
@@ -16940,7 +17431,8 @@ impl super::stub::RecommendationService for RecommendationService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16963,7 +17455,8 @@ impl super::stub::RecommendationService for RecommendationService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -16986,7 +17479,8 @@ impl super::stub::RecommendationService for RecommendationService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17057,6 +17551,7 @@ impl super::stub::RecommendationService for RecommendationService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -17065,12 +17560,11 @@ impl super::stub::RecommendationService for RecommendationService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -17083,7 +17577,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17097,7 +17592,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17111,7 +17607,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17125,7 +17622,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17139,7 +17637,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17153,7 +17652,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17167,7 +17667,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17181,7 +17682,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17195,7 +17697,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17209,7 +17712,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17223,7 +17727,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17237,7 +17742,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17251,7 +17757,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17265,7 +17772,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17279,7 +17787,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17293,7 +17802,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -17447,6 +17957,7 @@ impl super::stub::RecommendationService for RecommendationService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -17457,12 +17968,11 @@ impl super::stub::RecommendationService for RecommendationService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -17472,7 +17982,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17483,7 +17994,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17494,7 +18006,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17505,7 +18018,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17516,7 +18030,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17527,7 +18042,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17538,7 +18054,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17549,7 +18066,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17560,7 +18078,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17571,7 +18090,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17582,7 +18102,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17593,7 +18114,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17604,7 +18126,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17615,7 +18138,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17626,7 +18150,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -17637,7 +18162,8 @@ impl super::stub::RecommendationService for RecommendationService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -17791,6 +18317,7 @@ impl super::stub::RecommendationService for RecommendationService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -17801,12 +18328,11 @@ impl super::stub::RecommendationService for RecommendationService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -17822,7 +18348,8 @@ impl super::stub::RecommendationService for RecommendationService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17847,7 +18374,8 @@ impl super::stub::RecommendationService for RecommendationService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17870,7 +18398,8 @@ impl super::stub::RecommendationService for RecommendationService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -17893,7 +18422,8 @@ impl super::stub::RecommendationService for RecommendationService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -17983,6 +18513,7 @@ impl super::stub::RecommendationService for RecommendationService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -18023,12 +18554,11 @@ impl super::stub::SchemaService for SchemaService {
         req: crate::model::GetSchemaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Schema>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -18048,7 +18578,8 @@ impl super::stub::SchemaService for SchemaService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18071,7 +18602,8 @@ impl super::stub::SchemaService for SchemaService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18121,6 +18653,7 @@ impl super::stub::SchemaService for SchemaService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -18131,12 +18664,11 @@ impl super::stub::SchemaService for SchemaService {
         req: crate::model::ListSchemasRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSchemasResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/schemas",
@@ -18156,7 +18688,8 @@ impl super::stub::SchemaService for SchemaService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18179,7 +18712,8 @@ impl super::stub::SchemaService for SchemaService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18225,6 +18759,7 @@ impl super::stub::SchemaService for SchemaService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -18235,12 +18770,11 @@ impl super::stub::SchemaService for SchemaService {
         req: crate::model::CreateSchemaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/schemas",
@@ -18259,7 +18793,8 @@ impl super::stub::SchemaService for SchemaService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("schemaId", &req.schema_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18281,7 +18816,8 @@ impl super::stub::SchemaService for SchemaService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("schemaId", &req.schema_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18327,6 +18863,7 @@ impl super::stub::SchemaService for SchemaService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.schema), options).await
     }
 
@@ -18335,12 +18872,11 @@ impl super::stub::SchemaService for SchemaService {
         req: crate::model::UpdateSchemaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -18364,7 +18900,8 @@ impl super::stub::SchemaService for SchemaService {
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18391,7 +18928,8 @@ impl super::stub::SchemaService for SchemaService {
 
                 let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = builder.query(&[("allowMissing", &req.allow_missing)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18447,6 +18985,7 @@ impl super::stub::SchemaService for SchemaService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req.schema), options).await
     }
 
@@ -18455,12 +18994,11 @@ impl super::stub::SchemaService for SchemaService {
         req: crate::model::DeleteSchemaRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -18480,7 +19018,8 @@ impl super::stub::SchemaService for SchemaService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -18503,7 +19042,8 @@ impl super::stub::SchemaService for SchemaService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -18553,6 +19093,7 @@ impl super::stub::SchemaService for SchemaService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -18563,12 +19104,11 @@ impl super::stub::SchemaService for SchemaService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -18581,7 +19121,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18595,7 +19136,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18609,7 +19151,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18623,7 +19166,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18637,7 +19181,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18651,7 +19196,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18665,7 +19211,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18679,7 +19226,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18693,7 +19241,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18707,7 +19256,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18721,7 +19271,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18735,7 +19286,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18749,7 +19301,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18763,7 +19316,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18777,7 +19331,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18791,7 +19346,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -18945,6 +19501,7 @@ impl super::stub::SchemaService for SchemaService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -18955,12 +19512,11 @@ impl super::stub::SchemaService for SchemaService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -18970,7 +19526,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18981,7 +19538,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -18992,7 +19550,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19003,7 +19562,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19014,7 +19574,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19025,7 +19586,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19036,7 +19598,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19047,7 +19610,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19058,7 +19622,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19069,7 +19634,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19080,7 +19646,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19091,7 +19658,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19102,7 +19670,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19113,7 +19682,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19124,7 +19694,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19135,7 +19706,8 @@ impl super::stub::SchemaService for SchemaService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -19289,6 +19861,7 @@ impl super::stub::SchemaService for SchemaService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -19299,12 +19872,11 @@ impl super::stub::SchemaService for SchemaService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -19320,7 +19892,8 @@ impl super::stub::SchemaService for SchemaService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19345,7 +19918,8 @@ impl super::stub::SchemaService for SchemaService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19368,7 +19942,8 @@ impl super::stub::SchemaService for SchemaService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19391,7 +19966,8 @@ impl super::stub::SchemaService for SchemaService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19481,6 +20057,7 @@ impl super::stub::SchemaService for SchemaService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -19535,12 +20112,11 @@ impl super::stub::SearchService for SearchService {
         req: crate::model::SearchRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:search",
@@ -19560,7 +20136,8 @@ impl super::stub::SearchService for SearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19583,7 +20160,8 @@ impl super::stub::SearchService for SearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19606,7 +20184,8 @@ impl super::stub::SearchService for SearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19677,6 +20256,7 @@ impl super::stub::SearchService for SearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -19685,12 +20265,11 @@ impl super::stub::SearchService for SearchService {
         req: crate::model::SearchRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SearchResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:searchLite",
@@ -19710,7 +20289,8 @@ impl super::stub::SearchService for SearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19733,7 +20313,8 @@ impl super::stub::SearchService for SearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -19756,7 +20337,8 @@ impl super::stub::SearchService for SearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -19827,6 +20409,7 @@ impl super::stub::SearchService for SearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -19835,12 +20418,11 @@ impl super::stub::SearchService for SearchService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -19853,7 +20435,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19867,7 +20450,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19881,7 +20465,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19895,7 +20480,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19909,7 +20495,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19923,7 +20510,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19937,7 +20525,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19951,7 +20540,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19965,7 +20555,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19979,7 +20570,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -19993,7 +20585,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20007,7 +20600,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20021,7 +20615,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20035,7 +20630,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20049,7 +20645,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20063,7 +20660,8 @@ impl super::stub::SearchService for SearchService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -20217,6 +20815,7 @@ impl super::stub::SearchService for SearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -20227,12 +20826,11 @@ impl super::stub::SearchService for SearchService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -20242,7 +20840,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20253,7 +20852,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20264,7 +20864,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20275,7 +20876,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20286,7 +20888,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20297,7 +20900,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20308,7 +20912,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20319,7 +20924,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20330,7 +20936,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20341,7 +20948,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20352,7 +20960,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20363,7 +20972,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20374,7 +20984,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20385,7 +20996,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20396,7 +21008,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20407,7 +21020,8 @@ impl super::stub::SearchService for SearchService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -20561,6 +21175,7 @@ impl super::stub::SearchService for SearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -20571,12 +21186,11 @@ impl super::stub::SearchService for SearchService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -20592,7 +21206,8 @@ impl super::stub::SearchService for SearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20617,7 +21232,8 @@ impl super::stub::SearchService for SearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20640,7 +21256,8 @@ impl super::stub::SearchService for SearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -20663,7 +21280,8 @@ impl super::stub::SearchService for SearchService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20753,6 +21371,7 @@ impl super::stub::SearchService for SearchService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -20793,12 +21412,11 @@ impl super::stub::SearchTuningService for SearchTuningService {
         req: crate::model::TrainCustomModelRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:trainCustomModel",
@@ -20818,7 +21436,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20847,6 +21466,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -20855,12 +21475,11 @@ impl super::stub::SearchTuningService for SearchTuningService {
         req: crate::model::ListCustomModelsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListCustomModelsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/customModels",
@@ -20880,7 +21499,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -20909,6 +21529,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -20919,12 +21540,11 @@ impl super::stub::SearchTuningService for SearchTuningService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -20937,7 +21557,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20951,7 +21572,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20965,7 +21587,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20979,7 +21602,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -20993,7 +21617,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21007,7 +21632,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21021,7 +21647,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21035,7 +21662,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21049,7 +21677,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21063,7 +21692,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21077,7 +21707,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21091,7 +21722,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21105,7 +21737,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21119,7 +21752,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21133,7 +21767,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21147,7 +21782,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -21301,6 +21937,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -21311,12 +21948,11 @@ impl super::stub::SearchTuningService for SearchTuningService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -21326,7 +21962,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21337,7 +21974,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21348,7 +21986,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21359,7 +21998,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21370,7 +22010,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21381,7 +22022,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21392,7 +22034,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21403,7 +22046,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21414,7 +22058,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21425,7 +22070,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21436,7 +22082,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21447,7 +22094,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21458,7 +22106,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21469,7 +22118,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21480,7 +22130,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -21491,7 +22142,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -21645,6 +22297,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -21655,12 +22308,11 @@ impl super::stub::SearchTuningService for SearchTuningService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -21676,7 +22328,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21701,7 +22354,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21724,7 +22378,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21747,7 +22402,8 @@ impl super::stub::SearchTuningService for SearchTuningService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -21837,6 +22493,7 @@ impl super::stub::SearchTuningService for SearchTuningService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -21891,12 +22548,11 @@ impl super::stub::ServingConfigService for ServingConfigService {
         req: crate::model::UpdateServingConfigRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ServingConfig>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -21932,7 +22588,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -21971,7 +22627,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -22010,7 +22666,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -22090,6 +22746,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.serving_config), options)
             .await
@@ -22100,12 +22757,11 @@ impl super::stub::ServingConfigService for ServingConfigService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -22118,7 +22774,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22132,7 +22789,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22146,7 +22804,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22160,7 +22819,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22174,7 +22834,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22188,7 +22849,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22202,7 +22864,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22216,7 +22879,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22230,7 +22894,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22244,7 +22909,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22258,7 +22924,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22272,7 +22939,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22286,7 +22954,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22300,7 +22969,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22314,7 +22984,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22328,7 +22999,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -22482,6 +23154,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -22492,12 +23165,11 @@ impl super::stub::ServingConfigService for ServingConfigService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -22507,7 +23179,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22518,7 +23191,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22529,7 +23203,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22540,7 +23215,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22551,7 +23227,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22562,7 +23239,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22573,7 +23251,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22584,7 +23263,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22595,7 +23275,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22606,7 +23287,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22617,7 +23299,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22628,7 +23311,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22639,7 +23323,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22650,7 +23335,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22661,7 +23347,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -22672,7 +23359,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -22826,6 +23514,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -22836,12 +23525,11 @@ impl super::stub::ServingConfigService for ServingConfigService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -22857,7 +23545,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -22882,7 +23571,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -22905,7 +23595,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -22928,7 +23619,8 @@ impl super::stub::ServingConfigService for ServingConfigService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23018,6 +23710,7 @@ impl super::stub::ServingConfigService for ServingConfigService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -23058,12 +23751,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::GetSiteSearchEngineRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SiteSearchEngine>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -23082,7 +23774,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23104,7 +23797,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23152,6 +23846,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -23162,12 +23857,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::CreateTargetSiteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/targetSites",
@@ -23186,7 +23880,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23208,7 +23903,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23256,6 +23952,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.target_site), options)
             .await
@@ -23266,12 +23963,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::BatchCreateTargetSitesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/targetSites:batchCreate",
@@ -23290,7 +23986,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23312,7 +24009,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23360,6 +24058,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -23368,12 +24067,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::GetTargetSiteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::TargetSite>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -23383,7 +24081,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -23394,7 +24093,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -23422,6 +24122,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -23432,12 +24133,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::UpdateTargetSiteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -23447,7 +24147,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::PATCH, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, false)))
         })
         .or_else(|| {
             let path = format!(
@@ -23458,7 +24159,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::PATCH, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, false)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -23486,6 +24188,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.target_site), options)
             .await
@@ -23496,12 +24199,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::DeleteTargetSiteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -23511,7 +24213,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::DELETE, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -23522,7 +24225,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::DELETE, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -23550,6 +24254,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -23560,12 +24265,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::ListTargetSitesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListTargetSitesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/targetSites",
@@ -23586,7 +24290,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23610,7 +24315,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23658,6 +24364,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -23668,12 +24375,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::CreateSitemapRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/sitemaps",
@@ -23692,7 +24398,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23714,7 +24421,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23762,6 +24470,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.sitemap), options)
             .await
@@ -23772,12 +24481,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::DeleteSitemapRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -23787,7 +24495,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::DELETE, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -23798,7 +24507,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::DELETE, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -23826,6 +24536,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -23836,12 +24547,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::FetchSitemapsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FetchSitemapsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/sitemaps:fetch",
@@ -23873,7 +24583,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -23908,7 +24618,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -23956,6 +24666,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -23966,12 +24677,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::EnableAdvancedSiteSearchRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:enableAdvancedSiteSearch",
@@ -23992,7 +24702,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24016,7 +24727,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -24068,6 +24780,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -24076,12 +24789,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::DisableAdvancedSiteSearchRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:disableAdvancedSiteSearch",
@@ -24102,7 +24814,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24126,7 +24839,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -24178,6 +24892,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -24186,12 +24901,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::RecrawlUrisRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:recrawlUris",
@@ -24212,7 +24926,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -24236,7 +24951,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -24288,6 +25004,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -24296,12 +25013,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::BatchVerifyTargetSitesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:batchVerifyTargetSites",
@@ -24322,7 +25038,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -24352,6 +25069,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -24360,12 +25078,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: crate::model::FetchDomainVerificationStatusRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FetchDomainVerificationStatusResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:fetchDomainVerificationStatus",
@@ -24390,7 +25107,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -24422,6 +25140,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -24432,12 +25151,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -24450,7 +25168,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24464,7 +25183,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24478,7 +25198,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24492,7 +25213,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24506,7 +25228,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24520,7 +25243,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24534,7 +25258,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24548,7 +25273,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24562,7 +25288,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24576,7 +25303,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24590,7 +25318,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24604,7 +25333,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24618,7 +25348,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24632,7 +25363,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24646,7 +25378,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24660,7 +25393,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -24814,6 +25548,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -24824,12 +25559,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -24839,7 +25573,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24850,7 +25585,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24861,7 +25597,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24872,7 +25609,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24883,7 +25621,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24894,7 +25633,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24905,7 +25645,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24916,7 +25657,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24927,7 +25669,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24938,7 +25681,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24949,7 +25693,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24960,7 +25705,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24971,7 +25717,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24982,7 +25729,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -24993,7 +25741,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -25004,7 +25753,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -25158,6 +25908,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -25168,12 +25919,11 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -25189,7 +25939,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25214,7 +25965,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25237,7 +25989,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25260,7 +26013,8 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25350,6 +26104,7 @@ impl super::stub::SiteSearchEngineService for SiteSearchEngineService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -25404,12 +26159,11 @@ impl super::stub::UserEventService for UserEventService {
         req: crate::model::WriteUserEventRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::UserEvent>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/userEvents:write",
@@ -25428,7 +26182,8 @@ impl super::stub::UserEventService for UserEventService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("writeAsync", &req.write_async)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25450,7 +26205,8 @@ impl super::stub::UserEventService for UserEventService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("writeAsync", &req.write_async)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25468,7 +26224,8 @@ impl super::stub::UserEventService for UserEventService {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("writeAsync", &req.write_async)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25529,6 +26286,7 @@ impl super::stub::UserEventService for UserEventService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, Some(req.user_event), options)
             .await
@@ -25539,12 +26297,11 @@ impl super::stub::UserEventService for UserEventService {
         req: crate::model::CollectUserEventRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<api::model::HttpBody>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/userEvents:collect",
@@ -25571,7 +26328,8 @@ impl super::stub::UserEventService for UserEventService {
                     .ets
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("ets", p)]));
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25601,7 +26359,8 @@ impl super::stub::UserEventService for UserEventService {
                     .ets
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("ets", p)]));
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25627,7 +26386,8 @@ impl super::stub::UserEventService for UserEventService {
                     .ets
                     .iter()
                     .fold(builder, |builder, p| builder.query(&[("ets", p)]));
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25688,6 +26448,7 @@ impl super::stub::UserEventService for UserEventService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -25698,12 +26459,11 @@ impl super::stub::UserEventService for UserEventService {
         req: crate::model::PurgeUserEventsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/userEvents:purge",
@@ -25721,7 +26481,8 @@ impl super::stub::UserEventService for UserEventService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25742,7 +26503,8 @@ impl super::stub::UserEventService for UserEventService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25788,6 +26550,7 @@ impl super::stub::UserEventService for UserEventService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -25796,12 +26559,11 @@ impl super::stub::UserEventService for UserEventService {
         req: crate::model::ImportUserEventsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/userEvents:import",
@@ -25819,7 +26581,8 @@ impl super::stub::UserEventService for UserEventService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25840,7 +26603,8 @@ impl super::stub::UserEventService for UserEventService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -25857,7 +26621,8 @@ impl super::stub::UserEventService for UserEventService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -25918,6 +26683,7 @@ impl super::stub::UserEventService for UserEventService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -25926,12 +26692,11 @@ impl super::stub::UserEventService for UserEventService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -25944,7 +26709,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -25958,7 +26724,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -25972,7 +26739,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -25986,7 +26754,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26000,7 +26769,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26014,7 +26784,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26028,7 +26799,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26042,7 +26814,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26056,7 +26829,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26070,7 +26844,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26084,7 +26859,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26098,7 +26874,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26112,7 +26889,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26126,7 +26904,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26140,7 +26919,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26154,7 +26934,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -26308,6 +27089,7 @@ impl super::stub::UserEventService for UserEventService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -26318,12 +27100,11 @@ impl super::stub::UserEventService for UserEventService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -26333,7 +27114,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26344,7 +27126,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26355,7 +27138,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26366,7 +27150,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26377,7 +27162,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26388,7 +27174,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26399,7 +27186,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26410,7 +27198,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26421,7 +27210,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26432,7 +27222,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26443,7 +27234,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26454,7 +27246,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26465,7 +27258,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26476,7 +27270,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26487,7 +27282,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -26498,7 +27294,8 @@ impl super::stub::UserEventService for UserEventService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -26652,6 +27449,7 @@ impl super::stub::UserEventService for UserEventService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -26662,12 +27460,11 @@ impl super::stub::UserEventService for UserEventService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -26683,7 +27480,8 @@ impl super::stub::UserEventService for UserEventService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -26708,7 +27506,8 @@ impl super::stub::UserEventService for UserEventService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -26731,7 +27530,8 @@ impl super::stub::UserEventService for UserEventService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -26754,7 +27554,8 @@ impl super::stub::UserEventService for UserEventService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26844,6 +27645,7 @@ impl super::stub::UserEventService for UserEventService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -26898,12 +27700,11 @@ impl super::stub::UserLicenseService for UserLicenseService {
         req: crate::model::ListUserLicensesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUserLicensesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/userLicenses",
@@ -26924,7 +27725,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, true)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -26951,6 +27753,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -26961,12 +27764,11 @@ impl super::stub::UserLicenseService for UserLicenseService {
         req: crate::model::BatchUpdateUserLicensesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:batchUpdateUserLicenses",
@@ -26984,7 +27786,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27011,6 +27814,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await
     }
 
@@ -27019,12 +27823,11 @@ impl super::stub::UserLicenseService for UserLicenseService {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}/operations",
@@ -27037,7 +27840,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27051,7 +27855,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27065,7 +27870,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27079,7 +27885,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27093,7 +27900,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27107,7 +27915,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27121,7 +27930,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27135,7 +27945,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27149,7 +27960,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27163,7 +27975,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27177,7 +27990,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27191,7 +28005,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27205,7 +28020,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27219,7 +28035,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27233,7 +28050,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27247,7 +28065,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = builder.query(&[("filter", &req.filter)]);
             let builder = builder.query(&[("pageSize", &req.page_size)]);
             let builder = builder.query(&[("pageToken", &req.page_token)]);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -27401,6 +28220,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -27411,12 +28231,11 @@ impl super::stub::UserLicenseService for UserLicenseService {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
         .or_else(|| {
             let path = format!(
                 "/v1/{}",
@@ -27426,7 +28245,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27437,7 +28257,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27448,7 +28269,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27459,7 +28281,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27470,7 +28293,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27481,7 +28305,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27492,7 +28317,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27503,7 +28329,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27514,7 +28341,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27525,7 +28353,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27536,7 +28365,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27547,7 +28377,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27558,7 +28389,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27569,7 +28401,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27580,7 +28413,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .or_else(|| {
             let path = format!(
@@ -27591,7 +28425,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
             let builder = self
                 .inner
                 .builder(reqwest::Method::GET, path);
-            Some(Ok(builder))
+            let builder = Ok(builder);
+            Some(builder.map(|b| (b, true)))
         })
         .ok_or_else(|| {
             let mut paths = Vec::new();
@@ -27745,6 +28580,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner
             .execute(builder, None::<gaxi::http::NoBody>, options)
             .await
@@ -27755,12 +28591,11 @@ impl super::stub::UserLicenseService for UserLicenseService {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, default_idempotency) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -27776,7 +28611,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -27801,7 +28637,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -27824,7 +28661,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .or_else(|| {
                 let path = format!(
@@ -27847,7 +28685,8 @@ impl super::stub::UserLicenseService for UserLicenseService {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, false)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -27937,6 +28776,7 @@ impl super::stub::UserLicenseService for UserLicenseService {
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
+        let options = gax::options::internal::set_default_idempotency(options, default_idempotency);
         self.inner.execute(builder, Some(req), options).await.map(
             |r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
