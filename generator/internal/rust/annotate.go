@@ -92,6 +92,17 @@ type serviceAnnotations struct {
 	Incomplete bool
 }
 
+func (m *methodAnnotation) HasBindingSubstitutions() bool {
+	for _, b := range m.PathInfo.Bindings {
+		for _, s := range b.PathTemplate.Segments {
+			if s.Variable != nil {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 // If true, this service includes methods that return long-running operations.
 func (s *serviceAnnotations) HasLROs() bool {
 	return len(s.LROTypes) > 0
@@ -166,6 +177,8 @@ type methodAnnotation struct {
 	ReturnType          string
 	HasVeneer           bool
 	Attributes          []string
+	// TODO(#2317) - remove when this is on by default
+	AdditionalBindings bool
 }
 
 type pathInfoAnnotation struct {
@@ -268,6 +281,22 @@ type pathBindingAnnotation struct {
 
 	// The variables to be substituted into the path
 	Substitutions []*bindingSubstitution
+}
+
+// We serialize certain query parameters, which can fail. The code we generate
+// uses the try operator '?'. We need to run this code in a closure which
+// returns a `Result<>`.
+func (b *pathBindingAnnotation) QueryParamsCanFail() bool {
+	for _, f := range b.QueryParams {
+		if f.Typez == api.MESSAGE_TYPE {
+			return true
+		}
+	}
+	return false
+}
+
+func (b *pathBindingAnnotation) HasVariablePath() bool {
+	return len(b.Substitutions) != 0
 }
 
 type oneOfAnnotation struct {
@@ -661,6 +690,8 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	if len(m.PathInfo.Bindings) != 0 {
 		query_params = language.QueryParams(m, m.PathInfo.Bindings[0])
 	}
+	// TODO(#2317) - remove when this is on by default
+	additionalBindings := sourceSpecificationPackageName == "google.showcase.v1beta1"
 	annotation := &methodAnnotation{
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
@@ -674,6 +705,8 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		SystemParameters:    c.systemParameters,
 		ReturnType:          returnType,
 		HasVeneer:           c.hasVeneer,
+		// TODO(#2317) - remove when this is on by default
+		AdditionalBindings: additionalBindings,
 	}
 	if annotation.Name == "clone" {
 		// Some methods look too similar to standard Rust traits. Clippy makes
