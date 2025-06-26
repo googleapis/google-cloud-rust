@@ -15,7 +15,7 @@
 use crate::{
     Result,
     constants::{ACCESS_TOKEN_TYPE, JWT_TOKEN_TYPE, SAML2_TOKEN_TYPE},
-    credentials::external_account::{ExecutableConfig, SubjectTokenProvider},
+    credentials::external_account::{ExecutableConfig, dynamic::SubjectTokenProvider},
 };
 use gax::error::CredentialsError;
 use serde::{Deserialize, Serialize};
