@@ -1481,13 +1481,13 @@ func TestBindingSubstitutionTemplates(t *testing.T) {
 	want := "projects/*/locations/*/**"
 
 	if want != got {
-		t.Errorf("TemplateAsString() failed. want=%s, got=%s", want, got)
+		t.Errorf("TemplateAsString() failed. want=%q, got=%q", want, got)
 	}
 
 	got = b.TemplateAsArray()
 	want = `&[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::TrailingMultiWildcard]`
 
 	if want != got {
-		t.Errorf("TemplateAsArray() failed. want=%s, got=%s", want, got)
+		t.Errorf("TemplateAsArray() failed. want=`%s`, got=`%s`", want, got)
 	}
 }
