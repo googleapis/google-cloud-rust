@@ -177,8 +177,6 @@ type methodAnnotation struct {
 	ReturnType          string
 	HasVeneer           bool
 	Attributes          []string
-	// TODO(#2317) - remove when this is on by default
-	AdditionalBindings bool
 }
 
 type pathInfoAnnotation struct {
@@ -690,8 +688,6 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	if len(m.PathInfo.Bindings) != 0 {
 		query_params = language.QueryParams(m, m.PathInfo.Bindings[0])
 	}
-	// TODO(#2317) - remove when this is on by default
-	additionalBindings := sourceSpecificationPackageName == "google.cloud.secretmanager.v1" || sourceSpecificationPackageName == "google.cloud.sql.v1" || sourceSpecificationPackageName == "google.cloud.workflows.v1" || sourceSpecificationPackageName == "google.cloud.workflows.executions.v1" || sourceSpecificationPackageName == "google.showcase.v1beta1"
 	annotation := &methodAnnotation{
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
@@ -705,8 +701,6 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		SystemParameters:    c.systemParameters,
 		ReturnType:          returnType,
 		HasVeneer:           c.hasVeneer,
-		// TODO(#2317) - remove when this is on by default
-		AdditionalBindings: additionalBindings,
 	}
 	if annotation.Name == "clone" {
 		// Some methods look too similar to standard Rust traits. Clippy makes
