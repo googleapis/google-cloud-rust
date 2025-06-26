@@ -17,12 +17,6 @@
 use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
-#[allow(unused_imports)]
-use gax::error::binding::BindingError;
-#[allow(unused_imports)]
-use gaxi::path_parameter::{PathMismatchBuilder, try_match};
-#[allow(unused_imports)]
-use gaxi::routing_parameter::Segment;
 
 /// Implements [Compliance](super::stub::Compliance) using a [gaxi::http::ReqwestClient].
 #[derive(Clone)]
@@ -52,15 +46,14 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/repeat:body",);
+                let path = "/v1beta1/repeat:body".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -83,35 +76,34 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/repeat:bodyinfo",);
+                let path = "/v1beta1/repeat:bodyinfo".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    let builder = builder.query(&[("name", &req.name)]);
-                    let builder = builder.query(&[("serverVerify", &req.server_verify)]);
-                    let builder = req.intended_binding_uri.iter().fold(builder, |builder, p| {
-                        builder.query(&[("intendedBindingUri", p)])
-                    });
-                    let builder = builder.query(&[("fInt32", &req.f_int32)]);
-                    let builder = builder.query(&[("fInt64", &req.f_int64)]);
-                    let builder = builder.query(&[("fDouble", &req.f_double)]);
-                    let builder = req
-                        .p_int32
-                        .iter()
-                        .fold(builder, |builder, p| builder.query(&[("pInt32", p)]));
-                    let builder = req
-                        .p_int64
-                        .iter()
-                        .fold(builder, |builder, p| builder.query(&[("pInt64", p)]));
-                    let builder = req
-                        .p_double
-                        .iter()
-                        .fold(builder, |builder, p| builder.query(&[("pDouble", p)]));
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = builder.query(&[("name", &req.name)]);
+                let builder = builder.query(&[("serverVerify", &req.server_verify)]);
+                let builder = req.intended_binding_uri.iter().fold(builder, |builder, p| {
+                    builder.query(&[("intendedBindingUri", p)])
+                });
+                let builder = builder.query(&[("fInt32", &req.f_int32)]);
+                let builder = builder.query(&[("fInt64", &req.f_int64)]);
+                let builder = builder.query(&[("fDouble", &req.f_double)]);
+                let builder = req
+                    .p_int32
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("pInt32", p)]));
+                let builder = req
+                    .p_int64
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("pInt64", p)]));
+                let builder = req
+                    .p_double
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("pDouble", p)]));
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -134,12 +126,14 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/repeat:query",);
+                let path = "/v1beta1/repeat:query".to_string();
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = builder.query(&[("name", &req.name)]);
                     let builder = req
                         .info
@@ -197,6 +191,10 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -230,8 +228,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = builder.query(&[("name", &req.name)]);
                     let builder = req
                         .info
@@ -326,6 +324,10 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -351,8 +353,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = builder.query(&[("name", &req.name)]);
                     let builder = req
                         .info
@@ -411,8 +413,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = builder.query(&[("name", &req.name)]);
                     let builder = req
                         .info
@@ -524,6 +526,10 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -545,8 +551,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = builder.query(&[("name", &req.name)]);
                     let builder = req
                         .info
@@ -623,15 +629,14 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/repeat:bodyput",);
+                let path = "/v1beta1/repeat:bodyput".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::PUT, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::PUT, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -654,15 +659,14 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::RepeatResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/repeat:bodypatch",);
+                let path = "/v1beta1/repeat:bodypatch".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::PATCH, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -685,16 +689,15 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EnumResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/compliance/enum",);
+                let path = "/v1beta1/compliance/enum".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("unknownEnum", &req.unknown_enum)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("unknownEnum", &req.unknown_enum)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -719,12 +722,14 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EnumResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/compliance/enum",);
+                let path = "/v1beta1/compliance/enum".to_string();
 
+                let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
                     let builder = req
                         .request
                         .as_ref()
@@ -763,6 +768,10 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -773,14 +782,11 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("filter", &req.filter)]);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -811,6 +817,10 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -826,11 +836,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -866,6 +873,10 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -876,11 +887,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -891,11 +899,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -911,11 +916,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -926,11 +928,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -994,6 +993,10 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -1004,8 +1007,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -1029,8 +1032,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -1059,8 +1062,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -1084,8 +1087,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -1164,6 +1167,10 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -1174,11 +1181,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -1189,11 +1193,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -1209,11 +1210,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -1224,11 +1222,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1292,19 +1287,18 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/operations",);
+                let path = "/v1beta1/operations".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("name", &req.name)]);
-                    let builder = builder.query(&[("filter", &req.filter)]);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("name", &req.name)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1329,6 +1323,10 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -1342,11 +1340,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1380,6 +1375,10 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -1393,11 +1392,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1435,6 +1431,10 @@ impl super::stub::Compliance for Compliance {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -1448,11 +1448,8 @@ impl super::stub::Compliance for Compliance {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1511,15 +1508,14 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EchoResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/echo:echo",);
+                let path = "/v1beta1/echo:echo".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1542,15 +1538,14 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::EchoErrorDetailsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/echo:error-details",);
+                let path = "/v1beta1/echo:error-details".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1573,15 +1568,14 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::FailEchoWithDetailsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/echo:failWithDetails",);
+                let path = "/v1beta1/echo:failWithDetails".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1604,15 +1598,14 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PagedExpandResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/echo:pagedExpand",);
+                let path = "/v1beta1/echo:pagedExpand".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1635,15 +1628,14 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PagedExpandResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/echo:pagedExpandLegacy",);
+                let path = "/v1beta1/echo:pagedExpandLegacy".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1666,15 +1658,14 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::PagedExpandLegacyMappedResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/echo:pagedExpandLegacyMapped",);
+                let path = "/v1beta1/echo:pagedExpandLegacyMapped".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1697,15 +1688,14 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/echo:wait",);
+                let path = "/v1beta1/echo:wait".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1728,15 +1718,14 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BlockResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/echo:block",);
+                let path = "/v1beta1/echo:block".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1759,6 +1748,10 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -1769,14 +1762,11 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("filter", &req.filter)]);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1807,6 +1797,10 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -1822,11 +1816,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1862,6 +1853,10 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -1872,11 +1867,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -1887,11 +1879,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -1907,11 +1896,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -1922,11 +1908,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1990,6 +1973,10 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -2000,8 +1987,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -2025,8 +2012,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -2055,8 +2042,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -2080,8 +2067,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -2160,6 +2147,10 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -2170,11 +2161,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -2185,11 +2173,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -2205,11 +2190,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -2220,11 +2202,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2288,19 +2267,18 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/operations",);
+                let path = "/v1beta1/operations".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("name", &req.name)]);
-                    let builder = builder.query(&[("filter", &req.filter)]);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("name", &req.name)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2325,6 +2303,10 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -2338,11 +2320,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2376,6 +2355,10 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -2389,11 +2372,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2431,6 +2411,10 @@ impl super::stub::Echo for Echo {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -2444,11 +2428,8 @@ impl super::stub::Echo for Echo {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2523,15 +2504,14 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::User>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/users",);
+                let path = "/v1beta1/users".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2554,6 +2534,10 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::User>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -2564,11 +2548,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2599,6 +2580,10 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::User>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -2612,8 +2597,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
                     let builder = req
                         .update_mask
                         .as_ref()
@@ -2658,6 +2643,10 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -2668,11 +2657,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2707,17 +2693,16 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListUsersResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/users",);
+                let path = "/v1beta1/users".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2742,6 +2727,10 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -2752,14 +2741,11 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("filter", &req.filter)]);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2790,6 +2776,10 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -2805,11 +2795,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2845,6 +2832,10 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -2855,11 +2846,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -2870,11 +2858,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -2890,11 +2875,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -2905,11 +2887,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -2973,6 +2952,10 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -2983,8 +2966,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -3008,8 +2991,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -3038,8 +3021,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -3063,8 +3046,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -3143,6 +3126,10 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -3153,11 +3140,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -3168,11 +3152,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -3188,11 +3169,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -3203,11 +3181,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3271,19 +3246,18 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/operations",);
+                let path = "/v1beta1/operations".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("name", &req.name)]);
-                    let builder = builder.query(&[("filter", &req.filter)]);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("name", &req.name)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3308,6 +3282,10 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -3321,11 +3299,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3359,6 +3334,10 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -3372,11 +3351,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3414,6 +3390,10 @@ impl super::stub::Identity for Identity {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -3427,11 +3407,8 @@ impl super::stub::Identity for Identity {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3492,15 +3469,14 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Room>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/rooms",);
+                let path = "/v1beta1/rooms".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3523,6 +3499,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Room>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -3533,11 +3513,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3568,6 +3545,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Room>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -3581,8 +3562,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
                     let builder = req
                         .update_mask
                         .as_ref()
@@ -3627,6 +3608,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -3637,11 +3622,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3676,17 +3658,16 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListRoomsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/rooms",);
+                let path = "/v1beta1/rooms".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3711,6 +3692,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Blurb>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -3721,11 +3706,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -3740,11 +3722,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3787,6 +3766,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Blurb>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -3802,11 +3785,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -3822,11 +3802,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -3877,6 +3854,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Blurb>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -3895,8 +3876,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
                     let builder = req
                         .update_mask
                         .as_ref()
@@ -3928,8 +3909,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::PATCH, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::PATCH, path);
                     let builder = req
                         .update_mask
                         .as_ref()
@@ -3997,6 +3978,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -4012,11 +3997,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -4032,11 +4014,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4091,6 +4070,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListBlurbsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -4101,13 +4084,10 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -4122,13 +4102,10 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4173,6 +4150,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -4183,11 +4164,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -4202,14 +4180,11 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    let builder = builder.query(&[("query", &req.query)]);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = builder.query(&[("query", &req.query)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4252,6 +4227,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -4262,14 +4241,11 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("filter", &req.filter)]);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4300,6 +4276,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -4315,11 +4295,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4355,6 +4332,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -4365,11 +4346,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -4380,11 +4358,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -4400,11 +4375,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -4415,11 +4387,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4483,6 +4452,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -4493,8 +4466,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -4518,8 +4491,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -4548,8 +4521,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -4573,8 +4546,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -4653,6 +4626,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -4663,11 +4640,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -4678,11 +4652,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -4698,11 +4669,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -4713,11 +4681,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4781,19 +4746,18 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/operations",);
+                let path = "/v1beta1/operations".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("name", &req.name)]);
-                    let builder = builder.query(&[("filter", &req.filter)]);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("name", &req.name)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4818,6 +4782,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -4831,11 +4799,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4869,6 +4834,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -4882,11 +4851,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -4924,6 +4890,10 @@ impl super::stub::Messaging for Messaging {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -4937,11 +4907,8 @@ impl super::stub::Messaging for Messaging {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5016,15 +4983,14 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Sequence>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/sequences",);
+                let path = "/v1beta1/sequences".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5049,15 +5015,14 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::StreamingSequence>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/streamingSequences",);
+                let path = "/v1beta1/streamingSequences".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5082,6 +5047,10 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::SequenceReport>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -5096,11 +5065,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5135,6 +5101,10 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::StreamingSequenceReport>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -5149,11 +5119,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5188,6 +5155,10 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -5198,11 +5169,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5236,6 +5204,10 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -5246,14 +5218,11 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("filter", &req.filter)]);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5284,6 +5253,10 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -5299,11 +5272,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5339,6 +5309,10 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -5349,11 +5323,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -5364,11 +5335,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -5384,11 +5352,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -5399,11 +5364,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5467,6 +5429,10 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -5477,8 +5443,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -5502,8 +5468,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -5532,8 +5498,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -5557,8 +5523,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -5637,6 +5603,10 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -5647,11 +5617,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -5662,11 +5629,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -5682,11 +5646,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -5697,11 +5658,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5765,19 +5723,18 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/operations",);
+                let path = "/v1beta1/operations".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("name", &req.name)]);
-                    let builder = builder.query(&[("filter", &req.filter)]);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("name", &req.name)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5802,6 +5759,10 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -5815,11 +5776,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5853,6 +5811,10 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -5866,11 +5828,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5908,6 +5867,10 @@ impl super::stub::SequenceService for SequenceService {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -5921,11 +5884,8 @@ impl super::stub::SequenceService for SequenceService {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -5986,15 +5946,14 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Session>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/sessions",);
+                let path = "/v1beta1/sessions".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6019,6 +5978,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Session>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -6029,11 +5992,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6064,17 +6024,16 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListSessionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/sessions",);
+                let path = "/v1beta1/sessions".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6099,6 +6058,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -6109,11 +6072,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6148,6 +6108,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ReportSessionResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -6158,11 +6122,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6193,6 +6154,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListTestsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -6203,13 +6168,10 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6240,6 +6202,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -6255,11 +6221,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6299,6 +6262,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::VerifyTestResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -6314,16 +6281,13 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    let builder = builder.query(&[("answer", &req.answer)]);
-                    let builder = req
-                        .answers
-                        .iter()
-                        .fold(builder, |builder, p| builder.query(&[("answers", p)]));
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                let builder = builder.query(&[("answer", &req.answer)]);
+                let builder = req
+                    .answers
+                    .iter()
+                    .fold(builder, |builder, p| builder.query(&[("answers", p)]));
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6359,6 +6323,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -6369,14 +6337,11 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("filter", &req.filter)]);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6407,6 +6372,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -6422,11 +6391,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6462,6 +6428,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -6472,11 +6442,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -6487,11 +6454,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -6507,11 +6471,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -6522,11 +6483,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6590,6 +6548,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::Policy>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -6600,8 +6562,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -6625,8 +6587,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -6655,8 +6617,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -6680,8 +6642,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
+                let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
                     let builder = req
                         .options
                         .as_ref()
@@ -6760,6 +6722,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -6770,11 +6736,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -6785,11 +6748,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -6805,11 +6765,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .or_else(|| {
                 let path = format!(
@@ -6820,11 +6777,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6888,19 +6842,18 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
         let builder = None
             .or_else(|| {
-                let path = format!("/v1beta1/operations",);
+                let path = "/v1beta1/operations".to_string();
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    let builder = builder.query(&[("name", &req.name)]);
-                    let builder = builder.query(&[("filter", &req.filter)]);
-                    let builder = builder.query(&[("pageSize", &req.page_size)]);
-                    let builder = builder.query(&[("pageToken", &req.page_token)]);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                let builder = builder.query(&[("name", &req.name)]);
+                let builder = builder.query(&[("filter", &req.filter)]);
+                let builder = builder.query(&[("pageSize", &req.page_size)]);
+                let builder = builder.query(&[("pageToken", &req.page_token)]);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6925,6 +6878,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -6938,11 +6895,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::GET, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::GET, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -6976,6 +6930,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, true);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -6989,11 +6947,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::DELETE, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -7031,6 +6986,10 @@ impl super::stub::Testing for Testing {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         let options = gax::options::internal::set_default_idempotency(options, false);
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
         let builder = None
             .or_else(|| {
                 let path = format!(
@@ -7044,11 +7003,8 @@ impl super::stub::Testing for Testing {
                     )?,
                 );
 
-                let builder = (|| {
-                    let builder = self.inner.builder(reqwest::Method::POST, path);
-                    Ok(builder)
-                })();
-                Some(builder)
+                let builder = self.inner.builder(reqwest::Method::POST, path);
+                Some(Ok(builder))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();

@@ -25,12 +25,6 @@ limitations under the License.
 use crate::Result;
 #[allow(unused_imports)]
 use gax::error::Error;
-#[allow(unused_imports)]
-use gax::error::binding::BindingError;
-#[allow(unused_imports)]
-use gaxi::routing_parameter::Segment;
-#[allow(unused_imports)]
-use gaxi::path_parameter::{PathMismatchBuilder, try_match};
 
 {{/Codec.HasServices}}
 {{#Codec.Services}}
@@ -79,26 +73,45 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
             {{PathInfo.Codec.IsIdempotent}},
         );
         {{#Codec.AdditionalBindings}}
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        {{#Codec.HasBindingSubstitutions}}
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        {{/Codec.HasBindingSubstitutions}}
         let builder = None
         {{#PathInfo.Bindings}}
         .or_else(|| {
+            {{#Codec.HasVariablePath}}
             let path = format!(
                 "{{Codec.PathFmt}}",
                 {{#Codec.Substitutions}}
                 try_match({{{FieldAccessor}}}, {{{TemplateAsArray}}})?,
                 {{/Codec.Substitutions}}
             );
+            {{/Codec.HasVariablePath}}
+            {{^Codec.HasVariablePath}}
+            let path = "{{Codec.PathFmt}}".to_string();
+            {{/Codec.HasVariablePath}}
 
+            let builder = self
+                .inner
+                .builder(reqwest::Method::{{Verb}}, path);
+            {{^Codec.QueryParamsCanFail}}
+            {{#Codec.QueryParams}}
+            {{{Codec.AddQueryParameter}}}
+            {{/Codec.QueryParams}}
+            Some(Ok(builder))
+            {{/Codec.QueryParamsCanFail}}
+            {{#Codec.QueryParamsCanFail}}
             let builder = (|| {
-                let builder = self
-                    .inner
-                    .builder(reqwest::Method::{{Verb}}, path);
                 {{#Codec.QueryParams}}
                 {{{Codec.AddQueryParameter}}}
                 {{/Codec.QueryParams}}
                 Ok(builder)
             })();
             Some(builder)
+            {{/Codec.QueryParamsCanFail}}
         })
         {{/PathInfo.Bindings}}
         .ok_or_else(|| {
