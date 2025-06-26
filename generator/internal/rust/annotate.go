@@ -167,7 +167,6 @@ type methodAnnotation struct {
 	BuilderName         string
 	DocLines            []string
 	PathInfo            *api.PathInfo
-	QueryParams         []*api.Field
 	BodyAccessor        string
 	ServiceNameToPascal string
 	ServiceNameToCamel  string
@@ -180,12 +179,10 @@ type methodAnnotation struct {
 }
 
 type pathInfoAnnotation struct {
-	Method        string
-	MethodToLower string
-	PathFmt       string
-	PathArgs      []pathArg
-	HasPathArgs   bool
-	HasBody       bool
+	Method      string
+	PathArgs    []pathArg
+	HasPathArgs bool
+	HasBody     bool
 }
 
 // Returns true if the HTTP request requires a payload. This is relevant for
@@ -647,11 +644,9 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	// TODO(#2317) - move to pathBindingAnnotation
 	if len(m.PathInfo.Bindings) != 0 {
 		pathInfoAnnotation := &pathInfoAnnotation{
-			Method:        m.PathInfo.Bindings[0].Verb,
-			MethodToLower: strings.ToLower(m.PathInfo.Bindings[0].Verb),
-			PathFmt:       httpPathFmt(m.PathInfo.Bindings[0].PathTemplate),
-			PathArgs:      httpPathArgs(m.PathInfo, m, state),
-			HasBody:       m.PathInfo.BodyFieldPath != "",
+			Method:   m.PathInfo.Bindings[0].Verb,
+			PathArgs: httpPathArgs(m.PathInfo, m, state),
+			HasBody:  m.PathInfo.BodyFieldPath != "",
 		}
 		pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
 		m.PathInfo.Codec = pathInfoAnnotation
@@ -683,18 +678,12 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 		returnType = "()"
 	}
 	serviceName := c.ServiceName(s)
-	// TODO(#2317) - move query params into pathBindingAnnotation
-	var query_params []*api.Field
-	if len(m.PathInfo.Bindings) != 0 {
-		query_params = language.QueryParams(m, m.PathInfo.Bindings[0])
-	}
 	annotation := &methodAnnotation{
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
 		BodyAccessor:        bodyAccessor(m),
 		DocLines:            c.formatDocComments(m.Documentation, m.ID, state, s.Scopes()),
 		PathInfo:            m.PathInfo,
-		QueryParams:         query_params,
 		ServiceNameToPascal: toPascal(serviceName),
 		ServiceNameToCamel:  toCamel(serviceName),
 		ServiceNameToSnake:  toSnake(serviceName),
