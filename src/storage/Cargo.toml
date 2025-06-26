@@ -28,6 +28,7 @@ rust-version.workspace = true
 
 [dependencies]
 bytes.workspace       = true
+futures               = { workspace = true, optional = true }
 lazy_static.workspace = true
 reqwest.workspace     = true
 serde.workspace       = true
@@ -44,6 +45,9 @@ control        = { package = "google-cloud-storage-control", path = "../storage-
 gax.workspace  = true
 gaxi           = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
 wkt.workspace  = true
+
+[features]
+unstable-stream = ["dep:futures", "reqwest/stream"]
 
 [dev-dependencies]
 anyhow.workspace     = true

@@ -745,6 +745,14 @@ impl ReadObjectResponse {
     pub async fn next(&mut self) -> Result<Option<bytes::Bytes>> {
         self.inner.chunk().await.map_err(Error::io)
     }
+
+    #[cfg(feature = "unstable-stream")]
+    #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
+    /// Convert the response to a [futures::Stream].
+    pub fn into_stream(self) -> impl futures::Stream<Item = Result<bytes::Bytes>> {
+        use futures::TryStreamExt;
+        self.inner.bytes_stream().map_err(Error::io)
+    }
 }
 
 /// Represents an error that can occur when invalid range is specified.
