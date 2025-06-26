@@ -321,7 +321,8 @@ async fn additional_binding_used(client: &showcase::client::Compliance) -> Resul
         .send()
         .await?;
     tracing::info!("response: {response:?}");
-    // Note the different repsonse between this and `repeat_data_path_resource`.
+    // Note the different verb in the response, when compared with the
+    // `repeat_data_path_resource()` test.
     assert_eq!(
         response.binding_uri,
         "/v1beta1/repeat/{info.f_child.f_string=first/*}/{info.f_string=second/*}/bool/{info.f_bool}:childfirstpathresource"
