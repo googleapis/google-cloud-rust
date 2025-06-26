@@ -210,7 +210,7 @@ mod test {
 
     #[tokio::test]
     async fn simple_bytes() -> Result {
-        let buffer = InsertPayload::from(bytes::Bytes::from_static(&CONTENTS));
+        let buffer = InsertPayload::from(bytes::Bytes::from_static(CONTENTS));
         let got = collect(buffer).await?;
         assert_eq!(got[..], CONTENTS[..], "{got:?}");
         Ok(())
@@ -252,7 +252,7 @@ mod test {
     #[tokio::test]
     async fn small_file() -> Result {
         let mut file = NamedTempFile::new()?;
-        file.write(&CONTENTS)?;
+        assert_eq!(file.write(CONTENTS)?, CONTENTS.len());
         file.flush()?;
         let read = file.reopen()?;
         let got = collect(tokio::fs::File::from(read)).await?;
@@ -263,7 +263,7 @@ mod test {
     #[tokio::test]
     async fn small_file_seek() -> Result {
         let mut file = NamedTempFile::new()?;
-        file.write(&CONTENTS)?;
+        assert_eq!(file.write(CONTENTS)?, CONTENTS.len());
         file.flush()?;
         let mut read = tokio::fs::File::from(file.reopen()?);
         read.seek(8).await?;
@@ -275,10 +275,10 @@ mod test {
     #[tokio::test]
     async fn larger_file() -> Result {
         let mut file = NamedTempFile::new()?;
-        file.write(&[0_u8; READ_SIZE])?;
-        file.write(&[1_u8; READ_SIZE])?;
-        file.write(&[2_u8; READ_SIZE])?;
-        file.write(&[3_u8; READ_SIZE])?;
+        assert_eq!(file.write(&[0_u8; READ_SIZE])?, READ_SIZE);
+        assert_eq!(file.write(&[1_u8; READ_SIZE])?, READ_SIZE);
+        assert_eq!(file.write(&[2_u8; READ_SIZE])?, READ_SIZE);
+        assert_eq!(file.write(&[3_u8; READ_SIZE])?, READ_SIZE);
         file.flush()?;
         assert_eq!(READ_SIZE % 2, 0);
         let mut read = tokio::fs::File::from(file.reopen()?);
