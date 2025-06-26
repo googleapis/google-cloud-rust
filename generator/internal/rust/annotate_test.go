@@ -1261,6 +1261,11 @@ func TestPathInfoAnnotations(t *testing.T) {
 		if pathInfoAnn.IsIdempotent() != testCase.DefaultIdempotency {
 			t.Errorf("fail")
 		}
+
+		pathBindingAnn := method.PathInfo.Bindings[0].Codec.(*pathBindingAnnotation)
+		if pathBindingAnn.IsIdempotent() != testCase.DefaultIdempotency {
+			t.Errorf("fail")
+		}
 	}
 }
 

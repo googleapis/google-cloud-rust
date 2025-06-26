@@ -276,6 +276,9 @@ type pathBindingAnnotation struct {
 
 	// The variables to be substituted into the path
 	Substitutions []*bindingSubstitution
+
+	// Whether a request for this binding is safe to retry, by default
+	IsIdempotent string
 }
 
 // We serialize certain query parameters, which can fail. The code we generate
@@ -820,6 +823,7 @@ func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState)
 		PathFmt:       httpPathFmt(b.PathTemplate),
 		QueryParams:   language.QueryParams(m, b),
 		Substitutions: subs,
+		IsIdempotent:  isIdempotent(b.Verb),
 	}
 }
 
@@ -994,7 +998,11 @@ func (c *codec) annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.API
 
 // Returns "true" if the method is idempotent by default, and "false", if not.
 func (p *pathInfoAnnotation) IsIdempotent() string {
-	if p.Method == "GET" || p.Method == "PUT" || p.Method == "DELETE" {
+	return isIdempotent(p.Method)
+}
+
+func isIdempotent(verb string) string {
+	if verb == "GET" || verb == "PUT" || verb == "DELETE" {
 		return "true"
 	}
 	return "false"
