@@ -684,10 +684,10 @@ impl ReadObject {
             (0, 0) => Ok(builder),
             // read_limit is zero, means no limit. Read from offset to end of file.
             // This handles cases like (5, 0) -> "bytes=5-"
-            (o, 0) => Ok(builder.header("range", format!("bytes={}-", o))),
+            (o, 0) => Ok(builder.header("range", format!("bytes={o}-"))),
             // General case: non-negative offset and positive limit.
             // This covers cases like (0, 100) -> "bytes=0-99", (5, 100) -> "bytes=5-104"
-            (o, l) => Ok(builder.header("range", format!("bytes={}-{}", o, o + l - 1))),
+            (o, l) => Ok(builder.header("range", format!("bytes={o}-{}", o + l - 1))),
         }
         .map_err(Error::ser)?;
 

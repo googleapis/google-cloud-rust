@@ -426,8 +426,7 @@ impl ServiceAccountTokenProvider {
 
     fn unexpected_private_key_error(private_key_format: Item) -> CredentialsError {
         errors::non_retryable_from_str(format!(
-            "expected key to be in form of PKCS8, found {:?}",
-            private_key_format
+            "expected key to be in form of PKCS8, found {private_key_format:?}",
         ))
     }
 }

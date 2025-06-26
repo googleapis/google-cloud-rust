@@ -191,7 +191,7 @@ impl Builder {
         // Determine the endpoint and whether it was overridden
         if let Ok(host_from_env) = std::env::var(GCE_METADATA_HOST_ENV_VAR) {
             // Check GCE_METADATA_HOST environment variable first
-            final_endpoint = format!("http://{}", host_from_env);
+            final_endpoint = format!("http://{host_from_env}");
             endpoint_overridden = true;
         } else if let Some(builder_endpoint) = self.endpoint {
             // Else, check if an endpoint was provided to the mds::Builder

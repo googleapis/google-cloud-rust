@@ -105,7 +105,7 @@ impl std::fmt::Display for PathMismatch {
             if i != 0 {
                 write!(f, " AND ")?;
             }
-            write!(f, "{}", sub)?;
+            write!(f, "{sub}")?;
         }
         Ok(())
     }

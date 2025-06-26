@@ -78,8 +78,7 @@ impl Display for ExecutionError {
                 message: Some(message),
             } => write!(
                 f,
-                "{MSG}, response contains unsuccessful response, code=<{}>, message=<{}>",
-                code, message
+                "{MSG}, response contains unsuccessful response, code=<{code}>, message=<{message}>",
             ),
             _ => write!(
                 f,

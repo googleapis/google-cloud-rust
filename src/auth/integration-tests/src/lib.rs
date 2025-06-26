@@ -37,8 +37,7 @@ pub async fn service_account() -> anyhow::Result<()> {
     let response = client
         .access_secret_version()
         .set_name(format!(
-            "projects/{}/secrets/test-sa-creds-json/versions/latest",
-            project
+            "projects/{project}/secrets/test-sa-creds-json/versions/latest"
         ))
         .send()
         .await?;
@@ -66,8 +65,7 @@ pub async fn service_account() -> anyhow::Result<()> {
     let response = client
         .access_secret_version()
         .set_name(format!(
-            "projects/{}/secrets/test-sa-creds-secret/versions/latest",
-            project
+            "projects/{project}/secrets/test-sa-creds-secret/versions/latest"
         ))
         .send()
         .await?;
@@ -91,8 +89,7 @@ pub async fn api_key() -> anyhow::Result<()> {
     let response = client
         .access_secret_version()
         .set_name(format!(
-            "projects/{}/secrets/test-api-key/versions/latest",
-            project
+            "projects/{project}/secrets/test-api-key/versions/latest",
         ))
         .send()
         .await?;
