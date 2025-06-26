@@ -161,7 +161,7 @@ impl StreamingSource for BytesSource {
     type Error = crate::Error;
 
     async fn seek(&mut self, offset: u64) -> Result<(), Self::Error> {
-        let pos = std::cmp::max(offset as usize, self.contents.len());
+        let pos = std::cmp::min(offset as usize, self.contents.len());
         self.current = Some(self.contents.slice(pos..));
         Ok(())
     }
@@ -203,16 +203,30 @@ mod test {
     #[tokio::test]
     async fn empty_bytes() -> Result {
         let buffer = InsertPayload::from(bytes::Bytes::default());
+        let range = buffer.size_hint();
+        assert_eq!(range, (0, Some(0)));
         let got = collect(buffer).await?;
         assert!(got.is_empty(), "{got:?}");
+
         Ok(())
     }
 
     #[tokio::test]
     async fn simple_bytes() -> Result {
         let buffer = InsertPayload::from(bytes::Bytes::from_static(CONTENTS));
+        let range = buffer.size_hint();
+        assert_eq!(range, (CONTENTS.len() as u64, Some(CONTENTS.len() as u64)));
         let got = collect(buffer).await?;
         assert_eq!(got[..], CONTENTS[..], "{got:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn seek_bytes() -> Result {
+        let mut buffer = InsertPayload::from(bytes::Bytes::from_static(CONTENTS));
+        buffer.seek(8).await?;
+        let got = collect(buffer).await?;
+        assert_eq!(got[..], CONTENTS[8..], "{got:?}");
         Ok(())
     }
 
