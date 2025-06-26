@@ -222,6 +222,27 @@ mod test {
     }
 
     #[tokio::test]
+    async fn simple_u8() -> Result {
+        let buffer = InsertPayload::from(CONTENTS);
+        let range = buffer.size_hint();
+        assert_eq!(range, (CONTENTS.len() as u64, Some(CONTENTS.len() as u64)));
+        let got = collect(buffer).await?;
+        assert_eq!(got[..], CONTENTS[..], "{got:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn simple_str() -> Result {
+        const LAZY: &str = "the quick brown fox jumps over the lazy dog";
+        let buffer = InsertPayload::from(LAZY);
+        let range = buffer.size_hint();
+        assert_eq!(range, (LAZY.len() as u64, Some(LAZY.len() as u64)));
+        let got = collect(buffer).await?;
+        assert_eq!(&got, LAZY.as_bytes(), "{got:?}");
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn seek_bytes() -> Result {
         let mut buffer = InsertPayload::from(bytes::Bytes::from_static(CONTENTS));
         buffer.seek(8).await?;
