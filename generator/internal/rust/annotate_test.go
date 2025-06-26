@@ -1348,8 +1348,9 @@ func TestPathBindingAnnotations(t *testing.T) {
 		QueryParams: []*api.Field{f_id},
 		Substitutions: []*bindingSubstitution{
 			{
-				FieldName: "name",
-				Template:  []string{"projects", "*", "locations", "*"},
+				FieldAccessor: "Some(&req).map(|m| &m.name).map(|s| s.as_str())",
+				FieldName:     "name",
+				Template:      []string{"projects", "*", "locations", "*"},
 			},
 		},
 	}
@@ -1370,16 +1371,19 @@ func TestPathBindingAnnotations(t *testing.T) {
 		PathFmt: "/v1/projects/{}/locations/{}/ids/{}:action",
 		Substitutions: []*bindingSubstitution{
 			{
-				FieldName: "project",
-				Template:  []string{"*"},
+				FieldAccessor: "Some(&req).map(|m| &m.project).map(|s| s.as_str())",
+				FieldName:     "project",
+				Template:      []string{"*"},
 			},
 			{
-				FieldName: "location",
-				Template:  []string{"*"},
+				FieldAccessor: "Some(&req).map(|m| &m.location).map(|s| s.as_str())",
+				FieldName:     "location",
+				Template:      []string{"*"},
 			},
 			{
-				FieldName: "id",
-				Template:  []string{"*"},
+				FieldAccessor: "Some(&req).map(|m| &m.id)",
+				FieldName:     "id",
+				Template:      []string{"*"},
 			},
 		},
 	}
@@ -1400,16 +1404,19 @@ func TestPathBindingAnnotations(t *testing.T) {
 		PathFmt: "/v1/projects/{}/locations/{}/ids/{}:actionOnChild",
 		Substitutions: []*bindingSubstitution{
 			{
-				FieldName: "child.project",
-				Template:  []string{"*"},
+				FieldAccessor: "Some(&req).and_then(|m| m.child.as_ref()).map(|m| &m.project).map(|s| s.as_str())",
+				FieldName:     "child.project",
+				Template:      []string{"*"},
 			},
 			{
-				FieldName: "child.location",
-				Template:  []string{"*"},
+				FieldAccessor: "Some(&req).and_then(|m| m.child.as_ref()).map(|m| &m.location).map(|s| s.as_str())",
+				FieldName:     "child.location",
+				Template:      []string{"*"},
 			},
 			{
-				FieldName: "child.id",
-				Template:  []string{"*"},
+				FieldAccessor: "Some(&req).and_then(|m| m.child.as_ref()).map(|m| &m.id)",
+				FieldName:     "child.id",
+				Template:      []string{"*"},
 			},
 		},
 	}
