@@ -38,4 +38,4 @@ gax.workspace  = true
 gaxi           = { workspace = true, features = ["_internal-grpc-client"] }
 
 [build-dependencies]
-tonic-build = { workspace = true, optional = true }
+tonic-build = { workspace = true, optional = true, features = ["prost"] }
