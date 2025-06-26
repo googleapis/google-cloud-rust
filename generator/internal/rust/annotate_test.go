@@ -1346,6 +1346,12 @@ func TestPathBindingAnnotations(t *testing.T) {
 	want_b0 := &pathBindingAnnotation{
 		PathFmt:     "/v2/{}:create",
 		QueryParams: []*api.Field{f_id},
+		Substitutions: []*bindingSubstitution{
+			{
+				FieldName: "name",
+				Template:  []string{"projects", "*", "locations", "*"},
+			},
+		},
 	}
 
 	b1 := &api.PathBinding{
@@ -1362,6 +1368,20 @@ func TestPathBindingAnnotations(t *testing.T) {
 	}
 	want_b1 := &pathBindingAnnotation{
 		PathFmt: "/v1/projects/{}/locations/{}/ids/{}:action",
+		Substitutions: []*bindingSubstitution{
+			{
+				FieldName: "project",
+				Template:  []string{"*"},
+			},
+			{
+				FieldName: "location",
+				Template:  []string{"*"},
+			},
+			{
+				FieldName: "id",
+				Template:  []string{"*"},
+			},
+		},
 	}
 
 	b2 := &api.PathBinding{
@@ -1378,6 +1398,20 @@ func TestPathBindingAnnotations(t *testing.T) {
 	}
 	want_b2 := &pathBindingAnnotation{
 		PathFmt: "/v1/projects/{}/locations/{}/ids/{}:actionOnChild",
+		Substitutions: []*bindingSubstitution{
+			{
+				FieldName: "child.project",
+				Template:  []string{"*"},
+			},
+			{
+				FieldName: "child.location",
+				Template:  []string{"*"},
+			},
+			{
+				FieldName: "child.id",
+				Template:  []string{"*"},
+			},
+		},
 	}
 
 	b3 := &api.PathBinding{
@@ -1435,5 +1469,25 @@ func TestPathBindingAnnotations(t *testing.T) {
 	}
 	if diff := cmp.Diff(want_b3, b3.Codec); diff != "" {
 		t.Errorf("mismatch in path binding annotations (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestBindingSubstitutionTemplates(t *testing.T) {
+	b := bindingSubstitution{
+		Template: []string{"projects", "*", "locations", "*", "**"},
+	}
+
+	got := b.TemplateAsString()
+	want := "projects/*/locations/*/**"
+
+	if want != got {
+		t.Errorf("TemplateAsString() failed. want=%q, got=%q", want, got)
+	}
+
+	got = b.TemplateAsArray()
+	want = `&[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::TrailingMultiWildcard]`
+
+	if want != got {
+		t.Errorf("TemplateAsArray() failed. want=`%s`, got=`%s`", want, got)
 	}
 }

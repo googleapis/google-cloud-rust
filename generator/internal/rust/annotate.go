@@ -213,6 +213,40 @@ type routingVariantAnnotations struct {
 	SuffixSegments   []string
 }
 
+type bindingSubstitution struct {
+	// TODO(#2317) - add `FieldAccessor`
+	//FieldAccessor string
+
+	// The field name
+	//
+	// Nested fields are '.'-separated.
+	//
+	// e.g. "message_field.nested_field"
+	FieldName string
+
+	// The path template to match this substitution against
+	//
+	// e.g. ["projects", "*"]
+	Template []string
+}
+
+// Rust code that yields an array of path segments.
+//
+// This array is supplied as an argument to `gaxi::path_parameter::try_match()`,
+// and `gaxi::path_parameter::PathMismatchBuilder`.
+//
+// e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard]`
+func (s *bindingSubstitution) TemplateAsArray() string {
+	return "&[" + strings.Join(annotateSegments(s.Template), ", ") + "]"
+}
+
+// The expected template, which can be used as a static string.
+//
+// e.g.: "projects/*"
+func (s *bindingSubstitution) TemplateAsString() string {
+	return strings.Join(s.Template, "/")
+}
+
 type pathBindingAnnotation struct {
 	// The path format string for this binding
 	//
@@ -221,6 +255,9 @@ type pathBindingAnnotation struct {
 
 	// The fields to be sent as query parameters for this binding
 	QueryParams []*api.Field
+
+	// The variables to be substituted into the path
+	Substitutions []*bindingSubstitution
 }
 
 type oneOfAnnotation struct {
@@ -718,10 +755,37 @@ func annotateSegments(segments []string) []string {
 	return ann
 }
 
-func annotatePathBinding(b *api.PathBinding, m *api.Method, _state *api.APIState) {
+func makeBindingSubstitution(v *api.PathVariable, _m *api.Method, _state *api.APIState) bindingSubstitution {
+	var segments []string
+	for _, s := range v.Segments {
+		if s.Literal != nil {
+			segments = append(segments, *s.Literal)
+		} else if s.Match != nil {
+			segments = append(segments, "*")
+		} else if s.MatchRecursive != nil {
+			segments = append(segments, "**")
+		}
+	}
+
+	return bindingSubstitution{
+		// TODO(#2317) - also set `FieldAccessor`
+		FieldName: strings.Join(v.FieldPath, "."),
+		Template:  segments,
+	}
+}
+
+func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState) {
+	var subs []*bindingSubstitution
+	for _, s := range b.PathTemplate.Segments {
+		if s.Variable != nil {
+			sub := makeBindingSubstitution(s.Variable, m, state)
+			subs = append(subs, &sub)
+		}
+	}
 	b.Codec = &pathBindingAnnotation{
-		PathFmt:     httpPathFmt(b.PathTemplate),
-		QueryParams: language.QueryParams(m, b),
+		PathFmt:       httpPathFmt(b.PathTemplate),
+		QueryParams:   language.QueryParams(m, b),
+		Substitutions: subs,
 	}
 }
 
