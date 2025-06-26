@@ -34,6 +34,7 @@ crc32c.workspace      = true
 futures.workspace     = true
 auth.workspace        = true
 gax                   = { workspace = true, features = ["unstable-stream"] }
+gaxi                  = { workspace = true, features = ["_internal-http-client"] }
 iam_v1.workspace      = true
 longrunning.workspace = true
 lro.workspace         = true

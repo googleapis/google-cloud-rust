@@ -5152,6 +5152,7 @@ dependencies = [
  "google-cloud-bigquery-v2",
  "google-cloud-firestore",
  "google-cloud-gax",
+ "google-cloud-gax-internal",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
