@@ -20,6 +20,7 @@ use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, 
 use super::{CacheableResource, Credentials};
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
+use crate::errors::non_retryable;
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -197,8 +198,6 @@ where
     config: ExternalAccountConfig,
 }
 
-use crate::errors::non_retryable;
-
 #[async_trait::async_trait]
 impl<T> TokenProvider for ExternalAccountTokenProvider<T>
 where
@@ -212,10 +211,10 @@ where
         let user_scopes = self.config.scopes.clone();
         let url = self.config.token_url.clone();
 
-        // User provides the scopes to be set on the final token they recieve. The scopes they
-        // provide does not necessarily have to include the iam scope or cloud platform scope
-        // which are needed to make the call to iamcredentials endpoint. So when minting the
-        // sts token, we use the user provided or iam scope depending on whether the sts provided
+        // User provides the scopes to be set on the final token they receive. The scopes they
+        // provide does not necessarily have to include the IAM scope or cloud-platform scope
+        // which are needed to make the call to `iamcredentials` endpoint. So when minting the
+        // STS token, we use the user provided or IAM scope depending on whether the STS provided
         // token is to be used with impersonation or directly.
         let sts_scope = if self.config.service_account_impersonation_url.is_some() {
             vec![IAM_SCOPE.to_string()]
@@ -238,7 +237,7 @@ where
 
         let token_res = STSHandler::exchange_token(req).await?;
 
-        if let Some(impersonation_url) = self.config.service_account_impersonation_url.clone() {
+        if let Some(impersonation_url) = &self.config.service_account_impersonation_url {
             let mut headers = HeaderMap::new();
             headers.insert(
                 http::header::AUTHORIZATION,
@@ -698,6 +697,7 @@ mod test {
 
         let creds = Builder::new(contents).build().unwrap();
         let err = creds.headers(Extensions::new()).await.unwrap_err();
+        assert!(err.to_string().contains("failed to exchange token"));
         assert!(err.is_transient());
     }
 
@@ -749,6 +749,7 @@ mod test {
 
         let creds = Builder::new(contents).build().unwrap();
         let err = creds.headers(Extensions::new()).await.unwrap_err();
+        assert!(err.to_string().contains("failed to fetch token"));
         assert!(!err.is_transient());
     }
 }

@@ -157,8 +157,11 @@ pub async fn workload_identity_provider_url_sourced(
     });
 
     if with_impersonation {
-        let impersonated_email = "impersonation-target@cloud-sdk-auth-test-project.iam.gserviceaccount.com";
-        let impersonation_url = format!("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:generateAccessToken", impersonated_email);
+        let impersonated_email =
+            "impersonation-target@cloud-sdk-auth-test-project.iam.gserviceaccount.com";
+        let impersonation_url = format!(
+            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{impersonated_email}:generateAccessToken"
+        );
         contents["service_account_impersonation_url"] =
             serde_json::Value::String(impersonation_url);
     }
@@ -221,8 +224,11 @@ pub async fn workload_identity_provider_executable_sourced(
     });
 
     if with_impersonation {
-        let impersonated_email = "impersonation-target@cloud-sdk-auth-test-project.iam.gserviceaccount.com";
-        let impersonation_url = format!("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:generateAccessToken", impersonated_email);
+        let impersonated_email =
+            "impersonation-target@cloud-sdk-auth-test-project.iam.gserviceaccount.com";
+        let impersonation_url = format!(
+            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{impersonated_email}:generateAccessToken"
+        );
         contents["service_account_impersonation_url"] =
             serde_json::Value::String(impersonation_url);
     }
