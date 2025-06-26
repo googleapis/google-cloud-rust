@@ -214,8 +214,18 @@ type routingVariantAnnotations struct {
 }
 
 type bindingSubstitution struct {
-	// TODO(#2317) - add `FieldAccessor`
-	//FieldAccessor string
+	// Rust code to access the leaf field, given a `req`
+	//
+	// This field can be deeply nested. We need to capture code for the entire
+	// chain. This accessor always returns an `Option<&T>`, even for fields
+	// which are always present. This simplifies the mustache templates.
+	//
+	// The accessor should not
+	// - copy any fields
+	// - move any fields
+	// - panic
+	// - assume context i.e. use the try operator: `?`
+	FieldAccessor string
 
 	// The field name
 	//
@@ -683,6 +693,10 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 }
 
 func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api.Method, state *api.APIState) []string {
+	return makeAccessors(variant.FieldPath, m, state)
+}
+
+func makeAccessors(fields []string, m *api.Method, state *api.APIState) []string {
 	findField := func(name string, message *api.Message) *api.Field {
 		for _, f := range message.Fields {
 			if f.Name == name {
@@ -693,10 +707,10 @@ func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api
 	}
 	var accessors []string
 	message := m.InputType
-	for _, name := range variant.FieldPath {
+	for _, name := range fields {
 		field := findField(name, message)
 		if field == nil {
-			slog.Error("invalid routing field for request message", "field", name, "message ID", message.ID)
+			slog.Error("invalid routing/path field for request message", "field", name, "message ID", message.ID)
 			continue
 		}
 		if field.Optional {
@@ -755,7 +769,11 @@ func annotateSegments(segments []string) []string {
 	return ann
 }
 
-func makeBindingSubstitution(v *api.PathVariable, _m *api.Method, _state *api.APIState) bindingSubstitution {
+func makeBindingSubstitution(v *api.PathVariable, m *api.Method, state *api.APIState) bindingSubstitution {
+	fieldAccessor := "Some(&req)"
+	for _, a := range makeAccessors(v.FieldPath, m, state) {
+		fieldAccessor += a
+	}
 	var segments []string
 	for _, s := range v.Segments {
 		if s.Literal != nil {
@@ -768,9 +786,9 @@ func makeBindingSubstitution(v *api.PathVariable, _m *api.Method, _state *api.AP
 	}
 
 	return bindingSubstitution{
-		// TODO(#2317) - also set `FieldAccessor`
-		FieldName: strings.Join(v.FieldPath, "."),
-		Template:  segments,
+		FieldAccessor: fieldAccessor,
+		FieldName:     strings.Join(v.FieldPath, "."),
+		Template:      segments,
 	}
 }
 
