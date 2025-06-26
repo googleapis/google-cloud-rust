@@ -1263,7 +1263,7 @@ func TestPathInfoAnnotations(t *testing.T) {
 		}
 
 		pathBindingAnn := method.PathInfo.Bindings[0].Codec.(*pathBindingAnnotation)
-		if pathBindingAnn.IsIdempotent() != testCase.DefaultIdempotency {
+		if pathBindingAnn.IsIdempotent != testCase.DefaultIdempotency {
 			t.Errorf("fail")
 		}
 	}
@@ -1358,6 +1358,7 @@ func TestPathBindingAnnotations(t *testing.T) {
 				Template:      []string{"projects", "*", "locations", "*"},
 			},
 		},
+		IsIdempotent: "false",
 	}
 
 	b1 := &api.PathBinding{
@@ -1391,6 +1392,7 @@ func TestPathBindingAnnotations(t *testing.T) {
 				Template:      []string{"*"},
 			},
 		},
+		IsIdempotent: "false",
 	}
 
 	b2 := &api.PathBinding{
@@ -1424,6 +1426,7 @@ func TestPathBindingAnnotations(t *testing.T) {
 				Template:      []string{"*"},
 			},
 		},
+		IsIdempotent: "false",
 	}
 
 	b3 := &api.PathBinding{
@@ -1438,8 +1441,9 @@ func TestPathBindingAnnotations(t *testing.T) {
 		},
 	}
 	want_b3 := &pathBindingAnnotation{
-		PathFmt:     "/v2/foos",
-		QueryParams: []*api.Field{f_name, f_optional, f_child},
+		PathFmt:      "/v2/foos",
+		QueryParams:  []*api.Field{f_name, f_optional, f_child},
+		IsIdempotent: "true",
 	}
 
 	method := &api.Method{
