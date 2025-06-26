@@ -153,6 +153,8 @@ impl Storage {
     /// let contents = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
+    ///     .await?
+    ///     .all_bytes()
     ///     .await?;
     /// println!("object contents={contents:?}");
     /// # Ok::<(), anyhow::Error>(()) });
@@ -399,7 +401,7 @@ impl InsertObject {
 /// #   .with_endpoint("https://storage.googleapis.com")
 /// #    .build().await?;
 /// let builder: ReadObject = client.read_object("projects/_/buckets/my-bucket", "my-object");
-/// let contents = builder.send().await?;
+/// let contents = builder.send().await?.all_bytes().await?;
 /// println!("object contents={contents:?}");
 /// # Ok::<(), anyhow::Error>(()) });
 /// ```
@@ -598,7 +600,7 @@ impl ReadObject {
     }
 
     /// Sends the request.
-    pub async fn send(self) -> crate::Result<bytes::Bytes> {
+    pub async fn send(self) -> Result<ReadObjectResponse> {
         let builder = self.http_request_builder().await?;
 
         tracing::info!("builder={builder:?}");
@@ -607,9 +609,7 @@ impl ReadObject {
         if !response.status().is_success() {
             return gaxi::http::to_http_error(response).await;
         }
-        let response = response.bytes().await.map_err(Error::io)?;
-
-        Ok(response)
+        Ok(ReadObjectResponse { inner: response })
     }
 
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
@@ -696,7 +696,58 @@ impl ReadObject {
     }
 }
 
-/// Represents an error that can occur with invalid range is specified.
+/// A response to a [Storage::read_object] request.
+#[derive(Debug)]
+pub struct ReadObjectResponse {
+    inner: reqwest::Response,
+}
+
+impl ReadObjectResponse {
+    // Get the full object as bytes.
+    //
+    /// # Example
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let contents = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send()
+    ///     .await?
+    ///     .all_bytes()
+    ///     .await?;
+    /// println!("object contents={contents:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub async fn all_bytes(self) -> Result<bytes::Bytes> {
+        self.inner.bytes().await.map_err(Error::io)
+    }
+
+    /// Stream the next bytes of the object.
+    ///
+    /// When the response has been exhausted, this will return None.
+    ///
+    /// # Example
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let mut resp = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send()
+    ///     .await?;
+    ///
+    /// while let Some(next) = resp.next().await? {
+    ///     println!("next={next:?}");
+    /// }
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub async fn next(&mut self) -> Result<Option<bytes::Bytes>> {
+        self.inner.chunk().await.map_err(Error::io)
+    }
+}
+
+/// Represents an error that can occur when invalid range is specified.
 #[derive(thiserror::Error, Debug, PartialEq)]
 #[non_exhaustive]
 enum RangeError {
