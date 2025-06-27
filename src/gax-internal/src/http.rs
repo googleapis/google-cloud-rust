@@ -398,7 +398,7 @@ mod test {
     #[test_case(Method::DELETE, false)]
     #[test_case(Method::PATCH, false)]
     fn no_body(input: Method, expected: bool) {
-        assert!(super::NoBody::new(input).is_some() == expected);
+        assert!(super::NoBody::new(&input).is_some() == expected);
     }
 
     #[test_case(Method::GET, true)]
@@ -407,6 +407,6 @@ mod test {
     #[test_case(Method::DELETE, true)]
     #[test_case(Method::PATCH, false)]
     fn default_idempotency(input: Method, expected: bool) {
-        assert!(super::default_idempotency(input) == expected);
+        assert!(super::default_idempotency(&input) == expected);
     }
 }
