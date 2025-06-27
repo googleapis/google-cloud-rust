@@ -17,6 +17,7 @@ use auth::credentials::{
     api_key_credentials::Builder as ApiKeyCredentialsBuilder,
     external_account::Builder as ExternalAccountCredentialsBuilder,
     impersonated::Builder as ImpersonatedCredentialsBuilder,
+    service_account::Builder as ServiceAccountCredentialsBuilder,
 };
 use bigquery::client::DatasetService;
 use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -101,9 +102,14 @@ pub async fn imeprsonated() -> anyhow::Result<()> {
 
     let source_sa_json: serde_json::Value = serde_json::from_slice(&source_sa_json)?;
 
-    let impersonated_creds = ImpersonatedCredentialsBuilder::new(source_sa_json)
-        .with_target_principal("integration-test-runner@rust-auth-testing.iam.gserviceaccount.com")
-        .build()?;
+    let source_sa_creds = ServiceAccountCredentialsBuilder::new(source_sa_json).build()?;
+
+    let impersonated_creds =
+        ImpersonatedCredentialsBuilder::from_source_credentials(source_sa_creds)
+            .with_target_principal(
+                "integration-test-runner@rust-auth-testing.iam.gserviceaccount.com",
+            )
+            .build()?;
 
     let client = SecretManagerService::builder()
         .with_credentials(impersonated_creds)
