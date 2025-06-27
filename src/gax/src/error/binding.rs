@@ -88,14 +88,14 @@ impl std::fmt::Display for SubstitutionMismatch {
             SubstitutionFail::UnsetExpecting(expected) => {
                 write!(
                     f,
-                    "field `{}` needs to be set and match: '{}'",
+                    "field `{}` needs to be set and match the template: '{}'",
                     self.field_name, expected
                 )
             }
             SubstitutionFail::MismatchExpecting(actual, expected) => {
                 write!(
                     f,
-                    "field `{}` should match: '{}'; found: '{}'",
+                    "field `{}` should match the template: '{}'; found: '{}'",
                     self.field_name, expected, actual
                 )
             }

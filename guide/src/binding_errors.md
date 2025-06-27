@@ -20,19 +20,28 @@ You might have tried to make a request and run into an error that looks like:
 
 ```norust
 Error: cannot find a matching binding to send the request: at least one of the
-conditions must be met: (1) field `name` needs to be set and match:
-'projects/*/secrets/*' OR (2) field `name` needs to be set and match:
-'projects/*/locations/*/secrets/*'
+conditions must be met: (1) field `name` needs to be set and match the template:
+'projects/*/secrets/*' OR (2) field `name` needs to be set and match the
+template: 'projects/*/locations/*/secrets/*'
 ```
 
-This is a binding error. Let's break this down.
+This guide will explain how to troubleshoot this type of error.
 
 ## When this happens
 
-When a client cannot match the request to a [URI] for the service, it will fail
-the request locally with a binding error.
+The Google Cloud Client Libraries for Rust primarily use HTTP to send requests
+to Google Cloud services.
 
-Typically this happens when a field is either missing, or in an invalid format.
+Some RPCs correspond to multiple [URI]s. The contents of the request determine
+which URI is used.
+
+The client library considers all possible URIs, and only returns a binding error
+if no URIs work. Typically this happens when a field is either missing, or in an
+invalid format.
+
+The example error above was produced by trying to get a resource, without naming
+the resource. Specifically, the `name` field on a [`GetSecretRequest`] was
+required, but not set.
 
 ```rust,ignore
 {{#include ../samples/src/binding_errors.rs:request}}
@@ -40,9 +49,9 @@ Typically this happens when a field is either missing, or in an invalid format.
 
 ## How to fix it
 
-In this example, the `name` field on the top level request was not set. To fix
-the code, we will set it to something matching one of the above templates.
-Either will allow us to make a request to the server.
+To fix the code, we need to set the `name` field to something matching one of
+the above templates. Either will allow the client library to make a request to
+the server.
 
 ```rust,ignore
 {{#include ../samples/src/binding_errors.rs:request-success-1}}
@@ -56,7 +65,9 @@ OR
 
 ## Interpreting the templates
 
-In the template strings, there are two special matchers.
+The error message includes a number of "template strings" showing possible
+values for the request fields. Most template strings, use `*` and `**` as
+wildcards to match the field values.
 
 ### Single wildcard
 
@@ -107,3 +118,4 @@ that it is a binding error, then downcasting it to a `BindingError`.
 ```
 
 [uri]: https://clouddocs.f5.com/api/irules/HTTP__uri.html
+[`getsecretrequest`]: https://docs.rs/google-cloud-secretmanager-v1/latest/google_cloud_secretmanager_v1/model/struct.GetSecretRequest.html
