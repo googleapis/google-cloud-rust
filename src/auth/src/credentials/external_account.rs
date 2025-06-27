@@ -15,10 +15,12 @@
 use super::dynamic::CredentialsProvider;
 use super::external_account_sources::executable_sourced::ExecutableSourcedCredentials;
 use super::external_account_sources::url_sourced::UrlSourcedCredentials;
+use super::impersonated;
 use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
+use crate::errors::non_retryable;
 use crate::credentials::external_account_sources::programmatic_sourced::ProgrammaticSourcedCredentials;
 use crate::credentials::subject_token::dynamic;
 use crate::headers_util::build_cacheable_headers;
@@ -32,6 +34,14 @@ use serde_json::Value;
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
+
+const IAM_SCOPE: &str = "https://www.googleapis.com/auth/iam";
+
+#[async_trait::async_trait]
+pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
+    /// Generate subject token that will be used on STS exchange.
+    async fn subject_token(&self) -> Result<String>;
+}
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub(crate) struct CredentialSourceFormat {
@@ -69,6 +79,7 @@ enum CredentialSourceFile {
 struct ExternalAccountFile {
     audience: String,
     subject_token_type: String,
+    service_account_impersonation_url: Option<String>,
     token_url: String,
     client_id: Option<String>,
     client_secret: Option<String>,
@@ -88,6 +99,7 @@ impl From<ExternalAccountFile> for ExternalAccountConfig {
             client_secret: config.client_secret,
             subject_token_type: config.subject_token_type,
             token_url: config.token_url,
+            service_account_impersonation_url: config.service_account_impersonation_url,
             credential_source: config.credential_source.into(),
             scopes: scope,
         }
@@ -121,6 +133,8 @@ struct ExternalAccountConfig {
     audience: String,
     subject_token_type: String,
     token_url: String,
+    #[builder(default)]
+    service_account_impersonation_url: Option<String>,
     #[builder(default)]
     client_id: Option<String>,
     #[builder(default)]
@@ -202,14 +216,26 @@ where
 
         let audience = self.config.audience.clone();
         let subject_token_type = self.config.subject_token_type.clone();
-        let scope = self.config.scopes.clone();
+        let user_scopes = self.config.scopes.clone();
         let url = self.config.token_url.clone();
+
+        // User provides the scopes to be set on the final token they receive. The scopes they
+        // provide does not necessarily have to include the IAM scope or cloud-platform scope
+        // which are needed to make the call to `iamcredentials` endpoint. So when minting the
+        // STS token, we use the user provided or IAM scope depending on whether the STS provided
+        // token is to be used with impersonation or directly.
+        let sts_scope = if self.config.service_account_impersonation_url.is_some() {
+            vec![IAM_SCOPE.to_string()]
+        } else {
+            user_scopes.clone()
+        };
+
         let req = ExchangeTokenRequest {
             url,
             audience: Some(audience),
             subject_token: subject_token.token,
             subject_token_type,
-            scope,
+            scope: sts_scope,
             authentication: ClientAuthentication {
                 client_id: self.config.client_id.clone(),
                 client_secret: self.config.client_secret.clone(),
@@ -218,6 +244,24 @@ where
         };
 
         let token_res = STSHandler::exchange_token(req).await?;
+
+        if let Some(impersonation_url) = &self.config.service_account_impersonation_url {
+            let mut headers = HeaderMap::new();
+            headers.insert(
+                http::header::AUTHORIZATION,
+                http::HeaderValue::from_str(&format!("Bearer {}", token_res.access_token))
+                    .map_err(non_retryable)?,
+            );
+
+            return impersonated::generate_access_token(
+                headers,
+                None,
+                user_scopes,
+                impersonated::DEFAULT_LIFETIME,
+                impersonation_url,
+            )
+            .await;
+        }
 
         let token = Token {
             token: token_res.access_token,
@@ -513,12 +557,21 @@ where
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::constants::{
+        ACCESS_TOKEN_TYPE, DEFAULT_SCOPE, JWT_TOKEN_TYPE, TOKEN_EXCHANGE_GRANT_TYPE,
+    };
+    use httptest::{
+        Expectation, Server,
+        matchers::{all_of, contains, request, url_decoded},
+        responders::{json_encoded, status_code},
+    };
     use crate::credentials::subject_token::{
         Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
     };
     use crate::errors::SubjectTokenProviderError;
     use serde_json::*;
     use std::collections::HashMap;
+    use time::OffsetDateTime;
     use std::error::Error;
     use std::fmt;
 
@@ -644,6 +697,246 @@ mod test {
                 unreachable!("expected Executable Sourced credential")
             }
         }
+    }
+
+    #[tokio::test]
+    async fn test_external_account_with_impersonation_success() {
+        let subject_token_server = Server::run();
+        let sts_server = Server::run();
+        let impersonation_server = Server::run();
+
+        let impersonation_path = "/projects/-/serviceAccounts/sa@test.com:generateAccessToken";
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": sts_server.url("/token").to_string(),
+            "service_account_impersonation_url": impersonation_server.url(impersonation_path).to_string(),
+            "credential_source": {
+                "url": subject_token_server.url("/subject_token").to_string(),
+                "format": {
+                  "type": "json",
+                  "subject_token_field_name": "access_token"
+                }
+            }
+        });
+
+        subject_token_server.expect(
+            Expectation::matching(request::method_path("GET", "/subject_token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "subject_token",
+                })),
+            ),
+        );
+
+        sts_server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),
+                request::body(url_decoded(contains((
+                    "grant_type",
+                    TOKEN_EXCHANGE_GRANT_TYPE
+                )))),
+                request::body(url_decoded(contains(("subject_token", "subject_token")))),
+                request::body(url_decoded(contains((
+                    "requested_token_type",
+                    ACCESS_TOKEN_TYPE
+                )))),
+                request::body(url_decoded(contains((
+                    "subject_token_type",
+                    JWT_TOKEN_TYPE
+                )))),
+                request::body(url_decoded(contains(("audience", "audience")))),
+                request::body(url_decoded(contains(("scope", IAM_SCOPE)))),
+            ])
+            .respond_with(json_encoded(json!({
+                "access_token": "sts-token",
+                "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+                "token_type": "Bearer",
+                "expires_in": 3600,
+            }))),
+        );
+
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+        impersonation_server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", impersonation_path),
+                request::headers(contains(("authorization", "Bearer sts-token"))),
+            ])
+            .respond_with(json_encoded(json!({
+                "accessToken": "final-impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        let creds = Builder::new(contents).build().unwrap();
+        let headers = creds.headers(Extensions::new()).await.unwrap();
+        match headers {
+            CacheableResource::New { data, .. } => {
+                let token = data.get("authorization").unwrap().to_str().unwrap();
+                assert_eq!(token, "Bearer final-impersonated-token");
+            }
+            CacheableResource::NotModified => panic!("Expected new headers"),
+        }
+    }
+
+    #[tokio::test]
+    async fn test_external_account_without_impersonation_success() {
+        let subject_token_server = Server::run();
+        let sts_server = Server::run();
+
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": sts_server.url("/token").to_string(),
+            "credential_source": {
+                "url": subject_token_server.url("/subject_token").to_string(),
+                "format": {
+                  "type": "json",
+                  "subject_token_field_name": "access_token"
+                }
+            }
+        });
+
+        subject_token_server.expect(
+            Expectation::matching(request::method_path("GET", "/subject_token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "subject_token",
+                })),
+            ),
+        );
+
+        sts_server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),
+                request::body(url_decoded(contains((
+                    "grant_type",
+                    TOKEN_EXCHANGE_GRANT_TYPE
+                )))),
+                request::body(url_decoded(contains(("subject_token", "subject_token")))),
+                request::body(url_decoded(contains((
+                    "requested_token_type",
+                    ACCESS_TOKEN_TYPE
+                )))),
+                request::body(url_decoded(contains((
+                    "subject_token_type",
+                    JWT_TOKEN_TYPE
+                )))),
+                request::body(url_decoded(contains(("audience", "audience")))),
+                request::body(url_decoded(contains(("scope", DEFAULT_SCOPE)))),
+            ])
+            .respond_with(json_encoded(json!({
+                "access_token": "sts-only-token",
+                "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+                "token_type": "Bearer",
+                "expires_in": 3600,
+            }))),
+        );
+
+        let creds = Builder::new(contents).build().unwrap();
+        let headers = creds.headers(Extensions::new()).await.unwrap();
+        match headers {
+            CacheableResource::New { data, .. } => {
+                let token = data.get("authorization").unwrap().to_str().unwrap();
+                assert_eq!(token, "Bearer sts-only-token");
+            }
+            CacheableResource::NotModified => panic!("Expected new headers"),
+        }
+    }
+
+    #[tokio::test]
+    async fn test_impersonation_flow_sts_call_fails() {
+        let subject_token_server = Server::run();
+        let sts_server = Server::run();
+        let impersonation_server = Server::run();
+
+        let impersonation_path = "/projects/-/serviceAccounts/sa@test.com:generateAccessToken";
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": sts_server.url("/token").to_string(),
+            "service_account_impersonation_url": impersonation_server.url(impersonation_path).to_string(),
+            "credential_source": {
+                "url": subject_token_server.url("/subject_token").to_string(),
+                "format": {
+                  "type": "json",
+                  "subject_token_field_name": "access_token"
+                }
+            }
+        });
+
+        subject_token_server.expect(
+            Expectation::matching(request::method_path("GET", "/subject_token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "subject_token",
+                })),
+            ),
+        );
+
+        sts_server.expect(
+            Expectation::matching(request::method_path("POST", "/token"))
+                .respond_with(status_code(500)),
+        );
+
+        let creds = Builder::new(contents).build().unwrap();
+        let err = creds.headers(Extensions::new()).await.unwrap_err();
+        assert!(err.to_string().contains("failed to exchange token"));
+        assert!(err.is_transient());
+    }
+
+    #[tokio::test]
+    async fn test_impersonation_flow_iam_call_fails() {
+        let subject_token_server = Server::run();
+        let sts_server = Server::run();
+        let impersonation_server = Server::run();
+
+        let impersonation_path = "/projects/-/serviceAccounts/sa@test.com:generateAccessToken";
+        let contents = json!({
+            "type": "external_account",
+            "audience": "audience",
+            "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+            "token_url": sts_server.url("/token").to_string(),
+            "service_account_impersonation_url": impersonation_server.url(impersonation_path).to_string(),
+            "credential_source": {
+                "url": subject_token_server.url("/subject_token").to_string(),
+                "format": {
+                  "type": "json",
+                  "subject_token_field_name": "access_token"
+                }
+            }
+        });
+
+        subject_token_server.expect(
+            Expectation::matching(request::method_path("GET", "/subject_token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "subject_token",
+                })),
+            ),
+        );
+
+        sts_server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "sts-token",
+                    "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+                    "token_type": "Bearer",
+                    "expires_in": 3600,
+                })),
+            ),
+        );
+
+        impersonation_server.expect(
+            Expectation::matching(request::method_path("POST", impersonation_path))
+                .respond_with(status_code(403)),
+        );
+
+        let creds = Builder::new(contents).build().unwrap();
+        let err = creds.headers(Extensions::new()).await.unwrap_err();
+        assert!(err.to_string().contains("failed to fetch token"));
+        assert!(!err.is_transient());
     }
 
     #[tokio::test]

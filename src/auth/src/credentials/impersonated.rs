@@ -78,7 +78,7 @@ use std::time::Duration;
 use time::OffsetDateTime;
 use tokio::time::Instant;
 
-const DEFAULT_LIFETIME: Duration = Duration::from_secs(3600);
+pub(crate) const DEFAULT_LIFETIME: Duration = Duration::from_secs(3600);
 const MSG: &str = "failed to fetch token";
 
 enum BuilderSource {
@@ -428,6 +428,60 @@ struct GenerateAccessTokenRequest {
     lifetime: String,
 }
 
+pub(crate) async fn generate_access_token(
+    source_headers: HeaderMap,
+    delegates: Option<Vec<String>>,
+    scopes: Vec<String>,
+    lifetime: Duration,
+    service_account_impersonation_url: &str,
+) -> Result<Token> {
+    let client = Client::new();
+    let body = GenerateAccessTokenRequest {
+        delegates,
+        scope: scopes,
+        lifetime: format!("{}s", lifetime.as_secs_f64()),
+    };
+
+    let response = client
+        .post(service_account_impersonation_url)
+        .header("Content-Type", "application/json")
+        .headers(source_headers)
+        .json(&body)
+        .send()
+        .await
+        .map_err(|e| errors::from_http_error(e, MSG))?;
+
+    if !response.status().is_success() {
+        let err = errors::from_http_response(response, MSG).await;
+        return Err(err);
+    }
+
+    let token_response = response
+        .json::<GenerateAccessTokenResponse>()
+        .await
+        .map_err(|e| {
+            let retryable = !e.is_decode();
+            CredentialsError::from_source(retryable, e)
+        })?;
+
+    let parsed_dt = OffsetDateTime::parse(
+        &token_response.expire_time,
+        &time::format_description::well_known::Rfc3339,
+    )
+    .map_err(errors::non_retryable)?;
+
+    let remaining_duration = parsed_dt - OffsetDateTime::now_utc();
+    let expires_at = Instant::now() + remaining_duration.try_into().unwrap();
+
+    let token = Token {
+        token: token_response.access_token,
+        token_type: "Bearer".to_string(),
+        expires_at: Some(expires_at),
+        metadata: None,
+    };
+    Ok(token)
+}
+
 #[async_trait]
 impl TokenProvider for ImpersonatedTokenProvider {
     async fn token(&self) -> Result<Token> {
@@ -438,52 +492,14 @@ impl TokenProvider for ImpersonatedTokenProvider {
                 unreachable!("requested source credentials without a caching etag")
             }
         };
-
-        let client = Client::new();
-        let body = GenerateAccessTokenRequest {
-            delegates: self.delegates.clone(),
-            scope: self.scopes.clone(),
-            lifetime: format!("{}s", self.lifetime.as_secs_f64()),
-        };
-
-        let response = client
-            .post(&self.service_account_impersonation_url)
-            .header("Content-Type", "application/json")
-            .headers(source_headers)
-            .json(&body)
-            .send()
-            .await
-            .map_err(|e| errors::from_http_error(e, MSG))?;
-
-        if !response.status().is_success() {
-            let err = errors::from_http_response(response, MSG).await;
-            return Err(err);
-        }
-
-        let token_response = response
-            .json::<GenerateAccessTokenResponse>()
-            .await
-            .map_err(|e| {
-                let retryable = !e.is_decode();
-                CredentialsError::from_source(retryable, e)
-            })?;
-
-        let parsed_dt = OffsetDateTime::parse(
-            &token_response.expire_time,
-            &time::format_description::well_known::Rfc3339,
+        generate_access_token(
+            source_headers,
+            self.delegates.clone(),
+            self.scopes.clone(),
+            self.lifetime,
+            &self.service_account_impersonation_url,
         )
-        .map_err(errors::non_retryable)?;
-
-        let remaining_duration = parsed_dt - OffsetDateTime::now_utc();
-        let expires_at = Instant::now() + remaining_duration.try_into().unwrap();
-
-        let token = Token {
-            token: token_response.access_token,
-            token_type: "Bearer".to_string(),
-            expires_at: Some(expires_at),
-            metadata: None,
-        };
-        Ok(token)
+        .await
     }
 }
 
@@ -502,6 +518,102 @@ mod test {
     use serde_json::json;
 
     type TestResult = anyhow::Result<()>;
+
+    #[tokio::test]
+    async fn test_generate_access_token_success() -> TestResult {
+        let server = Server::run();
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"
+                ),
+                request::headers(contains(("authorization", "Bearer test-token"))),
+            ])
+            .respond_with(json_encoded(json!({
+                "accessToken": "test-impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        let mut headers = HeaderMap::new();
+        headers.insert("authorization", "Bearer test-token".parse().unwrap());
+        let token = generate_access_token(
+            headers,
+            None,
+            vec!["scope".to_string()],
+            DEFAULT_LIFETIME,
+            &server
+                .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
+                .to_string(),
+        )
+        .await?;
+
+        assert_eq!(token.token, "test-impersonated-token");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_generate_access_token_403() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"
+                ),
+                request::headers(contains(("authorization", "Bearer test-token"))),
+            ])
+            .respond_with(status_code(403)),
+        );
+
+        let mut headers = HeaderMap::new();
+        headers.insert("authorization", "Bearer test-token".parse().unwrap());
+        let err = generate_access_token(
+            headers,
+            None,
+            vec!["scope".to_string()],
+            DEFAULT_LIFETIME,
+            &server
+                .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
+                .to_string(),
+        )
+        .await
+        .unwrap_err();
+
+        assert!(!err.is_transient());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_generate_access_token_no_auth_header() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path(
+                "POST",
+                "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken",
+            ))
+            .respond_with(status_code(401)),
+        );
+
+        let err = generate_access_token(
+            HeaderMap::new(),
+            None,
+            vec!["scope".to_string()],
+            DEFAULT_LIFETIME,
+            &server
+                .url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken")
+                .to_string(),
+        )
+        .await
+        .unwrap_err();
+
+        assert!(!err.is_transient());
+        Ok(())
+    }
 
     #[tokio::test]
     async fn test_impersonated_service_account() -> TestResult {
