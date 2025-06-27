@@ -187,7 +187,6 @@ pub(crate) mod dynamic {
     #[async_trait::async_trait]
     pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
         /// Asynchronously fetches the third-party subject token.
-        /// The error is boxed to handle its dynamic size.
         async fn subject_token(&self) -> Result<SubjectToken, CredentialsError>;
     }
 
