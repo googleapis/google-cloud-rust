@@ -47,7 +47,7 @@ pub(crate) struct ExecutableConfig {
     pub output_file: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 #[serde(untagged)]
 enum CredentialSourceFile {
     Url {
@@ -65,7 +65,7 @@ enum CredentialSourceFile {
 /// A representation of a [external account config file].
 ///
 /// [external account config file]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
-#[derive(Serialize, Deserialize, Debug)]
+#[derive(Serialize, Deserialize, Debug, Clone)]
 struct ExternalAccountFile {
     audience: String,
     subject_token_type: String,
@@ -376,7 +376,6 @@ impl Builder {
 /// # impl Error for MyProviderError {}
 /// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
 /// #
-/// # #[async_trait::async_trait]
 /// # impl SubjectTokenProvider for MyTokenProvider {
 /// #     type Error = MyProviderError;
 /// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
@@ -400,7 +399,6 @@ impl Builder {
 /// [SubjectTokenProvider]: crate::credentials::subject_token::SubjectTokenProvider
 pub struct ProgrammaticBuilder {
     quota_project_id: Option<String>,
-    subject_token_provider: Arc<dyn dynamic::SubjectTokenProvider>,
     config: ExternalAccountConfigBuilder,
 }
 
@@ -408,10 +406,13 @@ impl ProgrammaticBuilder {
     /// Creates a new builder that uses the provided [`SubjectTokenProvider`] to
     /// fetch the third-party subject token.
     pub fn new(subject_token_provider: Arc<dyn dynamic::SubjectTokenProvider>) -> Self {
+        let mut config = ExternalAccountConfigBuilder::default();
+        config.credential_source(CredentialSource::Programmatic(
+            ProgrammaticSourcedCredentials::new(subject_token_provider),
+        ));
         Self {
-            subject_token_provider,
             quota_project_id: None,
-            config: ExternalAccountConfigBuilder::default(),
+            config,
         }
     }
 
@@ -492,12 +493,7 @@ impl ProgrammaticBuilder {
         if config_builder.scopes.is_none() {
             config_builder.scopes(vec![DEFAULT_SCOPE.to_string()]);
         }
-        let config = config_builder
-            .credential_source(CredentialSource::Programmatic(
-                ProgrammaticSourcedCredentials::new(self.subject_token_provider),
-            ))
-            .build()
-            .map_err(BuilderError::parsing)?;
+        let config = config_builder.build().map_err(BuilderError::parsing)?;
 
         Ok(config.make_credentials(self.quota_project_id))
     }

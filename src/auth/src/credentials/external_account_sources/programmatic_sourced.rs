@@ -19,7 +19,7 @@ use crate::errors::CredentialsError;
 
 #[derive(Debug, Clone)]
 pub(crate) struct ProgrammaticSourcedCredentials {
-    pub subject_token_provider: Arc<dyn subject_token::dynamic::SubjectTokenProvider>,
+    subject_token_provider: Arc<dyn subject_token::dynamic::SubjectTokenProvider>,
 }
 
 impl ProgrammaticSourcedCredentials {

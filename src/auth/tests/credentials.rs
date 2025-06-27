@@ -591,11 +591,10 @@ mod test {
         server.expect(
             Expectation::matching(all_of![
                 request::method_path("POST", "/token"),
-                request::body(url_decoded(contains((
-                    "subject_token",
-                    "test-subject-token"
-                )))),
-                request::body(url_decoded(contains(("scope", expected_scopes.join(" ")))))
+                request::body(url_decoded(all_of![
+                    contains(("subject_token", "test-subject-token")),
+                    contains(("scope", expected_scopes.join(" "))),
+                ]))
             ])
             .respond_with(status_code(200).body(token_response_body)),
         );
