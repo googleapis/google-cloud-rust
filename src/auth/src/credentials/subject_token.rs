@@ -181,19 +181,26 @@ pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
 }
 
 pub(crate) mod dynamic {
-    use super::*;
+    use super::{SubjectToken, SubjectTokenProviderError};
+use crate::errors::CredentialsError;
+
+    /// A type-erased subject token provider.
     #[async_trait::async_trait]
     pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
-        async fn subject_token(&self) -> Result<SubjectToken, Box<dyn SubjectTokenProviderError>>;
+        /// Asynchronously fetches the third-party subject token.
+        /// The error is boxed to handle its dynamic size.
+        async fn subject_token(&self) -> Result<SubjectToken, CredentialsError>;
     }
 
     #[async_trait::async_trait]
     impl<T> SubjectTokenProvider for T
     where
         T: super::SubjectTokenProvider,
+        T::Error: Send + Sync + 'static,
     {
-        async fn subject_token(&self) -> Result<SubjectToken, Box<dyn SubjectTokenProviderError>> {
-            T::subject_token(self).await
+        async fn subject_token(&self) -> Result<SubjectToken, CredentialsError> {
+            let result = self.subject_token().await;
+            result.map_err(|e| CredentialsError::from_source(e.is_transient(), e))
         }
     }
 }

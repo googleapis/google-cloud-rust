@@ -12,17 +12,27 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::Result;
-use crate::credentials::external_account::dynamic::SubjectTokenProvider;
+use std::sync::Arc;
 
-#[derive(Debug)]
+use crate::credentials::subject_token::{self, SubjectToken};
+use crate::errors::CredentialsError;
+
+#[derive(Debug, Clone)]
 pub(crate) struct ProgrammaticSourcedCredentials {
-    pub subject_token_provider: Box<dyn SubjectTokenProvider>,
+    pub subject_token_provider: Arc<dyn subject_token::dynamic::SubjectTokenProvider>,
+}
+
+impl ProgrammaticSourcedCredentials {
+    pub(crate) fn new(subject_token_provider: Arc<dyn subject_token::dynamic::SubjectTokenProvider>) -> Self {
+        Self {
+            subject_token_provider,
+        }
+    }
 }
 
 #[async_trait::async_trait]
-impl SubjectTokenProvider for ProgrammaticSourcedCredentials {
-    async fn subject_token(&self) -> Result<String> {
+impl subject_token::dynamic::SubjectTokenProvider for ProgrammaticSourcedCredentials {
+    async fn subject_token(&self) -> Result<SubjectToken, CredentialsError> {
         return self.subject_token_provider.subject_token().await;
     }
 }

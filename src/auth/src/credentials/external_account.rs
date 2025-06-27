@@ -14,6 +14,8 @@
 
 use super::dynamic::CredentialsProvider;
 use super::external_account_sources::executable_sourced::ExecutableSourcedCredentials;
+use crate::credentials::external_account_sources::programmatic_sourced::ProgrammaticSourcedCredentials;
+use crate::credentials::subject_token::dynamic;
 use super::external_account_sources::url_sourced::UrlSourcedCredentials;
 use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
@@ -29,29 +31,8 @@ use serde_json::Value;
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
+use derive_builder::Builder;
 
-pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
-    fn subject_token(&self) -> impl Future<Output = Result<String>> + Send;
-}
-
-pub(crate) mod dynamic {
-    use super::Result;
-    #[async_trait::async_trait]
-    pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
-        /// Generate subject token that will be used on STS exchange.
-        async fn subject_token(&self) -> Result<String>;
-    }
-
-    #[async_trait::async_trait]
-    impl<T> SubjectTokenProvider for T
-    where
-        T: super::SubjectTokenProvider,
-    {
-        async fn subject_token(&self) -> Result<String> {
-            T::subject_token(self).await
-        }
-    }
-}
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub(crate) struct CredentialSourceFormat {
@@ -67,7 +48,7 @@ pub(crate) struct ExecutableConfig {
     pub output_file: Option<String>,
 }
 
-#[derive(Serialize, Deserialize, Debug, Clone)]
+#[derive(Serialize, Deserialize, Debug)]
 #[serde(untagged)]
 enum CredentialSourceFile {
     Url {
@@ -80,13 +61,13 @@ enum CredentialSourceFile {
     },
     File {},
     Aws {},
-    Programmatic {},
 }
 
 /// A representation of a [external account config file].
 ///
 /// [external account config file]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
-#[derive(Serialize, Deserialize, Debug, Clone)]
+/// 
+#[derive(Serialize, Deserialize, Debug)]
 struct ExternalAccountFile {
     audience: String,
     subject_token_type: String,
@@ -99,10 +80,7 @@ struct ExternalAccountFile {
 
 impl From<ExternalAccountFile> for ExternalAccountConfig {
     fn from(config: ExternalAccountFile) -> Self {
-        let mut scope = vec![];
-        if let Some(scopes) = config.scopes.clone() {
-            scopes.into_iter().for_each(|v| scope.push(v));
-        }
+        let mut scope = config.scopes.unwrap_or_default();
         if scope.is_empty() {
             scope.push(DEFAULT_SCOPE.to_string());
         }
@@ -129,7 +107,6 @@ impl From<CredentialSourceFile> for CredentialSource {
             CredentialSourceFile::Executable { executable } => {
                 Self::Executable(ExecutableSourcedCredentials::new(executable))
             }
-            CredentialSourceFile::Programmatic {} => Self::Programmatic {},
             CredentialSourceFile::File { .. } => {
                 unimplemented!("file sourced credential not supported yet")
             }
@@ -140,12 +117,15 @@ impl From<CredentialSourceFile> for CredentialSource {
     }
 }
 
-#[derive(Debug, Clone)]
+#[derive(Debug, Clone, Builder)]
+#[builder(setter(into))]
 struct ExternalAccountConfig {
     audience: String,
     subject_token_type: String,
     token_url: String,
+    #[builder(default)]
     client_id: Option<String>,
+    #[builder(default)]
     client_secret: Option<String>,
     scopes: Vec<String>,
     credential_source: CredentialSource,
@@ -158,7 +138,7 @@ enum CredentialSource {
     Executable(ExecutableSourcedCredentials),
     File {},
     Aws {},
-    Programmatic {},
+    Programmatic(ProgrammaticSourcedCredentials),
 }
 
 impl ExternalAccountConfig {
@@ -166,15 +146,13 @@ impl ExternalAccountConfig {
         let config = self.clone();
         match self.credential_source {
             CredentialSource::Url(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id)
+                Self::make_credentials_from_source(source.clone(), config, quota_project_id)
             }
             CredentialSource::Executable(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id)
+                Self::make_credentials_from_source(source.clone(), config, quota_project_id)
             }
-            CredentialSource::Programmatic {} => {
-                panic!(
-                    "programmatic sourced credential should set a subject token provider implementation via external_account::Builder::with_subject_token_provider method"
-                )
+            CredentialSource::Programmatic(source) => {
+                Self::make_credentials_from_source(source, config, quota_project_id)
             }
             CredentialSource::File { .. } => {
                 unimplemented!("file sourced credential not supported yet")
@@ -231,7 +209,7 @@ where
         let req = ExchangeTokenRequest {
             url,
             audience: Some(audience),
-            subject_token,
+            subject_token: subject_token.token,
             subject_token_type,
             scope,
             authentication: ClientAuthentication {
@@ -421,8 +399,9 @@ impl Builder {
 pub struct ProgrammaticBuilder
 {
     quota_project_id: Option<String>,
+    subject_token_provider: Arc<dyn dynamic::SubjectTokenProvider>,
+    config: ExternalAccountConfigBuilder,
     scopes: Option<Vec<String>>,
-    subject_token_provider: Box<dyn dynamic::SubjectTokenProvider>,
 }
 
 impl ProgrammaticBuilder
@@ -431,11 +410,12 @@ impl ProgrammaticBuilder
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn new(
-        subject_token_provider: Box<dyn dynamic::SubjectTokenProvider>,
+        subject_token_provider: Arc<dyn dynamic::SubjectTokenProvider>,
     ) -> Self {
         Self {
             subject_token_provider,
             quota_project_id: None,
+            config: ExternalAccountConfigBuilder::default(),
             scopes: None,
         }
     }
@@ -465,6 +445,31 @@ impl ProgrammaticBuilder
         self
     }
 
+    pub fn with_audience(mut self, audience: String) -> Self {
+        self.config.audience(audience);
+        self
+    }
+
+    pub fn with_subject_token_type(mut self, subject_token_type: String) -> Self {
+        self.config.subject_token_type(subject_token_type);
+        self
+    }
+
+    pub fn with_token_url(mut self, token_url: String) -> Self {
+        self.config.token_url(token_url);
+        self
+    }
+
+    pub fn with_client_id(mut self, client_id: String) -> Self {
+        self.config.client_id(client_id);
+        self
+    }
+
+    pub fn with_client_secret(mut self, client_secret: String) -> Self {
+        self.config.client_secret(client_secret);
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -480,22 +485,19 @@ impl ProgrammaticBuilder
     ///
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> BuildResult<Credentials> {
-        let mut file =  ExternalAccountFile {
-            audience: "".to_string(),
-            subject_token_type: "".to_string(),
-            token_url: "".to_string(),
-            credential_source: CredentialSourceFile::Programmatic {},
-            scopes: None,
-            client_id: None,
-            client_secret: None,
-        };
-            // serde_json::from_value(self.external_account_config).map_err(BuilderError::parsing)?;
-
-        if let Some(scopes) = self.scopes {
-            file.scopes = Some(scopes);
+        let mut config_builder = self.config;
+        let mut scopes = self.scopes.unwrap_or_default();
+        if scopes.is_empty() {
+            scopes.push(DEFAULT_SCOPE.to_string());
         }
+        config_builder.scopes(scopes);
 
-        let config: ExternalAccountConfig = file.into();
+        let config = config_builder
+            .credential_source(CredentialSource::Programmatic(ProgrammaticSourcedCredentials::new(
+                self.subject_token_provider,
+            )))
+            .build()
+            .map_err(BuilderError::parsing)?;
 
         Ok(config.make_credentials(self.quota_project_id))
     }
