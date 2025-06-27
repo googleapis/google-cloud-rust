@@ -106,9 +106,7 @@ pub async fn impersonated() -> anyhow::Result<()> {
 
     let impersonated_creds =
         ImpersonatedCredentialsBuilder::from_source_credentials(source_sa_creds)
-            .with_target_principal(
-                "impersonation-target@rust-auth-testing.iam.gserviceaccount.com",
-            )
+            .with_target_principal("impersonation-target@rust-auth-testing.iam.gserviceaccount.com")
             .build()?;
 
     let client = SecretManagerService::builder()
