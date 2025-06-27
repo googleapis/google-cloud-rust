@@ -80,7 +80,7 @@ pub async fn service_account() -> anyhow::Result<()> {
     Ok(())
 }
 
-pub async fn imeprsonated() -> anyhow::Result<()> {
+pub async fn impersonated() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
 
     // Create a SecretManager client. When running on GCB, this loads MDS
@@ -107,7 +107,7 @@ pub async fn imeprsonated() -> anyhow::Result<()> {
     let impersonated_creds =
         ImpersonatedCredentialsBuilder::from_source_credentials(source_sa_creds)
             .with_target_principal(
-                "integration-test-runner@rust-auth-testing.iam.gserviceaccount.com",
+                "impersonation-target@rust-auth-testing.iam.gserviceaccount.com",
             )
             .build()?;
 
