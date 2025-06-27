@@ -250,7 +250,7 @@ where
                 None,
                 user_scopes,
                 impersonated::DEFAULT_LIFETIME,
-                &impersonation_url,
+                impersonation_url,
             )
             .await;
         }
