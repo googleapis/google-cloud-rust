@@ -367,31 +367,34 @@ impl Builder {
 /// # use google_cloud_auth::errors::SubjectTokenProviderError;
 /// # use std::error::Error;
 /// # use std::fmt;
+/// # use std::sync::Arc;
+/// #
 /// # #[derive(Debug)]
 /// # struct MyTokenProvider;
+/// #
 /// # #[derive(Debug)]
 /// # struct MyProviderError;
 /// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
 /// # impl Error for MyProviderError {}
 /// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+/// #
+/// # #[async_trait::async_trait]
 /// # impl SubjectTokenProvider for MyTokenProvider {
 /// #     type Error = MyProviderError;
 /// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
 /// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
 /// #     }
 /// # }
+/// #
 /// # tokio_test::block_on(async {
-/// let config = serde_json::json!({
-///     "type": "external_account",
-///     "audience": "//iam.googleapis.com/projects/123/locations/global/workloadIdentityPools/my-pool/providers/my-provider",
-///     "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
-///     "token_url": "https://sts.googleapis.com/v1beta/token"
-/// });
+/// let provider = Arc::new(MyTokenProvider);
 ///
-/// let provider = MyTokenProvider;
-///
-/// let credentials = ProgrammaticBuilder::new_with_external_account_config(provider, config)
+/// let credentials = ProgrammaticBuilder::new(provider)
+///     .with_audience("//iam.googleapis.com/projects/123/locations/global/workloadIdentityPools/my-pool/providers/my-provider".to_string())
+///     .with_subject_token_type("urn:ietf:params:oauth:token-type:jwt".to_string())
+///     .with_token_url("https://sts.googleapis.com/v1beta/token".to_string())
 ///     .with_quota_project_id("my-quota-project")
+///     .with_scopes(vec!["https://www.googleapis.com/auth/devstorage.read_only".to_string()])
 ///     .build()
 ///     .unwrap();
 /// # });
@@ -405,9 +408,8 @@ pub struct ProgrammaticBuilder
 
 impl ProgrammaticBuilder
 {
-    /// Creates a new builder with a custom [`SubjectTokenProvider`] and [external_account_credentials] JSON value.
-    ///
-    /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
+    /// Creates a new builder that uses the provided [`SubjectTokenProvider`] to
+    /// fetch the third-party subject token.
     pub fn new(
         subject_token_provider: Arc<dyn dynamic::SubjectTokenProvider>,
     ) -> Self {
@@ -443,26 +445,36 @@ impl ProgrammaticBuilder
         self
     }
 
+    /// Sets the audience for the token exchange.
+    ///
+    /// This is the resource name for the workload identity pool and the provider
+    /// identifier in that pool.
     pub fn with_audience(mut self, audience: String) -> Self {
         self.config.audience(audience);
         self
     }
 
+    /// Sets the subject token type.
+    ///
+    /// This is the STS subject token type based on the OAuth 2.0 token exchange spec.
     pub fn with_subject_token_type(mut self, subject_token_type: String) -> Self {
         self.config.subject_token_type(subject_token_type);
         self
     }
 
+    /// Sets the token URL for the STS token exchange.
     pub fn with_token_url(mut self, token_url: String) -> Self {
         self.config.token_url(token_url);
         self
     }
 
+    /// Sets the client ID for client authentication.
     pub fn with_client_id(mut self, client_id: String) -> Self {
         self.config.client_id(client_id);
         self
     }
 
+    /// Sets the client secret for client authentication.
     pub fn with_client_secret(mut self, client_secret: String) -> Self {
         self.config.client_secret(client_secret);
         self
@@ -472,16 +484,8 @@ impl ProgrammaticBuilder
     ///
     /// # Errors
     ///
-    /// Returns a [CredentialsError] if the provided `external_account_config`
-    /// cannot be successfully deserialized into the expected format for an external
-    /// account configuration. This typically happens if the JSON value is malformed
-    /// or missing required fields. For more information on the expected format,
-    /// consult the relevant section in the [external_account_credentials] guide.
-    ///
-    /// Since a subject token provider is supplied programmatically, the
-    /// `credential_source` field is not required in the JSON configuration.
-    ///
-    /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
+    /// Returns a [CredentialsError] if any of the required fields (such as
+    /// `audience`, `subject_token_type`, or `token_url`) have not been set.
     pub fn build(self) -> BuildResult<Credentials> {
         let mut config_builder = self.config;
         if config_builder.scopes.is_none() {
