@@ -18,7 +18,7 @@ limitations under the License.
 
 Cloud Shell is a great environment to run small examples and tests. This guide
 shows you how to configure Rust and install one of the Cloud Client Libraries in
-Cloud Shell. 
+Cloud Shell.
 
 ## Start up Cloud Shell
 
