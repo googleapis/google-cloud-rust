@@ -45,12 +45,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::ListConfigurationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListConfigurationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/configurations",
@@ -70,7 +69,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -91,12 +91,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -105,12 +109,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::GetConfigurationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Configuration>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -128,7 +131,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -151,12 +155,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -165,12 +173,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::CreateConfigurationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/configurations",
@@ -188,7 +195,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("configurationId", &req.configuration_id)]);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -209,6 +217,10 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -223,12 +235,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::UpdateConfigurationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -263,7 +274,7 @@ impl super::stub::LicenseManager for LicenseManager {
                     let builder = builder.query(&[("requestId", &req.request_id)]);
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -289,6 +300,10 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -303,12 +318,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::DeleteConfigurationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -327,7 +341,8 @@ impl super::stub::LicenseManager for LicenseManager {
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("requestId", &req.request_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -350,12 +365,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -364,12 +383,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::ListInstancesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListInstancesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/instances",
@@ -389,7 +407,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -410,12 +429,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -424,12 +447,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::GetInstanceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Instance>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -447,7 +469,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -470,12 +493,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -484,12 +511,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::DeactivateConfigurationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:deactivate",
@@ -507,7 +533,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -530,6 +557,10 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -542,12 +573,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::ReactivateConfigurationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:reactivate",
@@ -565,7 +595,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -588,6 +619,10 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -600,12 +635,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::QueryConfigurationLicenseUsageRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::QueryConfigurationLicenseUsageResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:queryLicenseUsage",
@@ -646,7 +680,7 @@ impl super::stub::LicenseManager for LicenseManager {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -669,12 +703,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -683,12 +721,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::AggregateUsageRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AggregateUsageResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:aggregateUsage",
@@ -733,7 +770,7 @@ impl super::stub::LicenseManager for LicenseManager {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -756,12 +793,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -770,12 +811,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::ListProductsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListProductsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/products",
@@ -795,7 +835,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("orderBy", &req.order_by)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -816,12 +857,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -830,12 +875,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: crate::model::GetProductRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Product>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -853,7 +897,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -876,12 +921,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -890,12 +939,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: location::model::ListLocationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/locations",
@@ -909,7 +957,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -925,12 +974,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -939,12 +992,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: location::model::GetLocationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<location::model::Location>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -960,7 +1012,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -981,12 +1034,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -995,12 +1052,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: longrunning::model::ListOperationsRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/operations",
@@ -1019,7 +1075,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1040,12 +1097,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -1054,12 +1115,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -1077,7 +1137,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1100,12 +1161,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -1114,12 +1179,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: longrunning::model::DeleteOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -1137,7 +1201,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1160,12 +1225,16 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -1178,12 +1247,11 @@ impl super::stub::LicenseManager for LicenseManager {
         req: longrunning::model::CancelOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}:cancel",
@@ -1201,7 +1269,8 @@ impl super::stub::LicenseManager for LicenseManager {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1224,6 +1293,10 @@ impl super::stub::LicenseManager for LicenseManager {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),

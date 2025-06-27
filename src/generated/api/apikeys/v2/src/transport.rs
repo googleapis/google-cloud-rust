@@ -45,12 +45,11 @@ impl super::stub::ApiKeys for ApiKeys {
         req: crate::model::CreateKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}/keys",
@@ -67,7 +66,8 @@ impl super::stub::ApiKeys for ApiKeys {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("keyId", &req.key_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -88,6 +88,10 @@ impl super::stub::ApiKeys for ApiKeys {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -100,12 +104,11 @@ impl super::stub::ApiKeys for ApiKeys {
         req: crate::model::ListKeysRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListKeysResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}/keys",
@@ -124,7 +127,8 @@ impl super::stub::ApiKeys for ApiKeys {
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
                 let builder = builder.query(&[("showDeleted", &req.show_deleted)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -145,12 +149,16 @@ impl super::stub::ApiKeys for ApiKeys {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -159,12 +167,11 @@ impl super::stub::ApiKeys for ApiKeys {
         req: crate::model::GetKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Key>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}",
@@ -182,7 +189,8 @@ impl super::stub::ApiKeys for ApiKeys {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -205,12 +213,16 @@ impl super::stub::ApiKeys for ApiKeys {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -219,12 +231,11 @@ impl super::stub::ApiKeys for ApiKeys {
         req: crate::model::GetKeyStringRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::GetKeyStringResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}/keyString",
@@ -242,7 +253,8 @@ impl super::stub::ApiKeys for ApiKeys {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -265,12 +277,16 @@ impl super::stub::ApiKeys for ApiKeys {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -279,12 +295,11 @@ impl super::stub::ApiKeys for ApiKeys {
         req: crate::model::UpdateKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}",
@@ -318,7 +333,7 @@ impl super::stub::ApiKeys for ApiKeys {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -344,6 +359,10 @@ impl super::stub::ApiKeys for ApiKeys {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -356,12 +375,11 @@ impl super::stub::ApiKeys for ApiKeys {
         req: crate::model::DeleteKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}",
@@ -380,7 +398,8 @@ impl super::stub::ApiKeys for ApiKeys {
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
                 let builder = builder.query(&[("etag", &req.etag)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -403,12 +422,16 @@ impl super::stub::ApiKeys for ApiKeys {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -417,12 +440,11 @@ impl super::stub::ApiKeys for ApiKeys {
         req: crate::model::UndeleteKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}:undelete",
@@ -440,7 +462,8 @@ impl super::stub::ApiKeys for ApiKeys {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -463,6 +486,10 @@ impl super::stub::ApiKeys for ApiKeys {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -475,16 +502,16 @@ impl super::stub::ApiKeys for ApiKeys {
         req: crate::model::LookupKeyRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::LookupKeyResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = "/v2/keys:lookupKey".to_string();
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
                 let builder = builder.query(&[("keyString", &req.key_string)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -494,12 +521,16 @@ impl super::stub::ApiKeys for ApiKeys {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -508,12 +539,11 @@ impl super::stub::ApiKeys for ApiKeys {
         req: longrunning::model::GetOperationRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v2/{}",
@@ -524,7 +554,8 @@ impl super::stub::ApiKeys for ApiKeys {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -540,12 +571,16 @@ impl super::stub::ApiKeys for ApiKeys {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 

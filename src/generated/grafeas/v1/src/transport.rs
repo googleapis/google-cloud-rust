@@ -45,12 +45,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::GetOccurrenceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Occurrence>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -66,7 +65,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -85,7 +85,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -123,12 +124,16 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -137,12 +142,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::ListOccurrencesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListOccurrencesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/occurrences",
@@ -156,7 +160,8 @@ impl super::stub::Grafeas for Grafeas {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -176,7 +181,8 @@ impl super::stub::Grafeas for Grafeas {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -207,12 +213,16 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -221,12 +231,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::DeleteOccurrenceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -242,7 +251,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
             })
             .or_else(|| {
                 let path = format!(
@@ -261,7 +271,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -299,12 +310,16 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -317,12 +332,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::CreateOccurrenceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Occurrence>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/occurrences",
@@ -333,7 +347,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -350,7 +365,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -381,6 +397,10 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -395,12 +415,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::BatchCreateOccurrencesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchCreateOccurrencesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/occurrences:batchCreate",
@@ -411,7 +430,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -428,7 +448,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -459,6 +480,10 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -471,12 +496,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::UpdateOccurrenceRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Occurrence>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -505,7 +529,7 @@ impl super::stub::Grafeas for Grafeas {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -537,7 +561,7 @@ impl super::stub::Grafeas for Grafeas {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -575,6 +599,10 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -589,12 +617,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::GetOccurrenceNoteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Note>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/notes",
@@ -610,7 +637,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -629,7 +657,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -667,12 +696,16 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -681,12 +714,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::GetNoteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Note>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -702,7 +734,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -721,7 +754,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::GET, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -759,12 +793,16 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -773,12 +811,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::ListNotesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListNotesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/notes",
@@ -792,7 +829,8 @@ impl super::stub::Grafeas for Grafeas {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -812,7 +850,8 @@ impl super::stub::Grafeas for Grafeas {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -843,12 +882,16 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 
@@ -857,12 +900,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::DeleteNoteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -878,7 +920,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
             })
             .or_else(|| {
                 let path = format!(
@@ -897,7 +940,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::DELETE, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::DELETE)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -935,12 +979,16 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
             .map(|r: gax::response::Response<wkt::Empty>| {
                 let (parts, _) = r.into_parts();
@@ -953,12 +1001,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::CreateNoteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Note>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/notes",
@@ -970,7 +1017,8 @@ impl super::stub::Grafeas for Grafeas {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("noteId", &req.note_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -988,7 +1036,8 @@ impl super::stub::Grafeas for Grafeas {
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
                 let builder = builder.query(&[("noteId", &req.note_id)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1019,6 +1068,10 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1031,12 +1084,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::BatchCreateNotesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::BatchCreateNotesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/notes:batchCreate",
@@ -1047,7 +1099,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1064,7 +1117,8 @@ impl super::stub::Grafeas for Grafeas {
                 );
 
                 let builder = self.inner.builder(reqwest::Method::POST, path);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::POST)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1095,6 +1149,10 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1107,12 +1165,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::UpdateNoteRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Note>> {
-        let options = gax::options::internal::set_default_idempotency(options, false);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}",
@@ -1141,7 +1198,7 @@ impl super::stub::Grafeas for Grafeas {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1173,7 +1230,7 @@ impl super::stub::Grafeas for Grafeas {
                         });
                     Ok(builder)
                 })();
-                Some(builder)
+                Some(builder.map(|b| (b, reqwest::Method::PATCH)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1211,6 +1268,10 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
@@ -1223,12 +1284,11 @@ impl super::stub::Grafeas for Grafeas {
         req: crate::model::ListNoteOccurrencesRequest,
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListNoteOccurrencesResponse>> {
-        let options = gax::options::internal::set_default_idempotency(options, true);
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
-        let builder = None
+        let (builder, method) = None
             .or_else(|| {
                 let path = format!(
                     "/v1/{}/occurrences",
@@ -1247,7 +1307,8 @@ impl super::stub::Grafeas for Grafeas {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .or_else(|| {
                 let path = format!(
@@ -1269,7 +1330,8 @@ impl super::stub::Grafeas for Grafeas {
                 let builder = builder.query(&[("filter", &req.filter)]);
                 let builder = builder.query(&[("pageSize", &req.page_size)]);
                 let builder = builder.query(&[("pageToken", &req.page_token)]);
-                Some(Ok(builder))
+                let builder = Ok(builder);
+                Some(builder.map(|b| (b, reqwest::Method::GET)))
             })
             .ok_or_else(|| {
                 let mut paths = Vec::new();
@@ -1307,12 +1369,16 @@ impl super::stub::Grafeas for Grafeas {
                 }
                 gax::error::Error::binding(BindingError { paths })
             })??;
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            gaxi::http::default_idempotency(&method),
+        );
         let builder = builder.query(&[("$alt", "json;enum-encoding=int")]).header(
             "x-goog-api-client",
             reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER),
         );
         self.inner
-            .execute(builder, None::<gaxi::http::NoBody>, options)
+            .execute(builder, gaxi::http::NoBody::new(&method), options)
             .await
     }
 }
