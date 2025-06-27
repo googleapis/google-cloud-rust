@@ -16,6 +16,7 @@ use auth::credentials::{
     Builder as AccessTokenCredentialBuilder,
     api_key_credentials::Builder as ApiKeyCredentialsBuilder,
     external_account::Builder as ExternalAccountCredentialsBuilder,
+    impersonated::Builder as ImpersonatedCredentialsBuilder,
 };
 use bigquery::client::DatasetService;
 use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -74,6 +75,54 @@ pub async fn service_account() -> anyhow::Result<()> {
         .expect("missing payload in test-sa-creds-secret response")
         .data;
     assert_eq!(secret, "service_account");
+
+    Ok(())
+}
+
+pub async fn imeprsonated() -> anyhow::Result<()> {
+    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+
+    // Create a SecretManager client. When running on GCB, this loads MDS
+    // credentials for our `integration-test-runner` service account.
+    let client = SecretManagerService::builder().build().await?;
+
+    // Load the service account json that will be the source credential
+    let response = client
+        .access_secret_version()
+        .set_name(format!(
+            "projects/{project}/secrets/test-sa-creds-json/versions/latest"
+        ))
+        .send()
+        .await?;
+    let source_sa_json = response
+        .payload
+        .expect("missing payload in test-sa-creds-json response")
+        .data;
+
+    let source_sa_json: serde_json::Value = serde_json::from_slice(&source_sa_json)?;
+
+    let impersonated_creds = ImpersonatedCredentialsBuilder::new(source_sa_json)
+        .with_target_principal("integration-test-runner@rust-auth-testing.iam.gserviceaccount.com")
+        .build()?;
+
+    let client = SecretManagerService::builder()
+        .with_credentials(impersonated_creds)
+        .build()
+        .await?;
+
+    // Access a secret, which only this principal has permissions to do.
+    let response = client
+        .access_secret_version()
+        .set_name(format!(
+            "projects/{project}/secrets/impersonation-target-secret/versions/latest"
+        ))
+        .send()
+        .await?;
+    let secret = response
+        .payload
+        .expect("missing payload in impersonation-target-secret response")
+        .data;
+    assert_eq!(secret, "Wingardium Leviosa");
 
     Ok(())
 }
