@@ -18,7 +18,7 @@ limitations under the License.
 
 You might have tried to make a request and run into an error that looks like:
 
-```
+```norust
 Error: cannot find a matching binding to send the request: at least one of the
 conditions must be met: (1) field `name` needs to be set and match:
 'projects/*/secrets/*' OR (2) field `name` needs to be set and match:
@@ -65,19 +65,19 @@ the regex `[^/]+`.
 
 Here are some examples:
 
-| Template | Input | Match? |
-|-|-|-|
-| `"*"` | `"simple-string-123"` | `true` |
-| `"projects/*"` | `"projects/p"` | `true` |
-| `"projects/*/locations"` | `"projects/p/locations"` | `true` |
-| `"projects/*/locations/*"` | `"projects/p/locations/l"` | `true` |
-| `"*"` | `""` (empty) | `false` |
-| `"*"` | `"string/with/slashes"` | `false` |
-| `"projects/*"` | `"projects/"` (empty) | `false` |
-| `"projects/*"` | `"projects/p/"` (extra slash) | `false` |
-| `"projects/*"` | `"projects/p/locations/l"` | `false` |
-| `"projects/*/locations"` | `"projects/p"` | `false` |
-| `"projects/*/locations"` | `"projects/p/locations/l"` | `false` |
+| Template                   | Input                         | Match?  |
+| -------------------------- | ----------------------------- | ------- |
+| `"*"`                      | `"simple-string-123"`         | `true`  |
+| `"projects/*"`             | `"projects/p"`                | `true`  |
+| `"projects/*/locations"`   | `"projects/p/locations"`      | `true`  |
+| `"projects/*/locations/*"` | `"projects/p/locations/l"`    | `true`  |
+| `"*"`                      | `""` (empty)                  | `false` |
+| `"*"`                      | `"string/with/slashes"`       | `false` |
+| `"projects/*"`             | `"projects/"` (empty)         | `false` |
+| `"projects/*"`             | `"projects/p/"` (extra slash) | `false` |
+| `"projects/*"`             | `"projects/p/locations/l"`    | `false` |
+| `"projects/*/locations"`   | `"projects/p"`                | `false` |
+| `"projects/*/locations"`   | `"projects/p/locations/l"`    | `false` |
 
 ### Double wildcard
 
@@ -86,16 +86,16 @@ contain any number of `/`'s. It can be thought of as the regex `.*`.
 
 Also, when a template ends in `/**`, that initial slash is optionally included.
 
-| Template | Input | Match? |
-|-|-|-|
-| `"**"` | `""` | `true` |
-| `"**"` | `"simple-string-123"` | `true` |
-| `"**"` | `"string/with/slashes"` | `true` |
-| `"projects/*/**"` | `"projects/p"` | `true` |
-| `"projects/*/**"` | `"projects/p/locations"` | `true` |
-| `"projects/*/**"` | `"projects/p/locations/l"` | `true` |
-| `"projects/*/**"` | `"locations/l"` | `false` |
-| `"projects/*/**"` | `"projects//locations/l"` | `false` |
+| Template          | Input                      | Match?  |
+| ----------------- | -------------------------- | ------- |
+| `"**"`            | `""`                       | `true`  |
+| `"**"`            | `"simple-string-123"`      | `true`  |
+| `"**"`            | `"string/with/slashes"`    | `true`  |
+| `"projects/*/**"` | `"projects/p"`             | `true`  |
+| `"projects/*/**"` | `"projects/p/locations"`   | `true`  |
+| `"projects/*/**"` | `"projects/p/locations/l"` | `true`  |
+| `"projects/*/**"` | `"locations/l"`            | `false` |
+| `"projects/*/**"` | `"projects//locations/l"`  | `false` |
 
 ## Inspecting the error
 
