@@ -312,7 +312,7 @@ impl Builder {
         self
     }
 
-    /// Sets the [scopes] for these credentials.
+    /// Overrides the [scopes] for this credentials.
     ///
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
     pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
@@ -355,7 +355,7 @@ impl Builder {
 ///
 /// This builder is designed for advanced use cases where the subject token is
 /// provided directly by the application through a custom implementation of the
-/// [`SubjectTokenProvider`] trait.
+/// [SubjectTokenProvider] trait.
 ///
 /// # Example
 ///
@@ -397,6 +397,7 @@ impl Builder {
 ///     .unwrap();
 /// # });
 /// ```
+/// [SubjectTokenProvider]: crate::credentials::subject_token::SubjectTokenProvider
 pub struct ProgrammaticBuilder {
     quota_project_id: Option<String>,
     subject_token_provider: Arc<dyn dynamic::SubjectTokenProvider>,
@@ -427,8 +428,8 @@ impl ProgrammaticBuilder {
         self
     }
 
-    /// Overrides the optional [scopes] for this credentials. If this method is not
-    /// called, a default scope will be used.
+    /// Sets the [scopes] for these credentials.
+    /// By default `https://www.googleapis.com/auth/cloud-platform` scope is used.
     ///
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
     pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
@@ -570,7 +571,7 @@ mod test {
             .build()
             .unwrap();
 
-        let fmt = format!("{:?}", creds);
+        let fmt = format!("{creds:?}");
         // Use the debug output to verify the right kind of credentials are created.
         print!("{:?}", creds);
         assert!(fmt.contains("ExternalAccountCredentials"));
@@ -662,16 +663,14 @@ mod test {
             .build()
             .unwrap();
 
-        let fmt = format!("{:?}", creds);
+        let fmt = format!("{creds:?}");
         assert!(
             fmt.contains("ExternalAccountCredentials"),
-            "Expected 'ExternalAccountCredentials', got: {}",
-            fmt
+            "Expected 'ExternalAccountCredentials', got: {fmt}"
         );
         assert!(
             fmt.contains("test-quota-project"),
-            "Expected 'test-quota-project', got: {}",
-            fmt
+            "Expected 'test-quota-project', got: {fmt}"
         );
     }
 
@@ -688,8 +687,7 @@ mod test {
         let error_string = result.unwrap_err().to_string();
         assert!(
             error_string.contains("`audience` must be initialized"),
-            "Expected error about missing 'audience', got: {}",
-            error_string
+            "Expected error about missing 'audience', got: {error_string}"
         );
     }
 }
