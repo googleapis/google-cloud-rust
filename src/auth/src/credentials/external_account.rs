@@ -19,10 +19,10 @@ use super::impersonated;
 use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
 use crate::build_errors::Error as BuilderError;
-use crate::constants::DEFAULT_SCOPE;
-use crate::errors::non_retryable;
+use crate::constants::{DEFAULT_SCOPE, STS_TOKEN_URL};
 use crate::credentials::external_account_sources::programmatic_sourced::ProgrammaticSourcedCredentials;
 use crate::credentials::subject_token::dynamic;
+use crate::errors::non_retryable;
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
@@ -36,12 +36,6 @@ use std::sync::Arc;
 use tokio::time::{Duration, Instant};
 
 const IAM_SCOPE: &str = "https://www.googleapis.com/auth/iam";
-
-#[async_trait::async_trait]
-pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
-    /// Generate subject token that will be used on STS exchange.
-    async fn subject_token(&self) -> Result<String>;
-}
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub(crate) struct CredentialSourceFormat {
@@ -508,7 +502,8 @@ impl ProgrammaticBuilder {
         self
     }
 
-    /// Sets the required token URL for the STS token exchange.
+    /// Sets the optional token URL for the STS token exchange. If not provided,
+    /// `https://sts.googleapis.com/v1/token` is used.
     pub fn with_token_url<S: Into<String>>(mut self, token_url: S) -> Self {
         self.config.token_url(token_url);
         self
@@ -531,11 +526,14 @@ impl ProgrammaticBuilder {
     /// # Errors
     ///
     /// Returns a [CredentialsError] if any of the required fields (such as
-    /// `audience`, `subject_token_type`, or `token_url`) have not been set.
+    /// `audience` or `subject_token_type`) have not been set.
     pub fn build(self) -> BuildResult<Credentials> {
         let mut config_builder = self.config;
         if config_builder.scopes.is_none() {
             config_builder.scopes(vec![DEFAULT_SCOPE.to_string()]);
+        }
+        if config_builder.token_url.is_none() {
+            config_builder.token_url(STS_TOKEN_URL.to_string());
         }
         let config = config_builder.build().map_err(BuilderError::parsing)?;
 
@@ -560,20 +558,20 @@ mod test {
     use crate::constants::{
         ACCESS_TOKEN_TYPE, DEFAULT_SCOPE, JWT_TOKEN_TYPE, TOKEN_EXCHANGE_GRANT_TYPE,
     };
+    use crate::credentials::subject_token::{
+        Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
+    };
+    use crate::errors::SubjectTokenProviderError;
     use httptest::{
         Expectation, Server,
         matchers::{all_of, contains, request, url_decoded},
         responders::{json_encoded, status_code},
     };
-    use crate::credentials::subject_token::{
-        Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
-    };
-    use crate::errors::SubjectTokenProviderError;
     use serde_json::*;
     use std::collections::HashMap;
-    use time::OffsetDateTime;
     use std::error::Error;
     use std::fmt;
+    use time::OffsetDateTime;
 
     #[derive(Debug)]
     struct TestProviderError;
@@ -945,7 +943,6 @@ mod test {
         let creds = ProgrammaticBuilder::new(provider)
             .with_audience("test-audience")
             .with_subject_token_type("test-token-type")
-            .with_token_url("http://test.com/token")
             .with_client_id("test-client-id")
             .with_client_secret("test-client-secret")
             .with_quota_project_id("test-quota-project")
