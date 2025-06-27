@@ -612,10 +612,8 @@ impl ReadObject {
         if !response.status().is_success() {
             return gaxi::http::to_http_error(response).await;
         }
-        let object = response_to_storage_object(&response);
         Ok(ReadObjectResponse {
             inner: response,
-            object: object,
             check_crc32c_enabled: checksum_check_enabled,
             crc32c: 0,
         })
@@ -705,25 +703,8 @@ impl ReadObject {
     }
 }
 
-fn response_to_storage_object(resp: &reqwest::Response) -> control::model::Object {
-    // TODO(#TODO): Use x-goog-generation, x-goog-metageneration, x-goog-stored-content-length and x-goog-stored-content-encoding.
-    let headers = resp.headers();
-    let object = control::model::Object::new();
-    let object = headers
-        .get("x-goog-generation")
-        .and_then(|h| h.to_str().ok())
-        .map(|s| s.parse::<i64>().ok())
-        .unwrap_or(None)
-        .iter()
-        .fold(object, |o, g| o.set_generation(*g));
-    let object = headers
-        .get("x-goog-generation")
-        .and_then(|h| h.to_str().ok())
-        .map(|s| s.parse::<i64>().ok())
-        .unwrap_or(None)
-        .iter()
-        .fold(object, |o, g| o.set_generation(*g));
-    let object = headers
+fn headers_to_crc32c(headers: &http::HeaderMap) -> Option<u32> {
+    headers
         .get("x-goog-hash")
         .and_then(|hash| hash.to_str().ok())
         .and_then(|hash| hash.split(",").find(|v| v.starts_with("crc32c")))
@@ -731,18 +712,13 @@ fn response_to_storage_object(resp: &reqwest::Response) -> control::model::Objec
             let hash = hash.trim_start_matches("crc32c=");
             v1::Crc32c::deserialize_as(serde_json::json!(hash)).ok()
         })
-        .iter()
-        .fold(object, |object, hash| {
-            object.set_checksums(control::model::ObjectChecksums::new().set_crc32c(*hash))
-        });
-    object
 }
 
 /// A response to a [Storage::read_object] request.
 #[derive(Debug)]
 pub struct ReadObjectResponse {
     inner: reqwest::Response,
-    object: control::model::Object,
+    // Fields for tracking the crc checksum checks.
     check_crc32c_enabled: bool,
     crc32c: u32,
 }
@@ -765,7 +741,7 @@ impl ReadObjectResponse {
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     pub async fn all_bytes(self) -> Result<bytes::Bytes> {
-        let response_crc32c: Option<u32> = self.response_crc32c();
+        let response_crc32c = headers_to_crc32c(self.inner.headers());
         let check_enabled = self.check_crc32c_enabled;
 
         let bytes = self.inner.bytes().await.map_err(Error::io)?;
@@ -804,19 +780,11 @@ impl ReadObjectResponse {
                 check_crc32c_match(
                     self.check_crc32c_enabled,
                     self.crc32c,
-                    self.response_crc32c(),
+                    headers_to_crc32c(self.inner.headers()),
                 )?;
                 Ok(None)
             }
         }
-    }
-
-    // Crc32c helper:
-    fn response_crc32c(&self) -> Option<u32> {
-        if let Some(checksums) = &self.object.checksums {
-            return checksums.crc32c;
-        }
-        None
     }
 }
 
