@@ -126,7 +126,7 @@ pub async fn impersonated() -> anyhow::Result<()> {
         .payload
         .expect("missing payload in impersonation-target-secret response")
         .data;
-    assert_eq!(secret, "Wingardium Leviosa");
+    assert_eq!(secret, "impersonated_secret_value");
 
     Ok(())
 }
