@@ -96,7 +96,7 @@ Cloud Shell.
 
 <!-- markdownlint-enable MD029 -->
 
-[authorize Cloud Shell]: https://cloud.google.com/shell/docs/auth
+[authorize cloud shell]: https://cloud.google.com/shell/docs/auth
 [cloud shell]: https://cloud.google.com/shell
 [create a secret]: https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets
 [google-cloud-gax]: https://crates.io/crates/google-cloud-gax
