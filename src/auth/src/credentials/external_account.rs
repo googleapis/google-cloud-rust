@@ -30,10 +30,27 @@ use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
 
-#[async_trait::async_trait]
-pub(crate) trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
-    /// Generate subject token that will be used on STS exchange.
-    async fn subject_token(&self) -> Result<String>;
+pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
+    fn subject_token(&self) -> impl Future<Output = Result<String>> + Send;
+}
+
+pub(crate) mod dynamic {
+    use super::Result;
+    #[async_trait::async_trait]
+    pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
+        /// Generate subject token that will be used on STS exchange.
+        async fn subject_token(&self) -> Result<String>;
+    }
+
+    #[async_trait::async_trait]
+    impl<T> SubjectTokenProvider for T
+    where
+        T: super::SubjectTokenProvider,
+    {
+        async fn subject_token(&self) -> Result<String> {
+            T::subject_token(self).await
+        }
+    }
 }
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
@@ -63,6 +80,7 @@ enum CredentialSourceFile {
     },
     File {},
     Aws {},
+    Programmatic {},
 }
 
 /// A representation of a [external account config file].
@@ -111,6 +129,7 @@ impl From<CredentialSourceFile> for CredentialSource {
             CredentialSourceFile::Executable { executable } => {
                 Self::Executable(ExecutableSourcedCredentials::new(executable))
             }
+            CredentialSourceFile::Programmatic {} => Self::Programmatic {},
             CredentialSourceFile::File { .. } => {
                 unimplemented!("file sourced credential not supported yet")
             }
@@ -139,6 +158,7 @@ enum CredentialSource {
     Executable(ExecutableSourcedCredentials),
     File {},
     Aws {},
+    Programmatic {},
 }
 
 impl ExternalAccountConfig {
@@ -150,6 +170,11 @@ impl ExternalAccountConfig {
             }
             CredentialSource::Executable(source) => {
                 Self::make_credentials_from_source(source, config, quota_project_id)
+            }
+            CredentialSource::Programmatic {} => {
+                panic!(
+                    "programmatic sourced credential should set a subject token provider implementation via external_account::Builder::with_subject_token_provider method"
+                )
             }
             CredentialSource::File { .. } => {
                 unimplemented!("file sourced credential not supported yet")
@@ -166,7 +191,7 @@ impl ExternalAccountConfig {
         quota_project_id: Option<String>,
     ) -> Credentials
     where
-        T: SubjectTokenProvider + 'static,
+        T: dynamic::SubjectTokenProvider + 'static,
     {
         let token_provider = ExternalAccountTokenProvider {
             subject_token_provider,
@@ -185,7 +210,7 @@ impl ExternalAccountConfig {
 #[derive(Debug)]
 struct ExternalAccountTokenProvider<T>
 where
-    T: SubjectTokenProvider,
+    T: dynamic::SubjectTokenProvider,
 {
     subject_token_provider: T,
     config: ExternalAccountConfig,
@@ -194,7 +219,7 @@ where
 #[async_trait::async_trait]
 impl<T> TokenProvider for ExternalAccountTokenProvider<T>
 where
-    T: SubjectTokenProvider,
+    T: dynamic::SubjectTokenProvider,
 {
     async fn token(&self) -> Result<Token> {
         let subject_token = self.subject_token_provider.subject_token().await?;
@@ -338,6 +363,133 @@ impl Builder {
     pub fn build(self) -> BuildResult<Credentials> {
         let mut file: ExternalAccountFile =
             serde_json::from_value(self.external_account_config).map_err(BuilderError::parsing)?;
+
+        if let Some(scopes) = self.scopes {
+            file.scopes = Some(scopes);
+        }
+
+        let config: ExternalAccountConfig = file.into();
+
+        Ok(config.make_credentials(self.quota_project_id))
+    }
+}
+
+/// A builder for external account [Credentials] that uses a user provided subject
+/// token provider.
+///
+/// This builder is designed for advanced use cases where the subject token is
+/// provided directly by the application through a custom implementation of the
+/// [`SubjectTokenProvider`] trait.
+///
+/// # Example
+///
+/// ```
+/// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+/// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+/// # use google_cloud_auth::errors::SubjectTokenProviderError;
+/// # use std::error::Error;
+/// # use std::fmt;
+/// # #[derive(Debug)]
+/// # struct MyTokenProvider;
+/// # #[derive(Debug)]
+/// # struct MyProviderError;
+/// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
+/// # impl Error for MyProviderError {}
+/// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+/// # impl SubjectTokenProvider for MyTokenProvider {
+/// #     type Error = MyProviderError;
+/// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
+/// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
+/// #     }
+/// # }
+/// # tokio_test::block_on(async {
+/// let config = serde_json::json!({
+///     "type": "external_account",
+///     "audience": "//iam.googleapis.com/projects/123/locations/global/workloadIdentityPools/my-pool/providers/my-provider",
+///     "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
+///     "token_url": "https://sts.googleapis.com/v1beta/token"
+/// });
+///
+/// let provider = MyTokenProvider;
+///
+/// let credentials = ProgrammaticBuilder::new_with_external_account_config(provider, config)
+///     .with_quota_project_id("my-quota-project")
+///     .build()
+///     .unwrap();
+/// # });
+/// ```
+pub struct ProgrammaticBuilder
+{
+    quota_project_id: Option<String>,
+    scopes: Option<Vec<String>>,
+    subject_token_provider: Box<dyn dynamic::SubjectTokenProvider>,
+}
+
+impl ProgrammaticBuilder
+{
+    /// Creates a new builder with a custom [`SubjectTokenProvider`] and [external_account_credentials] JSON value.
+    ///
+    /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
+    pub fn new(
+        subject_token_provider: Box<dyn dynamic::SubjectTokenProvider>,
+    ) -> Self {
+        Self {
+            subject_token_provider,
+            quota_project_id: None,
+            scopes: None,
+        }
+    }
+
+    /// Sets the [quota project] for this credentials.
+    ///
+    /// In some services, you can use a service account in
+    /// one project for authentication and authorization, and charge
+    /// the usage to a different project. This requires that the
+    /// service account has `serviceusage.services.use` permissions on the quota project.
+    ///
+    /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
+    pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
+        self.quota_project_id = Some(quota_project_id.into());
+        self
+    }
+
+    /// Overrides the [scopes] for this credentials.
+    ///
+    /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
+    pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
+    where
+        I: IntoIterator<Item = S>,
+        S: Into<String>,
+    {
+        self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
+        self
+    }
+
+    /// Returns a [Credentials] instance with the configured settings.
+    ///
+    /// # Errors
+    ///
+    /// Returns a [CredentialsError] if the provided `external_account_config`
+    /// cannot be successfully deserialized into the expected format for an external
+    /// account configuration. This typically happens if the JSON value is malformed
+    /// or missing required fields. For more information on the expected format,
+    /// consult the relevant section in the [external_account_credentials] guide.
+    ///
+    /// Since a subject token provider is supplied programmatically, the
+    /// `credential_source` field is not required in the JSON configuration.
+    ///
+    /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
+    pub fn build(self) -> BuildResult<Credentials> {
+        let mut file =  ExternalAccountFile {
+            audience: "".to_string(),
+            subject_token_type: "".to_string(),
+            token_url: "".to_string(),
+            credential_source: CredentialSourceFile::Programmatic {},
+            scopes: None,
+            client_id: None,
+            client_secret: None,
+        };
+            // serde_json::from_value(self.external_account_config).map_err(BuilderError::parsing)?;
 
         if let Some(scopes) = self.scopes {
             file.scopes = Some(scopes);
