@@ -1319,7 +1319,7 @@ mod test {
             .build()?;
 
         // The quota project should be set on the final credentials object.
-        let fmt = format!("{:?}", creds);
+        let fmt = format!("{creds:?}");
         assert!(fmt.contains("impersonated-quota-project"));
 
         // Fetching the token will trigger the mock server expectations.

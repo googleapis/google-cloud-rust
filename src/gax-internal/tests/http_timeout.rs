@@ -127,9 +127,8 @@ mod test {
                 r = &mut response => {
                     assert!(
                         r.is_err(),
-                        "expected an error when timeout={}, got={:?}",
-                        timeout.as_millis(),
-                        r
+                        "expected an error when timeout={}, got={r:?}",
+                        timeout.as_millis()
                     );
                     let err = r.unwrap_err();
                     assert!(err.is_timeout(), "{err:?}");
@@ -206,8 +205,7 @@ mod test {
                 r = &mut response => {
                     assert!(
                         r.is_err(),
-                        "expected a timeout error, got={:?}",
-                        r
+                        "expected a timeout error, got={r:?}",
                     );
                     let err = r.unwrap_err();
                     assert!(err.is_timeout(), "{err:?}");

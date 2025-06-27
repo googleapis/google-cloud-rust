@@ -697,7 +697,7 @@ mod test {
         // Wait for the N token requests to complete, verifying the returned error.
         for task in tasks {
             let actual = task.await?;
-            assert!(actual.is_err(), "{:?}", actual);
+            assert!(actual.is_err(), "{actual:?}");
             let e = format!("{}", actual.unwrap_err());
             assert!(e.contains("epic fail"), "{e}");
         }
@@ -720,7 +720,7 @@ mod test {
         }));
 
         let cache = TokenCache::new(mock_provider);
-        let debug_output = format!("{:?}", cache);
+        let debug_output = format!("{cache:?}");
 
         assert!(debug_output.contains("TokenCache"));
         assert!(debug_output.contains("rx_token"));

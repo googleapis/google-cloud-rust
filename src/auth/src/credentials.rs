@@ -909,12 +909,11 @@ mod test {
             .with_quota_project_id("test-quota-project")
             .build()
             .unwrap();
-        let fmt = format!("{:?}", mds);
+        let fmt = format!("{mds:?}");
         assert!(fmt.contains("MDSCredentials"));
         assert!(
             fmt.contains("env-quota-project"),
-            "Expected 'env-quota-project', got: {}",
-            fmt
+            "Expected 'env-quota-project', got: {fmt}"
         );
     }
 
@@ -930,11 +929,10 @@ mod test {
             .with_quota_project_id("test-quota-project")
             .build()
             .unwrap();
-        let fmt = format!("{:?}", creds);
+        let fmt = format!("{creds:?}");
         assert!(
             fmt.contains("test-quota-project"),
-            "Expected 'test-quota-project', got: {}",
-            fmt
+            "Expected 'test-quota-project', got: {fmt}"
         );
     }
 
@@ -968,7 +966,7 @@ mod test {
         assert_eq!(parts.len(), 3);
         let claims = b64_decode_to_json(parts.get(1).unwrap().to_string());
 
-        let fmt = format!("{:?}", sac);
+        let fmt = format!("{sac:?}");
         assert!(fmt.contains("ServiceAccountCredentials"));
         assert!(fmt.contains("test-quota-project"));
         assert_eq!(claims["scope"], scopes.join(" "));
