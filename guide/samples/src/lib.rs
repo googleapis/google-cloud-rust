@@ -17,6 +17,7 @@
 
 pub type Result<T> = std::result::Result<T, Box<dyn std::error::Error>>;
 
+pub mod binding_errors;
 pub mod error_handling;
 pub mod examine_error_details;
 pub mod gemini;

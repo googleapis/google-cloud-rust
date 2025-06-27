@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-//! Examples showing itearting Google API List methods with paginator.
+//! Examples showing iterating Google API List methods with paginator.
 
 use google_cloud_gax as gax;
 
