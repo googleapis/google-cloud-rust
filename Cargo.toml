@@ -118,6 +118,7 @@ members = [
   "src/generated/cloud/datastream/v1",
   "src/generated/cloud/deploy/v1",
   "src/generated/cloud/developerconnect/v1",
+  "src/generated/cloud/devicestreaming/v1",
   "src/generated/cloud/dialogflow/cx/v3",
   "src/generated/cloud/dialogflow/v2",
   "src/generated/cloud/discoveryengine/v1",

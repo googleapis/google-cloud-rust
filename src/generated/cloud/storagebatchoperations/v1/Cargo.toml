@@ -25,7 +25,6 @@ repository.workspace   = true
 keywords.workspace     = true
 categories.workspace   = true
 rust-version.workspace = true
-publish                = false
 
 [dependencies]
 async-trait.workspace = true

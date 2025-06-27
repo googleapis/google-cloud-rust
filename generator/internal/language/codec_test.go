@@ -77,7 +77,7 @@ func TestPathParams(t *testing.T) {
 	less := func(a, b *api.Field) bool { return a.Name < b.Name }
 
 	got := PathParams(sample.MethodCreate(), test.State)
-	want := sample.CreateRequest().Fields
+	want := []*api.Field{sample.CreateRequest().Fields[0]}
 	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
 	}

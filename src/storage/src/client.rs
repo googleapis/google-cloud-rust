@@ -18,9 +18,7 @@ use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 pub use control::model::Object;
-use control::model::compose_object_request;
 use http::Extensions;
-use http::request;
 use serde_with::DeserializeAs;
 use sha2::{Digest, Sha256};
 
@@ -156,6 +154,8 @@ impl Storage {
     /// let contents = client
     ///     .read_object("projects/_/buckets/my-bucket", "my-object")
     ///     .send()
+    ///     .await?
+    ///     .all_bytes()
     ///     .await?;
     /// println!("object contents={contents:?}");
     /// # Ok::<(), anyhow::Error>(()) });
@@ -402,7 +402,7 @@ impl InsertObject {
 /// #   .with_endpoint("https://storage.googleapis.com")
 /// #    .build().await?;
 /// let builder: ReadObject = client.read_object("projects/_/buckets/my-bucket", "my-object");
-/// let contents = builder.send().await?;
+/// let contents = builder.send().await?.all_bytes().await?;
 /// println!("object contents={contents:?}");
 /// # Ok::<(), anyhow::Error>(()) });
 /// ```
@@ -601,7 +601,7 @@ impl ReadObject {
     }
 
     /// Sends the request.
-    pub async fn send(self) -> crate::Result<bytes::Bytes> {
+    pub async fn send(self) -> Result<ReadObjectResponse> {
         let checksum_check_enabled = self.request.read_offset == 0 && self.request.read_limit == 0;
 
         let builder = self.http_request_builder().await?;
@@ -613,17 +613,12 @@ impl ReadObject {
             return gaxi::http::to_http_error(response).await;
         }
         let object = response_to_storage_object(&response);
-        let response = response.bytes().await.map_err(Error::io)?;
-        if checksum_check_enabled {
-            if let Some(computed_hash) = object.checksums {
-                if let Some(computed_hash) = computed_hash.crc32c {
-                    if computed_hash != crc32c::crc32c(&response) {
-                        return Err(Error::deser("crc32c does not match"));
-                    }
-                }
-            }
-        }
-        Ok(response)
+        Ok(ReadObjectResponse {
+            inner: response,
+            object: object,
+            check_crc32c_enabled: checksum_check_enabled,
+            crc32c: 0,
+        })
     }
 
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
@@ -743,7 +738,114 @@ fn response_to_storage_object(resp: &reqwest::Response) -> control::model::Objec
     object
 }
 
-/// Represents an error that can occur with invalid range is specified.
+/// A response to a [Storage::read_object] request.
+#[derive(Debug)]
+pub struct ReadObjectResponse {
+    inner: reqwest::Response,
+    object: control::model::Object,
+    check_crc32c_enabled: bool,
+    crc32c: u32,
+}
+
+impl ReadObjectResponse {
+    // Get the full object as bytes.
+    //
+    /// # Example
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let contents = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send()
+    ///     .await?
+    ///     .all_bytes()
+    ///     .await?;
+    /// println!("object contents={contents:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub async fn all_bytes(self) -> Result<bytes::Bytes> {
+        let response_crc32c: Option<u32> = self.response_crc32c();
+        let check_enabled = self.check_crc32c_enabled;
+
+        let bytes = self.inner.bytes().await.map_err(Error::io)?;
+        let crc32c = crc32c::crc32c(&bytes);
+        check_crc32c_match(check_enabled, crc32c, response_crc32c)?;
+        Ok(bytes)
+    }
+
+    /// Stream the next bytes of the object.
+    ///
+    /// When the response has been exhausted, this will return None.
+    ///
+    /// # Example
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let mut resp = client
+    ///     .read_object("projects/_/buckets/my-bucket", "my-object")
+    ///     .send()
+    ///     .await?;
+    ///
+    /// while let Some(next) = resp.next().await? {
+    ///     println!("next={next:?}");
+    /// }
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub async fn next(&mut self) -> Result<Option<bytes::Bytes>> {
+        let chunk = self.inner.chunk().await.map_err(Error::io)?;
+        match chunk {
+            Some(chunk) => {
+                self.crc32c = crc32c::crc32c_append(self.crc32c, &chunk);
+                Ok(Some(chunk))
+            }
+            None => {
+                check_crc32c_match(
+                    self.check_crc32c_enabled,
+                    self.crc32c,
+                    self.response_crc32c(),
+                )?;
+                Ok(None)
+            }
+        }
+    }
+
+    // Crc32c helper:
+    fn response_crc32c(&self) -> Option<u32> {
+        if let Some(checksums) = &self.object.checksums {
+            return checksums.crc32c;
+        }
+        None
+    }
+}
+
+/// Represents
+#[derive(thiserror::Error, Debug)]
+#[non_exhaustive]
+enum ReadError {
+    /// The calculated crc32c did not match server provided crc32c.
+    #[error("bad CRC on read: got {got}, want {want}")]
+    BadCrc { got: u32, want: u32 },
+}
+
+fn check_crc32c_match(check_enabled: bool, crc32c: u32, response: Option<u32>) -> Result<()> {
+    if !check_enabled {
+        return Ok(());
+    }
+    if let Some(response) = response {
+        if crc32c != response {
+            return Err(ReadError::BadCrc {
+                got: crc32c,
+                want: response,
+            })
+            .map_err(Error::deser);
+        }
+    }
+    Ok(())
+}
+
+/// Represents an error that can occur when invalid range is specified.
 #[derive(thiserror::Error, Debug, PartialEq)]
 #[non_exhaustive]
 enum RangeError {

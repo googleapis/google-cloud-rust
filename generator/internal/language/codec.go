@@ -16,7 +16,6 @@ package language
 
 import (
 	"log/slog"
-	"strings"
 
 	"github.com/googleapis/google-cloud-rust/generator/internal/api"
 )
@@ -43,10 +42,10 @@ func PathParams(m *api.Method, state *api.APIState) []*api.Field {
 		return nil
 	}
 	pathNames := []string{}
-	for _, arg := range m.PathInfo.Bindings[0].LegacyPathTemplate {
-		if arg.FieldPath != nil {
-			components := strings.Split(*arg.FieldPath, ".")
-			pathNames = append(pathNames, components[0])
+	t := m.PathInfo.Bindings[0].PathTemplate
+	for _, s := range t.Segments {
+		if s.Variable != nil {
+			pathNames = append(pathNames, s.Variable.FieldPath[0])
 		}
 	}
 

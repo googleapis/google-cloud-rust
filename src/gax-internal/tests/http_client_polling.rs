@@ -28,8 +28,8 @@ mod test {
             _loop_start: std::time::Instant,
             _attempt_count: u32,
             error: gax::error::Error,
-        ) -> gax::loop_state::LoopState {
-            gax::loop_state::LoopState::Continue(error)
+        ) -> gax::retry_result::RetryResult {
+            gax::retry_result::RetryResult::Continue(error)
         }
     }
 

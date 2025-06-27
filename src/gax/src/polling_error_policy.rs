@@ -43,7 +43,7 @@
 //! [RequestOptionsBuilder::with_polling_error_policy]: crate::options::RequestOptionsBuilder::with_polling_error_policy
 
 use crate::error::Error;
-use crate::loop_state::LoopState;
+use crate::retry_result::RetryResult;
 use std::sync::Arc;
 
 /// Determines how errors are handled in the polling loop.
@@ -65,7 +65,7 @@ pub trait PollingErrorPolicy: Send + Sync + std::fmt::Debug {
         loop_start: std::time::Instant,
         attempt_count: u32,
         error: Error,
-    ) -> LoopState;
+    ) -> RetryResult;
 
     /// Called when the LRO is successfully polled, but the LRO is still in
     /// progress.
@@ -75,8 +75,8 @@ pub trait PollingErrorPolicy: Send + Sync + std::fmt::Debug {
         _loop_start: std::time::Instant,
         _attempt_count: u32,
         _operation_name: &str,
-    ) -> Option<Error> {
-        None
+    ) -> Result<(), Error> {
+        Ok(())
     }
 }
 
@@ -107,8 +107,8 @@ pub trait PollingErrorPolicyExt: PollingErrorPolicy + Sized {
     /// While the time spent in the polling loop (including time in backoff) is
     /// less than the prescribed duration the `on_error()` method returns the
     /// results of the inner policy. After that time it returns
-    /// [Exhausted][LoopState::Exhausted] if the inner policy returns
-    /// [Continue][LoopState::Continue].
+    /// [Exhausted][RetryResult::Exhausted] if the inner policy returns
+    /// [Continue][RetryResult::Continue].
     ///
     /// # Example
     /// ```
@@ -135,8 +135,8 @@ pub trait PollingErrorPolicyExt: PollingErrorPolicy + Sized {
     ///
     /// The policy passes through the results from the inner policy as long as
     /// `attempt_count < maximum_attempts`. Once the maximum number of attempts
-    /// is reached, the policy returns [Exhausted][LoopState::Exhausted] if the
-    /// inner policy returns [Continue][LoopState::Continue], and passes the
+    /// is reached, the policy returns [Exhausted][RetryResult::Exhausted] if the
+    /// inner policy returns [Continue][RetryResult::Continue], and passes the
     /// inner policy result otherwise.
     ///
     /// # Example
@@ -191,26 +191,26 @@ impl PollingErrorPolicy for Aip194Strict {
         _loop_start: std::time::Instant,
         _attempt_count: u32,
         error: Error,
-    ) -> LoopState {
+    ) -> RetryResult {
         if error.is_transient_and_before_rpc() {
-            return LoopState::Continue(error);
+            return RetryResult::Continue(error);
         }
         if error.is_io() {
-            return LoopState::Continue(error);
+            return RetryResult::Continue(error);
         }
         if let Some(status) = error.status() {
             return if status.code == crate::error::rpc::Code::Unavailable {
-                LoopState::Continue(error)
+                RetryResult::Continue(error)
             } else {
-                LoopState::Permanent(error)
+                RetryResult::Permanent(error)
             };
         }
 
         match error.http_status_code() {
             Some(code) if code == http::StatusCode::SERVICE_UNAVAILABLE.as_u16() => {
-                LoopState::Continue(error)
+                RetryResult::Continue(error)
             }
-            _ => LoopState::Permanent(error),
+            _ => RetryResult::Permanent(error),
         }
     }
 }
@@ -244,8 +244,8 @@ impl PollingErrorPolicy for AlwaysContinue {
         _loop_start: std::time::Instant,
         _attempt_count: u32,
         error: Error,
-    ) -> LoopState {
-        LoopState::Continue(error)
+    ) -> RetryResult {
+        RetryResult::Continue(error)
     }
 }
 
@@ -255,8 +255,8 @@ impl PollingErrorPolicy for AlwaysContinue {
 /// loops. While the time spent in the polling loop (including time in backoff)
 /// is less than the prescribed duration the `on_error()` method returns the
 /// results of the inner policy. After that time it returns
-/// [Exhausted][LoopState::Exhausted] if the inner policy returns
-/// [Continue][LoopState::Continue].
+/// [Exhausted][RetryResult::Exhausted] if the inner policy returns
+/// [Continue][RetryResult::Continue].
 ///
 /// The `remaining_time()` function returns the remaining time. This is always
 /// [Duration::ZERO][std::time::Duration::ZERO] once or after the policy's
@@ -321,12 +321,16 @@ where
         }
     }
 
-    fn in_progress_impl(&self, start: std::time::Instant, operation_name: &str) -> Option<Error> {
+    fn in_progress_impl(
+        &self,
+        start: std::time::Instant,
+        operation_name: &str,
+    ) -> Result<(), Error> {
         let now = std::time::Instant::now();
         if now < start + self.maximum_duration {
-            return None;
+            return Ok(());
         }
-        Some(Error::exhausted(Exhausted::new(
+        Err(Error::exhausted(Exhausted::new(
             operation_name,
             "elapsed time",
             format!("{:?}", now.checked_duration_since(start).unwrap()),
@@ -339,15 +343,15 @@ impl<P> PollingErrorPolicy for LimitedElapsedTime<P>
 where
     P: PollingErrorPolicy + 'static,
 {
-    fn on_error(&self, start: std::time::Instant, count: u32, error: Error) -> LoopState {
+    fn on_error(&self, start: std::time::Instant, count: u32, error: Error) -> RetryResult {
         match self.inner.on_error(start, count, error) {
-            LoopState::Permanent(e) => LoopState::Permanent(e),
-            LoopState::Exhausted(e) => LoopState::Exhausted(e),
-            LoopState::Continue(e) => {
+            RetryResult::Permanent(e) => RetryResult::Permanent(e),
+            RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
+            RetryResult::Continue(e) => {
                 if std::time::Instant::now() >= start + self.maximum_duration {
-                    LoopState::Exhausted(e)
+                    RetryResult::Exhausted(e)
                 } else {
-                    LoopState::Continue(e)
+                    RetryResult::Continue(e)
                 }
             }
         }
@@ -358,10 +362,10 @@ where
         start: std::time::Instant,
         count: u32,
         operation_name: &str,
-    ) -> Option<Error> {
+    ) -> Result<(), Error> {
         self.inner
             .on_in_progress(start, count, operation_name)
-            .or_else(|| self.in_progress_impl(start, operation_name))
+            .and_then(|_| self.in_progress_impl(start, operation_name))
     }
 }
 
@@ -373,8 +377,8 @@ where
 ///
 /// The policy passes through the results from the inner policy as long as
 /// `attempt_count < maximum_attempts`. However, once the maximum number of
-/// attempts is reached, the policy replaces any [Continue][LoopState::Continue]
-/// result with [Exhausted][LoopState::Exhausted].
+/// attempts is reached, the policy replaces any [Continue][RetryResult::Continue]
+/// result with [Exhausted][RetryResult::Exhausted].
 ///
 /// # Parameters
 /// * `P` - the inner polling policy.
@@ -435,11 +439,11 @@ where
         }
     }
 
-    fn in_progress_impl(&self, count: u32, operation_name: &str) -> Option<Error> {
+    fn in_progress_impl(&self, count: u32, operation_name: &str) -> Result<(), Error> {
         if count < self.maximum_attempts {
-            return None;
+            return Ok(());
         }
-        Some(Error::exhausted(Exhausted::new(
+        Err(Error::exhausted(Exhausted::new(
             operation_name,
             "attempt count",
             count.to_string(),
@@ -452,15 +456,15 @@ impl<P> PollingErrorPolicy for LimitedAttemptCount<P>
 where
     P: PollingErrorPolicy,
 {
-    fn on_error(&self, start: std::time::Instant, count: u32, error: Error) -> LoopState {
+    fn on_error(&self, start: std::time::Instant, count: u32, error: Error) -> RetryResult {
         match self.inner.on_error(start, count, error) {
-            LoopState::Permanent(e) => LoopState::Permanent(e),
-            LoopState::Exhausted(e) => LoopState::Exhausted(e),
-            LoopState::Continue(e) => {
+            RetryResult::Permanent(e) => RetryResult::Permanent(e),
+            RetryResult::Exhausted(e) => RetryResult::Exhausted(e),
+            RetryResult::Continue(e) => {
                 if count >= self.maximum_attempts {
-                    LoopState::Exhausted(e)
+                    RetryResult::Exhausted(e)
                 } else {
-                    LoopState::Continue(e)
+                    RetryResult::Continue(e)
                 }
             }
         }
@@ -471,10 +475,10 @@ where
         start: std::time::Instant,
         count: u32,
         operation_name: &str,
-    ) -> Option<Error> {
+    ) -> Result<(), Error> {
         self.inner
             .on_in_progress(start, count, operation_name)
-            .or_else(|| self.in_progress_impl(count, operation_name))
+            .and_then(|_| self.in_progress_impl(count, operation_name))
     }
 }
 
@@ -527,8 +531,8 @@ mod tests {
         #[derive(Debug)]
         Policy {}
         impl PollingErrorPolicy for Policy {
-            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> LoopState;
-            fn on_in_progress(&self, loop_start: std::time::Instant, attempt_count: u32, operation_name: &str) -> Option<Error>;
+            fn on_error(&self, loop_start: std::time::Instant, attempt_count: u32, error: Error) -> RetryResult;
+            fn on_in_progress(&self, loop_start: std::time::Instant, attempt_count: u32, operation_name: &str) -> Result<(), Error>;
         }
     }
 
@@ -547,7 +551,7 @@ mod tests {
         let p = Aip194Strict;
 
         let now = std::time::Instant::now();
-        assert!(p.on_in_progress(now, 0, "unused").is_none());
+        assert!(p.on_in_progress(now, 0, "unused").is_ok());
         assert!(p.on_error(now, 0, unavailable()).is_continue());
         assert!(p.on_error(now, 0, permission_denied()).is_permanent());
         assert!(p.on_error(now, 0, http_unavailable()).is_continue());
@@ -578,7 +582,7 @@ mod tests {
         let p = AlwaysContinue;
 
         let now = std::time::Instant::now();
-        assert!(p.on_in_progress(now, 0, "unused").is_none());
+        assert!(p.on_in_progress(now, 0, "unused").is_ok());
         assert!(p.on_error(now, 0, http_unavailable()).is_continue());
         assert!(p.on_error(now, 0, unavailable()).is_continue());
     }
@@ -687,15 +691,15 @@ mod tests {
     #[test]
     fn test_limited_elapsed_time_in_progress() {
         let policy = LimitedElapsedTime::new(Duration::from_secs(20));
-        let err = policy.on_in_progress(Instant::now() - Duration::from_secs(10), 1, "unused");
-        assert!(err.is_none(), "{err:?}");
+        let result = policy.on_in_progress(Instant::now() - Duration::from_secs(10), 1, "unused");
+        assert!(result.is_ok(), "{result:?}");
         let err = policy
             .on_in_progress(
                 Instant::now() - Duration::from_secs(30),
                 1,
                 "test-operation-name",
             )
-            .unwrap();
+            .unwrap_err();
         let exhausted = err.source().and_then(|e| e.downcast_ref::<Exhausted>());
         assert!(exhausted.is_some());
     }
@@ -705,7 +709,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, e| LoopState::Continue(e));
+            .returning(|_, _, e| RetryResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
@@ -718,13 +722,13 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_in_progress()
             .times(3)
-            .returning(|_, _, _| None);
+            .returning(|_, _, _| Ok(()));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-        assert!(policy.on_in_progress(now, 1, "test-op-name").is_none());
-        assert!(policy.on_in_progress(now, 2, "test-op-name").is_none());
-        assert!(policy.on_in_progress(now, 3, "test-op-name").is_none());
+        assert!(policy.on_in_progress(now, 1, "test-op-name").is_ok());
+        assert!(policy.on_in_progress(now, 2, "test-op-name").is_ok());
+        assert!(policy.on_in_progress(now, 3, "test-op-name").is_ok());
     }
 
     #[test]
@@ -732,11 +736,11 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_in_progress()
             .times(1)
-            .returning(|_, _, _| Some(transient_error()));
+            .returning(|_, _, _| Err(transient_error()));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
-        assert!(policy.on_in_progress(now, 1, "test-op-name").is_some());
+        assert!(policy.on_in_progress(now, 1, "test-op-name").is_err());
     }
 
     #[test]
@@ -744,7 +748,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, e| LoopState::Continue(e));
+            .returning(|_, _, e| RetryResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
@@ -760,7 +764,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, e| LoopState::Permanent(e));
+            .returning(|_, _, e| RetryResult::Permanent(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
@@ -777,7 +781,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, e| LoopState::Exhausted(e));
+            .returning(|_, _, e| RetryResult::Exhausted(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedElapsedTime::custom(mock, Duration::from_secs(60));
@@ -809,11 +813,11 @@ mod tests {
     #[test]
     fn test_limited_attempt_count_in_progress() {
         let policy = LimitedAttemptCount::new(20);
-        let err = policy.on_in_progress(Instant::now(), 10, "unused");
-        assert!(err.is_none(), "{err:?}");
+        let result = policy.on_in_progress(Instant::now(), 10, "unused");
+        assert!(result.is_ok(), "{result:?}");
         let err = policy
             .on_in_progress(Instant::now(), 30, "test-operation-name")
-            .unwrap();
+            .unwrap_err();
         let exhausted = err.source().and_then(|e| e.downcast_ref::<Exhausted>());
         assert!(exhausted.is_some());
     }
@@ -823,7 +827,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(1..)
-            .returning(|_, _, e| LoopState::Continue(e));
+            .returning(|_, _, e| RetryResult::Continue(e));
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 3);
@@ -837,13 +841,13 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_in_progress()
             .times(3)
-            .returning(|_, _, _| None);
+            .returning(|_, _, _| Ok(()));
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 5);
-        assert!(policy.on_in_progress(now, 1, "test-op-name").is_none());
-        assert!(policy.on_in_progress(now, 2, "test-op-name").is_none());
-        assert!(policy.on_in_progress(now, 3, "test-op-name").is_none());
+        assert!(policy.on_in_progress(now, 1, "test-op-name").is_ok());
+        assert!(policy.on_in_progress(now, 2, "test-op-name").is_ok());
+        assert!(policy.on_in_progress(now, 3, "test-op-name").is_ok());
     }
 
     #[test]
@@ -851,11 +855,11 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_in_progress()
             .times(1)
-            .returning(|_, _, _| Some(unavailable()));
+            .returning(|_, _, _| Err(unavailable()));
 
         let now = std::time::Instant::now();
         let policy = LimitedAttemptCount::custom(mock, 5);
-        assert!(policy.on_in_progress(now, 1, "test-op-name").is_some());
+        assert!(policy.on_in_progress(now, 1, "test-op-name").is_err());
     }
 
     #[test]
@@ -863,7 +867,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, e| LoopState::Permanent(e));
+            .returning(|_, _, e| RetryResult::Permanent(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
         let now = std::time::Instant::now();
         let rf = policy.on_error(now, 1, Error::ser("err"));
@@ -878,7 +882,7 @@ mod tests {
         let mut mock = MockPolicy::new();
         mock.expect_on_error()
             .times(2)
-            .returning(|_, _, e| LoopState::Exhausted(e));
+            .returning(|_, _, e| RetryResult::Exhausted(e));
         let policy = LimitedAttemptCount::custom(mock, 2);
         let now = std::time::Instant::now();
 

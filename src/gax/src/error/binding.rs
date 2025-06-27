@@ -25,7 +25,7 @@
 ///
 /// [aip-127]: https://google.aip.dev/127
 /// [uri]: https://clouddocs.f5.com/api/irules/HTTP__uri.html
-#[derive(thiserror::Error, Debug)]
+#[derive(thiserror::Error, Debug, PartialEq)]
 pub struct BindingError {
     /// A list of all the paths considered, and why exactly the binding failed
     /// for each
@@ -38,7 +38,7 @@ pub struct BindingError {
 /// it is set to an invalid format.
 ///
 /// [uri]: https://clouddocs.f5.com/api/irules/HTTP__uri.html
-#[derive(Debug, Default)]
+#[derive(Debug, Default, PartialEq)]
 pub struct PathMismatch {
     /// All missing or misformatted fields needed to bind to this path
     pub subs: Vec<SubstitutionMismatch>,
@@ -47,7 +47,7 @@ pub struct PathMismatch {
 /// Ways substituting a variable from a request into a [URI] can fail.
 ///
 /// [uri]: https://clouddocs.f5.com/api/irules/HTTP__uri.html
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub enum SubstitutionFail {
     /// A required field was not set
     Unset,
@@ -65,7 +65,7 @@ pub enum SubstitutionFail {
 /// A failure to substitute a variable from a request into a [URI].
 ///
 /// [uri]: https://clouddocs.f5.com/api/irules/HTTP__uri.html
-#[derive(Debug)]
+#[derive(Debug, PartialEq)]
 pub struct SubstitutionMismatch {
     /// The name of the field that was not substituted.
     ///

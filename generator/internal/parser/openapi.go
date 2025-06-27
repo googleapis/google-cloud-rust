@@ -216,9 +216,9 @@ func makeMethods(a *api.API, model *libopenapi.DocumentModel[v3.Document], packa
 			pathInfo := &api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						Verb:               op.Verb,
-						LegacyPathTemplate: pathTemplate,
-						QueryParameters:    queryParameters,
+						Verb:            op.Verb,
+						PathTemplate:    pathTemplate,
+						QueryParameters: queryParameters,
 					},
 				},
 				BodyFieldPath: bodyFieldPath,
