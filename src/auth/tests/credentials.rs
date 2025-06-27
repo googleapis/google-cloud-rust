@@ -602,8 +602,8 @@ mod test {
 
         let provider = TestSubjectTokenProvider;
         let mut builder = ProgrammaticBuilder::new(std::sync::Arc::new(provider))
-            .with_audience("some-audience".to_string())
-            .with_subject_token_type("urn:ietf:params:oauth:token-type:jwt".to_string())
+            .with_audience("some-audience")
+            .with_subject_token_type("urn:ietf:params:oauth:token-type:jwt")
             .with_token_url(server.url("/token").to_string());
 
         if let Some(scopes) = scopes {
@@ -645,16 +645,21 @@ mod test {
     async fn create_programmatic_token_provider_user_error() -> TestResult {
         let provider = FailingSubjectTokenProvider;
         let creds = ProgrammaticBuilder::new(std::sync::Arc::new(provider))
-            .with_audience("some-audience".to_string())
-            .with_subject_token_type("urn:ietf:params:oauth:token-type:jwt".to_string())
-            .with_token_url("http://dummy.com/token".to_string())
+            .with_audience("some-audience")
+            .with_subject_token_type("urn:ietf:params:oauth:token-type:jwt")
+            .with_token_url("http://dummy.com/token")
             .build()
             .unwrap();
 
         let error = creds.headers(Extensions::new()).await.unwrap_err();
-        assert!(!error.is_transient());
-        assert!(error.to_string().contains("TestProviderError"));
 
+        assert!(!error.is_transient(), "Error should not be transient");
+        let original_error = error
+            .source()
+            .expect("should have a source")
+            .downcast_ref::<TestProviderError>()
+            .expect("source should be a TestProviderError");
+        assert!(original_error.to_string().contains("TestProviderError"));
         Ok(())
     }
 }

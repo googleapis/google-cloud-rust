@@ -450,7 +450,7 @@ impl ProgrammaticBuilder {
     ///
     /// This is the resource name for the workload identity pool and the provider
     /// identifier in that pool.
-    pub fn with_audience(mut self, audience: String) -> Self {
+    pub fn with_audience<S: Into<String>>(mut self, audience: S) -> Self {
         self.config.audience(audience);
         self
     }
@@ -458,26 +458,26 @@ impl ProgrammaticBuilder {
     /// Sets the required subject token type.
     ///
     /// This is the STS subject token type based on the OAuth 2.0 token exchange spec.
-    pub fn with_subject_token_type(mut self, subject_token_type: String) -> Self {
+    pub fn with_subject_token_type<S: Into<String>>(mut self, subject_token_type: S) -> Self {
         self.config.subject_token_type(subject_token_type);
         self
     }
 
     /// Sets the required token URL for the STS token exchange.
-    pub fn with_token_url(mut self, token_url: String) -> Self {
+    pub fn with_token_url<S: Into<String>>(mut self, token_url: S) -> Self {
         self.config.token_url(token_url);
         self
     }
 
     /// Sets the optional client ID for client authentication.
-    pub fn with_client_id(mut self, client_id: String) -> Self {
-        self.config.client_id(client_id);
+    pub fn with_client_id<S: Into<String>>(mut self, client_id: S) -> Self {
+        self.config.client_id(Some(client_id.into()));
         self
     }
 
     /// Sets the optional client secret for client authentication.
-    pub fn with_client_secret(mut self, client_secret: String) -> Self {
-        self.config.client_secret(client_secret);
+    pub fn with_client_secret<S: Into<String>>(mut self, client_secret: S) -> Self {
+        self.config.client_secret(Some(client_secret.into()));
         self
     }
 
@@ -654,11 +654,13 @@ mod test {
     async fn create_programmatic_builder() {
         let provider = Arc::new(TestSubjectTokenProvider);
         let creds = ProgrammaticBuilder::new(provider)
-            .with_audience("test-audience".to_string())
-            .with_subject_token_type("test-token-type".to_string())
-            .with_token_url("http://test.com/token".to_string())
+            .with_audience("test-audience")
+            .with_subject_token_type("test-token-type")
+            .with_token_url("http://test.com/token")
+            .with_client_id("test-client-id")
+            .with_client_secret("test-client-secret")
             .with_quota_project_id("test-quota-project")
-            .with_scopes(vec!["scope1".to_string(), "scope2".to_string()])
+            .with_scopes(vec!["scope1", "scope2"])
             .build()
             .unwrap();
 
@@ -677,9 +679,9 @@ mod test {
     async fn create_programmatic_builder_fails_on_missing_required_field() {
         let provider = Arc::new(TestSubjectTokenProvider);
         let result = ProgrammaticBuilder::new(provider)
-            .with_subject_token_type("test-token-type".to_string())
+            .with_subject_token_type("test-token-type")
             // Missing .with_audience(...)
-            .with_token_url("http://test.com/token".to_string())
+            .with_token_url("http://test.com/token")
             .build();
 
         assert!(result.is_err());
