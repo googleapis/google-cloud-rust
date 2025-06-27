@@ -401,7 +401,6 @@ pub struct ProgrammaticBuilder
     quota_project_id: Option<String>,
     subject_token_provider: Arc<dyn dynamic::SubjectTokenProvider>,
     config: ExternalAccountConfigBuilder,
-    scopes: Option<Vec<String>>,
 }
 
 impl ProgrammaticBuilder
@@ -416,7 +415,6 @@ impl ProgrammaticBuilder
             subject_token_provider,
             quota_project_id: None,
             config: ExternalAccountConfigBuilder::default(),
-            scopes: None,
         }
     }
 
@@ -441,7 +439,7 @@ impl ProgrammaticBuilder
         I: IntoIterator<Item = S>,
         S: Into<String>,
     {
-        self.scopes = Some(scopes.into_iter().map(|s| s.into()).collect());
+        self.config.scopes(scopes.into_iter().map(|s| s.into()).collect::<Vec<String>>());
         self
     }
 
@@ -486,12 +484,9 @@ impl ProgrammaticBuilder
     /// [external_account_credentials]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
     pub fn build(self) -> BuildResult<Credentials> {
         let mut config_builder = self.config;
-        let mut scopes = self.scopes.unwrap_or_default();
-        if scopes.is_empty() {
-            scopes.push(DEFAULT_SCOPE.to_string());
+        if config_builder.scopes.is_none() {
+            config_builder.scopes(vec![DEFAULT_SCOPE.to_string()]);
         }
-        config_builder.scopes(scopes);
-
         let config = config_builder
             .credential_source(CredentialSource::Programmatic(ProgrammaticSourcedCredentials::new(
                 self.subject_token_provider,
@@ -517,8 +512,37 @@ where
 #[cfg(test)]
 mod test {
     use super::*;
+    use crate::credentials::subject_token::{
+        Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider,
+    };
+    use crate::errors::SubjectTokenProviderError;
     use serde_json::*;
     use std::collections::HashMap;
+    use std::error::Error;
+    use std::fmt;
+
+    #[derive(Debug)]
+    struct TestProviderError;
+    impl fmt::Display for TestProviderError {
+        fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            write!(f, "TestProviderError")
+        }
+    }
+    impl Error for TestProviderError {}
+    impl SubjectTokenProviderError for TestProviderError {
+        fn is_transient(&self) -> bool {
+            false
+        }
+    }
+
+    #[derive(Debug)]
+    struct TestSubjectTokenProvider;
+    impl SubjectTokenProvider for TestSubjectTokenProvider {
+        type Error = TestProviderError;
+        async fn subject_token(&self) -> std::result::Result<SubjectToken, Self::Error> {
+            Ok(SubjectTokenBuilder::new("test-subject-token".to_string()).build())
+        }
+    }
 
     #[tokio::test]
     async fn create_external_account_builder() {
@@ -620,5 +644,48 @@ mod test {
                 unreachable!("expected Executable Sourced credential")
             }
         }
+    }
+
+    #[tokio::test]
+    async fn create_programmatic_builder() {
+        let provider = Arc::new(TestSubjectTokenProvider);
+        let creds = ProgrammaticBuilder::new(provider)
+            .with_audience("test-audience".to_string())
+            .with_subject_token_type("test-token-type".to_string())
+            .with_token_url("http://test.com/token".to_string())
+            .with_quota_project_id("test-quota-project")
+            .with_scopes(vec!["scope1".to_string(), "scope2".to_string()])
+            .build()
+            .unwrap();
+
+        let fmt = format!("{:?}", creds);
+        assert!(
+            fmt.contains("ExternalAccountCredentials"),
+            "Expected 'ExternalAccountCredentials', got: {}",
+            fmt
+        );
+        assert!(
+            fmt.contains("test-quota-project"),
+            "Expected 'test-quota-project', got: {}",
+            fmt
+        );
+    }
+
+    #[tokio::test]
+    async fn create_programmatic_builder_fails_on_missing_required_field() {
+        let provider = Arc::new(TestSubjectTokenProvider);
+        let result = ProgrammaticBuilder::new(provider)
+            .with_subject_token_type("test-token-type".to_string())
+            // Missing .with_audience(...)
+            .with_token_url("http://test.com/token".to_string())
+            .build();
+
+        assert!(result.is_err());
+        let error_string = result.unwrap_err().to_string();
+        assert!(
+            error_string.contains("`audience` must be initialized"),
+            "Expected error about missing 'audience', got: {}",
+            error_string
+        );
     }
 }

@@ -38,6 +38,7 @@ mod test {
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use scoped_env::ScopedEnv;
     use serde_json::json;
+    use test_case::test_case;
 
     type Result<T> = anyhow::Result<T>;
     type TestResult = anyhow::Result<(), Box<dyn std::error::Error>>;
@@ -571,14 +572,19 @@ mod test {
         }
     }
 
+    #[test_case(Some(vec!["scope1".to_string(), "scope2".to_string()]), vec!["scope1", "scope2"]; "with custom scopes")]
+    #[test_case(None, vec!["https://www.googleapis.com/auth/cloud-platform"]; "with default scopes")]
     #[tokio::test]
-    async fn create_programmatic_external_account_access_token() -> TestResult {
+    async fn create_programmatic_external_account_access_token(
+        scopes: Option<Vec<String>>,
+        expected_scopes: Vec<&str>,
+    ) -> TestResult {
         let token_response_body = json!({
             "access_token":"an_exchanged_token",
             "issued_token_type":"urn:ietf:params:oauth:token-type:access_token",
             "token_type":"Bearer",
             "expires_in":3600,
-            "scope":"https://www.googleapis.com/auth/cloud-platform"
+            "scope": expected_scopes.join(" "),
         })
         .to_string();
 
@@ -590,17 +596,22 @@ mod test {
                     "subject_token",
                     "test-subject-token"
                 )))),
+                request::body(url_decoded(contains(("scope", expected_scopes.join(" ")))))
             ])
             .respond_with(status_code(200).body(token_response_body)),
         );
 
         let provider = TestSubjectTokenProvider;
-        let creds = ProgrammaticBuilder::new(std::sync::Arc::new(provider))
+        let mut builder = ProgrammaticBuilder::new(std::sync::Arc::new(provider))
             .with_audience("some-audience".to_string())
             .with_subject_token_type("urn:ietf:params:oauth:token-type:jwt".to_string())
-            .with_token_url(server.url("/token").to_string())
-            .build()
-            .unwrap();
+            .with_token_url(server.url("/token").to_string());
+
+        if let Some(scopes) = scopes {
+            builder = builder.with_scopes(scopes);
+        }
+
+        let creds = builder.build().unwrap();
 
         let cached_headers = creds.headers(Extensions::new()).await?;
         match cached_headers {
