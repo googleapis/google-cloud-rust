@@ -615,7 +615,7 @@ impl ReadObject {
         Ok(ReadObjectResponse {
             inner: response,
             check_crc32c_enabled: checksum_check_enabled,
-            crc32c: 0,
+            crc32c: 0, // no bytes read.
         })
     }
 
@@ -789,7 +789,7 @@ impl ReadObjectResponse {
 }
 
 /// Represents
-#[derive(thiserror::Error, Debug)]
+#[derive(thiserror::Error, Debug, PartialEq)]
 #[non_exhaustive]
 enum ReadError {
     /// The calculated crc32c did not match server provided crc32c.
@@ -1263,6 +1263,46 @@ mod tests {
             err.source().unwrap().downcast_ref::<RangeError>().unwrap(),
             &want_err
         );
+        Ok(())
+    }
+
+    #[test_case(false, 0, None, false; "check disabled ok")]
+    #[test_case(false, 10, Some(5), false; "check disabled different values pl")]
+    #[test_case(true, 10, Some(10), false; "check enabled match ok")]
+    #[test_case(true, 10, None, false; "check enabled response none ok")]
+    #[test_case(true, 10, Some(20), true; "check enabled different value err")]
+    fn test_check_crc(check_enabled: bool, crc: u32, resp_crc: Option<u32>, want_err: bool) {
+        let res = check_crc32c_match(check_enabled, crc, resp_crc);
+        if want_err {
+            assert_eq!(
+                res.unwrap_err()
+                    .source()
+                    .unwrap()
+                    .downcast_ref::<ReadError>()
+                    .unwrap(),
+                &ReadError::BadCrc {
+                    got: crc,
+                    want: resp_crc.unwrap(),
+                }
+            );
+        } else {
+            res.unwrap();
+        }
+    }
+
+    #[test_case("", None; "no header")]
+    #[test_case("crc32c=hello", None; "invalid value")]
+    #[test_case("crc32c=AAAAAA==", Some(0); "zero value")]
+    #[test_case("crc32c=SZYC0g==", Some(1234567890_u32); "value")]
+    #[test_case("crc32c=SZYC0g==,md5=something", Some(1234567890_u32); "md5 after crc32c")]
+    #[test_case("md5=something,crc32c=SZYC0g==", Some(1234567890_u32); "md5 before crc32c")]
+    fn test_headers_to_crc(val: &str, want: Option<u32>) -> Result {
+        let mut headers = http::HeaderMap::new();
+        if val.len() > 0 {
+            headers.insert("x-goog-hash", http::HeaderValue::from_str(val)?);
+        }
+        let got = headers_to_crc32c(&headers);
+        assert_eq!(got, want);
         Ok(())
     }
 }
