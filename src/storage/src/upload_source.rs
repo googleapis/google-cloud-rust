@@ -27,8 +27,7 @@
 /// let buffer : &[u8] = b"the quick brown fox jumps over the lazy dog";
 /// let mut size = 0_usize;
 /// let mut payload = InsertPayload::from(buffer);
-/// while let Some(n) = payload.next().await {
-///     let bytes = n?;
+/// while let Some(bytes) = payload.next().await.transpose()? {
 ///     size += bytes.len();
 /// }
 /// assert_eq!(size, buffer.len());
@@ -193,8 +192,7 @@ mod test {
     {
         let mut vec = Vec::new();
         let mut source = source;
-        while let Some(n) = source.next().await {
-            let bytes = n?;
+        while let Some(bytes) = source.next().await.transpose()? {
             vec.extend_from_slice(&bytes);
         }
         Ok(vec)
