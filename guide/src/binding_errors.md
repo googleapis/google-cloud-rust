@@ -102,7 +102,6 @@ Also, when a template ends in `/**`, that initial slash is optionally included.
 If you need to inspect the error programmatically, you can do so by checking
 that it is a binding error, then downcasting it to a `BindingError`.
 
-
 ```rust,ignore
 {{#include ../samples/src/binding_errors.rs:inspect}}
 ```
