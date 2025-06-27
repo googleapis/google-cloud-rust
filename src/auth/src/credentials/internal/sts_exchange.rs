@@ -126,7 +126,7 @@ impl ClientAuthentication {
         if let (Some(client_id), Some(client_secret)) =
             (self.client_id.clone(), self.client_secret.clone())
         {
-            let plain_header = format!("{}:{}", client_id, client_secret);
+            let plain_header = format!("{client_id}:{client_secret}");
             let encoded = base64::engine::general_purpose::URL_SAFE_NO_PAD.encode(plain_header);
             let header = http::HeaderValue::from_str(format!("Basic {encoded}").as_str());
             if let Ok(value) = header {

@@ -51,7 +51,7 @@ mod test {
         let _e3 = ScopedEnv::remove("APPDATA"); // For windows
 
         let mds = AccessTokenCredentialBuilder::default().build().unwrap();
-        let fmt = format!("{:?}", mds);
+        let fmt = format!("{mds:?}");
         assert!(fmt.contains("MDSCredentials"));
     }
 
@@ -117,7 +117,7 @@ mod test {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let uc = AccessTokenCredentialBuilder::default().build().unwrap();
-        let fmt = format!("{:?}", uc);
+        let fmt = format!("{uc:?}");
         assert!(fmt.contains("UserCredentials"));
     }
 
@@ -137,7 +137,7 @@ mod test {
             .build()
             .unwrap();
 
-        let fmt = format!("{:?}", uc);
+        let fmt = format!("{uc:?}");
         assert!(fmt.contains("UserCredentials"));
         assert!(fmt.contains(quota_project));
     }
@@ -162,7 +162,7 @@ mod test {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let ic = AccessTokenCredentialBuilder::default().build().unwrap();
-        let fmt = format!("{:?}", ic);
+        let fmt = format!("{ic:?}");
         assert!(fmt.contains("ImpersonatedServiceAccount"));
     }
 
@@ -186,7 +186,7 @@ mod test {
             .build()
             .unwrap();
 
-        let fmt = format!("{:?}", ic);
+        let fmt = format!("{ic:?}");
         assert!(fmt.contains("ImpersonatedServiceAccount"));
         assert!(fmt.contains(quota_project));
     }
@@ -209,7 +209,7 @@ mod test {
         let _e = ScopedEnv::set("GOOGLE_APPLICATION_CREDENTIALS", path.to_str().unwrap());
 
         let sac = AccessTokenCredentialBuilder::default().build().unwrap();
-        let fmt = format!("{:?}", sac);
+        let fmt = format!("{sac:?}");
         assert!(fmt.contains("ServiceAccountCredentials"));
     }
 
@@ -230,7 +230,7 @@ mod test {
             .with_quota_project_id(quota_project)
             .build()
             .unwrap();
-        let fmt = format!("{:?}", sac);
+        let fmt = format!("{sac:?}");
         assert!(fmt.contains("ServiceAccountCredentials"));
         assert!(fmt.contains(quota_project));
     }
@@ -238,7 +238,7 @@ mod test {
     #[tokio::test]
     async fn create_api_key_credentials_success() {
         let creds = ApiKeyCredentialsBuilder::new("test-api-key").build();
-        let fmt = format!("{:?}", creds);
+        let fmt = format!("{creds:?}");
         assert!(fmt.contains("ApiKeyCredentials"), "{fmt:?}");
         assert!(!fmt.contains("test-api-key"), "{fmt:?}");
     }
@@ -309,8 +309,7 @@ mod test {
                 .unwrap();
 
         // Use the debug output to verify the right kind of credentials are created.
-        let fmt = format!("{:?}", creds);
-        print!("{:?}", creds);
+        let fmt = format!("{creds:?}");
         assert!(fmt.contains("ExternalAccountCredentials"));
 
         let cached_headers = creds.headers(Extensions::new()).await?;
@@ -500,7 +499,7 @@ mod test {
             .with_quota_project_id(test_quota_project)
             .with_universe_domain(test_universe_domain)
             .build()?;
-        let fmt = format!("{:?}", mdcs);
+        let fmt = format!("{mdcs:?}");
         assert!(fmt.contains("MDSCredentials"));
         assert!(fmt.contains(test_quota_project));
         assert!(fmt.contains(test_universe_domain));
@@ -520,7 +519,7 @@ mod test {
         let service_account = ServiceAccountBuilder::new(service_account_info_json)
             .with_quota_project_id(test_quota_project)
             .build()?;
-        let fmt = format!("{:?}", service_account);
+        let fmt = format!("{service_account:?}");
         assert!(fmt.contains("ServiceAccountCredentials"));
         assert!(fmt.contains(test_quota_project));
         Ok(())
@@ -538,7 +537,7 @@ mod test {
         let user_account = UserAccountCredentialBuilder::new(authorized_user)
             .with_quota_project_id(test_quota_project)
             .build()?;
-        let fmt = format!("{:?}", user_account);
+        let fmt = format!("{user_account:?}");
         assert!(fmt.contains("UserCredentials"), "{fmt:?}");
         assert!(fmt.contains(test_quota_project));
         Ok(())

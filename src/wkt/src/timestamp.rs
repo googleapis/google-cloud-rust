@@ -612,7 +612,7 @@ mod test {
         let got = serde_json::from_value::<Timestamp>(serde_json::json!({}));
         assert!(got.is_err());
         let msg = format!("{got:?}");
-        assert!(msg.contains("RFC 3339"), "message={}", msg);
+        assert!(msg.contains("RFC 3339"), "message={msg}");
         Ok(())
     }
 

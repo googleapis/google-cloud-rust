@@ -81,122 +81,12 @@ import (
 // [Backus-Naur Form]: https://en.wikipedia.org/wiki/Backus%E2%80%93Naur_form
 // [C++ HTTP Annotation parser]: https://github.com/googleapis/google-cloud-cpp/blob/4174d656136f4b849c8a3d327237f3a96be3e003/generator/internal/http_annotation_parser.h#L49-L58
 // [google.api.http annotation]: https://github.com/googleapis/google-cloud-rust/blob/61b9d3bbac5530e4321ac19fe7d2760db82e31db/generator/testdata/googleapis/google/api/http.proto
-func Parse(pathTemplate string) (*PathTemplate, error) {
+func ParseSegments(pathTemplate string) (*api.PathTemplate, error) {
 	return parsePathTemplate(pathTemplate)
 }
 
-// Converts from this package's representation of an HTTP path template to the
-// representation in `package api`.
-//
-// TODO(#557): The parser could/should use the representation in `package api`.
-func ParseSegments(pathTemplate string) (*api.PathTemplate, error) {
-	path, err := parsePathTemplate(pathTemplate)
-	if err != nil {
-		return nil, err
-	}
-	var template api.PathTemplate
-	var segments []api.PathSegment
-	for _, s := range path.Segments {
-		if s.Literal != nil {
-			literal := string(*s.Literal)
-			segments = append(segments, api.PathSegment{Literal: &literal})
-		} else if s.Variable != nil {
-			fields := make([]string, len(s.Variable.FieldPath))
-			for i, field := range s.Variable.FieldPath {
-				fields[i] = string(*field)
-			}
-
-			var var_segments []api.PathVariableSegment
-			for _, vs := range s.Variable.Segments {
-				if vs.Variable != nil {
-					return nil, fmt.Errorf("variable fields cannot be nested")
-				} else if vs.Literal != nil {
-					literal := string(*vs.Literal)
-					var_segments = append(var_segments, api.PathVariableSegment{Literal: &literal})
-				} else if vs.Match != nil {
-					var_segments = append(var_segments, api.PathVariableSegment{Match: &api.PathMatch{}})
-				} else if vs.MatchRecursive != nil {
-					var_segments = append(var_segments, api.PathVariableSegment{MatchRecursive: &api.PathMatchRecursive{}})
-				}
-			}
-			if len(s.Variable.Segments) == 0 {
-				// When there are no variable segments, a single "*" match is implied.
-				var_segments = append(var_segments, api.PathVariableSegment{Match: &api.PathMatch{}})
-			}
-			segments = append(segments, api.PathSegment{Variable: &api.PathVariable{
-				FieldPath: fields,
-				Segments:  var_segments,
-			}})
-		} else {
-			return nil, fmt.Errorf("top level path segments can only be literals or variables")
-		}
-	}
-	template.Segments = segments
-	template.Verb = (*string)(path.Verb)
-	return &template, nil
-}
-
-// Flattens the result of `ParseSegments`, ignoring variable patterns.
-//
-// The variable patterns are used to validate path bindings. We need them, but
-// did not realize when we initially wrote the model. We keep this thing around
-// because some languages (dart, golang) still use the legacy representation.
-//
-// TODO(#557): Remove this when we stop using `api.LegacyPathSegment`
-func LegacyParseSegments(pathTemplate string) ([]api.LegacyPathSegment, error) {
-	path, err := ParseSegments(pathTemplate)
-	if err != nil {
-		return nil, err
-	}
-
-	var segments []api.LegacyPathSegment
-	for _, s := range path.Segments {
-		segment := api.LegacyPathSegment{}
-		if s.Literal != nil {
-			segment.Literal = s.Literal
-		} else if s.Variable != nil {
-			fieldPath := strings.Join(s.Variable.FieldPath, ".")
-			segment.FieldPath = &fieldPath
-		}
-		segments = append(segments, segment)
-	}
-
-	if path.Verb != nil {
-		segments = append(segments, api.LegacyPathSegment{
-			Verb: path.Verb,
-		})
-	}
-	return segments, nil
-}
-
-// PathTemplate represents the structure in Go.
-type PathTemplate struct {
-	Segments []*Segment
-	Verb     *Literal
-}
-
-// Match represents a single '*' match.
-type Match struct{}
-
-// MatchRecursive represents a '**' match.
-type MatchRecursive struct{}
-
 type Literal string
 type Identifier string
-
-// Variable represents a variable in the path template with its field path and nested segments.
-type Variable struct {
-	FieldPath []*Identifier
-	Segments  []*Segment
-}
-
-// Segment represents a single segment of the path template, which can hold one of several types of values.
-type Segment struct {
-	Literal        *Literal
-	Match          *Match
-	MatchRecursive *MatchRecursive
-	Variable       *Variable
-}
 
 const (
 	eof      = -1
@@ -209,10 +99,10 @@ const (
 	verbSep  = ':'
 )
 
-func parsePathTemplate(pathTemplate string) (*PathTemplate, error) {
+func parsePathTemplate(pathTemplate string) (*api.PathTemplate, error) {
 	var pos int
-	var segments []*Segment
-	var verb *Literal
+	var segments []api.PathSegment
+	var verb *string
 	if len(pathTemplate) < 2 {
 		return nil, fmt.Errorf("invalid path template, expected at least two characters: %s", pathTemplate)
 	} else if pathTemplate[0] != slash {
@@ -232,14 +122,14 @@ func parsePathTemplate(pathTemplate string) (*PathTemplate, error) {
 	if pos != len(pathTemplate) {
 		return nil, fmt.Errorf("invalid path template, expected it to end at position %d: %s", pos, pathTemplate)
 	}
-	return &PathTemplate{
+	return &api.PathTemplate{
 		Segments: segments,
 		Verb:     verb,
 	}, nil
 
 }
 
-func parseVerb(verbString string) (*Literal, int, error) {
+func parseVerb(verbString string) (*string, int, error) {
 	if len(verbString) == 0 {
 		return nil, 0, nil
 	}
@@ -253,16 +143,16 @@ func parseVerb(verbString string) (*Literal, int, error) {
 		return nil, 0, err
 	}
 	pos += width
-	return verb, pos, nil
+	return (*string)(verb), pos, nil
 }
 
 // parseSegments parses a sequence of variable and/or plain segments starting at the beginning of the provided string.
-func parseSegments(segmentsString string) ([]*Segment, int, error) {
-	var segments []*Segment
+func parseSegments(segmentsString string) ([]api.PathSegment, int, error) {
+	var segments []api.PathSegment
 	var pos int
 	for {
 		var err error
-		var segment *Segment
+		var segment *api.PathSegment
 		var width int
 
 		if pos == len(segmentsString) {
@@ -271,12 +161,12 @@ func parseSegments(segmentsString string) ([]*Segment, int, error) {
 		if segmentsString[pos] == varLeft {
 			segment, width, err = parseVarSegment(segmentsString[pos:])
 		} else {
-			segment, width, err = parsePlainSegment(segmentsString[pos:])
+			segment, width, err = parseLiteralSegment(segmentsString[pos:])
 		}
 		if err != nil {
 			return nil, pos, err
 		}
-		segments = append(segments, segment)
+		segments = append(segments, *segment)
 		pos += width
 		if pos == len(segmentsString) || segmentsString[pos] != slash {
 			break
@@ -286,7 +176,17 @@ func parseSegments(segmentsString string) ([]*Segment, int, error) {
 	return segments, pos, nil
 }
 
-func parseVarSegment(varString string) (*Segment, int, error) {
+func parseLiteralSegment(literalSegment string) (*api.PathSegment, int, error) {
+	literal, width, err := parseLiteral(literalSegment)
+	if err != nil {
+		return nil, 0, err
+	}
+	return &api.PathSegment{
+		Literal: (*string)(literal),
+	}, width, nil
+}
+
+func parseVarSegment(varString string) (*api.PathSegment, int, error) {
 	if len(varString) < 3 {
 		return nil, 0, fmt.Errorf("invalid variable, expected at least three characters: %s", varString)
 	}
@@ -296,7 +196,7 @@ func parseVarSegment(varString string) (*Segment, int, error) {
 	}
 	pos++ // Skip varLeft
 	var width int
-	var segments []*Segment
+	var segments []api.PathVariableSegment
 	fieldPath, width, err := parseFieldPath(varString[pos:])
 	if err != nil {
 		return nil, 0, err
@@ -304,7 +204,7 @@ func parseVarSegment(varString string) (*Segment, int, error) {
 	pos += width
 	if pos < len(varString) && varString[pos] == varSep {
 		pos++ // Skip varSep
-		segments, width, err = parsePlainSegments(varString[pos:])
+		segments, width, err = parseVarSubsegments(varString[pos:])
 		if err != nil {
 			return nil, 0, err
 		}
@@ -314,24 +214,28 @@ func parseVarSegment(varString string) (*Segment, int, error) {
 		return nil, 0, fmt.Errorf("invalid variable, expected it to end with '%q': %s", varRight, varString)
 	}
 	pos++ // Skip varRight
-	return &Segment{
-		Variable: &Variable{
+	if len(segments) == 0 {
+		// When there are no segments, the single "*" matcher is implied.
+		segments = append(segments, api.PathVariableSegment{Match: &api.PathMatch{}})
+	}
+	return &api.PathSegment{
+		Variable: &api.PathVariable{
 			FieldPath: fieldPath,
 			Segments:  segments,
 		},
 	}, pos, nil
 }
 
-func parsePlainSegments(segmentsString string) ([]*Segment, int, error) {
+func parseVarSubsegments(segmentsString string) ([]api.PathVariableSegment, int, error) {
 	var pos int
-	var segments []*Segment
+	var segments []api.PathVariableSegment
 
 	for {
-		segment, width, err := parsePlainSegment(segmentsString[pos:])
+		segment, width, err := parseVarSubsegment(segmentsString[pos:])
 		if err != nil {
 			return nil, pos, err
 		}
-		segments = append(segments, segment)
+		segments = append(segments, *segment)
 		pos += width
 		if pos == len(segmentsString) || segmentsString[pos] != slash {
 			break
@@ -341,16 +245,16 @@ func parsePlainSegments(segmentsString string) ([]*Segment, int, error) {
 	return segments, pos, nil
 }
 
-func parseFieldPath(fieldPathString string) ([]*Identifier, int, error) {
+func parseFieldPath(fieldPathString string) ([]string, int, error) {
 	var pos int
-	var identifiers []*Identifier
+	var identifiers []string
 	for {
 		identifier, width, err := parseIdentifier(fieldPathString[pos:])
 		if err != nil {
 			return nil, pos, err
 		}
 
-		identifiers = append(identifiers, identifier)
+		identifiers = append(identifiers, string(*identifier))
 		pos += width
 		if pos == len(fieldPathString) || fieldPathString[pos] != identSep {
 			break
@@ -360,7 +264,7 @@ func parseFieldPath(fieldPathString string) ([]*Identifier, int, error) {
 	return identifiers, pos, nil
 }
 
-func parsePlainSegment(plainSegment string) (*Segment, int, error) {
+func parseVarSubsegment(plainSegment string) (*api.PathVariableSegment, int, error) {
 	if len(plainSegment) < 1 {
 		return nil, 0, fmt.Errorf("invalid plain segment, expected at least one character: %s", plainSegment)
 	}
@@ -368,16 +272,16 @@ func parsePlainSegment(plainSegment string) (*Segment, int, error) {
 		return nil, 0, fmt.Errorf("invalid plain segment, cannot start with : %q", slash)
 	}
 	if len(plainSegment) >= 2 && plainSegment[0:2] == string(star)+string(star) {
-		return &Segment{MatchRecursive: &MatchRecursive{}}, 2, nil
+		return &api.PathVariableSegment{MatchRecursive: &api.PathMatchRecursive{}}, 2, nil
 	}
 	if plainSegment[0] == star {
-		return &Segment{Match: &Match{}}, 1, nil
+		return &api.PathVariableSegment{Match: &api.PathMatch{}}, 1, nil
 	}
 	literal, pos, err := parseLiteral(plainSegment)
 	if err != nil {
 		return nil, 0, err
 	}
-	return &Segment{Literal: literal}, pos, nil
+	return &api.PathVariableSegment{Literal: (*string)(literal)}, pos, nil
 }
 
 const (

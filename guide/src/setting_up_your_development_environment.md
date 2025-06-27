@@ -50,7 +50,7 @@ automated scripts.
 To install the gcloud CLI, see
 [Installing the gcloud CLI](https://cloud.google.com/sdk/install).
 
-## Install the Cloud Client Libraries for Rust in a New Project
+## Install the Cloud Client Libraries for Rust in a new project
 
 The Cloud Client Libraries for Rust is the idiomatic way for Rust developers to
 integrate with Google Cloud services, such as Secret Manager and Workflows.
@@ -70,27 +70,27 @@ Manager API, do the following:
    cd my-project
    ```
 
-1. Add the [Secret Manager] client library to the new project
+1. Add the [Secret Manager] client library to the new project:
 
    ```shell
    cargo add google-cloud-secretmanager-v1
    ```
 
-   You'll need to enable the Secret Manager API in
-   [APIs and services](https://console.cloud.google.com/apis), if you haven't
-   already done so.
+   If you haven't already enabled the Secret Manager API, enable it in
+   [APIs and services](https://console.cloud.google.com/apis) or by running the
+   following command:
 
    ```shell
    gcloud services enable secretmanager.googleapis.com
    ```
 
-1. Add the [google-cloud-gax] crate to the new project
+1. Add the [google-cloud-gax] crate to the new project:
 
    ```shell
    cargo add google-cloud-gax
    ```
 
-1. Add the [tokio] crate to the new project
+1. Add the [tokio] crate to the new project:
 
    ```shell
    cargo add tokio --features macros
@@ -135,6 +135,11 @@ Note: The source of the Cloud Client Libraries for Rust is
    cargo run [PROJECT ID]
    ```
 
+   The program will print the secrets associated with your project ID. If you
+   don't see any secrets, you might not have any in Secret Manager. You can
+   [create a secret] and rerun the program, and you should see the secret
+   printed in the output.
+
 ## What's next
 
 - Explore [authentication methods at Google].
@@ -142,6 +147,7 @@ Note: The source of the Cloud Client Libraries for Rust is
 
 [authentication methods at google]: https://cloud.google.com/docs/authentication
 [authn-client-libraries]: https://cloud.google.com/docs/authentication/client-libraries
+[create a secret]: https://cloud.google.com/secret-manager/docs/creating-and-accessing-secrets
 [documentation for google cloud products]: https://cloud.google.com/products
 [google cloud cli]: https://cloud.google.com/sdk/
 [google-cloud-gax]: https://crates.io/crates/google-cloud-gax

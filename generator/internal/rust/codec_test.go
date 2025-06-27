@@ -1535,9 +1535,9 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("/v1/foo"),
-							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithLiteral("foo"),
 						},
 					},
 				},
@@ -1557,9 +1557,9 @@ func makeApiForRustFormatDocCommentsCrossLinks() *api.API {
 					Bindings: []*api.PathBinding{
 						{
 							Verb: "GET",
-							LegacyPathTemplate: []api.LegacyPathSegment{
-								api.NewLiteralPathSegment("/v1/thing"),
-							},
+							PathTemplate: api.NewPathTemplate().
+								WithLiteral("v1").
+								WithLiteral("thing"),
 						},
 					},
 				},
@@ -1787,55 +1787,53 @@ func TestEnumValueVariantName(t *testing.T) {
 func TestPathFmt(t *testing.T) {
 	for _, test := range []struct {
 		want     string
-		pathInfo *api.PathInfo
+		template *api.PathTemplate
 	}{
 		{
 			"/v1/fixed",
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{LegacyPathTemplate: []api.LegacyPathSegment{api.NewLiteralPathSegment("v1"), api.NewLiteralPathSegment("fixed")}},
-				},
-			},
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithLiteral("fixed"),
 		},
 		{
 			"/v1/{}",
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{LegacyPathTemplate: []api.LegacyPathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent")}},
-				},
-			},
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithVariableNamed("parent"),
+		},
+		{
+			"/v1/{}",
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithVariable(api.NewPathVariable("parent").
+					WithLiteral("projects").
+					WithMatch().
+					WithLiteral("locations").
+					WithMatch()),
 		},
 		{
 			"/v1/{}:action",
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{LegacyPathTemplate: []api.LegacyPathSegment{api.NewLiteralPathSegment("v1"), api.NewFieldPathPathSegment("parent"), api.NewVerbPathSegment("action")}},
-				},
-			},
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithVariableNamed("parent").
+				WithVerb("action"),
 		},
 		{
 			"/v1/projects/{}/locations/{}/secrets/{}:action",
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{
-						LegacyPathTemplate: []api.LegacyPathSegment{
-							api.NewLiteralPathSegment("v1"),
-							api.NewLiteralPathSegment("projects"),
-							api.NewFieldPathPathSegment("project"),
-							api.NewLiteralPathSegment("locations"),
-							api.NewFieldPathPathSegment("location"),
-							api.NewLiteralPathSegment("secrets"),
-							api.NewFieldPathPathSegment("secret"),
-							api.NewVerbPathSegment("action"),
-						},
-					},
-				},
-			},
+			api.NewPathTemplate().
+				WithLiteral("v1").
+				WithLiteral("projects").
+				WithVariableNamed("project").
+				WithLiteral("locations").
+				WithVariableNamed("location").
+				WithLiteral("secrets").
+				WithVariableNamed("secret").
+				WithVerb("action"),
 		},
 	} {
-		got := httpPathFmt(test.pathInfo)
+		got := httpPathFmt(test.template)
 		if test.want != got {
-			t.Errorf("mismatched path info fmt for %v\nwant=%s\n got=%s", test.pathInfo, test.want, got)
+			t.Errorf("mismatched path fmt for %v\nwant=%s\n got=%s", test.template, test.want, got)
 		}
 	}
 
@@ -1879,22 +1877,13 @@ func TestPathArgs(t *testing.T) {
 		pathInfo *api.PathInfo
 	}{
 		{
-			nil,
-			&api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{},
-				},
-			},
-		},
-		{
 			[]pathArg{{Name: "v", Accessor: ".v", CheckForEmpty: true}},
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						LegacyPathTemplate: []api.LegacyPathSegment{
-							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("v"),
-						},
+						PathTemplate: api.NewPathTemplate().
+							WithLiteral("v1").
+							WithVariableNamed("v"),
 					},
 				},
 			},
@@ -1910,10 +1899,9 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						LegacyPathTemplate: []api.LegacyPathSegment{
-							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("w"),
-						},
+						PathTemplate: api.NewPathTemplate().
+							WithLiteral("v1").
+							WithVariableNamed("w"),
 					},
 				},
 			},
@@ -1923,10 +1911,9 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						LegacyPathTemplate: []api.LegacyPathSegment{
-							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("x"),
-						},
+						PathTemplate: api.NewPathTemplate().
+							WithLiteral("v1").
+							WithVariableNamed("x"),
 					},
 				},
 			},
@@ -1941,10 +1928,9 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						LegacyPathTemplate: []api.LegacyPathSegment{
-							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("y"),
-						},
+						PathTemplate: api.NewPathTemplate().
+							WithLiteral("v1").
+							WithVariableNamed("y"),
 					},
 				},
 			},
@@ -1960,10 +1946,9 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						LegacyPathTemplate: []api.LegacyPathSegment{
-							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("z.a"),
-						},
+						PathTemplate: api.NewPathTemplate().
+							WithLiteral("v1").
+							WithVariableNamed("z", "a"),
 					},
 				},
 			},
@@ -1980,10 +1965,9 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						LegacyPathTemplate: []api.LegacyPathSegment{
-							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("z.b"),
-						},
+						PathTemplate: api.NewPathTemplate().
+							WithLiteral("v1").
+							WithVariableNamed("z", "b"),
 					},
 				},
 			},
@@ -1998,10 +1982,9 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						LegacyPathTemplate: []api.LegacyPathSegment{
-							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("z.c"),
-						},
+						PathTemplate: api.NewPathTemplate().
+							WithLiteral("v1").
+							WithVariableNamed("z", "c"),
 					},
 				},
 			},
@@ -2017,10 +2000,9 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						LegacyPathTemplate: []api.LegacyPathSegment{
-							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("z.d"),
-						},
+						PathTemplate: api.NewPathTemplate().
+							WithLiteral("v1").
+							WithVariableNamed("z", "d"),
 					},
 				},
 			},
@@ -2041,11 +2023,10 @@ func TestPathArgs(t *testing.T) {
 			&api.PathInfo{
 				Bindings: []*api.PathBinding{
 					{
-						LegacyPathTemplate: []api.LegacyPathSegment{
-							api.NewLiteralPathSegment("v1"),
-							api.NewFieldPathPathSegment("v"),
-							api.NewFieldPathPathSegment("w"),
-						},
+						PathTemplate: api.NewPathTemplate().
+							WithLiteral("v1").
+							WithVariableNamed("v").
+							WithVariableNamed("w"),
 					},
 				},
 			},

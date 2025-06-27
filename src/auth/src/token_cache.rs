@@ -16,6 +16,7 @@ use crate::Result;
 use crate::credentials::{CacheableResource, EntityTag};
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use http::Extensions;
+use std::sync::Arc;
 use tokio::sync::watch;
 use tokio::time::{Duration, Instant, sleep};
 
@@ -26,23 +27,36 @@ use tokio::time::{Duration, Instant, sleep};
 const NORMAL_REFRESH_SLACK: Duration = Duration::from_secs(240);
 const SHORT_REFRESH_SLACK: Duration = Duration::from_secs(10);
 
-#[derive(Debug, Clone)]
-pub(crate) struct TokenCache {
+#[derive(Debug)]
+pub(crate) struct TokenCache<T: TokenProvider> {
     rx_token: watch::Receiver<Option<Result<(Token, EntityTag)>>>,
+    token_provider: Arc<T>,
 }
 
-impl TokenCache {
-    pub(crate) fn new<T>(inner: T) -> Self
-    where
-        T: TokenProvider + Send + Sync + 'static,
-    {
+// The default implementation requires `T` to implement `Clone`, which is not always the case.
+impl<T: TokenProvider> Clone for TokenCache<T> {
+    fn clone(&self) -> Self {
+        Self {
+            rx_token: self.rx_token.clone(),
+            token_provider: self.token_provider.clone(),
+        }
+    }
+}
+
+impl<T> TokenCache<T>
+where
+    T: TokenProvider + Send + Sync + 'static,
+{
+    pub(crate) fn new(inner: T) -> Self {
         let (tx_token, rx_token) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
+        let token_provider = Arc::new(inner);
 
-        tokio::spawn(async move {
-            refresh_task(inner, tx_token).await;
-        });
+        tokio::spawn(refresh_task(token_provider.clone(), tx_token));
 
-        Self { rx_token }
+        Self {
+            rx_token,
+            token_provider,
+        }
     }
 
     async fn latest_token_and_entity_tag(&self) -> Result<(Token, EntityTag)> {
@@ -72,7 +86,10 @@ impl TokenCache {
 }
 
 #[async_trait::async_trait]
-impl CachedTokenProvider for TokenCache {
+impl<T> CachedTokenProvider for TokenCache<T>
+where
+    T: TokenProvider + Send + Sync + 'static,
+{
     async fn token(&self, extensions: Extensions) -> Result<CacheableResource<Token>> {
         let (data, entity_tag) = self.latest_token_and_entity_tag().await?;
         match extensions.get::<EntityTag>() {
@@ -92,7 +109,7 @@ async fn wait_for_next_token(
 }
 
 async fn refresh_task<T>(
-    token_provider: T,
+    token_provider: Arc<T>,
     tx_token: watch::Sender<Option<Result<(Token, EntityTag)>>>,
 ) where
     T: TokenProvider + Send + Sync + 'static,
@@ -371,7 +388,7 @@ mod test {
         let (tx, mut rx) = watch::channel::<Option<Result<(Token, EntityTag)>>>(None);
 
         tokio::spawn(async move {
-            refresh_task(mock, tx).await;
+            refresh_task(Arc::new(mock), tx).await;
         });
 
         // Give the refresh task a chance to run
@@ -434,7 +451,7 @@ mod test {
         assert!(actual.is_none());
 
         tokio::spawn(async move {
-            refresh_task(mock, tx).await;
+            refresh_task(Arc::new(mock), tx).await;
         });
 
         rx.changed().await.unwrap();
@@ -508,7 +525,7 @@ mod test {
         assert!(actual.is_none());
 
         tokio::spawn(async move {
-            refresh_task(mock, tx).await;
+            refresh_task(Arc::new(mock), tx).await;
         });
 
         rx.changed().await.unwrap();
@@ -573,7 +590,7 @@ mod test {
         assert!(actual.is_none());
 
         tokio::spawn(async move {
-            refresh_task(mock, tx).await;
+            refresh_task(Arc::new(mock), tx).await;
         });
 
         rx.changed().await.unwrap();
@@ -680,7 +697,7 @@ mod test {
         // Wait for the N token requests to complete, verifying the returned error.
         for task in tasks {
             let actual = task.await?;
-            assert!(actual.is_err(), "{:?}", actual);
+            assert!(actual.is_err(), "{actual:?}");
             let e = format!("{}", actual.unwrap_err());
             assert!(e.contains("epic fail"), "{e}");
         }
@@ -690,5 +707,23 @@ mod test {
         // 100 tasks take longer than 50ms to launch, we may see multiple.
         assert!(calls < 10, "calls to inner token provider: {calls}");
         Ok(())
+    }
+
+    #[tokio::test]
+    async fn debug_token_cache() {
+        let mut mock_provider = MockTokenProvider::new();
+        mock_provider.expect_token().return_const(Ok(Token {
+            token: "test-token".to_string(),
+            token_type: "Bearer".to_string(),
+            expires_at: None,
+            metadata: None,
+        }));
+
+        let cache = TokenCache::new(mock_provider);
+        let debug_output = format!("{cache:?}");
+
+        assert!(debug_output.contains("TokenCache"));
+        assert!(debug_output.contains("rx_token"));
+        assert!(debug_output.contains("token_provider: MockTokenProvider")); // Check for MockTokenProvider specific output part
     }
 }

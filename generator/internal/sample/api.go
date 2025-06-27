@@ -73,12 +73,6 @@ func MethodCreate() *api.Method {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: http.MethodPost,
-					LegacyPathTemplate: []api.LegacyPathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewLiteralPathSegment("projects"),
-						api.NewFieldPathPathSegment("project"),
-						api.NewLiteralPathSegment("secrets"),
-					},
 					PathTemplate: api.NewPathTemplate().
 						WithLiteral("v1").
 						WithLiteral("projects").
@@ -103,10 +97,6 @@ func MethodUpdate() *api.Method {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: http.MethodPatch,
-					LegacyPathTemplate: []api.LegacyPathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewFieldPathPathSegment("secret.name"),
-					},
 					PathTemplate: api.NewPathTemplate().
 						WithLiteral("v1").
 						WithVariableNamed("secret", "name"),
@@ -130,14 +120,6 @@ func MethodAddSecretVersion() *api.Method {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: http.MethodPost,
-					LegacyPathTemplate: []api.LegacyPathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewLiteralPathSegment("projects"),
-						api.NewFieldPathPathSegment("project"),
-						api.NewLiteralPathSegment("secrets"),
-						api.NewFieldPathPathSegment("secret"),
-						api.NewVerbPathSegment("addVersion"),
-					},
 					PathTemplate: api.NewPathTemplate().
 						WithLiteral("v1").
 						WithLiteral("projects").
@@ -166,14 +148,6 @@ func MethodListSecretVersions() *api.Method {
 			Bindings: []*api.PathBinding{
 				{
 					Verb: http.MethodPost,
-					LegacyPathTemplate: []api.LegacyPathSegment{
-						api.NewLiteralPathSegment("v1"),
-						api.NewLiteralPathSegment("projects"),
-						api.NewFieldPathPathSegment("parent"),
-						api.NewLiteralPathSegment("secrets"),
-						api.NewFieldPathPathSegment("secret"),
-						api.NewVerbPathSegment("listSecretVersions"),
-					},
 					PathTemplate: api.NewPathTemplate().
 						WithLiteral("v1").
 						WithLiteral("projects").

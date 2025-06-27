@@ -25,7 +25,7 @@
 ///
 /// [aip-127]: https://google.aip.dev/127
 /// [uri]: https://clouddocs.f5.com/api/irules/HTTP__uri.html
-#[derive(thiserror::Error, Debug)]
+#[derive(thiserror::Error, Debug, PartialEq)]
 pub struct BindingError {
     /// A list of all the paths considered, and why exactly the binding failed
     /// for each
@@ -38,7 +38,7 @@ pub struct BindingError {
 /// it is set to an invalid format.
 ///
 /// [uri]: https://clouddocs.f5.com/api/irules/HTTP__uri.html
-#[derive(Debug, Default)]
+#[derive(Debug, Default, PartialEq)]
 pub struct PathMismatch {
     /// All missing or misformatted fields needed to bind to this path
     pub subs: Vec<SubstitutionMismatch>,
@@ -105,7 +105,7 @@ impl std::fmt::Display for PathMismatch {
             if i != 0 {
                 write!(f, " AND ")?;
             }
-            write!(f, "{}", sub)?;
+            write!(f, "{sub}")?;
         }
         Ok(())
     }
