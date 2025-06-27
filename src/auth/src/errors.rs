@@ -73,8 +73,6 @@ impl SubjectTokenProviderError for CredentialsError {
     }
 }
 
-
-
 pub(crate) fn from_http_error(err: reqwest::Error, msg: &str) -> CredentialsError {
     let transient = self::is_retryable(&err);
     CredentialsError::new(transient, msg, err)

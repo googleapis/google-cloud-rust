@@ -23,7 +23,9 @@ pub(crate) struct ProgrammaticSourcedCredentials {
 }
 
 impl ProgrammaticSourcedCredentials {
-    pub(crate) fn new(subject_token_provider: Arc<dyn subject_token::dynamic::SubjectTokenProvider>) -> Self {
+    pub(crate) fn new(
+        subject_token_provider: Arc<dyn subject_token::dynamic::SubjectTokenProvider>,
+    ) -> Self {
         Self {
             subject_token_provider,
         }

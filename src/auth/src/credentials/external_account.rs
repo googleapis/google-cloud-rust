@@ -14,25 +14,24 @@
 
 use super::dynamic::CredentialsProvider;
 use super::external_account_sources::executable_sourced::ExecutableSourcedCredentials;
-use crate::credentials::external_account_sources::programmatic_sourced::ProgrammaticSourcedCredentials;
-use crate::credentials::subject_token::dynamic;
 use super::external_account_sources::url_sourced::UrlSourcedCredentials;
 use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
 use crate::build_errors::Error as BuilderError;
 use crate::constants::DEFAULT_SCOPE;
+use crate::credentials::external_account_sources::programmatic_sourced::ProgrammaticSourcedCredentials;
+use crate::credentials::subject_token::dynamic;
 use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
+use derive_builder::Builder;
 use http::{Extensions, HeaderMap};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
 use std::collections::HashMap;
 use std::sync::Arc;
 use tokio::time::{Duration, Instant};
-use derive_builder::Builder;
-
 
 #[derive(Serialize, Deserialize, Debug, Clone, PartialEq)]
 pub(crate) struct CredentialSourceFormat {
@@ -66,7 +65,6 @@ enum CredentialSourceFile {
 /// A representation of a [external account config file].
 ///
 /// [external account config file]: https://google.aip.dev/auth/4117#configuration-file-generation-and-usage
-/// 
 #[derive(Serialize, Deserialize, Debug)]
 struct ExternalAccountFile {
     audience: String,
@@ -146,10 +144,10 @@ impl ExternalAccountConfig {
         let config = self.clone();
         match self.credential_source {
             CredentialSource::Url(source) => {
-                Self::make_credentials_from_source(source.clone(), config, quota_project_id)
+                Self::make_credentials_from_source(source, config, quota_project_id)
             }
             CredentialSource::Executable(source) => {
-                Self::make_credentials_from_source(source.clone(), config, quota_project_id)
+                Self::make_credentials_from_source(source, config, quota_project_id)
             }
             CredentialSource::Programmatic(source) => {
                 Self::make_credentials_from_source(source, config, quota_project_id)
@@ -314,7 +312,7 @@ impl Builder {
         self
     }
 
-    /// Overrides the [scopes] for this credentials.
+    /// Sets the [scopes] for these credentials.
     ///
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
     pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
@@ -399,20 +397,16 @@ impl Builder {
 ///     .unwrap();
 /// # });
 /// ```
-pub struct ProgrammaticBuilder
-{
+pub struct ProgrammaticBuilder {
     quota_project_id: Option<String>,
     subject_token_provider: Arc<dyn dynamic::SubjectTokenProvider>,
     config: ExternalAccountConfigBuilder,
 }
 
-impl ProgrammaticBuilder
-{
+impl ProgrammaticBuilder {
     /// Creates a new builder that uses the provided [`SubjectTokenProvider`] to
     /// fetch the third-party subject token.
-    pub fn new(
-        subject_token_provider: Arc<dyn dynamic::SubjectTokenProvider>,
-    ) -> Self {
+    pub fn new(subject_token_provider: Arc<dyn dynamic::SubjectTokenProvider>) -> Self {
         Self {
             subject_token_provider,
             quota_project_id: None,
@@ -420,7 +414,7 @@ impl ProgrammaticBuilder
         }
     }
 
-    /// Sets the [quota project] for this credentials.
+    /// Sets the optional [quota project] for this credentials.
     ///
     /// In some services, you can use a service account in
     /// one project for authentication and authorization, and charge
@@ -433,7 +427,8 @@ impl ProgrammaticBuilder
         self
     }
 
-    /// Overrides the [scopes] for this credentials.
+    /// Overrides the optional [scopes] for this credentials. If this method is not
+    /// called, a default scope will be used.
     ///
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
     pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
@@ -441,11 +436,16 @@ impl ProgrammaticBuilder
         I: IntoIterator<Item = S>,
         S: Into<String>,
     {
-        self.config.scopes(scopes.into_iter().map(|s| s.into()).collect::<Vec<String>>());
+        self.config.scopes(
+            scopes
+                .into_iter()
+                .map(|s| s.into())
+                .collect::<Vec<String>>(),
+        );
         self
     }
 
-    /// Sets the audience for the token exchange.
+    /// Sets the required audience for the token exchange.
     ///
     /// This is the resource name for the workload identity pool and the provider
     /// identifier in that pool.
@@ -454,7 +454,7 @@ impl ProgrammaticBuilder
         self
     }
 
-    /// Sets the subject token type.
+    /// Sets the required subject token type.
     ///
     /// This is the STS subject token type based on the OAuth 2.0 token exchange spec.
     pub fn with_subject_token_type(mut self, subject_token_type: String) -> Self {
@@ -462,19 +462,19 @@ impl ProgrammaticBuilder
         self
     }
 
-    /// Sets the token URL for the STS token exchange.
+    /// Sets the required token URL for the STS token exchange.
     pub fn with_token_url(mut self, token_url: String) -> Self {
         self.config.token_url(token_url);
         self
     }
 
-    /// Sets the client ID for client authentication.
+    /// Sets the optional client ID for client authentication.
     pub fn with_client_id(mut self, client_id: String) -> Self {
         self.config.client_id(client_id);
         self
     }
 
-    /// Sets the client secret for client authentication.
+    /// Sets the optional client secret for client authentication.
     pub fn with_client_secret(mut self, client_secret: String) -> Self {
         self.config.client_secret(client_secret);
         self
@@ -492,9 +492,9 @@ impl ProgrammaticBuilder
             config_builder.scopes(vec![DEFAULT_SCOPE.to_string()]);
         }
         let config = config_builder
-            .credential_source(CredentialSource::Programmatic(ProgrammaticSourcedCredentials::new(
-                self.subject_token_provider,
-            )))
+            .credential_source(CredentialSource::Programmatic(
+                ProgrammaticSourcedCredentials::new(self.subject_token_provider),
+            ))
             .build()
             .map_err(BuilderError::parsing)?;
 

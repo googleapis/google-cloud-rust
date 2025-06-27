@@ -182,7 +182,7 @@ pub trait SubjectTokenProvider: std::fmt::Debug + Send + Sync {
 
 pub(crate) mod dynamic {
     use super::{SubjectToken, SubjectTokenProviderError};
-use crate::errors::CredentialsError;
+    use crate::errors::CredentialsError;
 
     /// A type-erased subject token provider.
     #[async_trait::async_trait]
