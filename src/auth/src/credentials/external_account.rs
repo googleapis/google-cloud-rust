@@ -27,7 +27,6 @@ use crate::headers_util::build_cacheable_headers;
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
-use derive_builder::Builder;
 use http::{Extensions, HeaderMap};
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -121,20 +120,85 @@ impl From<CredentialSourceFile> for CredentialSource {
     }
 }
 
-#[derive(Debug, Clone, Builder)]
-#[builder(setter(into))]
+#[derive(Debug, Clone)]
 struct ExternalAccountConfig {
     audience: String,
     subject_token_type: String,
     token_url: String,
-    #[builder(default)]
     service_account_impersonation_url: Option<String>,
-    #[builder(default)]
     client_id: Option<String>,
-    #[builder(default)]
     client_secret: Option<String>,
     scopes: Vec<String>,
     credential_source: CredentialSource,
+}
+
+#[derive(Debug, Default)]
+struct ExternalAccountConfigBuilder {
+    audience: Option<String>,
+    subject_token_type: Option<String>,
+    token_url: Option<String>,
+    client_id: Option<String>,
+    client_secret: Option<String>,
+    scopes: Option<Vec<String>>,
+    credential_source: Option<CredentialSource>,
+}
+
+impl ExternalAccountConfigBuilder {
+    fn with_audience<S: Into<String>>(mut self, audience: S) -> Self {
+        self.audience = Some(audience.into());
+        self
+    }
+
+    fn with_subject_token_type<S: Into<String>>(mut self, subject_token_type: S) -> Self {
+        self.subject_token_type = Some(subject_token_type.into());
+        self
+    }
+
+    fn with_token_url<S: Into<String>>(mut self, token_url: S) -> Self {
+        self.token_url = Some(token_url.into());
+        self
+    }
+
+    fn with_client_id<S: Into<String>>(mut self, client_id: S) -> Self {
+        self.client_id = Some(client_id.into());
+        self
+    }
+
+    fn with_client_secret<S: Into<String>>(mut self, client_secret: S) -> Self {
+        self.client_secret = Some(client_secret.into());
+        self
+    }
+
+    fn with_scopes(mut self, scopes: Vec<String>) -> Self {
+        self.scopes = Some(scopes);
+        self
+    }
+
+    fn with_credential_source(mut self, source: CredentialSource) -> Self {
+        self.credential_source = Some(source);
+        self
+    }
+
+    fn build(self) -> BuildResult<ExternalAccountConfig> {
+        Ok(ExternalAccountConfig {
+            audience: self
+                .audience
+                .ok_or(BuilderError::missing_field("audience"))?,
+            subject_token_type: self
+                .subject_token_type
+                .ok_or(BuilderError::missing_field("subject_token_type"))?,
+            token_url: self
+                .token_url
+                .ok_or(BuilderError::missing_field("token_url"))?,
+            scopes: self.scopes.ok_or(BuilderError::missing_field("scopes"))?,
+            credential_source: self
+                .credential_source
+                .ok_or(BuilderError::missing_field("credential_source"))?,
+            service_account_impersonation_url: None,
+            client_id: self.client_id,
+            client_secret: self.client_secret,
+        })
+    }
 }
 
 #[derive(Debug, Clone)]
@@ -444,10 +508,11 @@ impl ProgrammaticBuilder {
     /// Creates a new builder that uses the provided [`SubjectTokenProvider`] to
     /// fetch the third-party subject token.
     pub fn new(subject_token_provider: Arc<dyn dynamic::SubjectTokenProvider>) -> Self {
-        let mut config = ExternalAccountConfigBuilder::default();
-        config.credential_source(CredentialSource::Programmatic(
-            ProgrammaticSourcedCredentials::new(subject_token_provider),
-        ));
+        let config = ExternalAccountConfigBuilder::default().with_credential_source(
+            CredentialSource::Programmatic(ProgrammaticSourcedCredentials::new(
+                subject_token_provider,
+            )),
+        );
         Self {
             quota_project_id: None,
             config,
@@ -476,7 +541,7 @@ impl ProgrammaticBuilder {
         I: IntoIterator<Item = S>,
         S: Into<String>,
     {
-        self.config.scopes(
+        self.config = self.config.with_scopes(
             scopes
                 .into_iter()
                 .map(|s| s.into())
@@ -490,7 +555,7 @@ impl ProgrammaticBuilder {
     /// This is the resource name for the workload identity pool and the provider
     /// identifier in that pool.
     pub fn with_audience<S: Into<String>>(mut self, audience: S) -> Self {
-        self.config.audience(audience);
+        self.config = self.config.with_audience(audience);
         self
     }
 
@@ -498,26 +563,26 @@ impl ProgrammaticBuilder {
     ///
     /// This is the STS subject token type based on the OAuth 2.0 token exchange spec.
     pub fn with_subject_token_type<S: Into<String>>(mut self, subject_token_type: S) -> Self {
-        self.config.subject_token_type(subject_token_type);
+        self.config = self.config.with_subject_token_type(subject_token_type);
         self
     }
 
     /// Sets the optional token URL for the STS token exchange. If not provided,
     /// `https://sts.googleapis.com/v1/token` is used.
     pub fn with_token_url<S: Into<String>>(mut self, token_url: S) -> Self {
-        self.config.token_url(token_url);
+        self.config = self.config.with_token_url(token_url);
         self
     }
 
     /// Sets the optional client ID for client authentication.
     pub fn with_client_id<S: Into<String>>(mut self, client_id: S) -> Self {
-        self.config.client_id(Some(client_id.into()));
+        self.config = self.config.with_client_id(client_id.into());
         self
     }
 
     /// Sets the optional client secret for client authentication.
     pub fn with_client_secret<S: Into<String>>(mut self, client_secret: S) -> Self {
-        self.config.client_secret(Some(client_secret.into()));
+        self.config = self.config.with_client_secret(client_secret.into());
         self
     }
 
@@ -530,12 +595,12 @@ impl ProgrammaticBuilder {
     pub fn build(self) -> BuildResult<Credentials> {
         let mut config_builder = self.config;
         if config_builder.scopes.is_none() {
-            config_builder.scopes(vec![DEFAULT_SCOPE.to_string()]);
+            config_builder = config_builder.with_scopes(vec![DEFAULT_SCOPE.to_string()]);
         }
         if config_builder.token_url.is_none() {
-            config_builder.token_url(STS_TOKEN_URL.to_string());
+            config_builder = config_builder.with_token_url(STS_TOKEN_URL.to_string());
         }
-        let config = config_builder.build().map_err(BuilderError::parsing)?;
+        let config = config_builder.build()?;
 
         Ok(config.make_credentials(self.quota_project_id))
     }
@@ -973,7 +1038,7 @@ mod test {
         assert!(result.is_err());
         let error_string = result.unwrap_err().to_string();
         assert!(
-            error_string.contains("`audience` must be initialized"),
+            error_string.contains("missing required field: audience"),
             "Expected error about missing 'audience', got: {error_string}"
         );
     }

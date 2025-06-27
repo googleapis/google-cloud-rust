@@ -38,7 +38,6 @@ thiserror.workspace   = true
 time                  = { workspace = true, features = ["serde"] }
 tokio                 = { workspace = true, features = ["fs", "process"] }
 bon.workspace         = true
-derive_builder        = { workspace = true, features = ["alloc"] }
 
 # Local dependencies
 gax.workspace = true
