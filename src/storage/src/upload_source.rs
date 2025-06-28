@@ -89,7 +89,9 @@ where
 /// Provides bytes for upload.
 ///
 /// Implementations of this trait provide data for Google Cloud Storage uploads.
-/// The data may be received asynchronously, such as
+/// The data may be received asynchronously, such downloads from Google Cloud
+/// Storage, other remote storage systems, or the result of repeatable
+/// computations.
 pub trait StreamingSource {
     type Error: std::error::Error + Send + Sync + 'static;
 
@@ -103,15 +105,16 @@ pub trait StreamingSource {
     /// returns the same data.
     fn seek(&mut self, offset: u64) -> impl Future<Output = Result<(), Self::Error>> + Send;
 
-    /// Gets the next set of data tp upload.
+    /// Gets the next set of data to upload.
     fn next(&mut self) -> impl Future<Output = Option<Result<bytes::Bytes, Self::Error>>> + Send;
 
-    /// A estimate of the upload size.
+    /// An estimate of the upload size.
     ///
     /// Returns the expected size as a [min, max) range. Where `None` represents
     /// an unknown limit for the upload.
     ///
-    /// When the size
+    /// If the upper limit is known and sufficiently small, the client library
+    /// may be able to use a more efficient protocol for the upload.
     fn size_hint(&self) -> (u64, Option<u64>) {
         (0_u64, None)
     }
