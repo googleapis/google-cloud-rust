@@ -89,7 +89,7 @@ where
 /// Provides bytes for upload.
 ///
 /// Implementations of this trait provide data for Google Cloud Storage uploads.
-/// The data may be received asynchronously, such downloads from Google Cloud
+/// The data may be received asynchronously, such as downloads from Google Cloud
 /// Storage, other remote storage systems, or the result of repeatable
 /// computations.
 pub trait StreamingSource {
