@@ -227,4 +227,16 @@ mod driver {
         user_guide_samples::examine_error_details::examine_error_details().await?;
         Ok(())
     }
+
+    #[tokio::test]
+    async fn binding_fail() -> user_guide_samples::Result<()> {
+        user_guide_samples::binding_errors::binding_fail().await?;
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn binding_success() -> user_guide_samples::Result<()> {
+        user_guide_samples::binding_errors::binding_success().await?;
+        Ok(())
+    }
 }
