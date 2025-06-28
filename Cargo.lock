@@ -108,6 +108,7 @@ dependencies = [
  "serde_json",
  "serial_test",
  "tempfile",
+ "test-case",
  "tokio",
 ]
 
