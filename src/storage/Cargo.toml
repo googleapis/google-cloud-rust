@@ -27,7 +27,9 @@ categories.workspace   = true
 rust-version.workspace = true
 
 [dependencies]
+base64.workspace      = true
 bytes.workspace       = true
+http.workspace        = true
 lazy_static.workspace = true
 reqwest.workspace     = true
 serde.workspace       = true
@@ -35,9 +37,8 @@ serde_json.workspace  = true
 serde_with.workspace  = true
 sha2.workspace        = true
 thiserror.workspace   = true
+tokio                 = { workspace = true, features = ["io-util"] }
 tracing.workspace     = true
-http.workspace        = true
-base64.workspace      = true
 # Local crates
 auth.workspace = true
 control        = { package = "google-cloud-storage-control", path = "../storage-control" }
@@ -47,6 +48,7 @@ wkt.workspace  = true
 
 [dev-dependencies]
 anyhow.workspace     = true
+test-case.workspace  = true
+tempfile.workspace   = true
 tokio-test.workspace = true
 tokio.workspace      = true
-test-case.workspace  = true
