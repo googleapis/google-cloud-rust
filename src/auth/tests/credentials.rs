@@ -376,7 +376,7 @@ mod test {
             .downcast_ref::<CredentialsError>()
             .expect("source should be a CredentialsError");
         assert!(original_error.to_string().contains("invalid_token"));
-        assert!(error.is_transient());
+        assert!(!error.is_transient());
 
         Ok(())
     }
