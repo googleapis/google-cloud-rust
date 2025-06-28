@@ -66,13 +66,13 @@ OR
 ## Interpreting the templates
 
 The error message includes a number of "template strings" showing possible
-values for the request fields. Most template strings, use `*` and `**` as
+values for the request fields. Most template strings include `*` and `**` as
 wildcards to match the field values.
 
 ### Single wildcard
 
-The `*` alone means: a non-empty string without a `/`. It can be thought of as
-the regex `[^/]+`.
+The `*` wildcard alone means: a non-empty string without a `/`. It can be
+thought of as the regex `[^/]+`.
 
 Here are some examples:
 
@@ -92,8 +92,8 @@ Here are some examples:
 
 ### Double wildcard
 
-Less common is the `**`, which means: any string. The string can be empty or
-contain any number of `/`'s. It can be thought of as the regex `.*`.
+Less common is the `**` wildcard, which means: any string. The string can be
+empty or contain any number of `/`'s. It can be thought of as the regex `.*`.
 
 Also, when a template ends in `/**`, that initial slash is optionally included.
 
