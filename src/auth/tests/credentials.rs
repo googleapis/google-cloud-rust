@@ -343,7 +343,7 @@ mod test {
                 request::method_path("GET", "/source_token"),
                 request::headers(contains(("metadata", "True",))),
             ])
-            .respond_with(status_code(429).body(source_token_response_body)),
+            .respond_with(status_code(400).body(source_token_response_body)),
         );
 
         let contents = json!({

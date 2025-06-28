@@ -507,6 +507,35 @@ pub struct ProgrammaticBuilder {
 impl ProgrammaticBuilder {
     /// Creates a new builder that uses the provided [`SubjectTokenProvider`] to
     /// fetch the third-party subject token.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+    /// # use google_cloud_auth::errors::SubjectTokenProviderError;
+    /// # use std::error::Error;
+    /// # use std::fmt;
+    /// # use std::sync::Arc;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyTokenProvider;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyProviderError;
+    /// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
+    /// # impl Error for MyProviderError {}
+    /// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+    /// #
+    /// # impl SubjectTokenProvider for MyTokenProvider {
+    /// #     type Error = MyProviderError;
+    /// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
+    /// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
+    /// #     }
+    /// # }
+    /// let provider = Arc::new(MyTokenProvider);
+    /// let builder = ProgrammaticBuilder::new(provider);
+    /// ```
     pub fn new(subject_token_provider: Arc<dyn dynamic::SubjectTokenProvider>) -> Self {
         let config = ExternalAccountConfigBuilder::default().with_credential_source(
             CredentialSource::Programmatic(ProgrammaticSourcedCredentials::new(
@@ -526,14 +555,74 @@ impl ProgrammaticBuilder {
     /// the usage to a different project. This requires that the
     /// service account has `serviceusage.services.use` permissions on the quota project.
     ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+    /// # use google_cloud_auth::errors::SubjectTokenProviderError;
+    /// # use std::error::Error;
+    /// # use std::fmt;
+    /// # use std::sync::Arc;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyTokenProvider;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyProviderError;
+    /// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
+    /// # impl Error for MyProviderError {}
+    /// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+    /// #
+    /// # impl SubjectTokenProvider for MyTokenProvider {
+    /// #     type Error = MyProviderError;
+    /// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
+    /// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
+    /// #     }
+    /// # }
+    /// # let provider = Arc::new(MyTokenProvider);
+    /// let builder = ProgrammaticBuilder::new(provider)
+    ///     .with_quota_project_id("my-quota-project");
+    /// ```
+    ///
     /// [quota project]: https://cloud.google.com/docs/quotas/quota-project
     pub fn with_quota_project_id<S: Into<String>>(mut self, quota_project_id: S) -> Self {
         self.quota_project_id = Some(quota_project_id.into());
         self
     }
 
-    /// Sets the [scopes] for these credentials.
-    /// By default `https://www.googleapis.com/auth/cloud-platform` scope is used.
+    /// Overrides the optional [scopes] for this credentials. If this method is not
+    /// called, a default scope will be used.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+    /// # use google_cloud_auth::errors::SubjectTokenProviderError;
+    /// # use std::error::Error;
+    /// # use std::fmt;
+    /// # use std::sync::Arc;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyTokenProvider;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyProviderError;
+    /// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
+    /// # impl Error for MyProviderError {}
+    /// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+    /// #
+    /// # impl SubjectTokenProvider for MyTokenProvider {
+    /// #     type Error = MyProviderError;
+    /// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
+    /// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
+    /// #     }
+    /// # }
+    /// # let provider = Arc::new(MyTokenProvider);
+    /// let builder = ProgrammaticBuilder::new(provider)
+    ///     .with_scopes(vec!["scope1", "scope2"]);
+    /// ```
     ///
     /// [scopes]: https://developers.google.com/identity/protocols/oauth2/scopes
     pub fn with_scopes<I, S>(mut self, scopes: I) -> Self
@@ -554,6 +643,36 @@ impl ProgrammaticBuilder {
     ///
     /// This is the resource name for the workload identity pool and the provider
     /// identifier in that pool.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+    /// # use google_cloud_auth::errors::SubjectTokenProviderError;
+    /// # use std::error::Error;
+    /// # use std::fmt;
+    /// # use std::sync::Arc;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyTokenProvider;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyProviderError;
+    /// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
+    /// # impl Error for MyProviderError {}
+    /// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+    /// #
+    /// # impl SubjectTokenProvider for MyTokenProvider {
+    /// #     type Error = MyProviderError;
+    /// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
+    /// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
+    /// #     }
+    /// # }
+    /// # let provider = Arc::new(MyTokenProvider);
+    /// let builder = ProgrammaticBuilder::new(provider)
+    ///     .with_audience("my-audience");
+    /// ```
     pub fn with_audience<S: Into<String>>(mut self, audience: S) -> Self {
         self.config = self.config.with_audience(audience);
         self
@@ -562,6 +681,36 @@ impl ProgrammaticBuilder {
     /// Sets the required subject token type.
     ///
     /// This is the STS subject token type based on the OAuth 2.0 token exchange spec.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+    /// # use google_cloud_auth::errors::SubjectTokenProviderError;
+    /// # use std::error::Error;
+    /// # use std::fmt;
+    /// # use std::sync::Arc;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyTokenProvider;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyProviderError;
+    /// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
+    /// # impl Error for MyProviderError {}
+    /// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+    /// #
+    /// # impl SubjectTokenProvider for MyTokenProvider {
+    /// #     type Error = MyProviderError;
+    /// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
+    /// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
+    /// #     }
+    /// # }
+    /// # let provider = Arc::new(MyTokenProvider);
+    /// let builder = ProgrammaticBuilder::new(provider)
+    ///     .with_subject_token_type("my-token-type");
+    /// ```
     pub fn with_subject_token_type<S: Into<String>>(mut self, subject_token_type: S) -> Self {
         self.config = self.config.with_subject_token_type(subject_token_type);
         self
@@ -569,18 +718,108 @@ impl ProgrammaticBuilder {
 
     /// Sets the optional token URL for the STS token exchange. If not provided,
     /// `https://sts.googleapis.com/v1/token` is used.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+    /// # use google_cloud_auth::errors::SubjectTokenProviderError;
+    /// # use std::error::Error;
+    /// # use std::fmt;
+    /// # use std::sync::Arc;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyTokenProvider;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyProviderError;
+    /// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
+    /// # impl Error for MyProviderError {}
+    /// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+    /// #
+    /// # impl SubjectTokenProvider for MyTokenProvider {
+    /// #     type Error = MyProviderError;
+    /// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
+    /// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
+    /// #     }
+    /// # }
+    /// # let provider = Arc::new(MyTokenProvider);
+    /// let builder = ProgrammaticBuilder::new(provider)
+    ///     .with_token_url("http://my-token-url.com");
+    /// ```
     pub fn with_token_url<S: Into<String>>(mut self, token_url: S) -> Self {
         self.config = self.config.with_token_url(token_url);
         self
     }
 
     /// Sets the optional client ID for client authentication.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+    /// # use google_cloud_auth::errors::SubjectTokenProviderError;
+    /// # use std::error::Error;
+    /// # use std::fmt;
+    /// # use std::sync::Arc;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyTokenProvider;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyProviderError;
+    /// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
+    /// # impl Error for MyProviderError {}
+    /// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+    /// #
+    /// # impl SubjectTokenProvider for MyTokenProvider {
+    /// #     type Error = MyProviderError;
+    /// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
+    /// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
+    /// #     }
+    /// # }
+    /// # let provider = Arc::new(MyTokenProvider);
+    /// let builder = ProgrammaticBuilder::new(provider)
+    ///     .with_client_id("my-client-id");
+    /// ```
     pub fn with_client_id<S: Into<String>>(mut self, client_id: S) -> Self {
         self.config = self.config.with_client_id(client_id.into());
         self
     }
 
     /// Sets the optional client secret for client authentication.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+    /// # use google_cloud_auth::errors::SubjectTokenProviderError;
+    /// # use std::error::Error;
+    /// # use std::fmt;
+    /// # use std::sync::Arc;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyTokenProvider;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyProviderError;
+    /// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
+    /// # impl Error for MyProviderError {}
+    /// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+    /// #
+    /// # impl SubjectTokenProvider for MyTokenProvider {
+    /// #     type Error = MyProviderError;
+    /// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
+    /// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
+    /// #     }
+    /// # }
+    /// # let provider = Arc::new(MyTokenProvider);
+    /// let builder = ProgrammaticBuilder::new(provider)
+    ///     .with_client_secret("my-client-secret");
+    /// ```
     pub fn with_client_secret<S: Into<String>>(mut self, client_secret: S) -> Self {
         self.config = self.config.with_client_secret(client_secret.into());
         self
@@ -636,6 +875,7 @@ mod test {
     use std::collections::HashMap;
     use std::error::Error;
     use std::fmt;
+    use test_case::test_case;
     use time::OffsetDateTime;
 
     #[derive(Debug)]
@@ -1002,18 +1242,28 @@ mod test {
         assert!(!err.is_transient());
     }
 
+    #[test_case(Some(vec!["scope1", "scope2"]), Some("http://custom.com/token") ; "with custom scopes and token_url")]
+    #[test_case(None, Some("http://custom.com/token") ; "with default scopes and custom token_url")]
+    #[test_case(Some(vec!["scope1", "scope2"]), None ; "with custom scopes and default token_url")]
+    #[test_case(None, None ; "with default scopes and default token_url")]
     #[tokio::test]
-    async fn create_programmatic_builder() {
+    async fn create_programmatic_builder(scopes: Option<Vec<&str>>, token_url: Option<&str>) {
         let provider = Arc::new(TestSubjectTokenProvider);
-        let creds = ProgrammaticBuilder::new(provider)
+        let mut builder = ProgrammaticBuilder::new(provider)
             .with_audience("test-audience")
             .with_subject_token_type("test-token-type")
             .with_client_id("test-client-id")
             .with_client_secret("test-client-secret")
-            .with_quota_project_id("test-quota-project")
-            .with_scopes(vec!["scope1", "scope2"])
-            .build()
-            .unwrap();
+            .with_quota_project_id("test-quota-project");
+
+        if let Some(scopes) = scopes {
+            builder = builder.with_scopes(scopes);
+        }
+        if let Some(token_url) = token_url {
+            builder = builder.with_token_url(token_url);
+        }
+
+        let creds = builder.build().unwrap();
 
         let fmt = format!("{creds:?}");
         assert!(
