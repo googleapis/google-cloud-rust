@@ -127,6 +127,16 @@ mod driver {
 
     #[test_case(Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
     #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_storage_objects_large_file(
+        builder: storage::client::ClientBuilder,
+    ) -> integration_tests::Result<()> {
+        integration_tests::storage::objects_large_file(builder)
+            .await
+            .map_err(integration_tests::report_error)
+    }
+
+    #[test_case(Storage::builder().with_tracing().with_retry_policy(retry_policy()); "with tracing and retry enabled")]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
     async fn run_storage_objects_with_key(
         builder: storage::client::ClientBuilder,
     ) -> integration_tests::Result<()> {
