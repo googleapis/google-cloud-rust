@@ -17,19 +17,14 @@ let x_goog_request_params = {
     use gaxi::routing_parameter::Segment;
     gaxi::routing_parameter::format(&[
         {{#Routing}}
+        None
         {{#Variants}}
-        {{^Codec.FirstVariant}}
-        .or_else(||
-        {{/Codec.FirstVariant}}
-        gaxi::routing_parameter::value(
+        .or_else(|| gaxi::routing_parameter::value(
             Some(&req){{#Codec.FieldAccessors}}{{{.}}}{{/Codec.FieldAccessors}},
             &[ {{#Codec.PrefixSegments}}{{{.}}}, {{/Codec.PrefixSegments}} ],
             &[ {{#Codec.MatchingSegments}}{{{.}}}, {{/Codec.MatchingSegments}} ],
             &[ {{#Codec.SuffixSegments}}{{{.}}}, {{/Codec.SuffixSegments}} ],
-        )
-        {{^Codec.FirstVariant}}
-        )
-        {{/Codec.FirstVariant}}
+        ))
         {{/Variants}}
         .map(|v| ("{{Name}}", v)),
         {{/Routing}}
