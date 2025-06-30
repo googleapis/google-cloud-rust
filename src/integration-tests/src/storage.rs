@@ -62,18 +62,6 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
-    tracing::info!("testing read_object() streaming");
-    let mut contents = bytes::BytesMut::new();
-    let mut resp = client
-        .read_object(&bucket.name, &insert.name)
-        .send()
-        .await?;
-    while let Some(chunk) = resp.next().await? {
-        contents.extend_from_slice(&chunk);
-    }
-    assert_eq!(contents, CONTENTS.as_bytes());
-    tracing::info!("success with contents={contents:?}");
-
     control
         .delete_object()
         .set_bucket(&insert.bucket)
@@ -132,6 +120,73 @@ pub async fn objects_customer_supplied_encryption(
         .await?;
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
+
+    control
+        .delete_object()
+        .set_bucket(&insert.bucket)
+        .set_object(&insert.name)
+        .set_generation(insert.generation)
+        .send()
+        .await?;
+    control
+        .delete_bucket()
+        .set_name(&bucket.name)
+        .send()
+        .await?;
+
+    Ok(())
+}
+
+pub async fn objects_large_file(builder: storage::client::ClientBuilder) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    // Create a temporary bucket for the test.
+    let (control, bucket) = create_test_bucket().await?;
+
+    let client = builder.build().await?;
+
+    // Create a large enough file that will require multiple chunks to download.
+    const BLOCK_SIZE: usize = 500;
+    let mut contents = Vec::new();
+    for i in 0..8 {
+        contents.extend_from_slice(&[i as u8; BLOCK_SIZE]);
+    }
+
+    tracing::info!("testing insert_object()");
+    let insert = client
+        .insert_object(&bucket.name, "quick.text", contents.clone())
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+
+    tracing::info!("testing read_object() streaming");
+    let mut resp = client
+        .read_object(&bucket.name, &insert.name)
+        .send()
+        .await?;
+
+    // This should take multiple chunks to download.
+    let mut got = bytes::BytesMut::new();
+    let mut count = 0;
+    while let Some(chunk) = resp.next().await? {
+        got.extend_from_slice(&chunk);
+        count += 1;
+    }
+    assert_eq!(got, contents);
+    assert!(count > 1, "{count:?}");
+    tracing::info!("success with large contents");
 
     control
         .delete_object()
