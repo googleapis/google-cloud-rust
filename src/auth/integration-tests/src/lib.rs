@@ -20,6 +20,7 @@ use auth::credentials::{
     service_account::Builder as ServiceAccountCredentialsBuilder,
 };
 use bigquery::client::DatasetService;
+use gax::error::rpc::Code;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use iamcredentials::client::IAMCredentials;
 use language::client::LanguageService;
@@ -105,8 +106,10 @@ pub async fn impersonated() -> anyhow::Result<()> {
     let source_sa_creds = ServiceAccountCredentialsBuilder::new(source_sa_json).build()?;
 
     let impersonated_creds =
-        ImpersonatedCredentialsBuilder::from_source_credentials(source_sa_creds)
-            .with_target_principal("impersonation-target@rust-auth-testing.iam.gserviceaccount.com")
+        ImpersonatedCredentialsBuilder::from_source_credentials(source_sa_creds.clone())
+            .with_target_principal(format!(
+                "impersonation-target@{project}.iam.gserviceaccount.com"
+            ))
             .build()?;
 
     let client = SecretManagerService::builder()
@@ -127,6 +130,39 @@ pub async fn impersonated() -> anyhow::Result<()> {
         .expect("missing payload in impersonation-target-secret response")
         .data;
     assert_eq!(secret, "impersonated_secret_value");
+
+    // Verify that using the source credential directly does not work
+    let client_with_source_creds = SecretManagerService::builder()
+        .with_credentials(source_sa_creds)
+        .build()
+        .await?;
+    let result = client_with_source_creds
+        .access_secret_version()
+        .set_name(format!(
+            "projects/{project}/secrets/impersonation-target-secret/versions/latest"
+        ))
+        .send()
+        .await;
+
+    match result {
+        Ok(_) => panic!(
+            "source credentials should not have access to the secret, but the call succeeded"
+        ),
+        Err(e) => {
+            // The error `e` from a client call is of type `google_cloud_gax::error::Error`.
+            // We can inspect it to see if it's the error we expect.
+            // In this case, we expect a `PermissionDenied` error from the service.
+            if let Some(status) = e.status() {
+                assert_eq!(
+                    status.code,
+                    Code::PermissionDenied,
+                    "Expected PermissionDenied, but got a different status: {status:?}"
+                );
+            } else {
+                panic!("Expected a service error, but got a different kind of error: {e}");
+            }
+        }
+    }
 
     Ok(())
 }
