@@ -867,9 +867,9 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={}", v))]
+            .map(|v| format!("name={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
@@ -908,9 +908,9 @@ impl super::stub::StorageControl for StorageControl {
             .and_then(|m| m.intelligence_config.as_ref())
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("intelligence_config.name={}", v))]
+            .map(|v| format!("intelligence_config.name={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
@@ -948,9 +948,9 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={}", v))]
+            .map(|v| format!("name={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
@@ -989,9 +989,9 @@ impl super::stub::StorageControl for StorageControl {
             .and_then(|m| m.intelligence_config.as_ref())
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("intelligence_config.name={}", v))]
+            .map(|v| format!("intelligence_config.name={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
@@ -1029,9 +1029,9 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={}", v))]
+            .map(|v| format!("name={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
@@ -1070,9 +1070,9 @@ impl super::stub::StorageControl for StorageControl {
             .and_then(|m| m.intelligence_config.as_ref())
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("intelligence_config.name={}", v))]
+            .map(|v| format!("intelligence_config.name={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
@@ -1110,9 +1110,9 @@ impl super::stub::StorageControl for StorageControl {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={}", v))]
+            .map(|v| format!("name={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::longrunning::Operation;

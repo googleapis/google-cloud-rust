@@ -123,14 +123,14 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         {{^HasRouting}}
         let x_goog_request_params = [
             {{#PathInfo.Codec.UniqueParameters}}
-                {{{FieldAccessor}}}.map(|v| format!("{{FieldName}}={}", v)),
+                {{{FieldAccessor}}}.map(|v| format!("{{FieldName}}={v}")),
             {{/PathInfo.Codec.UniqueParameters}}
             {{^PathInfo.Codec.UniqueParameters}}
             ""; 0
             {{/PathInfo.Codec.UniqueParameters}}
         ]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         {{! TODO(#2548) - skip empty strings, and don't lead with a '&' }}
         .fold(String::new(), |b, p| b + "&" + &p);
         {{/HasRouting}}

@@ -77,9 +77,9 @@ impl super::stub::Firestore for Firestore {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={}", v))]
+            .map(|v| format!("name={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::Document;
@@ -117,14 +117,14 @@ impl super::stub::Firestore for Firestore {
             Some(&req)
                 .map(|m| &m.parent)
                 .map(|s| s.as_str())
-                .map(|v| format!("parent={}", v)),
+                .map(|v| format!("parent={v}")),
             Some(&req)
                 .map(|m| &m.collection_id)
                 .map(|s| s.as_str())
-                .map(|v| format!("collection_id={}", v)),
+                .map(|v| format!("collection_id={v}")),
         ]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::ListDocumentsResponse;
@@ -162,9 +162,9 @@ impl super::stub::Firestore for Firestore {
             .and_then(|m| m.document.as_ref())
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("document.name={}", v))]
+            .map(|v| format!("document.name={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::Document;
@@ -201,9 +201,9 @@ impl super::stub::Firestore for Firestore {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.name)
             .map(|s| s.as_str())
-            .map(|v| format!("name={}", v))]
+            .map(|v| format!("name={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
@@ -240,9 +240,9 @@ impl super::stub::Firestore for Firestore {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.database)
             .map(|s| s.as_str())
-            .map(|v| format!("database={}", v))]
+            .map(|v| format!("database={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::BeginTransactionResponse;
@@ -278,9 +278,9 @@ impl super::stub::Firestore for Firestore {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.database)
             .map(|s| s.as_str())
-            .map(|v| format!("database={}", v))]
+            .map(|v| format!("database={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::CommitResponse;
@@ -316,9 +316,9 @@ impl super::stub::Firestore for Firestore {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.database)
             .map(|s| s.as_str())
-            .map(|v| format!("database={}", v))]
+            .map(|v| format!("database={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
@@ -355,9 +355,9 @@ impl super::stub::Firestore for Firestore {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={}", v))]
+            .map(|v| format!("parent={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::PartitionQueryResponse;
@@ -395,9 +395,9 @@ impl super::stub::Firestore for Firestore {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.parent)
             .map(|s| s.as_str())
-            .map(|v| format!("parent={}", v))]
+            .map(|v| format!("parent={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::ListCollectionIdsResponse;
@@ -434,9 +434,9 @@ impl super::stub::Firestore for Firestore {
         let x_goog_request_params = [Some(&req)
             .map(|m| &m.database)
             .map(|s| s.as_str())
-            .map(|v| format!("database={}", v))]
+            .map(|v| format!("database={v}"))]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::BatchWriteResponse;
@@ -474,14 +474,14 @@ impl super::stub::Firestore for Firestore {
             Some(&req)
                 .map(|m| &m.parent)
                 .map(|s| s.as_str())
-                .map(|v| format!("parent={}", v)),
+                .map(|v| format!("parent={v}")),
             Some(&req)
                 .map(|m| &m.collection_id)
                 .map(|s| s.as_str())
-                .map(|v| format!("collection_id={}", v)),
+                .map(|v| format!("collection_id={v}")),
         ]
         .into_iter()
-        .filter_map(|o| o)
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::Document;
