@@ -23,6 +23,10 @@
 ///
 /// For more details on the specification, see: [AIP-127].
 ///
+/// Also see the [Handling binding errors] section in the user guide to learn
+/// how to resolve these errors.
+///
+/// [Handling binding errors]: https://google-cloud-rust.github.io/binding_errors.html
 /// [aip-127]: https://google.aip.dev/127
 /// [uri]: https://clouddocs.f5.com/api/irules/HTTP__uri.html
 #[derive(thiserror::Error, Debug, PartialEq)]
@@ -84,14 +88,14 @@ impl std::fmt::Display for SubstitutionMismatch {
             SubstitutionFail::UnsetExpecting(expected) => {
                 write!(
                     f,
-                    "field `{}` needs to be set and match: '{}'",
+                    "field `{}` needs to be set and match the template: '{}'",
                     self.field_name, expected
                 )
             }
             SubstitutionFail::MismatchExpecting(actual, expected) => {
                 write!(
                     f,
-                    "field `{}` should match: '{}'; found: '{}'",
+                    "field `{}` should match the template: '{}'; found: '{}'",
                     self.field_name, expected, actual
                 )
             }
