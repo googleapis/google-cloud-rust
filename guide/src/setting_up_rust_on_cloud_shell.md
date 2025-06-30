@@ -83,10 +83,11 @@ Cloud Shell.
 
 <!-- markdownlint-disable MD029 -->
 
-6. Run your program, replacing `[PROJECT ID]` with the id of your project:
+1. Run your program, supplying your Google Cloud Platform project's ID:
 
    ```shell
-   cargo run [PROJECT ID]
+   PROJECT_ID=$(gcloud config get project)
+   cargo run ${PROJECT_ID}
    ```
 
    The program will print the secrets associated with your project ID. If you
