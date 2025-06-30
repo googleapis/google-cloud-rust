@@ -158,11 +158,10 @@ pub async fn objects_large_file(builder: storage::client::ClientBuilder) -> Resu
     let client = builder.build().await?;
 
     // Create a large enough file that will require multiple chunks to download.
-    const TOTAL_BYTES: usize = 4000;
     const BLOCK_SIZE: usize = 500;
-    let mut contents: Vec<u8> = vec![0; TOTAL_BYTES];
-    for i in 0..TOTAL_BYTES {
-        contents[i] = (i / BLOCK_SIZE) as u8;
+    let mut contents = Vec::new();
+    for i in 0..8 {
+        contents.extend_from_slice(&[i as u8; BLOCK_SIZE]);
     }
 
     tracing::info!("testing insert_object()");
@@ -180,10 +179,13 @@ pub async fn objects_large_file(builder: storage::client::ClientBuilder) -> Resu
 
     // This should take multiple chunks to download.
     let mut got = bytes::BytesMut::new();
+    let mut count = 0;
     while let Some(chunk) = resp.next().await? {
         got.extend_from_slice(&chunk);
+        count += 1;
     }
     assert_eq!(got, contents);
+    assert!(count > 1, "{count:?}");
     tracing::info!("success with large contents");
 
     control
