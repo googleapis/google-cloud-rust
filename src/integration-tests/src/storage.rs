@@ -68,8 +68,8 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
         .read_object(&bucket.name, &insert.name)
         .send()
         .await?;
-    while let Some(chunk) = resp.next().await? {
-        contents.extend_from_slice(&chunk);
+    while let Some(chunk) = resp.next().await {
+        contents.extend_from_slice(&chunk?);
     }
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
