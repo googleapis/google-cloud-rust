@@ -61,6 +61,7 @@ Once the client is successfully initialized, you can use it to make RPCs:
 ```rust,ignore,noplayground
 {{#include ../samples/tests/initialize_client.rs:make-rpc}}
 ```
+
 This example shows a call to `list_locations`, which returns information about
 the supported locations for the service (in this case, Secret Manager). The
 output of the example should look something like this:
