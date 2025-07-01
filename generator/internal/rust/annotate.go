@@ -214,7 +214,6 @@ func (info *operationInfo) NoneAreEmpty() bool {
 }
 
 type routingVariantAnnotations struct {
-	FirstVariant     bool
 	FieldAccessors   []string
 	PrefixSegments   []string
 	MatchingSegments []string
@@ -658,9 +657,8 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 	}
 
 	for _, routing := range m.Routing {
-		for index, variant := range routing.Variants {
+		for _, variant := range routing.Variants {
 			routingVariantAnnotations := &routingVariantAnnotations{
-				FirstVariant:     index == 0,
 				FieldAccessors:   c.annotateRoutingAccessors(variant, m, state),
 				PrefixSegments:   annotateSegments(variant.Prefix.Segments),
 				MatchingSegments: annotateSegments(variant.Matching.Segments),

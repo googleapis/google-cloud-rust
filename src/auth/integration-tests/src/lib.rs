@@ -16,8 +16,11 @@ use auth::credentials::{
     Builder as AccessTokenCredentialBuilder,
     api_key_credentials::Builder as ApiKeyCredentialsBuilder,
     external_account::Builder as ExternalAccountCredentialsBuilder,
+    impersonated::Builder as ImpersonatedCredentialsBuilder,
+    service_account::Builder as ServiceAccountCredentialsBuilder,
 };
 use bigquery::client::DatasetService;
+use gax::error::rpc::Code;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use iamcredentials::client::IAMCredentials;
 use language::client::LanguageService;
@@ -74,6 +77,92 @@ pub async fn service_account() -> anyhow::Result<()> {
         .expect("missing payload in test-sa-creds-secret response")
         .data;
     assert_eq!(secret, "service_account");
+
+    Ok(())
+}
+
+pub async fn impersonated() -> anyhow::Result<()> {
+    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+
+    // Create a SecretManager client. When running on GCB, this loads MDS
+    // credentials for our `integration-test-runner` service account.
+    let client = SecretManagerService::builder().build().await?;
+
+    // Load the service account json that will be the source credential
+    let response = client
+        .access_secret_version()
+        .set_name(format!(
+            "projects/{project}/secrets/test-sa-creds-json/versions/latest"
+        ))
+        .send()
+        .await?;
+    let source_sa_json = response
+        .payload
+        .expect("missing payload in test-sa-creds-json response")
+        .data;
+
+    let source_sa_json: serde_json::Value = serde_json::from_slice(&source_sa_json)?;
+
+    let source_sa_creds = ServiceAccountCredentialsBuilder::new(source_sa_json).build()?;
+
+    let impersonated_creds =
+        ImpersonatedCredentialsBuilder::from_source_credentials(source_sa_creds.clone())
+            .with_target_principal(format!(
+                "impersonation-target@{project}.iam.gserviceaccount.com"
+            ))
+            .build()?;
+
+    let client = SecretManagerService::builder()
+        .with_credentials(impersonated_creds)
+        .build()
+        .await?;
+
+    // Access a secret, which only this principal has permissions to do.
+    let response = client
+        .access_secret_version()
+        .set_name(format!(
+            "projects/{project}/secrets/impersonation-target-secret/versions/latest"
+        ))
+        .send()
+        .await?;
+    let secret = response
+        .payload
+        .expect("missing payload in impersonation-target-secret response")
+        .data;
+    assert_eq!(secret, "impersonated_secret_value");
+
+    // Verify that using the source credential directly does not work
+    let client_with_source_creds = SecretManagerService::builder()
+        .with_credentials(source_sa_creds)
+        .build()
+        .await?;
+    let result = client_with_source_creds
+        .access_secret_version()
+        .set_name(format!(
+            "projects/{project}/secrets/impersonation-target-secret/versions/latest"
+        ))
+        .send()
+        .await;
+
+    match result {
+        Ok(_) => panic!(
+            "source credentials should not have access to the secret, but the call succeeded"
+        ),
+        Err(e) => {
+            // The error `e` from a client call is of type `google_cloud_gax::error::Error`.
+            // We can inspect it to see if it's the error we expect.
+            // In this case, we expect a `PermissionDenied` error from the service.
+            if let Some(status) = e.status() {
+                assert_eq!(
+                    status.code,
+                    Code::PermissionDenied,
+                    "Expected PermissionDenied, but got a different status: {status:?}"
+                );
+            } else {
+                panic!("Expected a service error, but got a different kind of error: {e}");
+            }
+        }
+    }
 
     Ok(())
 }
