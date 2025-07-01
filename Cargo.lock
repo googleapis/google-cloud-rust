@@ -4191,6 +4191,7 @@ dependencies = [
  "google-cloud-wkt",
  "http",
  "lazy_static",
+ "percent-encoding",
  "reqwest",
  "serde",
  "serde_json",
