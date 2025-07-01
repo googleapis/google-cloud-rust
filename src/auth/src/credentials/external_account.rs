@@ -137,6 +137,7 @@ struct ExternalAccountConfigBuilder {
     audience: Option<String>,
     subject_token_type: Option<String>,
     token_url: Option<String>,
+    service_account_impersonation_url: Option<String>,
     client_id: Option<String>,
     client_secret: Option<String>,
     scopes: Option<Vec<String>>,
@@ -156,6 +157,11 @@ impl ExternalAccountConfigBuilder {
 
     fn with_token_url<S: Into<String>>(mut self, token_url: S) -> Self {
         self.token_url = Some(token_url.into());
+        self
+    }
+
+    fn with_service_account_impersonation_url<S: Into<String>>(mut self, url: S) -> Self {
+        self.service_account_impersonation_url = Some(url.into());
         self
     }
 
@@ -181,20 +187,12 @@ impl ExternalAccountConfigBuilder {
 
     fn build(self) -> BuildResult<ExternalAccountConfig> {
         Ok(ExternalAccountConfig {
-            audience: self
-                .audience
-                .ok_or(BuilderError::missing_field("audience"))?,
-            subject_token_type: self
-                .subject_token_type
-                .ok_or(BuilderError::missing_field("subject_token_type"))?,
-            token_url: self
-                .token_url
-                .ok_or(BuilderError::missing_field("token_url"))?,
+            audience: self.audience.ok_or(BuilderError::missing_field("audience"))?,
+            subject_token_type: self.subject_token_type.ok_or(BuilderError::missing_field("subject_token_type"))?,
+            token_url: self.token_url.ok_or(BuilderError::missing_field("token_url"))?,
             scopes: self.scopes.ok_or(BuilderError::missing_field("scopes"))?,
-            credential_source: self
-                .credential_source
-                .ok_or(BuilderError::missing_field("credential_source"))?,
-            service_account_impersonation_url: None,
+            credential_source: self.credential_source.ok_or(BuilderError::missing_field("credential_source"))?,
+            service_account_impersonation_url: self.service_account_impersonation_url,
             client_id: self.client_id,
             client_secret: self.client_secret,
         })
@@ -825,6 +823,42 @@ impl ProgrammaticBuilder {
         self
     }
 
+    /// Sets the optional service account impersonation URL.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+    /// # use google_cloud_auth::errors::SubjectTokenProviderError;
+    /// # use std::error::Error;
+    /// # use std::fmt;
+    /// # use std::sync::Arc;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyTokenProvider;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyProviderError;
+    /// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
+    /// # impl Error for MyProviderError {}
+    /// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+    /// #
+    /// # impl SubjectTokenProvider for MyTokenProvider {
+    /// #     type Error = MyProviderError;
+    /// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
+    /// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
+    /// #     }
+    /// # }
+    /// # let provider = Arc::new(MyTokenProvider);
+    /// let builder = ProgrammaticBuilder::new(provider)
+    ///     .with_service_account_impersonation_url("my-service-account-impersonation-url");
+    /// ```
+    pub fn with_service_account_impersonation_url<S: Into<String>>(mut self, url: S) -> Self {
+        self.config = self.config.with_service_account_impersonation_url(url);
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -1291,5 +1325,73 @@ mod test {
             error_string.contains("missing required field: audience"),
             "Expected error about missing 'audience', got: {error_string}"
         );
+    }
+
+    #[tokio::test]
+    async fn test_programmatic_builder_with_impersonation_success() {
+        let sts_server = Server::run();
+        let impersonation_server = Server::run();
+
+        let impersonation_path = "/projects/-/serviceAccounts/sa@test.com:generateAccessToken";
+        let provider = Arc::new(TestSubjectTokenProvider);
+        let creds = ProgrammaticBuilder::new(provider)
+            .with_audience("audience")
+            .with_subject_token_type(JWT_TOKEN_TYPE)
+            .with_token_url(sts_server.url("/token").to_string())
+            .with_service_account_impersonation_url(
+                impersonation_server.url(impersonation_path).to_string(),
+            )
+            .build()
+            .unwrap();
+
+        sts_server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),
+                request::body(url_decoded(contains((
+                    "grant_type",
+                    TOKEN_EXCHANGE_GRANT_TYPE
+                )))),
+                request::body(url_decoded(contains(("subject_token", "test-subject-token")))),
+                request::body(url_decoded(contains((
+                    "requested_token_type",
+                    ACCESS_TOKEN_TYPE
+                )))),
+                request::body(url_decoded(contains((
+                    "subject_token_type",
+                    JWT_TOKEN_TYPE
+                )))),
+                request::body(url_decoded(contains(("audience", "audience")))),
+                request::body(url_decoded(contains(("scope", IAM_SCOPE)))),
+            ])
+            .respond_with(json_encoded(json!({
+                "access_token": "sts-token",
+                "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+                "token_type": "Bearer",
+                "expires_in": 3600,
+            }))),
+        );
+
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+        impersonation_server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", impersonation_path),
+                request::headers(contains(("authorization", "Bearer sts-token"))),
+            ])
+            .respond_with(json_encoded(json!({
+                "accessToken": "final-impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        let headers = creds.headers(Extensions::new()).await.unwrap();
+        match headers {
+            CacheableResource::New { data, .. } => {
+                let token = data.get("authorization").unwrap().to_str().unwrap();
+                assert_eq!(token, "Bearer final-impersonated-token");
+            }
+            CacheableResource::NotModified => panic!("Expected new headers"),
+        }
     }
 }
