@@ -50,10 +50,6 @@ go -C generator/ run ./cmd/sidekick rust-generate \
     -service-config ${yaml}
 ```
 
-Often we identify typos in the Protobuf comments. Add the typos to the ignore
-list on `.typos.toml` and fix the problem upstream. Do not treat this as a
-blocker.
-
 Commit all these changes and send a PR to merge them:
 
 ```bash
