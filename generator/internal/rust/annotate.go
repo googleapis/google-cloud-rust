@@ -179,16 +179,23 @@ type methodAnnotation struct {
 }
 
 type pathInfoAnnotation struct {
-	Method      string
-	PathArgs    []pathArg
-	HasPathArgs bool
-	HasBody     bool
-}
+	// Whether the request has a body or not
+	HasBody bool
 
-// Returns true if the HTTP request requires a payload. This is relevant for
-// POST and PUT requests that do not have a body parameter.
-func (a *pathInfoAnnotation) RequiresContentLength() bool {
-	return a.Method == "POST" || a.Method == "PUT"
+	// A list of possible request parameters
+	//
+	// This is only used for gRPC-based clients, where we must consider all
+	// possible request parameters.
+	//
+	// https://google.aip.dev/client-libraries/4222
+	//
+	// Templates are ignored. We only care about the FieldName and FieldAccessor.
+	UniqueParameters []*bindingSubstitution
+
+	// Whether this is idempotent by default
+	//
+	// This is only used for gRPC-based clients.
+	IsIdempotent string
 }
 
 type operationInfo struct {
@@ -640,22 +647,7 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 }
 
 func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIState, sourceSpecificationPackageName string, packageNamespace string) {
-	// TODO(#2317) - move to pathBindingAnnotation
-	if len(m.PathInfo.Bindings) != 0 {
-		pathInfoAnnotation := &pathInfoAnnotation{
-			Method:   m.PathInfo.Bindings[0].Verb,
-			PathArgs: httpPathArgs(m.PathInfo, m, state),
-			HasBody:  m.PathInfo.BodyFieldPath != "",
-		}
-		pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
-		m.PathInfo.Codec = pathInfoAnnotation
-	} else {
-		// Even when there are no bindings, we still want a concrete
-		// annotation, which we use to determine the default idempotency
-		// of the method. An empty annotation yields `false`.
-		m.PathInfo.Codec = &pathInfoAnnotation{}
-	}
-
+	annotatePathInfo(m.PathInfo, m, state)
 	for _, routing := range m.Routing {
 		for _, variant := range routing.Variants {
 			routingVariantAnnotations := &routingVariantAnnotations{
@@ -666,10 +658,6 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 			}
 			variant.Codec = routingVariantAnnotations
 		}
-	}
-
-	for _, b := range m.PathInfo.Bindings {
-		annotatePathBinding(b, m, state)
 	}
 	returnType := c.methodInOutTypeName(m.OutputTypeID, state, sourceSpecificationPackageName)
 	if m.ReturnsEmpty {
@@ -806,7 +794,7 @@ func makeBindingSubstitution(v *api.PathVariable, m *api.Method, state *api.APIS
 	}
 }
 
-func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState) {
+func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState) *pathBindingAnnotation {
 	var subs []*bindingSubstitution
 	for _, s := range b.PathTemplate.Segments {
 		if s.Variable != nil {
@@ -814,10 +802,39 @@ func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState)
 			subs = append(subs, &sub)
 		}
 	}
-	b.Codec = &pathBindingAnnotation{
+	return &pathBindingAnnotation{
 		PathFmt:       httpPathFmt(b.PathTemplate),
 		QueryParams:   language.QueryParams(m, b),
 		Substitutions: subs,
+	}
+}
+
+// Annotates the `PathInfo` and all of its `PathBinding`s.
+func annotatePathInfo(p *api.PathInfo, m *api.Method, state *api.APIState) {
+	seen := make(map[string]bool)
+	var uniqueParameters []*bindingSubstitution
+
+	for _, b := range p.Bindings {
+		ann := annotatePathBinding(b, m, state)
+
+		// We need to keep track of unique path parameters to support
+		// implicit routing over gRPC. This is go/aip/4222.
+		for _, s := range ann.Substitutions {
+			if _, ok := seen[s.FieldName]; !ok {
+				uniqueParameters = append(uniqueParameters, s)
+				seen[s.FieldName] = true
+			}
+		}
+
+		// Annotate the `PathBinding`
+		b.Codec = ann
+	}
+
+	// Annotate the `PathInfo`
+	p.Codec = &pathInfoAnnotation{
+		HasBody:          m.PathInfo.BodyFieldPath != "",
+		UniqueParameters: uniqueParameters,
+		IsIdempotent:     isIdempotent(p),
 	}
 }
 
@@ -991,9 +1008,14 @@ func (c *codec) annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.API
 }
 
 // Returns "true" if the method is idempotent by default, and "false", if not.
-func (p *pathInfoAnnotation) IsIdempotent() string {
-	if p.Method == "GET" || p.Method == "PUT" || p.Method == "DELETE" {
-		return "true"
+func isIdempotent(p *api.PathInfo) string {
+	if len(p.Bindings) == 0 {
+		return "false"
 	}
-	return "false"
+	for _, b := range p.Bindings {
+		if b.Verb == "POST" || b.Verb == "PATCH" {
+			return "false"
+		}
+	}
+	return "true"
 }
