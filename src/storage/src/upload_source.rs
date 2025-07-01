@@ -179,7 +179,7 @@ impl StreamingSource for BytesSource {
 }
 
 #[cfg(test)]
-mod test {
+pub(crate) mod test {
     use super::*;
     use std::{collections::VecDeque, io::Write};
     use tempfile::NamedTempFile;
@@ -330,13 +330,13 @@ mod test {
         Ok(())
     }
 
-    struct VecStream {
+    pub struct VecStream {
         contents: Vec<bytes::Bytes>,
         current: VecDeque<std::io::Result<bytes::Bytes>>,
     }
 
     impl VecStream {
-        fn new(contents: Vec<bytes::Bytes>) -> Self {
+        pub fn new(contents: Vec<bytes::Bytes>) -> Self {
             let current: VecDeque<std::io::Result<_>> =
                 contents.iter().map(|x| Ok(x.clone())).collect();
             Self { contents, current }
