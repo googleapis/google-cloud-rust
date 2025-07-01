@@ -1,0 +1,25 @@
+- release_tracks: [ALPHA, BETA, GA]
+  hidden: true
+  help_text:
+    brief: Describe locations
+    description: |
+      Describe a location.
+    examples: |-
+      To describe the operation, run:
+
+        $ {command} us-central1
+  arguments:
+    params:
+    - help_text: |
+        The name of the location resource.
+      is_positional: true
+      resource_spec: !REF googlecloudsdk.command_lib.parallelstore.custom_resources:location
+      required: true
+  request:
+    ALPHA:
+      api_version: v1alpha
+    BETA:
+      api_version: v1beta
+    GA:
+      api_version: v1
+    collection: parallelstore.projects.locations
