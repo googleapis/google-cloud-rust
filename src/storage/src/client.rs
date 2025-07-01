@@ -774,13 +774,13 @@ impl ReadObjectResponse {
     ///     .send()
     ///     .await?;
     ///
-    /// while let Some(next) = resp.next().await? {
-    ///     println!("next={next:?}");
+    /// while let Some(next) = resp.next().await {
+    ///     println!("next={:?}", next?);
     /// }
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
-    pub async fn next(&mut self) -> Result<Option<bytes::Bytes>> {
-        self.inner.chunk().await.map_err(Error::io)
+    pub async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
+        self.inner.chunk().await.map_err(Error::io).transpose()
     }
 }
 
