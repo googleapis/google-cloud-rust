@@ -1140,7 +1140,7 @@ mod tests {
     #[test_case("tilde~123", "tilde~123")]
     #[test_case("exclamation!point!", "exclamation%21point%21")]
     #[test_case("spaces   spaces", "spaces%20%20%20spaces")]
-    #[test_case("preserve%percent%21", "percent%percent%21")]
+    #[test_case("preserve%percent%21", "preserve%percent%21")]
     #[test_case(
         "testall !#$&'()*+,/:;=?@[]",
         "testall%20%21%23%24%26%27%28%29%2A%2B%2C%2F%3A%3B%3D%3F%40%5B%5D"
