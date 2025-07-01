@@ -831,7 +831,9 @@ impl ProgrammaticBuilder {
         self
     }
 
-    /// Sets the optional service account impersonation URL.
+    /// Sets the optional target principal.
+    ///
+    /// Target principal is the email of the service account to impersonate.
     ///
     /// # Example
     ///
@@ -860,9 +862,13 @@ impl ProgrammaticBuilder {
     /// # }
     /// # let provider = Arc::new(MyTokenProvider);
     /// let builder = ProgrammaticBuilder::new(provider)
-    ///     .with_service_account_impersonation_url("my-service-account-impersonation-url");
+    ///     .with_target_principal("test-principal");
     /// ```
-    pub fn with_service_account_impersonation_url<S: Into<String>>(mut self, url: S) -> Self {
+    pub fn with_target_principal<S: Into<String>>(mut self, target_principal: S) -> Self {
+        let url = format!(
+            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:generateAccessToken",
+            target_principal.into()
+        );
         self.config = self.config.with_service_account_impersonation_url(url);
         self
     }
@@ -874,6 +880,12 @@ impl ProgrammaticBuilder {
     /// Returns a [CredentialsError] if any of the required fields (such as
     /// `audience` or `subject_token_type`) have not been set.
     pub fn build(self) -> BuildResult<Credentials> {
+        let quota_project_id = self.quota_project_id.clone();
+        let config = self.build_config()?;
+        Ok(config.make_credentials(quota_project_id))
+    }
+
+    fn build_config(self) -> BuildResult<ExternalAccountConfig> {
         let mut config_builder = self.config;
         if config_builder.scopes.is_none() {
             config_builder = config_builder.with_scopes(vec![DEFAULT_SCOPE.to_string()]);
@@ -881,9 +893,7 @@ impl ProgrammaticBuilder {
         if config_builder.token_url.is_none() {
             config_builder = config_builder.with_token_url(STS_TOKEN_URL.to_string());
         }
-        let config = config_builder.build()?;
-
-        Ok(config.make_credentials(self.quota_project_id))
+        config_builder.build()
     }
 }
 
@@ -1296,7 +1306,15 @@ mod test {
             .with_subject_token_type("test-token-type")
             .with_client_id("test-client-id")
             .with_client_secret("test-client-secret")
-            .with_quota_project_id("test-quota-project");
+            .with_target_principal("test-principal");
+
+        let expected_scopes = if let Some(scopes) = scopes.clone() {
+            scopes.iter().map(|s| s.to_string()).collect()
+        } else {
+            vec![DEFAULT_SCOPE.to_string()]
+        };
+
+        let expected_token_url = token_url.unwrap_or(STS_TOKEN_URL).to_string();
 
         if let Some(scopes) = scopes {
             builder = builder.with_scopes(scopes);
@@ -1305,16 +1323,17 @@ mod test {
             builder = builder.with_token_url(token_url);
         }
 
-        let creds = builder.build().unwrap();
+        let config = builder.build_config().unwrap();
 
-        let fmt = format!("{creds:?}");
-        assert!(
-            fmt.contains("ExternalAccountCredentials"),
-            "Expected 'ExternalAccountCredentials', got: {fmt}"
-        );
-        assert!(
-            fmt.contains("test-quota-project"),
-            "Expected 'test-quota-project', got: {fmt}"
+        assert_eq!(config.audience, "test-audience");
+        assert_eq!(config.subject_token_type, "test-token-type");
+        assert_eq!(config.client_id, Some("test-client-id".to_string()));
+        assert_eq!(config.client_secret, Some("test-client-secret".to_string()));
+        assert_eq!(config.scopes, expected_scopes);
+        assert_eq!(config.token_url, expected_token_url);
+        assert_eq!(
+            config.service_account_impersonation_url,
+            Some("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken".to_string())
         );
     }
 
@@ -1333,76 +1352,5 @@ mod test {
             error_string.contains("missing required field: audience"),
             "Expected error about missing 'audience', got: {error_string}"
         );
-    }
-
-    #[tokio::test]
-    async fn test_programmatic_builder_with_impersonation_success() {
-        let sts_server = Server::run();
-        let impersonation_server = Server::run();
-
-        let impersonation_path = "/projects/-/serviceAccounts/sa@test.com:generateAccessToken";
-        let provider = Arc::new(TestSubjectTokenProvider);
-        let creds = ProgrammaticBuilder::new(provider)
-            .with_audience("audience")
-            .with_subject_token_type(JWT_TOKEN_TYPE)
-            .with_token_url(sts_server.url("/token").to_string())
-            .with_service_account_impersonation_url(
-                impersonation_server.url(impersonation_path).to_string(),
-            )
-            .build()
-            .unwrap();
-
-        sts_server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "/token"),
-                request::body(url_decoded(contains((
-                    "grant_type",
-                    TOKEN_EXCHANGE_GRANT_TYPE
-                )))),
-                request::body(url_decoded(contains((
-                    "subject_token",
-                    "test-subject-token"
-                )))),
-                request::body(url_decoded(contains((
-                    "requested_token_type",
-                    ACCESS_TOKEN_TYPE
-                )))),
-                request::body(url_decoded(contains((
-                    "subject_token_type",
-                    JWT_TOKEN_TYPE
-                )))),
-                request::body(url_decoded(contains(("audience", "audience")))),
-                request::body(url_decoded(contains(("scope", IAM_SCOPE)))),
-            ])
-            .respond_with(json_encoded(json!({
-                "access_token": "sts-token",
-                "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
-                "token_type": "Bearer",
-                "expires_in": 3600,
-            }))),
-        );
-
-        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
-            .format(&time::format_description::well_known::Rfc3339)
-            .unwrap();
-        impersonation_server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", impersonation_path),
-                request::headers(contains(("authorization", "Bearer sts-token"))),
-            ])
-            .respond_with(json_encoded(json!({
-                "accessToken": "final-impersonated-token",
-                "expireTime": expire_time
-            }))),
-        );
-
-        let headers = creds.headers(Extensions::new()).await.unwrap();
-        match headers {
-            CacheableResource::New { data, .. } => {
-                let token = data.get("authorization").unwrap().to_str().unwrap();
-                assert_eq!(token, "Bearer final-impersonated-token");
-            }
-            CacheableResource::NotModified => panic!("Expected new headers"),
-        }
     }
 }
