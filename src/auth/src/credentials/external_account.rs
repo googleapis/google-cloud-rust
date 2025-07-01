@@ -187,11 +187,19 @@ impl ExternalAccountConfigBuilder {
 
     fn build(self) -> BuildResult<ExternalAccountConfig> {
         Ok(ExternalAccountConfig {
-            audience: self.audience.ok_or(BuilderError::missing_field("audience"))?,
-            subject_token_type: self.subject_token_type.ok_or(BuilderError::missing_field("subject_token_type"))?,
-            token_url: self.token_url.ok_or(BuilderError::missing_field("token_url"))?,
+            audience: self
+                .audience
+                .ok_or(BuilderError::missing_field("audience"))?,
+            subject_token_type: self
+                .subject_token_type
+                .ok_or(BuilderError::missing_field("subject_token_type"))?,
+            token_url: self
+                .token_url
+                .ok_or(BuilderError::missing_field("token_url"))?,
             scopes: self.scopes.ok_or(BuilderError::missing_field("scopes"))?,
-            credential_source: self.credential_source.ok_or(BuilderError::missing_field("credential_source"))?,
+            credential_source: self
+                .credential_source
+                .ok_or(BuilderError::missing_field("credential_source"))?,
             service_account_impersonation_url: self.service_account_impersonation_url,
             client_id: self.client_id,
             client_secret: self.client_secret,
@@ -1351,7 +1359,10 @@ mod test {
                     "grant_type",
                     TOKEN_EXCHANGE_GRANT_TYPE
                 )))),
-                request::body(url_decoded(contains(("subject_token", "test-subject-token")))),
+                request::body(url_decoded(contains((
+                    "subject_token",
+                    "test-subject-token"
+                )))),
                 request::body(url_decoded(contains((
                     "requested_token_type",
                     ACCESS_TOKEN_TYPE
