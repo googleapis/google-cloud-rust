@@ -1338,6 +1338,28 @@ mod test {
     }
 
     #[tokio::test]
+    async fn create_programmatic_builder_with_quota_project_id() {
+        let provider = Arc::new(TestSubjectTokenProvider);
+        let builder = ProgrammaticBuilder::new(provider)
+            .with_audience("test-audience")
+            .with_subject_token_type("test-token-type")
+            .with_token_url(STS_TOKEN_URL)
+            .with_quota_project_id("test-quota-project");
+
+        let creds = builder.build().unwrap();
+
+        let fmt = format!("{creds:?}");
+        assert!(
+            fmt.contains("ExternalAccountCredentials"),
+            "Expected 'ExternalAccountCredentials', got: {fmt}"
+        );
+        assert!(
+            fmt.contains("test-quota-project"),
+            "Expected 'test-quota-project', got: {fmt}"
+        );
+    }
+
+    #[tokio::test]
     async fn create_programmatic_builder_fails_on_missing_required_field() {
         let provider = Arc::new(TestSubjectTokenProvider);
         let result = ProgrammaticBuilder::new(provider)
