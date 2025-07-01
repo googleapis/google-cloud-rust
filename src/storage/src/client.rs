@@ -1138,8 +1138,13 @@ mod tests {
     #[test_case("dot.name", "dot.name")]
     #[test_case("under_score", "under_score")]
     #[test_case("tilde~123", "tilde~123")]
-    #[test_case("exclamation%21point%21", "exclamation%21point%21")]
+    #[test_case("exclamation!point!", "exclamation%21point%21")]
     #[test_case("spaces   spaces", "spaces%20%20%20spaces")]
+    #[test_case("percent%percent", "percent%percent")]
+    #[test_case(
+        "testall !#$&'()*+,/:;=?@[]",
+        "testall%20%21%23%24%26%27%28%29%2A%2B%2C%2F%3A%3B%3D%3F%40%5B%5D"
+    )]
     #[tokio::test]
     async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
         let client = Storage::builder()
@@ -1173,7 +1178,7 @@ mod tests {
             .url()
             .path_segments()
             .unwrap()
-            .last()
+            .next_back()
             .unwrap();
         assert_eq!(got, want);
 
