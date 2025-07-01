@@ -18,3 +18,8 @@ service-config = 'google/cloud/networkservices/v1/networkservices_v1.yaml'
 
 [codec]
 copyright-year = '2025'
+
+[[documentation-overrides]]
+id      = '.google.cloud.networkservices.v1.WasmPlugin.LogConfig.min_log_level'
+match   = 'Specificies'
+replace = 'Specifies'

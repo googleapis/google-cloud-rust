@@ -14732,7 +14732,7 @@ pub mod artifact_config {
     #[derive(Clone, Debug, PartialEq)]
     #[non_exhaustive]
     pub enum ArtifactStorage {
-        /// Optional. Set if the artifact is stored in Artifact regsitry.
+        /// Optional. Set if the artifact is stored in Artifact registry.
         GoogleArtifactRegistry(std::boxed::Box<crate::model::GoogleArtifactRegistry>),
     }
 

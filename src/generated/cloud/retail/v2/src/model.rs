@@ -35509,7 +35509,7 @@ pub struct SearchRequest {
     ///
     /// * Populate at most 100 key-value pairs per query.
     /// * Only supports string keys and repeated string values.
-    /// * Duplcate keys are not allowed within a single query.
+    /// * Duplicate keys are not allowed within a single query.
     ///
     /// Example:
     /// user_attributes: [

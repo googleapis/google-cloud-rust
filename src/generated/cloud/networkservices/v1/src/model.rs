@@ -9607,7 +9607,7 @@ pub mod wasm_plugin {
         /// This field can be specified only if logging is enabled for this plugin.
         pub sample_rate: f32,
 
-        /// Non-empty default. Specificies the lowest level of the plugin logs that
+        /// Non-empty default. Specifies the lowest level of the plugin logs that
         /// are exported to Cloud Logging. This setting relates to the logs generated
         /// by using logging statements in your Wasm code.
         ///
