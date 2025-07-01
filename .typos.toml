@@ -19,9 +19,9 @@ extend-exclude = [
   "generator/**/testdata/**",
   "testdata/**",
   # Generated libraries often contain typos coming from upstream protos.
-  "src/generated/**",
-  "src/*/src/generated/**",
   "generator/dart/generated/**",
+  "src/*/src/generated/**",
+  "src/generated/**",
 ]
 
 [type.mustache]
