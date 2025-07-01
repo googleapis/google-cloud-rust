@@ -12829,6 +12829,297 @@ pub mod pin_control_metadata {
     }
 }
 
+/// A list of string values.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct StringList {
+    /// String values.
+    pub values: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl StringList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [values][crate::model::StringList::values].
+    pub fn set_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for StringList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.retail.v2.StringList"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for StringList {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __values,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for StringList")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "values" => Ok(__FieldTag::__values),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = StringList;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct StringList")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__values => {
+                            if !fields.insert(__FieldTag::__values) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for values",
+                                ));
+                            }
+                            result.values = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for StringList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.values.is_empty() {
+            state.serialize_entry("values", &self.values)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// A message with a list of double values.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DoubleList {
+    /// The list of double values.
+    pub values: std::vec::Vec<f64>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DoubleList {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [values][crate::model::DoubleList::values].
+    pub fn set_values<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<f64>,
+    {
+        use std::iter::Iterator;
+        self.values = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for DoubleList {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.retail.v2.DoubleList"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DoubleList {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __values,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DoubleList")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "values" => Ok(__FieldTag::__values),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DoubleList;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DoubleList")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__values => {
+                            if !fields.insert(__FieldTag::__values) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for values",
+                                ));
+                            }
+                            struct __With(std::option::Option<std::vec::Vec<f64>>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::<
+                                        std::option::Option<std::vec::Vec<wkt::internal::F64>>,
+                                    >::deserialize(deserializer)
+                                    .map(__With)
+                                }
+                            }
+                            result.values = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DoubleList {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.values.is_empty() {
+            struct __With<'a>(&'a std::vec::Vec<f64>);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<std::vec::Vec<wkt::internal::F64>>::serialize(
+                        self.0, serializer,
+                    )
+                }
+            }
+            state.serialize_entry("values", &__With(&self.values))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
 /// Autocomplete parameters.
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
@@ -35213,6 +35504,29 @@ pub struct SearchRequest {
     /// [google.cloud.retail.v2.LocalInventory.place_id]: crate::model::LocalInventory::place_id
     pub place_id: std::string::String,
 
+    /// Optional. The user attributes that could be used for personalization of
+    /// search results.
+    ///
+    /// * Populate at most 100 key-value pairs per query.
+    /// * Only supports string keys and repeated string values.
+    /// * Duplicate keys are not allowed within a single query.
+    ///
+    /// Example:
+    /// user_attributes: [
+    /// { key: "pets"
+    /// value {
+    /// values: "dog"
+    /// values: "cat"
+    /// }
+    /// },
+    /// { key: "state"
+    /// value {
+    /// values: "CA"
+    /// }
+    /// }
+    /// ]
+    pub user_attributes: std::collections::HashMap<std::string::String, crate::model::StringList>,
+
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
 }
 
@@ -35507,6 +35821,18 @@ impl SearchRequest {
         self.place_id = v.into();
         self
     }
+
+    /// Sets the value of [user_attributes][crate::model::SearchRequest::user_attributes].
+    pub fn set_user_attributes<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::StringList>,
+    {
+        use std::iter::Iterator;
+        self.user_attributes = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
 }
 
 impl wkt::message::Message for SearchRequest {
@@ -35552,6 +35878,7 @@ impl<'de> serde::de::Deserialize<'de> for SearchRequest {
             __language_code,
             __region_code,
             __place_id,
+            __user_attributes,
             Unknown(std::string::String),
         }
         impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -35623,6 +35950,8 @@ impl<'de> serde::de::Deserialize<'de> for SearchRequest {
                             "region_code" => Ok(__FieldTag::__region_code),
                             "placeId" => Ok(__FieldTag::__place_id),
                             "place_id" => Ok(__FieldTag::__place_id),
+                            "userAttributes" => Ok(__FieldTag::__user_attributes),
+                            "user_attributes" => Ok(__FieldTag::__user_attributes),
                             _ => Ok(__FieldTag::Unknown(value.to_string())),
                         }
                     }
@@ -35936,6 +36265,21 @@ impl<'de> serde::de::Deserialize<'de> for SearchRequest {
                                 .next_value::<std::option::Option<std::string::String>>()?
                                 .unwrap_or_default();
                         }
+                        __FieldTag::__user_attributes => {
+                            if !fields.insert(__FieldTag::__user_attributes) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for user_attributes",
+                                ));
+                            }
+                            result.user_attributes = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::model::StringList,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
                         __FieldTag::Unknown(key) => {
                             let value = map.next_value::<serde_json::Value>()?;
                             result._unknown_fields.insert(key, value);
@@ -36057,6 +36401,9 @@ impl serde::ser::Serialize for SearchRequest {
         }
         if !self.place_id.is_empty() {
             state.serialize_entry("placeId", &self.place_id)?;
+        }
+        if !self.user_attributes.is_empty() {
+            state.serialize_entry("userAttributes", &self.user_attributes)?;
         }
         if !self._unknown_fields.is_empty() {
             for (key, value) in self._unknown_fields.iter() {
@@ -37605,7 +37952,8 @@ pub mod search_request {
         /// [google.cloud.retail.v2.SearchRequest.QueryExpansionSpec.Condition.DISABLED]: crate::model::search_request::query_expansion_spec::Condition::Disabled
         pub condition: crate::model::search_request::query_expansion_spec::Condition,
 
-        /// Whether to pin unexpanded results. If this field is set to true,
+        /// Whether to pin unexpanded results. The default value is false. If this
+        /// field is set to true,
         /// unexpanded products are always at the top of the search results, followed
         /// by the expanded results.
         pub pin_unexpanded_results: bool,
@@ -40291,6 +40639,9 @@ pub mod search_response {
         /// [google.cloud.retail.v2.UserInfo.user_id]: crate::model::UserInfo::user_id
         pub personal_labels: std::vec::Vec<std::string::String>,
 
+        /// Google provided available scores.
+        pub model_scores: std::collections::HashMap<std::string::String, crate::model::DoubleList>,
+
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
 
@@ -40364,6 +40715,18 @@ pub mod search_response {
             self.personal_labels = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [model_scores][crate::model::search_response::SearchResult::model_scores].
+        pub fn set_model_scores<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::DoubleList>,
+        {
+            use std::iter::Iterator;
+            self.model_scores = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
     }
 
     impl wkt::message::Message for SearchResult {
@@ -40388,6 +40751,7 @@ pub mod search_response {
                 __matching_variant_fields,
                 __variant_rollup_values,
                 __personal_labels,
+                __model_scores,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -40427,6 +40791,8 @@ pub mod search_response {
                                 "variant_rollup_values" => Ok(__FieldTag::__variant_rollup_values),
                                 "personalLabels" => Ok(__FieldTag::__personal_labels),
                                 "personal_labels" => Ok(__FieldTag::__personal_labels),
+                                "modelScores" => Ok(__FieldTag::__model_scores),
+                                "model_scores" => Ok(__FieldTag::__model_scores),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -40526,6 +40892,21 @@ pub mod search_response {
                                 }
                                 result.personal_labels = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                             }
+                            __FieldTag::__model_scores => {
+                                if !fields.insert(__FieldTag::__model_scores) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for model_scores",
+                                    ));
+                                }
+                                result.model_scores = map
+                                    .next_value::<std::option::Option<
+                                        std::collections::HashMap<
+                                            std::string::String,
+                                            crate::model::DoubleList,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -40578,6 +40959,9 @@ pub mod search_response {
             }
             if !self.personal_labels.is_empty() {
                 state.serialize_entry("personalLabels", &self.personal_labels)?;
+            }
+            if !self.model_scores.is_empty() {
+                state.serialize_entry("modelScores", &self.model_scores)?;
             }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
@@ -45020,7 +45404,7 @@ pub struct UserEvent {
     /// 128 bytes. A session is an aggregation of an end user behavior in a time
     /// span.
     ///
-    /// A general guideline to populate the sesion_id:
+    /// A general guideline to populate the session_id:
     ///
     /// 1. If user has no activity for 30 min, a new session_id should be assigned.
     /// 1. The session_id should be unique across users, suggest use uuid or add

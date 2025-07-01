@@ -6843,6 +6843,18 @@ pub mod search_service {
             self.0.request.place_id = v.into();
             self
         }
+
+        /// Sets the value of [user_attributes][crate::model::SearchRequest::user_attributes].
+        pub fn set_user_attributes<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<crate::model::StringList>,
+        {
+            self.0.request.user_attributes =
+                v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
     }
 
     #[doc(hidden)]

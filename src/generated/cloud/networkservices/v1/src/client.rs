@@ -237,6 +237,63 @@ impl DepService {
         super::builder::dep_service::DeleteLbRouteExtension::new(self.inner.clone())
     }
 
+    /// Lists `AuthzExtension` resources in a given project and location.
+    pub fn list_authz_extensions(&self) -> super::builder::dep_service::ListAuthzExtensions {
+        super::builder::dep_service::ListAuthzExtensions::new(self.inner.clone())
+    }
+
+    /// Gets details of the specified `AuthzExtension` resource.
+    pub fn get_authz_extension(&self) -> super::builder::dep_service::GetAuthzExtension {
+        super::builder::dep_service::GetAuthzExtension::new(self.inner.clone())
+    }
+
+    /// Creates a new `AuthzExtension` resource in a given project
+    /// and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_authz_extension(&self) -> super::builder::dep_service::CreateAuthzExtension {
+        super::builder::dep_service::CreateAuthzExtension::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of the specified `AuthzExtension`
+    /// resource.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_authz_extension(&self) -> super::builder::dep_service::UpdateAuthzExtension {
+        super::builder::dep_service::UpdateAuthzExtension::new(self.inner.clone())
+    }
+
+    /// Deletes the specified `AuthzExtension` resource.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_authz_extension(&self) -> super::builder::dep_service::DeleteAuthzExtension {
+        super::builder::dep_service::DeleteAuthzExtension::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     pub fn list_locations(&self) -> super::builder::dep_service::ListLocations {
         super::builder::dep_service::ListLocations::new(self.inner.clone())
@@ -460,6 +517,113 @@ impl NetworkServices {
     /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
     pub fn delete_endpoint_policy(&self) -> super::builder::network_services::DeleteEndpointPolicy {
         super::builder::network_services::DeleteEndpointPolicy::new(self.inner.clone())
+    }
+
+    /// Lists `WasmPluginVersion` resources in a given project and
+    /// location.
+    pub fn list_wasm_plugin_versions(
+        &self,
+    ) -> super::builder::network_services::ListWasmPluginVersions {
+        super::builder::network_services::ListWasmPluginVersions::new(self.inner.clone())
+    }
+
+    /// Gets details of the specified `WasmPluginVersion` resource.
+    pub fn get_wasm_plugin_version(
+        &self,
+    ) -> super::builder::network_services::GetWasmPluginVersion {
+        super::builder::network_services::GetWasmPluginVersion::new(self.inner.clone())
+    }
+
+    /// Creates a new `WasmPluginVersion` resource in a given project
+    /// and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_wasm_plugin_version(
+        &self,
+    ) -> super::builder::network_services::CreateWasmPluginVersion {
+        super::builder::network_services::CreateWasmPluginVersion::new(self.inner.clone())
+    }
+
+    /// Deletes the specified `WasmPluginVersion` resource.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_wasm_plugin_version(
+        &self,
+    ) -> super::builder::network_services::DeleteWasmPluginVersion {
+        super::builder::network_services::DeleteWasmPluginVersion::new(self.inner.clone())
+    }
+
+    /// Lists `WasmPlugin` resources in a given project and
+    /// location.
+    pub fn list_wasm_plugins(&self) -> super::builder::network_services::ListWasmPlugins {
+        super::builder::network_services::ListWasmPlugins::new(self.inner.clone())
+    }
+
+    /// Gets details of the specified `WasmPlugin` resource.
+    pub fn get_wasm_plugin(&self) -> super::builder::network_services::GetWasmPlugin {
+        super::builder::network_services::GetWasmPlugin::new(self.inner.clone())
+    }
+
+    /// Creates a new `WasmPlugin` resource in a given project
+    /// and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_wasm_plugin(&self) -> super::builder::network_services::CreateWasmPlugin {
+        super::builder::network_services::CreateWasmPlugin::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of the specified `WasmPlugin` resource.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_wasm_plugin(&self) -> super::builder::network_services::UpdateWasmPlugin {
+        super::builder::network_services::UpdateWasmPlugin::new(self.inner.clone())
+    }
+
+    /// Deletes the specified `WasmPlugin` resource.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_wasm_plugin(&self) -> super::builder::network_services::DeleteWasmPlugin {
+        super::builder::network_services::DeleteWasmPlugin::new(self.inner.clone())
     }
 
     /// Lists Gateways in a given project and location.

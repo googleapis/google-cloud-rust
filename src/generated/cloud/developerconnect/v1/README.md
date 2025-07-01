@@ -17,9 +17,11 @@ Connect third-party source code management to Google
 The main types to work with this crate are the clients:
 
 - [DeveloperConnect]
+- [InsightsConfigService]
 
 ## More Information
 
 - Read the [crate's documentation](https://docs.rs/google-cloud-developerconnect-v1/latest/google-cloud-developerconnect-v1)
 
 [DeveloperConnect]: https://docs.rs/google-cloud-developerconnect-v1/latest/google_cloud_developerconnect_v1/client/struct.DeveloperConnect.html
+[InsightsConfigService]: https://docs.rs/google-cloud-developerconnect-v1/latest/google_cloud_developerconnect_v1/client/struct.InsightsConfigService.html
