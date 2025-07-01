@@ -261,6 +261,114 @@ impl DeveloperConnect {
         super::builder::developer_connect::FetchGitRefs::new(self.inner.clone())
     }
 
+    /// Lists AccountConnectors in a given project and location.
+    pub fn list_account_connectors(
+        &self,
+    ) -> super::builder::developer_connect::ListAccountConnectors {
+        super::builder::developer_connect::ListAccountConnectors::new(self.inner.clone())
+    }
+
+    /// Gets details of a single AccountConnector.
+    pub fn get_account_connector(&self) -> super::builder::developer_connect::GetAccountConnector {
+        super::builder::developer_connect::GetAccountConnector::new(self.inner.clone())
+    }
+
+    /// Creates a new AccountConnector in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_account_connector(
+        &self,
+    ) -> super::builder::developer_connect::CreateAccountConnector {
+        super::builder::developer_connect::CreateAccountConnector::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single AccountConnector.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_account_connector(
+        &self,
+    ) -> super::builder::developer_connect::UpdateAccountConnector {
+        super::builder::developer_connect::UpdateAccountConnector::new(self.inner.clone())
+    }
+
+    /// Deletes a single AccountConnector.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_account_connector(
+        &self,
+    ) -> super::builder::developer_connect::DeleteAccountConnector {
+        super::builder::developer_connect::DeleteAccountConnector::new(self.inner.clone())
+    }
+
+    /// Fetches OAuth access token based on end user credentials.
+    pub fn fetch_access_token(&self) -> super::builder::developer_connect::FetchAccessToken {
+        super::builder::developer_connect::FetchAccessToken::new(self.inner.clone())
+    }
+
+    /// Lists Users in a given project, location, and account_connector.
+    pub fn list_users(&self) -> super::builder::developer_connect::ListUsers {
+        super::builder::developer_connect::ListUsers::new(self.inner.clone())
+    }
+
+    /// Deletes a single User.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_user(&self) -> super::builder::developer_connect::DeleteUser {
+        super::builder::developer_connect::DeleteUser::new(self.inner.clone())
+    }
+
+    /// Fetch the User based on the user credentials.
+    pub fn fetch_self(&self) -> super::builder::developer_connect::FetchSelf {
+        super::builder::developer_connect::FetchSelf::new(self.inner.clone())
+    }
+
+    /// Delete the User based on the user credentials.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_self(&self) -> super::builder::developer_connect::DeleteSelf {
+        super::builder::developer_connect::DeleteSelf::new(self.inner.clone())
+    }
+
     /// Lists information about the supported locations for this service.
     pub fn list_locations(&self) -> super::builder::developer_connect::ListLocations {
         super::builder::developer_connect::ListLocations::new(self.inner.clone())
@@ -297,5 +405,222 @@ impl DeveloperConnect {
     /// [google.longrunning.Operations]: longrunning::client::Operations
     pub fn cancel_operation(&self) -> super::builder::developer_connect::CancelOperation {
         super::builder::developer_connect::CancelOperation::new(self.inner.clone())
+    }
+}
+
+/// Implements a client for the Developer Connect API.
+///
+/// # Example
+/// ```
+/// # tokio_test::block_on(async {
+/// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+/// let client = InsightsConfigService::builder().build().await?;
+/// // use `client` to make requests to the Developer Connect API.
+/// # gax::client_builder::Result::<()>::Ok(()) });
+/// ```
+///
+/// # Service Description
+///
+/// Creates and manages InsightsConfigs.
+///
+/// The InsightsConfig resource is the core configuration object to capture
+/// events from your Software Development Lifecycle. It acts as the central hub
+/// for managing how Developer connect understands your application, its runtime
+/// environments, and the artifacts deployed within them.
+/// A user can create an InsightsConfig, list previously-requested
+/// InsightsConfigs or get InsightsConfigs by their ID to determine the status of
+/// the InsightsConfig.
+///
+/// # Configuration
+///
+/// To configure `InsightsConfigService` use the `with_*` methods in the type returned
+/// by [builder()][InsightsConfigService::builder]. The default configuration should
+/// work for most applications. Common configuration changes include
+///
+/// * [with_endpoint()]: by default this client uses the global default endpoint
+///   (`https://developerconnect.googleapis.com`). Applications using regional
+///   endpoints or running in restricted networks (e.g. a network configured
+//    with [Private Google Access with VPC Service Controls]) may want to
+///   override this default.
+/// * [with_credentials()]: by default this client uses
+///   [Application Default Credentials]. Applications using custom
+///   authentication may need to override this default.
+///
+/// [with_endpoint()]: super::builder::insights_config_service::ClientBuilder::with_endpoint
+/// [with_credentials()]: super::builder::insights_config_service::ClientBuilder::credentials
+/// [Private Google Access with VPC Service Controls]: https://cloud.google.com/vpc-service-controls/docs/private-connectivity
+/// [Application Default Credentials]: https://cloud.google.com/docs/authentication#adc
+///
+/// # Pooling and Cloning
+///
+/// `InsightsConfigService` holds a connection pool internally, it is advised to
+/// create one and the reuse it.  You do not need to wrap `InsightsConfigService` in
+/// an [Rc](std::rc::Rc) or [Arc](std::sync::Arc) to reuse it, because it
+/// already uses an `Arc` internally.
+#[derive(Clone, Debug)]
+pub struct InsightsConfigService {
+    inner: std::sync::Arc<dyn super::stub::dynamic::InsightsConfigService>,
+}
+
+impl InsightsConfigService {
+    /// Returns a builder for [InsightsConfigService].
+    ///
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_developerconnect_v1::client::InsightsConfigService;
+    /// let client = InsightsConfigService::builder().build().await?;
+    /// # gax::client_builder::Result::<()>::Ok(()) });
+    /// ```
+    pub fn builder() -> super::builder::insights_config_service::ClientBuilder {
+        gax::client_builder::internal::new_builder(
+            super::builder::insights_config_service::client::Factory,
+        )
+    }
+
+    /// Creates a new client from the provided stub.
+    ///
+    /// The most common case for calling this function is in tests mocking the
+    /// client's behavior.
+    pub fn from_stub<T>(stub: T) -> Self
+    where
+        T: super::stub::InsightsConfigService + 'static,
+    {
+        Self {
+            inner: std::sync::Arc::new(stub),
+        }
+    }
+
+    pub(crate) async fn new(
+        config: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<Self> {
+        let inner = Self::build_inner(config).await?;
+        Ok(Self { inner })
+    }
+
+    async fn build_inner(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<std::sync::Arc<dyn super::stub::dynamic::InsightsConfigService>>
+    {
+        if gaxi::options::tracing_enabled(&conf) {
+            return Ok(std::sync::Arc::new(Self::build_with_tracing(conf).await?));
+        }
+        Ok(std::sync::Arc::new(Self::build_transport(conf).await?))
+    }
+
+    async fn build_transport(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::InsightsConfigService> {
+        super::transport::InsightsConfigService::new(conf).await
+    }
+
+    async fn build_with_tracing(
+        conf: gaxi::options::ClientConfig,
+    ) -> gax::client_builder::Result<impl super::stub::InsightsConfigService> {
+        Self::build_transport(conf)
+            .await
+            .map(super::tracing::InsightsConfigService::new)
+    }
+
+    /// Lists InsightsConfigs in a given project and location.
+    pub fn list_insights_configs(
+        &self,
+    ) -> super::builder::insights_config_service::ListInsightsConfigs {
+        super::builder::insights_config_service::ListInsightsConfigs::new(self.inner.clone())
+    }
+
+    /// Creates a new InsightsConfig in a given project and location.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_insights_config(
+        &self,
+    ) -> super::builder::insights_config_service::CreateInsightsConfig {
+        super::builder::insights_config_service::CreateInsightsConfig::new(self.inner.clone())
+    }
+
+    /// Gets details of a single Insight.
+    pub fn get_insights_config(
+        &self,
+    ) -> super::builder::insights_config_service::GetInsightsConfig {
+        super::builder::insights_config_service::GetInsightsConfig::new(self.inner.clone())
+    }
+
+    /// Updates the parameters of a single InsightsConfig.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_insights_config(
+        &self,
+    ) -> super::builder::insights_config_service::UpdateInsightsConfig {
+        super::builder::insights_config_service::UpdateInsightsConfig::new(self.inner.clone())
+    }
+
+    /// Delete a single Insight.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn delete_insights_config(
+        &self,
+    ) -> super::builder::insights_config_service::DeleteInsightsConfig {
+        super::builder::insights_config_service::DeleteInsightsConfig::new(self.inner.clone())
+    }
+
+    /// Lists information about the supported locations for this service.
+    pub fn list_locations(&self) -> super::builder::insights_config_service::ListLocations {
+        super::builder::insights_config_service::ListLocations::new(self.inner.clone())
+    }
+
+    /// Gets information about a location.
+    pub fn get_location(&self) -> super::builder::insights_config_service::GetLocation {
+        super::builder::insights_config_service::GetLocation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn list_operations(&self) -> super::builder::insights_config_service::ListOperations {
+        super::builder::insights_config_service::ListOperations::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn get_operation(&self) -> super::builder::insights_config_service::GetOperation {
+        super::builder::insights_config_service::GetOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn delete_operation(&self) -> super::builder::insights_config_service::DeleteOperation {
+        super::builder::insights_config_service::DeleteOperation::new(self.inner.clone())
+    }
+
+    /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
+    ///
+    /// [google.longrunning.Operations]: longrunning::client::Operations
+    pub fn cancel_operation(&self) -> super::builder::insights_config_service::CancelOperation {
+        super::builder::insights_config_service::CancelOperation::new(self.inner.clone())
     }
 }

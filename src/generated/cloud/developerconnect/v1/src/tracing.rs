@@ -166,6 +166,232 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn list_account_connectors(
+        &self,
+        req: crate::model::ListAccountConnectorsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListAccountConnectorsResponse>> {
+        self.inner.list_account_connectors(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_account_connector(
+        &self,
+        req: crate::model::GetAccountConnectorRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AccountConnector>> {
+        self.inner.get_account_connector(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_account_connector(
+        &self,
+        req: crate::model::CreateAccountConnectorRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_account_connector(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_account_connector(
+        &self,
+        req: crate::model::UpdateAccountConnectorRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_account_connector(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_account_connector(
+        &self,
+        req: crate::model::DeleteAccountConnectorRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_account_connector(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn fetch_access_token(
+        &self,
+        req: crate::model::FetchAccessTokenRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::FetchAccessTokenResponse>> {
+        self.inner.fetch_access_token(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_users(
+        &self,
+        req: crate::model::ListUsersRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListUsersResponse>> {
+        self.inner.list_users(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_user(
+        &self,
+        req: crate::model::DeleteUserRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_user(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn fetch_self(
+        &self,
+        req: crate::model::FetchSelfRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::User>> {
+        self.inner.fetch_self(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_self(
+        &self,
+        req: crate::model::DeleteSelfRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_self(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_locations(
+        &self,
+        req: location::model::ListLocationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::ListLocationsResponse>> {
+        self.inner.list_locations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_location(
+        &self,
+        req: location::model::GetLocationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<location::model::Location>> {
+        self.inner.get_location(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_operations(
+        &self,
+        req: longrunning::model::ListOperationsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::ListOperationsResponse>> {
+        self.inner.list_operations(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_operation(
+        &self,
+        req: longrunning::model::GetOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.get_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_operation(
+        &self,
+        req: longrunning::model::DeleteOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.delete_operation(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn cancel_operation(
+        &self,
+        req: longrunning::model::CancelOperationRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<()>> {
+        self.inner.cancel_operation(req, options).await
+    }
+
+    fn get_polling_error_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_error_policy::PollingErrorPolicy> {
+        self.inner.get_polling_error_policy(options)
+    }
+
+    fn get_polling_backoff_policy(
+        &self,
+        options: &gax::options::RequestOptions,
+    ) -> std::sync::Arc<dyn gax::polling_backoff_policy::PollingBackoffPolicy> {
+        self.inner.get_polling_backoff_policy(options)
+    }
+}
+
+/// Implements a [InsightsConfigService](super::stub::InsightsConfigService) decorator for logging and tracing.
+#[derive(Clone, Debug)]
+pub struct InsightsConfigService<T>
+where
+    T: super::stub::InsightsConfigService + std::fmt::Debug + Send + Sync,
+{
+    inner: T,
+}
+
+impl<T> InsightsConfigService<T>
+where
+    T: super::stub::InsightsConfigService + std::fmt::Debug + Send + Sync,
+{
+    pub fn new(inner: T) -> Self {
+        Self { inner }
+    }
+}
+
+impl<T> super::stub::InsightsConfigService for InsightsConfigService<T>
+where
+    T: super::stub::InsightsConfigService + std::fmt::Debug + Send + Sync,
+{
+    #[tracing::instrument(ret)]
+    async fn list_insights_configs(
+        &self,
+        req: crate::model::ListInsightsConfigsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListInsightsConfigsResponse>> {
+        self.inner.list_insights_configs(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_insights_config(
+        &self,
+        req: crate::model::CreateInsightsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_insights_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_insights_config(
+        &self,
+        req: crate::model::GetInsightsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::InsightsConfig>> {
+        self.inner.get_insights_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_insights_config(
+        &self,
+        req: crate::model::UpdateInsightsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_insights_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_insights_config(
+        &self,
+        req: crate::model::DeleteInsightsConfigRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_insights_config(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,

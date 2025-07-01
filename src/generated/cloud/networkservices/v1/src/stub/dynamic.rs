@@ -77,6 +77,36 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
+    async fn list_authz_extensions(
+        &self,
+        req: crate::model::ListAuthzExtensionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListAuthzExtensionsResponse>>;
+
+    async fn get_authz_extension(
+        &self,
+        req: crate::model::GetAuthzExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::AuthzExtension>>;
+
+    async fn create_authz_extension(
+        &self,
+        req: crate::model::CreateAuthzExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_authz_extension(
+        &self,
+        req: crate::model::UpdateAuthzExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_authz_extension(
+        &self,
+        req: crate::model::DeleteAuthzExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -236,6 +266,51 @@ impl<T: super::DepService> DepService for T {
     }
 
     /// Forwards the call to the implementation provided by `T`.
+    async fn list_authz_extensions(
+        &self,
+        req: crate::model::ListAuthzExtensionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListAuthzExtensionsResponse>> {
+        T::list_authz_extensions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_authz_extension(
+        &self,
+        req: crate::model::GetAuthzExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::AuthzExtension>> {
+        T::get_authz_extension(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_authz_extension(
+        &self,
+        req: crate::model::CreateAuthzExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_authz_extension(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_authz_extension(
+        &self,
+        req: crate::model::UpdateAuthzExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_authz_extension(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_authz_extension(
+        &self,
+        req: crate::model::DeleteAuthzExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_authz_extension(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -361,6 +436,60 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
     async fn delete_endpoint_policy(
         &self,
         req: crate::model::DeleteEndpointPolicyRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_wasm_plugin_versions(
+        &self,
+        req: crate::model::ListWasmPluginVersionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListWasmPluginVersionsResponse>>;
+
+    async fn get_wasm_plugin_version(
+        &self,
+        req: crate::model::GetWasmPluginVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::WasmPluginVersion>>;
+
+    async fn create_wasm_plugin_version(
+        &self,
+        req: crate::model::CreateWasmPluginVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_wasm_plugin_version(
+        &self,
+        req: crate::model::DeleteWasmPluginVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn list_wasm_plugins(
+        &self,
+        req: crate::model::ListWasmPluginsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListWasmPluginsResponse>>;
+
+    async fn get_wasm_plugin(
+        &self,
+        req: crate::model::GetWasmPluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::WasmPlugin>>;
+
+    async fn create_wasm_plugin(
+        &self,
+        req: crate::model::CreateWasmPluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_wasm_plugin(
+        &self,
+        req: crate::model::UpdateWasmPluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn delete_wasm_plugin(
+        &self,
+        req: crate::model::DeleteWasmPluginRequest,
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
 
@@ -739,6 +868,87 @@ impl<T: super::NetworkServices> NetworkServices for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
         T::delete_endpoint_policy(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_wasm_plugin_versions(
+        &self,
+        req: crate::model::ListWasmPluginVersionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListWasmPluginVersionsResponse>> {
+        T::list_wasm_plugin_versions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_wasm_plugin_version(
+        &self,
+        req: crate::model::GetWasmPluginVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::WasmPluginVersion>> {
+        T::get_wasm_plugin_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_wasm_plugin_version(
+        &self,
+        req: crate::model::CreateWasmPluginVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_wasm_plugin_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_wasm_plugin_version(
+        &self,
+        req: crate::model::DeleteWasmPluginVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_wasm_plugin_version(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_wasm_plugins(
+        &self,
+        req: crate::model::ListWasmPluginsRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListWasmPluginsResponse>> {
+        T::list_wasm_plugins(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_wasm_plugin(
+        &self,
+        req: crate::model::GetWasmPluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::WasmPlugin>> {
+        T::get_wasm_plugin(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_wasm_plugin(
+        &self,
+        req: crate::model::CreateWasmPluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_wasm_plugin(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_wasm_plugin(
+        &self,
+        req: crate::model::UpdateWasmPluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_wasm_plugin(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_wasm_plugin(
+        &self,
+        req: crate::model::DeleteWasmPluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::delete_wasm_plugin(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.

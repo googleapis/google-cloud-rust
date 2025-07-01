@@ -1213,7 +1213,8 @@ pub struct ExtensionChain {
     /// At least one extension is required.
     /// Up to 3 extensions can be defined for each extension chain
     /// for `LbTrafficExtension` resource.
-    /// `LbRouteExtension` chains are limited to 1 extension per extension chain.
+    /// `LbRouteExtension` and `LbEdgeExtension` chains are limited to 1 extension
+    /// per extension chain.
     pub extensions: std::vec::Vec<crate::model::extension_chain::Extension>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -1562,11 +1563,12 @@ pub mod extension_chain {
         /// Optional. The `:authority` header in the gRPC request sent from Envoy
         /// to the extension service.
         /// Required for Callout extensions.
+        ///
+        /// This field is not supported for plugin extensions. Setting it results in
+        /// a validation error.
         pub authority: std::string::String,
 
         /// Required. The reference to the service that runs the extension.
-        ///
-        /// Currently only callout extensions are supported here.
         ///
         /// To configure a callout extension, `service` must be a fully-qualified
         /// reference
@@ -1576,17 +1578,38 @@ pub mod extension_chain {
         /// `<https://www.googleapis.com/compute/v1/projects/{project}/regions/{region}/backendServices/{backendService}>`
         /// or
         /// `<https://www.googleapis.com/compute/v1/projects/{project}/global/backendServices/{backendService}>`.
+        ///
+        /// To configure a plugin extension, `service` must be a reference
+        /// to a [`WasmPlugin`
+        /// resource](https://cloud.google.com/service-extensions/docs/reference/rest/v1beta1/projects.locations.wasmPlugins)
+        /// in the format:
+        /// `projects/{project}/locations/{location}/wasmPlugins/{plugin}`
+        /// or
+        /// `//networkservices.googleapis.com/projects/{project}/locations/{location}/wasmPlugins/{wasmPlugin}`.
+        ///
+        /// Plugin extensions are currently supported for the
+        /// `LbTrafficExtension`, the `LbRouteExtension`, and the `LbEdgeExtension`
+        /// resources.
         pub service: std::string::String,
 
         /// Optional. A set of events during request or response processing for which
-        /// this extension is called. This field is required for the
-        /// `LbTrafficExtension` resource. It must not be set for the
-        /// `LbRouteExtension` resource.
+        /// this extension is called.
+        ///
+        /// For the `LbTrafficExtension` resource, this field is required.
+        ///
+        /// For the `LbRouteExtension` resource, this field is optional. If
+        /// unspecified, `REQUEST_HEADERS` event is assumed as supported.
+        ///
+        /// For the `LbEdgeExtension` resource, this field is required and must only
+        /// contain `REQUEST_HEADERS` event.
         pub supported_events: std::vec::Vec<crate::model::EventType>,
 
         /// Optional. Specifies the timeout for each individual message on the
-        /// stream. The timeout must be between 10-1000 milliseconds. Required for
-        /// Callout extensions.
+        /// stream. The timeout must be between `10`-`10000` milliseconds. Required
+        /// for callout extensions.
+        ///
+        /// This field is not supported for plugin extensions. Setting it results in
+        /// a validation error.
         pub timeout: std::option::Option<wkt::Duration>,
 
         /// Optional. Determines how the proxy behaves if the call to the extension
@@ -1610,6 +1633,36 @@ pub mod extension_chain {
         /// (from the client or backend). If omitted, all headers are sent.
         /// Each element is a string indicating the header name.
         pub forward_headers: std::vec::Vec<std::string::String>,
+
+        /// Optional. The metadata provided here is included as part of the
+        /// `metadata_context` (of type `google.protobuf.Struct`) in the
+        /// `ProcessingRequest` message sent to the extension server.
+        ///
+        /// The metadata is available under the namespace
+        /// `com.google.<extension_type>.<resource_name>.<extension_chain_name>.<extension_name>`.
+        /// For example:
+        /// `com.google.lb_traffic_extension.lbtrafficextension1.chain1.ext1`.
+        ///
+        /// The following variables are supported in the metadata:
+        ///
+        /// `{forwarding_rule_id}` - substituted with the forwarding rule's fully
+        /// qualified resource name.
+        ///
+        /// This field must not be set for plugin extensions. Setting it results in
+        /// a validation error.
+        ///
+        /// You can set metadata at either the resource level or the extension level.
+        /// The extension level metadata is recommended because you can pass a
+        /// different set of metadata through each extension to the backend.
+        ///
+        /// This field is subject to following limitations:
+        ///
+        /// * The total size of the metadata must be less than 1KiB.
+        /// * The total number of keys in the metadata must be less than 16.
+        /// * The length of each key must be less than 64 characters.
+        /// * The length of each value must be less than 1024 characters.
+        /// * All values must be strings.
+        pub metadata: std::option::Option<wkt::Struct>,
 
         _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
     }
@@ -1682,6 +1735,24 @@ pub mod extension_chain {
             self.forward_headers = v.into_iter().map(|i| i.into()).collect();
             self
         }
+
+        /// Sets the value of [metadata][crate::model::extension_chain::Extension::metadata].
+        pub fn set_metadata<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.metadata = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [metadata][crate::model::extension_chain::Extension::metadata].
+        pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Struct>,
+        {
+            self.metadata = v.map(|x| x.into());
+            self
+        }
     }
 
     impl wkt::message::Message for Extension {
@@ -1707,6 +1778,7 @@ pub mod extension_chain {
                 __timeout,
                 __fail_open,
                 __forward_headers,
+                __metadata,
                 Unknown(std::string::String),
             }
             impl<'de> serde::de::Deserialize<'de> for __FieldTag {
@@ -1740,6 +1812,7 @@ pub mod extension_chain {
                                 "fail_open" => Ok(__FieldTag::__fail_open),
                                 "forwardHeaders" => Ok(__FieldTag::__forward_headers),
                                 "forward_headers" => Ok(__FieldTag::__forward_headers),
+                                "metadata" => Ok(__FieldTag::__metadata),
                                 _ => Ok(__FieldTag::Unknown(value.to_string())),
                             }
                         }
@@ -1830,6 +1903,15 @@ pub mod extension_chain {
                                 }
                                 result.forward_headers = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
                             }
+                            __FieldTag::__metadata => {
+                                if !fields.insert(__FieldTag::__metadata) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for metadata",
+                                    ));
+                                }
+                                result.metadata =
+                                    map.next_value::<std::option::Option<wkt::Struct>>()?;
+                            }
                             __FieldTag::Unknown(key) => {
                                 let value = map.next_value::<serde_json::Value>()?;
                                 result._unknown_fields.insert(key, value);
@@ -1874,6 +1956,9 @@ pub mod extension_chain {
             if !self.forward_headers.is_empty() {
                 state.serialize_entry("forwardHeaders", &self.forward_headers)?;
             }
+            if self.metadata.is_some() {
+                state.serialize_entry("metadata", &self.metadata)?;
+            }
             if !self._unknown_fields.is_empty() {
                 for (key, value) in self._unknown_fields.iter() {
                     state.serialize_entry(key, &value)?;
@@ -1912,9 +1997,10 @@ pub struct LbTrafficExtension {
     /// for Google Cloud resources.
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
-    /// Required. A list of references to the forwarding rules to which this
-    /// service extension is attached to. At least one forwarding rule is required.
-    /// There can be only one `LBTrafficExtension` resource per forwarding rule.
+    /// Optional. A list of references to the forwarding rules to which this
+    /// service extension is attached. At least one forwarding rule is required.
+    /// Only one `LbTrafficExtension` resource can be associated with a forwarding
+    /// rule.
     pub forwarding_rules: std::vec::Vec<std::string::String>,
 
     /// Required. A set of ordered extension chains that contain the match
@@ -1927,19 +2013,32 @@ pub struct LbTrafficExtension {
 
     /// Required. All backend services and forwarding rules referenced by this
     /// extension must share the same load balancing scheme. Supported values:
-    /// `INTERNAL_MANAGED`, `EXTERNAL_MANAGED`. For more information, refer to
-    /// [Choosing a load
-    /// balancer](https://cloud.google.com/load-balancing/docs/backend-service).
+    /// `INTERNAL_MANAGED` and `EXTERNAL_MANAGED`. For more information, refer to
+    /// [Backend services
+    /// overview](https://cloud.google.com/load-balancing/docs/backend-service).
     pub load_balancing_scheme: crate::model::LoadBalancingScheme,
 
-    /// Optional. The metadata provided here is included in the
-    /// `ProcessingRequest.metadata_context.filter_metadata` map field. The
-    /// metadata is available under the key
+    /// Optional. The metadata provided here is included as part of the
+    /// `metadata_context` (of type `google.protobuf.Struct`) in the
+    /// `ProcessingRequest` message sent to the extension server.
+    ///
+    /// The metadata applies to all extensions in all extensions chains in this
+    /// resource.
+    ///
+    /// The metadata is available under the key
     /// `com.google.lb_traffic_extension.<resource_name>`.
+    ///
     /// The following variables are supported in the metadata:
     ///
     /// `{forwarding_rule_id}` - substituted with the forwarding rule's fully
     /// qualified resource name.
+    ///
+    /// This field must not be set if at least one of the extension chains
+    /// contains plugin extensions. Setting it results in a validation error.
+    ///
+    /// You can set metadata at either the resource level or the extension level.
+    /// The extension level metadata is recommended because you can pass a
+    /// different set of metadata through each extension to the backend.
     pub metadata: std::option::Option<wkt::Struct>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2298,7 +2397,7 @@ impl serde::ser::Serialize for LbTrafficExtension {
 #[non_exhaustive]
 pub struct ListLbTrafficExtensionsRequest {
     /// Required. The project and location from which the `LbTrafficExtension`
-    /// resources are listed, specified in the following format:
+    /// resources are listed. These values are specified in the following format:
     /// `projects/{project}/locations/{location}`.
     pub parent: std::string::String,
 
@@ -2312,7 +2411,7 @@ pub struct ListLbTrafficExtensionsRequest {
     /// Optional. Filtering results.
     pub filter: std::string::String,
 
-    /// Optional. Hint for how to order the results.
+    /// Optional. Hint about how to order the results.
     pub order_by: std::string::String,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -2897,12 +2996,11 @@ pub struct CreateLbTrafficExtensionRequest {
     /// Optional. An optional request ID to identify requests. Specify a unique
     /// request ID so that if you must retry your request, the server can ignore
     /// the request if it has already been completed. The server guarantees
-    /// that for at least 60 minutes since the first request.
+    /// that for 60 minutes since the first request.
     ///
     /// For example, consider a situation where you make an initial request and the
     /// request times out. If you make the request again with the same request
-    /// ID, the server can check if original operation with the same request ID
-    /// was received, and if so, ignores the second request. This prevents
+    /// ID, the server ignores the second request This prevents
     /// clients from accidentally creating duplicate commitments.
     ///
     /// The request ID must be a valid UUID with the exception that zero UUID is
@@ -3118,7 +3216,7 @@ impl serde::ser::Serialize for CreateLbTrafficExtensionRequest {
 pub struct UpdateLbTrafficExtensionRequest {
     /// Optional. Used to specify the fields to be overwritten in the
     /// `LbTrafficExtension` resource by the update.
-    /// The fields specified in the update_mask are relative to the resource, not
+    /// The fields specified in the `update_mask` are relative to the resource, not
     /// the full request. A field is overwritten if it is in the mask. If the
     /// user does not specify a mask, then all fields are overwritten.
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -3129,12 +3227,11 @@ pub struct UpdateLbTrafficExtensionRequest {
     /// Optional. An optional request ID to identify requests. Specify a unique
     /// request ID so that if you must retry your request, the server can ignore
     /// the request if it has already been completed. The server guarantees
-    /// that for at least 60 minutes since the first request.
+    /// that for 60 minutes since the first request.
     ///
     /// For example, consider a situation where you make an initial request and the
     /// request times out. If you make the request again with the same request
-    /// ID, the server can check if original operation with the same request ID
-    /// was received, and if so, ignores the second request. This prevents
+    /// ID, the server ignores the second request This prevents
     /// clients from accidentally creating duplicate commitments.
     ///
     /// The request ID must be a valid UUID with the exception that zero UUID is
@@ -3343,12 +3440,11 @@ pub struct DeleteLbTrafficExtensionRequest {
     /// Optional. An optional request ID to identify requests. Specify a unique
     /// request ID so that if you must retry your request, the server can ignore
     /// the request if it has already been completed. The server guarantees
-    /// that for at least 60 minutes after the first request.
+    /// that for 60 minutes after the first request.
     ///
     /// For example, consider a situation where you make an initial request and the
     /// request times out. If you make the request again with the same request
-    /// ID, the server can check if original operation with the same request ID
-    /// was received, and if so, ignores the second request. This prevents
+    /// ID, the server ignores the second request This prevents
     /// clients from accidentally creating duplicate commitments.
     ///
     /// The request ID must be a valid UUID with the exception that zero UUID is
@@ -3527,8 +3623,9 @@ pub struct LbRouteExtension {
     pub labels: std::collections::HashMap<std::string::String, std::string::String>,
 
     /// Required. A list of references to the forwarding rules to which this
-    /// service extension is attached to. At least one forwarding rule is required.
-    /// There can be only one `LbRouteExtension` resource per forwarding rule.
+    /// service extension is attached. At least one forwarding rule is required.
+    /// Only one `LbRouteExtension` resource can be associated with a forwarding
+    /// rule.
     pub forwarding_rules: std::vec::Vec<std::string::String>,
 
     /// Required. A set of ordered extension chains that contain the match
@@ -3542,19 +3639,31 @@ pub struct LbRouteExtension {
     /// Required. All backend services and forwarding rules referenced by this
     /// extension must share the same load balancing scheme. Supported values:
     /// `INTERNAL_MANAGED`, `EXTERNAL_MANAGED`. For more information, refer to
-    /// [Choosing a load
-    /// balancer](https://cloud.google.com/load-balancing/docs/backend-service).
+    /// [Backend services
+    /// overview](https://cloud.google.com/load-balancing/docs/backend-service).
     pub load_balancing_scheme: crate::model::LoadBalancingScheme,
 
     /// Optional. The metadata provided here is included as part of the
     /// `metadata_context` (of type `google.protobuf.Struct`) in the
-    /// `ProcessingRequest` message sent to the extension
-    /// server. The metadata is available under the namespace
+    /// `ProcessingRequest` message sent to the extension server.
+    ///
+    /// The metadata applies to all extensions in all extensions chains in this
+    /// resource.
+    ///
+    /// The metadata is available under the key
     /// `com.google.lb_route_extension.<resource_name>`.
-    /// The following variables are supported in the metadata Struct:
+    ///
+    /// The following variables are supported in the metadata:
     ///
     /// `{forwarding_rule_id}` - substituted with the forwarding rule's fully
     /// qualified resource name.
+    ///
+    /// This field must not be set if at least one of the extension chains
+    /// contains plugin extensions. Setting it results in a validation error.
+    ///
+    /// You can set metadata at either the resource level or the extension level.
+    /// The extension level metadata is recommended because you can pass a
+    /// different set of metadata through each extension to the backend.
     pub metadata: std::option::Option<wkt::Struct>,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -3913,7 +4022,7 @@ impl serde::ser::Serialize for LbRouteExtension {
 #[non_exhaustive]
 pub struct ListLbRouteExtensionsRequest {
     /// Required. The project and location from which the `LbRouteExtension`
-    /// resources are listed, specified in the following format:
+    /// resources are listed. These values are specified in the following format:
     /// `projects/{project}/locations/{location}`.
     pub parent: std::string::String,
 
@@ -3927,7 +4036,7 @@ pub struct ListLbRouteExtensionsRequest {
     /// Optional. Filtering results.
     pub filter: std::string::String,
 
-    /// Optional. Hint for how to order the results.
+    /// Optional. Hint about how to order the results.
     pub order_by: std::string::String,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -4512,12 +4621,11 @@ pub struct CreateLbRouteExtensionRequest {
     /// Optional. An optional request ID to identify requests. Specify a unique
     /// request ID so that if you must retry your request, the server can ignore
     /// the request if it has already been completed. The server guarantees
-    /// that for at least 60 minutes since the first request.
+    /// that for 60 minutes since the first request.
     ///
     /// For example, consider a situation where you make an initial request and the
     /// request times out. If you make the request again with the same request
-    /// ID, the server can check if original operation with the same request ID
-    /// was received, and if so, ignores the second request. This prevents
+    /// ID, the server ignores the second request This prevents
     /// clients from accidentally creating duplicate commitments.
     ///
     /// The request ID must be a valid UUID with the exception that zero UUID is
@@ -4734,7 +4842,7 @@ impl serde::ser::Serialize for CreateLbRouteExtensionRequest {
 pub struct UpdateLbRouteExtensionRequest {
     /// Optional. Used to specify the fields to be overwritten in the
     /// `LbRouteExtension` resource by the update.
-    /// The fields specified in the update_mask are relative to the resource, not
+    /// The fields specified in the `update_mask` are relative to the resource, not
     /// the full request. A field is overwritten if it is in the mask. If the
     /// user does not specify a mask, then all fields are overwritten.
     pub update_mask: std::option::Option<wkt::FieldMask>,
@@ -4745,12 +4853,11 @@ pub struct UpdateLbRouteExtensionRequest {
     /// Optional. An optional request ID to identify requests. Specify a unique
     /// request ID so that if you must retry your request, the server can ignore
     /// the request if it has already been completed. The server guarantees
-    /// that for at least 60 minutes since the first request.
+    /// that for 60 minutes since the first request.
     ///
     /// For example, consider a situation where you make an initial request and the
     /// request times out. If you make the request again with the same request
-    /// ID, the server can check if original operation with the same request ID
-    /// was received, and if so, ignores the second request. This prevents
+    /// ID, the server ignores the second request This prevents
     /// clients from accidentally creating duplicate commitments.
     ///
     /// The request ID must be a valid UUID with the exception that zero UUID is
@@ -4960,12 +5067,11 @@ pub struct DeleteLbRouteExtensionRequest {
     /// Optional. An optional request ID to identify requests. Specify a unique
     /// request ID so that if you must retry your request, the server can ignore
     /// the request if it has already been completed. The server guarantees
-    /// that for at least 60 minutes after the first request.
+    /// that for 60 minutes after the first request.
     ///
     /// For example, consider a situation where you make an initial request and the
     /// request times out. If you make the request again with the same request
-    /// ID, the server can check if original operation with the same request ID
-    /// was received, and if so, ignores the second request. This prevents
+    /// ID, the server ignores the second request This prevents
     /// clients from accidentally creating duplicate commitments.
     ///
     /// The request ID must be a valid UUID with the exception that zero UUID is
@@ -5094,6 +5200,1746 @@ impl<'de> serde::de::Deserialize<'de> for DeleteLbRouteExtensionRequest {
 
 #[doc(hidden)]
 impl serde::ser::Serialize for DeleteLbRouteExtensionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// `AuthzExtension` is a resource that allows traffic forwarding
+/// to a callout backend service to make an authorization decision.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct AuthzExtension {
+    /// Required. Identifier. Name of the `AuthzExtension` resource in the
+    /// following format:
+    /// `projects/{project}/locations/{location}/authzExtensions/{authz_extension}`.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. A human-readable description of the resource.
+    pub description: std::string::String,
+
+    /// Optional. Set of labels associated with the `AuthzExtension`
+    /// resource.
+    ///
+    /// The format must comply with [the requirements for
+    /// labels](/compute/docs/labeling-resources#requirements) for Google Cloud
+    /// resources.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Required. All backend services and forwarding rules referenced by this
+    /// extension must share the same load balancing scheme. Supported values:
+    /// `INTERNAL_MANAGED`, `EXTERNAL_MANAGED`. For more information, refer to
+    /// [Backend services
+    /// overview](https://cloud.google.com/load-balancing/docs/backend-service).
+    pub load_balancing_scheme: crate::model::LoadBalancingScheme,
+
+    /// Required. The `:authority` header in the gRPC request sent from Envoy
+    /// to the extension service.
+    pub authority: std::string::String,
+
+    /// Required. The reference to the service that runs the extension.
+    ///
+    /// To configure a callout extension, `service` must be a fully-qualified
+    /// reference
+    /// to a [backend
+    /// service](https://cloud.google.com/compute/docs/reference/rest/v1/backendServices)
+    /// in the format:
+    /// `<https://www.googleapis.com/compute/v1/projects/{project}/regions/{region}/backendServices/{backendService}>`
+    /// or
+    /// `<https://www.googleapis.com/compute/v1/projects/{project}/global/backendServices/{backendService}>`.
+    pub service: std::string::String,
+
+    /// Required. Specifies the timeout for each individual message on the stream.
+    /// The timeout must be between 10-10000 milliseconds.
+    pub timeout: std::option::Option<wkt::Duration>,
+
+    /// Optional. Determines how the proxy behaves if the call to the extension
+    /// fails or times out.
+    ///
+    /// When set to `TRUE`, request or response processing continues without
+    /// error. Any subsequent extensions in the extension chain are also
+    /// executed. When set to `FALSE` or the default setting of `FALSE` is used,
+    /// one of the following happens:
+    ///
+    /// * If response headers have not been delivered to the downstream client,
+    ///   a generic 500 error is returned to the client. The error response can be
+    ///   tailored by configuring a custom error response in the load balancer.
+    ///
+    /// * If response headers have been delivered, then the HTTP stream to the
+    ///   downstream client is reset.
+    ///
+    pub fail_open: bool,
+
+    /// Optional. The metadata provided here is included as part of the
+    /// `metadata_context` (of type `google.protobuf.Struct`) in the
+    /// `ProcessingRequest` message sent to the extension
+    /// server. The metadata is available under the namespace
+    /// `com.google.authz_extension.<resource_name>`.
+    /// The following variables are supported in the metadata Struct:
+    ///
+    /// `{forwarding_rule_id}` - substituted with the forwarding rule's fully
+    /// qualified resource name.
+    pub metadata: std::option::Option<wkt::Struct>,
+
+    /// Optional. List of the HTTP headers to forward to the extension
+    /// (from the client). If omitted, all headers are sent.
+    /// Each element is a string indicating the header name.
+    pub forward_headers: std::vec::Vec<std::string::String>,
+
+    /// Optional. The format of communication supported by the callout extension.
+    /// If not specified, the default value `EXT_PROC_GRPC` is used.
+    pub wire_format: crate::model::WireFormat,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl AuthzExtension {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::AuthzExtension::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::AuthzExtension::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::AuthzExtension::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::AuthzExtension::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::AuthzExtension::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::AuthzExtension::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::AuthzExtension::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [load_balancing_scheme][crate::model::AuthzExtension::load_balancing_scheme].
+    pub fn set_load_balancing_scheme<T: std::convert::Into<crate::model::LoadBalancingScheme>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.load_balancing_scheme = v.into();
+        self
+    }
+
+    /// Sets the value of [authority][crate::model::AuthzExtension::authority].
+    pub fn set_authority<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.authority = v.into();
+        self
+    }
+
+    /// Sets the value of [service][crate::model::AuthzExtension::service].
+    pub fn set_service<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.service = v.into();
+        self
+    }
+
+    /// Sets the value of [timeout][crate::model::AuthzExtension::timeout].
+    pub fn set_timeout<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [timeout][crate::model::AuthzExtension::timeout].
+    pub fn set_or_clear_timeout<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Duration>,
+    {
+        self.timeout = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [fail_open][crate::model::AuthzExtension::fail_open].
+    pub fn set_fail_open<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.fail_open = v.into();
+        self
+    }
+
+    /// Sets the value of [metadata][crate::model::AuthzExtension::metadata].
+    pub fn set_metadata<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.metadata = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [metadata][crate::model::AuthzExtension::metadata].
+    pub fn set_or_clear_metadata<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Struct>,
+    {
+        self.metadata = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [forward_headers][crate::model::AuthzExtension::forward_headers].
+    pub fn set_forward_headers<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.forward_headers = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [wire_format][crate::model::AuthzExtension::wire_format].
+    pub fn set_wire_format<T: std::convert::Into<crate::model::WireFormat>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wire_format = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for AuthzExtension {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.AuthzExtension"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for AuthzExtension {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __create_time,
+            __update_time,
+            __description,
+            __labels,
+            __load_balancing_scheme,
+            __authority,
+            __service,
+            __timeout,
+            __fail_open,
+            __metadata,
+            __forward_headers,
+            __wire_format,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for AuthzExtension")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "description" => Ok(__FieldTag::__description),
+                            "labels" => Ok(__FieldTag::__labels),
+                            "loadBalancingScheme" => Ok(__FieldTag::__load_balancing_scheme),
+                            "load_balancing_scheme" => Ok(__FieldTag::__load_balancing_scheme),
+                            "authority" => Ok(__FieldTag::__authority),
+                            "service" => Ok(__FieldTag::__service),
+                            "timeout" => Ok(__FieldTag::__timeout),
+                            "failOpen" => Ok(__FieldTag::__fail_open),
+                            "fail_open" => Ok(__FieldTag::__fail_open),
+                            "metadata" => Ok(__FieldTag::__metadata),
+                            "forwardHeaders" => Ok(__FieldTag::__forward_headers),
+                            "forward_headers" => Ok(__FieldTag::__forward_headers),
+                            "wireFormat" => Ok(__FieldTag::__wire_format),
+                            "wire_format" => Ok(__FieldTag::__wire_format),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = AuthzExtension;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct AuthzExtension")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__load_balancing_scheme => {
+                            if !fields.insert(__FieldTag::__load_balancing_scheme) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for load_balancing_scheme",
+                                ));
+                            }
+                            result.load_balancing_scheme = map.next_value::<std::option::Option<crate::model::LoadBalancingScheme>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__authority => {
+                            if !fields.insert(__FieldTag::__authority) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authority",
+                                ));
+                            }
+                            result.authority = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__service => {
+                            if !fields.insert(__FieldTag::__service) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for service",
+                                ));
+                            }
+                            result.service = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__timeout => {
+                            if !fields.insert(__FieldTag::__timeout) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for timeout",
+                                ));
+                            }
+                            result.timeout =
+                                map.next_value::<std::option::Option<wkt::Duration>>()?;
+                        }
+                        __FieldTag::__fail_open => {
+                            if !fields.insert(__FieldTag::__fail_open) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for fail_open",
+                                ));
+                            }
+                            result.fail_open = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__metadata => {
+                            if !fields.insert(__FieldTag::__metadata) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for metadata",
+                                ));
+                            }
+                            result.metadata =
+                                map.next_value::<std::option::Option<wkt::Struct>>()?;
+                        }
+                        __FieldTag::__forward_headers => {
+                            if !fields.insert(__FieldTag::__forward_headers) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for forward_headers",
+                                ));
+                            }
+                            result.forward_headers = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__wire_format => {
+                            if !fields.insert(__FieldTag::__wire_format) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wire_format",
+                                ));
+                            }
+                            result.wire_format = map
+                                .next_value::<std::option::Option<crate::model::WireFormat>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for AuthzExtension {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !wkt::internal::is_default(&self.load_balancing_scheme) {
+            state.serialize_entry("loadBalancingScheme", &self.load_balancing_scheme)?;
+        }
+        if !self.authority.is_empty() {
+            state.serialize_entry("authority", &self.authority)?;
+        }
+        if !self.service.is_empty() {
+            state.serialize_entry("service", &self.service)?;
+        }
+        if self.timeout.is_some() {
+            state.serialize_entry("timeout", &self.timeout)?;
+        }
+        if !wkt::internal::is_default(&self.fail_open) {
+            state.serialize_entry("failOpen", &self.fail_open)?;
+        }
+        if self.metadata.is_some() {
+            state.serialize_entry("metadata", &self.metadata)?;
+        }
+        if !self.forward_headers.is_empty() {
+            state.serialize_entry("forwardHeaders", &self.forward_headers)?;
+        }
+        if !wkt::internal::is_default(&self.wire_format) {
+            state.serialize_entry("wireFormat", &self.wire_format)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Message for requesting list of `AuthzExtension` resources.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAuthzExtensionsRequest {
+    /// Required. The project and location from which the `AuthzExtension`
+    /// resources are listed. These values are specified in the following format:
+    /// `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Optional. Requested page size. The server might return fewer items than
+    /// requested. If unspecified, the server picks an appropriate default.
+    pub page_size: i32,
+
+    /// Optional. A token identifying a page of results that the server returns.
+    pub page_token: std::string::String,
+
+    /// Optional. Filtering results.
+    pub filter: std::string::String,
+
+    /// Optional. Hint about how to order the results.
+    pub order_by: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAuthzExtensionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListAuthzExtensionsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListAuthzExtensionsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListAuthzExtensionsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [filter][crate::model::ListAuthzExtensionsRequest::filter].
+    pub fn set_filter<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.filter = v.into();
+        self
+    }
+
+    /// Sets the value of [order_by][crate::model::ListAuthzExtensionsRequest::order_by].
+    pub fn set_order_by<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.order_by = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAuthzExtensionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListAuthzExtensionsRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListAuthzExtensionsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            __filter,
+            __order_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListAuthzExtensionsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            "filter" => Ok(__FieldTag::__filter),
+                            "orderBy" => Ok(__FieldTag::__order_by),
+                            "order_by" => Ok(__FieldTag::__order_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListAuthzExtensionsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListAuthzExtensionsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__filter => {
+                            if !fields.insert(__FieldTag::__filter) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for filter",
+                                ));
+                            }
+                            result.filter = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__order_by => {
+                            if !fields.insert(__FieldTag::__order_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for order_by",
+                                ));
+                            }
+                            result.order_by = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListAuthzExtensionsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self.filter.is_empty() {
+            state.serialize_entry("filter", &self.filter)?;
+        }
+        if !self.order_by.is_empty() {
+            state.serialize_entry("orderBy", &self.order_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Message for response to listing `AuthzExtension` resources.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListAuthzExtensionsResponse {
+    /// The list of `AuthzExtension` resources.
+    pub authz_extensions: std::vec::Vec<crate::model::AuthzExtension>,
+
+    /// A token identifying a page of results that the server returns.
+    pub next_page_token: std::string::String,
+
+    /// Locations that could not be reached.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListAuthzExtensionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [authz_extensions][crate::model::ListAuthzExtensionsResponse::authz_extensions].
+    pub fn set_authz_extensions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::AuthzExtension>,
+    {
+        use std::iter::Iterator;
+        self.authz_extensions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListAuthzExtensionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListAuthzExtensionsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListAuthzExtensionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListAuthzExtensionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListAuthzExtensionsResponse {
+    type PageItem = crate::model::AuthzExtension;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.authz_extensions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListAuthzExtensionsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __authz_extensions,
+            __next_page_token,
+            __unreachable,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListAuthzExtensionsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "authzExtensions" => Ok(__FieldTag::__authz_extensions),
+                            "authz_extensions" => Ok(__FieldTag::__authz_extensions),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListAuthzExtensionsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListAuthzExtensionsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__authz_extensions => {
+                            if !fields.insert(__FieldTag::__authz_extensions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authz_extensions",
+                                ));
+                            }
+                            result.authz_extensions =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::AuthzExtension>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListAuthzExtensionsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.authz_extensions.is_empty() {
+            state.serialize_entry("authzExtensions", &self.authz_extensions)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Message for getting a `AuthzExtension` resource.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetAuthzExtensionRequest {
+    /// Required. A name of the `AuthzExtension` resource to get. Must be in
+    /// the format
+    /// `projects/{project}/locations/{location}/authzExtensions/{authz_extension}`.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetAuthzExtensionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetAuthzExtensionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetAuthzExtensionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.GetAuthzExtensionRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetAuthzExtensionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetAuthzExtensionRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetAuthzExtensionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetAuthzExtensionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetAuthzExtensionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Message for creating a `AuthzExtension` resource.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateAuthzExtensionRequest {
+    /// Required. The parent resource of the `AuthzExtension` resource. Must
+    /// be in the format `projects/{project}/locations/{location}`.
+    pub parent: std::string::String,
+
+    /// Required. User-provided ID of the `AuthzExtension` resource to be
+    /// created.
+    pub authz_extension_id: std::string::String,
+
+    /// Required. `AuthzExtension` resource to be created.
+    pub authz_extension: std::option::Option<crate::model::AuthzExtension>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server can ignore
+    /// the request if it has already been completed. The server guarantees
+    /// that for 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server ignores the second request This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateAuthzExtensionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateAuthzExtensionRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [authz_extension_id][crate::model::CreateAuthzExtensionRequest::authz_extension_id].
+    pub fn set_authz_extension_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.authz_extension_id = v.into();
+        self
+    }
+
+    /// Sets the value of [authz_extension][crate::model::CreateAuthzExtensionRequest::authz_extension].
+    pub fn set_authz_extension<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthzExtension>,
+    {
+        self.authz_extension = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [authz_extension][crate::model::CreateAuthzExtensionRequest::authz_extension].
+    pub fn set_or_clear_authz_extension<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthzExtension>,
+    {
+        self.authz_extension = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::CreateAuthzExtensionRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for CreateAuthzExtensionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.CreateAuthzExtensionRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateAuthzExtensionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __authz_extension_id,
+            __authz_extension,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateAuthzExtensionRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "authzExtensionId" => Ok(__FieldTag::__authz_extension_id),
+                            "authz_extension_id" => Ok(__FieldTag::__authz_extension_id),
+                            "authzExtension" => Ok(__FieldTag::__authz_extension),
+                            "authz_extension" => Ok(__FieldTag::__authz_extension),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateAuthzExtensionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateAuthzExtensionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__authz_extension_id => {
+                            if !fields.insert(__FieldTag::__authz_extension_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authz_extension_id",
+                                ));
+                            }
+                            result.authz_extension_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__authz_extension => {
+                            if !fields.insert(__FieldTag::__authz_extension) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authz_extension",
+                                ));
+                            }
+                            result.authz_extension = map
+                                .next_value::<std::option::Option<crate::model::AuthzExtension>>(
+                                )?;
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateAuthzExtensionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.authz_extension_id.is_empty() {
+            state.serialize_entry("authzExtensionId", &self.authz_extension_id)?;
+        }
+        if self.authz_extension.is_some() {
+            state.serialize_entry("authzExtension", &self.authz_extension)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Message for updating a `AuthzExtension` resource.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateAuthzExtensionRequest {
+    /// Required. Used to specify the fields to be overwritten in the
+    /// `AuthzExtension` resource by the update.
+    /// The fields specified in the `update_mask` are relative to the resource, not
+    /// the full request. A field is overwritten if it is in the mask. If the
+    /// user does not specify a mask, then all fields are overwritten.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. `AuthzExtension` resource being updated.
+    pub authz_extension: std::option::Option<crate::model::AuthzExtension>,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server can ignore
+    /// the request if it has already been completed. The server guarantees
+    /// that for 60 minutes since the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server ignores the second request This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateAuthzExtensionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateAuthzExtensionRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateAuthzExtensionRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [authz_extension][crate::model::UpdateAuthzExtensionRequest::authz_extension].
+    pub fn set_authz_extension<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthzExtension>,
+    {
+        self.authz_extension = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [authz_extension][crate::model::UpdateAuthzExtensionRequest::authz_extension].
+    pub fn set_or_clear_authz_extension<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::AuthzExtension>,
+    {
+        self.authz_extension = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::UpdateAuthzExtensionRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateAuthzExtensionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.UpdateAuthzExtensionRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateAuthzExtensionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __update_mask,
+            __authz_extension,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateAuthzExtensionRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            "authzExtension" => Ok(__FieldTag::__authz_extension),
+                            "authz_extension" => Ok(__FieldTag::__authz_extension),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateAuthzExtensionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateAuthzExtensionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::__authz_extension => {
+                            if !fields.insert(__FieldTag::__authz_extension) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for authz_extension",
+                                ));
+                            }
+                            result.authz_extension = map
+                                .next_value::<std::option::Option<crate::model::AuthzExtension>>(
+                                )?;
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateAuthzExtensionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if self.authz_extension.is_some() {
+            state.serialize_entry("authzExtension", &self.authz_extension)?;
+        }
+        if !self.request_id.is_empty() {
+            state.serialize_entry("requestId", &self.request_id)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Message for deleting a `AuthzExtension` resource.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteAuthzExtensionRequest {
+    /// Required. The name of the `AuthzExtension` resource to delete. Must
+    /// be in the format
+    /// `projects/{project}/locations/{location}/authzExtensions/{authz_extension}`.
+    pub name: std::string::String,
+
+    /// Optional. An optional request ID to identify requests. Specify a unique
+    /// request ID so that if you must retry your request, the server can ignore
+    /// the request if it has already been completed. The server guarantees
+    /// that for 60 minutes after the first request.
+    ///
+    /// For example, consider a situation where you make an initial request and the
+    /// request times out. If you make the request again with the same request
+    /// ID, the server ignores the second request This prevents
+    /// clients from accidentally creating duplicate commitments.
+    ///
+    /// The request ID must be a valid UUID with the exception that zero UUID is
+    /// not supported (00000000-0000-0000-0000-000000000000).
+    pub request_id: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteAuthzExtensionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteAuthzExtensionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [request_id][crate::model::DeleteAuthzExtensionRequest::request_id].
+    pub fn set_request_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.request_id = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteAuthzExtensionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.DeleteAuthzExtensionRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteAuthzExtensionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __request_id,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteAuthzExtensionRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "requestId" => Ok(__FieldTag::__request_id),
+                            "request_id" => Ok(__FieldTag::__request_id),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteAuthzExtensionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteAuthzExtensionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__request_id => {
+                            if !fields.insert(__FieldTag::__request_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for request_id",
+                                ));
+                            }
+                            result.request_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteAuthzExtensionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -6786,6 +8632,3942 @@ impl<'de> serde::de::Deserialize<'de> for DeleteEndpointPolicyRequest {
 
 #[doc(hidden)]
 impl serde::ser::Serialize for DeleteEndpointPolicyRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// `WasmPlugin` is a resource representing a service executing
+/// a customer-provided Wasm module.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WasmPlugin {
+    /// Identifier. Name of the `WasmPlugin` resource in the following format:
+    /// `projects/{project}/locations/{location}/wasmPlugins/{wasm_plugin}`.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. A human-readable description of the resource.
+    pub description: std::string::String,
+
+    /// Optional. Set of labels associated with the `WasmPlugin` resource.
+    ///
+    /// The format must comply with [the following
+    /// requirements](/compute/docs/labeling-resources#requirements).
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. The ID of the `WasmPluginVersion` resource that is the
+    /// currently serving one. The version referred to must be a child of this
+    /// `WasmPlugin` resource.
+    pub main_version_id: std::string::String,
+
+    /// Optional. Specifies the logging options for the activity performed by this
+    /// plugin. If logging is enabled, plugin logs are exported to
+    /// Cloud Logging.
+    /// Note that the settings relate to the logs generated by using
+    /// logging statements in your Wasm code.
+    pub log_config: std::option::Option<crate::model::wasm_plugin::LogConfig>,
+
+    /// Optional. All versions of this `WasmPlugin` resource in the key-value
+    /// format. The key is the resource ID, and the value is the `VersionDetails`
+    /// object.
+    ///
+    /// Lets you create or update a `WasmPlugin` resource and its versions in a
+    /// single request. When the `main_version_id` field is not empty, it must
+    /// point to one of the `VersionDetails` objects in the map.
+    ///
+    /// If provided in a `PATCH` request, the new versions replace the
+    /// previous set. Any version omitted from the `versions` field is removed.
+    /// Because the `WasmPluginVersion` resource is immutable, if a
+    /// `WasmPluginVersion` resource with the same name already exists and differs,
+    /// the request fails.
+    ///
+    /// Note: In a `GET` request, this field is populated only if the field
+    /// `GetWasmPluginRequest.view` is set to `WASM_PLUGIN_VIEW_FULL`.
+    pub versions:
+        std::collections::HashMap<std::string::String, crate::model::wasm_plugin::VersionDetails>,
+
+    /// Output only. List of all
+    /// [extensions](https://cloud.google.com/service-extensions/docs/overview)
+    /// that use this `WasmPlugin` resource.
+    pub used_by: std::vec::Vec<crate::model::wasm_plugin::UsedBy>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WasmPlugin {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::WasmPlugin::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::WasmPlugin::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::WasmPlugin::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::WasmPlugin::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::WasmPlugin::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::WasmPlugin::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::WasmPlugin::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [main_version_id][crate::model::WasmPlugin::main_version_id].
+    pub fn set_main_version_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.main_version_id = v.into();
+        self
+    }
+
+    /// Sets the value of [log_config][crate::model::WasmPlugin::log_config].
+    pub fn set_log_config<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::wasm_plugin::LogConfig>,
+    {
+        self.log_config = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [log_config][crate::model::WasmPlugin::log_config].
+    pub fn set_or_clear_log_config<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::wasm_plugin::LogConfig>,
+    {
+        self.log_config = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [versions][crate::model::WasmPlugin::versions].
+    pub fn set_versions<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<crate::model::wasm_plugin::VersionDetails>,
+    {
+        use std::iter::Iterator;
+        self.versions = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [used_by][crate::model::WasmPlugin::used_by].
+    pub fn set_used_by<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::wasm_plugin::UsedBy>,
+    {
+        use std::iter::Iterator;
+        self.used_by = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for WasmPlugin {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.WasmPlugin"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for WasmPlugin {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __create_time,
+            __update_time,
+            __description,
+            __labels,
+            __main_version_id,
+            __log_config,
+            __versions,
+            __used_by,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for WasmPlugin")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "description" => Ok(__FieldTag::__description),
+                            "labels" => Ok(__FieldTag::__labels),
+                            "mainVersionId" => Ok(__FieldTag::__main_version_id),
+                            "main_version_id" => Ok(__FieldTag::__main_version_id),
+                            "logConfig" => Ok(__FieldTag::__log_config),
+                            "log_config" => Ok(__FieldTag::__log_config),
+                            "versions" => Ok(__FieldTag::__versions),
+                            "usedBy" => Ok(__FieldTag::__used_by),
+                            "used_by" => Ok(__FieldTag::__used_by),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = WasmPlugin;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct WasmPlugin")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__main_version_id => {
+                            if !fields.insert(__FieldTag::__main_version_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for main_version_id",
+                                ));
+                            }
+                            result.main_version_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__log_config => {
+                            if !fields.insert(__FieldTag::__log_config) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for log_config",
+                                ));
+                            }
+                            result.log_config = map.next_value::<std::option::Option<crate::model::wasm_plugin::LogConfig>>()?
+                                ;
+                        }
+                        __FieldTag::__versions => {
+                            if !fields.insert(__FieldTag::__versions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for versions",
+                                ));
+                            }
+                            result.versions = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        crate::model::wasm_plugin::VersionDetails,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__used_by => {
+                            if !fields.insert(__FieldTag::__used_by) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for used_by",
+                                ));
+                            }
+                            result.used_by = map
+                                .next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::wasm_plugin::UsedBy>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for WasmPlugin {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.main_version_id.is_empty() {
+            state.serialize_entry("mainVersionId", &self.main_version_id)?;
+        }
+        if self.log_config.is_some() {
+            state.serialize_entry("logConfig", &self.log_config)?;
+        }
+        if !self.versions.is_empty() {
+            state.serialize_entry("versions", &self.versions)?;
+        }
+        if !self.used_by.is_empty() {
+            state.serialize_entry("usedBy", &self.used_by)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Defines additional types related to [WasmPlugin].
+pub mod wasm_plugin {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// Details of a `WasmPluginVersion` resource to be inlined in the
+    /// `WasmPlugin` resource.
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct VersionDetails {
+        /// Output only. The timestamp when the resource was created.
+        pub create_time: std::option::Option<wkt::Timestamp>,
+
+        /// Output only. The timestamp when the resource was updated.
+        pub update_time: std::option::Option<wkt::Timestamp>,
+
+        /// Optional. A human-readable description of the resource.
+        pub description: std::string::String,
+
+        /// Optional. Set of labels associated with the `WasmPluginVersion`
+        /// resource.
+        pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+        /// Optional. URI of the container image containing the Wasm module, stored
+        /// in the Artifact Registry. The container image must contain only a single
+        /// file with the name `plugin.wasm`. When a new `WasmPluginVersion` resource
+        /// is created, the URI gets resolved to an image digest and saved in the
+        /// `image_digest` field.
+        pub image_uri: std::string::String,
+
+        /// Output only. The resolved digest for the image specified in `image`.
+        /// The digest is resolved during the creation of a
+        /// `WasmPluginVersion` resource.
+        /// This field holds the digest value regardless of whether a tag or
+        /// digest was originally specified in the `image` field.
+        pub image_digest: std::string::String,
+
+        /// Output only. This field holds the digest (usually checksum) value for the
+        /// plugin configuration. The value is calculated based on the contents of
+        /// the `plugin_config_data` field or the container image defined by the
+        /// `plugin_config_uri` field.
+        pub plugin_config_digest: std::string::String,
+
+        pub plugin_config_source:
+            std::option::Option<crate::model::wasm_plugin::version_details::PluginConfigSource>,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl VersionDetails {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [create_time][crate::model::wasm_plugin::VersionDetails::create_time].
+        pub fn set_create_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.create_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [create_time][crate::model::wasm_plugin::VersionDetails::create_time].
+        pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.create_time = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [update_time][crate::model::wasm_plugin::VersionDetails::update_time].
+        pub fn set_update_time<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.update_time = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_time][crate::model::wasm_plugin::VersionDetails::update_time].
+        pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::Timestamp>,
+        {
+            self.update_time = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [description][crate::model::wasm_plugin::VersionDetails::description].
+        pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.description = v.into();
+            self
+        }
+
+        /// Sets the value of [labels][crate::model::wasm_plugin::VersionDetails::labels].
+        pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+        where
+            T: std::iter::IntoIterator<Item = (K, V)>,
+            K: std::convert::Into<std::string::String>,
+            V: std::convert::Into<std::string::String>,
+        {
+            use std::iter::Iterator;
+            self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+            self
+        }
+
+        /// Sets the value of [image_uri][crate::model::wasm_plugin::VersionDetails::image_uri].
+        pub fn set_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.image_uri = v.into();
+            self
+        }
+
+        /// Sets the value of [image_digest][crate::model::wasm_plugin::VersionDetails::image_digest].
+        pub fn set_image_digest<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.image_digest = v.into();
+            self
+        }
+
+        /// Sets the value of [plugin_config_digest][crate::model::wasm_plugin::VersionDetails::plugin_config_digest].
+        pub fn set_plugin_config_digest<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.plugin_config_digest = v.into();
+            self
+        }
+
+        /// Sets the value of [plugin_config_source][crate::model::wasm_plugin::VersionDetails::plugin_config_source].
+        ///
+        /// Note that all the setters affecting `plugin_config_source` are mutually
+        /// exclusive.
+        pub fn set_plugin_config_source<
+            T: std::convert::Into<
+                    std::option::Option<
+                        crate::model::wasm_plugin::version_details::PluginConfigSource,
+                    >,
+                >,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.plugin_config_source = v.into();
+            self
+        }
+
+        /// The value of [plugin_config_source][crate::model::wasm_plugin::VersionDetails::plugin_config_source]
+        /// if it holds a `PluginConfigData`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn plugin_config_data(&self) -> std::option::Option<&::bytes::Bytes> {
+            #[allow(unreachable_patterns)]
+            self.plugin_config_source.as_ref().and_then(|v| match v {
+                crate::model::wasm_plugin::version_details::PluginConfigSource::PluginConfigData(v) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [plugin_config_source][crate::model::wasm_plugin::VersionDetails::plugin_config_source]
+        /// to hold a `PluginConfigData`.
+        ///
+        /// Note that all the setters affecting `plugin_config_source` are
+        /// mutually exclusive.
+        pub fn set_plugin_config_data<T: std::convert::Into<::bytes::Bytes>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.plugin_config_source = std::option::Option::Some(
+                crate::model::wasm_plugin::version_details::PluginConfigSource::PluginConfigData(
+                    v.into(),
+                ),
+            );
+            self
+        }
+
+        /// The value of [plugin_config_source][crate::model::wasm_plugin::VersionDetails::plugin_config_source]
+        /// if it holds a `PluginConfigUri`, `None` if the field is not set or
+        /// holds a different branch.
+        pub fn plugin_config_uri(&self) -> std::option::Option<&std::string::String> {
+            #[allow(unreachable_patterns)]
+            self.plugin_config_source.as_ref().and_then(|v| match v {
+                crate::model::wasm_plugin::version_details::PluginConfigSource::PluginConfigUri(
+                    v,
+                ) => std::option::Option::Some(v),
+                _ => std::option::Option::None,
+            })
+        }
+
+        /// Sets the value of [plugin_config_source][crate::model::wasm_plugin::VersionDetails::plugin_config_source]
+        /// to hold a `PluginConfigUri`.
+        ///
+        /// Note that all the setters affecting `plugin_config_source` are
+        /// mutually exclusive.
+        pub fn set_plugin_config_uri<T: std::convert::Into<std::string::String>>(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.plugin_config_source = std::option::Option::Some(
+                crate::model::wasm_plugin::version_details::PluginConfigSource::PluginConfigUri(
+                    v.into(),
+                ),
+            );
+            self
+        }
+    }
+
+    impl wkt::message::Message for VersionDetails {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkservices.v1.WasmPlugin.VersionDetails"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for VersionDetails {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __plugin_config_data,
+                __plugin_config_uri,
+                __create_time,
+                __update_time,
+                __description,
+                __labels,
+                __image_uri,
+                __image_digest,
+                __plugin_config_digest,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for VersionDetails")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "pluginConfigData" => Ok(__FieldTag::__plugin_config_data),
+                                "plugin_config_data" => Ok(__FieldTag::__plugin_config_data),
+                                "pluginConfigUri" => Ok(__FieldTag::__plugin_config_uri),
+                                "plugin_config_uri" => Ok(__FieldTag::__plugin_config_uri),
+                                "createTime" => Ok(__FieldTag::__create_time),
+                                "create_time" => Ok(__FieldTag::__create_time),
+                                "updateTime" => Ok(__FieldTag::__update_time),
+                                "update_time" => Ok(__FieldTag::__update_time),
+                                "description" => Ok(__FieldTag::__description),
+                                "labels" => Ok(__FieldTag::__labels),
+                                "imageUri" => Ok(__FieldTag::__image_uri),
+                                "image_uri" => Ok(__FieldTag::__image_uri),
+                                "imageDigest" => Ok(__FieldTag::__image_digest),
+                                "image_digest" => Ok(__FieldTag::__image_digest),
+                                "pluginConfigDigest" => Ok(__FieldTag::__plugin_config_digest),
+                                "plugin_config_digest" => Ok(__FieldTag::__plugin_config_digest),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = VersionDetails;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct VersionDetails")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__plugin_config_data => {
+                                if !fields.insert(__FieldTag::__plugin_config_data) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for plugin_config_data",
+                                    ));
+                                }
+                                struct __With(std::option::Option<::bytes::Bytes>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::<
+                                            std::option::Option<serde_with::base64::Base64>,
+                                        >::deserialize(
+                                            deserializer
+                                        )
+                                        .map(__With)
+                                    }
+                                }
+                                if result.plugin_config_source.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `plugin_config_source`, a oneof with full ID .google.cloud.networkservices.v1.WasmPlugin.VersionDetails.plugin_config_data, latest field was pluginConfigData",
+                                    ));
+                                }
+                                result.plugin_config_source = std::option::Option::Some(
+                                    crate::model::wasm_plugin::version_details::PluginConfigSource::PluginConfigData(
+                                        map.next_value::<__With>()?.0.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::__plugin_config_uri => {
+                                if !fields.insert(__FieldTag::__plugin_config_uri) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for plugin_config_uri",
+                                    ));
+                                }
+                                if result.plugin_config_source.is_some() {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for `plugin_config_source`, a oneof with full ID .google.cloud.networkservices.v1.WasmPlugin.VersionDetails.plugin_config_uri, latest field was pluginConfigUri",
+                                    ));
+                                }
+                                result.plugin_config_source = std::option::Option::Some(
+                                    crate::model::wasm_plugin::version_details::PluginConfigSource::PluginConfigUri(
+                                        map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                    ),
+                                );
+                            }
+                            __FieldTag::__create_time => {
+                                if !fields.insert(__FieldTag::__create_time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for create_time",
+                                    ));
+                                }
+                                result.create_time =
+                                    map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                            }
+                            __FieldTag::__update_time => {
+                                if !fields.insert(__FieldTag::__update_time) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for update_time",
+                                    ));
+                                }
+                                result.update_time =
+                                    map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                            }
+                            __FieldTag::__description => {
+                                if !fields.insert(__FieldTag::__description) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for description",
+                                    ));
+                                }
+                                result.description = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__labels => {
+                                if !fields.insert(__FieldTag::__labels) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for labels",
+                                    ));
+                                }
+                                result.labels = map
+                                    .next_value::<std::option::Option<
+                                        std::collections::HashMap<
+                                            std::string::String,
+                                            std::string::String,
+                                        >,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__image_uri => {
+                                if !fields.insert(__FieldTag::__image_uri) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for image_uri",
+                                    ));
+                                }
+                                result.image_uri = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__image_digest => {
+                                if !fields.insert(__FieldTag::__image_digest) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for image_digest",
+                                    ));
+                                }
+                                result.image_digest = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__plugin_config_digest => {
+                                if !fields.insert(__FieldTag::__plugin_config_digest) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for plugin_config_digest",
+                                    ));
+                                }
+                                result.plugin_config_digest = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for VersionDetails {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if let Some(value) = self.plugin_config_data() {
+                struct __With<'a>(&'a ::bytes::Bytes);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("pluginConfigData", &__With(value))?;
+            }
+            if let Some(value) = self.plugin_config_uri() {
+                state.serialize_entry("pluginConfigUri", value)?;
+            }
+            if self.create_time.is_some() {
+                state.serialize_entry("createTime", &self.create_time)?;
+            }
+            if self.update_time.is_some() {
+                state.serialize_entry("updateTime", &self.update_time)?;
+            }
+            if !self.description.is_empty() {
+                state.serialize_entry("description", &self.description)?;
+            }
+            if !self.labels.is_empty() {
+                state.serialize_entry("labels", &self.labels)?;
+            }
+            if !self.image_uri.is_empty() {
+                state.serialize_entry("imageUri", &self.image_uri)?;
+            }
+            if !self.image_digest.is_empty() {
+                state.serialize_entry("imageDigest", &self.image_digest)?;
+            }
+            if !self.plugin_config_digest.is_empty() {
+                state.serialize_entry("pluginConfigDigest", &self.plugin_config_digest)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    /// Defines additional types related to [VersionDetails].
+    pub mod version_details {
+        #[allow(unused_imports)]
+        use super::*;
+
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum PluginConfigSource {
+            /// Configuration for the plugin.
+            /// The configuration is provided to the plugin at runtime through
+            /// the `ON_CONFIGURE` callback. When a new
+            /// `WasmPluginVersion` version is created, the digest of the
+            /// contents is saved in the `plugin_config_digest` field.
+            PluginConfigData(::bytes::Bytes),
+            /// URI of the plugin configuration stored in the Artifact Registry.
+            /// The configuration is provided to the plugin at runtime through
+            /// the `ON_CONFIGURE` callback. The container image must
+            /// contain only a single file with the name
+            /// `plugin.config`. When a new `WasmPluginVersion`
+            /// resource is created, the digest of the container image is saved in the
+            /// `plugin_config_digest` field.
+            PluginConfigUri(std::string::String),
+        }
+    }
+
+    /// Specifies the logging options for the activity performed by this
+    /// plugin. If logging is enabled, plugin logs are exported to
+    /// Cloud Logging.
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct LogConfig {
+        /// Optional. Specifies whether to enable logging for activity by this
+        /// plugin.
+        ///
+        /// Defaults to `false`.
+        pub enable: bool,
+
+        /// Non-empty default. Configures the sampling rate of activity logs, where
+        /// `1.0` means all logged activity is reported and `0.0` means no activity
+        /// is reported. A floating point value between `0.0` and `1.0` indicates
+        /// that a percentage of log messages is stored.
+        ///
+        /// The default value when logging is enabled is `1.0`. The value of the
+        /// field must be between `0` and `1` (inclusive).
+        ///
+        /// This field can be specified only if logging is enabled for this plugin.
+        pub sample_rate: f32,
+
+        /// Non-empty default. Specificies the lowest level of the plugin logs that
+        /// are exported to Cloud Logging. This setting relates to the logs generated
+        /// by using logging statements in your Wasm code.
+        ///
+        /// This field is can be set only if logging is enabled for the plugin.
+        ///
+        /// If the field is not provided when logging is enabled, it is set to
+        /// `INFO` by default.
+        pub min_log_level: crate::model::wasm_plugin::log_config::LogLevel,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl LogConfig {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [enable][crate::model::wasm_plugin::LogConfig::enable].
+        pub fn set_enable<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+            self.enable = v.into();
+            self
+        }
+
+        /// Sets the value of [sample_rate][crate::model::wasm_plugin::LogConfig::sample_rate].
+        pub fn set_sample_rate<T: std::convert::Into<f32>>(mut self, v: T) -> Self {
+            self.sample_rate = v.into();
+            self
+        }
+
+        /// Sets the value of [min_log_level][crate::model::wasm_plugin::LogConfig::min_log_level].
+        pub fn set_min_log_level<
+            T: std::convert::Into<crate::model::wasm_plugin::log_config::LogLevel>,
+        >(
+            mut self,
+            v: T,
+        ) -> Self {
+            self.min_log_level = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for LogConfig {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkservices.v1.WasmPlugin.LogConfig"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for LogConfig {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __enable,
+                __sample_rate,
+                __min_log_level,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for LogConfig")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "enable" => Ok(__FieldTag::__enable),
+                                "sampleRate" => Ok(__FieldTag::__sample_rate),
+                                "sample_rate" => Ok(__FieldTag::__sample_rate),
+                                "minLogLevel" => Ok(__FieldTag::__min_log_level),
+                                "min_log_level" => Ok(__FieldTag::__min_log_level),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = LogConfig;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct LogConfig")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__enable => {
+                                if !fields.insert(__FieldTag::__enable) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for enable",
+                                    ));
+                                }
+                                result.enable = map
+                                    .next_value::<std::option::Option<bool>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::__sample_rate => {
+                                if !fields.insert(__FieldTag::__sample_rate) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for sample_rate",
+                                    ));
+                                }
+                                struct __With(std::option::Option<f32>);
+                                impl<'de> serde::de::Deserialize<'de> for __With {
+                                    fn deserialize<D>(
+                                        deserializer: D,
+                                    ) -> std::result::Result<Self, D::Error>
+                                    where
+                                        D: serde::de::Deserializer<'de>,
+                                    {
+                                        serde_with::As::< std::option::Option<wkt::internal::F32> >::deserialize(deserializer).map(__With)
+                                    }
+                                }
+                                result.sample_rate =
+                                    map.next_value::<__With>()?.0.unwrap_or_default();
+                            }
+                            __FieldTag::__min_log_level => {
+                                if !fields.insert(__FieldTag::__min_log_level) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for min_log_level",
+                                    ));
+                                }
+                                result.min_log_level = map
+                                    .next_value::<std::option::Option<
+                                        crate::model::wasm_plugin::log_config::LogLevel,
+                                    >>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for LogConfig {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !wkt::internal::is_default(&self.enable) {
+                state.serialize_entry("enable", &self.enable)?;
+            }
+            if !wkt::internal::is_default(&self.sample_rate) {
+                struct __With<'a>(&'a f32);
+                impl<'a> serde::ser::Serialize for __With<'a> {
+                    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                    where
+                        S: serde::ser::Serializer,
+                    {
+                        serde_with::As::<wkt::internal::F32>::serialize(self.0, serializer)
+                    }
+                }
+                state.serialize_entry("sampleRate", &__With(&self.sample_rate))?;
+            }
+            if !wkt::internal::is_default(&self.min_log_level) {
+                state.serialize_entry("minLogLevel", &self.min_log_level)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+
+    /// Defines additional types related to [LogConfig].
+    pub mod log_config {
+        #[allow(unused_imports)]
+        use super::*;
+
+        /// Possible values to specify the lowest level of logs to be exported to
+        /// Cloud Logging.
+        ///
+        /// # Working with unknown values
+        ///
+        /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+        /// additional enum variants at any time. Adding new variants is not considered
+        /// a breaking change. Applications should write their code in anticipation of:
+        ///
+        /// - New values appearing in future releases of the client library, **and**
+        /// - New values received dynamically, without application changes.
+        ///
+        /// Please consult the [Working with enums] section in the user guide for some
+        /// guidelines.
+        ///
+        /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+        #[derive(Clone, Debug, PartialEq)]
+        #[non_exhaustive]
+        pub enum LogLevel {
+            /// Unspecified value. Defaults to `LogLevel.INFO`.
+            Unspecified,
+            /// Report logs with TRACE level and above.
+            Trace,
+            /// Report logs with DEBUG level and above.
+            Debug,
+            /// Report logs with INFO level and above.
+            Info,
+            /// Report logs with WARN level and above.
+            Warn,
+            /// Report logs with ERROR level and above.
+            Error,
+            /// Report logs with CRITICAL level only.
+            Critical,
+            /// If set, the enum was initialized with an unknown value.
+            ///
+            /// Applications can examine the value using [LogLevel::value] or
+            /// [LogLevel::name].
+            UnknownValue(log_level::UnknownValue),
+        }
+
+        #[doc(hidden)]
+        pub mod log_level {
+            #[allow(unused_imports)]
+            use super::*;
+            #[derive(Clone, Debug, PartialEq)]
+            pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+        }
+
+        impl LogLevel {
+            /// Gets the enum value.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the string representation of enums.
+            pub fn value(&self) -> std::option::Option<i32> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some(0),
+                    Self::Trace => std::option::Option::Some(1),
+                    Self::Debug => std::option::Option::Some(2),
+                    Self::Info => std::option::Option::Some(3),
+                    Self::Warn => std::option::Option::Some(4),
+                    Self::Error => std::option::Option::Some(5),
+                    Self::Critical => std::option::Option::Some(6),
+                    Self::UnknownValue(u) => u.0.value(),
+                }
+            }
+
+            /// Gets the enum value as a string.
+            ///
+            /// Returns `None` if the enum contains an unknown value deserialized from
+            /// the integer representation of enums.
+            pub fn name(&self) -> std::option::Option<&str> {
+                match self {
+                    Self::Unspecified => std::option::Option::Some("LOG_LEVEL_UNSPECIFIED"),
+                    Self::Trace => std::option::Option::Some("TRACE"),
+                    Self::Debug => std::option::Option::Some("DEBUG"),
+                    Self::Info => std::option::Option::Some("INFO"),
+                    Self::Warn => std::option::Option::Some("WARN"),
+                    Self::Error => std::option::Option::Some("ERROR"),
+                    Self::Critical => std::option::Option::Some("CRITICAL"),
+                    Self::UnknownValue(u) => u.0.name(),
+                }
+            }
+        }
+
+        impl std::default::Default for LogLevel {
+            fn default() -> Self {
+                use std::convert::From;
+                Self::from(0)
+            }
+        }
+
+        impl std::fmt::Display for LogLevel {
+            fn fmt(
+                &self,
+                f: &mut std::fmt::Formatter<'_>,
+            ) -> std::result::Result<(), std::fmt::Error> {
+                wkt::internal::display_enum(f, self.name(), self.value())
+            }
+        }
+
+        impl std::convert::From<i32> for LogLevel {
+            fn from(value: i32) -> Self {
+                match value {
+                    0 => Self::Unspecified,
+                    1 => Self::Trace,
+                    2 => Self::Debug,
+                    3 => Self::Info,
+                    4 => Self::Warn,
+                    5 => Self::Error,
+                    6 => Self::Critical,
+                    _ => Self::UnknownValue(log_level::UnknownValue(
+                        wkt::internal::UnknownEnumValue::Integer(value),
+                    )),
+                }
+            }
+        }
+
+        impl std::convert::From<&str> for LogLevel {
+            fn from(value: &str) -> Self {
+                use std::string::ToString;
+                match value {
+                    "LOG_LEVEL_UNSPECIFIED" => Self::Unspecified,
+                    "TRACE" => Self::Trace,
+                    "DEBUG" => Self::Debug,
+                    "INFO" => Self::Info,
+                    "WARN" => Self::Warn,
+                    "ERROR" => Self::Error,
+                    "CRITICAL" => Self::Critical,
+                    _ => Self::UnknownValue(log_level::UnknownValue(
+                        wkt::internal::UnknownEnumValue::String(value.to_string()),
+                    )),
+                }
+            }
+        }
+
+        impl serde::ser::Serialize for LogLevel {
+            fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+            where
+                S: serde::Serializer,
+            {
+                match self {
+                    Self::Unspecified => serializer.serialize_i32(0),
+                    Self::Trace => serializer.serialize_i32(1),
+                    Self::Debug => serializer.serialize_i32(2),
+                    Self::Info => serializer.serialize_i32(3),
+                    Self::Warn => serializer.serialize_i32(4),
+                    Self::Error => serializer.serialize_i32(5),
+                    Self::Critical => serializer.serialize_i32(6),
+                    Self::UnknownValue(u) => u.0.serialize(serializer),
+                }
+            }
+        }
+
+        impl<'de> serde::de::Deserialize<'de> for LogLevel {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                deserializer.deserialize_any(wkt::internal::EnumVisitor::<LogLevel>::new(
+                    ".google.cloud.networkservices.v1.WasmPlugin.LogConfig.LogLevel",
+                ))
+            }
+        }
+    }
+
+    /// Defines a resource that uses the `WasmPlugin` resource.
+    #[derive(Clone, Debug, Default, PartialEq)]
+    #[non_exhaustive]
+    pub struct UsedBy {
+        /// Output only. Full name of the resource
+        /// <https://google.aip.dev/122#full-resource-names>, for example
+        /// `//networkservices.googleapis.com/projects/{project}/locations/{location}/lbRouteExtensions/{extension}`
+        pub name: std::string::String,
+
+        _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+    }
+
+    impl UsedBy {
+        pub fn new() -> Self {
+            std::default::Default::default()
+        }
+
+        /// Sets the value of [name][crate::model::wasm_plugin::UsedBy::name].
+        pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+            self.name = v.into();
+            self
+        }
+    }
+
+    impl wkt::message::Message for UsedBy {
+        fn typename() -> &'static str {
+            "type.googleapis.com/google.cloud.networkservices.v1.WasmPlugin.UsedBy"
+        }
+    }
+
+    #[doc(hidden)]
+    impl<'de> serde::de::Deserialize<'de> for UsedBy {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            #[allow(non_camel_case_types)]
+            #[doc(hidden)]
+            #[derive(PartialEq, Eq, Hash)]
+            enum __FieldTag {
+                __name,
+                Unknown(std::string::String),
+            }
+            impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+                fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+                where
+                    D: serde::Deserializer<'de>,
+                {
+                    struct Visitor;
+                    impl<'de> serde::de::Visitor<'de> for Visitor {
+                        type Value = __FieldTag;
+                        fn expecting(
+                            &self,
+                            formatter: &mut std::fmt::Formatter,
+                        ) -> std::fmt::Result {
+                            formatter.write_str("a field name for UsedBy")
+                        }
+                        fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                        where
+                            E: serde::de::Error,
+                        {
+                            use std::result::Result::Ok;
+                            use std::string::ToString;
+                            match value {
+                                "name" => Ok(__FieldTag::__name),
+                                _ => Ok(__FieldTag::Unknown(value.to_string())),
+                            }
+                        }
+                    }
+                    deserializer.deserialize_identifier(Visitor)
+                }
+            }
+            struct Visitor;
+            impl<'de> serde::de::Visitor<'de> for Visitor {
+                type Value = UsedBy;
+                fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                    formatter.write_str("struct UsedBy")
+                }
+                fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+                where
+                    A: serde::de::MapAccess<'de>,
+                {
+                    #[allow(unused_imports)]
+                    use serde::de::Error;
+                    use std::option::Option::Some;
+                    let mut fields = std::collections::HashSet::new();
+                    let mut result = Self::Value::new();
+                    while let Some(tag) = map.next_key::<__FieldTag>()? {
+                        #[allow(clippy::match_single_binding)]
+                        match tag {
+                            __FieldTag::__name => {
+                                if !fields.insert(__FieldTag::__name) {
+                                    return std::result::Result::Err(A::Error::duplicate_field(
+                                        "multiple values for name",
+                                    ));
+                                }
+                                result.name = map
+                                    .next_value::<std::option::Option<std::string::String>>()?
+                                    .unwrap_or_default();
+                            }
+                            __FieldTag::Unknown(key) => {
+                                let value = map.next_value::<serde_json::Value>()?;
+                                result._unknown_fields.insert(key, value);
+                            }
+                        }
+                    }
+                    std::result::Result::Ok(result)
+                }
+            }
+            deserializer.deserialize_any(Visitor)
+        }
+    }
+
+    #[doc(hidden)]
+    impl serde::ser::Serialize for UsedBy {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::ser::Serializer,
+        {
+            use serde::ser::SerializeMap;
+            #[allow(unused_imports)]
+            use std::option::Option::Some;
+            let mut state = serializer.serialize_map(std::option::Option::None)?;
+            if !self.name.is_empty() {
+                state.serialize_entry("name", &self.name)?;
+            }
+            if !self._unknown_fields.is_empty() {
+                for (key, value) in self._unknown_fields.iter() {
+                    state.serialize_entry(key, &value)?;
+                }
+            }
+            state.end()
+        }
+    }
+}
+
+/// A single immutable version of a `WasmPlugin` resource.
+/// Defines the Wasm module used and optionally its runtime config.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct WasmPluginVersion {
+    /// Identifier. Name of the `WasmPluginVersion` resource in the following
+    /// format: `projects/{project}/locations/{location}/wasmPlugins/{wasm_plugin}/
+    /// versions/{wasm_plugin_version}`.
+    pub name: std::string::String,
+
+    /// Output only. The timestamp when the resource was created.
+    pub create_time: std::option::Option<wkt::Timestamp>,
+
+    /// Output only. The timestamp when the resource was updated.
+    pub update_time: std::option::Option<wkt::Timestamp>,
+
+    /// Optional. A human-readable description of the resource.
+    pub description: std::string::String,
+
+    /// Optional. Set of labels associated with the `WasmPluginVersion`
+    /// resource.
+    pub labels: std::collections::HashMap<std::string::String, std::string::String>,
+
+    /// Optional. URI of the container image containing the plugin, stored in the
+    /// Artifact Registry.
+    /// When a new `WasmPluginVersion` resource is created, the digest
+    /// of the container image is saved in the `image_digest` field.
+    /// When downloading an image, the digest value is used instead of an
+    /// image tag.
+    pub image_uri: std::string::String,
+
+    /// Output only. The resolved digest for the image specified in the `image`
+    /// field. The digest is resolved during the creation of `WasmPluginVersion`
+    /// resource. This field holds the digest value, regardless of whether a tag or
+    /// digest was originally specified in the `image` field.
+    pub image_digest: std::string::String,
+
+    /// Output only. This field holds the digest (usually checksum) value for the
+    /// plugin configuration. The value is calculated based on the contents of
+    /// `plugin_config_data` or the container image defined by
+    /// the `plugin_config_uri` field.
+    pub plugin_config_digest: std::string::String,
+
+    pub plugin_config_source:
+        std::option::Option<crate::model::wasm_plugin_version::PluginConfigSource>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl WasmPluginVersion {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::WasmPluginVersion::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [create_time][crate::model::WasmPluginVersion::create_time].
+    pub fn set_create_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [create_time][crate::model::WasmPluginVersion::create_time].
+    pub fn set_or_clear_create_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.create_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_time][crate::model::WasmPluginVersion::update_time].
+    pub fn set_update_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_time][crate::model::WasmPluginVersion::update_time].
+    pub fn set_or_clear_update_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.update_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [description][crate::model::WasmPluginVersion::description].
+    pub fn set_description<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.description = v.into();
+        self
+    }
+
+    /// Sets the value of [labels][crate::model::WasmPluginVersion::labels].
+    pub fn set_labels<T, K, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = (K, V)>,
+        K: std::convert::Into<std::string::String>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.labels = v.into_iter().map(|(k, v)| (k.into(), v.into())).collect();
+        self
+    }
+
+    /// Sets the value of [image_uri][crate::model::WasmPluginVersion::image_uri].
+    pub fn set_image_uri<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.image_uri = v.into();
+        self
+    }
+
+    /// Sets the value of [image_digest][crate::model::WasmPluginVersion::image_digest].
+    pub fn set_image_digest<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.image_digest = v.into();
+        self
+    }
+
+    /// Sets the value of [plugin_config_digest][crate::model::WasmPluginVersion::plugin_config_digest].
+    pub fn set_plugin_config_digest<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.plugin_config_digest = v.into();
+        self
+    }
+
+    /// Sets the value of [plugin_config_source][crate::model::WasmPluginVersion::plugin_config_source].
+    ///
+    /// Note that all the setters affecting `plugin_config_source` are mutually
+    /// exclusive.
+    pub fn set_plugin_config_source<
+        T: std::convert::Into<
+                std::option::Option<crate::model::wasm_plugin_version::PluginConfigSource>,
+            >,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.plugin_config_source = v.into();
+        self
+    }
+
+    /// The value of [plugin_config_source][crate::model::WasmPluginVersion::plugin_config_source]
+    /// if it holds a `PluginConfigData`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn plugin_config_data(&self) -> std::option::Option<&::bytes::Bytes> {
+        #[allow(unreachable_patterns)]
+        self.plugin_config_source.as_ref().and_then(|v| match v {
+            crate::model::wasm_plugin_version::PluginConfigSource::PluginConfigData(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [plugin_config_source][crate::model::WasmPluginVersion::plugin_config_source]
+    /// to hold a `PluginConfigData`.
+    ///
+    /// Note that all the setters affecting `plugin_config_source` are
+    /// mutually exclusive.
+    pub fn set_plugin_config_data<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.plugin_config_source = std::option::Option::Some(
+            crate::model::wasm_plugin_version::PluginConfigSource::PluginConfigData(v.into()),
+        );
+        self
+    }
+
+    /// The value of [plugin_config_source][crate::model::WasmPluginVersion::plugin_config_source]
+    /// if it holds a `PluginConfigUri`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn plugin_config_uri(&self) -> std::option::Option<&std::string::String> {
+        #[allow(unreachable_patterns)]
+        self.plugin_config_source.as_ref().and_then(|v| match v {
+            crate::model::wasm_plugin_version::PluginConfigSource::PluginConfigUri(v) => {
+                std::option::Option::Some(v)
+            }
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [plugin_config_source][crate::model::WasmPluginVersion::plugin_config_source]
+    /// to hold a `PluginConfigUri`.
+    ///
+    /// Note that all the setters affecting `plugin_config_source` are
+    /// mutually exclusive.
+    pub fn set_plugin_config_uri<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.plugin_config_source = std::option::Option::Some(
+            crate::model::wasm_plugin_version::PluginConfigSource::PluginConfigUri(v.into()),
+        );
+        self
+    }
+}
+
+impl wkt::message::Message for WasmPluginVersion {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.WasmPluginVersion"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for WasmPluginVersion {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __plugin_config_data,
+            __plugin_config_uri,
+            __name,
+            __create_time,
+            __update_time,
+            __description,
+            __labels,
+            __image_uri,
+            __image_digest,
+            __plugin_config_digest,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for WasmPluginVersion")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "pluginConfigData" => Ok(__FieldTag::__plugin_config_data),
+                            "plugin_config_data" => Ok(__FieldTag::__plugin_config_data),
+                            "pluginConfigUri" => Ok(__FieldTag::__plugin_config_uri),
+                            "plugin_config_uri" => Ok(__FieldTag::__plugin_config_uri),
+                            "name" => Ok(__FieldTag::__name),
+                            "createTime" => Ok(__FieldTag::__create_time),
+                            "create_time" => Ok(__FieldTag::__create_time),
+                            "updateTime" => Ok(__FieldTag::__update_time),
+                            "update_time" => Ok(__FieldTag::__update_time),
+                            "description" => Ok(__FieldTag::__description),
+                            "labels" => Ok(__FieldTag::__labels),
+                            "imageUri" => Ok(__FieldTag::__image_uri),
+                            "image_uri" => Ok(__FieldTag::__image_uri),
+                            "imageDigest" => Ok(__FieldTag::__image_digest),
+                            "image_digest" => Ok(__FieldTag::__image_digest),
+                            "pluginConfigDigest" => Ok(__FieldTag::__plugin_config_digest),
+                            "plugin_config_digest" => Ok(__FieldTag::__plugin_config_digest),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = WasmPluginVersion;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct WasmPluginVersion")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__plugin_config_data => {
+                            if !fields.insert(__FieldTag::__plugin_config_data) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for plugin_config_data",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            if result.plugin_config_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `plugin_config_source`, a oneof with full ID .google.cloud.networkservices.v1.WasmPluginVersion.plugin_config_data, latest field was pluginConfigData",
+                                ));
+                            }
+                            result.plugin_config_source = std::option::Option::Some(
+                                crate::model::wasm_plugin_version::PluginConfigSource::PluginConfigData(
+                                    map.next_value::<__With>()?.0.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__plugin_config_uri => {
+                            if !fields.insert(__FieldTag::__plugin_config_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for plugin_config_uri",
+                                ));
+                            }
+                            if result.plugin_config_source.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `plugin_config_source`, a oneof with full ID .google.cloud.networkservices.v1.WasmPluginVersion.plugin_config_uri, latest field was pluginConfigUri",
+                                ));
+                            }
+                            result.plugin_config_source = std::option::Option::Some(
+                                crate::model::wasm_plugin_version::PluginConfigSource::PluginConfigUri(
+                                    map.next_value::<std::option::Option<std::string::String>>()?.unwrap_or_default()
+                                ),
+                            );
+                        }
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__create_time => {
+                            if !fields.insert(__FieldTag::__create_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for create_time",
+                                ));
+                            }
+                            result.create_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__update_time => {
+                            if !fields.insert(__FieldTag::__update_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_time",
+                                ));
+                            }
+                            result.update_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__description => {
+                            if !fields.insert(__FieldTag::__description) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for description",
+                                ));
+                            }
+                            result.description = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__labels => {
+                            if !fields.insert(__FieldTag::__labels) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for labels",
+                                ));
+                            }
+                            result.labels = map
+                                .next_value::<std::option::Option<
+                                    std::collections::HashMap<
+                                        std::string::String,
+                                        std::string::String,
+                                    >,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__image_uri => {
+                            if !fields.insert(__FieldTag::__image_uri) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for image_uri",
+                                ));
+                            }
+                            result.image_uri = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__image_digest => {
+                            if !fields.insert(__FieldTag::__image_digest) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for image_digest",
+                                ));
+                            }
+                            result.image_digest = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__plugin_config_digest => {
+                            if !fields.insert(__FieldTag::__plugin_config_digest) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for plugin_config_digest",
+                                ));
+                            }
+                            result.plugin_config_digest = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for WasmPluginVersion {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if let Some(value) = self.plugin_config_data() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pluginConfigData", &__With(value))?;
+        }
+        if let Some(value) = self.plugin_config_uri() {
+            state.serialize_entry("pluginConfigUri", value)?;
+        }
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.create_time.is_some() {
+            state.serialize_entry("createTime", &self.create_time)?;
+        }
+        if self.update_time.is_some() {
+            state.serialize_entry("updateTime", &self.update_time)?;
+        }
+        if !self.description.is_empty() {
+            state.serialize_entry("description", &self.description)?;
+        }
+        if !self.labels.is_empty() {
+            state.serialize_entry("labels", &self.labels)?;
+        }
+        if !self.image_uri.is_empty() {
+            state.serialize_entry("imageUri", &self.image_uri)?;
+        }
+        if !self.image_digest.is_empty() {
+            state.serialize_entry("imageDigest", &self.image_digest)?;
+        }
+        if !self.plugin_config_digest.is_empty() {
+            state.serialize_entry("pluginConfigDigest", &self.plugin_config_digest)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Defines additional types related to [WasmPluginVersion].
+pub mod wasm_plugin_version {
+    #[allow(unused_imports)]
+    use super::*;
+
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum PluginConfigSource {
+        /// Configuration for the plugin.
+        /// The configuration is provided to the plugin at runtime through
+        /// the `ON_CONFIGURE` callback. When a new
+        /// `WasmPluginVersion` resource is created, the digest of the
+        /// contents is saved in the `plugin_config_digest` field.
+        PluginConfigData(::bytes::Bytes),
+        /// URI of the plugin configuration stored in the Artifact Registry.
+        /// The configuration is provided to the plugin at runtime through
+        /// the `ON_CONFIGURE` callback. The container image must contain
+        /// only a single file with the name `plugin.config`. When a
+        /// new `WasmPluginVersion` resource is created, the digest of the
+        /// container image is saved in the `plugin_config_digest` field.
+        PluginConfigUri(std::string::String),
+    }
+}
+
+/// Request used with the `ListWasmPlugins` method.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListWasmPluginsRequest {
+    /// Required. The project and location from which the `WasmPlugin` resources
+    /// are listed, specified in the following format:
+    /// `projects/{project}/locations/global`.
+    pub parent: std::string::String,
+
+    /// Maximum number of `WasmPlugin` resources to return per call.
+    /// If not specified, at most 50 `WasmPlugin` resources are returned.
+    /// The maximum value is 1000; values above 1000 are coerced to 1000.
+    pub page_size: i32,
+
+    /// The value returned by the last `ListWasmPluginsResponse` call.
+    /// Indicates that this is a continuation of a prior
+    /// `ListWasmPlugins` call, and that the
+    /// next page of data is to be returned.
+    pub page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListWasmPluginsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListWasmPluginsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListWasmPluginsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListWasmPluginsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListWasmPluginsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListWasmPluginsRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListWasmPluginsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListWasmPluginsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListWasmPluginsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListWasmPluginsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListWasmPluginsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Response returned by the `ListWasmPlugins` method.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListWasmPluginsResponse {
+    /// List of `WasmPlugin` resources.
+    pub wasm_plugins: std::vec::Vec<crate::model::WasmPlugin>,
+
+    /// If there might be more results than those appearing in this response, then
+    /// `next_page_token` is included. To get the next set of results,
+    /// call this method again using the value of `next_page_token` as
+    /// `page_token`.
+    pub next_page_token: std::string::String,
+
+    /// Unreachable resources. Populated when the request attempts to list all
+    /// resources across all supported locations, while some locations are
+    /// temporarily unavailable.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListWasmPluginsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [wasm_plugins][crate::model::ListWasmPluginsResponse::wasm_plugins].
+    pub fn set_wasm_plugins<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::WasmPlugin>,
+    {
+        use std::iter::Iterator;
+        self.wasm_plugins = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWasmPluginsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListWasmPluginsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListWasmPluginsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListWasmPluginsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListWasmPluginsResponse {
+    type PageItem = crate::model::WasmPlugin;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.wasm_plugins
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListWasmPluginsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __wasm_plugins,
+            __next_page_token,
+            __unreachable,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListWasmPluginsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "wasmPlugins" => Ok(__FieldTag::__wasm_plugins),
+                            "wasm_plugins" => Ok(__FieldTag::__wasm_plugins),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListWasmPluginsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListWasmPluginsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__wasm_plugins => {
+                            if !fields.insert(__FieldTag::__wasm_plugins) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wasm_plugins",
+                                ));
+                            }
+                            result.wasm_plugins = map.next_value::<std::option::Option<std::vec::Vec<crate::model::WasmPlugin>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListWasmPluginsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.wasm_plugins.is_empty() {
+            state.serialize_entry("wasmPlugins", &self.wasm_plugins)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Request used by the `GetWasmPlugin` method.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetWasmPluginRequest {
+    /// Required. A name of the `WasmPlugin` resource to get. Must be in the
+    /// format `projects/{project}/locations/global/wasmPlugins/{wasm_plugin}`.
+    pub name: std::string::String,
+
+    /// Determines how much data must be returned in the response. See
+    /// [AIP-157](https://google.aip.dev/157).
+    pub view: crate::model::WasmPluginView,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetWasmPluginRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetWasmPluginRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [view][crate::model::GetWasmPluginRequest::view].
+    pub fn set_view<T: std::convert::Into<crate::model::WasmPluginView>>(mut self, v: T) -> Self {
+        self.view = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetWasmPluginRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.GetWasmPluginRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetWasmPluginRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __view,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetWasmPluginRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "view" => Ok(__FieldTag::__view),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetWasmPluginRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetWasmPluginRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__view => {
+                            if !fields.insert(__FieldTag::__view) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for view",
+                                ));
+                            }
+                            result.view = map
+                                .next_value::<std::option::Option<crate::model::WasmPluginView>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetWasmPluginRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !wkt::internal::is_default(&self.view) {
+            state.serialize_entry("view", &self.view)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Request used by the `CreateWasmPlugin` method.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateWasmPluginRequest {
+    /// Required. The parent resource of the `WasmPlugin` resource. Must be in the
+    /// format `projects/{project}/locations/global`.
+    pub parent: std::string::String,
+
+    /// Required. User-provided ID of the `WasmPlugin` resource to be created.
+    pub wasm_plugin_id: std::string::String,
+
+    /// Required. `WasmPlugin` resource to be created.
+    pub wasm_plugin: std::option::Option<crate::model::WasmPlugin>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateWasmPluginRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateWasmPluginRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [wasm_plugin_id][crate::model::CreateWasmPluginRequest::wasm_plugin_id].
+    pub fn set_wasm_plugin_id<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.wasm_plugin_id = v.into();
+        self
+    }
+
+    /// Sets the value of [wasm_plugin][crate::model::CreateWasmPluginRequest::wasm_plugin].
+    pub fn set_wasm_plugin<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WasmPlugin>,
+    {
+        self.wasm_plugin = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [wasm_plugin][crate::model::CreateWasmPluginRequest::wasm_plugin].
+    pub fn set_or_clear_wasm_plugin<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WasmPlugin>,
+    {
+        self.wasm_plugin = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateWasmPluginRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.CreateWasmPluginRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateWasmPluginRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __wasm_plugin_id,
+            __wasm_plugin,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateWasmPluginRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "wasmPluginId" => Ok(__FieldTag::__wasm_plugin_id),
+                            "wasm_plugin_id" => Ok(__FieldTag::__wasm_plugin_id),
+                            "wasmPlugin" => Ok(__FieldTag::__wasm_plugin),
+                            "wasm_plugin" => Ok(__FieldTag::__wasm_plugin),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateWasmPluginRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateWasmPluginRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__wasm_plugin_id => {
+                            if !fields.insert(__FieldTag::__wasm_plugin_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wasm_plugin_id",
+                                ));
+                            }
+                            result.wasm_plugin_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__wasm_plugin => {
+                            if !fields.insert(__FieldTag::__wasm_plugin) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wasm_plugin",
+                                ));
+                            }
+                            result.wasm_plugin =
+                                map.next_value::<std::option::Option<crate::model::WasmPlugin>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateWasmPluginRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.wasm_plugin_id.is_empty() {
+            state.serialize_entry("wasmPluginId", &self.wasm_plugin_id)?;
+        }
+        if self.wasm_plugin.is_some() {
+            state.serialize_entry("wasmPlugin", &self.wasm_plugin)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Request used by the `UpdateWasmPlugin` method.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateWasmPluginRequest {
+    /// Optional. Used to specify the fields to be overwritten in the
+    /// `WasmPlugin` resource by the update.
+    /// The fields specified in the `update_mask` field are relative to the
+    /// resource, not the full request.
+    /// An omitted `update_mask` field is treated as an implied `update_mask`
+    /// field equivalent to all fields that are populated (that have a non-empty
+    /// value).
+    /// The `update_mask` field supports a special value `*`, which means that
+    /// each field in the given `WasmPlugin` resource (including the empty ones)
+    /// replaces the current value.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Required. Updated `WasmPlugin` resource.
+    pub wasm_plugin: std::option::Option<crate::model::WasmPlugin>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateWasmPluginRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateWasmPluginRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateWasmPluginRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [wasm_plugin][crate::model::UpdateWasmPluginRequest::wasm_plugin].
+    pub fn set_wasm_plugin<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WasmPlugin>,
+    {
+        self.wasm_plugin = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [wasm_plugin][crate::model::UpdateWasmPluginRequest::wasm_plugin].
+    pub fn set_or_clear_wasm_plugin<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WasmPlugin>,
+    {
+        self.wasm_plugin = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateWasmPluginRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.UpdateWasmPluginRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateWasmPluginRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __update_mask,
+            __wasm_plugin,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateWasmPluginRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            "wasmPlugin" => Ok(__FieldTag::__wasm_plugin),
+                            "wasm_plugin" => Ok(__FieldTag::__wasm_plugin),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateWasmPluginRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateWasmPluginRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::__wasm_plugin => {
+                            if !fields.insert(__FieldTag::__wasm_plugin) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wasm_plugin",
+                                ));
+                            }
+                            result.wasm_plugin =
+                                map.next_value::<std::option::Option<crate::model::WasmPlugin>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateWasmPluginRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if self.wasm_plugin.is_some() {
+            state.serialize_entry("wasmPlugin", &self.wasm_plugin)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Request used by the `DeleteWasmPlugin` method.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteWasmPluginRequest {
+    /// Required. A name of the `WasmPlugin` resource to delete. Must be in the
+    /// format `projects/{project}/locations/global/wasmPlugins/{wasm_plugin}`.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteWasmPluginRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteWasmPluginRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteWasmPluginRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.DeleteWasmPluginRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteWasmPluginRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteWasmPluginRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteWasmPluginRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteWasmPluginRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteWasmPluginRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Request used with the `ListWasmPluginVersions` method.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListWasmPluginVersionsRequest {
+    /// Required. The `WasmPlugin` resource whose `WasmPluginVersion`s
+    /// are listed, specified in the following format:
+    /// `projects/{project}/locations/global/wasmPlugins/{wasm_plugin}`.
+    pub parent: std::string::String,
+
+    /// Maximum number of `WasmPluginVersion` resources to return per
+    /// call. If not specified, at most 50 `WasmPluginVersion` resources are
+    /// returned. The maximum value is 1000; values above 1000 are coerced to
+    /// 1000.
+    pub page_size: i32,
+
+    /// The value returned by the last `ListWasmPluginVersionsResponse` call.
+    /// Indicates that this is a continuation of a prior
+    /// `ListWasmPluginVersions` call, and that the
+    /// next page of data is to be returned.
+    pub page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListWasmPluginVersionsRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListWasmPluginVersionsRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListWasmPluginVersionsRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListWasmPluginVersionsRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListWasmPluginVersionsRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListWasmPluginVersionsRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListWasmPluginVersionsRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListWasmPluginVersionsRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListWasmPluginVersionsRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListWasmPluginVersionsRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListWasmPluginVersionsRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Response returned by the `ListWasmPluginVersions` method.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListWasmPluginVersionsResponse {
+    /// List of `WasmPluginVersion` resources.
+    pub wasm_plugin_versions: std::vec::Vec<crate::model::WasmPluginVersion>,
+
+    /// If there might be more results than those appearing in this response, then
+    /// `next_page_token` is included. To get the next set of results,
+    /// call this method again using the value of `next_page_token` as
+    /// `page_token`.
+    pub next_page_token: std::string::String,
+
+    /// Unreachable resources. Populated when the request attempts to list all
+    /// resources across all supported locations, while some locations are
+    /// temporarily unavailable.
+    pub unreachable: std::vec::Vec<std::string::String>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListWasmPluginVersionsResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [wasm_plugin_versions][crate::model::ListWasmPluginVersionsResponse::wasm_plugin_versions].
+    pub fn set_wasm_plugin_versions<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::WasmPluginVersion>,
+    {
+        use std::iter::Iterator;
+        self.wasm_plugin_versions = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListWasmPluginVersionsResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+
+    /// Sets the value of [unreachable][crate::model::ListWasmPluginVersionsResponse::unreachable].
+    pub fn set_unreachable<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<std::string::String>,
+    {
+        use std::iter::Iterator;
+        self.unreachable = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+}
+
+impl wkt::message::Message for ListWasmPluginVersionsResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.ListWasmPluginVersionsResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListWasmPluginVersionsResponse {
+    type PageItem = crate::model::WasmPluginVersion;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.wasm_plugin_versions
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListWasmPluginVersionsResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __wasm_plugin_versions,
+            __next_page_token,
+            __unreachable,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListWasmPluginVersionsResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "wasmPluginVersions" => Ok(__FieldTag::__wasm_plugin_versions),
+                            "wasm_plugin_versions" => Ok(__FieldTag::__wasm_plugin_versions),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            "unreachable" => Ok(__FieldTag::__unreachable),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListWasmPluginVersionsResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListWasmPluginVersionsResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__wasm_plugin_versions => {
+                            if !fields.insert(__FieldTag::__wasm_plugin_versions) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wasm_plugin_versions",
+                                ));
+                            }
+                            result.wasm_plugin_versions =
+                                map.next_value::<std::option::Option<
+                                    std::vec::Vec<crate::model::WasmPluginVersion>,
+                                >>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__unreachable => {
+                            if !fields.insert(__FieldTag::__unreachable) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for unreachable",
+                                ));
+                            }
+                            result.unreachable = map.next_value::<std::option::Option<std::vec::Vec<std::string::String>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListWasmPluginVersionsResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.wasm_plugin_versions.is_empty() {
+            state.serialize_entry("wasmPluginVersions", &self.wasm_plugin_versions)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self.unreachable.is_empty() {
+            state.serialize_entry("unreachable", &self.unreachable)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Request used by the `GetWasmPluginVersion` method.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetWasmPluginVersionRequest {
+    /// Required. A name of the `WasmPluginVersion` resource to get. Must be in
+    /// the format
+    /// `projects/{project}/locations/global/wasmPlugins/{wasm_plugin}/versions/{wasm_plugin_version}`.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetWasmPluginVersionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetWasmPluginVersionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetWasmPluginVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.GetWasmPluginVersionRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetWasmPluginVersionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetWasmPluginVersionRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetWasmPluginVersionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetWasmPluginVersionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetWasmPluginVersionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Request used by the `CreateWasmPluginVersion` method.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateWasmPluginVersionRequest {
+    /// Required. The parent resource of the `WasmPluginVersion` resource. Must be
+    /// in the format
+    /// `projects/{project}/locations/global/wasmPlugins/{wasm_plugin}`.
+    pub parent: std::string::String,
+
+    /// Required. User-provided ID of the `WasmPluginVersion` resource to be
+    /// created.
+    pub wasm_plugin_version_id: std::string::String,
+
+    /// Required. `WasmPluginVersion` resource to be created.
+    pub wasm_plugin_version: std::option::Option<crate::model::WasmPluginVersion>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateWasmPluginVersionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateWasmPluginVersionRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [wasm_plugin_version_id][crate::model::CreateWasmPluginVersionRequest::wasm_plugin_version_id].
+    pub fn set_wasm_plugin_version_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.wasm_plugin_version_id = v.into();
+        self
+    }
+
+    /// Sets the value of [wasm_plugin_version][crate::model::CreateWasmPluginVersionRequest::wasm_plugin_version].
+    pub fn set_wasm_plugin_version<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::WasmPluginVersion>,
+    {
+        self.wasm_plugin_version = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [wasm_plugin_version][crate::model::CreateWasmPluginVersionRequest::wasm_plugin_version].
+    pub fn set_or_clear_wasm_plugin_version<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::WasmPluginVersion>,
+    {
+        self.wasm_plugin_version = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateWasmPluginVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.CreateWasmPluginVersionRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateWasmPluginVersionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __wasm_plugin_version_id,
+            __wasm_plugin_version,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateWasmPluginVersionRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "wasmPluginVersionId" => Ok(__FieldTag::__wasm_plugin_version_id),
+                            "wasm_plugin_version_id" => Ok(__FieldTag::__wasm_plugin_version_id),
+                            "wasmPluginVersion" => Ok(__FieldTag::__wasm_plugin_version),
+                            "wasm_plugin_version" => Ok(__FieldTag::__wasm_plugin_version),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateWasmPluginVersionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateWasmPluginVersionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__wasm_plugin_version_id => {
+                            if !fields.insert(__FieldTag::__wasm_plugin_version_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wasm_plugin_version_id",
+                                ));
+                            }
+                            result.wasm_plugin_version_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__wasm_plugin_version => {
+                            if !fields.insert(__FieldTag::__wasm_plugin_version) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for wasm_plugin_version",
+                                ));
+                            }
+                            result.wasm_plugin_version = map
+                                .next_value::<std::option::Option<crate::model::WasmPluginVersion>>(
+                                )?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateWasmPluginVersionRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.wasm_plugin_version_id.is_empty() {
+            state.serialize_entry("wasmPluginVersionId", &self.wasm_plugin_version_id)?;
+        }
+        if self.wasm_plugin_version.is_some() {
+            state.serialize_entry("wasmPluginVersion", &self.wasm_plugin_version)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Request used by the `DeleteWasmPluginVersion` method.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteWasmPluginVersionRequest {
+    /// Required. A name of the `WasmPluginVersion` resource to delete. Must be in
+    /// the format
+    /// `projects/{project}/locations/global/wasmPlugins/{wasm_plugin}/versions/{wasm_plugin_version}`.
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteWasmPluginVersionRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteWasmPluginVersionRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteWasmPluginVersionRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.cloud.networkservices.v1.DeleteWasmPluginVersionRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteWasmPluginVersionRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteWasmPluginVersionRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteWasmPluginVersionRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteWasmPluginVersionRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteWasmPluginVersionRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -30909,10 +36691,10 @@ impl<'de> serde::de::Deserialize<'de> for EventType {
     }
 }
 
-/// Load balancing schemes supported by the `LbTrafficExtension` resource and
-/// `LbRouteExtension` resource.
-/// For more information, refer to [Choosing a load
-/// balancer](https://cloud.google.com/load-balancing/docs/backend-service).
+/// Load balancing schemes supported by the `LbTrafficExtension`,
+/// `LbRouteExtension`, and `LbEdgeExtension` resources.
+/// For more information, refer to [Backend services
+/// overview](https://cloud.google.com/load-balancing/docs/backend-service).
 ///
 /// # Working with unknown values
 ///
@@ -31041,6 +36823,269 @@ impl<'de> serde::de::Deserialize<'de> for LoadBalancingScheme {
     {
         deserializer.deserialize_any(wkt::internal::EnumVisitor::<LoadBalancingScheme>::new(
             ".google.cloud.networkservices.v1.LoadBalancingScheme",
+        ))
+    }
+}
+
+/// The format of communication supported by the extension.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum WireFormat {
+    /// Not specified.
+    Unspecified,
+    /// The extension service uses ext_proc gRPC API over a gRPC stream. This is
+    /// the default value if the wire format is not specified. The backend service
+    /// for the extension must use HTTP2 or H2C as the protocol. All
+    /// `supported_events` for a client request are sent as part of the same
+    /// gRPC stream.
+    ExtProcGrpc,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [WireFormat::value] or
+    /// [WireFormat::name].
+    UnknownValue(wire_format::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod wire_format {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl WireFormat {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::ExtProcGrpc => std::option::Option::Some(1),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("WIRE_FORMAT_UNSPECIFIED"),
+            Self::ExtProcGrpc => std::option::Option::Some("EXT_PROC_GRPC"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for WireFormat {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for WireFormat {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for WireFormat {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::ExtProcGrpc,
+            _ => Self::UnknownValue(wire_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for WireFormat {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "WIRE_FORMAT_UNSPECIFIED" => Self::Unspecified,
+            "EXT_PROC_GRPC" => Self::ExtProcGrpc,
+            _ => Self::UnknownValue(wire_format::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for WireFormat {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::ExtProcGrpc => serializer.serialize_i32(1),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for WireFormat {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<WireFormat>::new(
+            ".google.cloud.networkservices.v1.WireFormat",
+        ))
+    }
+}
+
+/// Determines the information that should be returned by the server.
+///
+/// # Working with unknown values
+///
+/// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+/// additional enum variants at any time. Adding new variants is not considered
+/// a breaking change. Applications should write their code in anticipation of:
+///
+/// - New values appearing in future releases of the client library, **and**
+/// - New values received dynamically, without application changes.
+///
+/// Please consult the [Working with enums] section in the user guide for some
+/// guidelines.
+///
+/// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+#[derive(Clone, Debug, PartialEq)]
+#[non_exhaustive]
+pub enum WasmPluginView {
+    /// Unspecified value. Do not use.
+    Unspecified,
+    /// If specified in the `GET` request for a `WasmPlugin` resource, the server's
+    /// response includes just the `WasmPlugin` resource.
+    Basic,
+    /// If specified in the `GET` request for a `WasmPlugin` resource, the server's
+    /// response includes the `WasmPlugin` resource with all its versions.
+    Full,
+    /// If set, the enum was initialized with an unknown value.
+    ///
+    /// Applications can examine the value using [WasmPluginView::value] or
+    /// [WasmPluginView::name].
+    UnknownValue(wasm_plugin_view::UnknownValue),
+}
+
+#[doc(hidden)]
+pub mod wasm_plugin_view {
+    #[allow(unused_imports)]
+    use super::*;
+    #[derive(Clone, Debug, PartialEq)]
+    pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+}
+
+impl WasmPluginView {
+    /// Gets the enum value.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the string representation of enums.
+    pub fn value(&self) -> std::option::Option<i32> {
+        match self {
+            Self::Unspecified => std::option::Option::Some(0),
+            Self::Basic => std::option::Option::Some(1),
+            Self::Full => std::option::Option::Some(2),
+            Self::UnknownValue(u) => u.0.value(),
+        }
+    }
+
+    /// Gets the enum value as a string.
+    ///
+    /// Returns `None` if the enum contains an unknown value deserialized from
+    /// the integer representation of enums.
+    pub fn name(&self) -> std::option::Option<&str> {
+        match self {
+            Self::Unspecified => std::option::Option::Some("WASM_PLUGIN_VIEW_UNSPECIFIED"),
+            Self::Basic => std::option::Option::Some("WASM_PLUGIN_VIEW_BASIC"),
+            Self::Full => std::option::Option::Some("WASM_PLUGIN_VIEW_FULL"),
+            Self::UnknownValue(u) => u.0.name(),
+        }
+    }
+}
+
+impl std::default::Default for WasmPluginView {
+    fn default() -> Self {
+        use std::convert::From;
+        Self::from(0)
+    }
+}
+
+impl std::fmt::Display for WasmPluginView {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+        wkt::internal::display_enum(f, self.name(), self.value())
+    }
+}
+
+impl std::convert::From<i32> for WasmPluginView {
+    fn from(value: i32) -> Self {
+        match value {
+            0 => Self::Unspecified,
+            1 => Self::Basic,
+            2 => Self::Full,
+            _ => Self::UnknownValue(wasm_plugin_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::Integer(value),
+            )),
+        }
+    }
+}
+
+impl std::convert::From<&str> for WasmPluginView {
+    fn from(value: &str) -> Self {
+        use std::string::ToString;
+        match value {
+            "WASM_PLUGIN_VIEW_UNSPECIFIED" => Self::Unspecified,
+            "WASM_PLUGIN_VIEW_BASIC" => Self::Basic,
+            "WASM_PLUGIN_VIEW_FULL" => Self::Full,
+            _ => Self::UnknownValue(wasm_plugin_view::UnknownValue(
+                wkt::internal::UnknownEnumValue::String(value.to_string()),
+            )),
+        }
+    }
+}
+
+impl serde::ser::Serialize for WasmPluginView {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::Serializer,
+    {
+        match self {
+            Self::Unspecified => serializer.serialize_i32(0),
+            Self::Basic => serializer.serialize_i32(1),
+            Self::Full => serializer.serialize_i32(2),
+            Self::UnknownValue(u) => u.0.serialize(serializer),
+        }
+    }
+}
+
+impl<'de> serde::de::Deserialize<'de> for WasmPluginView {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        deserializer.deserialize_any(wkt::internal::EnumVisitor::<WasmPluginView>::new(
+            ".google.cloud.networkservices.v1.WasmPluginView",
         ))
     }
 }
