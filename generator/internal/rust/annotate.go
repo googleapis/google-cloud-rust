@@ -745,7 +745,7 @@ func annotateSegments(segments []string) []string {
 	}
 	for index, segment := range segments {
 		switch {
-		case segment == api.RoutingMultiSegmentWildcard:
+		case segment == api.MultiSegmentWildcard:
 			flushBuffer()
 			if len(segments) == 1 {
 				ann = append(ann, "Segment::MultiWildcard")
@@ -754,7 +754,7 @@ func annotateSegments(segments []string) []string {
 			} else {
 				ann = append(ann, "Segment::TrailingMultiWildcard")
 			}
-		case segment == api.RoutingSingleSegmentWildcard:
+		case segment == api.SingleSegmentWildcard:
 			if index != 0 {
 				literalBuffer += "/"
 			}
@@ -776,21 +776,10 @@ func makeBindingSubstitution(v *api.PathVariable, m *api.Method, state *api.APIS
 	for _, a := range makeAccessors(v.FieldPath, m, state) {
 		fieldAccessor += a
 	}
-	var segments []string
-	for _, s := range v.Segments {
-		if s.Literal != nil {
-			segments = append(segments, *s.Literal)
-		} else if s.Match != nil {
-			segments = append(segments, "*")
-		} else if s.MatchRecursive != nil {
-			segments = append(segments, "**")
-		}
-	}
-
 	return bindingSubstitution{
 		FieldAccessor: fieldAccessor,
 		FieldName:     strings.Join(v.FieldPath, "."),
-		Template:      segments,
+		Template:      v.Segments,
 	}
 }
 
