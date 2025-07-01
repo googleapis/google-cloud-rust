@@ -880,23 +880,68 @@ impl BigtableTableAdmin {
         super::builder::bigtable_table_admin::CopyBackup::new(self.inner.clone())
     }
 
-    /// Gets the access control policy for a Table or Backup resource.
+    /// Gets the access control policy for a Bigtable resource.
     /// Returns an empty policy if the resource exists but does not have a policy
     /// set.
     pub fn get_iam_policy(&self) -> super::builder::bigtable_table_admin::GetIamPolicy {
         super::builder::bigtable_table_admin::GetIamPolicy::new(self.inner.clone())
     }
 
-    /// Sets the access control policy on a Table or Backup resource.
+    /// Sets the access control policy on a Bigtable resource.
     /// Replaces any existing policy.
     pub fn set_iam_policy(&self) -> super::builder::bigtable_table_admin::SetIamPolicy {
         super::builder::bigtable_table_admin::SetIamPolicy::new(self.inner.clone())
     }
 
-    /// Returns permissions that the caller has on the specified Table or Backup
+    /// Returns permissions that the caller has on the specified Bigtable
     /// resource.
     pub fn test_iam_permissions(&self) -> super::builder::bigtable_table_admin::TestIamPermissions {
         super::builder::bigtable_table_admin::TestIamPermissions::new(self.inner.clone())
+    }
+
+    /// Creates a new schema bundle in the specified table.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn create_schema_bundle(&self) -> super::builder::bigtable_table_admin::CreateSchemaBundle {
+        super::builder::bigtable_table_admin::CreateSchemaBundle::new(self.inner.clone())
+    }
+
+    /// Updates a schema bundle in the specified table.
+    ///
+    /// # Long running operations
+    ///
+    /// This method is used to start, and/or poll a [long-running Operation].
+    /// The [Working with long-running operations] chapter in the [user guide]
+    /// covers these operations in detail.
+    ///
+    /// [long-running operation]: https://google.aip.dev/151
+    /// [user guide]: https://googleapis.github.io/google-cloud-rust/
+    /// [working with long-running operations]: https://googleapis.github.io/google-cloud-rust/working_with_long_running_operations.html
+    pub fn update_schema_bundle(&self) -> super::builder::bigtable_table_admin::UpdateSchemaBundle {
+        super::builder::bigtable_table_admin::UpdateSchemaBundle::new(self.inner.clone())
+    }
+
+    /// Gets metadata information about the specified schema bundle.
+    pub fn get_schema_bundle(&self) -> super::builder::bigtable_table_admin::GetSchemaBundle {
+        super::builder::bigtable_table_admin::GetSchemaBundle::new(self.inner.clone())
+    }
+
+    /// Lists all schema bundles associated with the specified table.
+    pub fn list_schema_bundles(&self) -> super::builder::bigtable_table_admin::ListSchemaBundles {
+        super::builder::bigtable_table_admin::ListSchemaBundles::new(self.inner.clone())
+    }
+
+    /// Deletes a schema bundle in the specified table.
+    pub fn delete_schema_bundle(&self) -> super::builder::bigtable_table_admin::DeleteSchemaBundle {
+        super::builder::bigtable_table_admin::DeleteSchemaBundle::new(self.inner.clone())
     }
 
     /// Provides the [Operations][google.longrunning.Operations] service functionality in this service.
