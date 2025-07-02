@@ -252,8 +252,7 @@ pub async fn workload_identity_provider_url_sourced(
     });
 
     if with_impersonation {
-        let impersonated_email =
-            "impersonation-target@cloud-sdk-auth-test-project.iam.gserviceaccount.com";
+        let impersonated_email = format!("impersonation-target@{project}.iam.gserviceaccount.com");
         let impersonation_url = format!(
             "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{impersonated_email}:generateAccessToken"
         );
@@ -319,8 +318,7 @@ pub async fn workload_identity_provider_executable_sourced(
     });
 
     if with_impersonation {
-        let impersonated_email =
-            "impersonation-target@cloud-sdk-auth-test-project.iam.gserviceaccount.com";
+        let impersonated_email = format!("impersonation-target@{project}.iam.gserviceaccount.com");
         let impersonation_url = format!(
             "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{impersonated_email}:generateAccessToken"
         );
