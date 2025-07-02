@@ -14,10 +14,12 @@
 
 pub use crate::Error;
 pub use crate::Result;
+use crate::upload_source::{InsertPayload, StreamingSource};
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 pub use control::model::Object;
+use futures::stream::unfold;
 use http::Extensions;
 use sha2::{Digest, Sha256};
 
@@ -129,11 +131,12 @@ impl Storage {
     /// println!("response details={response:?}");
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
-    pub fn insert_object<B, O, P>(&self, bucket: B, object: O, payload: P) -> InsertObject
+    pub fn insert_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> InsertObject<P>
     where
         B: Into<String>,
         O: Into<String>,
-        P: Into<bytes::Bytes>,
+        T: Into<InsertPayload<P>>,
+        InsertPayload<P>: StreamingSource,
     {
         InsertObject::new(self.inner.clone(), bucket, object, payload)
     }
@@ -269,32 +272,38 @@ pub(crate) mod info {
     }
 }
 
-pub struct InsertObject {
+pub struct InsertObject<T> {
     inner: std::sync::Arc<StorageInner>,
     request: control::model::WriteObjectRequest,
+    payload: InsertPayload<T>,
 }
 
-impl InsertObject {
+impl<T> InsertObject<T> {
     fn new<B, O, P>(inner: std::sync::Arc<StorageInner>, bucket: B, object: O, payload: P) -> Self
     where
         B: Into<String>,
         O: Into<String>,
-        P: Into<bytes::Bytes>,
+        P: Into<InsertPayload<T>>,
     {
         InsertObject {
             inner,
-            request: control::model::WriteObjectRequest::new()
-                .set_write_object_spec(
-                    control::model::WriteObjectSpec::new().set_resource(
-                        control::model::Object::new()
-                            .set_bucket(bucket)
-                            .set_name(object),
-                    ),
-                )
-                .set_checksummed_data(control::model::ChecksummedData::new().set_content(payload)),
+            request: control::model::WriteObjectRequest::new().set_write_object_spec(
+                control::model::WriteObjectSpec::new().set_resource(
+                    control::model::Object::new()
+                        .set_bucket(bucket)
+                        .set_name(object),
+                ),
+            ),
+            payload: payload.into(),
         }
     }
+}
 
+impl<T> InsertObject<T>
+where
+    T: StreamingSource + Send + Sync + 'static,
+    T::Error: std::error::Error + Send + Sync + 'static,
+{
     /// A simple upload from a buffer.
     ///
     /// # Example
@@ -358,11 +367,16 @@ impl InsertObject {
         );
 
         let builder = self.inner.apply_auth_headers(builder).await?;
-        let content = match self.request.data {
-            Some(Data::ChecksummedData(data)) => data.content,
-            _ => unreachable!("content for the checksummed data is set in the constructor"),
-        };
-        let builder = builder.body(content);
+
+        let stream = Box::pin(unfold(Some(self.payload), move |state| async move {
+            if let Some(mut payload) = state {
+                if let Some(next) = payload.next().await {
+                    return Some((next, Some(payload)));
+                }
+            }
+            None
+        }));
+        let builder = builder.body(reqwest::Body::wrap_stream(stream));
         Ok(builder)
     }
 
@@ -897,6 +911,7 @@ fn apply_customer_supplied_encryption_headers(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::upload_source::test::VecStream;
     use std::{collections::HashMap, error::Error};
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
     use test_case::test_case;
@@ -909,21 +924,52 @@ mod tests {
             .build()
             .await?;
 
-        let insert_object_builder = client
+        let mut request = client
             .insert_object("projects/_/buckets/bucket", "object", "hello")
             .http_request_builder()
             .await?
             .build()?;
 
-        assert_eq!(insert_object_builder.method(), reqwest::Method::POST);
+        assert_eq!(request.method(), reqwest::Method::POST);
         assert_eq!(
-            insert_object_builder.url().as_str(),
+            request.url().as_str(),
             "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=media&name=object"
         );
-        assert_eq!(
-            b"hello",
-            insert_object_builder.body().unwrap().as_bytes().unwrap()
+        let body = request.body_mut().take().unwrap();
+        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
+        assert_eq!(contents, "hello");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_insert_object_stream() -> Result {
+        let client = Storage::builder()
+            .with_endpoint("http://private.googleapis.com")
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        let stream = VecStream::new(
+            [
+                "the ", "quick ", "brown ", "fox ", "jumps ", "over ", "the ", "lazy ", "dog",
+            ]
+            .map(|x| bytes::Bytes::from_static(x.as_bytes()))
+            .to_vec(),
         );
+        let mut request = client
+            .insert_object("projects/_/buckets/bucket", "object", stream)
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        assert_eq!(request.method(), reqwest::Method::POST);
+        assert_eq!(
+            request.url().as_str(),
+            "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=media&name=object"
+        );
+        let body = request.body_mut().take().unwrap();
+        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
+        assert_eq!(contents, "the quick brown fox jumps over the lazy dog");
         Ok(())
     }
 
