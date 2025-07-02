@@ -29,8 +29,8 @@ func TestUsedByServicesWithServices(t *testing.T) {
 	}
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
 	c, err := newCodec(true, map[string]string{
-		"package:tracing":  "used-if=services,package=tracing,version=0.1.41",
-		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
+		"package:tracing":  "used-if=services,package=tracing",
+		"package:location": "package=gcp-sdk-location,source=google.cloud.location",
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -39,19 +39,14 @@ func TestUsedByServicesWithServices(t *testing.T) {
 	resolveUsedPackages(model, c.extraPackages)
 	want := []*packagez{
 		{
-			name:            "location",
-			packageName:     "gcp-sdk-location",
-			path:            "src/generated/cloud/location",
-			version:         "0.1.0",
-			defaultFeatures: true,
+			name:        "location",
+			packageName: "gcp-sdk-location",
 		},
 		{
-			name:            "tracing",
-			packageName:     "tracing",
-			version:         "0.1.41",
-			used:            true,
-			usedIf:          []string{"services"},
-			defaultFeatures: true,
+			name:        "tracing",
+			packageName: "tracing",
+			used:        true,
+			usedIf:      []string{"services"},
 		},
 	}
 	less := func(a, b *packagez) bool { return a.name < b.name }
@@ -63,8 +58,8 @@ func TestUsedByServicesWithServices(t *testing.T) {
 func TestUsedByServicesNoServices(t *testing.T) {
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{})
 	c, err := newCodec(true, map[string]string{
-		"package:tracing":  "used-if=services,package=tracing,version=0.1.41",
-		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
+		"package:tracing":  "used-if=services,package=tracing",
+		"package:location": "package=gcp-sdk-location,source=google.cloud.location",
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -73,18 +68,13 @@ func TestUsedByServicesNoServices(t *testing.T) {
 	resolveUsedPackages(model, c.extraPackages)
 	want := []*packagez{
 		{
-			name:            "location",
-			packageName:     "gcp-sdk-location",
-			path:            "src/generated/cloud/location",
-			version:         "0.1.0",
-			defaultFeatures: true,
+			name:        "location",
+			packageName: "gcp-sdk-location",
 		},
 		{
-			name:            "tracing",
-			packageName:     "tracing",
-			version:         "0.1.41",
-			usedIf:          []string{"services"},
-			defaultFeatures: true,
+			name:        "tracing",
+			packageName: "tracing",
+			usedIf:      []string{"services"},
 		},
 	}
 	less := func(a, b *packagez) bool { return a.name < b.name }
@@ -105,8 +95,8 @@ func TestUsedByLROsWithLRO(t *testing.T) {
 	}
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
 	c, err := newCodec(true, map[string]string{
-		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
-		"package:lro":      "used-if=lro,package=google-cloud-lro,path=src/lro,version=0.1.0",
+		"package:location": "package=gcp-sdk-location,source=google.cloud.location",
+		"package:lro":      "used-if=lro,package=google-cloud-lro",
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -115,20 +105,14 @@ func TestUsedByLROsWithLRO(t *testing.T) {
 	resolveUsedPackages(model, c.extraPackages)
 	want := []*packagez{
 		{
-			name:            "location",
-			packageName:     "gcp-sdk-location",
-			path:            "src/generated/cloud/location",
-			version:         "0.1.0",
-			defaultFeatures: true,
+			name:        "location",
+			packageName: "gcp-sdk-location",
 		},
 		{
-			name:            "lro",
-			packageName:     "google-cloud-lro",
-			path:            "src/lro",
-			version:         "0.1.0",
-			used:            true,
-			usedIf:          []string{"lro"},
-			defaultFeatures: true,
+			name:        "lro",
+			packageName: "google-cloud-lro",
+			used:        true,
+			usedIf:      []string{"lro"},
 		},
 	}
 	less := func(a, b *packagez) bool { return a.name < b.name }
@@ -148,8 +132,8 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 	}
 	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
 	c, err := newCodec(true, map[string]string{
-		"package:location": "package=gcp-sdk-location,source=google.cloud.location,path=src/generated/cloud/location,version=0.1.0",
-		"package:lro":      "used-if=lro,package=google-cloud-lro,path=src/lro,version=0.1.0",
+		"package:location": "package=gcp-sdk-location,source=google.cloud.location",
+		"package:lro":      "used-if=lro,package=google-cloud-lro",
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -158,20 +142,14 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 	resolveUsedPackages(model, c.extraPackages)
 	want := []*packagez{
 		{
-			name:            "location",
-			packageName:     "gcp-sdk-location",
-			path:            "src/generated/cloud/location",
-			version:         "0.1.0",
-			defaultFeatures: true,
+			name:        "location",
+			packageName: "gcp-sdk-location",
 		},
 		{
-			name:            "lro",
-			packageName:     "google-cloud-lro",
-			path:            "src/lro",
-			version:         "0.1.0",
-			used:            false,
-			usedIf:          []string{"lro"},
-			defaultFeatures: true,
+			name:        "lro",
+			packageName: "google-cloud-lro",
+			used:        false,
+			usedIf:      []string{"lro"},
 		},
 	}
 	less := func(a, b *packagez) bool { return a.name < b.name }
@@ -184,8 +162,8 @@ func TestRequiredPackages(t *testing.T) {
 	options := map[string]string{
 		"package:async-trait": "package=async-trait,force-used=true",
 		"package:serde_with":  "package=serde_with,force-used=true,feature=base64,feature=macro,feature=std",
-		"package:gtype":       "package=gcp-sdk-type,path=src/generated/type,source=google.type,source=test-only",
-		"package:gax":         "package=gcp-sdk-gax,path=src/gax,version=1.2.3,force-used=true",
+		"package:gtype":       "package=gcp-sdk-type,source=google.type,source=test-only",
+		"package:gax":         "package=gcp-sdk-gax,force-used=true",
 		"package:auth":        "ignore=true",
 	}
 	c, err := newCodec(true, options)
@@ -208,7 +186,7 @@ func TestRequiredPackagesLocal(t *testing.T) {
 	// This is not a thing we expect to do in the Rust repository, but the
 	// behavior is consistent.
 	options := map[string]string{
-		"package:gtype": "package=types,path=src/generated/type,source=google.type,source=test-only,force-used=true",
+		"package:gtype": "package=types,source=google.type,source=test-only,force-used=true",
 	}
 	c, err := newCodec(true, options)
 	if err != nil {
@@ -259,8 +237,8 @@ func TestFindUsedPackages(t *testing.T) {
 	}
 
 	c, err := newCodec(true, map[string]string{
-		"package:common":      "package=google-cloud-common,source=google.cloud.common,path=src/generated/cloud/common,version=0.2",
-		"package:longrunning": "package=google-longrunning,source=google.longrunning,path=src/generated/longrunning,version=0.2",
+		"package:common":      "package=google-cloud-common,source=google.cloud.common",
+		"package:longrunning": "package=google-longrunning,source=google.longrunning",
 	})
 	if err != nil {
 		t.Fatal(err)
@@ -269,20 +247,14 @@ func TestFindUsedPackages(t *testing.T) {
 	findUsedPackages(model, c)
 	want := []*packagez{
 		{
-			name:            "common",
-			packageName:     "google-cloud-common",
-			path:            "src/generated/cloud/common",
-			version:         "0.2",
-			defaultFeatures: true,
-			used:            true,
+			name:        "common",
+			packageName: "google-cloud-common",
+			used:        true,
 		},
 		{
-			name:            "longrunning",
-			packageName:     "google-longrunning",
-			path:            "src/generated/longrunning",
-			version:         "0.2",
-			defaultFeatures: true,
-			used:            true,
+			name:        "longrunning",
+			packageName: "google-longrunning",
+			used:        true,
 		},
 	}
 	less := func(a, b *packagez) bool { return a.name < b.name }
