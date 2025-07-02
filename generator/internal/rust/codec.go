@@ -151,8 +151,7 @@ type packageOption struct {
 func parsePackageOption(key, definition string) (*packageOption, error) {
 	var specificationPackages []string
 	pkg := &packagez{
-		name:            strings.TrimPrefix(key, "package:"),
-		defaultFeatures: true,
+		name: strings.TrimPrefix(key, "package:"),
 	}
 	for _, element := range strings.Split(definition, ",") {
 		s := strings.SplitN(element, "=", 2)
@@ -162,20 +161,10 @@ func parsePackageOption(key, definition string) (*packageOption, error) {
 		switch s[0] {
 		case "package":
 			pkg.packageName = s[1]
-		case "path":
-			pkg.path = s[1]
-		case "version":
-			pkg.version = s[1]
 		case "source":
 			specificationPackages = append(specificationPackages, s[1])
 		case "feature":
-			pkg.features = append(pkg.features, strings.Split(s[1], ",")...)
-		case "default-features":
-			value, err := strconv.ParseBool(s[1])
-			if err != nil {
-				return nil, fmt.Errorf("cannot convert `default-features` value %q (part of %q) to boolean: %w", definition, s[1], err)
-			}
-			pkg.defaultFeatures = value
+			pkg.features = append(pkg.features, s[1])
 		case "ignore":
 			value, err := strconv.ParseBool(s[1])
 			if err != nil {
@@ -264,10 +253,6 @@ type packagez struct {
 	ignore bool
 	// What the Rust package calls itself.
 	packageName string
-	// The path to file the package locally, unused if empty.
-	path string
-	// The version of the package, unused if empty.
-	version string
 	// Optional features enabled for the package.
 	features []string
 	// If true, this package was referenced by a generated message, service, or
@@ -277,8 +262,6 @@ type packagez struct {
 	// present. For example, the LRO support helpers are used if LROs are found,
 	// and the service support functions are used if any service is found.
 	usedIf []string
-	// If true, the default features are enabled.
-	defaultFeatures bool
 }
 
 var wellKnownMessages = []*api.Message{

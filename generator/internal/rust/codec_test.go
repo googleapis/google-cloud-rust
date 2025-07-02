@@ -31,7 +31,6 @@ func createRustCodec() *codec {
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "types",
-		path:        "../../types",
 	}
 
 	return &codec{
@@ -49,9 +48,9 @@ func TestParseOptionsProtobuf(t *testing.T) {
 		"package-name-override":     "test-only",
 		"copyright-year":            "2035",
 		"module-path":               "alternative::generated",
-		"package:wkt":               "package=types,path=src/wkt,source=google.protobuf,source=test-only",
-		"package:gax":               "package=gax,path=src/gax,feature=unstable-sdk-client",
-		"package:serde_with":        "package=serde_with,version=2.3.4,default-features=false",
+		"package:wkt":               "package=types,source=google.protobuf,source=test-only",
+		"package:gax":               "package=gax,feature=unstable-sdk-client",
+		"package:serde_with":        "package=serde_with",
 		"include-grpc-only-methods": "true",
 		"per-service-features":      "true",
 	}
@@ -60,10 +59,8 @@ func TestParseOptionsProtobuf(t *testing.T) {
 		t.Fatal(err)
 	}
 	gp := &packagez{
-		name:            "wkt",
-		packageName:     "types",
-		path:            "src/wkt",
-		defaultFeatures: true,
+		name:        "wkt",
+		packageName: "types",
 	}
 	want := &codec{
 		version:             "1.2.3",
@@ -76,17 +73,13 @@ func TestParseOptionsProtobuf(t *testing.T) {
 			{
 				name:        "gax",
 				packageName: "gax",
-				path:        "src/gax",
 				features: []string{
 					"unstable-sdk-client",
 				},
-				defaultFeatures: true,
 			},
 			{
-				name:            "serde_with",
-				packageName:     "serde_with",
-				version:         "2.3.4",
-				defaultFeatures: false,
+				name:        "serde_with",
+				packageName: "serde_with",
 			},
 		},
 		packageMapping: map[string]*packagez{
@@ -1297,12 +1290,10 @@ func TestFormatDocCommentsCrossLinks(t *testing.T) {
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "google-cloud-wkt",
-		path:        "src/wkt",
 	}
 	iam := &packagez{
 		name:        "iam_v1",
 		packageName: "gcp-sdk-iam-v1",
-		path:        "src/generated/iam/v1",
 	}
 	c := &codec{
 		modulePath: "crate::model",
@@ -1359,12 +1350,10 @@ func TestFormatDocCommentsRelativeCrossLinks(t *testing.T) {
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "google-cloud-wkt",
-		path:        "src/wkt",
 	}
 	iam := &packagez{
 		name:        "iam_v1",
 		packageName: "gcp-sdk-iam-v1",
-		path:        "src/generated/iam/v1",
 	}
 	c := &codec{
 		modulePath: "crate::model",
@@ -1421,12 +1410,10 @@ implied enum value reference [SomeMessage.SomeEnum.ENUM_VALUE][]
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "google-cloud-wkt",
-		path:        "src/wkt",
 	}
 	iam := &packagez{
 		name:        "iam_v1",
 		packageName: "gcp-sdk-iam-v1",
-		path:        "src/generated/iam/v1",
 	}
 	c := &codec{
 		modulePath: "crate::model",
@@ -1622,12 +1609,10 @@ Hyperlink: <a href="https://hyperlink.com">Content</a>`
 	wkt := &packagez{
 		name:        "wkt",
 		packageName: "google-cloud-wkt",
-		path:        "src/wkt",
 	}
 	iam := &packagez{
 		name:        "iam_v1",
 		packageName: "gcp-sdk-iam-v1",
-		path:        "src/generated/iam/v1",
 	}
 	c := &codec{
 		modulePath: "model",

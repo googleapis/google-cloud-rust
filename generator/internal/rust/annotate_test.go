@@ -1102,7 +1102,7 @@ func TestEnumFieldAnnotations(t *testing.T) {
 	api.CrossReference(model)
 	api.LabelRecursiveFields(model)
 	codec, err := newCodec(true, map[string]string{
-		"package:wkt": "force-used=true,package=google-cloud-wkt,path=src/wkt,source=google.protobuf,version=0.2",
+		"package:wkt": "force-used=true,package=google-cloud-wkt,source=google.protobuf",
 	})
 	if err != nil {
 		t.Fatal(err)
