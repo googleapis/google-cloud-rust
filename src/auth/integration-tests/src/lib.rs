@@ -15,10 +15,15 @@
 use auth::credentials::{
     Builder as AccessTokenCredentialBuilder,
     api_key_credentials::Builder as ApiKeyCredentialsBuilder,
-    external_account::Builder as ExternalAccountCredentialsBuilder,
+    external_account::{
+        Builder as ExternalAccountCredentialsBuilder,
+        ProgrammaticBuilder as ExternalAccountProgrammaticBuilder,
+    },
     impersonated::Builder as ImpersonatedCredentialsBuilder,
     service_account::Builder as ServiceAccountCredentialsBuilder,
+    subject_token::{Builder as SubjectTokenBuilder, SubjectToken, SubjectTokenProvider},
 };
+use auth::errors::SubjectTokenProviderError;
 use bigquery::client::DatasetService;
 use gax::error::rpc::Code;
 use httptest::{Expectation, Server, matchers::*, responders::*};
@@ -27,6 +32,7 @@ use language::client::LanguageService;
 use language::model::Document;
 use scoped_env::ScopedEnv;
 use secretmanager::client::SecretManagerService;
+use std::sync::Arc;
 
 pub async fn service_account() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
@@ -342,6 +348,41 @@ pub async fn workload_identity_provider_executable_sourced(
     Ok(())
 }
 
+pub async fn workload_identity_provider_programmatic_sourced() -> anyhow::Result<()> {
+    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+    let audience = get_oidc_audience();
+    let (service_account, client_email) = get_byoid_service_account_and_email();
+
+    let id_token = generate_id_token(audience.clone(), client_email, service_account).await?;
+
+    let subject_token_provider = Arc::new(TestSubjectTokenProvider {
+        subject_token: id_token,
+    });
+
+    let builder = ExternalAccountProgrammaticBuilder::new(subject_token_provider)
+        .with_audience(audience)
+        .with_subject_token_type("urn:ietf:params:oauth:token-type:jwt");
+
+    // Create external account with programmatic sourced creds
+    let creds = builder.build()?;
+
+    // Construct a BigQuery client using the credentials.
+    // Using BigQuery as it doesn't require a billing account.
+    let client = DatasetService::builder()
+        .with_credentials(creds)
+        .build()
+        .await?;
+
+    // Make a request using the external account credentials
+    client
+        .list_datasets()
+        .set_project_id(project)
+        .send()
+        .await?;
+
+    Ok(())
+}
+
 /// Generates a Google ID token using the iamcredentials generateIdToken API.
 /// https://cloud.google.com/iam/docs/creating-short-lived-service-account-credentials#sa-credentials-oidc
 async fn generate_id_token(
@@ -397,4 +438,30 @@ fn get_byoid_service_account() -> serde_json::Value {
         .expect("unable to parse service account");
 
     service_account
+}
+
+#[derive(Debug)]
+struct TestSubjectTokenProvider {
+    subject_token: String,
+}
+
+#[derive(Debug)]
+struct TestProviderError;
+impl std::fmt::Display for TestProviderError {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "TestProviderError")
+    }
+}
+impl std::error::Error for TestProviderError {}
+impl SubjectTokenProviderError for TestProviderError {
+    fn is_transient(&self) -> bool {
+        false
+    }
+}
+
+impl SubjectTokenProvider for TestSubjectTokenProvider {
+    type Error = TestProviderError;
+    async fn subject_token(&self) -> std::result::Result<SubjectToken, Self::Error> {
+        Ok(SubjectTokenBuilder::new(self.subject_token.clone()).build())
+    }
 }
