@@ -29,7 +29,6 @@ rust-version.workspace = true
 [dependencies]
 base64.workspace           = true
 bytes.workspace            = true
-futures                    = { workspace = true, optional = true }
 http.workspace             = true
 futures.workspace          = true
 lazy_static.workspace      = true
@@ -50,7 +49,7 @@ gaxi           = { workspace = true, features = ["_internal-common", "_internal-
 wkt.workspace  = true
 
 [features]
-unstable-stream = ["dep:futures", "reqwest/stream"]
+unstable-stream = ["reqwest/stream"]
 
 [dev-dependencies]
 anyhow.workspace         = true
