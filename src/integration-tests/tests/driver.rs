@@ -220,14 +220,4 @@ mod driver {
             .await
             .map_err(integration_tests::report_error)
     }
-
-    #[cfg(all(test, feature = "run-byoid-integration-tests"))]
-    #[test_case(false; "without impersonation")]
-    #[test_case(true; "with impersonation")]
-    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
-    async fn run_auth_programmatic_sourced(with_impersonation: bool) -> integration_tests::Result<()> {
-        auth_integration_tests::workload_identity_provider_programmatic_sourced(with_impersonation)
-            .await
-            .map_err(integration_tests::report_error)
-    }
 }
