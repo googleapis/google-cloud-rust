@@ -48,6 +48,9 @@ gax.workspace  = true
 gaxi           = { workspace = true, features = ["_internal-common", "_internal-grpc-client"] }
 wkt.workspace  = true
 
+[features]
+unstable-stream = ["reqwest/stream"]
+
 [dev-dependencies]
 anyhow.workspace         = true
 http-body-util.workspace = true
