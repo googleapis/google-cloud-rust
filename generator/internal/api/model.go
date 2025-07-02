@@ -343,9 +343,9 @@ type RoutingPathSpec struct {
 
 const (
 	// A special routing path segment which indicates "match anything that does not include a `/`"
-	RoutingSingleSegmentWildcard = "*"
+	SingleSegmentWildcard = "*"
 	// A special routing path segment which indicates "match anything including `/`"
-	RoutingMultiSegmentWildcard = "**"
+	MultiSegmentWildcard = "**"
 )
 
 type PathTemplate struct {
@@ -360,13 +360,7 @@ type PathSegment struct {
 
 type PathVariable struct {
 	FieldPath []string
-	Segments  []PathVariableSegment
-}
-
-type PathVariableSegment struct {
-	Literal        *string
-	Match          *PathMatch
-	MatchRecursive *PathMatchRecursive
+	Segments  []string
 }
 
 // PathMatch represents a single '*' match.
@@ -405,17 +399,17 @@ func (p *PathTemplate) WithVerb(v string) *PathTemplate {
 }
 
 func (v *PathVariable) WithLiteral(l string) *PathVariable {
-	v.Segments = append(v.Segments, PathVariableSegment{Literal: &l})
+	v.Segments = append(v.Segments, l)
 	return v
 }
 
 func (v *PathVariable) WithMatchRecursive() *PathVariable {
-	v.Segments = append(v.Segments, PathVariableSegment{MatchRecursive: &PathMatchRecursive{}})
+	v.Segments = append(v.Segments, MultiSegmentWildcard)
 	return v
 }
 
 func (v *PathVariable) WithMatch() *PathVariable {
-	v.Segments = append(v.Segments, PathVariableSegment{Match: &PathMatch{}})
+	v.Segments = append(v.Segments, SingleSegmentWildcard)
 	return v
 }
 

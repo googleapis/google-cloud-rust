@@ -5827,6 +5827,9 @@ impl serde::ser::Serialize for Cluster {
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct ClusterConfig {
+    /// Optional. The cluster tier.
+    pub cluster_tier: crate::model::cluster_config::ClusterTier,
+
     /// Optional. A Cloud Storage bucket used to stage job
     /// dependencies, config files, and job driver console output.
     /// If you do not specify a staging bucket, Cloud
@@ -5920,6 +5923,15 @@ pub struct ClusterConfig {
 impl ClusterConfig {
     pub fn new() -> Self {
         std::default::Default::default()
+    }
+
+    /// Sets the value of [cluster_tier][crate::model::ClusterConfig::cluster_tier].
+    pub fn set_cluster_tier<T: std::convert::Into<crate::model::cluster_config::ClusterTier>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.cluster_tier = v.into();
+        self
     }
 
     /// Sets the value of [config_bucket][crate::model::ClusterConfig::config_bucket].
@@ -6189,6 +6201,7 @@ impl<'de> serde::de::Deserialize<'de> for ClusterConfig {
         #[doc(hidden)]
         #[derive(PartialEq, Eq, Hash)]
         enum __FieldTag {
+            __cluster_tier,
             __config_bucket,
             __temp_bucket,
             __gce_cluster_config,
@@ -6225,6 +6238,8 @@ impl<'de> serde::de::Deserialize<'de> for ClusterConfig {
                         use std::result::Result::Ok;
                         use std::string::ToString;
                         match value {
+                            "clusterTier" => Ok(__FieldTag::__cluster_tier),
+                            "cluster_tier" => Ok(__FieldTag::__cluster_tier),
                             "configBucket" => Ok(__FieldTag::__config_bucket),
                             "config_bucket" => Ok(__FieldTag::__config_bucket),
                             "tempBucket" => Ok(__FieldTag::__temp_bucket),
@@ -6282,6 +6297,14 @@ impl<'de> serde::de::Deserialize<'de> for ClusterConfig {
                 while let Some(tag) = map.next_key::<__FieldTag>()? {
                     #[allow(clippy::match_single_binding)]
                     match tag {
+                        __FieldTag::__cluster_tier => {
+                            if !fields.insert(__FieldTag::__cluster_tier) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for cluster_tier",
+                                ));
+                            }
+                            result.cluster_tier = map.next_value::<std::option::Option<crate::model::cluster_config::ClusterTier>>()?.unwrap_or_default();
+                        }
                         __FieldTag::__config_bucket => {
                             if !fields.insert(__FieldTag::__config_bucket) {
                                 return std::result::Result::Err(A::Error::duplicate_field(
@@ -6465,6 +6488,9 @@ impl serde::ser::Serialize for ClusterConfig {
         #[allow(unused_imports)]
         use std::option::Option::Some;
         let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !wkt::internal::is_default(&self.cluster_tier) {
+            state.serialize_entry("clusterTier", &self.cluster_tier)?;
+        }
         if !self.config_bucket.is_empty() {
             state.serialize_entry("configBucket", &self.config_bucket)?;
         }
@@ -6519,6 +6545,144 @@ impl serde::ser::Serialize for ClusterConfig {
             }
         }
         state.end()
+    }
+}
+
+/// Defines additional types related to [ClusterConfig].
+pub mod cluster_config {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The cluster tier.
+    ///
+    /// # Working with unknown values
+    ///
+    /// This enum is defined as `#[non_exhaustive]` because Google Cloud may add
+    /// additional enum variants at any time. Adding new variants is not considered
+    /// a breaking change. Applications should write their code in anticipation of:
+    ///
+    /// - New values appearing in future releases of the client library, **and**
+    /// - New values received dynamically, without application changes.
+    ///
+    /// Please consult the [Working with enums] section in the user guide for some
+    /// guidelines.
+    ///
+    /// [Working with enums]: https://google-cloud-rust.github.io/working_with_enums.html
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum ClusterTier {
+        /// Not set. Works the same as CLUSTER_TIER_STANDARD.
+        Unspecified,
+        /// Standard Dataproc cluster.
+        Standard,
+        /// Premium Dataproc cluster.
+        Premium,
+        /// If set, the enum was initialized with an unknown value.
+        ///
+        /// Applications can examine the value using [ClusterTier::value] or
+        /// [ClusterTier::name].
+        UnknownValue(cluster_tier::UnknownValue),
+    }
+
+    #[doc(hidden)]
+    pub mod cluster_tier {
+        #[allow(unused_imports)]
+        use super::*;
+        #[derive(Clone, Debug, PartialEq)]
+        pub struct UnknownValue(pub(crate) wkt::internal::UnknownEnumValue);
+    }
+
+    impl ClusterTier {
+        /// Gets the enum value.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the string representation of enums.
+        pub fn value(&self) -> std::option::Option<i32> {
+            match self {
+                Self::Unspecified => std::option::Option::Some(0),
+                Self::Standard => std::option::Option::Some(1),
+                Self::Premium => std::option::Option::Some(2),
+                Self::UnknownValue(u) => u.0.value(),
+            }
+        }
+
+        /// Gets the enum value as a string.
+        ///
+        /// Returns `None` if the enum contains an unknown value deserialized from
+        /// the integer representation of enums.
+        pub fn name(&self) -> std::option::Option<&str> {
+            match self {
+                Self::Unspecified => std::option::Option::Some("CLUSTER_TIER_UNSPECIFIED"),
+                Self::Standard => std::option::Option::Some("CLUSTER_TIER_STANDARD"),
+                Self::Premium => std::option::Option::Some("CLUSTER_TIER_PREMIUM"),
+                Self::UnknownValue(u) => u.0.name(),
+            }
+        }
+    }
+
+    impl std::default::Default for ClusterTier {
+        fn default() -> Self {
+            use std::convert::From;
+            Self::from(0)
+        }
+    }
+
+    impl std::fmt::Display for ClusterTier {
+        fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::result::Result<(), std::fmt::Error> {
+            wkt::internal::display_enum(f, self.name(), self.value())
+        }
+    }
+
+    impl std::convert::From<i32> for ClusterTier {
+        fn from(value: i32) -> Self {
+            match value {
+                0 => Self::Unspecified,
+                1 => Self::Standard,
+                2 => Self::Premium,
+                _ => Self::UnknownValue(cluster_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::Integer(value),
+                )),
+            }
+        }
+    }
+
+    impl std::convert::From<&str> for ClusterTier {
+        fn from(value: &str) -> Self {
+            use std::string::ToString;
+            match value {
+                "CLUSTER_TIER_UNSPECIFIED" => Self::Unspecified,
+                "CLUSTER_TIER_STANDARD" => Self::Standard,
+                "CLUSTER_TIER_PREMIUM" => Self::Premium,
+                _ => Self::UnknownValue(cluster_tier::UnknownValue(
+                    wkt::internal::UnknownEnumValue::String(value.to_string()),
+                )),
+            }
+        }
+    }
+
+    impl serde::ser::Serialize for ClusterTier {
+        fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+        where
+            S: serde::Serializer,
+        {
+            match self {
+                Self::Unspecified => serializer.serialize_i32(0),
+                Self::Standard => serializer.serialize_i32(1),
+                Self::Premium => serializer.serialize_i32(2),
+                Self::UnknownValue(u) => u.0.serialize(serializer),
+            }
+        }
+    }
+
+    impl<'de> serde::de::Deserialize<'de> for ClusterTier {
+        fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+        where
+            D: serde::Deserializer<'de>,
+        {
+            deserializer.deserialize_any(wkt::internal::EnumVisitor::<ClusterTier>::new(
+                ".google.cloud.dataproc.v1.ClusterConfig.ClusterTier",
+            ))
+        }
     }
 }
 

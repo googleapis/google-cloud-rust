@@ -137,6 +137,7 @@ struct ExternalAccountConfigBuilder {
     audience: Option<String>,
     subject_token_type: Option<String>,
     token_url: Option<String>,
+    service_account_impersonation_url: Option<String>,
     client_id: Option<String>,
     client_secret: Option<String>,
     scopes: Option<Vec<String>>,
@@ -156,6 +157,11 @@ impl ExternalAccountConfigBuilder {
 
     fn with_token_url<S: Into<String>>(mut self, token_url: S) -> Self {
         self.token_url = Some(token_url.into());
+        self
+    }
+
+    fn with_service_account_impersonation_url<S: Into<String>>(mut self, url: S) -> Self {
+        self.service_account_impersonation_url = Some(url.into());
         self
     }
 
@@ -194,7 +200,7 @@ impl ExternalAccountConfigBuilder {
             credential_source: self
                 .credential_source
                 .ok_or(BuilderError::missing_field("credential_source"))?,
-            service_account_impersonation_url: None,
+            service_account_impersonation_url: self.service_account_impersonation_url,
             client_id: self.client_id,
             client_secret: self.client_secret,
         })
@@ -825,6 +831,48 @@ impl ProgrammaticBuilder {
         self
     }
 
+    /// Sets the optional target principal.
+    ///
+    /// Target principal is the email of the service account to impersonate.
+    ///
+    /// # Example
+    ///
+    /// ```
+    /// # use google_cloud_auth::credentials::external_account::ProgrammaticBuilder;
+    /// # use google_cloud_auth::credentials::subject_token::{SubjectTokenProvider, SubjectToken, Builder as SubjectTokenBuilder};
+    /// # use google_cloud_auth::errors::SubjectTokenProviderError;
+    /// # use std::error::Error;
+    /// # use std::fmt;
+    /// # use std::sync::Arc;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyTokenProvider;
+    /// #
+    /// # #[derive(Debug)]
+    /// # struct MyProviderError;
+    /// # impl fmt::Display for MyProviderError { fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result { write!(f, "MyProviderError") } }
+    /// # impl Error for MyProviderError {}
+    /// # impl SubjectTokenProviderError for MyProviderError { fn is_transient(&self) -> bool { false } }
+    /// #
+    /// # impl SubjectTokenProvider for MyTokenProvider {
+    /// #     type Error = MyProviderError;
+    /// #     async fn subject_token(&self) -> Result<SubjectToken, Self::Error> {
+    /// #         Ok(SubjectTokenBuilder::new("my-programmatic-token".to_string()).build())
+    /// #     }
+    /// # }
+    /// # let provider = Arc::new(MyTokenProvider);
+    /// let builder = ProgrammaticBuilder::new(provider)
+    ///     .with_target_principal("test-principal");
+    /// ```
+    pub fn with_target_principal<S: Into<String>>(mut self, target_principal: S) -> Self {
+        let url = format!(
+            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{}:generateAccessToken",
+            target_principal.into()
+        );
+        self.config = self.config.with_service_account_impersonation_url(url);
+        self
+    }
+
     /// Returns a [Credentials] instance with the configured settings.
     ///
     /// # Errors
@@ -832,6 +880,12 @@ impl ProgrammaticBuilder {
     /// Returns a [CredentialsError] if any of the required fields (such as
     /// `audience` or `subject_token_type`) have not been set.
     pub fn build(self) -> BuildResult<Credentials> {
+        let quota_project_id = self.quota_project_id.clone();
+        let config = self.build_config()?;
+        Ok(config.make_credentials(quota_project_id))
+    }
+
+    fn build_config(self) -> BuildResult<ExternalAccountConfig> {
         let mut config_builder = self.config;
         if config_builder.scopes.is_none() {
             config_builder = config_builder.with_scopes(vec![DEFAULT_SCOPE.to_string()]);
@@ -839,9 +893,7 @@ impl ProgrammaticBuilder {
         if config_builder.token_url.is_none() {
             config_builder = config_builder.with_token_url(STS_TOKEN_URL.to_string());
         }
-        let config = config_builder.build()?;
-
-        Ok(config.make_credentials(self.quota_project_id))
+        config_builder.build()
     }
 }
 
@@ -1254,7 +1306,15 @@ mod test {
             .with_subject_token_type("test-token-type")
             .with_client_id("test-client-id")
             .with_client_secret("test-client-secret")
-            .with_quota_project_id("test-quota-project");
+            .with_target_principal("test-principal");
+
+        let expected_scopes = if let Some(scopes) = scopes.clone() {
+            scopes.iter().map(|s| s.to_string()).collect()
+        } else {
+            vec![DEFAULT_SCOPE.to_string()]
+        };
+
+        let expected_token_url = token_url.unwrap_or(STS_TOKEN_URL).to_string();
 
         if let Some(scopes) = scopes {
             builder = builder.with_scopes(scopes);
@@ -1262,6 +1322,29 @@ mod test {
         if let Some(token_url) = token_url {
             builder = builder.with_token_url(token_url);
         }
+
+        let config = builder.build_config().unwrap();
+
+        assert_eq!(config.audience, "test-audience");
+        assert_eq!(config.subject_token_type, "test-token-type");
+        assert_eq!(config.client_id, Some("test-client-id".to_string()));
+        assert_eq!(config.client_secret, Some("test-client-secret".to_string()));
+        assert_eq!(config.scopes, expected_scopes);
+        assert_eq!(config.token_url, expected_token_url);
+        assert_eq!(
+            config.service_account_impersonation_url,
+            Some("https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/test-principal:generateAccessToken".to_string())
+        );
+    }
+
+    #[tokio::test]
+    async fn create_programmatic_builder_with_quota_project_id() {
+        let provider = Arc::new(TestSubjectTokenProvider);
+        let builder = ProgrammaticBuilder::new(provider)
+            .with_audience("test-audience")
+            .with_subject_token_type("test-token-type")
+            .with_token_url(STS_TOKEN_URL)
+            .with_quota_project_id("test-quota-project");
 
         let creds = builder.build().unwrap();
 

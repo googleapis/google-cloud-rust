@@ -1,0 +1,11 @@
+{
+    "api_id": "managedkafka.googleapis.com",
+    "api_shortname": "managedkafka",
+    "client_documentation": "https://docs.rs/google-cloud-managedkafka-schemaregistry-v1/latest",
+    "distribution_name": "google-cloud-rust",
+    "language": "rust",
+    "library_type": "GAPIC_AUTO",
+    "name_pretty": "Managed Service for Apache Kafka API",
+    "release_level": "preview",
+    "repo": "googleapis/google-cloud-rust"
+}

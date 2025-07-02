@@ -152,6 +152,61 @@ pub trait DepService: std::fmt::Debug + Send + Sync {
         gaxi::unimplemented::unimplemented_stub()
     }
 
+    /// Implements [super::client::DepService::list_authz_extensions].
+    fn list_authz_extensions(
+        &self,
+        _req: crate::model::ListAuthzExtensionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListAuthzExtensionsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DepService::get_authz_extension].
+    fn get_authz_extension(
+        &self,
+        _req: crate::model::GetAuthzExtensionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::AuthzExtension>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DepService::create_authz_extension].
+    fn create_authz_extension(
+        &self,
+        _req: crate::model::CreateAuthzExtensionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DepService::update_authz_extension].
+    fn update_authz_extension(
+        &self,
+        _req: crate::model::UpdateAuthzExtensionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::DepService::delete_authz_extension].
+    fn delete_authz_extension(
+        &self,
+        _req: crate::model::DeleteAuthzExtensionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
     /// Implements [super::client::DepService::list_locations].
     fn list_locations(
         &self,
@@ -330,6 +385,107 @@ pub trait NetworkServices: std::fmt::Debug + Send + Sync {
     fn delete_endpoint_policy(
         &self,
         _req: crate::model::DeleteEndpointPolicyRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::list_wasm_plugin_versions].
+    fn list_wasm_plugin_versions(
+        &self,
+        _req: crate::model::ListWasmPluginVersionsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<
+            gax::response::Response<crate::model::ListWasmPluginVersionsResponse>,
+        >,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::get_wasm_plugin_version].
+    fn get_wasm_plugin_version(
+        &self,
+        _req: crate::model::GetWasmPluginVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::WasmPluginVersion>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::create_wasm_plugin_version].
+    fn create_wasm_plugin_version(
+        &self,
+        _req: crate::model::CreateWasmPluginVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::delete_wasm_plugin_version].
+    fn delete_wasm_plugin_version(
+        &self,
+        _req: crate::model::DeleteWasmPluginVersionRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::list_wasm_plugins].
+    fn list_wasm_plugins(
+        &self,
+        _req: crate::model::ListWasmPluginsRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::ListWasmPluginsResponse>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::get_wasm_plugin].
+    fn get_wasm_plugin(
+        &self,
+        _req: crate::model::GetWasmPluginRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<crate::model::WasmPlugin>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::create_wasm_plugin].
+    fn create_wasm_plugin(
+        &self,
+        _req: crate::model::CreateWasmPluginRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::update_wasm_plugin].
+    fn update_wasm_plugin(
+        &self,
+        _req: crate::model::UpdateWasmPluginRequest,
+        _options: gax::options::RequestOptions,
+    ) -> impl std::future::Future<
+        Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,
+    > + Send {
+        gaxi::unimplemented::unimplemented_stub()
+    }
+
+    /// Implements [super::client::NetworkServices::delete_wasm_plugin].
+    fn delete_wasm_plugin(
+        &self,
+        _req: crate::model::DeleteWasmPluginRequest,
         _options: gax::options::RequestOptions,
     ) -> impl std::future::Future<
         Output = crate::Result<gax::response::Response<longrunning::model::Operation>>,

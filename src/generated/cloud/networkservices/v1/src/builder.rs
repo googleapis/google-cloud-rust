@@ -1259,6 +1259,599 @@ pub mod dep_service {
         }
     }
 
+    /// The request builder for [DepService::list_authz_extensions][crate::client::DepService::list_authz_extensions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::dep_service::ListAuthzExtensions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListAuthzExtensions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListAuthzExtensions(RequestBuilder<crate::model::ListAuthzExtensionsRequest>);
+
+    impl ListAuthzExtensions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListAuthzExtensionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListAuthzExtensionsResponse> {
+            (*self.0.stub)
+                .list_authz_extensions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListAuthzExtensionsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListAuthzExtensionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListAuthzExtensionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListAuthzExtensionsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListAuthzExtensionsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+
+        /// Sets the value of [filter][crate::model::ListAuthzExtensionsRequest::filter].
+        pub fn set_filter<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.filter = v.into();
+            self
+        }
+
+        /// Sets the value of [order_by][crate::model::ListAuthzExtensionsRequest::order_by].
+        pub fn set_order_by<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.order_by = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListAuthzExtensions {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DepService::get_authz_extension][crate::client::DepService::get_authz_extension] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::dep_service::GetAuthzExtension;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetAuthzExtension {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetAuthzExtension(RequestBuilder<crate::model::GetAuthzExtensionRequest>);
+
+    impl GetAuthzExtension {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetAuthzExtensionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::AuthzExtension> {
+            (*self.0.stub)
+                .get_authz_extension(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetAuthzExtensionRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetAuthzExtension {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DepService::create_authz_extension][crate::client::DepService::create_authz_extension] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::dep_service::CreateAuthzExtension;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateAuthzExtension {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateAuthzExtension(RequestBuilder<crate::model::CreateAuthzExtensionRequest>);
+
+    impl CreateAuthzExtension {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateAuthzExtensionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_authz_extension][crate::client::DepService::create_authz_extension].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_authz_extension(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_authz_extension`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::AuthzExtension, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::AuthzExtension,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateAuthzExtensionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [authz_extension_id][crate::model::CreateAuthzExtensionRequest::authz_extension_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_authz_extension_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.authz_extension_id = v.into();
+            self
+        }
+
+        /// Sets the value of [authz_extension][crate::model::CreateAuthzExtensionRequest::authz_extension].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_authz_extension<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthzExtension>,
+        {
+            self.0.request.authz_extension = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authz_extension][crate::model::CreateAuthzExtensionRequest::authz_extension].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_authz_extension<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthzExtension>,
+        {
+            self.0.request.authz_extension = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::CreateAuthzExtensionRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateAuthzExtension {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DepService::update_authz_extension][crate::client::DepService::update_authz_extension] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::dep_service::UpdateAuthzExtension;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateAuthzExtension {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateAuthzExtension(RequestBuilder<crate::model::UpdateAuthzExtensionRequest>);
+
+    impl UpdateAuthzExtension {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateAuthzExtensionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_authz_extension][crate::client::DepService::update_authz_extension].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_authz_extension(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_authz_extension`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::AuthzExtension, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::AuthzExtension,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateAuthzExtensionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateAuthzExtensionRequest::update_mask].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [authz_extension][crate::model::UpdateAuthzExtensionRequest::authz_extension].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_authz_extension<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthzExtension>,
+        {
+            self.0.request.authz_extension = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [authz_extension][crate::model::UpdateAuthzExtensionRequest::authz_extension].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_authz_extension<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::AuthzExtension>,
+        {
+            self.0.request.authz_extension = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::UpdateAuthzExtensionRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateAuthzExtension {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [DepService::delete_authz_extension][crate::client::DepService::delete_authz_extension] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::dep_service::DeleteAuthzExtension;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteAuthzExtension {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteAuthzExtension(RequestBuilder<crate::model::DeleteAuthzExtensionRequest>);
+
+    impl DeleteAuthzExtension {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::DepService>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteAuthzExtensionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_authz_extension][crate::client::DepService::delete_authz_extension].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_authz_extension(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_authz_extension`.
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteAuthzExtensionRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [request_id][crate::model::DeleteAuthzExtensionRequest::request_id].
+        pub fn set_request_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.request_id = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteAuthzExtension {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
     /// The request builder for [DepService::list_locations][crate::client::DepService::list_locations] calls.
     ///
     /// # Example
@@ -2615,6 +3208,982 @@ pub mod network_services {
 
     #[doc(hidden)]
     impl gax::options::internal::RequestBuilder for DeleteEndpointPolicy {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkServices::list_wasm_plugin_versions][crate::client::NetworkServices::list_wasm_plugin_versions] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::network_services::ListWasmPluginVersions;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWasmPluginVersions {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListWasmPluginVersions(RequestBuilder<crate::model::ListWasmPluginVersionsRequest>);
+
+    impl ListWasmPluginVersions {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListWasmPluginVersionsRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListWasmPluginVersionsResponse> {
+            (*self.0.stub)
+                .list_wasm_plugin_versions(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<
+            crate::model::ListWasmPluginVersionsResponse,
+            gax::error::Error,
+        > {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<
+            crate::model::ListWasmPluginVersionsResponse,
+            gax::error::Error,
+        > {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListWasmPluginVersionsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListWasmPluginVersionsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListWasmPluginVersionsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListWasmPluginVersions {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkServices::get_wasm_plugin_version][crate::client::NetworkServices::get_wasm_plugin_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::network_services::GetWasmPluginVersion;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWasmPluginVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetWasmPluginVersion(RequestBuilder<crate::model::GetWasmPluginVersionRequest>);
+
+    impl GetWasmPluginVersion {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetWasmPluginVersionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::WasmPluginVersion> {
+            (*self.0.stub)
+                .get_wasm_plugin_version(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetWasmPluginVersionRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetWasmPluginVersion {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkServices::create_wasm_plugin_version][crate::client::NetworkServices::create_wasm_plugin_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::network_services::CreateWasmPluginVersion;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWasmPluginVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateWasmPluginVersion(
+        RequestBuilder<crate::model::CreateWasmPluginVersionRequest>,
+    );
+
+    impl CreateWasmPluginVersion {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateWasmPluginVersionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_wasm_plugin_version][crate::client::NetworkServices::create_wasm_plugin_version].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_wasm_plugin_version(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_wasm_plugin_version`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::WasmPluginVersion, crate::model::OperationMetadata>
+        {
+            type Operation = lro::internal::Operation<
+                crate::model::WasmPluginVersion,
+                crate::model::OperationMetadata,
+            >;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateWasmPluginVersionRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [wasm_plugin_version_id][crate::model::CreateWasmPluginVersionRequest::wasm_plugin_version_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_wasm_plugin_version_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.wasm_plugin_version_id = v.into();
+            self
+        }
+
+        /// Sets the value of [wasm_plugin_version][crate::model::CreateWasmPluginVersionRequest::wasm_plugin_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_wasm_plugin_version<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WasmPluginVersion>,
+        {
+            self.0.request.wasm_plugin_version = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [wasm_plugin_version][crate::model::CreateWasmPluginVersionRequest::wasm_plugin_version].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_wasm_plugin_version<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WasmPluginVersion>,
+        {
+            self.0.request.wasm_plugin_version = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateWasmPluginVersion {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkServices::delete_wasm_plugin_version][crate::client::NetworkServices::delete_wasm_plugin_version] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::network_services::DeleteWasmPluginVersion;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWasmPluginVersion {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteWasmPluginVersion(
+        RequestBuilder<crate::model::DeleteWasmPluginVersionRequest>,
+    );
+
+    impl DeleteWasmPluginVersion {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteWasmPluginVersionRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_wasm_plugin_version][crate::client::NetworkServices::delete_wasm_plugin_version].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_wasm_plugin_version(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_wasm_plugin_version`.
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteWasmPluginVersionRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteWasmPluginVersion {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkServices::list_wasm_plugins][crate::client::NetworkServices::list_wasm_plugins] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::network_services::ListWasmPlugins;
+    /// # tokio_test::block_on(async {
+    /// use gax::paginator::ItemPaginator;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let mut items = builder.by_item();
+    /// while let Some(result) = items.next().await {
+    ///   let item = result?;
+    /// }
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> ListWasmPlugins {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct ListWasmPlugins(RequestBuilder<crate::model::ListWasmPluginsRequest>);
+
+    impl ListWasmPlugins {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::ListWasmPluginsRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::ListWasmPluginsResponse> {
+            (*self.0.stub)
+                .list_wasm_plugins(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Streams each page in the collection.
+        pub fn by_page(
+            self,
+        ) -> impl gax::paginator::Paginator<crate::model::ListWasmPluginsResponse, gax::error::Error>
+        {
+            use std::clone::Clone;
+            let token = self.0.request.page_token.clone();
+            let execute = move |token: String| {
+                let mut builder = self.clone();
+                builder.0.request = builder.0.request.set_page_token(token);
+                builder.send()
+            };
+            gax::paginator::internal::new_paginator(token, execute)
+        }
+
+        /// Streams each item in the collection.
+        pub fn by_item(
+            self,
+        ) -> impl gax::paginator::ItemPaginator<crate::model::ListWasmPluginsResponse, gax::error::Error>
+        {
+            use gax::paginator::Paginator;
+            self.by_page().items()
+        }
+
+        /// Sets the value of [parent][crate::model::ListWasmPluginsRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [page_size][crate::model::ListWasmPluginsRequest::page_size].
+        pub fn set_page_size<T: Into<i32>>(mut self, v: T) -> Self {
+            self.0.request.page_size = v.into();
+            self
+        }
+
+        /// Sets the value of [page_token][crate::model::ListWasmPluginsRequest::page_token].
+        pub fn set_page_token<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.page_token = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for ListWasmPlugins {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkServices::get_wasm_plugin][crate::client::NetworkServices::get_wasm_plugin] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::network_services::GetWasmPlugin;
+    /// # tokio_test::block_on(async {
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.send().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> GetWasmPlugin {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct GetWasmPlugin(RequestBuilder<crate::model::GetWasmPluginRequest>);
+
+    impl GetWasmPlugin {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::GetWasmPluginRequest>>(mut self, v: V) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        pub async fn send(self) -> Result<crate::model::WasmPlugin> {
+            (*self.0.stub)
+                .get_wasm_plugin(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Sets the value of [name][crate::model::GetWasmPluginRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+
+        /// Sets the value of [view][crate::model::GetWasmPluginRequest::view].
+        pub fn set_view<T: Into<crate::model::WasmPluginView>>(mut self, v: T) -> Self {
+            self.0.request.view = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for GetWasmPlugin {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkServices::create_wasm_plugin][crate::client::NetworkServices::create_wasm_plugin] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::network_services::CreateWasmPlugin;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> CreateWasmPlugin {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct CreateWasmPlugin(RequestBuilder<crate::model::CreateWasmPluginRequest>);
+
+    impl CreateWasmPlugin {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::CreateWasmPluginRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [create_wasm_plugin][crate::client::NetworkServices::create_wasm_plugin].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .create_wasm_plugin(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `create_wasm_plugin`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::WasmPlugin, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::WasmPlugin, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [parent][crate::model::CreateWasmPluginRequest::parent].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_parent<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.parent = v.into();
+            self
+        }
+
+        /// Sets the value of [wasm_plugin_id][crate::model::CreateWasmPluginRequest::wasm_plugin_id].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_wasm_plugin_id<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.wasm_plugin_id = v.into();
+            self
+        }
+
+        /// Sets the value of [wasm_plugin][crate::model::CreateWasmPluginRequest::wasm_plugin].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_wasm_plugin<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WasmPlugin>,
+        {
+            self.0.request.wasm_plugin = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [wasm_plugin][crate::model::CreateWasmPluginRequest::wasm_plugin].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_wasm_plugin<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WasmPlugin>,
+        {
+            self.0.request.wasm_plugin = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for CreateWasmPlugin {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkServices::update_wasm_plugin][crate::client::NetworkServices::update_wasm_plugin] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::network_services::UpdateWasmPlugin;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> UpdateWasmPlugin {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct UpdateWasmPlugin(RequestBuilder<crate::model::UpdateWasmPluginRequest>);
+
+    impl UpdateWasmPlugin {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::UpdateWasmPluginRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [update_wasm_plugin][crate::client::NetworkServices::update_wasm_plugin].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .update_wasm_plugin(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `update_wasm_plugin`.
+        pub fn poller(
+            self,
+        ) -> impl lro::Poller<crate::model::WasmPlugin, crate::model::OperationMetadata> {
+            type Operation =
+                lro::internal::Operation<crate::model::WasmPlugin, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_poller(polling_error_policy, polling_backoff_policy, start, query)
+        }
+
+        /// Sets the value of [update_mask][crate::model::UpdateWasmPluginRequest::update_mask].
+        pub fn set_update_mask<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [update_mask][crate::model::UpdateWasmPluginRequest::update_mask].
+        pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<wkt::FieldMask>,
+        {
+            self.0.request.update_mask = v.map(|x| x.into());
+            self
+        }
+
+        /// Sets the value of [wasm_plugin][crate::model::UpdateWasmPluginRequest::wasm_plugin].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_wasm_plugin<T>(mut self, v: T) -> Self
+        where
+            T: std::convert::Into<crate::model::WasmPlugin>,
+        {
+            self.0.request.wasm_plugin = std::option::Option::Some(v.into());
+            self
+        }
+
+        /// Sets or clears the value of [wasm_plugin][crate::model::UpdateWasmPluginRequest::wasm_plugin].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_or_clear_wasm_plugin<T>(mut self, v: std::option::Option<T>) -> Self
+        where
+            T: std::convert::Into<crate::model::WasmPlugin>,
+        {
+            self.0.request.wasm_plugin = v.map(|x| x.into());
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for UpdateWasmPlugin {
+        fn request_options(&mut self) -> &mut gax::options::RequestOptions {
+            &mut self.0.options
+        }
+    }
+
+    /// The request builder for [NetworkServices::delete_wasm_plugin][crate::client::NetworkServices::delete_wasm_plugin] calls.
+    ///
+    /// # Example
+    /// ```no_run
+    /// # use google_cloud_networkservices_v1::builder;
+    /// use builder::network_services::DeleteWasmPlugin;
+    /// # tokio_test::block_on(async {
+    /// use lro::Poller;
+    ///
+    /// let builder = prepare_request_builder();
+    /// let response = builder.poller().until_done().await?;
+    /// # gax::Result::<()>::Ok(()) });
+    ///
+    /// fn prepare_request_builder() -> DeleteWasmPlugin {
+    ///   # panic!();
+    ///   // ... details omitted ...
+    /// }
+    /// ```
+    #[derive(Clone, Debug)]
+    pub struct DeleteWasmPlugin(RequestBuilder<crate::model::DeleteWasmPluginRequest>);
+
+    impl DeleteWasmPlugin {
+        pub(crate) fn new(
+            stub: std::sync::Arc<dyn super::super::stub::dynamic::NetworkServices>,
+        ) -> Self {
+            Self(RequestBuilder::new(stub))
+        }
+
+        /// Sets the full request, replacing any prior values.
+        pub fn with_request<V: Into<crate::model::DeleteWasmPluginRequest>>(
+            mut self,
+            v: V,
+        ) -> Self {
+            self.0.request = v.into();
+            self
+        }
+
+        /// Sets all the options, replacing any prior values.
+        pub fn with_options<V: Into<gax::options::RequestOptions>>(mut self, v: V) -> Self {
+            self.0.options = v.into();
+            self
+        }
+
+        /// Sends the request.
+        ///
+        /// # Long running operations
+        ///
+        /// This starts, but does not poll, a longrunning operation. More information
+        /// on [delete_wasm_plugin][crate::client::NetworkServices::delete_wasm_plugin].
+        pub async fn send(self) -> Result<longrunning::model::Operation> {
+            (*self.0.stub)
+                .delete_wasm_plugin(self.0.request, self.0.options)
+                .await
+                .map(gax::response::Response::into_body)
+        }
+
+        /// Creates a [Poller][lro::Poller] to work with `delete_wasm_plugin`.
+        pub fn poller(self) -> impl lro::Poller<(), crate::model::OperationMetadata> {
+            type Operation = lro::internal::Operation<wkt::Empty, crate::model::OperationMetadata>;
+            let polling_error_policy = self.0.stub.get_polling_error_policy(&self.0.options);
+            let polling_backoff_policy = self.0.stub.get_polling_backoff_policy(&self.0.options);
+
+            let stub = self.0.stub.clone();
+            let mut options = self.0.options.clone();
+            options.set_retry_policy(gax::retry_policy::NeverRetry);
+            let query = move |name| {
+                let stub = stub.clone();
+                let options = options.clone();
+                async {
+                    let op = GetOperation::new(stub)
+                        .set_name(name)
+                        .with_options(options)
+                        .send()
+                        .await?;
+                    Ok(Operation::new(op))
+                }
+            };
+
+            let start = move || async {
+                let op = self.send().await?;
+                Ok(Operation::new(op))
+            };
+
+            lro::internal::new_unit_response_poller(
+                polling_error_policy,
+                polling_backoff_policy,
+                start,
+                query,
+            )
+        }
+
+        /// Sets the value of [name][crate::model::DeleteWasmPluginRequest::name].
+        ///
+        /// This is a **required** field for requests.
+        pub fn set_name<T: Into<std::string::String>>(mut self, v: T) -> Self {
+            self.0.request.name = v.into();
+            self
+        }
+    }
+
+    #[doc(hidden)]
+    impl gax::options::internal::RequestBuilder for DeleteWasmPlugin {
         fn request_options(&mut self) -> &mut gax::options::RequestOptions {
             &mut self.0.options
         }

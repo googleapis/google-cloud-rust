@@ -14,10 +14,12 @@
 
 pub use crate::Error;
 pub use crate::Result;
+use crate::upload_source::{InsertPayload, StreamingSource};
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 pub use control::model::Object;
+use futures::stream::unfold;
 use http::Extensions;
 use sha2::{Digest, Sha256};
 
@@ -129,11 +131,12 @@ impl Storage {
     /// println!("response details={response:?}");
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
-    pub fn insert_object<B, O, P>(&self, bucket: B, object: O, payload: P) -> InsertObject
+    pub fn insert_object<B, O, T, P>(&self, bucket: B, object: O, payload: T) -> InsertObject<P>
     where
         B: Into<String>,
         O: Into<String>,
-        P: Into<bytes::Bytes>,
+        T: Into<InsertPayload<P>>,
+        InsertPayload<P>: StreamingSource,
     {
         InsertObject::new(self.inner.clone(), bucket, object, payload)
     }
@@ -269,32 +272,38 @@ pub(crate) mod info {
     }
 }
 
-pub struct InsertObject {
+pub struct InsertObject<T> {
     inner: std::sync::Arc<StorageInner>,
     request: control::model::WriteObjectRequest,
+    payload: InsertPayload<T>,
 }
 
-impl InsertObject {
+impl<T> InsertObject<T> {
     fn new<B, O, P>(inner: std::sync::Arc<StorageInner>, bucket: B, object: O, payload: P) -> Self
     where
         B: Into<String>,
         O: Into<String>,
-        P: Into<bytes::Bytes>,
+        P: Into<InsertPayload<T>>,
     {
         InsertObject {
             inner,
-            request: control::model::WriteObjectRequest::new()
-                .set_write_object_spec(
-                    control::model::WriteObjectSpec::new().set_resource(
-                        control::model::Object::new()
-                            .set_bucket(bucket)
-                            .set_name(object),
-                    ),
-                )
-                .set_checksummed_data(control::model::ChecksummedData::new().set_content(payload)),
+            request: control::model::WriteObjectRequest::new().set_write_object_spec(
+                control::model::WriteObjectSpec::new().set_resource(
+                    control::model::Object::new()
+                        .set_bucket(bucket)
+                        .set_name(object),
+                ),
+            ),
+            payload: payload.into(),
         }
     }
+}
 
+impl<T> InsertObject<T>
+where
+    T: StreamingSource + Send + Sync + 'static,
+    T::Error: std::error::Error + Send + Sync + 'static,
+{
     /// A simple upload from a buffer.
     ///
     /// # Example
@@ -345,7 +354,7 @@ impl InsertObject {
                 format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
             )
             .query(&[("uploadType", "media")])
-            .query(&[("name", object)])
+            .query(&[("name", enc(object))])
             .header("content-type", "application/octet-stream")
             .header(
                 "x-goog-api-client",
@@ -358,11 +367,16 @@ impl InsertObject {
         );
 
         let builder = self.inner.apply_auth_headers(builder).await?;
-        let content = match self.request.data {
-            Some(Data::ChecksummedData(data)) => data.content,
-            _ => unreachable!("content for the checksummed data is set in the constructor"),
-        };
-        let builder = builder.body(content);
+
+        let stream = Box::pin(unfold(Some(self.payload), move |state| async move {
+            if let Some(mut payload) = state {
+                if let Some(next) = payload.next().await {
+                    return Some((next, Some(payload)));
+                }
+            }
+            None
+        }));
+        let builder = builder.body(reqwest::Body::wrap_stream(stream));
         Ok(builder)
     }
 
@@ -388,6 +402,42 @@ impl InsertObject {
         self.request.common_object_request_params = Some(v.into());
         self
     }
+}
+
+/// The set of characters that are percent encoded.
+///
+/// This set is defined at https://cloud.google.com/storage/docs/request-endpoints#encoding:
+///
+/// Encode the following characters when they appear in either the object name
+/// or query string of a request URL:
+///     !, #, $, &, ', (, ), *, +, ,, /, :, ;, =, ?, @, [, ], and space characters.
+const ENCODED_CHARS: percent_encoding::AsciiSet = percent_encoding::CONTROLS
+    .add(b'!')
+    .add(b'#')
+    .add(b'$')
+    .add(b'&')
+    .add(b'\'')
+    .add(b'(')
+    .add(b')')
+    .add(b'*')
+    .add(b'+')
+    .add(b',')
+    .add(b'/')
+    .add(b':')
+    .add(b';')
+    .add(b'=')
+    .add(b'?')
+    .add(b'@')
+    .add(b'[')
+    .add(b']')
+    .add(b' ');
+
+/// Percent encode a string.
+///
+/// To ensure compatibility certain characters need to be encoded when they appear
+/// in either the object name or query string of a request URL.
+fn enc(value: &str) -> String {
+    percent_encoding::utf8_percent_encode(value, &ENCODED_CHARS).to_string()
 }
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
@@ -632,8 +682,9 @@ impl ReadObject {
             .request(
                 reqwest::Method::GET,
                 format!(
-                    "{}/storage/v1/b/{bucket_id}/o/{object}",
-                    &self.inner.endpoint
+                    "{}/storage/v1/b/{bucket_id}/o/{}",
+                    &self.inner.endpoint,
+                    enc(&object)
                 ),
             )
             .query(&[("alt", "media")])
@@ -737,13 +788,13 @@ impl ReadObjectResponse {
     ///     .send()
     ///     .await?;
     ///
-    /// while let Some(next) = resp.next().await? {
-    ///     println!("next={next:?}");
+    /// while let Some(next) = resp.next().await {
+    ///     println!("next={:?}", next?);
     /// }
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
-    pub async fn next(&mut self) -> Result<Option<bytes::Bytes>> {
-        self.inner.chunk().await.map_err(Error::io)
+    pub async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
+        self.inner.chunk().await.map_err(Error::io).transpose()
     }
 }
 
@@ -860,6 +911,7 @@ fn apply_customer_supplied_encryption_headers(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use crate::upload_source::test::VecStream;
     use std::{collections::HashMap, error::Error};
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
     use test_case::test_case;
@@ -872,21 +924,52 @@ mod tests {
             .build()
             .await?;
 
-        let insert_object_builder = client
+        let mut request = client
             .insert_object("projects/_/buckets/bucket", "object", "hello")
             .http_request_builder()
             .await?
             .build()?;
 
-        assert_eq!(insert_object_builder.method(), reqwest::Method::POST);
+        assert_eq!(request.method(), reqwest::Method::POST);
         assert_eq!(
-            insert_object_builder.url().as_str(),
+            request.url().as_str(),
             "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=media&name=object"
         );
-        assert_eq!(
-            b"hello",
-            insert_object_builder.body().unwrap().as_bytes().unwrap()
+        let body = request.body_mut().take().unwrap();
+        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
+        assert_eq!(contents, "hello");
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_insert_object_stream() -> Result {
+        let client = Storage::builder()
+            .with_endpoint("http://private.googleapis.com")
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        let stream = VecStream::new(
+            [
+                "the ", "quick ", "brown ", "fox ", "jumps ", "over ", "the ", "lazy ", "dog",
+            ]
+            .map(|x| bytes::Bytes::from_static(x.as_bytes()))
+            .to_vec(),
         );
+        let mut request = client
+            .insert_object("projects/_/buckets/bucket", "object", stream)
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        assert_eq!(request.method(), reqwest::Method::POST);
+        assert_eq!(
+            request.url().as_str(),
+            "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=media&name=object"
+        );
+        let body = request.body_mut().take().unwrap();
+        let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
+        assert_eq!(contents, "the quick brown fox jumps over the lazy dog");
         Ok(())
     }
 
@@ -1093,6 +1176,58 @@ mod tests {
                 bytes::Bytes::from(value)
             );
         }
+        Ok(())
+    }
+
+    #[test_case("projects/p", "projects%2Fp")]
+    #[test_case("kebab-case", "kebab-case")]
+    #[test_case("dot.name", "dot.name")]
+    #[test_case("under_score", "under_score")]
+    #[test_case("tilde~123", "tilde~123")]
+    #[test_case("exclamation!point!", "exclamation%21point%21")]
+    #[test_case("spaces   spaces", "spaces%20%20%20spaces")]
+    #[test_case("preserve%percent%21", "preserve%percent%21")]
+    #[test_case(
+        "testall !#$&'()*+,/:;=?@[]",
+        "testall%20%21%23%24%26%27%28%29%2A%2B%2C%2F%3A%3B%3D%3F%40%5B%5D"
+    )]
+    #[tokio::test]
+    async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        let insert_object_builder = client
+            .insert_object("projects/_/buckets/bucket", name, "hello")
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        let got = insert_object_builder
+            .url()
+            .query_pairs()
+            .find_map(|(key, val)| match key.to_string().as_str() {
+                "name" => Some(val.to_string()),
+                _ => None,
+            })
+            .unwrap();
+        assert_eq!(got, want);
+
+        let read_object_request_builder = client
+            .read_object("projects/_/buckets/bucket", name)
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        let got = read_object_request_builder
+            .url()
+            .path_segments()
+            .unwrap()
+            .next_back()
+            .unwrap();
+        assert_eq!(got, want);
+
         Ok(())
     }
 

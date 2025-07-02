@@ -166,7 +166,11 @@ pub async fn objects_large_file(builder: storage::client::ClientBuilder) -> Resu
 
     tracing::info!("testing insert_object()");
     let insert = client
-        .insert_object(&bucket.name, "quick.text", contents.clone())
+        .insert_object(
+            &bucket.name,
+            "quick.text",
+            bytes::Bytes::from_owner(contents.clone()),
+        )
         .send()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -180,8 +184,8 @@ pub async fn objects_large_file(builder: storage::client::ClientBuilder) -> Resu
     // This should take multiple chunks to download.
     let mut got = bytes::BytesMut::new();
     let mut count = 0;
-    while let Some(chunk) = resp.next().await? {
-        got.extend_from_slice(&chunk);
+    while let Some(chunk) = resp.next().await {
+        got.extend_from_slice(&chunk?);
         count += 1;
     }
     assert_eq!(got, contents);

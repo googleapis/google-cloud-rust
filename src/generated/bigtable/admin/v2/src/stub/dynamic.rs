@@ -754,6 +754,36 @@ pub trait BigtableTableAdmin: std::fmt::Debug + Send + Sync {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>>;
 
+    async fn create_schema_bundle(
+        &self,
+        req: crate::model::CreateSchemaBundleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn update_schema_bundle(
+        &self,
+        req: crate::model::UpdateSchemaBundleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>>;
+
+    async fn get_schema_bundle(
+        &self,
+        req: crate::model::GetSchemaBundleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::SchemaBundle>>;
+
+    async fn list_schema_bundles(
+        &self,
+        req: crate::model::ListSchemaBundlesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListSchemaBundlesResponse>>;
+
+    async fn delete_schema_bundle(
+        &self,
+        req: crate::model::DeleteSchemaBundleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>>;
+
     async fn list_operations(
         &self,
         req: longrunning::model::ListOperationsRequest,
@@ -1061,6 +1091,51 @@ impl<T: super::BigtableTableAdmin> BigtableTableAdmin for T {
         options: gax::options::RequestOptions,
     ) -> crate::Result<gax::response::Response<iam_v1::model::TestIamPermissionsResponse>> {
         T::test_iam_permissions(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn create_schema_bundle(
+        &self,
+        req: crate::model::CreateSchemaBundleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::create_schema_bundle(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn update_schema_bundle(
+        &self,
+        req: crate::model::UpdateSchemaBundleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<longrunning::model::Operation>> {
+        T::update_schema_bundle(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn get_schema_bundle(
+        &self,
+        req: crate::model::GetSchemaBundleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::SchemaBundle>> {
+        T::get_schema_bundle(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn list_schema_bundles(
+        &self,
+        req: crate::model::ListSchemaBundlesRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<crate::model::ListSchemaBundlesResponse>> {
+        T::list_schema_bundles(self, req, options).await
+    }
+
+    /// Forwards the call to the implementation provided by `T`.
+    async fn delete_schema_bundle(
+        &self,
+        req: crate::model::DeleteSchemaBundleRequest,
+        options: gax::options::RequestOptions,
+    ) -> crate::Result<gax::response::Response<()>> {
+        T::delete_schema_bundle(self, req, options).await
     }
 
     /// Forwards the call to the implementation provided by `T`.
