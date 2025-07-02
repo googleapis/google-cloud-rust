@@ -1414,7 +1414,7 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 		Publishing: &annotations.Publishing{
 			MethodSettings: []*annotations.MethodSettings{
 				{
-					Selector: ".test.TestService.CreateFoo",
+					Selector: "test.TestService.CreateFoo",
 					AutoPopulatedFields: []string{
 						"request_id",
 						"request_id_optional",
@@ -1441,6 +1441,32 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 	message, ok := test.State.MessageByID[".test.CreateFooRequest"]
 	if !ok {
 		t.Fatalf("Cannot find message %s in API State", ".test.CreateFooRequest")
+	}
+	request_id := &api.Field{
+		Name:     "request_id",
+		JSONName: "requestId",
+		ID:       ".test.CreateFooRequest.request_id",
+		Documentation: "This is an auto-populated field. The remaining fields almost meet the\n" +
+			"requirements to be auto-populated, but fail for the reasons implied by\n" +
+			"their name.",
+		Typez:         api.STRING_TYPE,
+		AutoPopulated: true,
+	}
+	request_id_optional := &api.Field{
+		Name:          "request_id_optional",
+		ID:            ".test.CreateFooRequest.request_id_optional",
+		Typez:         api.STRING_TYPE,
+		JSONName:      "requestIdOptional",
+		Optional:      true,
+		AutoPopulated: true,
+	}
+	request_id_with_field_behavior := &api.Field{
+		Name:          "request_id_with_field_behavior",
+		ID:            ".test.CreateFooRequest.request_id_with_field_behavior",
+		Typez:         api.STRING_TYPE,
+		JSONName:      "requestIdWithFieldBehavior",
+		AutoPopulated: true,
+		Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_OPTIONAL, api.FIELD_BEHAVIOR_INPUT_ONLY},
 	}
 	checkMessage(t, message, &api.Message{
 		Name:          "CreateFooRequest",
@@ -1474,33 +1500,9 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 				Optional:      true,
 				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_REQUIRED},
 			},
-			{
-				Name:     "request_id",
-				JSONName: "requestId",
-				ID:       ".test.CreateFooRequest.request_id",
-				Documentation: "This is an auto-populated field. The remaining fields almost meet the\n" +
-					"requirements to be auto-populated, but fail for the reasons implied by\n" +
-					"their name.",
-				Typez:         api.STRING_TYPE,
-				AutoPopulated: true,
-			},
-			{
-				Name:          "request_id_optional",
-				ID:            ".test.CreateFooRequest.request_id_optional",
-				Typez:         api.STRING_TYPE,
-				JSONName:      "requestIdOptional",
-				Optional:      true,
-				AutoPopulated: true,
-			},
-			{
-				Name:          "request_id_with_field_behavior",
-				ID:            ".test.CreateFooRequest.request_id_with_field_behavior",
-				Typez:         api.STRING_TYPE,
-				JSONName:      "requestIdWithFieldBehavior",
-				AutoPopulated: true,
-				Behavior:      []api.FieldBehavior{api.FIELD_BEHAVIOR_OPTIONAL, api.FIELD_BEHAVIOR_INPUT_ONLY},
-			},
-
+			request_id,
+			request_id_optional,
+			request_id_with_field_behavior,
 			{
 				Name:     "not_request_id_bad_type",
 				ID:       ".test.CreateFooRequest.not_request_id_bad_type",
@@ -1544,9 +1546,21 @@ func TestProtobuf_AutoPopulated(t *testing.T) {
 				ID:       ".test.CreateFooRequest.not_request_id_missing_service_config",
 				Typez:    api.STRING_TYPE,
 				JSONName: "notRequestIdMissingServiceConfig",
+				// This just denotes that the field is eligible
+				// to be auto-populated
+				AutoPopulated: true,
 			},
 		},
 	})
+
+	method, ok := test.State.MethodByID[".test.TestService.CreateFoo"]
+	if !ok {
+		t.Fatalf("Cannot find method %s in API State", ".test.TestService.CreateFoo")
+	}
+	want := []*api.Field{request_id, request_id_optional, request_id_with_field_behavior}
+	if diff := cmp.Diff(want, method.AutoPopulated); diff != "" {
+		t.Errorf("incorrect auto-populated fields on method (-want, +got)\n:%s", diff)
+	}
 }
 
 func TestProtobuf_Deprecated(t *testing.T) {

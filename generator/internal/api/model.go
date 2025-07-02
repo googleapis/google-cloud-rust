@@ -224,6 +224,13 @@ type Method struct {
 	OperationInfo *OperationInfo
 	// The routing annotations, if any
 	Routing []*RoutingInfo
+	// The auto-populated (request_id) field, if any, as defined in
+	// [AIP-4235](https://google.aip.dev/client-libraries/4235)
+	//
+	// The field must be eligible for auto-population, and be listed in the
+	// `google.api.MethodSettings.auto_populated_fields` entry in
+	// `google.api.Publishing.method_settings` in the service config file.
+	AutoPopulated []*Field
 	// The model this method belongs to, mustache templates use this field to
 	// navigate the data structure.
 	Model *API
@@ -541,16 +548,15 @@ type Field struct {
 	// containing message. That triggers slightly different code generation for
 	// some languages.
 	Recursive bool
-	// AutoPopulated is true if the field meets the requirements in AIP-4235.
+	// AutoPopulated is true if the field is eligible to be auto-populated,
+	// per the requirements in AIP-4235.
+	//
 	// That is:
 	// - It has Typez == STRING_TYPE
-	// - For Protobuf, has the `google.api.field_behavior = REQUIRED` annotation
+	// - For Protobuf, does not have the `google.api.field_behavior = REQUIRED` annotation
 	// - For Protobuf, has the `google.api.field_info.format = UUID4` annotation
-	// - For OpenAPI, it is a required field
+	// - For OpenAPI, it is an optional field
 	// - For OpenAPI, it has format == "uuid"
-	// - In the service config file, it is listed in the
-	//   `google.api.MethodSettings.auto_populated_fields` entry in
-	//   `google.api.Publishing.method_settings`
 	AutoPopulated bool
 	// FieldBehavior indicates how the field behaves in requests and responses.
 	//
