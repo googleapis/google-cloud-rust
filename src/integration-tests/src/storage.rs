@@ -62,18 +62,6 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     assert_eq!(contents, CONTENTS.as_bytes());
     tracing::info!("success with contents={contents:?}");
 
-    tracing::info!("testing read_object() streaming");
-    let mut contents = bytes::BytesMut::new();
-    let mut resp = client
-        .read_object(&bucket.name, &insert.name)
-        .send()
-        .await?;
-    while let Some(chunk) = resp.next().await? {
-        contents.extend_from_slice(&chunk);
-    }
-    assert_eq!(contents, CONTENTS.as_bytes());
-    tracing::info!("success with contents={contents:?}");
-
     control
         .delete_object()
         .set_bucket(&insert.bucket)
@@ -192,13 +180,35 @@ pub async fn objects_large_file(builder: storage::client::ClientBuilder) -> Resu
     // This should take multiple chunks to download.
     let mut got = bytes::BytesMut::new();
     let mut count = 0;
-    while let Some(chunk) = resp.next().await {
-        got.extend_from_slice(&chunk?);
+    while let Some(chunk) = resp.next().await.transpose()? {
+        got.extend_from_slice(&chunk);
         count += 1;
     }
     assert_eq!(got, contents);
     assert!(count > 1, "{count:?}");
     tracing::info!("success with large contents");
+
+    // Use futures::StreamExt for the download.
+    tracing::info!("testing read_object() using into_stream()");
+    use futures::StreamExt;
+    let mut stream = client
+        .read_object(&bucket.name, &insert.name)
+        .send()
+        .await?
+        .into_stream()
+        .enumerate();
+
+    // This should take multiple chunks to download.
+
+    got.clear();
+    let mut iteration = 0;
+    while let Some((i, chunk)) = stream.next().await {
+        got.extend_from_slice(&chunk?);
+        iteration = i;
+    }
+    assert_eq!(got, contents);
+    assert!(iteration > 1, "{iteration:?}");
+    tracing::info!("success with into_stream() large contents");
 
     control
         .delete_object()

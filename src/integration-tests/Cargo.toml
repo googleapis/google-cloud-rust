@@ -76,8 +76,9 @@ package = "google-cloud-sql-v1"
 path    = "../../src/generated/cloud/sql/v1"
 
 [dependencies.storage]
-package = "google-cloud-storage"
-path    = "../../src/storage"
+package  = "google-cloud-storage"
+path     = "../../src/storage"
+features = ["unstable-stream"]
 
 [dependencies.storage-control]
 package = "google-cloud-storage-control"
