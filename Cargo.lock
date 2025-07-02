@@ -4212,6 +4212,7 @@ dependencies = [
  "google-cloud-storage-control",
  "google-cloud-wkt",
  "http",
+ "http-body-util",
  "lazy_static",
  "percent-encoding",
  "reqwest",

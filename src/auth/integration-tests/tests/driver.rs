@@ -53,4 +53,10 @@ mod driver {
         auth_integration_tests::workload_identity_provider_executable_sourced(with_impersonation)
             .await
     }
+
+    #[cfg(all(test, feature = "run-byoid-integration-tests"))]
+    #[tokio::test(flavor = "multi_thread", worker_threads = 1)]
+    async fn run_workload_identity_provider_programmatic_sourced() -> anyhow::Result<()> {
+        auth_integration_tests::workload_identity_provider_programmatic_sourced().await
+    }
 }

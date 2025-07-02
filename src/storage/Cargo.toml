@@ -31,9 +31,10 @@ base64.workspace           = true
 bytes.workspace            = true
 futures                    = { workspace = true, optional = true }
 http.workspace             = true
+futures.workspace          = true
 lazy_static.workspace      = true
 percent-encoding.workspace = true
-reqwest.workspace          = true
+reqwest                    = { workspace = true, features = ["stream"] }
 serde.workspace            = true
 serde_json.workspace       = true
 serde_with.workspace       = true
@@ -52,8 +53,9 @@ wkt.workspace  = true
 unstable-stream = ["dep:futures", "reqwest/stream"]
 
 [dev-dependencies]
-anyhow.workspace     = true
-test-case.workspace  = true
-tempfile.workspace   = true
-tokio-test.workspace = true
-tokio.workspace      = true
+anyhow.workspace         = true
+http-body-util.workspace = true
+test-case.workspace      = true
+tempfile.workspace       = true
+tokio-test.workspace     = true
+tokio.workspace          = true
