@@ -77,13 +77,16 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.parent.as_str()),
-                &[],
-                &[Segment::MultiWildcard],
-                &[],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[],
+                        &[Segment::MultiWildcard],
+                        &[],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::storage::control::v2::Folder;
@@ -120,18 +123,21 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.name.as_str()),
-                &[],
-                &[
-                    Segment::Literal("projects/"),
-                    Segment::SingleWildcard,
-                    Segment::Literal("/buckets/"),
-                    Segment::SingleWildcard,
-                ],
-                &[Segment::MultiWildcard],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = ();
@@ -168,18 +174,21 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.name.as_str()),
-                &[],
-                &[
-                    Segment::Literal("projects/"),
-                    Segment::SingleWildcard,
-                    Segment::Literal("/buckets/"),
-                    Segment::SingleWildcard,
-                ],
-                &[Segment::MultiWildcard],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::storage::control::v2::Folder;
@@ -216,13 +225,16 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.parent.as_str()),
-                &[],
-                &[Segment::MultiWildcard],
-                &[],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[],
+                        &[Segment::MultiWildcard],
+                        &[],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::storage::control::v2::ListFoldersResponse;
@@ -259,18 +271,21 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.name.as_str()),
-                &[],
-                &[
-                    Segment::Literal("projects/"),
-                    Segment::SingleWildcard,
-                    Segment::Literal("/buckets/"),
-                    Segment::SingleWildcard,
-                ],
-                &[Segment::MultiWildcard],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::longrunning::Operation;
@@ -307,18 +322,21 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.name.as_str()),
-                &[],
-                &[
-                    Segment::Literal("projects/"),
-                    Segment::SingleWildcard,
-                    Segment::Literal("/buckets/"),
-                    Segment::SingleWildcard,
-                ],
-                &[Segment::MultiWildcard],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::storage::control::v2::StorageLayout;
@@ -355,13 +373,16 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.parent.as_str()),
-                &[],
-                &[Segment::MultiWildcard],
-                &[],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[],
+                        &[Segment::MultiWildcard],
+                        &[],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::storage::control::v2::ManagedFolder;
@@ -398,18 +419,21 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.name.as_str()),
-                &[],
-                &[
-                    Segment::Literal("projects/"),
-                    Segment::SingleWildcard,
-                    Segment::Literal("/buckets/"),
-                    Segment::SingleWildcard,
-                ],
-                &[Segment::MultiWildcard],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = ();
@@ -446,18 +470,21 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.name.as_str()),
-                &[],
-                &[
-                    Segment::Literal("projects/"),
-                    Segment::SingleWildcard,
-                    Segment::Literal("/buckets/"),
-                    Segment::SingleWildcard,
-                ],
-                &[Segment::MultiWildcard],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::storage::control::v2::ManagedFolder;
@@ -494,13 +521,16 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.parent.as_str()),
-                &[],
-                &[Segment::MultiWildcard],
-                &[],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[],
+                        &[Segment::MultiWildcard],
+                        &[],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::storage::control::v2::ListManagedFoldersResponse;
@@ -537,13 +567,16 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.parent.as_str()),
-                &[],
-                &[Segment::MultiWildcard],
-                &[],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[],
+                        &[Segment::MultiWildcard],
+                        &[],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::longrunning::Operation;
@@ -580,20 +613,24 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req)
-                    .and_then(|v| v.anywhere_cache.as_ref())
-                    .map(|v| v.name.as_str()),
-                &[],
-                &[
-                    Segment::Literal("projects/"),
-                    Segment::SingleWildcard,
-                    Segment::Literal("/buckets/"),
-                    Segment::SingleWildcard,
-                ],
-                &[Segment::MultiWildcard],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req)
+                            .and_then(|m| m.anywhere_cache.as_ref())
+                            .map(|m| &m.name)
+                            .map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::longrunning::Operation;
@@ -630,18 +667,21 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.name.as_str()),
-                &[],
-                &[
-                    Segment::Literal("projects/"),
-                    Segment::SingleWildcard,
-                    Segment::Literal("/buckets/"),
-                    Segment::SingleWildcard,
-                ],
-                &[Segment::MultiWildcard],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
@@ -678,18 +718,21 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.name.as_str()),
-                &[],
-                &[
-                    Segment::Literal("projects/"),
-                    Segment::SingleWildcard,
-                    Segment::Literal("/buckets/"),
-                    Segment::SingleWildcard,
-                ],
-                &[Segment::MultiWildcard],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
@@ -726,18 +769,21 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.name.as_str()),
-                &[],
-                &[
-                    Segment::Literal("projects/"),
-                    Segment::SingleWildcard,
-                    Segment::Literal("/buckets/"),
-                    Segment::SingleWildcard,
-                ],
-                &[Segment::MultiWildcard],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
@@ -774,18 +820,21 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.name.as_str()),
-                &[],
-                &[
-                    Segment::Literal("projects/"),
-                    Segment::SingleWildcard,
-                    Segment::Literal("/buckets/"),
-                    Segment::SingleWildcard,
-                ],
-                &[Segment::MultiWildcard],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.name).map(|s| s.as_str()),
+                        &[],
+                        &[
+                            Segment::Literal("projects/"),
+                            Segment::SingleWildcard,
+                            Segment::Literal("/buckets/"),
+                            Segment::SingleWildcard,
+                        ],
+                        &[Segment::MultiWildcard],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::storage::control::v2::AnywhereCache;
@@ -822,13 +871,16 @@ impl super::stub::StorageControl for StorageControl {
         );
         let x_goog_request_params = {
             use gaxi::routing_parameter::Segment;
-            gaxi::routing_parameter::format(&[gaxi::routing_parameter::value(
-                Some(&req).map(|v| v.parent.as_str()),
-                &[],
-                &[Segment::MultiWildcard],
-                &[],
-            )
-            .map(|v| ("bucket", v))])
+            gaxi::routing_parameter::format(&[None
+                .or_else(|| {
+                    gaxi::routing_parameter::value(
+                        Some(&req).map(|m| &m.parent).map(|s| s.as_str()),
+                        &[],
+                        &[Segment::MultiWildcard],
+                        &[],
+                    )
+                })
+                .map(|v| ("bucket", v))])
         };
 
         type TR = crate::google::storage::control::v2::ListAnywhereCachesResponse;
@@ -863,9 +915,13 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetProjectIntelligenceConfig",
         );
-        let x_goog_request_params = [format!("name={}", req.name)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         self.inner
@@ -899,14 +955,13 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/UpdateProjectIntelligenceConfig",
         );
-        let x_goog_request_params = [format!(
-            "intelligence_config.name={}",
-            req.intelligence_config
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("intelligence_config"))?
-                .name
-        )]
+        let x_goog_request_params = [Some(&req)
+            .and_then(|m| m.intelligence_config.as_ref())
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("intelligence_config.name={v}"))]
         .into_iter()
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
@@ -941,9 +996,13 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetFolderIntelligenceConfig",
         );
-        let x_goog_request_params = [format!("name={}", req.name)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         self.inner
@@ -977,14 +1036,13 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/UpdateFolderIntelligenceConfig",
         );
-        let x_goog_request_params = [format!(
-            "intelligence_config.name={}",
-            req.intelligence_config
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("intelligence_config"))?
-                .name
-        )]
+        let x_goog_request_params = [Some(&req)
+            .and_then(|m| m.intelligence_config.as_ref())
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("intelligence_config.name={v}"))]
         .into_iter()
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
@@ -1019,9 +1077,13 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetOrganizationIntelligenceConfig",
         );
-        let x_goog_request_params = [format!("name={}", req.name)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
         self.inner
@@ -1055,14 +1117,13 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/UpdateOrganizationIntelligenceConfig",
         );
-        let x_goog_request_params = [format!(
-            "intelligence_config.name={}",
-            req.intelligence_config
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("intelligence_config"))?
-                .name
-        )]
+        let x_goog_request_params = [Some(&req)
+            .and_then(|m| m.intelligence_config.as_ref())
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("intelligence_config.name={v}"))]
         .into_iter()
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::storage::control::v2::IntelligenceConfig;
@@ -1097,9 +1158,13 @@ impl super::stub::StorageControl for StorageControl {
         let path = http::uri::PathAndQuery::from_static(
             "/google.storage.control.v2.StorageControl/GetOperation",
         );
-        let x_goog_request_params = [format!("name={}", req.name)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::longrunning::Operation;
         self.inner

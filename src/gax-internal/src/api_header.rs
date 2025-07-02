@@ -113,9 +113,7 @@ mod test {
             got.as_ref()
                 .map(|s| want.contains(s) && !s.is_empty())
                 .unwrap_or(false),
-            "mismatched rustc version {} and {:?}",
-            want,
-            got
+            "mismatched rustc version {want} and {got:?}"
         );
     }
 
@@ -146,9 +144,7 @@ mod test {
             got.as_ref()
                 .map(|s| want.contains(s) && !s.is_empty())
                 .unwrap_or(false),
-            "mismatched rustc version {} and {:?}",
-            want,
-            got
+            "mismatched rustc version {want} and {got:?}"
         );
     }
 }

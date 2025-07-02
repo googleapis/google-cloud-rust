@@ -128,6 +128,51 @@ where
     }
 
     #[tracing::instrument(ret)]
+    async fn list_authz_extensions(
+        &self,
+        req: crate::model::ListAuthzExtensionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListAuthzExtensionsResponse>> {
+        self.inner.list_authz_extensions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_authz_extension(
+        &self,
+        req: crate::model::GetAuthzExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::AuthzExtension>> {
+        self.inner.get_authz_extension(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_authz_extension(
+        &self,
+        req: crate::model::CreateAuthzExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_authz_extension(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_authz_extension(
+        &self,
+        req: crate::model::UpdateAuthzExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_authz_extension(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_authz_extension(
+        &self,
+        req: crate::model::DeleteAuthzExtensionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_authz_extension(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
     async fn list_locations(
         &self,
         req: location::model::ListLocationsRequest,
@@ -288,6 +333,87 @@ where
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         self.inner.delete_endpoint_policy(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_wasm_plugin_versions(
+        &self,
+        req: crate::model::ListWasmPluginVersionsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListWasmPluginVersionsResponse>> {
+        self.inner.list_wasm_plugin_versions(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_wasm_plugin_version(
+        &self,
+        req: crate::model::GetWasmPluginVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::WasmPluginVersion>> {
+        self.inner.get_wasm_plugin_version(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_wasm_plugin_version(
+        &self,
+        req: crate::model::CreateWasmPluginVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_wasm_plugin_version(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_wasm_plugin_version(
+        &self,
+        req: crate::model::DeleteWasmPluginVersionRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_wasm_plugin_version(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn list_wasm_plugins(
+        &self,
+        req: crate::model::ListWasmPluginsRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::ListWasmPluginsResponse>> {
+        self.inner.list_wasm_plugins(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn get_wasm_plugin(
+        &self,
+        req: crate::model::GetWasmPluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<crate::model::WasmPlugin>> {
+        self.inner.get_wasm_plugin(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn create_wasm_plugin(
+        &self,
+        req: crate::model::CreateWasmPluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.create_wasm_plugin(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn update_wasm_plugin(
+        &self,
+        req: crate::model::UpdateWasmPluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.update_wasm_plugin(req, options).await
+    }
+
+    #[tracing::instrument(ret)]
+    async fn delete_wasm_plugin(
+        &self,
+        req: crate::model::DeleteWasmPluginRequest,
+        options: gax::options::RequestOptions,
+    ) -> Result<gax::response::Response<longrunning::model::Operation>> {
+        self.inner.delete_wasm_plugin(req, options).await
     }
 
     #[tracing::instrument(ret)]

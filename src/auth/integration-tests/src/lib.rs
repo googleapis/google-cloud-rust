@@ -16,8 +16,11 @@ use auth::credentials::{
     Builder as AccessTokenCredentialBuilder,
     api_key_credentials::Builder as ApiKeyCredentialsBuilder,
     external_account::Builder as ExternalAccountCredentialsBuilder,
+    impersonated::Builder as ImpersonatedCredentialsBuilder,
+    service_account::Builder as ServiceAccountCredentialsBuilder,
 };
 use bigquery::client::DatasetService;
+use gax::error::rpc::Code;
 use httptest::{Expectation, Server, matchers::*, responders::*};
 use iamcredentials::client::IAMCredentials;
 use language::client::LanguageService;
@@ -37,8 +40,7 @@ pub async fn service_account() -> anyhow::Result<()> {
     let response = client
         .access_secret_version()
         .set_name(format!(
-            "projects/{}/secrets/test-sa-creds-json/versions/latest",
-            project
+            "projects/{project}/secrets/test-sa-creds-json/versions/latest"
         ))
         .send()
         .await?;
@@ -66,8 +68,7 @@ pub async fn service_account() -> anyhow::Result<()> {
     let response = client
         .access_secret_version()
         .set_name(format!(
-            "projects/{}/secrets/test-sa-creds-secret/versions/latest",
-            project
+            "projects/{project}/secrets/test-sa-creds-secret/versions/latest"
         ))
         .send()
         .await?;
@@ -76,6 +77,92 @@ pub async fn service_account() -> anyhow::Result<()> {
         .expect("missing payload in test-sa-creds-secret response")
         .data;
     assert_eq!(secret, "service_account");
+
+    Ok(())
+}
+
+pub async fn impersonated() -> anyhow::Result<()> {
+    let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
+
+    // Create a SecretManager client. When running on GCB, this loads MDS
+    // credentials for our `integration-test-runner` service account.
+    let client = SecretManagerService::builder().build().await?;
+
+    // Load the service account json that will be the source credential
+    let response = client
+        .access_secret_version()
+        .set_name(format!(
+            "projects/{project}/secrets/test-sa-creds-json/versions/latest"
+        ))
+        .send()
+        .await?;
+    let source_sa_json = response
+        .payload
+        .expect("missing payload in test-sa-creds-json response")
+        .data;
+
+    let source_sa_json: serde_json::Value = serde_json::from_slice(&source_sa_json)?;
+
+    let source_sa_creds = ServiceAccountCredentialsBuilder::new(source_sa_json).build()?;
+
+    let impersonated_creds =
+        ImpersonatedCredentialsBuilder::from_source_credentials(source_sa_creds.clone())
+            .with_target_principal(format!(
+                "impersonation-target@{project}.iam.gserviceaccount.com"
+            ))
+            .build()?;
+
+    let client = SecretManagerService::builder()
+        .with_credentials(impersonated_creds)
+        .build()
+        .await?;
+
+    // Access a secret, which only this principal has permissions to do.
+    let response = client
+        .access_secret_version()
+        .set_name(format!(
+            "projects/{project}/secrets/impersonation-target-secret/versions/latest"
+        ))
+        .send()
+        .await?;
+    let secret = response
+        .payload
+        .expect("missing payload in impersonation-target-secret response")
+        .data;
+    assert_eq!(secret, "impersonated_secret_value");
+
+    // Verify that using the source credential directly does not work
+    let client_with_source_creds = SecretManagerService::builder()
+        .with_credentials(source_sa_creds)
+        .build()
+        .await?;
+    let result = client_with_source_creds
+        .access_secret_version()
+        .set_name(format!(
+            "projects/{project}/secrets/impersonation-target-secret/versions/latest"
+        ))
+        .send()
+        .await;
+
+    match result {
+        Ok(_) => panic!(
+            "source credentials should not have access to the secret, but the call succeeded"
+        ),
+        Err(e) => {
+            // The error `e` from a client call is of type `google_cloud_gax::error::Error`.
+            // We can inspect it to see if it's the error we expect.
+            // In this case, we expect a `PermissionDenied` error from the service.
+            if let Some(status) = e.status() {
+                assert_eq!(
+                    status.code,
+                    Code::PermissionDenied,
+                    "Expected PermissionDenied, but got a different status: {status:?}"
+                );
+            } else {
+                panic!("Expected a service error, but got a different kind of error: {e}");
+            }
+        }
+    }
 
     Ok(())
 }
@@ -91,8 +178,7 @@ pub async fn api_key() -> anyhow::Result<()> {
     let response = client
         .access_secret_version()
         .set_name(format!(
-            "projects/{}/secrets/test-api-key/versions/latest",
-            project
+            "projects/{project}/secrets/test-api-key/versions/latest",
         ))
         .send()
         .await?;
@@ -120,7 +206,9 @@ pub async fn api_key() -> anyhow::Result<()> {
     Ok(())
 }
 
-pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
+pub async fn workload_identity_provider_url_sourced(
+    with_impersonation: bool,
+) -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
     let audience = get_oidc_audience();
     let (service_account, client_email) = get_byoid_service_account_and_email();
@@ -140,7 +228,7 @@ pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
         .respond_with(json_encoded(source_token_response_body)),
     );
 
-    let contents = serde_json::json!({
+    let mut contents = serde_json::json!({
       "type": "external_account",
       "audience": audience,
       "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
@@ -156,6 +244,16 @@ pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
         }
       }
     });
+
+    if with_impersonation {
+        let impersonated_email =
+            "impersonation-target@cloud-sdk-auth-test-project.iam.gserviceaccount.com";
+        let impersonation_url = format!(
+            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{impersonated_email}:generateAccessToken"
+        );
+        contents["service_account_impersonation_url"] =
+            serde_json::Value::String(impersonation_url);
+    }
 
     // Create external account with Url sourced creds
     let creds = ExternalAccountCredentialsBuilder::new(contents).build()?;
@@ -177,7 +275,9 @@ pub async fn workload_identity_provider_url_sourced() -> anyhow::Result<()> {
     Ok(())
 }
 
-pub async fn workload_identity_provider_executable_sourced() -> anyhow::Result<()> {
+pub async fn workload_identity_provider_executable_sourced(
+    with_impersonation: bool,
+) -> anyhow::Result<()> {
     // allow command execution
     let _e = ScopedEnv::set("GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES", "1");
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
@@ -200,7 +300,7 @@ pub async fn workload_identity_provider_executable_sourced() -> anyhow::Result<(
         .expect("Unable to write to temp file with id token");
 
     let path = path.to_str().unwrap();
-    let contents = serde_json::json!({
+    let mut contents = serde_json::json!({
       "type": "external_account",
       "audience": audience,
       "subject_token_type": "urn:ietf:params:oauth:token-type:jwt",
@@ -211,6 +311,16 @@ pub async fn workload_identity_provider_executable_sourced() -> anyhow::Result<(
         },
       }
     });
+
+    if with_impersonation {
+        let impersonated_email =
+            "impersonation-target@cloud-sdk-auth-test-project.iam.gserviceaccount.com";
+        let impersonation_url = format!(
+            "https://iamcredentials.googleapis.com/v1/projects/-/serviceAccounts/{impersonated_email}:generateAccessToken"
+        );
+        contents["service_account_impersonation_url"] =
+            serde_json::Value::String(impersonation_url);
+    }
 
     // Create external account with Url sourced creds
     let creds = ExternalAccountCredentialsBuilder::new(contents).build()?;
@@ -278,8 +388,8 @@ fn get_byoid_service_account_and_email() -> (serde_json::Value, String) {
 }
 
 fn get_byoid_service_account() -> serde_json::Value {
-    let path = std::env::var("GOOGLE_WORKLOAD_IDENTITY_CREDENTIALS")
-        .expect("GOOGLE_WORKLOAD_IDENTITY_CREDENTIALS not set");
+    let path = std::env::var("GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT")
+        .expect("GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT not set");
 
     let service_account_content =
         std::fs::read_to_string(path).expect("unable to read service account");

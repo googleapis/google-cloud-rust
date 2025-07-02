@@ -74,9 +74,13 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/GetDocument");
-        let x_goog_request_params = [format!("name={}", req.name)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::Document;
         self.inner
@@ -110,10 +114,17 @@ impl super::stub::Firestore for Firestore {
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/ListDocuments");
         let x_goog_request_params = [
-            format!("parent={}", req.parent),
-            format!("collection_id={}", req.collection_id),
+            Some(&req)
+                .map(|m| &m.parent)
+                .map(|s| s.as_str())
+                .map(|v| format!("parent={v}")),
+            Some(&req)
+                .map(|m| &m.collection_id)
+                .map(|s| s.as_str())
+                .map(|v| format!("collection_id={v}")),
         ]
         .into_iter()
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::ListDocumentsResponse;
@@ -147,14 +158,13 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/UpdateDocument");
-        let x_goog_request_params = [format!(
-            "document.name={}",
-            req.document
-                .as_ref()
-                .ok_or_else(|| gaxi::path_parameter::missing("document"))?
-                .name
-        )]
+        let x_goog_request_params = [Some(&req)
+            .and_then(|m| m.document.as_ref())
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("document.name={v}"))]
         .into_iter()
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::Document;
@@ -188,9 +198,13 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/DeleteDocument");
-        let x_goog_request_params = [format!("name={}", req.name)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.name)
+            .map(|s| s.as_str())
+            .map(|v| format!("name={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
         self.inner
@@ -223,9 +237,13 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/BeginTransaction");
-        let x_goog_request_params = [format!("database={}", req.database)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.database)
+            .map(|s| s.as_str())
+            .map(|v| format!("database={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::BeginTransactionResponse;
         self.inner
@@ -257,9 +275,13 @@ impl super::stub::Firestore for Firestore {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Commit");
-        let x_goog_request_params = [format!("database={}", req.database)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.database)
+            .map(|s| s.as_str())
+            .map(|v| format!("database={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::CommitResponse;
         self.inner
@@ -291,9 +313,13 @@ impl super::stub::Firestore for Firestore {
             e
         };
         let path = http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/Rollback");
-        let x_goog_request_params = [format!("database={}", req.database)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.database)
+            .map(|s| s.as_str())
+            .map(|v| format!("database={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = ();
         self.inner
@@ -326,9 +352,13 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/PartitionQuery");
-        let x_goog_request_params = [format!("parent={}", req.parent)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.parent)
+            .map(|s| s.as_str())
+            .map(|v| format!("parent={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::PartitionQueryResponse;
         self.inner
@@ -362,9 +392,13 @@ impl super::stub::Firestore for Firestore {
         let path = http::uri::PathAndQuery::from_static(
             "/google.firestore.v1.Firestore/ListCollectionIds",
         );
-        let x_goog_request_params = [format!("parent={}", req.parent)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.parent)
+            .map(|s| s.as_str())
+            .map(|v| format!("parent={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::ListCollectionIdsResponse;
         self.inner
@@ -397,9 +431,13 @@ impl super::stub::Firestore for Firestore {
         };
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/BatchWrite");
-        let x_goog_request_params = [format!("database={}", req.database)]
-            .into_iter()
-            .fold(String::new(), |b, p| b + "&" + &p);
+        let x_goog_request_params = [Some(&req)
+            .map(|m| &m.database)
+            .map(|s| s.as_str())
+            .map(|v| format!("database={v}"))]
+        .into_iter()
+        .flatten()
+        .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::BatchWriteResponse;
         self.inner
@@ -433,10 +471,17 @@ impl super::stub::Firestore for Firestore {
         let path =
             http::uri::PathAndQuery::from_static("/google.firestore.v1.Firestore/CreateDocument");
         let x_goog_request_params = [
-            format!("parent={}", req.parent),
-            format!("collection_id={}", req.collection_id),
+            Some(&req)
+                .map(|m| &m.parent)
+                .map(|s| s.as_str())
+                .map(|v| format!("parent={v}")),
+            Some(&req)
+                .map(|m| &m.collection_id)
+                .map(|s| s.as_str())
+                .map(|v| format!("collection_id={v}")),
         ]
         .into_iter()
+        .flatten()
         .fold(String::new(), |b, p| b + "&" + &p);
 
         type TR = crate::google::firestore::v1::Document;

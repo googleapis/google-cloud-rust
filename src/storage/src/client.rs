@@ -345,7 +345,7 @@ impl InsertObject {
                 format!("{}/upload/storage/v1/b/{bucket_id}/o", &self.inner.endpoint),
             )
             .query(&[("uploadType", "media")])
-            .query(&[("name", object)])
+            .query(&[("name", enc(object))])
             .header("content-type", "application/octet-stream")
             .header(
                 "x-goog-api-client",
@@ -388,6 +388,42 @@ impl InsertObject {
         self.request.common_object_request_params = Some(v.into());
         self
     }
+}
+
+/// The set of characters that are percent encoded.
+///
+/// This set is defined at https://cloud.google.com/storage/docs/request-endpoints#encoding:
+///
+/// Encode the following characters when they appear in either the object name
+/// or query string of a request URL:
+///     !, #, $, &, ', (, ), *, +, ,, /, :, ;, =, ?, @, [, ], and space characters.
+const ENCODED_CHARS: percent_encoding::AsciiSet = percent_encoding::CONTROLS
+    .add(b'!')
+    .add(b'#')
+    .add(b'$')
+    .add(b'&')
+    .add(b'\'')
+    .add(b'(')
+    .add(b')')
+    .add(b'*')
+    .add(b'+')
+    .add(b',')
+    .add(b'/')
+    .add(b':')
+    .add(b';')
+    .add(b'=')
+    .add(b'?')
+    .add(b'@')
+    .add(b'[')
+    .add(b']')
+    .add(b' ');
+
+/// Percent encode a string.
+///
+/// To ensure compatibility certain characters need to be encoded when they appear
+/// in either the object name or query string of a request URL.
+fn enc(value: &str) -> String {
+    percent_encoding::utf8_percent_encode(value, &ENCODED_CHARS).to_string()
 }
 
 /// The request builder for [Storage::read_object][crate::client::Storage::read_object] calls.
@@ -632,8 +668,9 @@ impl ReadObject {
             .request(
                 reqwest::Method::GET,
                 format!(
-                    "{}/storage/v1/b/{bucket_id}/o/{object}",
-                    &self.inner.endpoint
+                    "{}/storage/v1/b/{bucket_id}/o/{}",
+                    &self.inner.endpoint,
+                    enc(&object)
                 ),
             )
             .query(&[("alt", "media")])
@@ -684,10 +721,10 @@ impl ReadObject {
             (0, 0) => Ok(builder),
             // read_limit is zero, means no limit. Read from offset to end of file.
             // This handles cases like (5, 0) -> "bytes=5-"
-            (o, 0) => Ok(builder.header("range", format!("bytes={}-", o))),
+            (o, 0) => Ok(builder.header("range", format!("bytes={o}-"))),
             // General case: non-negative offset and positive limit.
             // This covers cases like (0, 100) -> "bytes=0-99", (5, 100) -> "bytes=5-104"
-            (o, l) => Ok(builder.header("range", format!("bytes={}-{}", o, o + l - 1))),
+            (o, l) => Ok(builder.header("range", format!("bytes={o}-{}", o + l - 1))),
         }
         .map_err(Error::ser)?;
 
@@ -737,13 +774,13 @@ impl ReadObjectResponse {
     ///     .send()
     ///     .await?;
     ///
-    /// while let Some(next) = resp.next().await? {
-    ///     println!("next={next:?}");
+    /// while let Some(next) = resp.next().await {
+    ///     println!("next={:?}", next?);
     /// }
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
-    pub async fn next(&mut self) -> Result<Option<bytes::Bytes>> {
-        self.inner.chunk().await.map_err(Error::io)
+    pub async fn next(&mut self) -> Option<Result<bytes::Bytes>> {
+        self.inner.chunk().await.map_err(Error::io).transpose()
     }
 
     #[cfg(feature = "unstable-stream")]
@@ -1101,6 +1138,58 @@ mod tests {
                 bytes::Bytes::from(value)
             );
         }
+        Ok(())
+    }
+
+    #[test_case("projects/p", "projects%2Fp")]
+    #[test_case("kebab-case", "kebab-case")]
+    #[test_case("dot.name", "dot.name")]
+    #[test_case("under_score", "under_score")]
+    #[test_case("tilde~123", "tilde~123")]
+    #[test_case("exclamation!point!", "exclamation%21point%21")]
+    #[test_case("spaces   spaces", "spaces%20%20%20spaces")]
+    #[test_case("preserve%percent%21", "preserve%percent%21")]
+    #[test_case(
+        "testall !#$&'()*+,/:;=?@[]",
+        "testall%20%21%23%24%26%27%28%29%2A%2B%2C%2F%3A%3B%3D%3F%40%5B%5D"
+    )]
+    #[tokio::test]
+    async fn test_percent_encoding_object_name(name: &str, want: &str) -> Result {
+        let client = Storage::builder()
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+
+        let insert_object_builder = client
+            .insert_object("projects/_/buckets/bucket", name, "hello")
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        let got = insert_object_builder
+            .url()
+            .query_pairs()
+            .find_map(|(key, val)| match key.to_string().as_str() {
+                "name" => Some(val.to_string()),
+                _ => None,
+            })
+            .unwrap();
+        assert_eq!(got, want);
+
+        let read_object_request_builder = client
+            .read_object("projects/_/buckets/bucket", name)
+            .http_request_builder()
+            .await?
+            .build()?;
+
+        let got = read_object_request_builder
+            .url()
+            .path_segments()
+            .unwrap()
+            .next_back()
+            .unwrap();
+        assert_eq!(got, want);
+
         Ok(())
     }
 

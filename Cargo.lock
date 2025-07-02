@@ -108,6 +108,7 @@ dependencies = [
  "serde_json",
  "serial_test",
  "tempfile",
+ "test-case",
  "tokio",
 ]
 
@@ -530,6 +531,12 @@ name = "fastrand"
 version = "2.3.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "37909eebbb50d72f9059c3b6d82c0463f2ff062c9e95845c43a6c9c0355411be"
+
+[[package]]
+name = "fixedbitset"
+version = "0.5.7"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1d674e81391d1e1ab681a28d99df07927c6d4aa5b027d7da16ba32d1d21ecd99"
 
 [[package]]
 name = "fnv"
@@ -2070,6 +2077,7 @@ dependencies = [
  "google-cloud-location",
  "google-cloud-longrunning",
  "google-cloud-lro",
+ "google-cloud-rpc",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -2995,6 +3003,27 @@ dependencies = [
  "google-cloud-gax-internal",
  "google-cloud-longrunning",
  "google-cloud-lro",
+ "google-cloud-wkt",
+ "lazy_static",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "serde_with",
+ "tokio-test",
+ "tracing",
+]
+
+[[package]]
+name = "google-cloud-managedkafka-schemaregistry-v1"
+version = "0.4.0"
+dependencies = [
+ "async-trait",
+ "bytes",
+ "google-cloud-api",
+ "google-cloud-gax",
+ "google-cloud-gax-internal",
+ "google-cloud-location",
+ "google-cloud-longrunning",
  "google-cloud-wkt",
  "lazy_static",
  "reqwest",
@@ -4184,11 +4213,13 @@ dependencies = [
  "google-cloud-wkt",
  "http",
  "lazy_static",
+ "percent-encoding",
  "reqwest",
  "serde",
  "serde_json",
  "serde_with",
  "sha2",
+ "tempfile",
  "test-case",
  "thiserror",
  "tokio",
@@ -4830,6 +4861,12 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "5971ac85611da7067dbfcabef3c70ebb5606018acd9e2a3903a0da507521e0d5"
 
 [[package]]
+name = "heck"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "2304e00983f87ffb38b55b444b5e3b60a884b5d30c0fca7d82fe33449bbe55ea"
+
+[[package]]
 name = "hex"
 version = "0.4.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5153,6 +5190,7 @@ dependencies = [
  "google-cloud-bigquery-v2",
  "google-cloud-firestore",
  "google-cloud-gax",
+ "google-cloud-gax-internal",
  "google-cloud-iam-v1",
  "google-cloud-longrunning",
  "google-cloud-lro",
@@ -5339,6 +5377,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "multimap"
+version = "0.10.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1d87ecb2933e8aeadb3e3a02b828fed80a7528047e68b4f424523a0981a3a084"
+
+[[package]]
 name = "mutants"
 version = "0.0.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -5461,6 +5505,16 @@ name = "percent-encoding"
 version = "2.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e3148f5046208a5d56bcfc03053e3ca6334e51da8dfb19b6cdc8b306fae3283e"
+
+[[package]]
+name = "petgraph"
+version = "0.7.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "3672b37090dbd86368a4145bc067582552b29c27377cad4e0a306c97f9bd7772"
+dependencies = [
+ "fixedbitset",
+ "indexmap 2.9.0",
+]
 
 [[package]]
 name = "pin-project"
@@ -5592,6 +5646,26 @@ checksum = "2796faa41db3ec313a31f7624d9286acf277b52de526150b7e69f3debf891ee5"
 dependencies = [
  "bytes",
  "prost-derive",
+]
+
+[[package]]
+name = "prost-build"
+version = "0.13.5"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "be769465445e8c1474e9c5dac2018218498557af32d9ed057325ec9a41ae81bf"
+dependencies = [
+ "heck",
+ "itertools",
+ "log",
+ "multimap",
+ "once_cell",
+ "petgraph",
+ "prettyplease",
+ "prost",
+ "prost-types",
+ "regex",
+ "syn",
+ "tempfile",
 ]
 
 [[package]]
@@ -6337,6 +6411,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "e8a64e3985349f2441a1a9ef0b853f869006c3855f2cda6862a94d26ebb9d6a1"
 dependencies = [
  "fastrand",
+ "getrandom 0.3.3",
  "once_cell",
  "rustix",
  "windows-sys 0.59.0",
@@ -6581,6 +6656,8 @@ checksum = "eac6f67be712d12f0b41328db3137e0d0757645d8904b4cb7d51cd9c2279e847"
 dependencies = [
  "prettyplease",
  "proc-macro2",
+ "prost-build",
+ "prost-types",
  "quote",
  "syn",
 ]

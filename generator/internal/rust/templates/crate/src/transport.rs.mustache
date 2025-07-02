@@ -68,55 +68,80 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         req: {{InputType.Codec.QualifiedName}},
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<{{Codec.ReturnType}}>> {
+        use gax::error::binding::BindingError;
+        use gaxi::path_parameter::PathMismatchBuilder;
+        {{#Codec.HasBindingSubstitutions}}
+        use gaxi::path_parameter::try_match;
+        use gaxi::routing_parameter::Segment;
+        {{/Codec.HasBindingSubstitutions}}
+        let (builder, method) = None
+        {{#PathInfo.Bindings}}
+        .or_else(|| {
+            {{#Codec.HasVariablePath}}
+            let path = format!(
+                "{{Codec.PathFmt}}",
+                {{#Codec.Substitutions}}
+                try_match({{{FieldAccessor}}}, {{{TemplateAsArray}}})?,
+                {{/Codec.Substitutions}}
+            );
+            {{/Codec.HasVariablePath}}
+            {{^Codec.HasVariablePath}}
+            let path = "{{Codec.PathFmt}}".to_string();
+            {{/Codec.HasVariablePath}}
+
+            let builder = self
+                .inner
+                .builder(reqwest::Method::{{Verb}}, path);
+            {{#Codec.QueryParamsCanFail}}
+            let builder = (|| {
+                {{#Codec.QueryParams}}
+                {{{Codec.AddQueryParameter}}}
+                {{/Codec.QueryParams}}
+                Ok(builder)
+            })();
+            {{/Codec.QueryParamsCanFail}}
+            {{^Codec.QueryParamsCanFail}}
+            {{#Codec.QueryParams}}
+            {{{Codec.AddQueryParameter}}}
+            {{/Codec.QueryParams}}
+            let builder = Ok(builder);
+            {{/Codec.QueryParamsCanFail}}
+            Some(builder.map(|b| (b, reqwest::Method::{{Verb}})))
+        })
+        {{/PathInfo.Bindings}}
+        .ok_or_else(|| {
+            let mut paths = Vec::new();
+            {{#PathInfo.Bindings}}
+            {
+                let builder = PathMismatchBuilder::default();
+                {{#Codec.Substitutions}}
+                let builder = builder.maybe_add(
+                    {{{FieldAccessor}}},
+                    {{{TemplateAsArray}}},
+                    "{{FieldName}}",
+                    "{{{TemplateAsString}}}");
+                {{/Codec.Substitutions}}
+                paths.push(builder.build());
+            }
+            {{/PathInfo.Bindings}}
+            gax::error::Error::binding(BindingError { paths })
+        })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
-            {{PathInfo.Codec.IsIdempotent}},
+            gaxi::http::default_idempotency(&method),
         );
-        let path =
-            {{^PathInfo.Codec.HasPathArgs}}
-            {{! Sometimes there are no path args and `format!()` produces warnings }}
-            "{{PathInfo.Codec.PathFmt}}".to_string();
-            {{/PathInfo.Codec.HasPathArgs}}
-            {{#PathInfo.Codec.HasPathArgs}}
-            format!("{{PathInfo.Codec.PathFmt}}",
-                {{#PathInfo.Codec.PathArgs}}
-                    {
-                        {{#CheckForEmpty}}
-                        let arg = &req{{{Accessor}}};
-                        if arg.is_empty() {
-                            return Err(gaxi::path_parameter::missing("{{Name}}"));
-                        }
-                        arg
-                        {{/CheckForEmpty}}
-                        {{^CheckForEmpty}}
-                        &req{{{Accessor}}}
-                        {{/CheckForEmpty}}
-                    },
-                {{/PathInfo.Codec.PathArgs}}
-            );
-            {{/PathInfo.Codec.HasPathArgs}}
-        let builder = self
-            .inner
-            .builder(reqwest::Method::{{PathInfo.Codec.Method}}, path)
-            {{#Codec.SystemParameters}}
-            .query(&[("{{Name}}", "{{Value}}")])
-            {{/Codec.SystemParameters}}
-            .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
-        {{#Codec.QueryParams}}
-        {{{Codec.AddQueryParameter}}}
-        {{/Codec.QueryParams}}
+        let builder = builder
+                {{#Codec.SystemParameters}}
+                .query(&[("{{Name}}", "{{Value}}")])
+                {{/Codec.SystemParameters}}
+                .header("x-goog-api-client", reqwest::header::HeaderValue::from_static(&crate::info::X_GOOG_API_CLIENT_HEADER));
         self.inner.execute(
             builder,
             {{#PathInfo.Codec.HasBody}}
             Some(req{{Codec.BodyAccessor}}),
             {{/PathInfo.Codec.HasBody}}
             {{^PathInfo.Codec.HasBody}}
-            {{#PathInfo.Codec.RequiresContentLength}}
-            Some(gaxi::http::NoBody),
-            {{/PathInfo.Codec.RequiresContentLength}}
-            {{^PathInfo.Codec.RequiresContentLength}}
-            None::<gaxi::http::NoBody>,
-            {{/PathInfo.Codec.RequiresContentLength}}
+            gaxi::http::NoBody::new(&method),
             {{/PathInfo.Codec.HasBody}}
             options,
         ).await

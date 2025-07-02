@@ -92,6 +92,17 @@ type serviceAnnotations struct {
 	Incomplete bool
 }
 
+func (m *methodAnnotation) HasBindingSubstitutions() bool {
+	for _, b := range m.PathInfo.Bindings {
+		for _, s := range b.PathTemplate.Segments {
+			if s.Variable != nil {
+				return true
+			}
+		}
+	}
+	return false
+}
+
 // If true, this service includes methods that return long-running operations.
 func (s *serviceAnnotations) HasLROs() bool {
 	return len(s.LROTypes) > 0
@@ -156,7 +167,6 @@ type methodAnnotation struct {
 	BuilderName         string
 	DocLines            []string
 	PathInfo            *api.PathInfo
-	QueryParams         []*api.Field
 	BodyAccessor        string
 	ServiceNameToPascal string
 	ServiceNameToCamel  string
@@ -169,18 +179,23 @@ type methodAnnotation struct {
 }
 
 type pathInfoAnnotation struct {
-	Method        string
-	MethodToLower string
-	PathFmt       string
-	PathArgs      []pathArg
-	HasPathArgs   bool
-	HasBody       bool
-}
+	// Whether the request has a body or not
+	HasBody bool
 
-// Returns true if the HTTP request requires a payload. This is relevant for
-// POST and PUT requests that do not have a body parameter.
-func (a *pathInfoAnnotation) RequiresContentLength() bool {
-	return a.Method == "POST" || a.Method == "PUT"
+	// A list of possible request parameters
+	//
+	// This is only used for gRPC-based clients, where we must consider all
+	// possible request parameters.
+	//
+	// https://google.aip.dev/client-libraries/4222
+	//
+	// Templates are ignored. We only care about the FieldName and FieldAccessor.
+	UniqueParameters []*bindingSubstitution
+
+	// Whether this is idempotent by default
+	//
+	// This is only used for gRPC-based clients.
+	IsIdempotent string
 }
 
 type operationInfo struct {
@@ -206,11 +221,54 @@ func (info *operationInfo) NoneAreEmpty() bool {
 }
 
 type routingVariantAnnotations struct {
-	FirstVariant     bool
 	FieldAccessors   []string
 	PrefixSegments   []string
 	MatchingSegments []string
 	SuffixSegments   []string
+}
+
+type bindingSubstitution struct {
+	// Rust code to access the leaf field, given a `req`
+	//
+	// This field can be deeply nested. We need to capture code for the entire
+	// chain. This accessor always returns an `Option<&T>`, even for fields
+	// which are always present. This simplifies the mustache templates.
+	//
+	// The accessor should not
+	// - copy any fields
+	// - move any fields
+	// - panic
+	// - assume context i.e. use the try operator: `?`
+	FieldAccessor string
+
+	// The field name
+	//
+	// Nested fields are '.'-separated.
+	//
+	// e.g. "message_field.nested_field"
+	FieldName string
+
+	// The path template to match this substitution against
+	//
+	// e.g. ["projects", "*"]
+	Template []string
+}
+
+// Rust code that yields an array of path segments.
+//
+// This array is supplied as an argument to `gaxi::path_parameter::try_match()`,
+// and `gaxi::path_parameter::PathMismatchBuilder`.
+//
+// e.g.: `&[Segment::Literal("projects/"), Segment::SingleWildcard]`
+func (s *bindingSubstitution) TemplateAsArray() string {
+	return "&[" + strings.Join(annotateSegments(s.Template), ", ") + "]"
+}
+
+// The expected template, which can be used as a static string.
+//
+// e.g.: "projects/*"
+func (s *bindingSubstitution) TemplateAsString() string {
+	return strings.Join(s.Template, "/")
 }
 
 type pathBindingAnnotation struct {
@@ -221,6 +279,25 @@ type pathBindingAnnotation struct {
 
 	// The fields to be sent as query parameters for this binding
 	QueryParams []*api.Field
+
+	// The variables to be substituted into the path
+	Substitutions []*bindingSubstitution
+}
+
+// We serialize certain query parameters, which can fail. The code we generate
+// uses the try operator '?'. We need to run this code in a closure which
+// returns a `Result<>`.
+func (b *pathBindingAnnotation) QueryParamsCanFail() bool {
+	for _, f := range b.QueryParams {
+		if f.Typez == api.MESSAGE_TYPE {
+			return true
+		}
+	}
+	return false
+}
+
+func (b *pathBindingAnnotation) HasVariablePath() bool {
+	return len(b.Substitutions) != 0
 }
 
 type oneOfAnnotation struct {
@@ -570,28 +647,10 @@ func (c *codec) annotateMessage(m *api.Message, state *api.APIState, sourceSpeci
 }
 
 func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIState, sourceSpecificationPackageName string, packageNamespace string) {
-	// TODO(#2317) - move to pathBindingAnnotation
-	if len(m.PathInfo.Bindings) != 0 {
-		pathInfoAnnotation := &pathInfoAnnotation{
-			Method:        m.PathInfo.Bindings[0].Verb,
-			MethodToLower: strings.ToLower(m.PathInfo.Bindings[0].Verb),
-			PathFmt:       httpPathFmt(m.PathInfo.Bindings[0].PathTemplate),
-			PathArgs:      httpPathArgs(m.PathInfo, m, state),
-			HasBody:       m.PathInfo.BodyFieldPath != "",
-		}
-		pathInfoAnnotation.HasPathArgs = len(pathInfoAnnotation.PathArgs) > 0
-		m.PathInfo.Codec = pathInfoAnnotation
-	} else {
-		// Even when there are no bindings, we still want a concrete
-		// annotation, which we use to determine the default idempotency
-		// of the method. An empty annotation yields `false`.
-		m.PathInfo.Codec = &pathInfoAnnotation{}
-	}
-
+	annotatePathInfo(m.PathInfo, m, state)
 	for _, routing := range m.Routing {
-		for index, variant := range routing.Variants {
+		for _, variant := range routing.Variants {
 			routingVariantAnnotations := &routingVariantAnnotations{
-				FirstVariant:     index == 0,
 				FieldAccessors:   c.annotateRoutingAccessors(variant, m, state),
 				PrefixSegments:   annotateSegments(variant.Prefix.Segments),
 				MatchingSegments: annotateSegments(variant.Matching.Segments),
@@ -600,27 +659,17 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 			variant.Codec = routingVariantAnnotations
 		}
 	}
-
-	for _, b := range m.PathInfo.Bindings {
-		annotatePathBinding(b, m, state)
-	}
 	returnType := c.methodInOutTypeName(m.OutputTypeID, state, sourceSpecificationPackageName)
 	if m.ReturnsEmpty {
 		returnType = "()"
 	}
 	serviceName := c.ServiceName(s)
-	// TODO(#2317) - move query params into pathBindingAnnotation
-	var query_params []*api.Field
-	if len(m.PathInfo.Bindings) != 0 {
-		query_params = language.QueryParams(m, m.PathInfo.Bindings[0])
-	}
 	annotation := &methodAnnotation{
 		Name:                strcase.ToSnake(m.Name),
 		BuilderName:         toPascal(m.Name),
 		BodyAccessor:        bodyAccessor(m),
 		DocLines:            c.formatDocComments(m.Documentation, m.ID, state, s.Scopes()),
 		PathInfo:            m.PathInfo,
-		QueryParams:         query_params,
 		ServiceNameToPascal: toPascal(serviceName),
 		ServiceNameToCamel:  toCamel(serviceName),
 		ServiceNameToSnake:  toSnake(serviceName),
@@ -646,6 +695,10 @@ func (c *codec) annotateMethod(m *api.Method, s *api.Service, state *api.APIStat
 }
 
 func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api.Method, state *api.APIState) []string {
+	return makeAccessors(variant.FieldPath, m, state)
+}
+
+func makeAccessors(fields []string, m *api.Method, state *api.APIState) []string {
 	findField := func(name string, message *api.Message) *api.Field {
 		for _, f := range message.Fields {
 			if f.Name == name {
@@ -656,19 +709,19 @@ func (c *codec) annotateRoutingAccessors(variant *api.RoutingInfoVariant, m *api
 	}
 	var accessors []string
 	message := m.InputType
-	for _, name := range variant.FieldPath {
+	for _, name := range fields {
 		field := findField(name, message)
 		if field == nil {
-			slog.Error("invalid routing field for request message", "field", name, "message ID", message.ID)
+			slog.Error("invalid routing/path field for request message", "field", name, "message ID", message.ID)
 			continue
 		}
-		switch {
-		case field.Optional:
-			accessors = append(accessors, fmt.Sprintf(".and_then(|v| v.%s.as_ref())", name))
-		case field.Typez == api.STRING_TYPE:
-			accessors = append(accessors, fmt.Sprintf(".map(|v| v.%s.as_str())", name))
-		default:
-			accessors = append(accessors, fmt.Sprintf(".map(|v| &v.%s)", name))
+		if field.Optional {
+			accessors = append(accessors, fmt.Sprintf(".and_then(|m| m.%s.as_ref())", name))
+		} else {
+			accessors = append(accessors, fmt.Sprintf(".map(|m| &m.%s)", name))
+		}
+		if field.Typez == api.STRING_TYPE {
+			accessors = append(accessors, ".map(|s| s.as_str())")
 		}
 		if field.Typez == api.MESSAGE_TYPE {
 			if fieldMessage, ok := state.MessageByID[field.TypezID]; ok {
@@ -692,7 +745,7 @@ func annotateSegments(segments []string) []string {
 	}
 	for index, segment := range segments {
 		switch {
-		case segment == api.RoutingMultiSegmentWildcard:
+		case segment == api.MultiSegmentWildcard:
 			flushBuffer()
 			if len(segments) == 1 {
 				ann = append(ann, "Segment::MultiWildcard")
@@ -701,7 +754,7 @@ func annotateSegments(segments []string) []string {
 			} else {
 				ann = append(ann, "Segment::TrailingMultiWildcard")
 			}
-		case segment == api.RoutingSingleSegmentWildcard:
+		case segment == api.SingleSegmentWildcard:
 			if index != 0 {
 				literalBuffer += "/"
 			}
@@ -718,10 +771,59 @@ func annotateSegments(segments []string) []string {
 	return ann
 }
 
-func annotatePathBinding(b *api.PathBinding, m *api.Method, _state *api.APIState) {
-	b.Codec = &pathBindingAnnotation{
-		PathFmt:     httpPathFmt(b.PathTemplate),
-		QueryParams: language.QueryParams(m, b),
+func makeBindingSubstitution(v *api.PathVariable, m *api.Method, state *api.APIState) bindingSubstitution {
+	fieldAccessor := "Some(&req)"
+	for _, a := range makeAccessors(v.FieldPath, m, state) {
+		fieldAccessor += a
+	}
+	return bindingSubstitution{
+		FieldAccessor: fieldAccessor,
+		FieldName:     strings.Join(v.FieldPath, "."),
+		Template:      v.Segments,
+	}
+}
+
+func annotatePathBinding(b *api.PathBinding, m *api.Method, state *api.APIState) *pathBindingAnnotation {
+	var subs []*bindingSubstitution
+	for _, s := range b.PathTemplate.Segments {
+		if s.Variable != nil {
+			sub := makeBindingSubstitution(s.Variable, m, state)
+			subs = append(subs, &sub)
+		}
+	}
+	return &pathBindingAnnotation{
+		PathFmt:       httpPathFmt(b.PathTemplate),
+		QueryParams:   language.QueryParams(m, b),
+		Substitutions: subs,
+	}
+}
+
+// Annotates the `PathInfo` and all of its `PathBinding`s.
+func annotatePathInfo(p *api.PathInfo, m *api.Method, state *api.APIState) {
+	seen := make(map[string]bool)
+	var uniqueParameters []*bindingSubstitution
+
+	for _, b := range p.Bindings {
+		ann := annotatePathBinding(b, m, state)
+
+		// We need to keep track of unique path parameters to support
+		// implicit routing over gRPC. This is go/aip/4222.
+		for _, s := range ann.Substitutions {
+			if _, ok := seen[s.FieldName]; !ok {
+				uniqueParameters = append(uniqueParameters, s)
+				seen[s.FieldName] = true
+			}
+		}
+
+		// Annotate the `PathBinding`
+		b.Codec = ann
+	}
+
+	// Annotate the `PathInfo`
+	p.Codec = &pathInfoAnnotation{
+		HasBody:          m.PathInfo.BodyFieldPath != "",
+		UniqueParameters: uniqueParameters,
+		IsIdempotent:     isIdempotent(p),
 	}
 }
 
@@ -895,9 +997,14 @@ func (c *codec) annotateEnumValue(ev *api.EnumValue, e *api.Enum, state *api.API
 }
 
 // Returns "true" if the method is idempotent by default, and "false", if not.
-func (p *pathInfoAnnotation) IsIdempotent() string {
-	if p.Method == "GET" || p.Method == "PUT" || p.Method == "DELETE" {
-		return "true"
+func isIdempotent(p *api.PathInfo) string {
+	if len(p.Bindings) == 0 {
+		return "false"
 	}
-	return "false"
+	for _, b := range p.Bindings {
+		if b.Verb == "POST" || b.Verb == "PATCH" {
+			return "false"
+		}
+	}
+	return "true"
 }

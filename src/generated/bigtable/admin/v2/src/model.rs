@@ -16207,7 +16207,8 @@ impl serde::ser::Serialize for CreateAuthorizedViewRequest {
 #[derive(Clone, Debug, Default, PartialEq)]
 #[non_exhaustive]
 pub struct CreateAuthorizedViewMetadata {
-    /// The request that prompted the initiation of this CreateInstance operation.
+    /// The request that prompted the initiation of this CreateAuthorizedView
+    /// operation.
     pub original_request: std::option::Option<crate::model::CreateAuthorizedViewRequest>,
 
     /// The time at which the original request was received.
@@ -16443,8 +16444,8 @@ pub struct ListAuthorizedViewsRequest {
     /// Optional. The value of `next_page_token` returned by a previous call.
     pub page_token: std::string::String,
 
-    /// Optional. The resource_view to be applied to the returned views' fields.
-    /// Default to NAME_ONLY.
+    /// Optional. The resource_view to be applied to the returned AuthorizedViews'
+    /// fields. Default to NAME_ONLY.
     pub view: crate::model::authorized_view::ResponseView,
 
     _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
@@ -17014,8 +17015,8 @@ impl serde::ser::Serialize for GetAuthorizedViewRequest {
 pub struct UpdateAuthorizedViewRequest {
     /// Required. The AuthorizedView to update. The `name` in `authorized_view` is
     /// used to identify the AuthorizedView. AuthorizedView name must in this
-    /// format
-    /// projects/\<project\>/instances/\<instance\>/tables/\<table\>/authorizedViews/<authorized_view>
+    /// format:
+    /// `projects/{project}/instances/{instance}/tables/{table}/authorizedViews/{authorized_view}`.
     pub authorized_view: std::option::Option<crate::model::AuthorizedView>,
 
     /// Optional. The list of fields to update.
@@ -17579,6 +17580,1516 @@ impl<'de> serde::de::Deserialize<'de> for DeleteAuthorizedViewRequest {
 
 #[doc(hidden)]
 impl serde::ser::Serialize for DeleteAuthorizedViewRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// The request for
+/// [CreateSchemaBundle][google.bigtable.admin.v2.BigtableTableAdmin.CreateSchemaBundle].
+///
+/// [google.bigtable.admin.v2.BigtableTableAdmin.CreateSchemaBundle]: crate::client::BigtableTableAdmin::create_schema_bundle
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateSchemaBundleRequest {
+    /// Required. The parent resource where this schema bundle will be created.
+    /// Values are of the form
+    /// `projects/{project}/instances/{instance}/tables/{table}`.
+    pub parent: std::string::String,
+
+    /// Required. The unique ID to use for the schema bundle, which will become the
+    /// final component of the schema bundle's resource name.
+    pub schema_bundle_id: std::string::String,
+
+    /// Required. The schema bundle to create.
+    pub schema_bundle: std::option::Option<crate::model::SchemaBundle>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateSchemaBundleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::CreateSchemaBundleRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [schema_bundle_id][crate::model::CreateSchemaBundleRequest::schema_bundle_id].
+    pub fn set_schema_bundle_id<T: std::convert::Into<std::string::String>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.schema_bundle_id = v.into();
+        self
+    }
+
+    /// Sets the value of [schema_bundle][crate::model::CreateSchemaBundleRequest::schema_bundle].
+    pub fn set_schema_bundle<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SchemaBundle>,
+    {
+        self.schema_bundle = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [schema_bundle][crate::model::CreateSchemaBundleRequest::schema_bundle].
+    pub fn set_or_clear_schema_bundle<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SchemaBundle>,
+    {
+        self.schema_bundle = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateSchemaBundleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.CreateSchemaBundleRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateSchemaBundleRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __schema_bundle_id,
+            __schema_bundle,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateSchemaBundleRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "schemaBundleId" => Ok(__FieldTag::__schema_bundle_id),
+                            "schema_bundle_id" => Ok(__FieldTag::__schema_bundle_id),
+                            "schemaBundle" => Ok(__FieldTag::__schema_bundle),
+                            "schema_bundle" => Ok(__FieldTag::__schema_bundle),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateSchemaBundleRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateSchemaBundleRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__schema_bundle_id => {
+                            if !fields.insert(__FieldTag::__schema_bundle_id) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for schema_bundle_id",
+                                ));
+                            }
+                            result.schema_bundle_id = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__schema_bundle => {
+                            if !fields.insert(__FieldTag::__schema_bundle) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for schema_bundle",
+                                ));
+                            }
+                            result.schema_bundle = map
+                                .next_value::<std::option::Option<crate::model::SchemaBundle>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateSchemaBundleRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !self.schema_bundle_id.is_empty() {
+            state.serialize_entry("schemaBundleId", &self.schema_bundle_id)?;
+        }
+        if self.schema_bundle.is_some() {
+            state.serialize_entry("schemaBundle", &self.schema_bundle)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// The metadata for the Operation returned by
+/// [CreateSchemaBundle][google.bigtable.admin.v2.BigtableTableAdmin.CreateSchemaBundle].
+///
+/// [google.bigtable.admin.v2.BigtableTableAdmin.CreateSchemaBundle]: crate::client::BigtableTableAdmin::create_schema_bundle
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct CreateSchemaBundleMetadata {
+    /// The unique name identifying this schema bundle.
+    /// Values are of the form
+    /// `projects/{project}/instances/{instance}/tables/{table}/schemaBundles/{schema_bundle}`
+    pub name: std::string::String,
+
+    /// The time at which this operation started.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// If set, the time at which this operation finished or was canceled.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl CreateSchemaBundleMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::CreateSchemaBundleMetadata::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::CreateSchemaBundleMetadata::start_time].
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::CreateSchemaBundleMetadata::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::CreateSchemaBundleMetadata::end_time].
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::CreateSchemaBundleMetadata::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for CreateSchemaBundleMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.CreateSchemaBundleMetadata"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for CreateSchemaBundleMetadata {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __start_time,
+            __end_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for CreateSchemaBundleMetadata")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "startTime" => Ok(__FieldTag::__start_time),
+                            "start_time" => Ok(__FieldTag::__start_time),
+                            "endTime" => Ok(__FieldTag::__end_time),
+                            "end_time" => Ok(__FieldTag::__end_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = CreateSchemaBundleMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct CreateSchemaBundleMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__start_time => {
+                            if !fields.insert(__FieldTag::__start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_time",
+                                ));
+                            }
+                            result.start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__end_time => {
+                            if !fields.insert(__FieldTag::__end_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_time",
+                                ));
+                            }
+                            result.end_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for CreateSchemaBundleMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// The request for
+/// [UpdateSchemaBundle][google.bigtable.admin.v2.BigtableTableAdmin.UpdateSchemaBundle].
+///
+/// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateSchemaBundle]: crate::client::BigtableTableAdmin::update_schema_bundle
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateSchemaBundleRequest {
+    /// Required. The schema bundle to update.
+    ///
+    /// The schema bundle's `name` field is used to identify the schema bundle to
+    /// update. Values are of the form
+    /// `projects/{project}/instances/{instance}/tables/{table}/schemaBundles/{schema_bundle}`
+    pub schema_bundle: std::option::Option<crate::model::SchemaBundle>,
+
+    /// Optional. The list of fields to update.
+    pub update_mask: std::option::Option<wkt::FieldMask>,
+
+    /// Optional. If set, ignore the safety checks when updating the Schema Bundle.
+    /// The safety checks are:
+    ///
+    /// - The new Schema Bundle is backwards compatible with the existing Schema
+    ///   Bundle.
+    pub ignore_warnings: bool,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateSchemaBundleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [schema_bundle][crate::model::UpdateSchemaBundleRequest::schema_bundle].
+    pub fn set_schema_bundle<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<crate::model::SchemaBundle>,
+    {
+        self.schema_bundle = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [schema_bundle][crate::model::UpdateSchemaBundleRequest::schema_bundle].
+    pub fn set_or_clear_schema_bundle<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<crate::model::SchemaBundle>,
+    {
+        self.schema_bundle = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [update_mask][crate::model::UpdateSchemaBundleRequest::update_mask].
+    pub fn set_update_mask<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [update_mask][crate::model::UpdateSchemaBundleRequest::update_mask].
+    pub fn set_or_clear_update_mask<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::FieldMask>,
+    {
+        self.update_mask = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [ignore_warnings][crate::model::UpdateSchemaBundleRequest::ignore_warnings].
+    pub fn set_ignore_warnings<T: std::convert::Into<bool>>(mut self, v: T) -> Self {
+        self.ignore_warnings = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateSchemaBundleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.UpdateSchemaBundleRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateSchemaBundleRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __schema_bundle,
+            __update_mask,
+            __ignore_warnings,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateSchemaBundleRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "schemaBundle" => Ok(__FieldTag::__schema_bundle),
+                            "schema_bundle" => Ok(__FieldTag::__schema_bundle),
+                            "updateMask" => Ok(__FieldTag::__update_mask),
+                            "update_mask" => Ok(__FieldTag::__update_mask),
+                            "ignoreWarnings" => Ok(__FieldTag::__ignore_warnings),
+                            "ignore_warnings" => Ok(__FieldTag::__ignore_warnings),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateSchemaBundleRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateSchemaBundleRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__schema_bundle => {
+                            if !fields.insert(__FieldTag::__schema_bundle) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for schema_bundle",
+                                ));
+                            }
+                            result.schema_bundle = map
+                                .next_value::<std::option::Option<crate::model::SchemaBundle>>()?;
+                        }
+                        __FieldTag::__update_mask => {
+                            if !fields.insert(__FieldTag::__update_mask) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for update_mask",
+                                ));
+                            }
+                            result.update_mask =
+                                map.next_value::<std::option::Option<wkt::FieldMask>>()?;
+                        }
+                        __FieldTag::__ignore_warnings => {
+                            if !fields.insert(__FieldTag::__ignore_warnings) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for ignore_warnings",
+                                ));
+                            }
+                            result.ignore_warnings = map
+                                .next_value::<std::option::Option<bool>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateSchemaBundleRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if self.schema_bundle.is_some() {
+            state.serialize_entry("schemaBundle", &self.schema_bundle)?;
+        }
+        if self.update_mask.is_some() {
+            state.serialize_entry("updateMask", &self.update_mask)?;
+        }
+        if !wkt::internal::is_default(&self.ignore_warnings) {
+            state.serialize_entry("ignoreWarnings", &self.ignore_warnings)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// The metadata for the Operation returned by
+/// [UpdateSchemaBundle][google.bigtable.admin.v2.BigtableTableAdmin.UpdateSchemaBundle].
+///
+/// [google.bigtable.admin.v2.BigtableTableAdmin.UpdateSchemaBundle]: crate::client::BigtableTableAdmin::update_schema_bundle
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct UpdateSchemaBundleMetadata {
+    /// The unique name identifying this schema bundle.
+    /// Values are of the form
+    /// `projects/{project}/instances/{instance}/tables/{table}/schemaBundles/{schema_bundle}`
+    pub name: std::string::String,
+
+    /// The time at which this operation started.
+    pub start_time: std::option::Option<wkt::Timestamp>,
+
+    /// If set, the time at which this operation finished or was canceled.
+    pub end_time: std::option::Option<wkt::Timestamp>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl UpdateSchemaBundleMetadata {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::UpdateSchemaBundleMetadata::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [start_time][crate::model::UpdateSchemaBundleMetadata::start_time].
+    pub fn set_start_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [start_time][crate::model::UpdateSchemaBundleMetadata::start_time].
+    pub fn set_or_clear_start_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.start_time = v.map(|x| x.into());
+        self
+    }
+
+    /// Sets the value of [end_time][crate::model::UpdateSchemaBundleMetadata::end_time].
+    pub fn set_end_time<T>(mut self, v: T) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = std::option::Option::Some(v.into());
+        self
+    }
+
+    /// Sets or clears the value of [end_time][crate::model::UpdateSchemaBundleMetadata::end_time].
+    pub fn set_or_clear_end_time<T>(mut self, v: std::option::Option<T>) -> Self
+    where
+        T: std::convert::Into<wkt::Timestamp>,
+    {
+        self.end_time = v.map(|x| x.into());
+        self
+    }
+}
+
+impl wkt::message::Message for UpdateSchemaBundleMetadata {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.UpdateSchemaBundleMetadata"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for UpdateSchemaBundleMetadata {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __start_time,
+            __end_time,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for UpdateSchemaBundleMetadata")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "startTime" => Ok(__FieldTag::__start_time),
+                            "start_time" => Ok(__FieldTag::__start_time),
+                            "endTime" => Ok(__FieldTag::__end_time),
+                            "end_time" => Ok(__FieldTag::__end_time),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = UpdateSchemaBundleMetadata;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct UpdateSchemaBundleMetadata")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__start_time => {
+                            if !fields.insert(__FieldTag::__start_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for start_time",
+                                ));
+                            }
+                            result.start_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::__end_time => {
+                            if !fields.insert(__FieldTag::__end_time) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for end_time",
+                                ));
+                            }
+                            result.end_time =
+                                map.next_value::<std::option::Option<wkt::Timestamp>>()?;
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for UpdateSchemaBundleMetadata {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if self.start_time.is_some() {
+            state.serialize_entry("startTime", &self.start_time)?;
+        }
+        if self.end_time.is_some() {
+            state.serialize_entry("endTime", &self.end_time)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// The request for
+/// [GetSchemaBundle][google.bigtable.admin.v2.BigtableTableAdmin.GetSchemaBundle].
+///
+/// [google.bigtable.admin.v2.BigtableTableAdmin.GetSchemaBundle]: crate::client::BigtableTableAdmin::get_schema_bundle
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct GetSchemaBundleRequest {
+    /// Required. The unique name of the schema bundle to retrieve.
+    /// Values are of the form
+    /// `projects/{project}/instances/{instance}/tables/{table}/schemaBundles/{schema_bundle}`
+    pub name: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl GetSchemaBundleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::GetSchemaBundleRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for GetSchemaBundleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.GetSchemaBundleRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for GetSchemaBundleRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for GetSchemaBundleRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = GetSchemaBundleRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct GetSchemaBundleRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for GetSchemaBundleRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// The request for
+/// [ListSchemaBundles][google.bigtable.admin.v2.BigtableTableAdmin.ListSchemaBundles].
+///
+/// [google.bigtable.admin.v2.BigtableTableAdmin.ListSchemaBundles]: crate::client::BigtableTableAdmin::list_schema_bundles
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSchemaBundlesRequest {
+    /// Required. The parent, which owns this collection of schema bundles.
+    /// Values are of the form
+    /// `projects/{project}/instances/{instance}/tables/{table}`.
+    pub parent: std::string::String,
+
+    /// The maximum number of schema bundles to return. If the value is positive,
+    /// the server may return at most this value. If unspecified, the server will
+    /// return the maximum allowed page size.
+    pub page_size: i32,
+
+    /// A page token, received from a previous `ListSchemaBundles` call.
+    /// Provide this to retrieve the subsequent page.
+    ///
+    /// When paginating, all other parameters provided to `ListSchemaBundles` must
+    /// match the call that provided the page token.
+    pub page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSchemaBundlesRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [parent][crate::model::ListSchemaBundlesRequest::parent].
+    pub fn set_parent<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.parent = v.into();
+        self
+    }
+
+    /// Sets the value of [page_size][crate::model::ListSchemaBundlesRequest::page_size].
+    pub fn set_page_size<T: std::convert::Into<i32>>(mut self, v: T) -> Self {
+        self.page_size = v.into();
+        self
+    }
+
+    /// Sets the value of [page_token][crate::model::ListSchemaBundlesRequest::page_token].
+    pub fn set_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSchemaBundlesRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.ListSchemaBundlesRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListSchemaBundlesRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __parent,
+            __page_size,
+            __page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListSchemaBundlesRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "parent" => Ok(__FieldTag::__parent),
+                            "pageSize" => Ok(__FieldTag::__page_size),
+                            "page_size" => Ok(__FieldTag::__page_size),
+                            "pageToken" => Ok(__FieldTag::__page_token),
+                            "page_token" => Ok(__FieldTag::__page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListSchemaBundlesRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListSchemaBundlesRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__parent => {
+                            if !fields.insert(__FieldTag::__parent) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for parent",
+                                ));
+                            }
+                            result.parent = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__page_size => {
+                            if !fields.insert(__FieldTag::__page_size) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_size",
+                                ));
+                            }
+                            struct __With(std::option::Option<i32>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<wkt::internal::I32> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.page_size = map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::__page_token => {
+                            if !fields.insert(__FieldTag::__page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for page_token",
+                                ));
+                            }
+                            result.page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListSchemaBundlesRequest {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.parent.is_empty() {
+            state.serialize_entry("parent", &self.parent)?;
+        }
+        if !wkt::internal::is_default(&self.page_size) {
+            struct __With<'a>(&'a i32);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<wkt::internal::I32>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("pageSize", &__With(&self.page_size))?;
+        }
+        if !self.page_token.is_empty() {
+            state.serialize_entry("pageToken", &self.page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// The response for
+/// [ListSchemaBundles][google.bigtable.admin.v2.BigtableTableAdmin.ListSchemaBundles].
+///
+/// [google.bigtable.admin.v2.BigtableTableAdmin.ListSchemaBundles]: crate::client::BigtableTableAdmin::list_schema_bundles
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ListSchemaBundlesResponse {
+    /// The schema bundles from the specified table.
+    pub schema_bundles: std::vec::Vec<crate::model::SchemaBundle>,
+
+    /// A token, which can be sent as `page_token` to retrieve the next page.
+    /// If this field is omitted, there are no subsequent pages.
+    pub next_page_token: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ListSchemaBundlesResponse {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [schema_bundles][crate::model::ListSchemaBundlesResponse::schema_bundles].
+    pub fn set_schema_bundles<T, V>(mut self, v: T) -> Self
+    where
+        T: std::iter::IntoIterator<Item = V>,
+        V: std::convert::Into<crate::model::SchemaBundle>,
+    {
+        use std::iter::Iterator;
+        self.schema_bundles = v.into_iter().map(|i| i.into()).collect();
+        self
+    }
+
+    /// Sets the value of [next_page_token][crate::model::ListSchemaBundlesResponse::next_page_token].
+    pub fn set_next_page_token<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.next_page_token = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ListSchemaBundlesResponse {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.ListSchemaBundlesResponse"
+    }
+}
+
+#[doc(hidden)]
+impl gax::paginator::internal::PageableResponse for ListSchemaBundlesResponse {
+    type PageItem = crate::model::SchemaBundle;
+
+    fn items(self) -> std::vec::Vec<Self::PageItem> {
+        self.schema_bundles
+    }
+
+    fn next_page_token(&self) -> std::string::String {
+        use std::clone::Clone;
+        self.next_page_token.clone()
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ListSchemaBundlesResponse {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __schema_bundles,
+            __next_page_token,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ListSchemaBundlesResponse")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "schemaBundles" => Ok(__FieldTag::__schema_bundles),
+                            "schema_bundles" => Ok(__FieldTag::__schema_bundles),
+                            "nextPageToken" => Ok(__FieldTag::__next_page_token),
+                            "next_page_token" => Ok(__FieldTag::__next_page_token),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ListSchemaBundlesResponse;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ListSchemaBundlesResponse")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__schema_bundles => {
+                            if !fields.insert(__FieldTag::__schema_bundles) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for schema_bundles",
+                                ));
+                            }
+                            result.schema_bundles = map.next_value::<std::option::Option<std::vec::Vec<crate::model::SchemaBundle>>>()?.unwrap_or_default();
+                        }
+                        __FieldTag::__next_page_token => {
+                            if !fields.insert(__FieldTag::__next_page_token) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for next_page_token",
+                                ));
+                            }
+                            result.next_page_token = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ListSchemaBundlesResponse {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.schema_bundles.is_empty() {
+            state.serialize_entry("schemaBundles", &self.schema_bundles)?;
+        }
+        if !self.next_page_token.is_empty() {
+            state.serialize_entry("nextPageToken", &self.next_page_token)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// The request for
+/// [DeleteSchemaBundle][google.bigtable.admin.v2.BigtableTableAdmin.DeleteSchemaBundle].
+///
+/// [google.bigtable.admin.v2.BigtableTableAdmin.DeleteSchemaBundle]: crate::client::BigtableTableAdmin::delete_schema_bundle
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct DeleteSchemaBundleRequest {
+    /// Required. The unique name of the schema bundle to delete.
+    /// Values are of the form
+    /// `projects/{project}/instances/{instance}/tables/{table}/schemaBundles/{schema_bundle}`
+    pub name: std::string::String,
+
+    /// Optional. The etag of the schema bundle.
+    /// If this is provided, it must match the server's etag. The server
+    /// returns an ABORTED error on a mismatched etag.
+    pub etag: std::string::String,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl DeleteSchemaBundleRequest {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::DeleteSchemaBundleRequest::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::DeleteSchemaBundleRequest::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for DeleteSchemaBundleRequest {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.DeleteSchemaBundleRequest"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for DeleteSchemaBundleRequest {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __etag,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for DeleteSchemaBundleRequest")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "etag" => Ok(__FieldTag::__etag),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = DeleteSchemaBundleRequest;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct DeleteSchemaBundleRequest")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for DeleteSchemaBundleRequest {
     fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
     where
         S: serde::ser::Serializer,
@@ -27715,6 +29226,415 @@ impl serde::ser::Serialize for BackupInfo {
             }
         }
         state.end()
+    }
+}
+
+/// Represents a protobuf schema.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct ProtoSchema {
+    /// Required. Contains a protobuf-serialized
+    /// [google.protobuf.FileDescriptorSet](https://github.com/protocolbuffers/protobuf/blob/main/src/google/protobuf/descriptor.proto),
+    /// which could include multiple proto files.
+    /// To generate it, [install](https://grpc.io/docs/protoc-installation/) and
+    /// run `protoc` with
+    /// `--include_imports` and `--descriptor_set_out`. For example, to generate
+    /// for moon/shot/app.proto, run
+    ///
+    /// ```norust
+    /// $protoc  --proto_path=/app_path --proto_path=/lib_path \
+    ///          --include_imports \
+    ///          --descriptor_set_out=descriptors.pb \
+    ///          moon/shot/app.proto
+    /// ```
+    ///
+    /// For more details, see protobuffer [self
+    /// description](https://developers.google.com/protocol-buffers/docs/techniques#self-description).
+    pub proto_descriptors: ::bytes::Bytes,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl ProtoSchema {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [proto_descriptors][crate::model::ProtoSchema::proto_descriptors].
+    pub fn set_proto_descriptors<T: std::convert::Into<::bytes::Bytes>>(mut self, v: T) -> Self {
+        self.proto_descriptors = v.into();
+        self
+    }
+}
+
+impl wkt::message::Message for ProtoSchema {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.ProtoSchema"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for ProtoSchema {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __proto_descriptors,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for ProtoSchema")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "protoDescriptors" => Ok(__FieldTag::__proto_descriptors),
+                            "proto_descriptors" => Ok(__FieldTag::__proto_descriptors),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = ProtoSchema;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct ProtoSchema")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__proto_descriptors => {
+                            if !fields.insert(__FieldTag::__proto_descriptors) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for proto_descriptors",
+                                ));
+                            }
+                            struct __With(std::option::Option<::bytes::Bytes>);
+                            impl<'de> serde::de::Deserialize<'de> for __With {
+                                fn deserialize<D>(
+                                    deserializer: D,
+                                ) -> std::result::Result<Self, D::Error>
+                                where
+                                    D: serde::de::Deserializer<'de>,
+                                {
+                                    serde_with::As::< std::option::Option<serde_with::base64::Base64> >::deserialize(deserializer).map(__With)
+                                }
+                            }
+                            result.proto_descriptors =
+                                map.next_value::<__With>()?.0.unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for ProtoSchema {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.proto_descriptors.is_empty() {
+            struct __With<'a>(&'a ::bytes::Bytes);
+            impl<'a> serde::ser::Serialize for __With<'a> {
+                fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+                where
+                    S: serde::ser::Serializer,
+                {
+                    serde_with::As::<serde_with::base64::Base64>::serialize(self.0, serializer)
+                }
+            }
+            state.serialize_entry("protoDescriptors", &__With(&self.proto_descriptors))?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// A named collection of related schemas.
+#[derive(Clone, Debug, Default, PartialEq)]
+#[non_exhaustive]
+pub struct SchemaBundle {
+    /// Identifier. The unique name identifying this schema bundle.
+    /// Values are of the form
+    /// `projects/{project}/instances/{instance}/tables/{table}/schemaBundles/{schema_bundle}`
+    pub name: std::string::String,
+
+    /// Optional. The etag for this schema bundle.
+    /// This may be sent on update and delete requests to ensure the
+    /// client has an up-to-date value before proceeding. The server
+    /// returns an ABORTED error on a mismatched etag.
+    pub etag: std::string::String,
+
+    /// The type of this schema bundle. The oneof case cannot change after
+    /// creation.
+    pub r#type: std::option::Option<crate::model::schema_bundle::Type>,
+
+    _unknown_fields: serde_json::Map<std::string::String, serde_json::Value>,
+}
+
+impl SchemaBundle {
+    pub fn new() -> Self {
+        std::default::Default::default()
+    }
+
+    /// Sets the value of [name][crate::model::SchemaBundle::name].
+    pub fn set_name<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.name = v.into();
+        self
+    }
+
+    /// Sets the value of [etag][crate::model::SchemaBundle::etag].
+    pub fn set_etag<T: std::convert::Into<std::string::String>>(mut self, v: T) -> Self {
+        self.etag = v.into();
+        self
+    }
+
+    /// Sets the value of [r#type][crate::model::SchemaBundle::type].
+    ///
+    /// Note that all the setters affecting `r#type` are mutually
+    /// exclusive.
+    pub fn set_type<
+        T: std::convert::Into<std::option::Option<crate::model::schema_bundle::Type>>,
+    >(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type = v.into();
+        self
+    }
+
+    /// The value of [r#type][crate::model::SchemaBundle::r#type]
+    /// if it holds a `ProtoSchema`, `None` if the field is not set or
+    /// holds a different branch.
+    pub fn proto_schema(&self) -> std::option::Option<&std::boxed::Box<crate::model::ProtoSchema>> {
+        #[allow(unreachable_patterns)]
+        self.r#type.as_ref().and_then(|v| match v {
+            crate::model::schema_bundle::Type::ProtoSchema(v) => std::option::Option::Some(v),
+            _ => std::option::Option::None,
+        })
+    }
+
+    /// Sets the value of [r#type][crate::model::SchemaBundle::r#type]
+    /// to hold a `ProtoSchema`.
+    ///
+    /// Note that all the setters affecting `r#type` are
+    /// mutually exclusive.
+    pub fn set_proto_schema<T: std::convert::Into<std::boxed::Box<crate::model::ProtoSchema>>>(
+        mut self,
+        v: T,
+    ) -> Self {
+        self.r#type =
+            std::option::Option::Some(crate::model::schema_bundle::Type::ProtoSchema(v.into()));
+        self
+    }
+}
+
+impl wkt::message::Message for SchemaBundle {
+    fn typename() -> &'static str {
+        "type.googleapis.com/google.bigtable.admin.v2.SchemaBundle"
+    }
+}
+
+#[doc(hidden)]
+impl<'de> serde::de::Deserialize<'de> for SchemaBundle {
+    fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+    where
+        D: serde::Deserializer<'de>,
+    {
+        #[allow(non_camel_case_types)]
+        #[doc(hidden)]
+        #[derive(PartialEq, Eq, Hash)]
+        enum __FieldTag {
+            __name,
+            __proto_schema,
+            __etag,
+            Unknown(std::string::String),
+        }
+        impl<'de> serde::de::Deserialize<'de> for __FieldTag {
+            fn deserialize<D>(deserializer: D) -> std::result::Result<Self, D::Error>
+            where
+                D: serde::Deserializer<'de>,
+            {
+                struct Visitor;
+                impl<'de> serde::de::Visitor<'de> for Visitor {
+                    type Value = __FieldTag;
+                    fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                        formatter.write_str("a field name for SchemaBundle")
+                    }
+                    fn visit_str<E>(self, value: &str) -> std::result::Result<Self::Value, E>
+                    where
+                        E: serde::de::Error,
+                    {
+                        use std::result::Result::Ok;
+                        use std::string::ToString;
+                        match value {
+                            "name" => Ok(__FieldTag::__name),
+                            "protoSchema" => Ok(__FieldTag::__proto_schema),
+                            "proto_schema" => Ok(__FieldTag::__proto_schema),
+                            "etag" => Ok(__FieldTag::__etag),
+                            _ => Ok(__FieldTag::Unknown(value.to_string())),
+                        }
+                    }
+                }
+                deserializer.deserialize_identifier(Visitor)
+            }
+        }
+        struct Visitor;
+        impl<'de> serde::de::Visitor<'de> for Visitor {
+            type Value = SchemaBundle;
+            fn expecting(&self, formatter: &mut std::fmt::Formatter) -> std::fmt::Result {
+                formatter.write_str("struct SchemaBundle")
+            }
+            fn visit_map<A>(self, mut map: A) -> std::result::Result<Self::Value, A::Error>
+            where
+                A: serde::de::MapAccess<'de>,
+            {
+                #[allow(unused_imports)]
+                use serde::de::Error;
+                use std::option::Option::Some;
+                let mut fields = std::collections::HashSet::new();
+                let mut result = Self::Value::new();
+                while let Some(tag) = map.next_key::<__FieldTag>()? {
+                    #[allow(clippy::match_single_binding)]
+                    match tag {
+                        __FieldTag::__name => {
+                            if !fields.insert(__FieldTag::__name) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for name",
+                                ));
+                            }
+                            result.name = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::__proto_schema => {
+                            if !fields.insert(__FieldTag::__proto_schema) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for proto_schema",
+                                ));
+                            }
+                            if result.r#type.is_some() {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for `r#type`, a oneof with full ID .google.bigtable.admin.v2.SchemaBundle.proto_schema, latest field was protoSchema",
+                                ));
+                            }
+                            result.r#type = std::option::Option::Some(
+                                crate::model::schema_bundle::Type::ProtoSchema(
+                                    map.next_value::<std::option::Option<
+                                        std::boxed::Box<crate::model::ProtoSchema>,
+                                    >>()?
+                                    .unwrap_or_default(),
+                                ),
+                            );
+                        }
+                        __FieldTag::__etag => {
+                            if !fields.insert(__FieldTag::__etag) {
+                                return std::result::Result::Err(A::Error::duplicate_field(
+                                    "multiple values for etag",
+                                ));
+                            }
+                            result.etag = map
+                                .next_value::<std::option::Option<std::string::String>>()?
+                                .unwrap_or_default();
+                        }
+                        __FieldTag::Unknown(key) => {
+                            let value = map.next_value::<serde_json::Value>()?;
+                            result._unknown_fields.insert(key, value);
+                        }
+                    }
+                }
+                std::result::Result::Ok(result)
+            }
+        }
+        deserializer.deserialize_any(Visitor)
+    }
+}
+
+#[doc(hidden)]
+impl serde::ser::Serialize for SchemaBundle {
+    fn serialize<S>(&self, serializer: S) -> std::result::Result<S::Ok, S::Error>
+    where
+        S: serde::ser::Serializer,
+    {
+        use serde::ser::SerializeMap;
+        #[allow(unused_imports)]
+        use std::option::Option::Some;
+        let mut state = serializer.serialize_map(std::option::Option::None)?;
+        if !self.name.is_empty() {
+            state.serialize_entry("name", &self.name)?;
+        }
+        if let Some(value) = self.proto_schema() {
+            state.serialize_entry("protoSchema", value)?;
+        }
+        if !self.etag.is_empty() {
+            state.serialize_entry("etag", &self.etag)?;
+        }
+        if !self._unknown_fields.is_empty() {
+            for (key, value) in self._unknown_fields.iter() {
+                state.serialize_entry(key, &value)?;
+            }
+        }
+        state.end()
+    }
+}
+
+/// Defines additional types related to [SchemaBundle].
+pub mod schema_bundle {
+    #[allow(unused_imports)]
+    use super::*;
+
+    /// The type of this schema bundle. The oneof case cannot change after
+    /// creation.
+    #[derive(Clone, Debug, PartialEq)]
+    #[non_exhaustive]
+    pub enum Type {
+        /// Schema for Protobufs.
+        ProtoSchema(std::boxed::Box<crate::model::ProtoSchema>),
     }
 }
 

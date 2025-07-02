@@ -1201,16 +1201,29 @@ func TestEnumFieldAnnotations(t *testing.T) {
 }
 
 func TestPathInfoAnnotations(t *testing.T) {
+	binding := func(verb string) *api.PathBinding {
+		return &api.PathBinding{
+			Verb: verb,
+			PathTemplate: api.NewPathTemplate().
+				WithLiteral("v1").
+				WithLiteral("resource"),
+		}
+	}
+
 	type TestCase struct {
-		Verb               string
+		Bindings           []*api.PathBinding
 		DefaultIdempotency string
 	}
 	testCases := []TestCase{
-		{"GET", "true"},
-		{"PUT", "true"},
-		{"DELETE", "true"},
-		{"POST", "false"},
-		{"PATCH", "false"},
+		{[]*api.PathBinding{}, "false"},
+		{[]*api.PathBinding{binding("GET")}, "true"},
+		{[]*api.PathBinding{binding("PUT")}, "true"},
+		{[]*api.PathBinding{binding("DELETE")}, "true"},
+		{[]*api.PathBinding{binding("POST")}, "false"},
+		{[]*api.PathBinding{binding("PATCH")}, "false"},
+		{[]*api.PathBinding{binding("GET"), binding("GET")}, "true"},
+		{[]*api.PathBinding{binding("GET"), binding("POST")}, "false"},
+		{[]*api.PathBinding{binding("POST"), binding("POST")}, "false"},
 	}
 	for _, testCase := range testCases {
 		request := &api.Message{
@@ -1229,14 +1242,7 @@ func TestPathInfoAnnotations(t *testing.T) {
 			InputTypeID:  ".test.v1.Request",
 			OutputTypeID: ".test.v1.Response",
 			PathInfo: &api.PathInfo{
-				Bindings: []*api.PathBinding{
-					{
-						Verb: testCase.Verb,
-						PathTemplate: api.NewPathTemplate().
-							WithLiteral("v1").
-							WithLiteral("resource"),
-					},
-				},
+				Bindings: testCase.Bindings,
 			},
 		}
 		service := &api.Service{
@@ -1251,14 +1257,16 @@ func TestPathInfoAnnotations(t *testing.T) {
 			[]*api.Enum{},
 			[]*api.Service{service})
 		api.CrossReference(model)
-		codec, err := newCodec(true, map[string]string{})
+		codec, err := newCodec(true, map[string]string{
+			"include-grpc-only-methods": "true",
+		})
 		if err != nil {
 			t.Fatal(err)
 		}
 		annotateModel(model, codec)
 
 		pathInfoAnn := method.PathInfo.Codec.(*pathInfoAnnotation)
-		if pathInfoAnn.IsIdempotent() != testCase.DefaultIdempotency {
+		if pathInfoAnn.IsIdempotent != testCase.DefaultIdempotency {
 			t.Errorf("fail")
 		}
 	}
@@ -1346,6 +1354,13 @@ func TestPathBindingAnnotations(t *testing.T) {
 	want_b0 := &pathBindingAnnotation{
 		PathFmt:     "/v2/{}:create",
 		QueryParams: []*api.Field{f_id},
+		Substitutions: []*bindingSubstitution{
+			{
+				FieldAccessor: "Some(&req).map(|m| &m.name).map(|s| s.as_str())",
+				FieldName:     "name",
+				Template:      []string{"projects", "*", "locations", "*"},
+			},
+		},
 	}
 
 	b1 := &api.PathBinding{
@@ -1362,6 +1377,23 @@ func TestPathBindingAnnotations(t *testing.T) {
 	}
 	want_b1 := &pathBindingAnnotation{
 		PathFmt: "/v1/projects/{}/locations/{}/ids/{}:action",
+		Substitutions: []*bindingSubstitution{
+			{
+				FieldAccessor: "Some(&req).map(|m| &m.project).map(|s| s.as_str())",
+				FieldName:     "project",
+				Template:      []string{"*"},
+			},
+			{
+				FieldAccessor: "Some(&req).map(|m| &m.location).map(|s| s.as_str())",
+				FieldName:     "location",
+				Template:      []string{"*"},
+			},
+			{
+				FieldAccessor: "Some(&req).map(|m| &m.id)",
+				FieldName:     "id",
+				Template:      []string{"*"},
+			},
+		},
 	}
 
 	b2 := &api.PathBinding{
@@ -1378,6 +1410,23 @@ func TestPathBindingAnnotations(t *testing.T) {
 	}
 	want_b2 := &pathBindingAnnotation{
 		PathFmt: "/v1/projects/{}/locations/{}/ids/{}:actionOnChild",
+		Substitutions: []*bindingSubstitution{
+			{
+				FieldAccessor: "Some(&req).and_then(|m| m.child.as_ref()).map(|m| &m.project).map(|s| s.as_str())",
+				FieldName:     "child.project",
+				Template:      []string{"*"},
+			},
+			{
+				FieldAccessor: "Some(&req).and_then(|m| m.child.as_ref()).map(|m| &m.location).map(|s| s.as_str())",
+				FieldName:     "child.location",
+				Template:      []string{"*"},
+			},
+			{
+				FieldAccessor: "Some(&req).and_then(|m| m.child.as_ref()).map(|m| &m.id)",
+				FieldName:     "child.id",
+				Template:      []string{"*"},
+			},
+		},
 	}
 
 	b3 := &api.PathBinding{
@@ -1435,5 +1484,25 @@ func TestPathBindingAnnotations(t *testing.T) {
 	}
 	if diff := cmp.Diff(want_b3, b3.Codec); diff != "" {
 		t.Errorf("mismatch in path binding annotations (-want, +got)\n:%s", diff)
+	}
+}
+
+func TestBindingSubstitutionTemplates(t *testing.T) {
+	b := bindingSubstitution{
+		Template: []string{"projects", "*", "locations", "*", "**"},
+	}
+
+	got := b.TemplateAsString()
+	want := "projects/*/locations/*/**"
+
+	if want != got {
+		t.Errorf("TemplateAsString() failed. want=%q, got=%q", want, got)
+	}
+
+	got = b.TemplateAsArray()
+	want = `&[Segment::Literal("projects/"), Segment::SingleWildcard, Segment::Literal("/locations/"), Segment::SingleWildcard, Segment::TrailingMultiWildcard]`
+
+	if want != got {
+		t.Errorf("TemplateAsArray() failed. want=`%s`, got=`%s`", want, got)
 	}
 }

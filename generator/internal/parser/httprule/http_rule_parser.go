@@ -196,7 +196,7 @@ func parseVarSegment(varString string) (*api.PathSegment, int, error) {
 	}
 	pos++ // Skip varLeft
 	var width int
-	var segments []api.PathVariableSegment
+	var segments []string
 	fieldPath, width, err := parseFieldPath(varString[pos:])
 	if err != nil {
 		return nil, 0, err
@@ -216,7 +216,7 @@ func parseVarSegment(varString string) (*api.PathSegment, int, error) {
 	pos++ // Skip varRight
 	if len(segments) == 0 {
 		// When there are no segments, the single "*" matcher is implied.
-		segments = append(segments, api.PathVariableSegment{Match: &api.PathMatch{}})
+		segments = append(segments, api.SingleSegmentWildcard)
 	}
 	return &api.PathSegment{
 		Variable: &api.PathVariable{
@@ -226,9 +226,9 @@ func parseVarSegment(varString string) (*api.PathSegment, int, error) {
 	}, pos, nil
 }
 
-func parseVarSubsegments(segmentsString string) ([]api.PathVariableSegment, int, error) {
+func parseVarSubsegments(segmentsString string) ([]string, int, error) {
 	var pos int
-	var segments []api.PathVariableSegment
+	var segments []string
 
 	for {
 		segment, width, err := parseVarSubsegment(segmentsString[pos:])
@@ -264,7 +264,7 @@ func parseFieldPath(fieldPathString string) ([]string, int, error) {
 	return identifiers, pos, nil
 }
 
-func parseVarSubsegment(plainSegment string) (*api.PathVariableSegment, int, error) {
+func parseVarSubsegment(plainSegment string) (*string, int, error) {
 	if len(plainSegment) < 1 {
 		return nil, 0, fmt.Errorf("invalid plain segment, expected at least one character: %s", plainSegment)
 	}
@@ -272,16 +272,18 @@ func parseVarSubsegment(plainSegment string) (*api.PathVariableSegment, int, err
 		return nil, 0, fmt.Errorf("invalid plain segment, cannot start with : %q", slash)
 	}
 	if len(plainSegment) >= 2 && plainSegment[0:2] == string(star)+string(star) {
-		return &api.PathVariableSegment{MatchRecursive: &api.PathMatchRecursive{}}, 2, nil
+		wc := api.MultiSegmentWildcard
+		return &wc, 2, nil
 	}
 	if plainSegment[0] == star {
-		return &api.PathVariableSegment{Match: &api.PathMatch{}}, 1, nil
+		wc := api.SingleSegmentWildcard
+		return &wc, 1, nil
 	}
 	literal, pos, err := parseLiteral(plainSegment)
 	if err != nil {
 		return nil, 0, err
 	}
-	return &api.PathVariableSegment{Literal: (*string)(literal)}, pos, nil
+	return (*string)(literal), pos, nil
 }
 
 const (

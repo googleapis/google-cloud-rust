@@ -18,3 +18,8 @@ service-config = 'google/cloud/retail/v2/retail_v2.yaml'
 
 [codec]
 copyright-year = '2025'
+
+[[documentation-overrides]]
+id      = '.google.cloud.retail.v2.SearchRequest.user_attributes'
+match   = 'Duplcate'
+replace = 'Duplicate'
