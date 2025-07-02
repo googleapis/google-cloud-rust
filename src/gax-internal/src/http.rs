@@ -245,7 +245,7 @@ pub async fn to_http_error<O>(response: reqwest::Response) -> Result<O> {
     let response = http::Response::from(response);
     let (parts, body) = response.into_parts();
 
-    let body = (http_body_util::BodyExt::collect(body))
+    let body = http_body_util::BodyExt::collect(body)
         .await
         .map_err(Error::io)?
         .to_bytes();

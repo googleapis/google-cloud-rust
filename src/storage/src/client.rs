@@ -370,8 +370,8 @@ where
 
         let stream = Box::pin(unfold(Some(self.payload), move |state| async move {
             if let Some(mut payload) = state {
-                if let Some(n) = payload.next().await {
-                    return Some((n, Some(payload)));
+                if let Some(next) = payload.next().await {
+                    return Some((next, Some(payload)));
                 }
             }
             None
@@ -924,7 +924,7 @@ mod tests {
             .build()
             .await?;
 
-        let request = client
+        let mut request = client
             .insert_object("projects/_/buckets/bucket", "object", "hello")
             .http_request_builder()
             .await?
@@ -935,10 +935,9 @@ mod tests {
             request.url().as_str(),
             "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=media&name=object"
         );
-        let mut request = request;
         let body = request.body_mut().take().unwrap();
         let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
-        assert_eq!(bytes::Bytes::from_static(b"hello"), contents);
+        assert_eq!(contents, "hello");
         Ok(())
     }
 
@@ -957,7 +956,7 @@ mod tests {
             .map(|x| bytes::Bytes::from_static(x.as_bytes()))
             .to_vec(),
         );
-        let request = client
+        let mut request = client
             .insert_object("projects/_/buckets/bucket", "object", stream)
             .http_request_builder()
             .await?
@@ -968,13 +967,9 @@ mod tests {
             request.url().as_str(),
             "http://private.googleapis.com/upload/storage/v1/b/bucket/o?uploadType=media&name=object"
         );
-        let mut request = request;
         let body = request.body_mut().take().unwrap();
         let contents = http_body_util::BodyExt::collect(body).await?.to_bytes();
-        assert_eq!(
-            bytes::Bytes::from_static(b"the quick brown fox jumps over the lazy dog"),
-            contents
-        );
+        assert_eq!(contents, "the quick brown fox jumps over the lazy dog");
         Ok(())
     }
 
