@@ -17,116 +17,116 @@
 
 service_name: parallelstore.googleapis.com
 apis:
-- name: Parallelstore
-  api_version: v1
-  root_is_hidden: true
-  release_tracks:
-  - GA
-  help_text:
-    service_rules:
-    - selector: google.cloud.parallelstore.v1.Parallelstore
-      help_text:
-        brief: Manage Parallelstore resources
-        description: Manage Parallelstore resources
-    message_rules:
-    - selector: google.cloud.parallelstore.v1.Instance
-      help_text:
-        brief: Manage Parallelstore instance resources
-        description: Manage Parallelstore instance resources.
-    method_rules:
-    - selector: google.cloud.parallelstore.v1.Parallelstore.ListInstances
-      help_text:
-        brief: List Parallelstore instances
-        description: |
-          List Parallelstore instances.
-        examples:
-        - |-
-          To list all instances in particular location `us-central1-a` run:
+  - name: Parallelstore
+    api_version: v1
+    root_is_hidden: true
+    release_tracks:
+      - GA
+    help_text:
+      service_rules:
+        - selector: google.cloud.parallelstore.v1.Parallelstore
+          help_text:
+            brief: Manage Parallelstore resources
+            description: Manage Parallelstore resources
+      message_rules:
+        - selector: google.cloud.parallelstore.v1.Instance
+          help_text:
+            brief: Manage Parallelstore instance resources
+            description: Manage Parallelstore instance resources.
+      method_rules:
+        - selector: google.cloud.parallelstore.v1.Parallelstore.ListInstances
+          help_text:
+            brief: List Parallelstore instances
+            description: |
+              List Parallelstore instances.
+            examples:
+              - |-
+                To list all instances in particular location `us-central1-a` run:
 
-          $ {command} --location=us-central1-a
-    - selector: google.cloud.parallelstore.v1.Parallelstore.GetInstance
-      help_text:
-        brief: Gets details of a single Parallelstore instance
-        description: |
-          Gets details of a single Parallelstore instance.
-        examples:
-        - |-
-          To get the details of a single instance `my-instance` in location `us-central1-a` run:
+                $ {command} --location=us-central1-a
+        - selector: google.cloud.parallelstore.v1.Parallelstore.GetInstance
+          help_text:
+            brief: Gets details of a single Parallelstore instance
+            description: |
+              Gets details of a single Parallelstore instance.
+            examples:
+              - |-
+                To get the details of a single instance `my-instance` in location `us-central1-a` run:
 
-          $ {command} my-instance --location=us-central1-a
-    - selector: google.cloud.parallelstore.v1.Parallelstore.CreateInstance
-      help_text:
-        brief: Creates a Parallelstore instance
-        description: |
-          Creates a Parallelstore instance.
-        examples:
-        - |-
-          To create an instance `my-instance` in location `us-central1-a` with 12000 Gib capacity run:
+                $ {command} my-instance --location=us-central1-a
+        - selector: google.cloud.parallelstore.v1.Parallelstore.CreateInstance
+          help_text:
+            brief: Creates a Parallelstore instance
+            description: |
+              Creates a Parallelstore instance.
+            examples:
+              - |-
+                To create an instance `my-instance` in location `us-central1-a` with 12000 Gib capacity run:
 
-          $ {command} my-instance --capacity-gib=12000 --location=us-central1-a
-    - selector: google.cloud.parallelstore.v1.Parallelstore.UpdateInstance
-      help_text:
-        brief: Updates the parameters of a single Parallelstore instance
-        description: |
-          Updates the parameters of a single Parallelstore instance.
-        examples:
-        - |-
-          To update the description of an instance `my-instance` in location `us-central1-a` run:
+                $ {command} my-instance --capacity-gib=12000 --location=us-central1-a
+        - selector: google.cloud.parallelstore.v1.Parallelstore.UpdateInstance
+          help_text:
+            brief: Updates the parameters of a single Parallelstore instance
+            description: |
+              Updates the parameters of a single Parallelstore instance.
+            examples:
+              - |-
+                To update the description of an instance `my-instance` in location `us-central1-a` run:
 
-          $ {command} my-instance --location=us-central1-a --description="<updated description>"
-    - selector: google.cloud.parallelstore.v1.Parallelstore.DeleteInstance
-      help_text:
-        brief: Deletes a single Parallelstore instance
-        description: |
-          Deletes a single Parallelstore instance.
-        examples:
-        - |-
-          To delete an instance `my-instance` run:
+                $ {command} my-instance --location=us-central1-a --description="<updated description>"
+        - selector: google.cloud.parallelstore.v1.Parallelstore.DeleteInstance
+          help_text:
+            brief: Deletes a single Parallelstore instance
+            description: |
+              Deletes a single Parallelstore instance.
+            examples:
+              - |-
+                To delete an instance `my-instance` run:
 
-          $ {command} my-instance
-    - selector: google.cloud.parallelstore.v1.Parallelstore.ImportData
-      help_text:
-        brief: Imports data from Cloud Storage to Parallelstore instance.
-        description: |
-          Imports data from Cloud Storage to Parallelstore instance.
-        examples:
-        - |-
-          To import data from `gs://my-bucket` storage to `my-instance` run:
+                $ {command} my-instance
+        - selector: google.cloud.parallelstore.v1.Parallelstore.ImportData
+          help_text:
+            brief: Imports data from Cloud Storage to Parallelstore instance.
+            description: |
+              Imports data from Cloud Storage to Parallelstore instance.
+            examples:
+              - |-
+                To import data from `gs://my-bucket` storage to `my-instance` run:
 
-          $ {command} my-instance --location=us-central-a --source-gcs-bucket-uri=gs://my_bucket --destination-parallelstore-path='/'
-    - selector: google.cloud.parallelstore.v1.Parallelstore.ExportData
-      help_text:
-        brief: Exports data from Parallelstore instance to Cloud Storage.
-        description: |
-          Exports data from Parallelstore instance to Cloud Storage.
-        examples:
-        - |-
-          To export data from `my-instance` to `gs://my-bucket` storage  run:
+                $ {command} my-instance --location=us-central-a --source-gcs-bucket-uri=gs://my_bucket --destination-parallelstore-path='/'
+        - selector: google.cloud.parallelstore.v1.Parallelstore.ExportData
+          help_text:
+            brief: Exports data from Parallelstore instance to Cloud Storage.
+            description: |
+              Exports data from Parallelstore instance to Cloud Storage.
+            examples:
+              - |-
+                To export data from `my-instance` to `gs://my-bucket` storage  run:
 
-          $ {command} my-instance --location=us-central-a --destination-gcs-bucket-uri=gs://my-bucket --source-parallelstore-path='/'
-  output_formatting:
-  - selector: google.cloud.parallelstore.v1.Parallelstore.ListInstances
-    format: |-
-      table(name,
-            capacityGib:label=Capacity,
-            description,
-            createTime,
-            updateTime,
-            state,
-            network,
-            reserved_ip_range,
-            accessPoints.join(","))
-  command_operations_config:
-  - selector: google.cloud.parallelstore.v1.Parallelstore.ImportData
-    display_operation_result: true
-  - selector: google.cloud.parallelstore.v1.Parallelstore.ExportData
-    display_operation_result: true
-- name: Operations
-  api_version: v1
-  root_is_hidden: true
-  release_tracks:
-  - GA
+                $ {command} my-instance --location=us-central-a --destination-gcs-bucket-uri=gs://my-bucket --source-parallelstore-path='/'
+    output_formatting:
+      - selector: google.cloud.parallelstore.v1.Parallelstore.ListInstances
+        format: |-
+          table(name,
+                capacityGib:label=Capacity,
+                description,
+                createTime,
+                updateTime,
+                state,
+                network,
+                reserved_ip_range,
+                accessPoints.join(","))
+    command_operations_config:
+      - selector: google.cloud.parallelstore.v1.Parallelstore.ImportData
+        display_operation_result: true
+      - selector: google.cloud.parallelstore.v1.Parallelstore.ExportData
+        display_operation_result: true
+  - name: Operations
+    api_version: v1
+    root_is_hidden: true
+    release_tracks:
+      - GA
 resource_patterns:
-- type: iam.googleapis.com/ServiceAccount
-  patterns:
-  - projects/{project}/serviceAccounts/{service_account}
+  - type: iam.googleapis.com/ServiceAccount
+    patterns:
+      - projects/{project}/serviceAccounts/{service_account}
