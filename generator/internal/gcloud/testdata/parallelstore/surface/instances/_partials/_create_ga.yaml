@@ -41,13 +41,9 @@
         required: true
       - arg_name: description
         api_field: instance.description
-        required: false
-        repeated: false
-        help_text: |-
-          The description of the instance. 2048 characters or less.
+        help_text: The description of the instance. 2048 characters or less.
       - arg_name: labels
         api_field: instance.labels
-        required: false
         repeated: true
         help_text: |-
           Cloud Labels are a flexible and lightweight mechanism for organizing cloud
@@ -59,24 +55,20 @@
           - api_field: value
       - arg_name: capacity-gib
         api_field: instance.capacityGib
-        required: true
-        repeated: false
         type: long
         help_text: |-
           The instance's storage capacity in Gibibytes (GiB). Allowed values are
           between 12000 and 100000, in multiples of 4000; e.g., 12000, 16000,
           20000, ...
+        required: true
       - arg_name: network
         help_text: |-
           The name of the Compute Engine
           [VPC network](https://cloud.google.com/vpc/docs/vpc) to which the
           instance is connected.
-        is_positional: false
-        is_primary_resource: false
         resource_spec: !REF googlecloudsdk.command_lib.parallelstore.v1_resources:project_global_network
         resource_method_params:
           instance.network: '{__relative_name__}'
-        required: false
       - arg_name: reserved-ip-range
         help_text: |-
           The ID of the IP address range being used by the instance's VPC network.
@@ -84,15 +76,11 @@
           [Configure a VPC
           network](https://cloud.google.com/parallelstore/docs/vpc#create_and_configure_the_vpc).
           If no ID is provided, all ranges are considered.
-        is_positional: false
-        is_primary_resource: false
         resource_spec: !REF googlecloudsdk.command_lib.parallelstore.v1_resources:project_region_address
         resource_method_params:
           instance.reservedIpRange: '{__relative_name__}'
-        required: false
       - arg_name: file-stripe-level
         api_field: instance.fileStripeLevel
-        required: false
         help_text: |-
           Stripe level for files. Allowed values are:
 
@@ -104,19 +92,15 @@
         choices:
           - arg_value: file-stripe-level-min
             enum_value: FILE_STRIPE_LEVEL_MIN
-            help_text: |-
-              Minimum file striping
+            help_text: Minimum file striping
           - arg_value: file-stripe-level-balanced
             enum_value: FILE_STRIPE_LEVEL_BALANCED
-            help_text: |-
-              Medium file striping
+            help_text: Medium file striping
           - arg_value: file-stripe-level-max
             enum_value: FILE_STRIPE_LEVEL_MAX
-            help_text: |-
-              Maximum file striping
+            help_text: Maximum file striping
       - arg_name: directory-stripe-level
         api_field: instance.directoryStripeLevel
-        required: false
         help_text: |-
           Stripe level for directories. Allowed values are:
 
@@ -129,19 +113,15 @@
         choices:
           - arg_value: directory-stripe-level-min
             enum_value: DIRECTORY_STRIPE_LEVEL_MIN
-            help_text: |-
-              Minimum directory striping
+            help_text: Minimum directory striping
           - arg_value: directory-stripe-level-balanced
             enum_value: DIRECTORY_STRIPE_LEVEL_BALANCED
-            help_text: |-
-              Medium directory striping
+            help_text: Medium directory striping
           - arg_value: directory-stripe-level-max
             enum_value: DIRECTORY_STRIPE_LEVEL_MAX
-            help_text: |-
-              Maximum directory striping
+            help_text: Maximum directory striping
       - arg_name: deployment-type
         api_field: instance.deploymentType
-        required: false
         help_text: |-
           The deployment type of the instance. Allowed values are:
 
@@ -150,16 +130,12 @@
         choices:
           - arg_value: scratch
             enum_value: SCRATCH
-            help_text: |-
-              Scratch
+            help_text: Scratch
           - arg_value: persistent
             enum_value: PERSISTENT
-            help_text: |-
-              Persistent
+            help_text: Persistent
       - arg_name: request-id
         api_field: requestId
-        required: false
-        repeated: false
         help_text: |-
           An optional request ID to identify requests. Specify a unique request ID
           so that if you must retry your request, the server will know to ignore

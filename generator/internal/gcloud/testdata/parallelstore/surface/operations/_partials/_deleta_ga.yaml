@@ -30,8 +30,7 @@
       $ {command}
   arguments:
     params:
-      - help_text: |-
-          The name of the operation resource to be deleted.
+      - help_text: The name of the operation resource to be deleted.
         is_positional: true
         resource_spec: !REF googlecloudsdk.command_lib.parallelstore.default_resources:project_location_operation
         required: true
