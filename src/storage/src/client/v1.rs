@@ -244,9 +244,114 @@ impl From<Object> for control::model::Object {
     }
 }
 
+/// Create a JSON object for the [control::model::Object] fields used in uploads.
+///
+/// When uploading (aka inserting) an object number of metadata fields can be
+/// sent via the POST body.
+#[allow(dead_code)]
+pub(crate) fn insert_body(resource: &control::model::Object) -> serde_json::Value {
+    use serde_json::*;
+
+    let mut fields = Vec::new();
+    if !resource.acl.is_empty() {
+        let list: Vec<Value> = resource
+            .acl
+            .iter()
+            .map(|v| {
+                json!({
+                    "entity": v.entity,
+                    "role": v.role,
+                })
+            })
+            .collect();
+        fields.push(("acl", serde_json::Value::Array(list)));
+    }
+    [
+        ("cacheControl", &resource.cache_control),
+        ("contentDisposition", &resource.content_disposition),
+        ("contentEncoding", &resource.content_encoding),
+        ("contentLanguage", &resource.content_language),
+        ("contentType", &resource.content_type),
+        ("storageClass", &resource.storage_class),
+    ]
+    .into_iter()
+    .for_each(|(name, value)| {
+        if value.is_empty() {
+            return;
+        }
+        fields.push((name, Value::String(value.clone())));
+    });
+
+    [
+        (
+            "eventBasedHold",
+            resource.event_based_hold.as_ref().unwrap_or(&false),
+        ),
+        ("temporaryHold", &resource.temporary_hold),
+    ]
+    .into_iter()
+    .for_each(|(name, value)| {
+        if !value {
+            return;
+        }
+        fields.push((name, Value::Bool(*value)));
+    });
+
+    if let Some(ts) = resource.custom_time {
+        fields.push(("customTime", Value::String(String::from(ts))));
+    }
+    if let Some(cs) = &resource.checksums {
+        use base64::prelude::BASE64_STANDARD;
+        if let Some(u) = cs.crc32c {
+            let bytes = [
+                (u >> 24 & 0xFF) as u8,
+                (u >> 16 & 0xFF) as u8,
+                (u >> 8 & 0xFF) as u8,
+                (u & 0xFF) as u8,
+            ];
+            let value = BASE64_STANDARD.encode(bytes);
+            fields.push(("crc32c", Value::String(value)));
+        }
+        if !cs.md5_hash.is_empty() {
+            let value = BASE64_STANDARD.encode(&cs.md5_hash);
+            fields.push(("md5Hash", Value::String(value)));
+        }
+    }
+    if !resource.metadata.is_empty() {
+        let map: Map<_, _> = resource
+            .metadata
+            .iter()
+            .map(|(k, v)| (k.clone(), Value::String(v.clone())))
+            .collect();
+        fields.push(("metadata", Value::Object(map)));
+    }
+    if let Some(r) = resource.retention.as_ref() {
+        let mut value = Map::new();
+        value.insert(
+            "mode".to_string(),
+            Value::String(r.mode.name().unwrap_or_default().to_string()),
+        );
+        if let Some(u) = r.retain_until_time {
+            value.insert(
+                "retainUntilTime".to_string(),
+                Value::String(String::from(u)),
+            );
+        }
+        fields.push(("retention", Value::Object(value)));
+    }
+
+    serde_json::Value::Object(
+        fields
+            .into_iter()
+            .map(|(k, v)| (k.to_string(), v))
+            .collect(),
+    )
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+    use serde_json::json;
     use serde_with::DeserializeAs;
     use test_case::test_case;
 
@@ -622,5 +727,78 @@ mod tests {
     #[test]
     fn test_deserialize_crc32c_not_string_err() {
         Crc32c::deserialize_as(serde_json::json!(5)).expect_err("expected error deserializing int");
+    }
+
+    #[test_case(
+        control::model::Object::new().set_acl([
+            control::model::ObjectAccessControl::new().set_entity("test-entity").set_role("READER")
+        ]),
+        json!({"acl": [{"entity": "test-entity", "role": "READER"}]})
+    )]
+    #[test_case(
+        control::model::Object::new().set_cache_control("public, max-age=3600"),
+        json!({"cacheControl": "public, max-age=3600"})
+    )]
+    #[test_case(
+        control::model::Object::new().set_content_disposition("inline"),
+        json!({"contentDisposition": "inline"})
+    )]
+    #[test_case(
+        control::model::Object::new().set_content_encoding("gzip"),
+        json!({"contentEncoding": "gzip"})
+    )]
+    #[test_case(
+        control::model::Object::new().set_content_language("en"),
+        json!({"contentLanguage": "en"})
+    )]
+    #[test_case(
+        control::model::Object::new().set_content_type("application/octet-stream"),
+        json!({"contentType": "application/octet-stream"})
+    )]
+    #[test_case(
+        control::model::Object::new().set_checksums(control::model::ObjectChecksums::new().set_crc32c(0x01020304_u32)),
+        json!({"crc32c": "AQIDBA=="})
+    )]
+    #[test_case(
+        control::model::Object::new().set_custom_time(wkt::Timestamp::try_from("2025-07-03T16:22:00Z").unwrap()),
+        json!({"customTime": "2025-07-03T16:22:00Z"})
+    )]
+    #[test_case(
+        control::model::Object::new().set_event_based_hold(true),
+        json!({"eventBasedHold": true})
+    )]
+    #[test_case(
+        control::model::Object::new().set_checksums(
+            control::model::ObjectChecksums::new().set_md5_hash(
+                vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16],
+            )),
+        json!({"md5Hash": "AQIDBAUGBwgJCgsMDQ4PEA=="})
+    )]
+    #[test_case(
+        control::model::Object::new().set_metadata([("k0", "v0"), ("k1", "v1")]),
+        json!({"metadata": {"k0": "v0", "k1": "v1"}})
+    )]
+    #[test_case(
+        control::model::Object::new().set_retention(
+            control::model::object::Retention::new().set_mode(control::model::object::retention::Mode::Locked)
+                .set_retain_until_time(wkt::Timestamp::try_from("2035-07-03T15:03:00Z").unwrap()),
+        ),
+        json!({"retention": {"mode": "LOCKED", "retainUntilTime": "2035-07-03T15:03:00Z"}})
+    )]
+    #[test_case(
+        control::model::Object::new().set_storage_class("ARCHIVE"),
+        json!({"storageClass": "ARCHIVE"})
+    )]
+    #[test_case(
+        control::model::Object::new().set_temporary_hold(false),
+        json!({})
+    )]
+    #[test_case(
+        control::model::Object::new().set_temporary_hold(true),
+        json!({"temporaryHold": true})
+    )]
+    fn insert_body(input: control::model::Object, want: serde_json::Value) {
+        let got = super::insert_body(&input);
+        assert_eq!(got, want);
     }
 }
