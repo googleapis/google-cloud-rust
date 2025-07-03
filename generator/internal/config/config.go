@@ -26,6 +26,7 @@ import (
 	"path"
 	"strings"
 
+	"github.com/googleapis/google-cloud-rust/generator/internal/config/gcloud"
 	"github.com/googleapis/google-cloud-rust/generator/internal/license"
 	toml "github.com/pelletier/go-toml/v2"
 )
@@ -55,6 +56,10 @@ type Config struct {
 	Source           map[string]string       `toml:"source,omitempty"`
 	Codec            map[string]string       `toml:"codec,omitempty"`
 	CommentOverrides []DocumentationOverride `toml:"documentation-overrides,omitempty"`
+
+	// Gcloud is used to pass data into gcloud.Generate. It does not use the
+	// normal .sidekick.toml file, but instead reads a gcloud.yaml file.
+	Gcloud *gcloud.Config
 }
 
 // Configuration parameters that affect Parsers and Codecs, including the

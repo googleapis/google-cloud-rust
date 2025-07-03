@@ -25,7 +25,7 @@ import (
 )
 
 func TestGcloudConfig(t *testing.T) {
-	data, err := os.ReadFile("testdata/parallelstore/gcloud.yaml")
+	data, err := os.ReadFile("testdata/gcloud.yaml")
 	if err != nil {
 		t.Fatalf("failed to read temporary YAML file: %v", err)
 	}
