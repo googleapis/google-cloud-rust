@@ -30,9 +30,7 @@
       $ {command}
   arguments:
     params:
-      - help_text: |-
-          The name of the operation's parent resource.
-        is_positional: false
+      - help_text: The name of the operation's parent resource.
         resource_spec: !REF googlecloudsdk.command_lib.parallelstore.default_resources:project_location
         required: true
   request:
