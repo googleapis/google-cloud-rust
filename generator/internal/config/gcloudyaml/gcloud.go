@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package gcloud
+package gcloudyaml
 
 // Config represents the top-level schema of a gcloud config YAML file.
 type Config struct {

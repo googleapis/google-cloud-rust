@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-package gcloud
+package gcloudyaml
 
 import (
 	"bytes"
@@ -25,7 +25,7 @@ import (
 )
 
 func TestGcloudConfig(t *testing.T) {
-	data, err := os.ReadFile("testdata/parallelstore/gcloud.yaml")
+	data, err := os.ReadFile("testdata/gcloud.yaml")
 	if err != nil {
 		t.Fatalf("failed to read temporary YAML file: %v", err)
 	}
