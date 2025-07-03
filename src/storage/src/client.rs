@@ -208,17 +208,13 @@ impl StorageInner {
             .map_err(Error::authentication)?;
 
         let auth_headers = match cached_auth_headers {
-            CacheableResource::New { data, .. } => Ok(data),
+            CacheableResource::New { data, .. } => data,
             CacheableResource::NotModified => {
                 unreachable!("headers are not cached");
             }
         };
 
-        let auth_headers = auth_headers?;
-        let builder = auth_headers
-            .iter()
-            .fold(builder, |b, (k, v)| b.header(k, v));
-
+        let builder = builder.headers(auth_headers);
         Ok(builder)
     }
 }
@@ -742,8 +738,7 @@ impl ReadObject {
         }
         .map_err(Error::ser)?;
 
-        let builder = self.inner.apply_auth_headers(builder).await?;
-        Ok(builder)
+        self.inner.apply_auth_headers(builder).await
     }
 }
 
