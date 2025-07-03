@@ -15,12 +15,13 @@
 package gcloud
 
 import (
+	"bytes"
 	"os"
 	"strings"
 	"testing"
 
 	"github.com/google/go-cmp/cmp"
-	"gopkg.in/yaml.v2"
+	"gopkg.in/yaml.v3"
 )
 
 func TestGcloudConfig(t *testing.T) {
@@ -34,8 +35,10 @@ func TestGcloudConfig(t *testing.T) {
 		t.Fatalf("failed to unmarshal YAML: %v", err)
 	}
 
-	got, err := yaml.Marshal(&config)
-	if err != nil {
+	var got bytes.Buffer
+	enc := yaml.NewEncoder(&got)
+	enc.SetIndent(2)
+	if err := enc.Encode(config); err != nil {
 		t.Fatalf("failed to marshal struct to YAML: %v", err)
 	}
 
@@ -49,7 +52,7 @@ func TestGcloudConfig(t *testing.T) {
 		}
 	}
 	want := strings.Join(lines[index:], "\n")
-	if diff := cmp.Diff(want, string(got)); diff != "" {
+	if diff := cmp.Diff(want, got.String()); diff != "" {
 		t.Errorf("mismatch(-want, +got)\n%s", diff)
 	}
 }
