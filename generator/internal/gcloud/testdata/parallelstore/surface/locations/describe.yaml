@@ -29,11 +29,11 @@
         $ {command} us-central1
   arguments:
     params:
-    - help_text: |
-        The name of the location resource.
-      is_positional: true
-      resource_spec: !REF googlecloudsdk.command_lib.parallelstore.custom_resources:location
-      required: true
+      - help_text: |
+          The name of the location resource.
+        is_positional: true
+        resource_spec: !REF googlecloudsdk.command_lib.parallelstore.custom_resources:location
+        required: true
   request:
     ALPHA:
       api_version: v1alpha
