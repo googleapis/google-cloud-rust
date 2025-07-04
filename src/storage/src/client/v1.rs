@@ -246,8 +246,10 @@ impl From<Object> for control::model::Object {
 
 /// Create a JSON object for the [control::model::Object] fields used in uploads.
 ///
-/// When uploading (aka inserting) an object number of metadata fields can be
-/// sent via the POST body.
+/// When uploading (aka inserting) an object, a number of metadata fields can be
+/// sent via the POST body. Not all fields should (or can) be serialized in
+/// these operations, so we cannot use the normal serialization functions. And
+/// some fields undergo non-trivial transformations.
 #[allow(dead_code)]
 pub(crate) fn insert_body(resource: &control::model::Object) -> serde_json::Value {
     use serde_json::*;
@@ -266,6 +268,7 @@ pub(crate) fn insert_body(resource: &control::model::Object) -> serde_json::Valu
             .collect();
         fields.push(("acl", serde_json::Value::Array(list)));
     }
+
     [
         ("cacheControl", &resource.cache_control),
         ("contentDisposition", &resource.content_disposition),
@@ -300,6 +303,7 @@ pub(crate) fn insert_body(resource: &control::model::Object) -> serde_json::Valu
     if let Some(ts) = resource.custom_time {
         fields.push(("customTime", Value::String(String::from(ts))));
     }
+
     if let Some(cs) = &resource.checksums {
         use base64::prelude::BASE64_STANDARD;
         if let Some(u) = cs.crc32c {
@@ -317,6 +321,7 @@ pub(crate) fn insert_body(resource: &control::model::Object) -> serde_json::Valu
             fields.push(("md5Hash", Value::String(value)));
         }
     }
+
     if !resource.metadata.is_empty() {
         let map: Map<_, _> = resource
             .metadata
@@ -325,6 +330,7 @@ pub(crate) fn insert_body(resource: &control::model::Object) -> serde_json::Valu
             .collect();
         fields.push(("metadata", Value::Object(map)));
     }
+
     if let Some(r) = resource.retention.as_ref() {
         let mut value = Map::new();
         value.insert(
