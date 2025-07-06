@@ -51,7 +51,7 @@ mod test {
 
         let mut mock = MockStorageControl::new();
         let mut seq = mockall::Sequence::new();
-        let page_tokens = vec!["", "page-001", "page-002", "page-003", ""];
+        let page_tokens = ["", "page-001", "page-002", "page-003", ""];
         for i in 1..page_tokens.len() {
             let current = page_tokens[i - 1];
             let next = page_tokens[i];
@@ -76,7 +76,7 @@ mod test {
 
         let client = storage_control::client::StorageControl::from_stub(mock);
         let mut paginator = client.list_anywhere_caches().by_page();
-        while let Some(_) = paginator.next().await.transpose()? {}
+        while paginator.next().await.transpose()?.is_some() {}
 
         // Just to be overly cautious, verify we made N calls, with N different request IDs.
         let seen = seen.lock().unwrap();
