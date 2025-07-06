@@ -57,6 +57,8 @@ disabled-rustdoc-warnings = "redundant_explicit_links,broken_intra_doc_links"
 'package:tracing'     = 'used-if=services,package=tracing'
 # Only used if LROs are present
 'package:lro' = 'used-if=lro,package=google-cloud-lro'
+# Only used if a service has auto-populated fields
+'package:uuid' = 'used-if=autopopulated,package=uuid'
 # I (coryan@) got lazy, it is tedious to auto-detect if this is used in `sidekick`.
 # OTOH, the only case where this is not used is a crate without any messages, i.e., just enums.
 'package:wkt' = 'force-used=true,package=google-cloud-wkt,source=google.protobuf'

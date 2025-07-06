@@ -313,6 +313,7 @@ tonic-build        = { default-features = false, version = "0.13" }
 tracing            = { default-features = false, version = "0.1", features = ["attributes"] }
 tracing-subscriber = { default-features = false, version = "0.3" }
 url                = { default-features = false, version = "2" }
+uuid               = { default-features = false, version = "1", features = ["v4"] }
 # Test packages
 anyhow         = { default-features = false, version = "1" }
 axum           = { default-features = false, version = "0.8" }

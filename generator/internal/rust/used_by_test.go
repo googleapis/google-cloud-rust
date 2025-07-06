@@ -51,7 +51,7 @@ func TestUsedByServicesWithServices(t *testing.T) {
 	}
 	less := func(a, b *packagez) bool { return a.name < b.name }
 	if diff := cmp.Diff(want, c.extraPackages, cmp.AllowUnexported(packagez{}), cmpopts.SortSlices(less)); diff != "" {
-		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
+		t.Errorf("mismatched packagez (-want, +got):\n%s", diff)
 	}
 }
 
@@ -79,7 +79,7 @@ func TestUsedByServicesNoServices(t *testing.T) {
 	}
 	less := func(a, b *packagez) bool { return a.name < b.name }
 	if diff := cmp.Diff(want, c.extraPackages, cmp.AllowUnexported(packagez{}), cmpopts.SortSlices(less)); diff != "" {
-		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
+		t.Errorf("mismatched packagez (-want, +got):\n%s", diff)
 	}
 }
 
@@ -117,7 +117,7 @@ func TestUsedByLROsWithLRO(t *testing.T) {
 	}
 	less := func(a, b *packagez) bool { return a.name < b.name }
 	if diff := cmp.Diff(want, c.extraPackages, cmp.AllowUnexported(packagez{}), cmpopts.SortSlices(less)); diff != "" {
-		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
+		t.Errorf("mismatched packagez (-want, +got):\n%s", diff)
 	}
 }
 
@@ -154,7 +154,87 @@ func TestUsedByLROsWithoutLRO(t *testing.T) {
 	}
 	less := func(a, b *packagez) bool { return a.name < b.name }
 	if diff := cmp.Diff(want, c.extraPackages, cmp.AllowUnexported(packagez{}), cmpopts.SortSlices(less)); diff != "" {
-		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
+		t.Errorf("mismatched packagez (-want, +got):\n%s", diff)
+	}
+}
+
+func TestUsedByUuidWithAutoPopulation(t *testing.T) {
+	request_id := &api.Field{
+		AutoPopulated: true,
+	}
+	method := &api.Method{
+		Name:          "CreateResource",
+		AutoPopulated: []*api.Field{request_id},
+	}
+	service := &api.Service{
+		Name:    "TestService",
+		ID:      ".test.Service",
+		Methods: []*api.Method{method},
+	}
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
+	c, err := newCodec(true, map[string]string{
+		"package:location": "package=gcp-sdk-location,source=google.cloud.location",
+		"package:uuid":     "used-if=autopopulated,package=uuid,feature=v4",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	loadWellKnownTypes(model.State)
+	resolveUsedPackages(model, c.extraPackages)
+	want := []*packagez{
+		{
+			name:        "location",
+			packageName: "gcp-sdk-location",
+		},
+		{
+			name:        "uuid",
+			packageName: "uuid",
+			used:        true,
+			usedIf:      []string{"autopopulated"},
+			features:    []string{"v4"},
+		},
+	}
+	less := func(a, b *packagez) bool { return a.name < b.name }
+	if diff := cmp.Diff(want, c.extraPackages, cmp.AllowUnexported(packagez{}), cmpopts.SortSlices(less)); diff != "" {
+		t.Errorf("mismatched packagez (-want, +got):\n%s", diff)
+	}
+}
+
+func TestUsedByUuidWithoutAutoPopulation(t *testing.T) {
+	method := &api.Method{
+		Name: "CreateResource",
+	}
+	service := &api.Service{
+		Name:    "TestService",
+		ID:      ".test.Service",
+		Methods: []*api.Method{method},
+	}
+	model := api.NewTestAPI([]*api.Message{}, []*api.Enum{}, []*api.Service{service})
+	c, err := newCodec(true, map[string]string{
+		"package:location": "package=gcp-sdk-location,source=google.cloud.location",
+		"package:uuid":     "used-if=autopopulated,package=uuid,feature=v4",
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	loadWellKnownTypes(model.State)
+	resolveUsedPackages(model, c.extraPackages)
+	want := []*packagez{
+		{
+			name:        "location",
+			packageName: "gcp-sdk-location",
+		},
+		{
+			name:        "uuid",
+			packageName: "uuid",
+			used:        false,
+			usedIf:      []string{"autopopulated"},
+			features:    []string{"v4"},
+		},
+	}
+	less := func(a, b *packagez) bool { return a.name < b.name }
+	if diff := cmp.Diff(want, c.extraPackages, cmp.AllowUnexported(packagez{}), cmpopts.SortSlices(less)); diff != "" {
+		t.Errorf("mismatched packagez (-want, +got):\n%s", diff)
 	}
 }
 
@@ -259,6 +339,6 @@ func TestFindUsedPackages(t *testing.T) {
 	}
 	less := func(a, b *packagez) bool { return a.name < b.name }
 	if diff := cmp.Diff(want, c.extraPackages, cmp.AllowUnexported(packagez{}), cmpopts.SortSlices(less)); diff != "" {
-		t.Errorf("mismatched query parameters (-want, +got):\n%s", diff)
+		t.Errorf("mismatched packagez (-want, +got):\n%s", diff)
 	}
 }

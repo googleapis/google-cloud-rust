@@ -33,6 +33,7 @@ extern crate serde_json;
 extern crate serde_with;
 extern crate std;
 extern crate tracing;
+extern crate uuid;
 extern crate wkt;
 
 #[derive(Clone, Debug, Default, PartialEq)]
