@@ -63,7 +63,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Folder>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -109,7 +109,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -160,7 +160,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::Folder>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -257,7 +257,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -308,7 +308,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::StorageLayout>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -359,7 +359,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ManagedFolder>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -405,7 +405,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<()>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -456,7 +456,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ManagedFolder>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -507,7 +507,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListManagedFoldersResponse>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -553,7 +553,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -599,7 +599,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<longrunning::model::Operation>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -653,7 +653,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -704,7 +704,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -755,7 +755,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -806,7 +806,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::AnywhereCache>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
@@ -857,7 +857,7 @@ impl super::stub::StorageControl for StorageControl {
         options: gax::options::RequestOptions,
     ) -> Result<gax::response::Response<crate::model::ListAnywhereCachesResponse>> {
         use gaxi::prost::ToProto;
-        let options = gax::options::internal::set_default_idempotency(options, false);
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let extensions = {
             let mut e = tonic::Extensions::new();
             e.insert(tonic::GrpcMethod::new(
