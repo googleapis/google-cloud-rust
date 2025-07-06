@@ -62,6 +62,7 @@ func GenerateFromModel(outdir string, model *api.API, provider TemplateProvider,
 			impl:    provider,
 			dirname: filepath.Dir(gen.TemplatePath),
 		}
+		mustache.AllowMissingVariables = false
 		s, err := mustache.RenderPartials(templateContents, &nestedProvider, model)
 		if err != nil {
 			errs = append(errs, err)
