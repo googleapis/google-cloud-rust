@@ -47,6 +47,7 @@ iam_v1.workspace      = true
 longrunning.workspace = true
 lro.workspace         = true
 rpc.workspace         = true
+uuid.workspace        = true
 wkt.workspace         = true
 
 [dev-dependencies]

@@ -74,6 +74,12 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         use gaxi::path_parameter::try_match;
         use gaxi::routing_parameter::Segment;
         {{/Codec.HasBindingSubstitutions}}
+        {{#HasAutoPopulatedFields}}
+        let options = gax::options::internal::set_default_idempotency(
+            options,
+            true,
+        );
+        {{/HasAutoPopulatedFields}}
         let (builder, method) = None
         {{#PathInfo.Bindings}}
         .or_else(|| {
@@ -128,6 +134,7 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         })??;
         let options = gax::options::internal::set_default_idempotency(
             options,
+            {{! TODO(#2588) - return idempotency from the above closure }}
             gaxi::http::default_idempotency(&method),
         );
         let builder = builder

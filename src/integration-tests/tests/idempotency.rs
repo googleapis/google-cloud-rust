@@ -71,7 +71,7 @@ mod default_idempotency {
         use sm::client::SecretManagerService;
 
         #[tokio::test]
-        async fn test_default_idempotent() -> Result {
+        async fn default_idempotent() -> Result {
             let client = SecretManagerService::builder().build().await?;
 
             // We are calling `GetSecret`, which is a `GET`. This request should
@@ -87,7 +87,7 @@ mod default_idempotency {
         }
 
         #[tokio::test]
-        async fn test_default_non_idempotent() -> Result {
+        async fn default_non_idempotent() -> Result {
             let client = SecretManagerService::builder().build().await?;
 
             // We are calling `AddSecretVersion`, which is a `POST`. This
@@ -106,9 +106,10 @@ mod default_idempotency {
     mod grpc {
         use super::*;
         use firestore::client::Firestore;
+        use storage_control::client::StorageControl;
 
         #[tokio::test]
-        async fn test_default_idempotent() -> Result {
+        async fn default_idempotent() -> Result {
             let client = Firestore::builder().build().await?;
 
             // We are calling `GetDocument`, which is a `GET`. This request
@@ -124,7 +125,7 @@ mod default_idempotency {
         }
 
         #[tokio::test]
-        async fn test_default_non_idempotent() -> Result {
+        async fn default_non_idempotent() -> Result {
             let client = Firestore::builder().build().await?;
 
             // We are calling `BeginTransaction`, which is a `POST`. This
@@ -133,6 +134,21 @@ mod default_idempotency {
                 .begin_transaction()
                 .set_database("invalid")
                 .with_retry_policy(expect_non_idempotent())
+                .send()
+                .await;
+
+            Ok(())
+        }
+
+        #[tokio::test]
+        async fn request_id_default_idempotent() -> Result {
+            let client = StorageControl::builder().build().await?;
+
+            // This RPC has an auto-populated request ID field. It should be
+            // idempotent.
+            let _ = client
+                .create_folder()
+                .with_retry_policy(expect_idempotent())
                 .send()
                 .await;
 

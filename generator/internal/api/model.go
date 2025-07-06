@@ -245,6 +245,10 @@ func (m *Method) HasRouting() bool {
 	return len(m.Routing) != 0
 }
 
+func (m *Method) HasAutoPopulatedFields() bool {
+	return len(m.AutoPopulated) != 0
+}
+
 // Normalized request path information.
 type PathInfo struct {
 	// The list of bindings, including the top-level binding.

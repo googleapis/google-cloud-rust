@@ -97,7 +97,13 @@ impl super::stub::{{Codec.Name}} for {{Codec.Name}} {
         use gaxi::prost::ToProto;
         let options = gax::options::internal::set_default_idempotency(
             options,
+            {{! TODO(#2588) - resolve this in the model }}
+            {{#HasAutoPopulatedFields}}
+            true,
+            {{/HasAutoPopulatedFields}}
+            {{^HasAutoPopulatedFields}}
             {{PathInfo.Codec.IsIdempotent}},
+            {{/HasAutoPopulatedFields}}
         );
         let extensions = {
             let mut e = tonic::Extensions::new();
