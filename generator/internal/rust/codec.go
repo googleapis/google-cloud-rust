@@ -321,14 +321,18 @@ func loadWellKnownTypes(s *api.APIState) {
 func resolveUsedPackages(model *api.API, extraPackages []*packagez) {
 	hasServices := len(model.State.ServiceByID) > 0
 	hasLROs := false
+	hasAutoPopulation := false
 	for _, s := range model.Services {
-		if hasLROs {
-			break
-		}
+		// In practice, barely any services have auto-population. We are
+		// almost always performing the full loop. `break`ing early does
+		// not save us any computations.
+
 		for _, m := range s.Methods {
 			if m.OperationInfo != nil {
 				hasLROs = true
-				break
+			}
+			if len(m.AutoPopulated) != 0 {
+				hasAutoPopulation = true
 			}
 		}
 	}
@@ -342,6 +346,10 @@ func resolveUsedPackages(model *api.API, extraPackages []*packagez) {
 				break
 			}
 			if namedFeature == "lro" && hasLROs {
+				pkg.used = true
+				break
+			}
+			if namedFeature == "autopopulated" && hasAutoPopulation {
 				pkg.used = true
 				break
 			}
