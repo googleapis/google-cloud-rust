@@ -190,7 +190,7 @@ func TestUsedByUuidWithAutoPopulation(t *testing.T) {
 			name:        "uuid",
 			packageName: "uuid",
 			used:        true,
-			usedIf:      []string{"uuid"},
+			usedIf:      []string{"autopopulated"},
 			features:    []string{"v4"},
 		},
 	}
@@ -228,7 +228,7 @@ func TestUsedByUuidWithoutAutoPopulation(t *testing.T) {
 			name:        "uuid",
 			packageName: "uuid",
 			used:        false,
-			usedIf:      []string{"uuid"},
+			usedIf:      []string{"autopopulated"},
 			features:    []string{"v4"},
 		},
 	}
