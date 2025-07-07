@@ -12,20 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+use crate::constants;
 use crate::token::{Token, TokenProvider};
-use crate::{errors, Result};
-use gax::backoff_policy::{self, BackoffPolicy};
-use gax::retry_loop_internal::retry_loop;
-use gax::retry_policy::{self, RetryPolicy};
-use gax::retry_throttler::{self, SharedRetryThrottler, AdaptiveThrottler};
+use gax::backoff_policy::BackoffPolicy;
+use gax::error::CredentialsError;
 use gax::exponential_backoff::ExponentialBackoff;
+use gax::retry_loop_internal::retry_loop;
+use gax::retry_policy::RetryPolicy;
+use gax::retry_throttler::{AdaptiveThrottler, SharedRetryThrottler};
+use std::error::Error;
 use std::sync::{Arc, Mutex};
-use std::time::Duration;
 use tokio::time::sleep;
+
+type Result<T> = std::result::Result<T, CredentialsError>;
 
 #[derive(Debug)]
 pub(crate) struct TokenProviderWithRetry<T: TokenProvider> {
-    inner: T,
+    inner: Arc<T>,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Arc<dyn BackoffPolicy>,
     retry_throttler: SharedRetryThrottler,
@@ -33,19 +36,17 @@ pub(crate) struct TokenProviderWithRetry<T: TokenProvider> {
 
 #[derive(Debug)]
 pub(crate) struct Builder<T: TokenProvider> {
-    inner: T,
+    inner: Arc<T>,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
-    retry_throttler: Option<SharedRetryThrottler>,
 }
 
 impl<T: TokenProvider> Builder<T> {
     pub(crate) fn new(inner: T) -> Self {
         Self {
-            inner,
+            inner: Arc::new(inner),
             retry_policy: None,
             backoff_policy: None,
-            retry_throttler: None
         }
     }
 
@@ -62,37 +63,67 @@ impl<T: TokenProvider> Builder<T> {
     }
 
     pub(crate) fn build(self) -> TokenProviderWithRetry<T> {
-        let retry_throttler = self.retry_throttler.unwrap_or_else(|| {
-            Arc::new(Mutex::new(AdaptiveThrottler::default()))
+        let backoff_policy = self.backoff_policy.unwrap_or_else(|| {
+            Arc::new(ExponentialBackoff::default())
         });
-        let backoff_policy = self.backoff_policy.unwrap_or_else(|| Arc::new(ExponentialBackoff::default()));
         TokenProviderWithRetry {
             inner: self.inner,
             retry_policy: self.retry_policy,
-            backoff_policy: backoff_policy,
-            retry_throttler: retry_throttler,
+            backoff_policy,
+            retry_throttler: Arc::new(Mutex::new(AdaptiveThrottler::default())),
         }
     }
 }
 
 #[async_trait::async_trait]
-impl<T: TokenProvider> TokenProvider for TokenProviderWithRetry<T> {
+impl<T: TokenProvider + Send + Sync + 'static> TokenProvider for TokenProviderWithRetry<T> {
     async fn token(&self) -> Result<Token> {
-
         match self.retry_policy.clone() {
             None => self.inner.token().await,
-            Some(policy) => self.retry_loop(policy).await,
+            Some(policy) => self.execute_retry_loop(policy).await,
         }
     }
 }
 
-impl<T> TokenProviderWithRetry<T> where T: TokenProvider {
-    async fn retry_loop(&self, retry_policy: Arc<dyn RetryPolicy>) -> Result<Token> {
-        let throttler = self.retry_throttler.clone();
-        let backoff = self.backoff_policy.clone();
-        let this = self.clone();
+impl<T> TokenProviderWithRetry<T>
+where
+    T: TokenProvider,
+{
+    async fn execute_retry_loop(&self, retry_policy: Arc<dyn RetryPolicy>) -> Result<Token> {
+        let inner = self.inner.clone();
         let sleep = async |d| tokio::time::sleep(d).await;
-        gax::retry_loop_internal::retry_loop(self.inner.token, sleep, true, throttler, retry_policy, backoff)
-            .await
+        retry_loop(
+            move |_| {
+                let inner = inner.clone();
+                async move {
+                    inner
+                        .token()
+                        .await
+                        .map_err(gax::error::Error::authentication)
+                }
+            },
+            sleep,
+            true, // token fetching is idempotent
+            self.retry_throttler.clone(),
+            retry_policy,
+            self.backoff_policy.clone(),
+        )
+        .await
+        .map_err(|e| {
+            if !e.is_authentication() {
+                return CredentialsError::from_source(false, e);
+            }
+            let (is_transient, msg) = if e
+                .source()
+                .and_then(|e| e.downcast_ref::<CredentialsError>())
+                .map_or(false, |ce| ce.is_transient())
+            {
+                (true, constants::RETRY_EXHAUSTED_ERROR)
+            } else {
+                (false, constants::TOKEN_FETCH_FAILED_ERROR)
+            };
+            CredentialsError::new(is_transient, msg, e)
+        })
     }
 }
+
