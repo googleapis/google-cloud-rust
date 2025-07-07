@@ -426,11 +426,14 @@ fn apply_customer_supplied_encryption_headers(
 #[cfg(test)]
 mod tests {
     use super::*;
+    use futures::TryStreamExt;
+    use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::sync::Arc;
     use test_case::test_case;
 
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
 
+    /// This is used by the request builder tests.
     pub(crate) fn test_inner_client(config: gaxi::options::ClientConfig) -> Arc<StorageInner> {
         let client = reqwest::Client::new();
         let cred = if let Some(c) = config.cred {
@@ -445,6 +448,98 @@ mod tests {
             endpoint,
         };
         Arc::new(inner)
+    }
+
+    /// This is used by the request builder tests.
+    pub(crate) fn create_key_helper() -> (Vec<u8>, String, Vec<u8>, String) {
+        // Make a 32-byte key.
+        let key = vec![b'a'; 32];
+        let key_base64 = BASE64_STANDARD.encode(key.clone());
+
+        let key_sha256 = Sha256::digest(key.clone());
+        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
+        (key, key_base64, key_sha256.to_vec(), key_sha256_base64)
+    }
+
+    #[tokio::test]
+    async fn read_object_normal() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .respond_with(status_code(200).body("hello world")),
+        );
+
+        let endpoint = server.url("");
+        let client = Storage::builder()
+            .with_endpoint(endpoint.to_string())
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let reader = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+        let got = reader.all_bytes().await?;
+        assert_eq!(got, "hello world");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_not_found() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .respond_with(status_code(404).body("NOT FOUND")),
+        );
+
+        let endpoint = server.url("");
+        let client = Storage::builder()
+            .with_endpoint(endpoint.to_string())
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let err = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await
+            .expect_err("expected a not found error");
+        assert_eq!(err.http_status_code(), Some(404));
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_stream() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .respond_with(status_code(200).body("hello world")),
+        );
+
+        let endpoint = server.url("");
+        let client = Storage::builder()
+            .with_endpoint(endpoint.to_string())
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+        let result: Vec<_> = response.into_stream().try_collect().await?;
+        assert_eq!(result, vec![bytes::Bytes::from_static(b"hello world")]);
+
+        Ok(())
     }
 
     #[test]
@@ -482,15 +577,5 @@ mod tests {
         assert_eq!(params.encryption_key_bytes, key);
         assert_eq!(params.encryption_key_sha256_bytes, key_sha256);
         Ok(())
-    }
-
-    pub(crate) fn create_key_helper() -> (Vec<u8>, String, Vec<u8>, String) {
-        // Make a 32-byte key.
-        let key = vec![b'a'; 32];
-        let key_base64 = BASE64_STANDARD.encode(key.clone());
-
-        let key_sha256 = Sha256::digest(key.clone());
-        let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
-        (key, key_base64, key_sha256.to_vec(), key_sha256_base64)
     }
 }
