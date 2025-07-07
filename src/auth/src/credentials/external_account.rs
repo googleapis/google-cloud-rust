@@ -110,10 +110,10 @@ impl From<CredentialSourceFile> for CredentialSource {
             CredentialSourceFile::Executable { executable } => {
                 Self::Executable(ExecutableSourcedCredentials::new(executable))
             }
-            CredentialSourceFile::File { .. } => {
+            CredentialSourceFile::File => {
                 unimplemented!("file sourced credential not supported yet")
             }
-            CredentialSourceFile::Aws { .. } => {
+            CredentialSourceFile::Aws => {
                 unimplemented!("AWS sourced credential not supported yet")
             }
         }
@@ -230,10 +230,10 @@ impl ExternalAccountConfig {
             CredentialSource::Programmatic(source) => {
                 Self::make_credentials_from_source(source, config, quota_project_id)
             }
-            CredentialSource::File { .. } => {
+            CredentialSource::File => {
                 unimplemented!("file sourced credential not supported yet")
             }
-            CredentialSource::Aws { .. } => {
+            CredentialSource::Aws => {
                 unimplemented!("AWS sourced credential not supported yet")
             }
         }
