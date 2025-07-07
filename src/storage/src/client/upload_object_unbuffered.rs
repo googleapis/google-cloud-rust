@@ -60,7 +60,7 @@ where
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
+    ///     .upload_object_unbuffered("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -139,7 +139,7 @@ where
     /// # let client = Storage::builder().build().await?;
     /// let key: &[u8] = &[97; 32];
     /// let response = client
-    ///     .insert_object("projects/_/buckets/my-bucket", "my-object", "the quick brown fox jumped over the lazy dog")
+    ///     .upload_object_unbuffered("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_key(KeyAes256::new(key)?)
     ///     .send()
     ///     .await?;
@@ -194,7 +194,7 @@ mod tests {
             .build()
             .await?;
         let response = client
-            .insert_object("projects/_/buckets/test-bucket", "test-object", "")
+            .upload_object_unbuffered("projects/_/buckets/test-bucket", "test-object", "")
             .send()
             .await?;
         assert_eq!(response.name, "test-object");
@@ -226,7 +226,7 @@ mod tests {
             .build()
             .await?;
         let err = client
-            .insert_object("projects/_/buckets/test-bucket", "test-object", "")
+            .upload_object_unbuffered("projects/_/buckets/test-bucket", "test-object", "")
             .send()
             .await
             .expect_err("expected a not found error");

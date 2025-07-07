@@ -129,13 +129,13 @@ impl Storage {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .insert_object("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object_unbuffered("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
-    pub fn insert_object<B, O, T, P>(
+    pub fn upload_object_unbuffered<B, O, T, P>(
         &self,
         bucket: B,
         object: O,

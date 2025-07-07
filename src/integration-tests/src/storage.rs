@@ -47,7 +47,7 @@ pub async fn objects(builder: storage::client::ClientBuilder) -> Result<()> {
     tracing::info!("testing insert_object()");
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let insert = client
-        .insert_object(&bucket.name, "quick.text", CONTENTS)
+        .upload_object_unbuffered(&bucket.name, "quick.text", CONTENTS)
         .send()
         .await?;
     tracing::info!("success with insert={insert:?}");
@@ -104,7 +104,7 @@ pub async fn objects_customer_supplied_encryption(
     const CONTENTS: &str = "the quick brown fox jumps over the lazy dog";
     let key = vec![b'a'; 32];
     let insert = client
-        .insert_object(&bucket.name, "quick.text", CONTENTS)
+        .upload_object_unbuffered(&bucket.name, "quick.text", CONTENTS)
         .with_key(storage::client::KeyAes256::new(&key)?)
         .send()
         .await?;
@@ -166,7 +166,7 @@ pub async fn objects_large_file(builder: storage::client::ClientBuilder) -> Resu
 
     tracing::info!("testing insert_object()");
     let insert = client
-        .insert_object(
+        .upload_object_unbuffered(
             &bucket.name,
             "quick.text",
             bytes::Bytes::from_owner(contents.clone()),
