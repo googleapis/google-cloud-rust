@@ -121,7 +121,7 @@ impl Storage {
     ///
     /// If the data source does **not** implement [Seek] the client library must
     /// buffer uploaded data until this data is persisted in the service. This
-    /// requires more memory in the client, and whe the buffer grows too large
+    /// requires more memory in the client, and when the buffer grows too large,
     /// may require stalling the upload until the service can persist the data.
     ///
     /// Use this function for data sources representing computations where
