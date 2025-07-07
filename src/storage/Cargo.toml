@@ -53,8 +53,11 @@ unstable-stream = ["reqwest/stream"]
 
 [dev-dependencies]
 anyhow.workspace         = true
+crc32c                   = { workspace = true }
+flate2                   = { workspace = true, features = ["zlib-rs"] }
 http-body-util.workspace = true
 httptest.workspace       = true
+md5.workspace            = true
 test-case.workspace      = true
 tempfile.workspace       = true
 tokio-test.workspace     = true
