@@ -16,6 +16,7 @@ pub use crate::Error;
 pub use crate::Result;
 pub use control::model::Object;
 pub use read_object::ReadObject;
+pub use upload_object_buffered::UploadObjectBuffered;
 pub use upload_object_unbuffered::UploadObjectUnbuffered;
 
 use crate::upload_source::{InsertPayload, Seek, StreamingSource};
@@ -26,6 +27,7 @@ use http::Extensions;
 use sha2::{Digest, Sha256};
 
 mod read_object;
+mod upload_object_buffered;
 mod upload_object_unbuffered;
 mod v1;
 
@@ -115,13 +117,18 @@ impl Storage {
         gax::client_builder::internal::new_builder(client_builder::Factory)
     }
 
-    /// A simple upload from a buffer.
+    /// Upload an object using a local buffer.
     ///
-    /// # Parameters
-    /// * `bucket` - the bucket name containing the object. In
-    ///   `projects/_/buckets/{bucket_id}` format.
-    /// * `object` - the object name.
-    /// * `payload` - the object data.
+    /// If the data source does **not** implement [Seek] the client library must
+    /// buffer uploaded data until this data is persisted in the service. This
+    /// requires more memory in the client, and whe the buffer grows too large
+    /// may require stalling the upload until the service can persist the data.
+    ///
+    /// Use this function for data sources representing computations where
+    /// it is expensive or impossible to restart said computation. This function
+    /// is also useful when it is hard or impossible to predict the number of
+    /// bytes emitted by a stream, even if restarting the stream is not too
+    /// expensive.
     ///
     /// # Example
     /// ```
@@ -129,12 +136,65 @@ impl Storage {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_unbuffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
+    ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the object. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `object` - the object name.
+    /// * `payload` - the object data.
+    pub fn upload_object_buffered<B, O, T, P>(
+        &self,
+        bucket: B,
+        object: O,
+        payload: T,
+    ) -> UploadObjectBuffered<P>
+    where
+        B: Into<String>,
+        O: Into<String>,
+        T: Into<InsertPayload<P>>,
+        InsertPayload<P>: StreamingSource + Seek,
+    {
+        UploadObjectBuffered::new(self.inner.clone(), bucket, object, payload)
+    }
+
+    /// Upload an object without local buffering.
+    ///
+    /// If the data source implements [Seek], the client library can perform
+    /// uploads without local data buffering, and without any need to
+    /// periodically flush the data. Such data flushing can introduce stalls in
+    /// the upload and reduce effective throughput.
+    ///
+    /// The most common sources that support such uploads are in-memory buffers,
+    /// local files, data from object storage systems and simple transformations
+    /// of these sources.
+    ///
+    /// # Example
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # let client = Storage::builder().build().await?;
+    /// let response = client
+    ///     .upload_object_unbuffered(
+    ///         "projects/_/buckets/my-bucket", "my-object",
+    ///         "the quick brown fox jumped over the lazy dog")
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    ///
+    /// # Parameters
+    /// * `bucket` - the bucket name containing the object. In
+    ///   `projects/_/buckets/{bucket_id}` format.
+    /// * `object` - the object name.
+    /// * `payload` - the object data.
+    ///
     pub fn upload_object_unbuffered<B, O, T, P>(
         &self,
         bucket: B,
