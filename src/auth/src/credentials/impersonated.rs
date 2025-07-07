@@ -64,7 +64,11 @@ use crate::credentials::{
     CacheableResource, Credentials, build_credentials, extract_credential_type,
 };
 use crate::errors::{self, CredentialsError};
-use crate::headers_util::build_cacheable_headers;
+use crate::headers_util::{
+    self, ACCESS_TOKEN_REQUEST_TYPE, build_cacheable_headers, metrics_header_value,
+};
+
+const IMPERSONATED_CREDENTIAL_TYPE: &str = "imp";
 use crate::token::{CachedTokenProvider, Token, TokenProvider};
 use crate::token_cache::TokenCache;
 use crate::{BuildResult, Result};
@@ -445,6 +449,10 @@ pub(crate) async fn generate_access_token(
     let response = client
         .post(service_account_impersonation_url)
         .header("Content-Type", "application/json")
+        .header(
+            headers_util::X_GOOG_API_CLIENT,
+            metrics_header_value(ACCESS_TOKEN_REQUEST_TYPE, IMPERSONATED_CREDENTIAL_TYPE),
+        )
         .headers(source_headers)
         .json(&body)
         .send()
@@ -1436,6 +1444,59 @@ mod tests {
 
         // Fetching the token will trigger the mock server expectations.
         let _token = creds.headers(Extensions::new()).await?;
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn test_impersonated_metrics_header() -> TestResult {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(request::method_path("POST", "/token")).respond_with(
+                json_encoded(json!({
+                    "access_token": "test-user-account-token",
+                    "expires_in": 3600,
+                    "token_type": "Bearer",
+                })),
+            ),
+        );
+        let expire_time = (OffsetDateTime::now_utc() + time::Duration::hours(1))
+            .format(&time::format_description::well_known::Rfc3339)
+            .unwrap();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path(
+                    "POST",
+                    "/v1/projects/-/serviceAccounts/test-principal:generateAccessToken"
+                ),
+                request::headers(contains(("x-goog-api-client", matches("cred-type/imp")))),
+                request::headers(contains((
+                    "x-goog-api-client",
+                    matches("auth-request-type/at")
+                )))
+            ])
+            .respond_with(json_encoded(json!({
+                "accessToken": "test-impersonated-token",
+                "expireTime": expire_time
+            }))),
+        );
+
+        let impersonated_credential = json!({
+            "type": "impersonated_service_account",
+            "service_account_impersonation_url": server.url("/v1/projects/-/serviceAccounts/test-principal:generateAccessToken").to_string(),
+            "source_credentials": {
+                "type": "authorized_user",
+                "client_id": "test-client-id",
+                "client_secret": "test-client-secret",
+                "refresh_token": "test-refresh-token",
+                "token_uri": server.url("/token").to_string()
+            }
+        });
+        let (token_provider, _) = Builder::new(impersonated_credential).build_components()?;
+
+        let token = token_provider.token().await?;
+        assert_eq!(token.token, "test-impersonated-token");
+        assert_eq!(token.token_type, "Bearer");
 
         Ok(())
     }
