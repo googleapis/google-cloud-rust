@@ -14,10 +14,12 @@
 
 //! Defines upload data sources.
 
-/// The payload for [insert_object()][super::client::Storage::insert_object].
+/// The payload for object uploads via the [Storage][crate::client::Storage]
+/// client.
 ///
-/// `insert_object()` consumes any type that can be converted to this type. That
-/// includes simple buffers, and any type implementing [StreamingSource].
+/// The storage client functions to upload new objects consume any type that can
+/// be converted to this type. That includes simple buffers, and any type
+/// implementing [StreamingSource].
 ///
 /// # Example
 /// ```
