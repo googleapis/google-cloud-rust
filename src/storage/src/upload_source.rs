@@ -23,7 +23,7 @@
 /// ```
 /// # tokio_test::block_on(async {
 /// # use google_cloud_storage::upload_source::InsertPayload;
-/// # use google_cloud_storage::upload_source::StreamingSource;
+/// use google_cloud_storage::upload_source::StreamingSource;
 /// let buffer : &[u8] = b"the quick brown fox jumps over the lazy dog";
 /// let mut size = 0_usize;
 /// let mut payload = InsertPayload::from(buffer);
@@ -43,16 +43,23 @@ where
 {
     type Error = T::Error;
 
-    fn seek(&mut self, offset: u64) -> impl Future<Output = Result<(), Self::Error>> + Send {
-        self.payload.seek(offset)
-    }
-
     fn next(&mut self) -> impl Future<Output = Option<Result<bytes::Bytes, Self::Error>>> + Send {
         self.payload.next()
     }
 
     fn size_hint(&self) -> (u64, Option<u64>) {
         self.payload.size_hint()
+    }
+}
+
+impl<T> Seek for InsertPayload<T>
+where
+    T: Seek,
+{
+    type Error = T::Error;
+
+    fn seek(&mut self, offset: u64) -> impl Future<Output = Result<(), Self::Error>> + Send {
+        self.payload.seek(offset)
     }
 }
 
@@ -79,31 +86,17 @@ impl From<&'static [u8]> for InsertPayload<BytesSource> {
 
 impl<S> From<S> for InsertPayload<S>
 where
-    S: StreamingSource,
+    S: StreamingSource + Seek,
 {
     fn from(value: S) -> Self {
         Self { payload: value }
     }
 }
 
-/// Provides bytes for upload.
-///
-/// Implementations of this trait provide data for Google Cloud Storage uploads.
-/// The data may be received asynchronously, such as downloads from Google Cloud
-/// Storage, other remote storage systems, or the result of repeatable
-/// computations.
+/// Provides bytes for an upload from single-pass sources.
 pub trait StreamingSource {
+    /// The error type.
     type Error: std::error::Error + Send + Sync + 'static;
-
-    /// Resets the stream to start from `offset`.
-    ///
-    /// The client library automatically restarts uploads when the connection
-    /// is reset or there is some kind of partial failure. Resuming an upload
-    /// may require resetting the stream to an arbitrary point.
-    ///
-    /// The client library assumes that `seek(N)` followed by `next()` always
-    /// returns the same data.
-    fn seek(&mut self, offset: u64) -> impl Future<Output = Result<(), Self::Error>> + Send;
 
     /// Gets the next set of data to upload.
     fn next(&mut self) -> impl Future<Output = Option<Result<bytes::Bytes, Self::Error>>> + Send;
@@ -120,18 +113,34 @@ pub trait StreamingSource {
     }
 }
 
+/// Provides bytes for an upload from sources that support seek.
+///
+/// Implementations of this trait provide data for Google Cloud Storage uploads.
+/// The data may be received asynchronously, such as downloads from Google Cloud
+/// Storage, other remote storage systems, or the result of repeatable
+/// computations.
+pub trait Seek {
+    /// The error type.
+    type Error: std::error::Error + Send + Sync + 'static;
+
+    /// Resets the stream to start from `offset`.
+    ///
+    /// The client library automatically restarts uploads when the connection
+    /// is reset or there is some kind of partial failure. Resuming an upload
+    /// may require resetting the stream to an arbitrary point.
+    ///
+    /// The client library assumes that `seek(N)` followed by `next()` always
+    /// returns the same data.
+    fn seek(&mut self, offset: u64) -> impl Future<Output = Result<(), Self::Error>> + Send;
+}
+
 const READ_SIZE: usize = 256 * 1024;
 
 impl<S> StreamingSource for S
 where
-    S: tokio::io::AsyncRead + tokio::io::AsyncSeek + Unpin + Send,
+    S: tokio::io::AsyncRead + Unpin + Send,
 {
     type Error = std::io::Error;
-
-    async fn seek(&mut self, offset: u64) -> Result<(), Self::Error> {
-        let _ = tokio::io::AsyncSeekExt::seek(self, std::io::SeekFrom::Start(offset)).await?;
-        Ok(())
-    }
 
     async fn next(&mut self) -> Option<Result<bytes::Bytes, Self::Error>> {
         let mut buffer = vec![0_u8; READ_SIZE];
@@ -143,6 +152,18 @@ where
                 Some(Ok(bytes::Bytes::from_owner(buffer)))
             }
         }
+    }
+}
+
+impl<S> Seek for S
+where
+    S: tokio::io::AsyncSeek + Unpin + Send,
+{
+    type Error = std::io::Error;
+
+    async fn seek(&mut self, offset: u64) -> Result<(), Self::Error> {
+        let _ = tokio::io::AsyncSeekExt::seek(self, std::io::SeekFrom::Start(offset)).await?;
+        Ok(())
     }
 }
 
@@ -162,12 +183,6 @@ impl BytesSource {
 impl StreamingSource for BytesSource {
     type Error = crate::Error;
 
-    async fn seek(&mut self, offset: u64) -> Result<(), Self::Error> {
-        let pos = std::cmp::min(offset as usize, self.contents.len());
-        self.current = Some(self.contents.slice(pos..));
-        Ok(())
-    }
-
     async fn next(&mut self) -> Option<Result<bytes::Bytes, Self::Error>> {
         self.current.take().map(Result::Ok)
     }
@@ -175,6 +190,16 @@ impl StreamingSource for BytesSource {
     fn size_hint(&self) -> (u64, Option<u64>) {
         let s = self.contents.len() as u64;
         (s, Some(s))
+    }
+}
+
+impl Seek for BytesSource {
+    type Error = crate::Error;
+
+    async fn seek(&mut self, offset: u64) -> Result<(), Self::Error> {
+        let pos = std::cmp::min(offset as usize, self.contents.len());
+        self.current = Some(self.contents.slice(pos..));
+        Ok(())
     }
 }
 
@@ -346,10 +371,6 @@ pub(crate) mod test {
     impl StreamingSource for VecStream {
         type Error = std::io::Error;
 
-        async fn seek(&mut self, _offset: u64) -> std::result::Result<(), Self::Error> {
-            panic!(); // not needed in these tests
-        }
-
         async fn next(&mut self) -> Option<std::result::Result<bytes::Bytes, Self::Error>> {
             self.current.pop_front()
         }
@@ -357,6 +378,14 @@ pub(crate) mod test {
         fn size_hint(&self) -> (u64, Option<u64>) {
             let s = self.contents.iter().fold(0_u64, |a, i| a + i.len() as u64);
             (s, Some(s))
+        }
+    }
+
+    impl Seek for VecStream {
+        type Error = std::io::Error;
+
+        async fn seek(&mut self, _offset: u64) -> std::result::Result<(), Self::Error> {
+            panic!(); // The tests do not use this (yet).
         }
     }
 }

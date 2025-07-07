@@ -14,7 +14,7 @@
 
 pub use crate::Error;
 pub use crate::Result;
-use crate::upload_source::{InsertPayload, StreamingSource};
+use crate::upload_source::{InsertPayload, Seek, StreamingSource};
 use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
@@ -136,7 +136,7 @@ impl Storage {
         B: Into<String>,
         O: Into<String>,
         T: Into<InsertPayload<P>>,
-        InsertPayload<P>: StreamingSource,
+        InsertPayload<P>: StreamingSource + Seek,
     {
         InsertObject::new(self.inner.clone(), bucket, object, payload)
     }
