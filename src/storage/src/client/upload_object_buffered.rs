@@ -61,9 +61,7 @@ where
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_buffered(
-    ///         "projects/_/buckets/my-bucket", "my-object",
-    ///         "the quick brown fox jumped over the lazy dog")
+    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -93,9 +91,7 @@ where
     /// # let client = Storage::builder().build().await?;
     /// let key: &[u8] = &[97; 32];
     /// let response = client
-    ///     .upload_object_buffered(
-    ///         "projects/_/buckets/my-bucket", "my-object",
-    ///         "the quick brown fox jumped over the lazy dog")
+    ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_key(KeyAes256::new(key)?)
     ///     .send()
     ///     .await?;
