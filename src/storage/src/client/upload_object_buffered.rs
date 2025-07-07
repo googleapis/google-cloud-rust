@@ -35,7 +35,6 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
     ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
@@ -64,7 +63,6 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
     ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
@@ -94,11 +92,10 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
     ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_if_generation_not_match(0)
+    ///     .with_if_metageneration_match(1234)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
@@ -125,7 +122,6 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
     ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
@@ -178,7 +174,6 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
     ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
@@ -206,7 +201,6 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
     ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
@@ -232,7 +226,6 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// use flate2::write::GzEncoder;
     /// use std::io::Write;
@@ -264,7 +257,6 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
     ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
@@ -291,7 +283,6 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
     ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
@@ -317,7 +308,6 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
@@ -345,9 +335,7 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
-    /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
     ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .with_event_based_hold(true)
@@ -372,7 +360,6 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
@@ -458,7 +445,6 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
@@ -489,7 +475,6 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
     ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
@@ -515,7 +500,6 @@ impl<T> UploadObjectBuffered<T> {
     /// ```
     /// # tokio_test::block_on(async {
     /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
     ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
