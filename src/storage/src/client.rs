@@ -180,9 +180,7 @@ impl Storage {
     /// # use google_cloud_storage::client::Storage;
     /// # let client = Storage::builder().build().await?;
     /// let response = client
-    ///     .upload_object_unbuffered(
-    ///         "projects/_/buckets/my-bucket", "my-object",
-    ///         "the quick brown fox jumped over the lazy dog")
+    ///     .upload_object_unbuffered("projects/_/buckets/my-bucket", "my-object", "hello world")
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
