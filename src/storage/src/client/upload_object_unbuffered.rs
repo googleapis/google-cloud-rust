@@ -158,9 +158,82 @@ mod tests {
     use super::super::tests::test_inner_client;
     use super::*;
     use crate::upload_source::test::VecStream;
+    use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use test_case::test_case;
 
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[tokio::test]
+    async fn upload_object_unbuffered_normal() -> Result {
+        let payload = serde_json::json!({
+            "name": "test-object",
+            "bucket": "test-bucket",
+            "metadata": {
+                "is-test-object": "true",
+            }
+        })
+        .to_string();
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "//upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "media")))),
+            ])
+            .respond_with(
+                status_code(200)
+                    .append_header("content-type", "application/json")
+                    .body(payload),
+            ),
+        );
+
+        let endpoint = server.url("");
+        let client = Storage::builder()
+            .with_endpoint(endpoint.to_string())
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let response = client
+            .insert_object("projects/_/buckets/test-bucket", "test-object", "")
+            .send()
+            .await?;
+        assert_eq!(response.name, "test-object");
+        assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
+        assert_eq!(
+            response.metadata.get("is-test-object").map(String::as_str),
+            Some("true")
+        );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn insert_object_not_found() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "//upload/storage/v1/b/test-bucket/o"),
+                request::query(url_decoded(contains(("name", "test-object")))),
+                request::query(url_decoded(contains(("uploadType", "media")))),
+            ])
+            .respond_with(status_code(404).body("NOT FOUND")),
+        );
+
+        let endpoint = server.url("");
+        let client = Storage::builder()
+            .with_endpoint(endpoint.to_string())
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let err = client
+            .insert_object("projects/_/buckets/test-bucket", "test-object", "")
+            .send()
+            .await
+            .expect_err("expected a not found error");
+        assert_eq!(err.http_status_code(), Some(404));
+
+        Ok(())
+    }
 
     #[tokio::test]
     async fn upload_object_unbuffered() -> Result {

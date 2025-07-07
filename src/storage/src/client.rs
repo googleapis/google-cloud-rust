@@ -426,8 +426,6 @@ fn apply_customer_supplied_encryption_headers(
 #[cfg(test)]
 mod tests {
     use super::*;
-    use futures::TryStreamExt;
-    use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::sync::Arc;
     use test_case::test_case;
 
@@ -436,12 +434,12 @@ mod tests {
     /// This is used by the request builder tests.
     pub(crate) fn test_inner_client(config: gaxi::options::ClientConfig) -> Arc<StorageInner> {
         let client = reqwest::Client::new();
-        let cred = if let Some(c) = config.cred {
-            c
-        } else {
-            auth::credentials::testing::test_credentials()
-        };
-        let endpoint = "http://private.googleapis.com".to_string();
+        let cred = config
+            .cred
+            .unwrap_or_else(auth::credentials::testing::test_credentials);
+        let endpoint = config
+            .endpoint
+            .unwrap_or_else(|| "http://private.googleapis.com".to_string());
         let inner = StorageInner {
             client,
             cred,
@@ -459,159 +457,6 @@ mod tests {
         let key_sha256 = Sha256::digest(key.clone());
         let key_sha256_base64 = BASE64_STANDARD.encode(key_sha256);
         (key, key_base64, key_sha256.to_vec(), key_sha256_base64)
-    }
-
-    #[tokio::test]
-    async fn insert_object_normal() -> Result {
-        let payload = serde_json::json!({
-            "name": "test-object",
-            "bucket": "test-bucket",
-            "metadata": {
-                "is-test-object": "true",
-            }
-        })
-        .to_string();
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "//upload/storage/v1/b/test-bucket/o"),
-                request::query(url_decoded(contains(("name", "test-object")))),
-                request::query(url_decoded(contains(("uploadType", "media")))),
-            ])
-            .respond_with(
-                status_code(200)
-                    .append_header("content-type", "application/json")
-                    .body(payload),
-            ),
-        );
-
-        let endpoint = server.url("");
-        let client = Storage::builder()
-            .with_endpoint(endpoint.to_string())
-            .with_credentials(auth::credentials::testing::test_credentials())
-            .build()
-            .await?;
-        let response = client
-            .insert_object("projects/_/buckets/test-bucket", "test-object", "")
-            .send()
-            .await?;
-        assert_eq!(response.name, "test-object");
-        assert_eq!(response.bucket, "projects/_/buckets/test-bucket");
-        assert_eq!(
-            response.metadata.get("is-test-object").map(String::as_str),
-            Some("true")
-        );
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn insert_object_not_found() -> Result {
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("POST", "//upload/storage/v1/b/test-bucket/o"),
-                request::query(url_decoded(contains(("name", "test-object")))),
-                request::query(url_decoded(contains(("uploadType", "media")))),
-            ])
-            .respond_with(status_code(404).body("NOT FOUND")),
-        );
-
-        let endpoint = server.url("");
-        let client = Storage::builder()
-            .with_endpoint(endpoint.to_string())
-            .with_credentials(auth::credentials::testing::test_credentials())
-            .build()
-            .await?;
-        let err = client
-            .insert_object("projects/_/buckets/test-bucket", "test-object", "")
-            .send()
-            .await
-            .expect_err("expected a not found error");
-        assert_eq!(err.http_status_code(), Some(404));
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn read_object_normal() -> Result {
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
-                request::query(url_decoded(contains(("alt", "media")))),
-            ])
-            .respond_with(status_code(200).body("hello world")),
-        );
-
-        let endpoint = server.url("");
-        let client = Storage::builder()
-            .with_endpoint(endpoint.to_string())
-            .with_credentials(auth::credentials::testing::test_credentials())
-            .build()
-            .await?;
-        let reader = client
-            .read_object("projects/_/buckets/test-bucket", "test-object")
-            .send()
-            .await?;
-        let got = reader.all_bytes().await?;
-        assert_eq!(got, "hello world");
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn read_object_not_found() -> Result {
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
-                request::query(url_decoded(contains(("alt", "media")))),
-            ])
-            .respond_with(status_code(404).body("NOT FOUND")),
-        );
-
-        let endpoint = server.url("");
-        let client = Storage::builder()
-            .with_endpoint(endpoint.to_string())
-            .with_credentials(auth::credentials::testing::test_credentials())
-            .build()
-            .await?;
-        let err = client
-            .read_object("projects/_/buckets/test-bucket", "test-object")
-            .send()
-            .await
-            .expect_err("expected a not found error");
-        assert_eq!(err.http_status_code(), Some(404));
-
-        Ok(())
-    }
-
-    #[tokio::test]
-    async fn read_object_stream() -> Result {
-        let server = Server::run();
-        server.expect(
-            Expectation::matching(all_of![
-                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
-                request::query(url_decoded(contains(("alt", "media")))),
-            ])
-            .respond_with(status_code(200).body("hello world")),
-        );
-
-        let endpoint = server.url("");
-        let client = Storage::builder()
-            .with_endpoint(endpoint.to_string())
-            .with_credentials(auth::credentials::testing::test_credentials())
-            .build()
-            .await?;
-        let response = client
-            .read_object("projects/_/buckets/test-bucket", "test-object")
-            .send()
-            .await?;
-        let result: Vec<_> = response.into_stream().try_collect().await?;
-        assert_eq!(result, vec![bytes::Bytes::from_static(b"hello world")]);
-
-        Ok(())
     }
 
     #[test]

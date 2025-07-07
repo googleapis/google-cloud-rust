@@ -384,11 +384,94 @@ mod tests {
     use super::super::tests::create_key_helper;
     use super::super::tests::test_inner_client;
     use super::*;
+    use futures::TryStreamExt;
+    use httptest::{Expectation, Server, matchers::*, responders::status_code};
     use std::collections::HashMap;
     use std::error::Error;
     use test_case::test_case;
 
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    #[tokio::test]
+    async fn read_object_normal() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .respond_with(status_code(200).body("hello world")),
+        );
+
+        let endpoint = server.url("");
+        let client = Storage::builder()
+            .with_endpoint(endpoint.to_string())
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let reader = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+        let got = reader.all_bytes().await?;
+        assert_eq!(got, "hello world");
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_stream() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .respond_with(status_code(200).body("hello world")),
+        );
+
+        let endpoint = server.url("");
+        let client = Storage::builder()
+            .with_endpoint(endpoint.to_string())
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+        let result: Vec<_> = response.into_stream().try_collect().await?;
+        assert_eq!(result, vec![bytes::Bytes::from_static(b"hello world")]);
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_not_found() -> Result {
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .respond_with(status_code(404).body("NOT FOUND")),
+        );
+
+        let endpoint = server.url("");
+        let client = Storage::builder()
+            .with_endpoint(endpoint.to_string())
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let err = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await
+            .expect_err("expected a not found error");
+        assert_eq!(err.http_status_code(), Some(404));
+
+        Ok(())
+    }
 
     #[tokio::test]
     async fn read_object() -> Result {
