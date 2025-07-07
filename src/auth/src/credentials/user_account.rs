@@ -365,8 +365,8 @@ mod test {
     };
     use crate::credentials::{DEFAULT_UNIVERSE_DOMAIN, QUOTA_PROJECT_KEY};
     use crate::token::test::MockTokenProvider;
-    use http::header::AUTHORIZATION;
     use http::StatusCode;
+    use http::header::AUTHORIZATION;
     use httptest::matchers::{all_of, json_decoded, request};
     use httptest::responders::{json_encoded, status_code};
     use httptest::{Expectation, Server};
@@ -904,9 +904,8 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn credential_provider_retryable_error() -> TestResult {
         let server = Server::run();
-        server.expect(
-            Expectation::matching(request::path("/token")).respond_with(status_code(503)),
-        );
+        server
+            .expect(Expectation::matching(request::path("/token")).respond_with(status_code(503)));
 
         let authorized_user = serde_json::json!({
             "client_id": "test-client-id",
@@ -933,9 +932,8 @@ mod test {
     #[tokio::test(flavor = "multi_thread", worker_threads = 2)]
     async fn token_provider_nonretryable_error() -> TestResult {
         let server = Server::run();
-        server.expect(
-            Expectation::matching(request::path("/token")).respond_with(status_code(401)),
-        );
+        server
+            .expect(Expectation::matching(request::path("/token")).respond_with(status_code(401)));
 
         let authorized_user = serde_json::json!({
             "client_id": "test-client-id",
