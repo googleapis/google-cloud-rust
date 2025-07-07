@@ -56,6 +56,8 @@ pub async fn run() -> Result<()> {
     paged_expand_mapped(&client).await?;
     // Wait() tests timeouts, which we already have tests for.
     // Block() tests timeouts, which we already have tests for.
+    request_id_unset(&client).await?;
+    request_id_custom(&client).await?;
 
     Ok(())
 }
@@ -163,5 +165,32 @@ async fn paged_expand_mapped(client: &showcase::client::Echo) -> Result<()> {
         .send()
         .await?;
     assert!(!response.alphabetized.is_empty(), "{response:?}");
+    Ok(())
+}
+
+// Verify that the library auto-populates request IDs
+async fn request_id_unset(client: &showcase::client::Echo) -> Result<()> {
+    let response = client.echo().set_content(CONTENT).send().await?;
+    let uuid1 = uuid::Uuid::try_parse(&response.request_id)?;
+    let uuid2 = uuid::Uuid::try_parse(&response.other_request_id)?;
+    assert!(!uuid1.is_nil());
+    assert!(!uuid2.is_nil());
+    Ok(())
+}
+
+// Verify that the library preserves user-supplied request IDs
+async fn request_id_custom(client: &showcase::client::Echo) -> Result<()> {
+    let uuid1 = "92500ce6-fba2-4fc5-92ad-b7250282c2fc";
+    let uuid2 = "7289ea3a-7f36-44e7-ac2f-3d906f199c3c";
+
+    let response = client
+        .echo()
+        .set_content(CONTENT)
+        .set_request_id(uuid1)
+        .set_other_request_id(uuid2)
+        .send()
+        .await?;
+    assert_eq!(uuid1, response.request_id);
+    assert_eq!(uuid2, response.other_request_id);
     Ok(())
 }

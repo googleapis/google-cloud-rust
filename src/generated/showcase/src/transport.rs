@@ -1585,6 +1585,7 @@ impl super::stub::Echo for Echo {
     ) -> Result<gax::response::Response<crate::model::EchoResponse>> {
         use gax::error::binding::BindingError;
         use gaxi::path_parameter::PathMismatchBuilder;
+        let options = gax::options::internal::set_default_idempotency(options, true);
         let (builder, method) = None
             .or_else(|| {
                 let path = "/v1beta1/echo:echo".to_string();
