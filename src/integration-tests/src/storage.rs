@@ -230,6 +230,59 @@ pub async fn objects_large_file(builder: storage::client::ClientBuilder) -> Resu
     Ok(())
 }
 
+pub async fn objects_upload_buffered(builder: storage::client::ClientBuilder) -> Result<()> {
+    // Enable a basic subscriber. Useful to troubleshoot problems and visually
+    // verify tracing is doing something.
+    #[cfg(feature = "log-integration-tests")]
+    let _guard = {
+        use tracing_subscriber::fmt::format::FmtSpan;
+        let subscriber = tracing_subscriber::fmt()
+            .with_level(true)
+            .with_thread_ids(true)
+            .with_span_events(FmtSpan::NEW | FmtSpan::CLOSE)
+            .finish();
+
+        tracing::subscriber::set_default(subscriber)
+    };
+
+    // Create a temporary bucket for the test.
+    let (control, bucket) = create_test_bucket().await?;
+    let client = builder.build().await?;
+
+    tracing::info!("testing upload_object_buffered() [1]");
+    let insert = client
+        .upload_object_buffered(&bucket.name, "empty.txt", "")
+        .with_if_generation_match(0)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 0_i64);
+
+    let payload = bytes::Bytes::from_owner(Vec::from_iter((0..128 * 1024).map(|_| 0_u8)));
+    tracing::info!("testing upload_object_buffered() [2]");
+    let insert = client
+        .upload_object_buffered(&bucket.name, "128K.txt", payload)
+        .with_if_generation_match(0)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 128 * 1024_i64);
+
+    let payload = bytes::Bytes::from_owner(Vec::from_iter((0..512 * 1024).map(|_| 0_u8)));
+    tracing::info!("testing upload_object_buffered() [3]");
+    let insert = client
+        .upload_object_buffered(&bucket.name, "512K.txt", payload)
+        .with_if_generation_match(0)
+        .send()
+        .await?;
+    tracing::info!("success with insert={insert:?}");
+    assert_eq!(insert.size, 512 * 1024_i64);
+
+    cleanup_bucket(control, bucket.name).await?;
+
+    Ok(())
+}
+
 pub async fn create_test_bucket() -> Result<(StorageControl, Bucket)> {
     let project_id = crate::project_id()?;
     let client = StorageControl::builder()
