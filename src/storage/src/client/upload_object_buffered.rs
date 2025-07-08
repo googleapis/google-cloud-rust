@@ -293,7 +293,7 @@ impl<T> UploadObjectBuffered<T> {
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     ///
-    /// [content language]: https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.1.5
+    /// [content type]: https://datatracker.ietf.org/doc/html/rfc7231#section-3.1.1.5
     pub fn with_content_type<V: Into<String>>(mut self, v: V) -> Self {
         self.resource.content_type = v.into();
         self
@@ -449,14 +449,14 @@ impl<T> UploadObjectBuffered<T> {
     /// let time = wkt::Timestamp::try_from("2025-07-07T18:30:00Z")?;
     /// let response = client
     ///     .upload_object_buffered("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_event_based_hold(true)
+    ///     .with_temporary_hold(true)
     ///     .send()
     ///     .await?;
     /// println!("response details={response:?}");
     /// # Ok::<(), anyhow::Error>(()) });
     /// ```
     ///
-    /// [event based hold]: https://cloud.google.com/storage/docs/object-holds
+    /// [temporary hold]: https://cloud.google.com/storage/docs/object-holds
     pub fn with_temporary_hold<V: Into<bool>>(mut self, v: V) -> Self {
         self.resource.temporary_hold = v.into();
         self
