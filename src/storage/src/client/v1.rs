@@ -22,14 +22,15 @@ pub struct Object {
     id: String,
     name: String,
     bucket: String,
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     generation: i64,
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::I64")]
     metageneration: i64,
     content_type: String,
     storage_class: String,
-    #[serde_as(as = "serde_with::DisplayFromStr")]
+    #[serde_as(as = "wkt::internal::U64")]
     size: u64,
+    #[serde_as(as = "wkt::internal::I32")]
     component_count: i32,
     kms_key_name: String,
     etag: String,
@@ -357,9 +358,11 @@ pub(crate) fn insert_body(resource: &control::model::Object) -> serde_json::Valu
 #[cfg(test)]
 mod tests {
     use super::*;
-    use serde_json::json;
+    use serde_json::{Value, json};
     use serde_with::DeserializeAs;
     use test_case::test_case;
+
+    type Result = anyhow::Result<()>;
 
     #[test]
     fn test_deserialize_object() {
@@ -458,6 +461,66 @@ mod tests {
         };
 
         assert_eq!(object, want);
+    }
+
+    #[test_case(json!({"generation": "1234"}), 1234_i64)]
+    #[test_case(json!({"generation": 2345}),   2345_i64)]
+    #[test_case(json!({"generation": 3456.0}), 3456_i64)]
+    fn deserialize_generation(input: Value, want: i64) -> Result {
+        let got = serde_json::from_value::<Object>(input)?;
+        assert_eq!(
+            got,
+            Object {
+                generation: want,
+                ..Default::default()
+            }
+        );
+        Ok(())
+    }
+
+    #[test_case(json!({"metageneration": "1234"}), 1234_i64)]
+    #[test_case(json!({"metageneration": 2345}),   2345_i64)]
+    #[test_case(json!({"metageneration": 3456.0}), 3456_i64)]
+    fn deserialize_metageneration(input: Value, want: i64) -> Result {
+        let got = serde_json::from_value::<Object>(input)?;
+        assert_eq!(
+            got,
+            Object {
+                metageneration: want,
+                ..Default::default()
+            }
+        );
+        Ok(())
+    }
+
+    #[test_case(json!({"size": "1234"}), 1234_u64)]
+    #[test_case(json!({"size": 2345}),   2345_u64)]
+    #[test_case(json!({"size": 3456.0}), 3456_u64)]
+    fn deserialize_size(input: Value, want: u64) -> Result {
+        let got = serde_json::from_value::<Object>(input)?;
+        assert_eq!(
+            got,
+            Object {
+                size: want,
+                ..Default::default()
+            }
+        );
+        Ok(())
+    }
+
+    #[test_case(json!({"componentCount": "1234"}), 1234_i32)]
+    #[test_case(json!({"componentCount": 2345}),   2345_i32)]
+    #[test_case(json!({"componentCount": 3456.0}), 3456_i32)]
+    fn deserialize_component_count(input: Value, want: i32) -> Result {
+        let got = serde_json::from_value::<Object>(input)?;
+        assert_eq!(
+            got,
+            Object {
+                component_count: want,
+                ..Default::default()
+            }
+        );
+        Ok(())
     }
 
     #[test_case(Object::default(); "default fields")]

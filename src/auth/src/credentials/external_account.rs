@@ -66,7 +66,7 @@ enum CredentialSourceFile {
         file: String,
         format: Option<CredentialSourceFormat>,
     },
-    Aws {},
+    Aws,
 }
 
 /// A representation of a [external account config file].
@@ -117,7 +117,7 @@ impl From<CredentialSourceFile> for CredentialSource {
             CredentialSourceFile::File { file, format } => {
                 Self::File(FileSourcedCredentials::new(file, format))
             }
-            CredentialSourceFile::Aws { .. } => {
+            CredentialSourceFile::Aws => {
                 unimplemented!("AWS sourced credential not supported yet")
             }
         }
@@ -217,7 +217,7 @@ enum CredentialSource {
     Url(UrlSourcedCredentials),
     Executable(ExecutableSourcedCredentials),
     File(FileSourcedCredentials),
-    Aws {},
+    Aws,
     Programmatic(ProgrammaticSourcedCredentials),
 }
 
@@ -1394,6 +1394,60 @@ mod test {
             fmt.contains("test-quota-project"),
             "Expected 'test-quota-project', got: {fmt}"
         );
+    }
+
+    #[tokio::test]
+    async fn programmatic_builder_returns_correct_headers() {
+        let provider = Arc::new(TestSubjectTokenProvider);
+        let sts_server = Server::run();
+        let builder = ProgrammaticBuilder::new(provider)
+            .with_audience("test-audience")
+            .with_subject_token_type("test-token-type")
+            .with_token_url(sts_server.url("/token").to_string())
+            .with_quota_project_id("test-quota-project");
+
+        let creds = builder.build().unwrap();
+
+        sts_server.expect(
+            Expectation::matching(all_of![
+                request::method_path("POST", "/token"),
+                request::body(url_decoded(contains((
+                    "grant_type",
+                    TOKEN_EXCHANGE_GRANT_TYPE
+                )))),
+                request::body(url_decoded(contains((
+                    "subject_token",
+                    "test-subject-token"
+                )))),
+                request::body(url_decoded(contains((
+                    "requested_token_type",
+                    ACCESS_TOKEN_TYPE
+                )))),
+                request::body(url_decoded(contains((
+                    "subject_token_type",
+                    "test-token-type"
+                )))),
+                request::body(url_decoded(contains(("audience", "test-audience")))),
+                request::body(url_decoded(contains(("scope", DEFAULT_SCOPE)))),
+            ])
+            .respond_with(json_encoded(json!({
+                "access_token": "sts-only-token",
+                "issued_token_type": "urn:ietf:params:oauth:token-type:access_token",
+                "token_type": "Bearer",
+                "expires_in": 3600,
+            }))),
+        );
+
+        let headers = creds.headers(Extensions::new()).await.unwrap();
+        match headers {
+            CacheableResource::New { data, .. } => {
+                let token = data.get("authorization").unwrap().to_str().unwrap();
+                assert_eq!(token, "Bearer sts-only-token");
+                let quota_project = data.get("x-goog-user-project").unwrap().to_str().unwrap();
+                assert_eq!(quota_project, "test-quota-project");
+            }
+            CacheableResource::NotModified => panic!("Expected new headers"),
+        }
     }
 
     #[tokio::test]
