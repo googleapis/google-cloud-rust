@@ -60,3 +60,92 @@ impl SubjectTokenProvider for FileSourcedCredentials {
         }
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use serde_json::json;
+    use std::{error::Error, io::Write};
+    use tempfile::NamedTempFile;
+
+    type TestResult = std::result::Result<(), Box<dyn std::error::Error>>;
+
+    fn create_temp_file(content: &str) -> std::io::Result<NamedTempFile> {
+        let mut file = NamedTempFile::new()?;
+        file.write_all(content.as_bytes())?;
+        Ok(file)
+    }
+
+    #[tokio::test]
+    async fn get_text_token() -> TestResult {
+        let file = create_temp_file("an_example_token")?;
+        let token_provider = FileSourcedCredentials {
+            file: file.path().to_str().unwrap().to_string(),
+            format: "text".into(),
+            subject_token_field_name: "".into(),
+        };
+        let resp = token_provider.subject_token().await?;
+        assert_eq!(resp.token, "an_example_token".to_string());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_json_token() -> TestResult {
+        let response_body = json!({
+            "access_token":"an_example_token",
+        })
+        .to_string();
+        let file = create_temp_file(&response_body)?;
+        let token_provider = FileSourcedCredentials {
+            file: file.path().to_str().unwrap().to_string(),
+            format: "json".into(),
+            subject_token_field_name: "access_token".into(),
+        };
+        let resp = token_provider.subject_token().await?;
+        assert_eq!(resp.token, "an_example_token".to_string());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_json_token_missing_field() -> TestResult {
+        let response_body = json!({
+            "wrong_field":"an_example_token",
+        })
+        .to_string();
+        let file = create_temp_file(&response_body)?;
+        let token_provider = FileSourcedCredentials {
+            file: file.path().to_str().unwrap().to_string(),
+            format: "json".into(),
+            subject_token_field_name: "access_token".into(),
+        };
+        let err = token_provider
+            .subject_token()
+            .await
+            .expect_err("parsing should fail");
+        assert!(!err.is_transient(), "{err:?}");
+        assert!(err.source().is_none());
+        assert!(err.to_string().contains("`access_token`"), "{err:?}");
+        assert!(
+            err.to_string()
+                .contains("{\"wrong_field\":\"an_example_token\"}"),
+            "{err:?}"
+        );
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn file_not_found() -> TestResult {
+        let token_provider = FileSourcedCredentials {
+            file: "/path/to/non/existent/file".to_string(),
+            format: "text".into(),
+            subject_token_field_name: "".into(),
+        };
+        let err = token_provider
+            .subject_token()
+            .await
+            .expect_err("file should not exist");
+        assert!(!err.is_transient(), "{err:?}");
+        assert!(err.source().is_some());
+        Ok(())
+    }
+}
