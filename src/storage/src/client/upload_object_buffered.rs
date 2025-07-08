@@ -1746,6 +1746,18 @@ mod tests {
         Ok(())
     }
 
+    #[tokio::test]
+    async fn parse_range_invalid_range() -> Result {
+        let response = http::Response::builder()
+            .header("range", "bytes=100-999")
+            .status(RESUME_INCOMPLETE)
+            .body(Vec::new())?;
+        let response = reqwest::Response::from(response);
+        let err = super::parse_range(response, 1234).await.expect_err("invalid range should create an error");
+        assert!(err.http_status_code().is_some(), "{err:?}");
+        Ok(())
+    }
+
     #[test_case(None, Some(0))]
     #[test_case(Some("bytes=0-12345"), Some(12345))]
     #[test_case(Some("bytes=0-1"), Some(1))]
