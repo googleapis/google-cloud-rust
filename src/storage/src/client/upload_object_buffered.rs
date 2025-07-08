@@ -28,8 +28,8 @@ impl<T> UploadObjectBuffered<T> {
     /// Set a [request precondition] on the object generation to match.
     ///
     /// With this precondition the request fails if the current object
-    /// generation does matches the provided value. A common value is `0`,
-    /// which prevents uploads from succeeding if the object already exists.
+    /// generation matches the provided value. A common value is `0`, which
+    /// prevents uploads from succeeding if the object already exists.
     ///
     /// # Example
     /// ```
