@@ -98,16 +98,18 @@ where
     async fn execute_retry_loop(&self, retry_policy: Arc<dyn RetryPolicy>) -> Result<Token> {
         let inner = self.inner.clone();
         let sleep = async |d| tokio::time::sleep(d).await;
+        let token_fetch_operation = move |_| {
+            let inner = inner.clone();
+            async move {
+                inner
+                    .token()
+                    .await
+                    .map_err(gax::error::Error::authentication)
+            }
+        };
+
         retry_loop(
-            move |_| {
-                let inner = inner.clone();
-                async move {
-                    inner
-                        .token()
-                        .await
-                        .map_err(gax::error::Error::authentication)
-                }
-            },
+            token_fetch_operation,
             sleep,
             true, // token fetching is idempotent
             self.retry_throttler.clone(),
@@ -342,7 +344,7 @@ mod tests {
     }
 
     #[tokio::test]
-    async fn test_no_retry_policy_failure() {
+    async fn test_no_retry_policy_failure_non_transient_error() {
         let mut mock_provider = MockTokenProvider::new();
         mock_provider
             .expect_token()
@@ -356,6 +358,24 @@ mod tests {
         assert_eq!(
             error.to_string(),
             "non transient error and future attempts will not succeed"
+        );
+    }
+
+        #[tokio::test]
+    async fn test_no_retry_policy_failure_transient_error() {
+        let mut mock_provider = MockTokenProvider::new();
+        mock_provider
+            .expect_token()
+            .times(1)
+            .returning(|| Err(CredentialsError::from_msg(true, "transient error")));
+
+        let provider = Builder::new(mock_provider).build();
+
+        let error = provider.token().await.unwrap_err();
+        assert!(!error.is_transient());
+        assert_eq!(
+            error.to_string(),
+            "transient error but future attempts may succeed"
         );
     }
 
