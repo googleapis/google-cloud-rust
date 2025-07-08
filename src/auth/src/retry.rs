@@ -358,7 +358,7 @@ mod tests {
 
         let error = provider.token().await.unwrap_err();
         assert_eq!(error.is_transient(), is_transient);
-        let expected_message = format!("{} {}", ERROR_MESSAGE, expected_suffix);
+        let expected_message = format!("{ERROR_MESSAGE} {expected_suffix}");
         assert_eq!(error.to_string(), expected_message);
     }
 
