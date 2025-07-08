@@ -460,4 +460,22 @@ mod tests {
             "Backoff policy was not called"
         );
     }
+
+    #[test]
+    fn test_map_retry_error_non_auth_error() {
+        // 1. Create a non-authentication error.
+        let original_error = gax::error::Error::io("test-io-error");
+        let original_error_string = original_error.to_string();
+
+        // 2. Call the function under test.
+        let credentials_error =
+            TokenProviderWithRetry::<MockTokenProvider>::map_retry_error(original_error);
+
+        // 3. Assert that the resulting error is not transient and wraps the original error.
+        assert!(!credentials_error.is_transient());
+        assert_eq!(
+            credentials_error.source().unwrap().to_string(),
+            original_error_string
+        );
+    }
 }
