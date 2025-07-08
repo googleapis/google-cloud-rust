@@ -343,40 +343,23 @@ mod tests {
         assert_eq!(token.token, "test_token");
     }
 
+    #[test_case(true, "but future attempts may succeed" ; "transient_error")]
+    #[test_case(false, "and future attempts will not succeed" ; "non_transient_error")]
     #[tokio::test]
-    async fn test_no_retry_policy_failure_non_transient_error() {
+    async fn test_no_retry_policy_failure(is_transient: bool, expected_suffix: &str) {
         let mut mock_provider = MockTokenProvider::new();
+        const ERROR_MESSAGE: &str = "underlying provider error";
         mock_provider
             .expect_token()
             .times(1)
-            .returning(|| Err(CredentialsError::from_msg(false, "non transient error")));
+            .returning(move || Err(CredentialsError::from_msg(is_transient, ERROR_MESSAGE)));
 
         let provider = Builder::new(mock_provider).build();
 
         let error = provider.token().await.unwrap_err();
-        assert!(!error.is_transient());
-        assert_eq!(
-            error.to_string(),
-            "non transient error and future attempts will not succeed"
-        );
-    }
-
-        #[tokio::test]
-    async fn test_no_retry_policy_failure_transient_error() {
-        let mut mock_provider = MockTokenProvider::new();
-        mock_provider
-            .expect_token()
-            .times(1)
-            .returning(|| Err(CredentialsError::from_msg(true, "transient error")));
-
-        let provider = Builder::new(mock_provider).build();
-
-        let error = provider.token().await.unwrap_err();
-        assert!(!error.is_transient());
-        assert_eq!(
-            error.to_string(),
-            "transient error but future attempts may succeed"
-        );
+        assert_eq!(error.is_transient(), is_transient);
+        let expected_message = format!("{} {}", ERROR_MESSAGE, expected_suffix);
+        assert_eq!(error.to_string(), expected_message);
     }
 
     #[test_case(
