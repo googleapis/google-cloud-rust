@@ -30,6 +30,7 @@ pub struct Object {
     storage_class: String,
     #[serde_as(as = "wkt::internal::U64")]
     size: u64,
+    #[serde_as(as = "wkt::internal::I32")]
     component_count: i32,
     kms_key_name: String,
     etag: String,
@@ -501,6 +502,21 @@ mod tests {
             got,
             Object {
                 size: want,
+                ..Default::default()
+            }
+        );
+        Ok(())
+    }
+
+    #[test_case(json!({"componentCount": "1234"}), 1234_i32)]
+    #[test_case(json!({"componentCount": 2345}),   2345_i32)]
+    #[test_case(json!({"componentCount": 3456.0}), 3456_i32)]
+    fn deserialize_component_count(input: Value, want: i32) -> Result {
+        let got = serde_json::from_value::<Object>(input)?;
+        assert_eq!(
+            got,
+            Object {
+                component_count: want,
                 ..Default::default()
             }
         );
