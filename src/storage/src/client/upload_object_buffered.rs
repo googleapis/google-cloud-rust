@@ -792,24 +792,40 @@ async fn handle_start_resumable_upload_response(response: reqwest::Response) -> 
 
 async fn next_chunk<T>(
     payload: &mut InsertPayload<T>,
-    partial: Option<bytes::Bytes>,
+    remainder: Option<bytes::Bytes>,
     target_size: usize,
 ) -> Result<(VecDeque<bytes::Bytes>, Option<bytes::Bytes>)>
 where
     T: StreamingSource,
 {
-    let mut partial: VecDeque<_> = partial.into_iter().collect();
-    let mut size = partial.iter().fold(0, |s, b| s + b.len());
-    while size < target_size
-        && let Some(mut b) = payload.next().await.transpose().map_err(Error::io)?
-    {
-        match size + b.len() {
+    let mut partial = VecDeque::new();
+    let mut size = 0;
+    if let Some(mut b) = remainder {
+        match b.len() {
             n if n > target_size => {
-                let remainder = b.split_off(n - target_size);
+                let remainder = b.split_off(target_size);
                 partial.push_back(b);
                 return Ok((partial, Some(remainder)));
             }
             n if n == target_size => {
+                partial.push_back(b);
+                return Ok((partial, None));
+            }
+            _ => {
+                size += b.len();
+                partial.push_back(b);
+            }
+        }
+    }
+
+    while let Some(mut b) = payload.next().await.transpose().map_err(Error::io)? {
+        match b.len() {
+            n if size + n > target_size => {
+                let remainder = b.split_off(target_size - size);
+                partial.push_back(b);
+                return Ok((partial, Some(remainder)));
+            }
+            n if size + n == target_size => {
                 partial.push_back(b);
                 return Ok((partial, None));
             }
@@ -1524,6 +1540,36 @@ mod tests {
                 new_line(4, LEN)
             ]
         );
+
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn next_chunk_split_large_remainder() -> Result {
+        const LEN: usize = 32;
+        let buffer = (0..3)
+            .map(|i| new_line_string(i, LEN))
+            .collect::<Vec<_>>()
+            .join("");
+        let stream = VecStream::new(vec![bytes::Bytes::from_owner(buffer), new_line(3, LEN)]);
+        let mut payload = InsertPayload::from(stream);
+
+        let remainder = None;
+        let (vec, remainder) = super::next_chunk(&mut payload, remainder, LEN).await?;
+        assert!(remainder.is_some());
+        assert_eq!(vec, vec![new_line(0, LEN)]);
+
+        let (vec, remainder) = super::next_chunk(&mut payload, remainder, LEN).await?;
+        assert!(remainder.is_some());
+        assert_eq!(vec, vec![new_line(1, LEN)]);
+
+        let (vec, remainder) = super::next_chunk(&mut payload, remainder, LEN).await?;
+        assert!(remainder.is_none());
+        assert_eq!(vec, vec![new_line(2, LEN)]);
+
+        let (vec, remainder) = super::next_chunk(&mut payload, remainder, LEN).await?;
+        assert!(remainder.is_none());
+        assert_eq!(vec, vec![new_line(3, LEN)]);
 
         Ok(())
     }
