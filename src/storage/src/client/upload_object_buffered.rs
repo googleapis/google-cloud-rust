@@ -1753,7 +1753,9 @@ mod tests {
             .status(RESUME_INCOMPLETE)
             .body(Vec::new())?;
         let response = reqwest::Response::from(response);
-        let err = super::parse_range(response, 1234).await.expect_err("invalid range should create an error");
+        let err = super::parse_range(response, 1234)
+            .await
+            .expect_err("invalid range should create an error");
         assert!(err.http_status_code().is_some(), "{err:?}");
         Ok(())
     }
