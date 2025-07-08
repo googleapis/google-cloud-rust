@@ -54,7 +54,9 @@ unstable-stream = ["reqwest/stream"]
 [dev-dependencies]
 anyhow.workspace         = true
 http-body-util.workspace = true
+httptest.workspace       = true
 test-case.workspace      = true
 tempfile.workspace       = true
 tokio-test.workspace     = true
 tokio.workspace          = true
+google-cloud-storage     = { path = ".", features = ["unstable-stream"] }
