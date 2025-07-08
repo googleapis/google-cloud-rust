@@ -98,7 +98,7 @@ where
     async fn execute_retry_loop(&self, retry_policy: Arc<dyn RetryPolicy>) -> Result<Token> {
         let inner = self.inner.clone();
         let sleep = async |d| tokio::time::sleep(d).await;
-        let token_fetch_operation = move |_| {
+        let fetch_token = move |_| {
             let inner = inner.clone();
             async move {
                 inner
@@ -109,7 +109,7 @@ where
         };
 
         retry_loop(
-            token_fetch_operation,
+            fetch_token,
             sleep,
             true, // token fetching is idempotent
             self.retry_throttler.clone(),
