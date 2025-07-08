@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::constants;
+use crate::{constants, Result};
 use crate::token::{Token, TokenProvider};
 use gax::backoff_policy::BackoffPolicy;
 use gax::error::CredentialsError;
@@ -22,8 +22,6 @@ use gax::retry_policy::RetryPolicy;
 use gax::retry_throttler::{AdaptiveThrottler, SharedRetryThrottler};
 use std::error::Error;
 use std::sync::{Arc, Mutex};
-
-type Result<T> = std::result::Result<T, CredentialsError>;
 
 #[derive(Debug)]
 pub(crate) struct TokenProviderWithRetry<T: TokenProvider> {
@@ -38,6 +36,7 @@ pub(crate) struct Builder<T: TokenProvider> {
     inner: Arc<T>,
     retry_policy: Option<Arc<dyn RetryPolicy>>,
     backoff_policy: Option<Arc<dyn BackoffPolicy>>,
+    retry_throttler: Option<SharedRetryThrottler>,
 }
 
 #[allow(dead_code)]
@@ -47,6 +46,7 @@ impl<T: TokenProvider> Builder<T> {
             inner: Arc::new(inner),
             retry_policy: None,
             backoff_policy: None,
+            retry_throttler: None,
         }
     }
 
@@ -60,21 +60,29 @@ impl<T: TokenProvider> Builder<T> {
         self
     }
 
+    pub(crate) fn with_retry_throttler(mut self, retry_throttler: SharedRetryThrottler) -> Self {
+        self.retry_throttler = Some(retry_throttler);
+        self
+    }
+
     pub(crate) fn build(self) -> TokenProviderWithRetry<T> {
         let backoff_policy = self
             .backoff_policy
             .unwrap_or_else(|| Arc::new(ExponentialBackoff::default()));
+        let retry_throttler = self
+            .retry_throttler
+            .unwrap_or_else(|| Arc::new(Mutex::new(AdaptiveThrottler::default())));
         TokenProviderWithRetry {
             inner: self.inner,
             retry_policy: self.retry_policy,
             backoff_policy,
-            retry_throttler: Arc::new(Mutex::new(AdaptiveThrottler::default())),
+            retry_throttler,
         }
     }
 }
 
 #[async_trait::async_trait]
-impl<T: TokenProvider + Send + Sync + 'static> TokenProvider for TokenProviderWithRetry<T> {
+impl<T: TokenProvider + 'static> TokenProvider for TokenProviderWithRetry<T> {
     async fn token(&self) -> Result<Token> {
         match self.retry_policy.clone() {
             None => self.inner.token().await,
@@ -111,7 +119,7 @@ where
             true => {
                 if e.source()
                     .and_then(|s| s.downcast_ref::<CredentialsError>())
-                    .map_or(false, |ce| ce.is_transient())
+                    .is_some_and(|ce| ce.is_transient())
                 {
                     CredentialsError::new(true, constants::RETRY_EXHAUSTED_ERROR, e)
                 } else {
@@ -132,6 +140,7 @@ mod tests {
     use gax::retry_result::RetryResult;
     use mockall::Sequence;
     use std::sync::Arc;
+    use test_case::test_case;
 
     #[derive(Debug)]
     struct AuthRetryPolicy {
@@ -154,7 +163,7 @@ mod tests {
                 if error
                     .source()
                     .and_then(|e| e.downcast_ref::<CredentialsError>())
-                    .map_or(false, |ce| ce.is_transient())
+                    .is_some_and(|ce| ce.is_transient())
                 {
                     RetryResult::Continue(error)
                 } else {
@@ -163,6 +172,18 @@ mod tests {
             } else {
                 RetryResult::Permanent(error)
             }
+        }
+    }
+
+    #[derive(Debug)]
+    struct TestBackoffPolicy;
+    impl BackoffPolicy for TestBackoffPolicy {
+        fn on_failure(
+            &self,
+            _loop_start: std::time::Instant,
+            _attempt_count: u32,
+        ) -> std::time::Duration {
+            std::time::Duration::from_millis(1)
         }
     }
 
@@ -177,10 +198,7 @@ mod tests {
             metadata: Default::default(),
         };
 
-        mock_provider
-            .expect_token()
-            .times(1)
-            .return_once(|| Ok(token));
+        mock_provider.expect_token().times(1).return_once(|| Ok(token));
 
         let provider = Builder::new(mock_provider)
             .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
@@ -278,10 +296,7 @@ mod tests {
             metadata: Default::default(),
         };
 
-        mock_provider
-            .expect_token()
-            .times(1)
-            .return_once(|| Ok(token));
+        mock_provider.expect_token().times(1).return_once(|| Ok(token));
 
         let provider = Builder::new(mock_provider).build();
 
@@ -301,9 +316,43 @@ mod tests {
 
         let error = provider.token().await.unwrap_err();
         assert!(!error.is_transient());
-        assert_eq!(
-            error.to_string(),
-            "non transient error and future attempts will not succeed"
-        );
+        assert_eq!(error.to_string(), "non transient error and future attempts will not succeed");
+    }
+
+    #[test_case(
+        true,
+        &["AuthRetryPolicy", "max_attempts: 5", "TestBackoffPolicy", "AdaptiveThrottler", "factor: 4.0"];
+        "with_custom_values"
+    )]
+    #[test_case(
+        false,
+        &["retry_policy: None", "ExponentialBackoff", "AdaptiveThrottler", "factor: 2.0"];
+        "with_default_values"
+    )]
+    fn test_builder(use_custom_config: bool, expected_substrings: &[&str]) {
+        let mock_provider = MockTokenProvider::new();
+        let mut builder = Builder::new(mock_provider);
+
+        if use_custom_config {
+            let retry_policy = Arc::new(AuthRetryPolicy { max_attempts: 5 });
+            let backoff_policy = Arc::new(TestBackoffPolicy);
+            let retry_throttler = Arc::new(Mutex::new(AdaptiveThrottler::new(4.0).unwrap()));
+            builder = builder
+                .with_retry_policy(retry_policy)
+                .with_backoff_policy(backoff_policy)
+                .with_retry_throttler(retry_throttler);
+        }
+
+        let provider = builder.build();
+        let debug_str = format!("{:?}", provider);
+
+        for sub in expected_substrings {
+            assert!(
+                debug_str.contains(sub),
+                "Expected to find '{}' in '{:?}'",
+                sub,
+                debug_str
+            );
+        }
     }
 }
