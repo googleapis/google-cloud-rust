@@ -384,14 +384,12 @@ mod tests {
         }
 
         let provider = builder.build();
-        let debug_str = format!("{:?}", provider);
+        let debug_str = format!("{provider:?}");
 
         for sub in expected_substrings {
             assert!(
                 debug_str.contains(sub),
-                "Expected to find '{}' in '{:?}'",
-                sub,
-                debug_str
+                "Expected to find '{sub}' in '{debug_str:?}'"
             );
         }
     }
