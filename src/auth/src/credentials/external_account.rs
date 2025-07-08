@@ -237,7 +237,7 @@ impl ExternalAccountConfig {
             CredentialSource::File(source) => {
                 Self::make_credentials_from_source(source, config, quota_project_id)
             }
-            CredentialSource::Aws { .. } => {
+            CredentialSource::Aws => {
                 unimplemented!("AWS sourced credential not supported yet")
             }
         }
