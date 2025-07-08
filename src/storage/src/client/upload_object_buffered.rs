@@ -1575,6 +1575,28 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn next_chunk_join_remainder() -> Result {
+        const LEN: usize = 32;
+        let buffer = (0..3)
+            .map(|i| new_line_string(i, LEN))
+            .collect::<Vec<_>>()
+            .join("");
+        let stream = VecStream::new(vec![bytes::Bytes::from_owner(buffer.clone()), new_line(3, LEN)]);
+        let mut payload = InsertPayload::from(stream);
+
+        let remainder = None;
+        let (vec, remainder) = super::next_chunk(&mut payload, remainder, 2 * LEN).await?;
+        assert!(remainder.is_some());
+        assert_eq!(vec, vec![bytes::Bytes::from_owner(buffer.clone()).slice(0..(2*LEN))]);
+
+        let (vec, remainder) = super::next_chunk(&mut payload, remainder, 2 * LEN).await?;
+        assert!(remainder.is_none());
+        assert_eq!(vec, vec![bytes::Bytes::from_owner(buffer.clone()).slice((2*LEN)..), new_line(3, LEN)]);
+
+        Ok(())
+    }
+
+    #[tokio::test]
     async fn next_chunk_done() -> Result {
         const LEN: usize = 32;
         let stream = VecStream::new((0..2).map(|i| new_line(i, LEN)).collect::<Vec<_>>());
