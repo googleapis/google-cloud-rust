@@ -17,11 +17,35 @@ use futures::stream::unfold;
 
 pub struct UploadObjectUnbuffered<T> {
     inner: std::sync::Arc<StorageInner>,
-    request: control::model::WriteObjectRequest,
+    resource: control::model::Object,
+    params: Option<control::model::CommonObjectRequestParams>,
     payload: InsertPayload<T>,
 }
 
 impl<T> UploadObjectUnbuffered<T> {
+    /// The encryption key used with the Customer-Supplied Encryption Keys
+    /// feature. In raw bytes format (not base64-encoded).
+    ///
+    /// # Example
+    /// ```
+    /// # tokio_test::block_on(async {
+    /// # use google_cloud_storage::client::Storage;
+    /// # use google_cloud_storage::client::KeyAes256;
+    /// # let client = Storage::builder().build().await?;
+    /// let key: &[u8] = &[97; 32];
+    /// let response = client
+    ///     .upload_object_unbuffered("projects/_/buckets/my-bucket", "my-object", "hello world")
+    ///     .with_key(KeyAes256::new(key)?)
+    ///     .send()
+    ///     .await?;
+    /// println!("response details={response:?}");
+    /// # Ok::<(), anyhow::Error>(()) });
+    /// ```
+    pub fn with_key(mut self, v: KeyAes256) -> Self {
+        self.params = Some(v.into());
+        self
+    }
+
     pub(crate) fn new<B, O, P>(
         inner: std::sync::Arc<StorageInner>,
         bucket: B,
@@ -35,13 +59,10 @@ impl<T> UploadObjectUnbuffered<T> {
     {
         UploadObjectUnbuffered {
             inner,
-            request: control::model::WriteObjectRequest::new().set_write_object_spec(
-                control::model::WriteObjectSpec::new().set_resource(
-                    control::model::Object::new()
-                        .set_bucket(bucket)
-                        .set_name(object),
-                ),
-            ),
+            resource: control::model::Object::new()
+                .set_bucket(bucket)
+                .set_name(object),
+            params: None,
             payload: payload.into(),
         }
     }
@@ -68,9 +89,6 @@ where
     /// ```
     pub async fn send(self) -> crate::Result<Object> {
         let builder = self.http_request_builder().await?;
-
-        tracing::info!("builder={builder:?}");
-
         let response = builder.send().await.map_err(Error::io)?;
         if !response.status().is_success() {
             return gaxi::http::to_http_error(response).await;
@@ -81,19 +99,13 @@ where
     }
 
     async fn http_request_builder(self) -> Result<reqwest::RequestBuilder> {
-        use control::model::write_object_request::*;
-
-        let resource = match self.request.first_message {
-            Some(FirstMessage::WriteObjectSpec(spec)) => spec.resource.unwrap(),
-            _ => unreachable!("write object spec set in constructor"),
-        };
-        let bucket = &resource.bucket;
+        let bucket = &self.resource.bucket;
         let bucket_id = bucket.strip_prefix("projects/_/buckets/").ok_or_else(|| {
             Error::binding(format!(
                 "malformed bucket name, it must start with `projects/_/buckets/`: {bucket}"
             ))
         })?;
-        let object = &resource.name;
+        let object = &self.resource.name;
         let builder = self
             .inner
             .client
@@ -109,11 +121,7 @@ where
                 reqwest::header::HeaderValue::from_static(&self::info::X_GOOG_API_CLIENT_HEADER),
             );
 
-        let builder = apply_customer_supplied_encryption_headers(
-            builder,
-            self.request.common_object_request_params,
-        );
-
+        let builder = apply_customer_supplied_encryption_headers(builder, self.params);
         let builder = self.inner.apply_auth_headers(builder).await?;
 
         let stream = Box::pin(unfold(Some(self.payload), move |state| async move {
@@ -126,29 +134,6 @@ where
         }));
         let builder = builder.body(reqwest::Body::wrap_stream(stream));
         Ok(builder)
-    }
-
-    /// The encryption key used with the Customer-Supplied Encryption Keys
-    /// feature. In raw bytes format (not base64-encoded).
-    ///
-    /// Example:
-    /// ```
-    /// # tokio_test::block_on(async {
-    /// # use google_cloud_storage::client::Storage;
-    /// # use google_cloud_storage::client::KeyAes256;
-    /// # let client = Storage::builder().build().await?;
-    /// let key: &[u8] = &[97; 32];
-    /// let response = client
-    ///     .upload_object_unbuffered("projects/_/buckets/my-bucket", "my-object", "hello world")
-    ///     .with_key(KeyAes256::new(key)?)
-    ///     .send()
-    ///     .await?;
-    /// println!("response details={response:?}");
-    /// # Ok::<(), anyhow::Error>(()) });
-    /// ```
-    pub fn with_key(mut self, v: KeyAes256) -> Self {
-        self.request.common_object_request_params = Some(v.into());
-        self
     }
 }
 
