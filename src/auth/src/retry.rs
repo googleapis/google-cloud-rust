@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-use crate::{constants, Result};
 use crate::token::{Token, TokenProvider};
+use crate::{Result, constants};
 use gax::backoff_policy::BackoffPolicy;
 use gax::error::CredentialsError;
 use gax::exponential_backoff::ExponentialBackoff;
@@ -138,9 +138,22 @@ mod tests {
     use gax::error::CredentialsError;
     use gax::retry_policy::RetryPolicy;
     use gax::retry_result::RetryResult;
-    use mockall::Sequence;
+    use gax::retry_throttler::RetryThrottler;
+    use mockall::{Sequence, mock};
     use std::sync::Arc;
+    use std::sync::atomic::{AtomicBool, Ordering};
     use test_case::test_case;
+
+    mock! {
+        #[derive(Debug)]
+        pub RetryThrottler {}
+
+        impl RetryThrottler for RetryThrottler {
+            fn throttle_retry_attempt(&self) -> bool;
+            fn on_retry_failure(&mut self, flow: &RetryResult);
+            fn on_success(&mut self);
+        }
+    }
 
     #[derive(Debug)]
     struct AuthRetryPolicy {
@@ -176,13 +189,25 @@ mod tests {
     }
 
     #[derive(Debug)]
-    struct TestBackoffPolicy;
+    struct TestBackoffPolicy {
+        was_called: Arc<AtomicBool>,
+    }
+
+    impl Default for TestBackoffPolicy {
+        fn default() -> Self {
+            Self {
+                was_called: Arc::new(AtomicBool::new(false)),
+            }
+        }
+    }
+
     impl BackoffPolicy for TestBackoffPolicy {
         fn on_failure(
             &self,
             _loop_start: std::time::Instant,
             _attempt_count: u32,
         ) -> std::time::Duration {
+            self.was_called.store(true, Ordering::SeqCst);
             std::time::Duration::from_millis(1)
         }
     }
@@ -198,7 +223,10 @@ mod tests {
             metadata: Default::default(),
         };
 
-        mock_provider.expect_token().times(1).return_once(|| Ok(token));
+        mock_provider
+            .expect_token()
+            .times(1)
+            .return_once(|| Ok(token));
 
         let provider = Builder::new(mock_provider)
             .with_retry_policy(Arc::new(AuthRetryPolicy { max_attempts: 2 }))
@@ -296,7 +324,10 @@ mod tests {
             metadata: Default::default(),
         };
 
-        mock_provider.expect_token().times(1).return_once(|| Ok(token));
+        mock_provider
+            .expect_token()
+            .times(1)
+            .return_once(|| Ok(token));
 
         let provider = Builder::new(mock_provider).build();
 
@@ -316,7 +347,10 @@ mod tests {
 
         let error = provider.token().await.unwrap_err();
         assert!(!error.is_transient());
-        assert_eq!(error.to_string(), "non transient error and future attempts will not succeed");
+        assert_eq!(
+            error.to_string(),
+            "non transient error and future attempts will not succeed"
+        );
     }
 
     #[test_case(
@@ -335,7 +369,7 @@ mod tests {
 
         if use_custom_config {
             let retry_policy = Arc::new(AuthRetryPolicy { max_attempts: 5 });
-            let backoff_policy = Arc::new(TestBackoffPolicy);
+            let backoff_policy = Arc::new(TestBackoffPolicy::default());
             let retry_throttler = Arc::new(Mutex::new(AdaptiveThrottler::new(4.0).unwrap()));
             builder = builder
                 .with_retry_policy(retry_policy)
@@ -354,5 +388,72 @@ mod tests {
                 debug_str
             );
         }
+    }
+
+    #[tokio::test]
+    async fn test_full_retry_mechanism() {
+        // 1. Setup Mocks
+        let mut mock_provider = MockTokenProvider::new();
+        let mut mock_throttler = MockRetryThrottler::new();
+
+        // Token provider fails once, then succeeds.
+        let mut seq = Sequence::new();
+        mock_provider
+            .expect_token()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|| {
+                Err(CredentialsError::from_msg(
+                    true,
+                    "transient error for full test",
+                ))
+            });
+        mock_provider
+            .expect_token()
+            .times(1)
+            .in_sequence(&mut seq)
+            .return_once(|| {
+                Ok(Token {
+                    token: "final_token".to_string(),
+                    token_type: "Bearer".to_string(),
+                    expires_at: None,
+                    metadata: Default::default(),
+                })
+            });
+
+        // 2. Setup Throttler Expectations
+        mock_throttler
+            .expect_throttle_retry_attempt()
+            .times(1)
+            .returning(|| false);
+        mock_throttler
+            .expect_on_retry_failure()
+            .times(1)
+            .withf(|result| matches!(result, RetryResult::Continue(_)))
+            .return_const(());
+        mock_throttler.expect_on_success().times(1).return_const(());
+
+        // 3. Setup other policies
+        let retry_policy = Arc::new(AuthRetryPolicy { max_attempts: 2 });
+        let backoff_was_called = Arc::new(AtomicBool::new(false));
+        let backoff_policy = Arc::new(TestBackoffPolicy {
+            was_called: backoff_was_called.clone(),
+        });
+        let retry_throttler = Arc::new(Mutex::new(mock_throttler));
+
+        // 4. Build and run
+        let provider = Builder::new(mock_provider)
+            .with_retry_policy(retry_policy)
+            .with_backoff_policy(backoff_policy)
+            .with_retry_throttler(retry_throttler)
+            .build();
+
+        // 5. Assert
+        let token = provider.token().await.unwrap();
+        assert_eq!(token.token, "final_token");
+        assert!(
+            backoff_was_called.load(Ordering::SeqCst),
+            "Backoff policy was not called"
+        );
     }
 }
