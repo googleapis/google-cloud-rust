@@ -1,4 +1,3 @@
-
 use gax::error::CredentialsError;
 use serde::{Deserialize, Serialize};
 use serde_json::Value;
@@ -19,10 +18,7 @@ pub(crate) struct FileSourcedCredentials {
 }
 
 impl FileSourcedCredentials {
-    pub(crate) fn new(
-        file: String,
-        format_source: Option<CredentialSourceFormat>,
-    ) -> Self {
+    pub(crate) fn new(file: String, format_source: Option<CredentialSourceFormat>) -> Self {
         let (format, subject_token_field_name) = format_source
             .map(|f| (f.format_type, f.subject_token_field_name))
             .unwrap_or(("text".to_string(), String::new()));
@@ -41,7 +37,6 @@ impl SubjectTokenProvider for FileSourcedCredentials {
     async fn subject_token(&self) -> Result<SubjectToken> {
         let content = std::fs::read_to_string(&self.file)
             .map_err(|e| CredentialsError::from_source(false, e))?;
-
 
         match self.format.as_str() {
             JSON_FORMAT_TYPE => {

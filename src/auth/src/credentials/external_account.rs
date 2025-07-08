@@ -14,8 +14,8 @@
 
 use super::dynamic::CredentialsProvider;
 use super::external_account_sources::executable_sourced::ExecutableSourcedCredentials;
-use super::external_account_sources::url_sourced::UrlSourcedCredentials;
 use super::external_account_sources::file_sourced::FileSourcedCredentials;
+use super::external_account_sources::url_sourced::UrlSourcedCredentials;
 use super::impersonated;
 use super::internal::sts_exchange::{ClientAuthentication, ExchangeTokenRequest, STSHandler};
 use super::{CacheableResource, Credentials};
@@ -59,7 +59,7 @@ enum CredentialSourceFile {
         headers: Option<HashMap<String, String>>,
         format: Option<CredentialSourceFormat>,
     },
-    Executable {        
+    Executable {
         executable: ExecutableConfig,
     },
     File {
@@ -216,7 +216,7 @@ impl ExternalAccountConfigBuilder {
 enum CredentialSource {
     Url(UrlSourcedCredentials),
     Executable(ExecutableSourcedCredentials),
-    File (FileSourcedCredentials),
+    File(FileSourcedCredentials),
     Aws {},
     Programmatic(ProgrammaticSourcedCredentials),
 }
@@ -235,7 +235,7 @@ impl ExternalAccountConfig {
                 Self::make_credentials_from_source(source, config, quota_project_id)
             }
             CredentialSource::File(source) => {
-                Self::make_credentials_from_source(source, config, quota_project_id)                
+                Self::make_credentials_from_source(source, config, quota_project_id)
             }
             CredentialSource::Aws { .. } => {
                 unimplemented!("AWS sourced credential not supported yet")
@@ -1089,7 +1089,7 @@ mod test {
                 unreachable!("expected File Sourced credential")
             }
         }
-    }   
+    }
 
     #[tokio::test]
     async fn test_external_account_with_impersonation_success() {
