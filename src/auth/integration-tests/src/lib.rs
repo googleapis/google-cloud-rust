@@ -387,15 +387,17 @@ async fn generate_id_token(
     audience: String,
     target_principal_email: String,
 ) -> anyhow::Result<String> {
-    // Use default credentials (GCB runner's SA) to create the IAM client.
-    // This requires the GCB runner to have the `Service Account Token Creator`
-    // role on the target principal.
     let creds = AccessTokenCredentialBuilder::default()
         .build()
         .expect("failed to get default credentials for IAM");
 
+    let impersonated_cred = ImpersonatedCredentialsBuilder::from_source_credentials(creds)
+        .with_target_principal(target_principal_email.clone())
+        .build()
+        .expect("failed to create impersonated credentials");
+
     let client = IAMCredentials::builder()
-        .with_credentials(creds)
+        .with_credentials(impersonated_cred)
         .build()
         .await
         .expect("failed to setup IAM client");
