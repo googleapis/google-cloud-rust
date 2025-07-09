@@ -16,61 +16,29 @@ variable "project" {
   type = string
 }
 
-variable "external_account_project" {
-  type = string
-}
-
-variable "external_account_secret_id" {
+variable "service_account_id" {
   type = string
 }
 
 provider "google" {
   alias   = "external_account_project"
-  project = var.external_account_project
+  project = var.project
 }
 
-data "google_service_account" "service_account" {
-  project    = var.external_account_project
-  account_id = "testsa"
-}
-
-# Key rotation for the service account key.
-resource "time_rotating" "key_rotation" {
-  rotation_days = 60
-}
-
-resource "google_service_account_key" "key" {
-  service_account_id = data.google_service_account.service_account.name
-  keepers = {
-    rotation_time = time_rotating.key_rotation.rotation_rfc3339
-  }
-}
-
-resource "google_secret_manager_secret" "secret" {
-  project   = var.project
-  secret_id = var.external_account_secret_id
-  replication {
-    auto {}
-  }
-}
-
-resource "google_secret_manager_secret_version" "version" {
-  secret      = google_secret_manager_secret.secret.id
-  secret_data = base64decode(google_service_account_key.key.private_key)
+resource "google_service_account" "service_account" {
+  provider     = google.external_account_project
+  project      = var.project
+  account_id   = var.service_account_id
+  display_name = "External Account Test Service Account"
 }
 
 data "google_service_account" "build_runner_service_account" {
   account_id = "integration-test-runner"
 }
 
-resource "google_secret_manager_secret_iam_member" "secret_accessor" {
-  project   = google_secret_manager_secret.secret.project
-  secret_id = google_secret_manager_secret.secret.secret_id
-  role      = "roles/secretmanager.secretAccessor"
-  member    = "serviceAccount:${data.google_service_account.build_runner_service_account.email}"
-}
-
-output "sa_key_secret_resource_id" {
-  description = "The resource ID of the Secret Manager secret containing the service account key."
-  value       = google_secret_manager_secret.secret.id
+resource "google_service_account_iam_member" "token_creator" {
+  provider           = google.external_account_project
+  service_account_id = google_service_account.service_account.name
+  role               = "roles/iam.serviceAccountTokenCreator"
+  member             = "serviceAccount:${data.google_service_account.build_runner_service_account.email}"
 }

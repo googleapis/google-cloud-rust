@@ -29,8 +29,10 @@ variable "external_account_project" {
   default = "rust-auth-testing-joonix"
 }
 
-variable "external_account_secret_id" {
-  description = "The ID of the secret containing the External Account service account key."
+variable "external_account_service_account_id" {
+  description = "The ID of the service account used for external account tests."
   type        = string
-  default     = "external-account-sa-key"
+  default     = "testsa"
 }
+
+
