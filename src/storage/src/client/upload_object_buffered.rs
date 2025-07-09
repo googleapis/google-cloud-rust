@@ -613,7 +613,8 @@ where
     /// ```
     pub async fn send(self) -> crate::Result<Object> {
         let upload_url = self.start_resumable_upload().await?;
-        // TODO(#2043) - make this configurable
+        // TODO(#2043) - make the threshold to use resumable uploads and the
+        //    target size for each chunk configurable.
         if self.payload.size_hint().0 > RESUMABLE_UPLOAD_QUANTUM as u64 {
             return self
                 .upload_by_chunks(&upload_url, RESUMABLE_UPLOAD_QUANTUM)
@@ -729,7 +730,7 @@ where
     }
 
     async fn upload_request(mut self, upload_url: String) -> Result<reqwest::RequestBuilder> {
-        let (chunk, target_size) = {
+        let (chunk, full_size) = {
             let mut chunk = VecDeque::new();
             let mut size = 0_usize;
             while let Some(b) = self.payload.next().await.transpose().map_err(Error::io)? {
@@ -738,7 +739,9 @@ where
             }
             (chunk, size)
         };
-        let target_size = target_size.div_ceil(RESUMABLE_UPLOAD_QUANTUM);
+        // This is a bit of a hack. We pass a target size larger than
+        // `full_size` to force a finalized upload.
+        let target_size = full_size.div_ceil(RESUMABLE_UPLOAD_QUANTUM);
         let (builder, _size) = self
             .partial_upload_request(upload_url.as_str(), 0, chunk, target_size)
             .await?;
@@ -800,40 +803,33 @@ where
 {
     let mut partial = VecDeque::new();
     let mut size = 0;
-    if let Some(mut b) = remainder {
-        match b.len() {
-            n if n > target_size => {
-                let remainder = b.split_off(target_size);
-                partial.push_back(b);
-                return Ok((partial, Some(remainder)));
-            }
-            n if n == target_size => {
-                partial.push_back(b);
-                return Ok((partial, None));
-            }
-            _ => {
-                size += b.len();
-                partial.push_back(b);
-            }
+    let mut process_buffer = |mut b: bytes::Bytes| match b.len() {
+        n if size + n > target_size => {
+            let remainder = b.split_off(target_size - size);
+            partial.push_back(b);
+            Some(Some(remainder))
+        }
+        n if size + n == target_size => {
+            partial.push_back(b);
+            Some(None)
+        }
+        _ => {
+            size += b.len();
+            partial.push_back(b);
+            None
+        }
+    };
+
+    if let Some(b) = remainder {
+        if let Some(p) = process_buffer(b) {
+            return Ok((partial, p));
         }
     }
 
-    while let Some(mut b) = payload.next().await.transpose().map_err(Error::io)? {
-        match b.len() {
-            n if size + n > target_size => {
-                let remainder = b.split_off(target_size - size);
-                partial.push_back(b);
-                return Ok((partial, Some(remainder)));
-            }
-            n if size + n == target_size => {
-                partial.push_back(b);
-                return Ok((partial, None));
-            }
-            _ => {
-                size += b.len();
-                partial.push_back(b);
-            }
-        };
+    while let Some(b) = payload.next().await.transpose().map_err(Error::io)? {
+        if let Some(p) = process_buffer(b) {
+            return Ok((partial, p));
+        }
     }
     Ok((partial, None))
 }
@@ -873,6 +869,13 @@ fn parse_range_end(headers: &reqwest::header::HeaderMap) -> Option<usize> {
         // A missing `Range:` header indicates that no bytes are persisted.
         return Some(0_usize);
     };
+    // Uploads must be sequential, so the persisted range (if present) always
+    // starts at zero. This is poorly documented, but can be inferred from
+    //   https://cloud.google.com/storage/docs/performing-resumable-uploads#resume-upload
+    // which requires uploads to continue from the last byte persisted. It is
+    // better documented in the gRPC version, where holes are explicitly
+    // forbidden:
+    //   https://github.com/googleapis/googleapis/blob/302273adb3293bb504ecd83be8e1467511d5c779/google/storage/v2/storage.proto#L1253-L1255
     let end = std::str::from_utf8(range.as_bytes().strip_prefix(b"bytes=0-")?).ok()?;
     end.parse::<usize>().ok()
 }
