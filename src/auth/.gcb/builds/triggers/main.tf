@@ -16,7 +16,6 @@ variable "project" {}
 variable "region" {}
 variable "sa_adc_secret" {}
 variable "api_key_secret" {}
-variable "external_account_sa_key_secret" {}
 variable "external_account_secret_id" {}
 
 # This is used to retrieve the project number. The project number is embedded in
@@ -121,13 +120,7 @@ resource "google_secret_manager_secret_iam_member" "test-api-key-secret-member" 
   member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
 
-# The integration test runner needs access to the External Account SA key secret
-resource "google_secret_manager_secret_iam_member" "test-external-account-key-secret-member" {
-  project   = var.project
-  secret_id = var.external_account_sa_key_secret
-  role      = "roles/secretmanager.secretAccessor"
-  member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
-}
+
 
 locals {
   # Google Cloud Build installs an application on the GitHub organization or
