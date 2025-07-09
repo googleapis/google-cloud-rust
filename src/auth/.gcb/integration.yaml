@@ -40,36 +40,25 @@ steps:
       set -e
       cargo test --features run-integration-tests -p auth-integration-tests
   - id: 'Run BYOID integration tests'
-    name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli'
+    name: 'rust:1.85-bookworm'
     entrypoint: 'bash'
     args:
       - -c
       - |
-        # This script performs a multi-step authentication process to work around
-        # a cross-project IAM policy.
-        # 1. Fetch the key for the proxy SA ('test-sa-creds').
-        # 2. Authenticate as the proxy SA.
-        # 3. As the proxy SA, fetch the key for the target BYOID SA ('testsa').
-        # 4. Run the tests using the target BYOID SA key.
-
         set -e
-
-        # Ensure temporary key files are cleaned up on exit.
-        trap 'rm -f /workspace/proxy_sa_key.json /workspace/byoid_sa_key.json' EXIT
-
-        # Step 1: Fetch the proxy SA key.
-        gcloud secrets versions access latest --secret=test-sa-creds-json --project=${PROJECT_ID} > /workspace/proxy_sa_key.json
-
-        # Step 2: Authenticate as the proxy SA.
-        gcloud auth activate-service-account --key-file=/workspace/proxy_sa_key.json
-
-        # Step 3: As the proxy SA, fetch the target BYOID SA key.
+        # The integration-test-runner SA (this build's identity) has direct
+        # permission to read the BYOID secret, so we can fetch it directly.
         gcloud secrets versions access latest --secret=byoid-sa-key --project=${PROJECT_ID} > /workspace/byoid_sa_key.json
 
-        # Step 4: Run the tests using the target BYOID SA key.
-        # We need to install rust in this container to run the tests.
-        apt-get update && apt-get install -y rustc cargo
+        # Ensure the key file is cleaned up on exit.
+        trap 'rm -f /workspace/byoid_sa_key.json' EXIT
+
+        # Set the environment variables and run the tests.
         export GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT=/workspace/byoid_sa_key.json
         export GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/246645052938/locations/global/workloadIdentityPools/google-idp/providers/google-idp
         export GOOGLE_CLOUD_PROJECT=rust-auth-testing-joonix
         cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
+    availableSecrets:
+      secretManager:
+      - versionName: projects/${PROJECT_ID}/secrets/byoid-sa-key/versions/latest
+        env: 'BYOID_SA_KEY'

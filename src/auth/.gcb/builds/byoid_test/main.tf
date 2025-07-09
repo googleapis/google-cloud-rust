@@ -55,15 +55,15 @@ resource "google_secret_manager_secret_version" "version" {
   secret_data = base64decode(google_service_account_key.key.private_key)
 }
 
-data "google_service_account" "proxy_service_account" {
-  account_id = "test-sa-creds"
+data "google_service_account" "build_runner_service_account" {
+  account_id = "integration-test-runner"
 }
 
 resource "google_secret_manager_secret_iam_member" "secret_accessor" {
   project   = google_secret_manager_secret.secret.project
   secret_id = google_secret_manager_secret.secret.secret_id
   role      = "roles/secretmanager.secretAccessor"
-  member    = "serviceAccount:${data.google_service_account.proxy_service_account.email}"
+  member    = "serviceAccount:${data.google_service_account.build_runner_service_account.email}"
 }
 
 output "sa_key_secret_resource_id" {
