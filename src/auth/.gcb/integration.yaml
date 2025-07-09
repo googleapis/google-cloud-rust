@@ -58,7 +58,3 @@ steps:
         export GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/246645052938/locations/global/workloadIdentityPools/google-idp/providers/google-idp
         export GOOGLE_CLOUD_PROJECT=rust-auth-testing-joonix
         cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
-    availableSecrets:
-      secretManager:
-      - versionName: projects/${PROJECT_ID}/secrets/byoid-sa-key/versions/latest
-        env: 'BYOID_SA_KEY'
