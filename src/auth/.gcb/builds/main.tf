@@ -47,12 +47,20 @@ module "api_key_test" {
   project = var.project
 }
 
+# Set up for the BYOID integration test.
+module "byoid_test" {
+  source        = "./byoid_test"
+  project       = var.project
+  byoid_project = var.byoid_project
+}
+
 # Create the GCB resources, connection, triggers, etc.
 module "triggers" {
-  depends_on     = [module.service_account_test, module.api_key_test]
-  source         = "./triggers"
-  project        = var.project
-  region         = var.region
-  sa_adc_secret  = module.service_account_test.adc_secret
-  api_key_secret = module.api_key_test.secret
+  depends_on          = [module.service_account_test, module.api_key_test, module.byoid_test]
+  source              = "./triggers"
+  project             = var.project
+  region              = var.region
+  sa_adc_secret       = module.service_account_test.adc_secret
+  api_key_secret      = module.api_key_test.secret
+  byoid_sa_key_secret = module.byoid_test.sa_key_secret_resource_id
 }

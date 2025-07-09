@@ -23,3 +23,8 @@ variable "region" {
 variable "zone" {
   default = "us-central1-f"
 }
+
+variable "byoid_project" {
+  type    = string
+  default = "rust-auth-testing-joonix"
+}

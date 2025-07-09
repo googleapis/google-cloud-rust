@@ -39,3 +39,22 @@ steps:
       #!/usr/bin/env bash
       set -e
       cargo test --features run-integration-tests -p auth-integration-tests
+  - id: 'Fetch BYOID service account key'
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: 'bash'
+    args:
+      - -c
+      - |
+        gcloud secrets versions access latest --secret=byoid-sa-key --project=rust-auth-testing-joonix > /workspace/byoid_sa_key.json
+  - id: 'Run BYOID integration tests'
+    name: 'rust:1.85-bookworm'
+    script: |
+      #!/usr/bin/env bash
+      set -e
+      KEY_FILE="/workspace/byoid_sa_key.json"
+      trap 'rm -f "$KEY_FILE"' EXIT
+      export GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT=${KEY_FILE}
+      export GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/246645052938/locations/global/workloadIdentityPools/google-idp/providers/google-idp
+      export GOOGLE_CLOUD_PROJECT=rust-auth-testing-joonix
+      # This runs ONLY the tests that contain "run_workload_" in their name.
+      cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
