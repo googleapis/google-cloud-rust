@@ -119,8 +119,6 @@ resource "google_secret_manager_secret_iam_member" "test-api-key-secret-member" 
   member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
 
-
-
 locals {
   # Google Cloud Build installs an application on the GitHub organization or
   # repository. This id is hard-coded here because there is no easy way [^1] to
@@ -187,7 +185,10 @@ resource "google_cloudbuild_trigger" "pull-request" {
   tags     = ["pull-request", "name:${each.key}"]
 
   service_account = data.google_service_account.integration-test-runner.id
-  substitutions   = {}
+  substitutions = {
+    _EXTERNAL_ACCOUNT_PROJECT               = var.external_account_project
+    _EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL = "${var.external_account_service_account_id}@${var.external_account_project}.iam.gserviceaccount.com"
+  }
 
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id
@@ -208,7 +209,10 @@ resource "google_cloudbuild_trigger" "post-merge" {
   tags     = ["post-merge", "push", "name:${each.key}"]
 
   service_account = data.google_service_account.integration-test-runner.id
-  substitutions   = {}
+  substitutions = {
+    _EXTERNAL_ACCOUNT_PROJECT               = var.external_account_project
+    _EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL = "${var.external_account_service_account_id}@${var.external_account_project}.iam.gserviceaccount.com"
+  }
 
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id

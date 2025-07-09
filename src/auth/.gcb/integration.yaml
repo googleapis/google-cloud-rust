@@ -46,12 +46,9 @@ steps:
       - -c
       - |
         set -e
-        # The External Account service account that the GCB runner will generate an ID token for.
-        # The GCB runner service account must have the `Service Account Token Creator`
-        # role on this service account.
-        export EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@rust-auth-testing-joonix.iam.gserviceaccount.com
+        export EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=${_EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL}
 
         # Set the environment variables and run the tests.
         export GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/246645052938/locations/global/workloadIdentityPools/google-idp/providers/google-idp
-        export GOOGLE_CLOUD_PROJECT=rust-auth-testing-joonix
+        export GOOGLE_CLOUD_PROJECT=${_EXTERNAL_ACCOUNT_PROJECT}
         cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
