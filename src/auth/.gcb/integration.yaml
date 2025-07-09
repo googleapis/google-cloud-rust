@@ -54,25 +54,22 @@ steps:
 
         set -e
 
-        # Define file paths for clarity and cleanup
-        PROXY_KEY_FILE="/workspace/proxy_sa_key.json"
-        TARGET_KEY_FILE="/workspace/byoid_sa_key.json"
-        trap 'rm -f "$PROXY_KEY_FILE" "$TARGET_KEY_FILE"' EXIT
+        # Ensure temporary key files are cleaned up on exit.
+        trap 'rm -f /workspace/proxy_sa_key.json /workspace/byoid_sa_key.json' EXIT
 
         # Step 1: Fetch the proxy SA key.
-        # The 'test-sa-creds-json' secret is created by the service_account_test module.
-        gcloud secrets versions access latest --secret=test-sa-creds-json --project=${PROJECT_ID} > "$PROXY_KEY_FILE"
+        gcloud secrets versions access latest --secret=test-sa-creds-json --project=${PROJECT_ID} > /workspace/proxy_sa_key.json
 
         # Step 2: Authenticate as the proxy SA.
-        gcloud auth activate-service-account --key-file="$PROXY_KEY_FILE"
+        gcloud auth activate-service-account --key-file=/workspace/proxy_sa_key.json
 
         # Step 3: As the proxy SA, fetch the target BYOID SA key.
-        gcloud secrets versions access latest --secret=byoid-sa-key --project=${PROJECT_ID} > "$TARGET_KEY_FILE"
+        gcloud secrets versions access latest --secret=byoid-sa-key --project=${PROJECT_ID} > /workspace/byoid_sa_key.json
 
         # Step 4: Run the tests using the target BYOID SA key.
         # We need to install rust in this container to run the tests.
         apt-get update && apt-get install -y rustc cargo
-        export GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT=${TARGET_KEY_FILE}
+        export GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT=/workspace/byoid_sa_key.json
         export GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/246645052938/locations/global/workloadIdentityPools/google-idp/providers/google-idp
         export GOOGLE_CLOUD_PROJECT=rust-auth-testing-joonix
         cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
