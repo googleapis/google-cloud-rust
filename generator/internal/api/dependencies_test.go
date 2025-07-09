@@ -91,10 +91,6 @@ func TestFindDependenciesNestedEnum(t *testing.T) {
 			Name: "ChildEnum",
 			ID:   ".test.ParentMessage.ChildEnum",
 		},
-		{
-			Name: "SiblingEnum",
-			ID:   ".test.ParentMessage.SiblingEnum",
-		},
 	}
 	messages := []*Message{
 		{
@@ -105,26 +101,23 @@ func TestFindDependenciesNestedEnum(t *testing.T) {
 	services := []*Service{}
 	model := NewTestAPI(messages, enums, services)
 	less := func(a, b string) bool { return a < b }
-
-	// Verify parent message fans out to its child enums.
 	parent := ".test.ParentMessage"
 	child := ".test.ParentMessage.ChildEnum"
-	sibling := ".test.ParentMessage.SiblingEnum"
-	got, err := FindDependencies(model, []string{parent})
+
+	got, err := FindDependencies(model, []string{child})
 	if err != nil {
 		t.Fatal(err)
 	}
-	want := []string{parent, child, sibling}
+	want := []string{parent, child}
 	if diff := cmp.Diff(want, flatten(got), cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("dependencies mismatch (-want, +got):\n%s", diff)
 	}
 
-	// Verify nested enums depend on their parent messages
-	got, err = FindDependencies(model, []string{child})
+	got, err = FindDependencies(model, []string{parent})
 	if err != nil {
 		t.Fatal(err)
 	}
-	want = []string{parent, child} // No `sibling`
+	want = []string{parent}
 	if diff := cmp.Diff(want, flatten(got), cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("dependencies mismatch (-want, +got):\n%s", diff)
 	}
@@ -145,51 +138,40 @@ func TestFindDependenciesNestedMessage(t *testing.T) {
 			Name: "Grandparent.Parent.Child",
 			ID:   ".test.Grandparent.Parent.Child",
 		},
-		{
-			Name: "Grandparent.Parent.Sibling",
-			ID:   ".test.Grandparent.Parent.Sibling",
-		},
-		{
-			Name: "Ignored",
-			ID:   ".test.Ignored",
-		},
 	}
 	services := []*Service{}
 	model := NewTestAPI(messages, enums, services)
 	less := func(a, b string) bool { return a < b }
-
-	// Verify that parent and nested messages are included. The following
-	// test cases are all equivalent.
 	grandparent := ".test.Grandparent"
 	parent := ".test.Grandparent.Parent"
 	child := ".test.Grandparent.Parent.Child"
-	sibling := ".test.Grandparent.Parent.Sibling"
-	for _, ids := range [][]string{
-		{grandparent},
-		{parent},
-		{child, parent},
-		{child, grandparent},
-		{grandparent, child},
-		{grandparent, parent, child},
+
+	// Verify that parent messages are included.
+	for _, c := range []struct {
+		Ids  []string
+		Want []string
+	}{
+		{
+			Ids:  []string{child},
+			Want: []string{child, parent, grandparent},
+		},
+		{
+			Ids:  []string{parent},
+			Want: []string{parent, grandparent},
+		},
+		{
+			Ids:  []string{grandparent},
+			Want: []string{grandparent},
+		},
 	} {
-		got, err := FindDependencies(model, ids)
+		got, err := FindDependencies(model, c.Ids)
 		if err != nil {
 			t.Fatal(err)
 		}
-		want := []string{grandparent, parent, child, sibling}
-		if diff := cmp.Diff(want, flatten(got), cmpopts.SortSlices(less)); diff != "" {
+		if diff := cmp.Diff(c.Want, flatten(got), cmpopts.SortSlices(less)); diff != "" {
 			t.Errorf("dependencies mismatch (-want, +got):\n%s", diff)
 		}
-	}
 
-	// Verify that unnecessary siblings are not included
-	got, err := FindDependencies(model, []string{child})
-	if err != nil {
-		t.Fatal(err)
-	}
-	want := []string{grandparent, parent, child} // No `sibling`
-	if diff := cmp.Diff(want, flatten(got), cmpopts.SortSlices(less)); diff != "" {
-		t.Errorf("dependencies mismatch (-want, +got):\n%s", diff)
 	}
 }
 
@@ -234,6 +216,138 @@ func TestFindDependenciesMessage(t *testing.T) {
 	want = []string{".test.Orphan"}
 	if diff := cmp.Diff(want, flatten(got), cmpopts.SortSlices(less)); diff != "" {
 		t.Errorf("dependencies mismatch (-want, +got):\n%s", diff)
+	}
+}
+
+func TestFindDependenciesHandlesCycles1(t *testing.T) {
+	enums := []*Enum{}
+	messages := []*Message{
+		{
+			Name: "Recursive",
+			ID:   ".test.Recursive",
+			Fields: []*Field{
+				{
+					Name:    "self",
+					Typez:   MESSAGE_TYPE,
+					TypezID: ".test.Recursive",
+				},
+			},
+		},
+	}
+	services := []*Service{}
+	model := NewTestAPI(messages, enums, services)
+	less := func(a, b string) bool { return a < b }
+
+	got, err := FindDependencies(model, []string{".test.Recursive"})
+	if err != nil {
+		t.Fatal(err)
+	}
+	want := []string{".test.Recursive"}
+	if diff := cmp.Diff(want, flatten(got), cmpopts.SortSlices(less)); diff != "" {
+		t.Errorf("dependencies mismatch (-want, +got):\n%s", diff)
+	}
+}
+
+func TestFindDependenciesHandlesCycles2(t *testing.T) {
+	enums := []*Enum{}
+	messages := []*Message{
+		{
+			Name: "A",
+			ID:   ".test.A",
+			Fields: []*Field{
+				{
+					Name:    "left",
+					Typez:   MESSAGE_TYPE,
+					TypezID: ".test.B",
+				},
+				{
+					Name:    "right",
+					Typez:   MESSAGE_TYPE,
+					TypezID: ".test.B",
+				},
+			},
+		},
+		{
+			Name: "B",
+			ID:   ".test.B",
+			Fields: []*Field{
+				{
+					Name:    "value",
+					Typez:   MESSAGE_TYPE,
+					TypezID: ".test.A",
+				},
+			},
+		},
+	}
+	services := []*Service{}
+	model := NewTestAPI(messages, enums, services)
+	less := func(a, b string) bool { return a < b }
+
+	for _, ids := range [][]string{
+		{".test.A"},
+		{".test.B"},
+		{".test.A", ".test.B"},
+	} {
+		got, err := FindDependencies(model, ids)
+		if err != nil {
+			t.Fatal(err)
+		}
+		want := []string{".test.A", ".test.B"}
+		if diff := cmp.Diff(want, flatten(got), cmpopts.SortSlices(less)); diff != "" {
+			t.Errorf("dependencies mismatch (-want, +got):\n%s", diff)
+		}
+	}
+}
+
+func TestFindDependenciesHandlesCycles3(t *testing.T) {
+	enums := []*Enum{
+		{
+			Name: "Triangle1",
+			ID:   ".test.Triangle2.Triangle1",
+		},
+	}
+	messages := []*Message{
+		{
+			Name: "Triangle2",
+			ID:   ".test.Triangle2",
+			Fields: []*Field{
+				{
+					Name:    "triangle3",
+					Typez:   MESSAGE_TYPE,
+					TypezID: ".test.Triangle3",
+				},
+			},
+		},
+		{
+			Name: "Triangle3",
+			ID:   ".test.Triangle3",
+			Fields: []*Field{
+				{
+					Name:    "triangle1",
+					Typez:   ENUM_TYPE,
+					TypezID: ".test.Triangle2.Triangle1",
+				},
+			},
+		},
+	}
+	services := []*Service{}
+	model := NewTestAPI(messages, enums, services)
+	less := func(a, b string) bool { return a < b }
+
+	for _, ids := range [][]string{
+		{".test.Triangle2.Triangle1"},
+		{".test.Triangle2"},
+		{".test.Triangle3"},
+		{".test.Triangle2", ".test.Triangle3"},
+	} {
+		got, err := FindDependencies(model, ids)
+		if err != nil {
+			t.Fatal(err)
+		}
+		want := []string{".test.Triangle2.Triangle1", ".test.Triangle2", ".test.Triangle3"}
+		if diff := cmp.Diff(want, flatten(got), cmpopts.SortSlices(less)); diff != "" {
+			t.Errorf("dependencies mismatch (-want, +got):\n%s", diff)
+		}
 	}
 }
 

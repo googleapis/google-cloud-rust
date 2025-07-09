@@ -41,8 +41,6 @@ import (
 // - a method to its request/response messages
 // - an LRO method to its metadata/response type messages
 // - a message to each of its fields' types (if they are a message or enum)
-// - a parent message to each of its nested messages
-// - a parent message to each of its nested enums
 //
 // In the second pass, we compute the reachable set of the nodes found from the
 // first pass. This time, the graph has edges from...
@@ -98,12 +96,6 @@ func FindDependencies(model *API, ids []string) (map[string]bool, error) {
 
 		message, ok := model.State.MessageByID[id]
 		if ok {
-			for _, msg := range message.Messages {
-				add(msg.ID)
-			}
-			for _, enum := range message.Enums {
-				add(enum.ID)
-			}
 			for _, field := range message.Fields {
 				if field.Typez == ENUM_TYPE || field.Typez == MESSAGE_TYPE {
 					add(field.TypezID)
