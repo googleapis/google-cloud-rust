@@ -40,19 +40,24 @@ steps:
       set -e
       cargo test --features run-integration-tests -p auth-integration-tests
   - id: 'Run BYOID integration tests'
-    name: 'rust:1.85-bookworm'
+    name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli'
     entrypoint: 'bash'
     args:
       - -c
       - |
         set -e
-        # The secret is mounted directly as a file by Cloud Build using the
-        # availableSecrets feature. We just need to point to it.
-        export GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT=/secrets/byoid-sa-key
+        # Install Rust and Cargo because this image does not have them.
+        apt-get update -y && apt-get install -y rustc cargo
+
+        # The integration-test-runner SA (this build's identity) has direct
+        # permission to read the BYOID secret, so we can fetch it directly.
+        gcloud secrets versions access latest --secret=${_BYOID_SECRET_ID} --project=${PROJECT_ID} > /workspace/byoid_sa_key.json
+
+        # Ensure the key file is cleaned up on exit.
+        trap 'rm -f /workspace/byoid_sa_key.json' EXIT
+
+        # Set the environment variables and run the tests.
+        export GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT=/workspace/byoid_sa_key.json
         export GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/246645052938/locations/global/workloadIdentityPools/google-idp/providers/google-idp
         export GOOGLE_CLOUD_PROJECT=rust-auth-testing-joonix
         cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
-    availableSecrets:
-      secretManager:
-      - versionName: projects/${PROJECT_ID}/secrets/${_BYOID_SECRET_ID}/versions/latest
-        fileName: /secrets/byoid-sa-key
