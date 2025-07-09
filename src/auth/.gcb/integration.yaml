@@ -49,8 +49,6 @@ steps:
         # Install Rust and Cargo because this image does not have them.
         apt-get update -y && apt-get install -y rustc cargo
 
-        # The integration-test-runner SA (this build's identity) has direct
-        # permission to read the BYOID secret, so we can fetch it directly.
         gcloud secrets versions access latest --secret=${_BYOID_SECRET_ID} --project=${PROJECT_ID} > /workspace/byoid_sa_key.json
 
         # Ensure the key file is cleaned up on exit.
