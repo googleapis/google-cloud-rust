@@ -13,30 +13,21 @@ env GOOGLE_CLOUD_PROJECT=rust-auth-testing \
 
 ### Workload Identity integration tests
 
-These tests requires a more complex setup to run, like running from an Azure/AWS
-VM and having Workload Identity Pools set up. For now, we only run those tests
-locally and under a feature (`run-byoid-integration-tests`). Some extra
-environment variables with the workload identity pool configuration are required
-to run the tests.
+These tests use service account impersonation to generate an OIDC ID token for a
+service account in a different project (`rust-auth-testing-joonix`). This simulates
+a Workload Identity Federation flow.
+
+To run these tests locally, your user account must have the
+`Service Account Token Creator` role on the target service account
+(`testsa@rust-auth-testing-joonix.iam.gserviceaccount.com`).
+
+Set the following environment variables and run the tests:
 
 ```sh
-env GOOGLE_CLOUD_PROJECT=cloud-sdk-auth-test-project \
-    GOOGLE_WORKLOAD_IDENTITY_SERVICE_ACCOUNT=[SERVICE ACCOUNT PLACEHOLDER] \
-    GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=[AUDIENCE PLACEHOLDER] \
+env GOOGLE_CLOUD_PROJECT=rust-auth-testing-joonix \
+    BYOID_SERVICE_ACCOUNT_EMAIL=testsa@rust-auth-testing-joonix.iam.gserviceaccount.com \
+    GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/246645052938/locations/global/workloadIdentityPools/google-idp/providers/google-idp \
   cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
-```
-
-#### Rotating the service account key
-
-Service account keys expire after 90 days, due to our org policy.
-
-Rerunning terraform (after 60 days of key creation) will generate a new service
-account key, and save it as the `test-sa-creds-json` secret.
-
-```sh
-cd ${HOME}/google-cloud-rust/src/auth/.gcb/builds
-terraform plan -out="/tmp/builds.plan"
-terraform apply "/tmp/builds.plan"
 ```
 
 ### In your own test project
