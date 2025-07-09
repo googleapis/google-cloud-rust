@@ -28,3 +28,9 @@ variable "byoid_project" {
   type    = string
   default = "rust-auth-testing-joonix"
 }
+
+variable "byoid_secret_id" {
+  description = "The ID of the secret containing the BYOID service account key."
+  type        = string
+  default     = "byoid-sa-key"
+}

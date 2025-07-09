@@ -17,6 +17,7 @@ variable "region" {}
 variable "sa_adc_secret" {}
 variable "api_key_secret" {}
 variable "byoid_sa_key_secret" {}
+variable "byoid_secret_id" {}
 
 # This is used to retrieve the project number. The project number is embedded in
 # certain P4 (Per-product per-project) service accounts.
@@ -194,6 +195,9 @@ resource "google_cloudbuild_trigger" "pull-request" {
   tags     = ["pull-request", "name:${each.key}"]
 
   service_account = data.google_service_account.integration-test-runner.id
+  substitutions = {
+    _BYOID_SECRET_ID = var.byoid_secret_id
+  }
 
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id
@@ -214,6 +218,9 @@ resource "google_cloudbuild_trigger" "post-merge" {
   tags     = ["post-merge", "push", "name:${each.key}"]
 
   service_account = data.google_service_account.integration-test-runner.id
+  substitutions = {
+    _BYOID_SECRET_ID = var.byoid_secret_id
+  }
 
   repository_event_config {
     repository = google_cloudbuildv2_repository.main.id

@@ -20,6 +20,10 @@ variable "byoid_project" {
   type = string
 }
 
+variable "byoid_secret_id" {
+  type = string
+}
+
 provider "google" {
   alias   = "byoid_project"
   project = var.byoid_project
@@ -44,7 +48,7 @@ resource "google_service_account_key" "key" {
 
 resource "google_secret_manager_secret" "secret" {
   project   = var.project
-  secret_id = "byoid-sa-key"
+  secret_id = var.byoid_secret_id
   replication {
     auto {}
   }
