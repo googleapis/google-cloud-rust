@@ -16,21 +16,21 @@ variable "project" {
   type = string
 }
 
-variable "byoid_project" {
+variable "external_account_project" {
   type = string
 }
 
-variable "byoid_secret_id" {
+variable "external_account_secret_id" {
   type = string
 }
 
 provider "google" {
-  alias   = "byoid_project"
-  project = var.byoid_project
+  alias   = "external_account_project"
+  project = var.external_account_project
 }
 
 data "google_service_account" "service_account" {
-  project    = var.byoid_project
+  project    = var.external_account_project
   account_id = "testsa"
 }
 
@@ -48,7 +48,7 @@ resource "google_service_account_key" "key" {
 
 resource "google_secret_manager_secret" "secret" {
   project   = var.project
-  secret_id = var.byoid_secret_id
+  secret_id = var.external_account_secret_id
   replication {
     auto {}
   }

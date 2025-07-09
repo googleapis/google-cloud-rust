@@ -39,7 +39,7 @@ steps:
       #!/usr/bin/env bash
       set -e
       cargo test --features run-integration-tests -p auth-integration-tests
-  - id: 'Run BYOID integration tests'
+  - id: 'Run External Account integration tests'
     name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli'
     entrypoint: 'bash'
     args:
@@ -49,7 +49,7 @@ steps:
         # Install Rust and Cargo because this image does not have them.
         apt-get update -y && apt-get install -y rustc cargo
 
-        export BYOID_SERVICE_ACCOUNT_EMAIL=testsa@rust-auth-testing-joonix.iam.gserviceaccount.com
+        export EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@rust-auth-testing-joonix.iam.gserviceaccount.com
 
         # Set the environment variables and run the tests.
         export GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/246645052938/locations/global/workloadIdentityPools/google-idp/providers/google-idp

@@ -25,10 +25,17 @@ Set the following environment variables and run the tests:
 
 ```sh
 env GOOGLE_CLOUD_PROJECT=rust-auth-testing-joonix \
-    BYOID_SERVICE_ACCOUNT_EMAIL=testsa@rust-auth-testing-joonix.iam.gserviceaccount.com \
+    EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@rust-auth-testing-joonix.iam.gserviceaccount.com \
     GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/246645052938/locations/global/workloadIdentityPools/google-idp/providers/google-idp \
   cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
 ```
+
+**Troubleshooting:** If you see an `invalid_grant` error when running locally,
+your Application Default Credentials may have expired. Refresh them by running:
+```sh
+gcloud auth application-default login
+```
+
 
 ### In your own test project
 

@@ -217,7 +217,7 @@ pub async fn workload_identity_provider_url_sourced(
 ) -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
     let audience = get_oidc_audience();
-    let target_principal_email = get_byoid_service_account_email();
+    let target_principal_email = get_external_account_service_account_email();
 
     let id_token = generate_id_token(audience.clone(), target_principal_email).await?;
 
@@ -287,7 +287,7 @@ pub async fn workload_identity_provider_executable_sourced(
     let _e = ScopedEnv::set("GOOGLE_EXTERNAL_ACCOUNT_ALLOW_EXECUTABLES", "1");
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
     let audience = get_oidc_audience();
-    let target_principal_email = get_byoid_service_account_email();
+    let target_principal_email = get_external_account_service_account_email();
 
     let id_token = generate_id_token(audience.clone(), target_principal_email).await?;
 
@@ -349,7 +349,7 @@ pub async fn workload_identity_provider_executable_sourced(
 pub async fn workload_identity_provider_programmatic_sourced() -> anyhow::Result<()> {
     let project = std::env::var("GOOGLE_CLOUD_PROJECT").expect("GOOGLE_CLOUD_PROJECT not set");
     let audience = get_oidc_audience();
-    let target_principal_email = get_byoid_service_account_email();
+    let target_principal_email = get_external_account_service_account_email();
 
     let id_token = generate_id_token(audience.clone(), target_principal_email).await?;
 
@@ -418,9 +418,9 @@ fn get_oidc_audience() -> String {
         .expect("GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE not set")
 }
 
-fn get_byoid_service_account_email() -> String {
-    std::env::var("BYOID_SERVICE_ACCOUNT_EMAIL")
-        .expect("BYOID_SERVICE_ACCOUNT_EMAIL not set")
+fn get_external_account_service_account_email() -> String {
+    std::env::var("EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL")
+        .expect("EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL not set")
 }
 
 #[derive(Debug)]

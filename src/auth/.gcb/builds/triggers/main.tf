@@ -16,8 +16,8 @@ variable "project" {}
 variable "region" {}
 variable "sa_adc_secret" {}
 variable "api_key_secret" {}
-variable "byoid_sa_key_secret" {}
-variable "byoid_secret_id" {}
+variable "external_account_sa_key_secret" {}
+variable "external_account_secret_id" {}
 
 # This is used to retrieve the project number. The project number is embedded in
 # certain P4 (Per-product per-project) service accounts.
@@ -121,10 +121,10 @@ resource "google_secret_manager_secret_iam_member" "test-api-key-secret-member" 
   member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
 
-# The integration test runner needs access to the BYOID SA key secret
-resource "google_secret_manager_secret_iam_member" "test-byoid-key-secret-member" {
+# The integration test runner needs access to the External Account SA key secret
+resource "google_secret_manager_secret_iam_member" "test-external-account-key-secret-member" {
   project   = var.project
-  secret_id = var.byoid_sa_key_secret
+  secret_id = var.external_account_sa_key_secret
   role      = "roles/secretmanager.secretAccessor"
   member    = "serviceAccount:${data.google_service_account.integration-test-runner.email}"
 }
@@ -196,7 +196,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
 
   service_account = data.google_service_account.integration-test-runner.id
   substitutions = {
-    _BYOID_SECRET_ID = var.byoid_secret_id
+    _EXTERNAL_ACCOUNT_SECRET_ID = var.external_account_secret_id
   }
 
   repository_event_config {
@@ -219,7 +219,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
 
   service_account = data.google_service_account.integration-test-runner.id
   substitutions = {
-    _BYOID_SECRET_ID = var.byoid_secret_id
+    _EXTERNAL_ACCOUNT_SECRET_ID = var.external_account_secret_id
   }
 
   repository_event_config {
