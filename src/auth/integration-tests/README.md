@@ -17,12 +17,8 @@ These tests use service account impersonation to generate an OIDC ID token for a
 service account in a different project (`rust-auth-testing-joonix`). This
 simulates a Workload Identity Federation flow.
 
-To run these tests locally, your user account must have the
-`Service Account Token Creator` role on the target service account
-(`testsa@rust-auth-testing-joonix.iam.gserviceaccount.com`).
-
-First, ensure your local Application Default Credentials are up to date by
-running:
+To run these tests locally, first, ensure your local Application Default
+Credentials are up to date by running:
 
 ```sh
 gcloud auth application-default login
