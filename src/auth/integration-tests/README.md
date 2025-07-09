@@ -32,6 +32,7 @@ env GOOGLE_CLOUD_PROJECT=rust-auth-testing-joonix \
 
 **Troubleshooting:** If you see an `invalid_grant` error when running locally,
 your Application Default Credentials may have expired. Refresh them by running:
+
 ```sh
 gcloud auth application-default login
 ```
@@ -48,8 +49,6 @@ cd ${HOME}/google-cloud-rust/src/auth/.gcb/builds
 terraform plan -out="/tmp/builds.plan"
 terraform apply "/tmp/builds.plan"
 ```
-
-
 
 ### In your own test project
 

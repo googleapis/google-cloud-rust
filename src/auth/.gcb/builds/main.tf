@@ -49,9 +49,9 @@ module "api_key_test" {
 
 # Set up for the External Account integration test.
 module "external_account_test" {
-  source                   = "./external_account_test"
-  project                  = var.project
-  external_account_project = var.external_account_project
+  source                     = "./external_account_test"
+  project                    = var.project
+  external_account_project   = var.external_account_project
   external_account_secret_id = var.external_account_secret_id
 }
 
