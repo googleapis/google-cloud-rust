@@ -40,15 +40,15 @@ steps:
       set -e
       cargo test --features run-integration-tests -p auth-integration-tests
   - id: 'Run External Account integration tests'
-    name: 'gcr.io/google.com/cloudsdktool/google-cloud-cli'
+    name: 'rust:1.85-bookworm'
     entrypoint: 'bash'
     args:
       - -c
       - |
         set -e
-        # Install Rust and Cargo because this image does not have them.
-        apt-get update -y && apt-get install -y rustc cargo
-
+        # The External Account service account that the GCB runner will generate an ID token for.
+        # The GCB runner service account must have the `Service Account Token Creator`
+        # role on this service account.
         export EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=testsa@rust-auth-testing-joonix.iam.gserviceaccount.com
 
         # Set the environment variables and run the tests.

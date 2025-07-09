@@ -36,6 +36,20 @@ your Application Default Credentials may have expired. Refresh them by running:
 gcloud auth application-default login
 ```
 
+#### Rotating the service account key
+
+Service account keys expire after 90 days, due to our org policy.
+
+Rerunning terraform (after 60 days of key creation) will generate a new service
+account key, and save it as the `test-sa-creds-json` secret.
+
+```sh
+cd ${HOME}/google-cloud-rust/src/auth/.gcb/builds
+terraform plan -out="/tmp/builds.plan"
+terraform apply "/tmp/builds.plan"
+```
+
+
 
 ### In your own test project
 
