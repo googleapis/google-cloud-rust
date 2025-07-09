@@ -14,8 +14,8 @@ env GOOGLE_CLOUD_PROJECT=rust-auth-testing \
 ### Workload Identity integration tests
 
 These tests use service account impersonation to generate an OIDC ID token for a
-service account in a different project (`rust-auth-testing-joonix`). This
-simulates a Workload Identity Federation flow.
+service account in a different project (`rust-auth-testing-joonix`). This ID
+token acts as the source credential for testing WIF flow.
 
 To run these tests locally, first, ensure your local Application Default
 Credentials are up to date by running:

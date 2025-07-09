@@ -41,14 +41,11 @@ steps:
       cargo test --features run-integration-tests -p auth-integration-tests
   - id: 'Run External Account integration tests'
     name: 'rust:1.85-bookworm'
-    entrypoint: 'bash'
-    args:
-      - -c
-      - |
-        set -e
-        export EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=${_EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL}
-
-        # Set the environment variables and run the tests.
-        export GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/246645052938/locations/global/workloadIdentityPools/google-idp/providers/google-idp
-        export GOOGLE_CLOUD_PROJECT=${_EXTERNAL_ACCOUNT_PROJECT}
-        cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
+    env:
+      - 'EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL=${_EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL}'
+      - 'GOOGLE_WORKLOAD_IDENTITY_OIDC_AUDIENCE=//iam.googleapis.com/projects/246645052938/locations/global/workloadIdentityPools/google-idp/providers/google-idp'
+      - 'GOOGLE_CLOUD_PROJECT=${_EXTERNAL_ACCOUNT_PROJECT}'
+    script: |
+      #!/usr/bin/env bash
+      set -e
+      cargo test run_workload_ --features run-integration-tests --features run-byoid-integration-tests -p auth-integration-tests
