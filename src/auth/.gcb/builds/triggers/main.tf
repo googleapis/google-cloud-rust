@@ -16,6 +16,8 @@ variable "project" {}
 variable "region" {}
 variable "sa_adc_secret" {}
 variable "api_key_secret" {}
+variable "external_account_project" {}
+variable "external_account_service_account_id" {}
 
 # This is used to retrieve the project number. The project number is embedded in
 # certain P4 (Per-product per-project) service accounts.

@@ -56,10 +56,12 @@ module "external_account_test" {
 
 # Create the GCB resources, connection, triggers, etc.
 module "triggers" {
-  depends_on     = [module.service_account_test, module.api_key_test, module.external_account_test]
-  source         = "./triggers"
-  project        = var.project
-  region         = var.region
-  sa_adc_secret  = module.service_account_test.adc_secret
-  api_key_secret = module.api_key_test.secret
+  depends_on                          = [module.service_account_test, module.api_key_test, module.external_account_test]
+  source                              = "./triggers"
+  project                             = var.project
+  region                              = var.region
+  sa_adc_secret                       = module.service_account_test.adc_secret
+  api_key_secret                      = module.api_key_test.secret
+  external_account_project            = var.external_account_project
+  external_account_service_account_id = var.external_account_service_account_id
 }

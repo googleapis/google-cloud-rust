@@ -36,9 +36,10 @@ data "google_service_account" "build_runner_service_account" {
   account_id = "integration-test-runner"
 }
 
-resource "google_service_account_iam_member" "token_creator" {
-  provider           = google.external_account_project
-  service_account_id = google_service_account.service_account.name
-  role               = "roles/iam.serviceAccountTokenCreator"
-  member             = "serviceAccount:${data.google_service_account.build_runner_service_account.email}"
+
+resource "google_project_iam_member" "token_creator" {
+  provider = google.external_account_project
+  project  = var.project
+  role     = "roles/iam.serviceAccountTokenCreator"
+  member   = "serviceAccount:${data.google_service_account.build_runner_service_account.email}"
 }
