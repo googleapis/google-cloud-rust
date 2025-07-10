@@ -473,11 +473,10 @@ fn check_crc32c_helper(
 fn check_crc32c_match(crc32c: u32, response: Option<u32>) -> Result<()> {
     if let Some(response) = response {
         if crc32c != response {
-            return Err(ReadError::BadCrc {
+            return Err(Error::deser(ReadError::BadCrc {
                 got: crc32c,
                 want: response,
-            })
-            .map_err(Error::deser);
+            }));
         }
     }
     Ok(())
