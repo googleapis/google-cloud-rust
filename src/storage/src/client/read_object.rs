@@ -436,6 +436,15 @@ impl ReadObjectResponse {
     }
 }
 
+/// Represents an error that can occur when reading reponse data.
+#[derive(thiserror::Error, Debug, PartialEq)]
+#[non_exhaustive]
+enum ReadError {
+    /// The calculated crc32c did not match server provided crc32c.
+    #[error("bad CRC on read: got {got}, want {want}")]
+    BadCrc { got: u32, want: u32 },
+}
+
 fn check_crc32c_helper(
     full_content_requested: bool,
     status: http::StatusCode,

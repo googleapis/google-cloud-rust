@@ -24,7 +24,6 @@ use auth::credentials::CacheableResource;
 use base64::Engine;
 use base64::prelude::BASE64_STANDARD;
 use http::Extensions;
-use serde_with::DeserializeAs;
 use sha2::{Digest, Sha256};
 
 mod read_object;
@@ -379,15 +378,6 @@ const ENCODED_CHARS: percent_encoding::AsciiSet = percent_encoding::CONTROLS
 /// in either the object name or query string of a request URL.
 fn enc(value: &str) -> String {
     percent_encoding::utf8_percent_encode(value, &ENCODED_CHARS).to_string()
-}
-
-/// Represents
-#[derive(thiserror::Error, Debug, PartialEq)]
-#[non_exhaustive]
-enum ReadError {
-    /// The calculated crc32c did not match server provided crc32c.
-    #[error("bad CRC on read: got {got}, want {want}")]
-    BadCrc { got: u32, want: u32 },
 }
 
 /// Represents an error that can occur when invalid range is specified.
