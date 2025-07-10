@@ -413,6 +413,7 @@ impl ReadObjectResponse {
     #[cfg_attr(docsrs, doc(cfg(feature = "unstable-stream")))]
     /// Convert the response to a [futures::Stream].
     pub fn into_stream(self) -> impl futures::Stream<Item = Result<bytes::Bytes>> {
+        // TODO(#2049): implement checksum checks for streams.
         use futures::TryStreamExt;
         self.inner.bytes_stream().map_err(Error::io)
     }
@@ -561,6 +562,60 @@ mod tests {
             .expect_err("expected a not found error");
         assert_eq!(err.http_status_code(), Some(404));
 
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn read_object_incorrect_crc32c_check() -> Result {
+        // Calculate and serialize the crc32c checksum
+        let u = crc32c::crc32c("goodbye world".as_bytes());
+        let bytes = [
+            (u >> 24 & 0xFF) as u8,
+            (u >> 16 & 0xFF) as u8,
+            (u >> 8 & 0xFF) as u8,
+            (u & 0xFF) as u8,
+        ];
+        let value = base64::prelude::BASE64_STANDARD.encode(bytes);
+
+        let server = Server::run();
+        server.expect(
+            Expectation::matching(all_of![
+                request::method_path("GET", "//storage/v1/b/test-bucket/o/test-object"),
+                request::query(url_decoded(contains(("alt", "media")))),
+            ])
+            .times(2)
+            .respond_with(
+                status_code(200)
+                    .body("hello world")
+                    .append_header("x-goog-hash", format!("crc32c={}", value)),
+            ),
+        );
+
+        let endpoint = server.url("");
+        let client = Storage::builder()
+            .with_endpoint(endpoint.to_string())
+            .with_credentials(auth::credentials::testing::test_credentials())
+            .build()
+            .await?;
+        let response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+        response
+            .all_bytes()
+            .await
+            .expect_err("expect error on incorrect crc32c");
+
+        let mut response = client
+            .read_object("projects/_/buckets/test-bucket", "test-object")
+            .send()
+            .await?;
+        let res = async || -> Result {
+            while let Some(_) = response.next().await.transpose()? {}
+            Ok(())
+        }()
+        .await;
+        assert!(res.is_err(), "expect error on incorrect crc32c");
         Ok(())
     }
 
