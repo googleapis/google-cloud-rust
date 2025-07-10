@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use common::MessageWithFieldMask;
     use google_cloud_wkt::FieldMask;
     use serde_json::{Value, json};

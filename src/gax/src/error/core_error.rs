@@ -733,7 +733,7 @@ struct ServiceDetails {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::error::CredentialsError;
     use crate::error::rpc::Code;

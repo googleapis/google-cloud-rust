@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(all(test, feature = "_internal-http-client"))]
-mod test {
+mod tests {
     use axum::http::{HeaderName, HeaderValue, StatusCode};
     use gax::options::RequestOptions;
     use google_cloud_gax_internal::http::ReqwestClient;

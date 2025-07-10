@@ -167,7 +167,7 @@ where
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use gax::polling_error_policy::*;
     use std::error::Error as _;

@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(all(test, feature = "_internal-http-client"))]
-mod test {
+mod tests {
     type TestResult = Result<(), Box<dyn std::error::Error>>;
 
     /// A test policy, the only interesting bit is the name, which is included

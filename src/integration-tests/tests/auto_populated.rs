@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use anyhow::Result;
     use gax::error::Error;
     use gax::paginator::Paginator;

@@ -296,7 +296,7 @@ fn is_identifier(id: &str) -> bool {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::duration::*;
     use crate::empty::Empty;

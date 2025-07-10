@@ -664,7 +664,7 @@ pub(crate) mod client_builder {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::StorageControl;
 
     #[tokio::test]

@@ -345,7 +345,7 @@ fn expected_string_value() -> crate::AnyError {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::Any;
     use crate::message::{Message, MessageSerializer};

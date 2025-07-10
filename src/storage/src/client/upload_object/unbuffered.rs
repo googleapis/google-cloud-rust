@@ -87,7 +87,7 @@ mod tests {
     use super::*;
     use crate::client::tests::create_key_helper;
     use crate::client::tests::test_inner_client;
-    use crate::upload_source::test::VecStream;
+    use crate::upload_source::tests::VecStream;
     use httptest::{Expectation, Server, matchers::*, responders::status_code};
 
     type Result = std::result::Result<(), Box<dyn std::error::Error>>;

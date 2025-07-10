@@ -154,7 +154,7 @@ pub struct ExchangeTokenRequest {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::constants::{DEFAULT_SCOPE, JWT_TOKEN_TYPE};
     use http::StatusCode;

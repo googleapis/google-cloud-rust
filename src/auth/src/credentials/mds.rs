@@ -337,14 +337,14 @@ impl TokenProvider for MDSAccessTokenProvider {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use crate::credentials::QUOTA_PROJECT_KEY;
-    use crate::credentials::test::{
+    use crate::credentials::tests::{
         get_headers_from_cache, get_token_from_headers, get_token_type_from_headers,
     };
     use crate::errors;
-    use crate::token::test::MockTokenProvider;
+    use crate::token::tests::MockTokenProvider;
     use http::HeaderValue;
     use http::header::AUTHORIZATION;
     use httptest::matchers::{all_of, contains, request, url_decoded};

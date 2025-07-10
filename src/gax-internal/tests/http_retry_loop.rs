@@ -22,7 +22,7 @@
 //! needed for that test.
 
 #[cfg(all(test, feature = "_internal-http-client"))]
-mod test {
+mod tests {
     use axum::extract::State;
     use axum::http::StatusCode;
     use gax::backoff_policy::BackoffPolicy;

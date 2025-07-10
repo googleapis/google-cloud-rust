@@ -16,7 +16,7 @@
 
 // ANCHOR: all
 #[cfg(test)]
-mod test {
+mod tests {
     // ANCHOR: use
     use google_cloud_gax as gax;
     use google_cloud_speech_v2 as speech;

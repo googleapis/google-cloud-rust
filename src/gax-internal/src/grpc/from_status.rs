@@ -55,7 +55,7 @@ pub fn to_gax_error(status: tonic::Status) -> Error {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use gax::error::rpc;
     use test_case::test_case;

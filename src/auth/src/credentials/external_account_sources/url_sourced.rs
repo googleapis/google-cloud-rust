@@ -109,7 +109,7 @@ impl SubjectTokenProvider for UrlSourcedCredentials {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use httptest::{Expectation, Server, matchers::*, responders::*};
     use serde_json::json;

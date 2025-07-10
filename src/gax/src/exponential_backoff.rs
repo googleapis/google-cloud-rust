@@ -242,7 +242,7 @@ impl crate::backoff_policy::BackoffPolicy for ExponentialBackoff {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
 
     #[test]

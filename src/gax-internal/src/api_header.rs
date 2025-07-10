@@ -73,7 +73,7 @@ impl XGoogApiClient {
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::*;
     use std::collections::HashMap;
 

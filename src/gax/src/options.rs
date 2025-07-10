@@ -260,7 +260,7 @@ where
 }
 
 #[cfg(test)]
-mod test {
+mod tests {
     use super::internal::*;
     use super::*;
     use crate::exponential_backoff::ExponentialBackoffBuilder;

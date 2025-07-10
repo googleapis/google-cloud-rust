@@ -13,7 +13,7 @@
 // limitations under the License.
 
 #[cfg(test)]
-mod test {
+mod tests {
     use google_cloud_wkt::Syntax;
     use google_cloud_wkt::file_options::OptimizeMode;
     use serde_json::json;
