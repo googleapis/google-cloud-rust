@@ -350,8 +350,13 @@ pub struct ReadObjectResponse {
 }
 
 impl ReadObjectResponse {
-    // Get the full object as bytes.
-    //
+    /// Get the object metadata.
+    pub fn object(&self) -> Result<Object> {
+        let headers = self.inner.headers();
+    }
+
+    /// Get the full object as bytes.
+    ///
     /// # Example
     /// ```
     /// # tokio_test::block_on(async {
