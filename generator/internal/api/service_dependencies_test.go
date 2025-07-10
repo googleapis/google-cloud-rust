@@ -119,6 +119,7 @@ func TestFindServiceDependencies(t *testing.T) {
 	}
 	less := func(a, b string) bool { return a < b }
 	model := NewTestAPI(messages, enums, services)
+        CrossReference(model)
 	got := FindServiceDependencies(model, ".test.NotFound")
 	want := &ServiceDependencies{}
 	if diff := cmp.Diff(want, got, cmpopts.SortSlices(less)); diff != "" {
