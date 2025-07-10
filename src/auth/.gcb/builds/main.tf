@@ -64,4 +64,5 @@ module "triggers" {
   api_key_secret                      = module.api_key_test.secret
   external_account_project            = var.external_account_project
   external_account_service_account_id = var.external_account_service_account_id
+  workload_identity_audience          = module.external_account_test.audience
 }

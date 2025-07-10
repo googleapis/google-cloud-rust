@@ -18,6 +18,7 @@ variable "sa_adc_secret" {}
 variable "api_key_secret" {}
 variable "external_account_project" {}
 variable "external_account_service_account_id" {}
+variable "workload_identity_audience" {}
 
 # This is used to retrieve the project number. The project number is embedded in
 # certain P4 (Per-product per-project) service accounts.
@@ -190,6 +191,7 @@ resource "google_cloudbuild_trigger" "pull-request" {
   substitutions = {
     _EXTERNAL_ACCOUNT_PROJECT               = var.external_account_project
     _EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL = "${var.external_account_service_account_id}@${var.external_account_project}.iam.gserviceaccount.com"
+    _WORKLOAD_IDENTITY_AUDIENCE             = var.workload_identity_audience
   }
 
   repository_event_config {
@@ -214,6 +216,7 @@ resource "google_cloudbuild_trigger" "post-merge" {
   substitutions = {
     _EXTERNAL_ACCOUNT_PROJECT               = var.external_account_project
     _EXTERNAL_ACCOUNT_SERVICE_ACCOUNT_EMAIL = "${var.external_account_service_account_id}@${var.external_account_project}.iam.gserviceaccount.com"
+    _WORKLOAD_IDENTITY_AUDIENCE             = var.workload_identity_audience
   }
 
   repository_event_config {
