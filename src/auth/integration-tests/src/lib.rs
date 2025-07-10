@@ -346,7 +346,6 @@ pub async fn workload_identity_provider_executable_sourced(
     Ok(())
 }
 
-
 pub async fn workload_identity_provider_file_sourced(
     with_impersonation: bool,
 ) -> anyhow::Result<()> {
