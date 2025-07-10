@@ -162,4 +162,34 @@ mod test {
         assert!(err.source().is_some());
         Ok(())
     }
+
+    #[tokio::test]
+    async fn get_text_token_from_empty_file() -> TestResult {
+        let file = create_temp_file("")?;
+        let token_provider = FileSourcedCredentials {
+            file: file.path().to_str().unwrap().to_string(),
+            format: "text".into(),
+            subject_token_field_name: "".into(),
+        };
+        let resp = token_provider.subject_token().await?;
+        assert_eq!(resp.token, "".to_string());
+        Ok(())
+    }
+
+    #[tokio::test]
+    async fn get_json_token_from_empty_file() -> TestResult {
+        let file = create_temp_file("")?;
+        let token_provider = FileSourcedCredentials {
+            file: file.path().to_str().unwrap().to_string(),
+            format: "json".into(),
+            subject_token_field_name: "access_token".into(),
+        };
+        let err = token_provider
+            .subject_token()
+            .await
+            .expect_err("parsing should fail");
+        assert!(!err.is_transient(), "{err:?}");
+        assert!(err.source().is_some());
+        Ok(())
+    }
 }
