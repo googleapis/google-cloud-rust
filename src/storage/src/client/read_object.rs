@@ -622,7 +622,7 @@ mod tests {
             .send()
             .await?;
         let res = async || -> Result {
-            while let Some(_) = response.next().await.transpose()? {}
+            while (response.next().await.transpose()?).is_some() {}
             Ok(())
         }()
         .await;
