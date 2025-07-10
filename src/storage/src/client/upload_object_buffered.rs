@@ -670,7 +670,8 @@ where
         let mut remainder = None;
         let mut offset = 0_usize;
         loop {
-            let (chunk, chunk_size, r) = self::next_chunk(&mut self.payload, remainder, target_size).await?;
+            let (chunk, chunk_size, r) =
+                self::next_chunk(&mut self.payload, remainder, target_size).await?;
             let full_size = if chunk_size < target_size {
                 Some(offset + chunk_size)
             } else {
@@ -1475,7 +1476,13 @@ mod tests {
             a
         });
         let (builder, size) = upload
-            .partial_upload_request("http://localhost/chunk-finalize", 4 * LEN, chunk, LEN, Some(5 * LEN))
+            .partial_upload_request(
+                "http://localhost/chunk-finalize",
+                4 * LEN,
+                chunk,
+                LEN,
+                Some(5 * LEN),
+            )
             .await?;
         assert_eq!(size, LEN);
         let mut request = builder.build()?;
@@ -1528,7 +1535,8 @@ mod tests {
         let stream = VecStream::new((0..5).map(|i| new_line(i, LEN)).collect::<Vec<_>>());
         let mut payload = InsertPayload::from(stream);
 
-        let (vec, size, remainder) = super::next_chunk(&mut payload, None, LEN * 2 + LEN / 2).await?;
+        let (vec, size, remainder) =
+            super::next_chunk(&mut payload, None, LEN * 2 + LEN / 2).await?;
         assert_eq!(remainder, Some(new_line(2, LEN).split_off(LEN / 2)));
         assert_eq!(
             vec,
