@@ -330,6 +330,44 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::RestoreObjectRequest
     }
 }
 
+impl gaxi::prost::ToProto<ReadObjectRequest> for crate::generated::gapic::model::ReadObjectRequest {
+    type Output = ReadObjectRequest;
+    fn to_proto(self) -> std::result::Result<ReadObjectRequest, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            bucket: self.bucket.to_proto()?,
+            object: self.object.to_proto()?,
+            generation: self.generation.to_proto()?,
+            read_offset: self.read_offset.to_proto()?,
+            read_limit: self.read_limit.to_proto()?,
+            if_generation_match: self.if_generation_match.map(|v| v.to_proto()).transpose()?,
+            if_generation_not_match: self.if_generation_not_match.map(|v| v.to_proto()).transpose()?,
+            if_metageneration_match: self.if_metageneration_match.map(|v| v.to_proto()).transpose()?,
+            if_metageneration_not_match: self.if_metageneration_not_match.map(|v| v.to_proto()).transpose()?,
+            common_object_request_params: self.common_object_request_params.map(|v| v.to_proto()).transpose()?,
+            read_mask: self.read_mask.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic::model::ReadObjectRequest> for ReadObjectRequest {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ReadObjectRequest, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic::model::ReadObjectRequest::new()
+                .set_bucket(self.bucket)
+                .set_object(self.object)
+                .set_generation(self.generation)
+                .set_read_offset(self.read_offset)
+                .set_read_limit(self.read_limit)
+                .set_or_clear_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_read_mask(self.read_mask.map(|v| v.cnv()).transpose()?)
+        )
+    }
+}
+
 impl gaxi::prost::ToProto<GetObjectRequest> for crate::generated::gapic::model::GetObjectRequest {
     type Output = GetObjectRequest;
     fn to_proto(self) -> std::result::Result<GetObjectRequest, gaxi::prost::ConvertError> {
@@ -364,6 +402,38 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::GetObjectRequest> fo
                 .set_or_clear_common_object_request_params(self.common_object_request_params.map(|v| v.cnv()).transpose()?)
                 .set_or_clear_read_mask(self.read_mask.map(|v| v.cnv()).transpose()?)
                 .set_restore_token(self.restore_token)
+        )
+    }
+}
+
+impl gaxi::prost::ToProto<WriteObjectSpec> for crate::generated::gapic::model::WriteObjectSpec {
+    type Output = WriteObjectSpec;
+    fn to_proto(self) -> std::result::Result<WriteObjectSpec, gaxi::prost::ConvertError> {
+        Ok(Self::Output {
+            resource: self.resource.map(|v| v.to_proto()).transpose()?,
+            predefined_acl: self.predefined_acl.to_proto()?,
+            if_generation_match: self.if_generation_match.map(|v| v.to_proto()).transpose()?,
+            if_generation_not_match: self.if_generation_not_match.map(|v| v.to_proto()).transpose()?,
+            if_metageneration_match: self.if_metageneration_match.map(|v| v.to_proto()).transpose()?,
+            if_metageneration_not_match: self.if_metageneration_not_match.map(|v| v.to_proto()).transpose()?,
+            object_size: self.object_size.map(|v| v.to_proto()).transpose()?,
+            appendable: self.appendable.map(|v| v.to_proto()).transpose()?,
+        })
+    }
+}
+
+impl gaxi::prost::FromProto<crate::generated::gapic::model::WriteObjectSpec> for WriteObjectSpec {
+    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::WriteObjectSpec, gaxi::prost::ConvertError> {
+        Ok(
+            crate::generated::gapic::model::WriteObjectSpec::new()
+                .set_or_clear_resource(self.resource.map(|v| v.cnv()).transpose()?)
+                .set_predefined_acl(self.predefined_acl)
+                .set_or_clear_if_generation_match(self.if_generation_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_generation_not_match(self.if_generation_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_match(self.if_metageneration_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_if_metageneration_not_match(self.if_metageneration_not_match.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_object_size(self.object_size.map(|v| v.cnv()).transpose()?)
+                .set_or_clear_appendable(self.appendable.map(|v| v.cnv()).transpose()?)
         )
     }
 }
@@ -588,29 +658,6 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::CommonObjectRequestP
                 .set_encryption_algorithm(self.encryption_algorithm)
                 .set_encryption_key_bytes(self.encryption_key_bytes)
                 .set_encryption_key_sha256_bytes(self.encryption_key_sha256_bytes)
-        )
-    }
-}
-
-impl gaxi::prost::ToProto<service_constants::Values> for crate::generated::gapic::model::service_constants::Values {
-    type Output = i32;
-    fn to_proto(self) -> std::result::Result<Self::Output, gaxi::prost::ConvertError> {
-        self.value().ok_or(gaxi::prost::ConvertError::EnumNoIntegerValue("crate::generated::gapic::model::service_constants::Values"))
-    }
-}
-
-impl gaxi::prost::ToProto<ServiceConstants> for crate::generated::gapic::model::ServiceConstants {
-    type Output = ServiceConstants;
-    fn to_proto(self) -> std::result::Result<ServiceConstants, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-        })
-    }
-}
-
-impl gaxi::prost::FromProto<crate::generated::gapic::model::ServiceConstants> for ServiceConstants {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ServiceConstants, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic::model::ServiceConstants::new()
         )
     }
 }
@@ -1554,28 +1601,6 @@ impl gaxi::prost::FromProto<crate::generated::gapic::model::Owner> for Owner {
             crate::generated::gapic::model::Owner::new()
                 .set_entity(self.entity)
                 .set_entity_id(self.entity_id)
-        )
-    }
-}
-
-impl gaxi::prost::ToProto<ContentRange> for crate::generated::gapic::model::ContentRange {
-    type Output = ContentRange;
-    fn to_proto(self) -> std::result::Result<ContentRange, gaxi::prost::ConvertError> {
-        Ok(Self::Output {
-            start: self.start.to_proto()?,
-            end: self.end.to_proto()?,
-            complete_length: self.complete_length.to_proto()?,
-        })
-    }
-}
-
-impl gaxi::prost::FromProto<crate::generated::gapic::model::ContentRange> for ContentRange {
-    fn cnv(self) -> std::result::Result<crate::generated::gapic::model::ContentRange, gaxi::prost::ConvertError> {
-        Ok(
-            crate::generated::gapic::model::ContentRange::new()
-                .set_start(self.start)
-                .set_end(self.end)
-                .set_complete_length(self.complete_length)
         )
     }
 }
