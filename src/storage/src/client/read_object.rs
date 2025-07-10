@@ -438,7 +438,7 @@ impl ReadObjectResponse {
     }
 }
 
-/// Represents an error that can occur when reading reponse data.
+/// Represents an error that can occur when reading response data.
 #[derive(thiserror::Error, Debug, PartialEq)]
 #[non_exhaustive]
 enum ReadError {
